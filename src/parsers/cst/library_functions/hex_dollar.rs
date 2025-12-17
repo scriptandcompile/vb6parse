@@ -490,7 +490,7 @@ Sub Main()
     result = Hex$(255)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -503,7 +503,7 @@ Sub Main()
     hexValue = Hex$(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -518,7 +518,7 @@ Sub Main()
     hexStr = Hex$(num)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -530,7 +530,7 @@ Function NumberToHex(value As Long) As String
     NumberToHex = Hex$(value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -544,7 +544,7 @@ Function ColorToHex(colorValue As Long) As String
     ColorToHex = hexStr
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -558,7 +558,7 @@ Function PadHex(value As Long, width As Integer) As String
     PadHex = String$(width - Len(hexStr), "0") & hexStr
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -570,7 +570,7 @@ Function FormatAddress(address As Long) As String
     FormatAddress = "0x" & Hex$(address)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -587,7 +587,7 @@ Function BytesToHex(bytes() As Byte) As String
     BytesToHex = result
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -599,7 +599,7 @@ Sub LogError(errNum As Long)
     Debug.Print "Error 0x" & Hex$(errNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -613,7 +613,7 @@ Function CharToHex(ch As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -628,7 +628,7 @@ Sub DumpData()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -641,7 +641,7 @@ Sub Main()
     output = "Value: 0x" & Hex$(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -655,7 +655,7 @@ Function FormatChecksum(checksum As Long) As String
     FormatChecksum = String$(8 - Len(hexStr), "0") & hexStr
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -667,7 +667,7 @@ Function RGBToWebColor(r As Byte, g As Byte, b As Byte) As String
     RGBToWebColor = "#" & Hex$(r) & Hex$(g) & Hex$(b)
 End Function
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -679,7 +679,7 @@ Function HexWithPrefix(value As Long) As String
     HexWithPrefix = "&H" & Hex$(value)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -693,7 +693,7 @@ Sub Main()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -710,7 +710,7 @@ Sub Main()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -722,7 +722,7 @@ Function FormatPacket(pType As Byte, pLen As Integer) As String
     FormatPacket = "Type: 0x" & Hex$(pType) & " Len: 0x" & Hex$(pLen)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -734,7 +734,7 @@ Function PadToTwo(value As Byte) As String
     PadToTwo = Right$("0" & Hex$(value), 2)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }
@@ -746,7 +746,7 @@ Function FormatGUID(data1 As Long) As String
     FormatGUID = Right$("00000000" & Hex$(data1), 8)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
     }

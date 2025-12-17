@@ -739,7 +739,7 @@ mod tests {
 Dim color As Long
 color = QBColor(12)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -750,7 +750,7 @@ color = QBColor(12)
         let source = r#"
 Form1.BackColor = QBColor(9)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -765,7 +765,7 @@ Else
     Label1.ForeColor = QBColor(12)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -782,7 +782,7 @@ Function GetStatusColor(status As String) As Long
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -794,7 +794,7 @@ End Function
 Dim bgColor As Long
 bgColor = QBColor(colorNumber)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -805,7 +805,7 @@ bgColor = QBColor(colorNumber)
         let source = r#"
 MsgBox "Color value: " & QBColor(5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -816,7 +816,7 @@ MsgBox "Color value: " & QBColor(5)
         let source = r#"
 Debug.Print "RGB Value: " & QBColor(14)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -832,7 +832,7 @@ Select Case colorIndex
         result = QBColor(colorIndex)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -847,7 +847,7 @@ Public Sub SetColor(colorNum As Integer)
     m_color = QBColor(colorNum)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -861,7 +861,7 @@ With Label1
     .ForeColor = QBColor(15)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -878,7 +878,7 @@ Else
     color = QBColor(14)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -891,7 +891,7 @@ For i = 0 To 15
     Picture1.Line (i * 20, 0)-(i * 20 + 19, 100), QBColor(i), BF
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ Do While colorNum <= 15
     colorNum = colorNum + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -919,7 +919,7 @@ Do Until i > 15
     i = i + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -933,7 +933,7 @@ While index < 16
     index = index + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -945,7 +945,7 @@ Wend
 Dim result As Long
 result = (QBColor(7))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -957,7 +957,7 @@ result = (QBColor(7))
 Dim textColor As Long
 textColor = IIf(isError, QBColor(12), QBColor(10))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -970,7 +970,7 @@ If QBColor(color1) = QBColor(color2) Then
     MsgBox "Same color"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -982,7 +982,7 @@ End If
 Dim colors(15) As Long
 colors(i) = QBColor(i)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -995,7 +995,7 @@ Set obj = New ColorManager
 obj.BackgroundColor = QBColor(0)
 obj.TextColor = QBColor(15)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1006,7 +1006,7 @@ obj.TextColor = QBColor(15)
         let source = r#"
 Call SetFormColors(QBColor(0), QBColor(15))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1017,7 +1017,7 @@ Call SetFormColors(QBColor(0), QBColor(15))
         let source = r#"
 Picture1.Line (0, 0)-(100, 100), QBColor(12), BF
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1029,7 +1029,7 @@ Picture1.Line (0, 0)-(100, 100), QBColor(12), BF
 Dim msg As String
 msg = "Color code: " & QBColor(idx)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1041,7 +1041,7 @@ msg = "Color code: " & QBColor(idx)
 Dim hexValue As String
 hexValue = Hex(QBColor(15))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1055,7 +1055,7 @@ Dim brightness As Long
 colorValue = QBColor(index)
 brightness = colorValue And &HFF
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1071,7 +1071,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));
@@ -1089,7 +1089,7 @@ ErrorHandler:
     MsgBox "Invalid color number"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
         assert!(text.contains("Identifier"));

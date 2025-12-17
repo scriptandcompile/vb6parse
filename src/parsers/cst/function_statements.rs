@@ -131,7 +131,7 @@ mod test {
         // Test that Private declaration and Private Function are correctly distinguished
         let source =
             "Private myVar As Integer\nPrivate Function GetVar() As Integer\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 2);
 
@@ -184,7 +184,7 @@ mod test {
         ];
 
         for (source, expected_kind) in test_cases {
-            let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+            let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
             assert_eq!(cst.child_count(), 1, "Code: {}", source);
             if let Some(child) = cst.child_at(0) {
@@ -197,7 +197,7 @@ mod test {
     fn function_with_modifiers() {
         // Test Public Function
         let source = "Public Function GetValue() As Integer\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -210,7 +210,7 @@ mod test {
     fn function_private_static() {
         // Test Private Static Function
         let source = "Private Static Function Calculate(x As Long) As Long\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -223,7 +223,7 @@ mod test {
     fn function_friend() {
         // Test Friend Function
         let source = "Friend Function ProcessData() As String\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -241,7 +241,7 @@ Public Function Test( _
     Test = "hello"
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
 
@@ -271,7 +271,7 @@ Dim I&
 argGetSwitchArg = ""
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
 
@@ -298,7 +298,7 @@ Do
 Loop
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
 
@@ -331,7 +331,7 @@ Do Until strArgTemp = ""
 Loop
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
 
@@ -353,7 +353,7 @@ End Function
     fn function_simple_no_params() {
         // Test simple function with no parameters
         let source = "Function GetValue() As Integer\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -365,7 +365,7 @@ End Function
     fn function_with_return_value() {
         // Test function with return value assignment
         let source = "Function GetValue() As Integer\n    GetValue = 42\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -378,7 +378,7 @@ End Function
     fn function_with_exit_function() {
         // Test function with Exit Function statement
         let source = "Function IsValid(x As Integer) As Boolean\n    If x < 0 Then\n        Exit Function\n    End If\n    IsValid = True\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -391,7 +391,7 @@ End Function
     fn function_no_return_type() {
         // Test function without explicit return type (defaults to Variant)
         let source = "Function GetData()\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -403,7 +403,7 @@ End Function
     fn function_with_multiple_params() {
         // Test function with multiple parameters
         let source = "Function Add(ByVal x As Long, ByVal y As Long) As Long\nEnd Function\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {

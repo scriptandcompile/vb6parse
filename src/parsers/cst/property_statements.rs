@@ -118,7 +118,7 @@ Property Get Name() As String
     Name = m_name
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -133,7 +133,7 @@ Property Let Name(ByVal newName As String)
     m_name = newName
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -148,7 +148,7 @@ Property Set Container(glistNN As gList)
     Set glistN = glistNN
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -163,7 +163,7 @@ Property Set Callback(ByRef newObj As InterPress)
     Set mCallback = newObj
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -178,7 +178,7 @@ Public Property Get Value() As Long
     Value = m_value
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -193,7 +193,7 @@ Private Property Let Count(ByVal newCount As Integer)
     m_count = newCount
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -208,7 +208,7 @@ Friend Property Set objref(RHS As Object)
     Set m_objref = RHS
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -223,7 +223,7 @@ Public Property Get Item(index As Long) As Variant
     Item = m_items(index)
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -238,7 +238,7 @@ Public Property Set item(curitem As Long, item As Variant)
     Set m_items(curitem) = item
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -258,7 +258,7 @@ Public Property Get CustomColor(i As Integer) As Long
     End If
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -276,7 +276,7 @@ Public Property Let CustomColor(i As Integer, iValue As Long)
     End If
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -291,7 +291,7 @@ Property Get APIReturn() As Long
     APIReturn = m_lApiReturn
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -305,7 +305,7 @@ Property   Set   Container  (  glistNN   As   gList  )
     Set glistN = glistNN
 End   Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -334,7 +334,7 @@ Public Property Let Value(ByVal newValue As Long)
     m_value = newValue
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let property_count = debug.matches("PropertyStatement").count();
@@ -348,7 +348,7 @@ Property Get Callback() As InterPress
     Set Callback = mCallback
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -364,7 +364,7 @@ Property Get Test() As String
     Test = m_value
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -381,7 +381,7 @@ Public Static Property Get Counter() As Long
     Counter = count
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));
@@ -404,7 +404,7 @@ Public Property Let Caption(myCap As String)
     End If
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PropertyStatement"));

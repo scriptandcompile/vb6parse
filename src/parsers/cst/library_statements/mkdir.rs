@@ -67,7 +67,7 @@ Sub Test()
     MkDir "NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -78,7 +78,7 @@ End Sub
     #[test]
     fn mkdir_at_module_level() {
         let source = r#"MkDir "C:\Temp""#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -94,7 +94,7 @@ Sub Test()
     MkDir "C:\Program Files\MyApp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -108,7 +108,7 @@ Sub Test()
     MkDir folderPath
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -118,7 +118,7 @@ End Sub
     #[test]
     fn mkdir_preserves_whitespace() {
         let source = "    MkDir    \"MyFolder\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    MkDir    \"MyFolder\"    \n");
 
@@ -133,7 +133,7 @@ Sub Test()
     MkDir "Logs" ' Create logs directory
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -149,7 +149,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -162,7 +162,7 @@ Sub Test()
     If needsDir Then MkDir "Output"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -177,7 +177,7 @@ Sub CreateDirs()
     MkDir "C:\Temp\Data"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("MkDirStatement").count();
@@ -191,7 +191,7 @@ Sub Test()
     MkDir basePath & "\Subfolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -205,7 +205,7 @@ Sub Test()
     MkDir "\\Server\Share\NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
@@ -219,7 +219,7 @@ Sub Test()
     MkDir App.Path & "\Data"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));

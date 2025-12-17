@@ -141,7 +141,7 @@ mod test {
         ];
 
         for (source, expected_kind) in test_cases {
-            let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+            let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
             assert_eq!(cst.child_count(), 1, "Code: {}", source);
             if let Some(child) = cst.child_at(0) {
@@ -154,7 +154,7 @@ mod test {
     fn sub_public_static() {
         // Test Public Static Sub
         let source = "Public Static Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -167,7 +167,7 @@ mod test {
     fn sub_public() {
         // Test Public Sub
         let source = "Public Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -180,7 +180,7 @@ mod test {
     fn sub_private() {
         // Test Private Sub
         let source = "Private Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -193,7 +193,7 @@ mod test {
     fn sub_simple_no_params() {
         // Test simple sub with no parameters
         let source = "Sub DoSomething()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -205,7 +205,7 @@ mod test {
     fn sub_with_params() {
         // Test sub with parameters
         let source = "Sub SetValue(ByVal x As Integer, ByVal y As Integer)\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -218,7 +218,7 @@ mod test {
     fn sub_with_exit_sub() {
         // Test sub with Exit Sub statement
         let source = "Sub Validate(x As Integer)\n    If x < 0 Then\n        Exit Sub\n    End If\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -231,7 +231,7 @@ mod test {
     fn sub_friend_modifier() {
         // Test Friend Sub
         let source = "Friend Sub ProcessData()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -244,7 +244,7 @@ mod test {
     fn sub_static_modifier() {
         // Test Static Sub
         let source = "Static Sub Counter()\n    Dim count As Integer\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -257,7 +257,7 @@ mod test {
     fn sub_with_body() {
         // Test sub with body statements
         let source = "Sub Calculate()\n    Dim x As Integer\n    x = 10\n    MsgBox x\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -271,7 +271,7 @@ mod test {
     fn sub_with_optional_params() {
         // Test sub with optional parameters
         let source = "Sub Process(ByVal x As Integer, Optional ByVal y As Integer = 0)\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
@@ -285,7 +285,7 @@ mod test {
         let source = r#"Sub Text()
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SubStatement"));

@@ -439,7 +439,7 @@ Sub Test()
     h = Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -452,7 +452,7 @@ Function GetCurrentHour() As Integer
     GetCurrentHour = Hour(Now)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -467,7 +467,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -480,7 +480,7 @@ Sub Test()
     Debug.Print Hour(Time)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -500,7 +500,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -516,7 +516,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -531,7 +531,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -544,7 +544,7 @@ Private Sub Class_Initialize()
     m_hour = Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -558,7 +558,7 @@ Sub Test()
     timeInfo.currentHour = Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -572,7 +572,7 @@ Sub Test()
     col.Add Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -587,7 +587,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -600,7 +600,7 @@ Sub Test()
     MsgBox "Current hour: " & Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -613,7 +613,7 @@ Property Get CurrentHour() As Integer
     CurrentHour = Hour(Now)
 End Property
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -626,7 +626,7 @@ Sub Test()
     msg = "The hour is " & Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -642,7 +642,7 @@ Sub Test()
     Next
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -658,7 +658,7 @@ Sub Test()
     On Error GoTo 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -673,7 +673,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -687,7 +687,7 @@ Sub Test()
     hours(1) = Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -700,7 +700,7 @@ Sub Test()
     ProcessHour Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -713,7 +713,7 @@ Sub Test()
     result = CStr(Hour(Now))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -726,7 +726,7 @@ Sub Test()
     period = IIf(Hour(Now) < 12, "AM", "PM")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -739,7 +739,7 @@ Sub Test()
     h = Hour(#3:45:00 PM#)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -754,7 +754,7 @@ Sub Test()
     h = Hour(myTime)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -767,7 +767,7 @@ Sub Test()
     value = (Hour(Now))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -782,7 +782,7 @@ Function IsBusinessHours() As Boolean
     IsBusinessHours = (h >= 9 And h < 17)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -799,7 +799,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));
@@ -812,7 +812,7 @@ Sub Test()
     hoursUntilMidnight = 24 - Hour(Now)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
         assert!(text.contains("Identifier"));

@@ -9,7 +9,7 @@ use vb6parse::parsers::{ConcreteSyntaxTree, SyntaxKind};
 #[test]
 fn keyword_as_sub_name() {
     let source = "Sub Text()\nEnd Sub\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     // "Text" should be converted to Identifier
@@ -19,7 +19,7 @@ fn keyword_as_sub_name() {
 #[test]
 fn keyword_as_function_name() {
     let source = "Function Database() As String\nEnd Function\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     assert!(debug.contains("Identifier") && debug.contains("Database"));
@@ -28,7 +28,7 @@ fn keyword_as_function_name() {
 #[test]
 fn keyword_as_property_name() {
     let source = "Property Get Binary() As Integer\nEnd Property\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     assert!(debug.contains("Identifier") && debug.contains("Binary"));
@@ -37,7 +37,7 @@ fn keyword_as_property_name() {
 #[test]
 fn keyword_as_variable_in_assignment() {
     let source = "text = \"hello\"\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let children = cst.children();
     assert_eq!(children[0].kind, SyntaxKind::AssignmentStatement);
@@ -52,7 +52,7 @@ fn keyword_as_variable_in_assignment() {
 #[test]
 fn keyword_as_property_in_assignment() {
     let source = "obj.text = \"hello\"\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let children = cst.children();
     assert_eq!(children[0].kind, SyntaxKind::AssignmentStatement);
@@ -73,7 +73,7 @@ database = "mydb.mdb"
 text = "hello"
 obj.binary = True
 "#;
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     // All should be converted to Identifiers
@@ -91,7 +91,7 @@ obj.binary = True
 #[test]
 fn keyword_as_enum_name() {
     let source = "Enum Random\n    Value1\n    Value2\nEnd Enum\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     assert!(debug.contains("EnumStatement"));
@@ -103,7 +103,7 @@ fn keyword_as_enum_name() {
 fn keyword_after_keyword_converted() {
     // Even when a keyword follows another keyword in procedure definition
     let source = "Sub Output()\nEnd Sub\n";
-    let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let debug = cst.debug_tree();
     assert!(debug.contains("SubStatement"));

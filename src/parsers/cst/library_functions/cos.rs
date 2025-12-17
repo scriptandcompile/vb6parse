@@ -402,7 +402,7 @@ mod tests {
         let source = r#"
 result = Cos(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -413,7 +413,7 @@ result = Cos(angle)
         let source = r#"
 value = Cos(0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -425,7 +425,7 @@ value = Cos(0)
 Const Pi As Double = 3.14159265358979
 result = Cos(Pi)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -438,7 +438,7 @@ Const Pi As Double = 3.14159265358979
 radians = degrees * (Pi / 180)
 result = Cos(radians)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -452,7 +452,7 @@ Function CosDegrees(degrees As Double) As Double
     CosDegrees = Cos(degrees * (Pi / 180))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -463,7 +463,7 @@ End Function
         let source = r#"
 x = centerX + radius * Cos(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -474,7 +474,7 @@ x = centerX + radius * Cos(angle)
         let source = r#"
 newX = x * Cos(angle) - y * Sin(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -487,7 +487,7 @@ For i = 0 To samples - 1
     wave(i) = amplitude * Cos(angle)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -499,7 +499,7 @@ Next i
 Const Pi As Double = 3.14159265358979
 position = amplitude * Cos(2 * Pi * frequency * time)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -511,7 +511,7 @@ position = amplitude * Cos(2 * Pi * frequency * time)
 Dim result As Double
 result = Cos(1.5708)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -523,7 +523,7 @@ result = Cos(1.5708)
 x = radius * Cos(angle)
 y = radius * Sin(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -534,7 +534,7 @@ y = radius * Sin(angle)
         let source = r#"
 result = Cos(Pi / 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -545,7 +545,7 @@ result = Cos(Pi / 4)
         let source = r#"
 value = amplitude * Cos(2 * Pi * frequency * time + phase)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -558,7 +558,7 @@ If Cos(angle) > 0 Then
     ProcessPositive
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -569,7 +569,7 @@ End If
         let source = r#"
 sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -580,7 +580,7 @@ sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
         let source = r#"
 values(i) = Cos(angles(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -592,7 +592,7 @@ values(i) = Cos(angles(i))
 ptX = centerX + radiusX * Cos(angle)
 ptY = centerY + radiusY * Sin(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -604,7 +604,7 @@ ptY = centerY + radiusY * Sin(angle)
 newX = x * Cos(angle) - z * Sin(angle)
 newZ = x * Sin(angle) + z * Cos(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -620,7 +620,7 @@ Select Case Cos(angle)
         HandleSmall
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -631,7 +631,7 @@ End Select
         let source = r#"
 result = Cos(Cos(x))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -644,7 +644,7 @@ Do While Cos(angle) > threshold
     angle = angle + step
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -655,7 +655,7 @@ Loop
         let source = r#"
 result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -666,7 +666,7 @@ result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
         let source = r#"
 magnitude = Abs(Cos(angle))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -677,7 +677,7 @@ magnitude = Abs(Cos(angle))
         let source = r#"
 Print "Cosine: "; Cos(angle)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));
@@ -688,7 +688,7 @@ Print "Cosine: "; Cos(angle)
         let source = r#"
 result = Cos( angle )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
         assert!(debug.contains("Identifier"));

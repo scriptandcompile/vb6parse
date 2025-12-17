@@ -160,7 +160,7 @@ Enum Colors
     Blue
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -177,7 +177,7 @@ Enum SecurityLevel
     SecurityLevel2 = 1
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -194,7 +194,7 @@ Public Enum Status
     Inactive = 0
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -211,7 +211,7 @@ Private Enum InternalState
     Complete = 2
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -227,7 +227,7 @@ End Enum
     West = 3
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -245,7 +245,7 @@ Enum Priority
     High = 10    ' Highest priority
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -255,7 +255,7 @@ End Enum
     #[test]
     fn enum_preserves_whitespace() {
         let source = "    Enum Test\n        Value1 = 1\n    End Enum\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), source);
 
@@ -274,7 +274,7 @@ Enum Flags
     All = &HFF
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -287,7 +287,7 @@ End Enum
 Enum EmptyEnum
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -308,7 +308,7 @@ Private Enum Size
     Large = 2
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         // Check that we have at least 2 enum statements (there may be whitespace nodes too)
@@ -326,7 +326,7 @@ Enum FileAttributes
     Archive = &H20
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -346,7 +346,7 @@ Enum DayOfWeek
     Saturday = 7
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));
@@ -363,7 +363,7 @@ Enum Temperature
     BoilingPoint = 100
 End Enum
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("EnumStatement"));

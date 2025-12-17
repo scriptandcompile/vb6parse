@@ -781,7 +781,7 @@ mod tests {
 Dim color As Long
 color = RGB(255, 0, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -793,7 +793,7 @@ color = RGB(255, 0, 0)
 Dim customColor As Long
 customColor = RGB(128, 64, 192)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -808,7 +808,7 @@ Else
     cellColor = RGB(0, 255, 0)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -821,7 +821,7 @@ Function GetRedColor() As Long
     GetRedColor = RGB(255, 0, 0)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -833,7 +833,7 @@ End Function
 Dim bgColor As Long
 bgColor = RGB(red, green, blue)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -844,7 +844,7 @@ bgColor = RGB(red, green, blue)
         let source = r#"
 Form1.BackColor = RGB(200, 200, 200)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -855,7 +855,7 @@ Form1.BackColor = RGB(200, 200, 200)
         let source = r#"
 Debug.Print "Color: " & RGB(r, g, b)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -873,7 +873,7 @@ Select Case status
         color = RGB(0, 255, 0)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ Public Sub SetColor()
     m_backgroundColor = RGB(255, 255, 255)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -902,7 +902,7 @@ With Label1
     .ForeColor = RGB(0, 0, 0)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -919,7 +919,7 @@ Else
     color = RGB(255, 0, 0)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -932,7 +932,7 @@ For i = 0 To 255
     gradient(i) = RGB(i, i, i)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -946,7 +946,7 @@ Do While r < 255
     r = r + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -960,7 +960,7 @@ Do Until index > 10
     index = index + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -974,7 +974,7 @@ While count < 100
     count = count + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -986,7 +986,7 @@ Wend
 Dim result As Long
 result = (RGB(255, 128, 0))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -998,7 +998,7 @@ result = (RGB(255, 128, 0))
 Dim textColor As Long
 textColor = IIf(isActive, RGB(0, 0, 0), RGB(128, 128, 128))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1010,7 +1010,7 @@ textColor = IIf(isActive, RGB(0, 0, 0), RGB(128, 128, 128))
 Dim colors(10) As Long
 colors(i) = RGB(red(i), green(i), blue(i))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1022,7 +1022,7 @@ colors(i) = RGB(red(i), green(i), blue(i))
 Set obj = New ColorManager
 obj.PrimaryColor = RGB(255, 0, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1033,7 +1033,7 @@ obj.PrimaryColor = RGB(255, 0, 0)
         let source = r#"
 Call SetBackgroundColor(RGB(230, 230, 230))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1045,7 +1045,7 @@ Call SetBackgroundColor(RGB(230, 230, 230))
 Dim msg As String
 msg = "Color value: " & RGB(100, 150, 200)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1057,7 +1057,7 @@ msg = "Color value: " & RGB(100, 150, 200)
 Dim gradientColor As Long
 gradientColor = RGB(startR + (ratio * deltaR), startG, startB)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1070,7 +1070,7 @@ If RGB(r1, g1, b1) = RGB(r2, g2, b2) Then
     MsgBox "Colors match"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1081,7 +1081,7 @@ End If
         let source = r#"
 Picture1.Line (0, 0)-(100, 100), RGB(255, 0, 0), BF
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1092,7 +1092,7 @@ Picture1.Line (0, 0)-(100, 100), RGB(255, 0, 0), BF
         let source = r#"
 MsgBox "Color: " & Hex(RGB(255, 128, 64))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1104,7 +1104,7 @@ MsgBox "Color: " & Hex(RGB(255, 128, 64))
 Dim blended As Long
 blended = RGB((r1 + r2) \ 2, (g1 + g2) \ 2, (b1 + b2) \ 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));
@@ -1122,7 +1122,7 @@ ErrorHandler:
     MsgBox "Error setting color"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RGB"));
         assert!(text.contains("Identifier"));

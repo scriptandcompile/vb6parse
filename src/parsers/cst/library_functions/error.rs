@@ -700,7 +700,7 @@ mod tests {
         let source = r#"
 msg = Error(53)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -711,7 +711,7 @@ msg = Error(53)
         let source = r#"
 msg = Error()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -722,7 +722,7 @@ msg = Error()
         let source = r#"
 MsgBox "Error: " & Error(Err.Number)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -733,7 +733,7 @@ MsgBox "Error: " & Error(Err.Number)
         let source = r#"
 Debug.Print Error(11)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -746,7 +746,7 @@ Function GetErrorMessage(errNum As Long) As String
     GetErrorMessage = Error(errNum)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -757,7 +757,7 @@ End Function
         let source = r#"
 errorMsg = Error(errorNumber)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -768,7 +768,7 @@ errorMsg = Error(errorNumber)
         let source = r#"
 msg = "Error " & Err.Number & ": " & Error(Err.Number)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -784,7 +784,7 @@ Select Case Error(errNum)
         HandleOtherError
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -797,7 +797,7 @@ If InStr(Error(errNum), "Application-defined") > 0 Then
     isCustomError = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -808,7 +808,7 @@ End If
         let source = r#"
 Print #fileNum, "Error " & Err.Number & ": " & Error(Err.Number)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -819,7 +819,7 @@ Print #fileNum, "Error " & Err.Number & ": " & Error(Err.Number)
         let source = r#"
 logEntry = Format(Now, "yyyy-mm-dd") & " | " & Error(Err.Number)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ For i = LBound(errorNumbers) To UBound(errorNumbers)
     Debug.Print errorNumbers(i) & ": " & Error(errorNumbers(i))
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -843,7 +843,7 @@ Next i
         let source = r#"
 dict.Add Error(i), CStr(i)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -857,7 +857,7 @@ If msg = "File not found" Then
     Debug.Print "Match"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -868,7 +868,7 @@ End If
         let source = r#"
 info.Message = Error(errorNumber)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -881,7 +881,7 @@ msg = "An error occurred:" & vbCrLf & _
       "Error Number: " & Err.Number & vbCrLf & _
       "Description: " & Error(Err.Number)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -892,7 +892,7 @@ msg = "An error occurred:" & vbCrLf & _
         let source = r#"
 shortMsg = Left(Error(errNum), 50)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -903,7 +903,7 @@ shortMsg = Left(Error(errNum), 50)
         let source = r#"
 logEntry = Replace(Error(Err.Number), vbCrLf, " ")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -916,7 +916,7 @@ If Len(Error(errNum)) > 0 Then
     ProcessError
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -929,7 +929,7 @@ Dim errorInfo As ErrorInfo
 errorInfo.Message = Error(errorNumber)
 errorInfo.Number = errorNumber
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -945,7 +945,7 @@ For i = 3 To 1000
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -956,7 +956,7 @@ Next i
         let source = r#"
 cleanMsg = Trim(Error(errNum))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -972,7 +972,7 @@ Select Case errNum
         msg = Error(61)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -983,7 +983,7 @@ End Select
         let source = r#"
 upperMsg = UCase(Error(errNum))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -996,7 +996,7 @@ Sub ShowError()
     Debug.Print Error
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));
@@ -1009,7 +1009,7 @@ Function GetMsg() As String
     GetMsg = Error()
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
         assert!(debug.contains("Identifier"));

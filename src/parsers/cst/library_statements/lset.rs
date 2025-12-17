@@ -58,7 +58,7 @@ Sub Test()
     LSet MyString = "Left"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -69,7 +69,7 @@ End Sub
     #[test]
     fn lset_at_module_level() {
         let source = "LSet myVar = \"Test\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -85,7 +85,7 @@ Sub Test()
     LSet FixedString = userName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -100,7 +100,7 @@ Sub Test()
     LSet myRecord = sourceRecord
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -115,7 +115,7 @@ Sub Test()
     LSet buffer = Left(data, 10)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -125,7 +125,7 @@ End Sub
     #[test]
     fn lset_preserves_whitespace() {
         let source = "    LSet    myStr    =    \"Text\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    LSet    myStr    =    \"Text\"    \n");
 
@@ -140,7 +140,7 @@ Sub Test()
     LSet MyString = "Left" ' Left-align string
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -156,7 +156,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -169,7 +169,7 @@ Sub Test()
     If leftAlign Then LSet myStr = value
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -184,7 +184,7 @@ Sub Test()
     LSet field3 = "C"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("LSetStatement").count();
@@ -200,7 +200,7 @@ Sub Test()
     ' MyString now contains "Left      " (padded with 6 spaces)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -215,7 +215,7 @@ Sub Test()
     RSet rightAligned = "R"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));
@@ -228,7 +228,7 @@ Sub Test()
     LSet myBuffer = firstName & " " & lastName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LSetStatement"));

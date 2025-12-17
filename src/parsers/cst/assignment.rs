@@ -164,7 +164,7 @@ mod test {
         let source = r#"
 x = 5
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -204,7 +204,7 @@ x = 5
         let source = r#"
 myName = "John"
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -242,7 +242,7 @@ myName = "John"
         let source = r#"
 obj.subProperty = value
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -278,7 +278,7 @@ obj.subProperty = value
         let source = r#"
 arr(0) = 100
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -311,7 +311,7 @@ arr(0) = 100
         let source = r#"
 matrix(i, j) = value
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -343,7 +343,7 @@ matrix(i, j) = value
         let source = r#"
 result = MyFunction(arg1, arg2)
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -375,7 +375,7 @@ result = MyFunction(arg1, arg2)
         let source = r#"
 sum = a + b * c
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -410,7 +410,7 @@ sum = a + b * c
         let source = r#"
 text = obj.GetText()
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -443,7 +443,7 @@ text = obj.GetText()
         let source = r#"
 value = obj.SubObj.SubProperty
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -478,7 +478,7 @@ x = 1
 y = 2
 z = 3
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -538,7 +538,7 @@ z = 3
     #[test]
     fn assignment_preserves_whitespace() {
         let source = "x   =   5";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::AssignmentStatement);
         assert_eq!(
@@ -568,7 +568,7 @@ Public Function Calculate()
     result = 42
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let assignment = &cst.children()[1].children[7].children[1];
         assert_eq!(assignment.kind, SyntaxKind::AssignmentStatement);
@@ -595,7 +595,7 @@ End Function
         let source = r#"
 item = Collection("Key")
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -626,7 +626,7 @@ item = Collection("Key")
         let source = r#"
 path = Environ$("TEMP")
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -658,7 +658,7 @@ path = Environ$("TEMP")
 Option Explicit
 x = 5
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert!(cst.children()[0].kind == SyntaxKind::Newline);
 
@@ -687,7 +687,7 @@ x = 5
         let source = r#"
 pi = 3.14159
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -717,7 +717,7 @@ pi = 3.14159
         let source = r#"
 fullName = firstName & " " & lastName
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -750,7 +750,7 @@ fullName = firstName & " " & lastName
         let source = r#"
 person.Age = 25
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -781,7 +781,7 @@ person.Age = 25
         let source = r#"
 result = (a + b) * c
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -815,7 +815,7 @@ Sub Test()
     Let x = 5
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -826,7 +826,7 @@ End Sub
     #[test]
     fn let_module_level() {
         let source = "Let myVar = 10\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -840,7 +840,7 @@ Sub Test()
     Let myName = "John"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -855,7 +855,7 @@ Sub Test()
     Let result = x + y * 2
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -869,7 +869,7 @@ Sub Test()
     Let obj.Value = 100
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -884,7 +884,7 @@ Sub Test()
     Let arr(5) = 42
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -894,7 +894,7 @@ End Sub
     #[test]
     fn let_preserves_whitespace() {
         let source = "    Let    x    =    5    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.text(), "    Let    x    =    5    \n");
 
@@ -909,7 +909,7 @@ Sub Test()
     Let counter = 0 ' Initialize counter
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -925,7 +925,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -938,7 +938,7 @@ Sub Test()
     If condition Then Let x = 5
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -953,7 +953,7 @@ Sub Test()
     Let c = 3
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let let_count = debug.matches("LetStatement").count();
@@ -967,7 +967,7 @@ Sub Test()
     Let result = Calculate(x, y)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -982,7 +982,7 @@ Sub Test()
     Let fullName = firstName & " " & lastName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
@@ -996,7 +996,7 @@ End Sub
         let source = r#"
 text = "hello"
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -1013,7 +1013,7 @@ text = "hello"
         let source = r#"
 obj.text = "hello"
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
@@ -1030,7 +1030,7 @@ obj.text = "hello"
         let source = r#"
 database = "mydb.mdb"
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
         assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);

@@ -541,7 +541,7 @@ mod tests {
         let source = r#"
 args = Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -553,7 +553,7 @@ args = Command()
 Dim cmdLine As String
 cmdLine = Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -566,7 +566,7 @@ If Command() <> "" Then
     ProcessArgs
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -577,7 +577,7 @@ End If
         let source = r#"
 args = Trim(Command())
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -590,7 +590,7 @@ If InStr(Command(), "/debug") > 0 Then
     DebugMode = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -604,7 +604,7 @@ Sub Main()
     args = Command()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -615,7 +615,7 @@ End Sub
         let source = r#"
 MsgBox "Args: " & Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -626,7 +626,7 @@ MsgBox "Args: " & Command()
         let source = r#"
 cmdLine = LCase(Command())
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -639,7 +639,7 @@ Function GetArgs() As String
     GetArgs = Command()
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -655,7 +655,7 @@ Select Case Command()
         EnableDebug
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -668,7 +668,7 @@ If Command() = "" Then
     MsgBox "No arguments"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -679,7 +679,7 @@ End If
         let source = r#"
 args = Split(Command(), " ")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -692,7 +692,7 @@ Do While Command() <> ""
     Process
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -705,7 +705,7 @@ If Left(Command(), 1) = "/" Then
     ProcessSwitch
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -716,7 +716,7 @@ End If
         let source = r#"
 args = Replace(Command(), "/", "-")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -729,7 +729,7 @@ If Len(Command()) > 0 Then
     ParseArgs
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -740,7 +740,7 @@ End If
         let source = r#"
 fullCmd = App.EXEName & " " & Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -752,7 +752,7 @@ fullCmd = App.EXEName & " " & Command()
 cmd1 = Command()
 cmd2 = Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -765,7 +765,7 @@ For i = 1 To Len(Command())
     ch = Mid(Command(), i, 1)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -776,7 +776,7 @@ Next i
         let source = r#"
 cmdUpper = UCase(Command())
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -787,7 +787,7 @@ cmdUpper = UCase(Command())
         let source = r#"
 result = (Command() = "/auto")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -800,7 +800,7 @@ If Right(Command(), 4) = ".txt" Then
     ProcessTextFile
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -811,7 +811,7 @@ End If
         let source = r#"
 part = Mid(Command(), 2, 5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -822,7 +822,7 @@ part = Mid(Command(), 2, 5)
         let source = r#"
 args = Command( )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));
@@ -833,7 +833,7 @@ args = Command( )
         let source = r#"
 Print "Command line: "; Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
         assert!(debug.contains("Identifier"));

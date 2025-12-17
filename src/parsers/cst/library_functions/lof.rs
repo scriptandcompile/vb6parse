@@ -697,7 +697,7 @@ mod tests {
             Dim size As Long
             size = LOF(1)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -708,7 +708,7 @@ mod tests {
         let source = r#"
             fileSize = LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -721,7 +721,7 @@ mod tests {
                 MsgBox "File is empty"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -732,7 +732,7 @@ mod tests {
         let source = r#"
             totalRecords = LOF(fileNum) / Len(record)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -745,7 +745,7 @@ mod tests {
                 Get #1, , data
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -758,7 +758,7 @@ mod tests {
                 GetFileSize = LOF(fileNum)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -769,7 +769,7 @@ mod tests {
         let source = r#"
             buffer = String(LOF(fileNum), 0)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -784,7 +784,7 @@ mod tests {
                 MsgBox "Error getting size"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -795,7 +795,7 @@ mod tests {
         let source = r#"
             percent = (Loc(fileNum) / LOF(fileNum)) * 100
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -806,7 +806,7 @@ mod tests {
         let source = r#"
             lblSize.Caption = "Size: " & LOF(fileNum) & " bytes"
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -819,7 +819,7 @@ mod tests {
                 .Size = LOF(fileNum)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -835,7 +835,7 @@ mod tests {
                     MsgBox "Has data"
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -850,7 +850,7 @@ mod tests {
                 status = "Small"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -861,7 +861,7 @@ mod tests {
         let source = r#"
             size = (LOF(fileNum))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -872,7 +872,7 @@ mod tests {
         let source = r#"
             msg = IIf(LOF(fileNum) > 0, "Has data", "Empty")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -885,7 +885,7 @@ mod tests {
                 m_fileSize = LOF(m_fileNum)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -896,7 +896,7 @@ mod tests {
         let source = r#"
             Call ProcessFileSize(LOF(fileNum))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -907,7 +907,7 @@ mod tests {
         let source = r#"
             MyObject.FileSize = LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -918,7 +918,7 @@ mod tests {
         let source = r#"
             fileSizes(i) = LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -931,7 +931,7 @@ mod tests {
                 Get #fileNum, , record
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -944,7 +944,7 @@ mod tests {
                 Get #fileNum, , buffer
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ mod tests {
         let source = r#"
             ReDim fileData(1 To LOF(fileNum)) As Byte
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -966,7 +966,7 @@ mod tests {
         let source = r#"
             recordCount = LOF(fileNum) \ recordSize
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -977,7 +977,7 @@ mod tests {
         let source = r#"
             MsgBox "File size: " & LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -988,7 +988,7 @@ mod tests {
         let source = r#"
             Debug.Print "Size: " & LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -999,7 +999,7 @@ mod tests {
         let source = r#"
             ProgressBar1.Max = LOF(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));
@@ -1012,7 +1012,7 @@ mod tests {
                 MsgBox "File larger than 1MB"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
         assert!(text.contains("Identifier"));

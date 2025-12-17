@@ -752,7 +752,7 @@ mod tests {
 Dim currentTime As Date
 currentTime = Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -764,7 +764,7 @@ currentTime = Now
 Dim dt As Date
 dt = Now()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -777,7 +777,7 @@ If Now > deadline Then
     MsgBox "Overdue"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -790,7 +790,7 @@ Function GetCurrentTime() As Date
     GetCurrentTime = Now
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ End Function
 Dim msg As String
 msg = "Current time: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -813,7 +813,7 @@ msg = "Current time: " & Now
         let source = r#"
 Debug.Print "Timestamp: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -824,7 +824,7 @@ Debug.Print "Timestamp: " & Now
         let source = r#"
 MsgBox "Current time is: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -836,7 +836,7 @@ MsgBox "Current time is: " & Now
 Dim formatted As String
 formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -848,7 +848,7 @@ formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
 Dim elapsed As Long
 elapsed = DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -863,7 +863,7 @@ Public Sub UpdateTimestamp()
     m_timestamp = Now
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -877,7 +877,7 @@ With currentRecord
     .ModifiedDate = Now
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -889,7 +889,7 @@ End With
 Dim timestamps(10) As Date
 timestamps(i) = Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -901,7 +901,7 @@ timestamps(i) = Now
 Set obj = New Logger
 obj.Timestamp = Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -919,7 +919,7 @@ Select Case Hour(Now)
         greeting = "Good evening"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -934,7 +934,7 @@ ElseIf Now > deadline Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -950,7 +950,7 @@ For i = 1 To 1000
 Next i
 MsgBox "Elapsed: " & DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -963,7 +963,7 @@ Do While Now < endTime
     ProcessData
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -976,7 +976,7 @@ Do Until Now >= targetTime
     WaitForEvent
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -989,7 +989,7 @@ While Now < cutoffTime
     count = count + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1001,7 +1001,7 @@ Wend
 Dim status As String
 status = IIf(Now > deadline, "Late", "On time")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1014,7 +1014,7 @@ If DateDiff("h", lastUpdate, Now) > 24 Then
     UpdateData
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1025,7 +1025,7 @@ End If
         let source = r#"
 Call LogEvent("User login", Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1036,7 +1036,7 @@ Call LogEvent("User login", Now)
         let source = r#"
 sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh:nn:ss\#") & ")"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1048,7 +1048,7 @@ sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh
 Dim currentYear As Integer
 currentYear = Year(Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1060,7 +1060,7 @@ currentYear = Year(Now)
 Dim currentMonth As Integer
 currentMonth = Month(Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1072,7 +1072,7 @@ currentMonth = Month(Now)
 Dim futureDate As Date
 futureDate = DateAdd("d", 7, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));
@@ -1087,7 +1087,7 @@ start = Now
 DoWork
 finish = Now
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
         assert!(text.contains("Identifier"));

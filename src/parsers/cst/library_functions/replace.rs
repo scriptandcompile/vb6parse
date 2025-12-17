@@ -659,7 +659,7 @@ mod tests {
 Dim result As String
 result = Replace("Hello World", "World", "VB6")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -671,7 +671,7 @@ result = Replace("Hello World", "World", "VB6")
 Dim result As String
 result = Replace("one, two, three", ", ", " | ", 1, 2, vbBinaryCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -684,7 +684,7 @@ If InStr(Replace(text, "old", "new"), "new") > 0 Then
     MsgBox "Replacement successful"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ Function RemoveSpaces(text As String) As String
     RemoveSpaces = Replace(text, " ", "")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         // Replace is a keyword, so it appears differently in the tree
         // Check for the function call pattern instead
@@ -711,7 +711,7 @@ End Function
 Dim cleaned As String
 cleaned = Replace(dirtyText, badChar, goodChar)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -722,7 +722,7 @@ cleaned = Replace(dirtyText, badChar, goodChar)
         let source = r#"
 MsgBox Replace("Error: {code}", "{code}", "404")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -733,7 +733,7 @@ MsgBox Replace("Error: {code}", "{code}", "404")
         let source = r#"
 Debug.Print Replace(filePath, "\", "/")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -751,7 +751,7 @@ Select Case Len(sanitized)
         result = sanitized
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ Public Sub CleanText()
     m_text = Replace(m_text, vbCrLf, vbLf)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ With document
     .Content = Replace(.Content, oldText, newText)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -794,7 +794,7 @@ ElseIf mode = 2 Then
     result = Replace(text, "A", "C")
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -807,7 +807,7 @@ For i = 0 To 9
     text = Replace(text, CStr(i), "*")
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -820,7 +820,7 @@ Do While InStr(text, "  ") > 0
     text = Replace(text, "  ", " ")
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -833,7 +833,7 @@ Do Until Replace(data, delimiter, "") = data
     data = Replace(data, delimiter, ",")
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -846,7 +846,7 @@ While Len(Replace(str, target, "")) < Len(str)
     str = Replace(str, target, replacement)
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -858,7 +858,7 @@ Wend
 Dim result As String
 result = (Replace(text, "a", "b"))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -870,7 +870,7 @@ result = (Replace(text, "a", "b"))
 Dim output As String
 output = IIf(caseSensitive, Replace(s, f, r), Replace(s, f, r, 1, -1, vbTextCompare))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -882,7 +882,7 @@ output = IIf(caseSensitive, Replace(s, f, r), Replace(s, f, r, 1, -1, vbTextComp
 Dim result As String
 result = Replace(Replace(text, "A", "B"), "B", "C")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -894,7 +894,7 @@ result = Replace(Replace(text, "A", "B"), "B", "C")
 Dim lines(10) As String
 lines(i) = Replace(lines(i), vbTab, "    ")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -906,7 +906,7 @@ lines(i) = Replace(lines(i), vbTab, "    ")
 Set obj = New TextProcessor
 obj.ProcessedText = Replace(obj.RawText, Chr(0), "")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -917,7 +917,7 @@ obj.ProcessedText = Replace(obj.RawText, Chr(0), "")
         let source = r#"
 Call ProcessData(Replace(rawData, vbCrLf, vbLf), delimiter)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -929,7 +929,7 @@ Call ProcessData(Replace(rawData, vbCrLf, vbLf), delimiter)
 Dim msg As String
 msg = "Result: " & Replace(input, bad, good)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ msg = "Result: " & Replace(input, bad, good)
 Dim result As String
 result = Replace("Hello WORLD", "world", "VB6", 1, -1, vbTextCompare)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -953,7 +953,7 @@ result = Replace("Hello WORLD", "world", "VB6", 1, -1, vbTextCompare)
 Dim cleaned As String
 cleaned = Replace(text, unwanted, "")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("cleaned"));
         assert!(text.contains("Identifier"));
@@ -965,7 +965,7 @@ cleaned = Replace(text, unwanted, "")
 Dim result As String
 result = Trim(Replace(input, vbTab, " "))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
         assert!(text.contains("Identifier"));
@@ -981,7 +981,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));
@@ -999,7 +999,7 @@ ErrorHandler:
     MsgBox "Error in text replacement"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
         assert!(text.contains("Identifier"));

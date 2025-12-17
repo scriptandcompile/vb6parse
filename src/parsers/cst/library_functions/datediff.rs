@@ -569,7 +569,7 @@ mod tests {
         let source = r#"
 days = DateDiff("d", startDate, endDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -580,7 +580,7 @@ days = DateDiff("d", startDate, endDate)
         let source = r#"
 years = DateDiff("yyyy", birthDate, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -591,7 +591,7 @@ years = DateDiff("yyyy", birthDate, Date)
         let source = r#"
 months = DateDiff("m", #1/1/2025#, #6/1/2025#)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -602,7 +602,7 @@ months = DateDiff("m", #1/1/2025#, #6/1/2025#)
         let source = r#"
 quarters = DateDiff("q", startDate, endDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -613,7 +613,7 @@ quarters = DateDiff("q", startDate, endDate)
         let source = r#"
 weeks = DateDiff("ww", lastMeeting, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -624,7 +624,7 @@ weeks = DateDiff("ww", lastMeeting, Date)
         let source = r#"
 hours = DateDiff("h", startTime, endTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -635,7 +635,7 @@ hours = DateDiff("h", startTime, endTime)
         let source = r#"
 minutes = DateDiff("n", startTime, endTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -646,7 +646,7 @@ minutes = DateDiff("n", startTime, endTime)
         let source = r#"
 seconds = DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -659,7 +659,7 @@ Function GetAge(birthDate As Date) As Integer
     GetAge = DateDiff("yyyy", birthDate, Date)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -670,7 +670,7 @@ End Function
         let source = r#"
 weeks = DateDiff("ww", startDate, endDate, vbMonday)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -681,7 +681,7 @@ weeks = DateDiff("ww", startDate, endDate, vbMonday)
         let source = r#"
 weeks = DateDiff("ww", startDate, endDate, vbMonday, vbFirstFourDays)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -694,7 +694,7 @@ If DateDiff("d", dueDate, Date) > 0 Then
     MsgBox "Overdue"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -705,7 +705,7 @@ End If
         let source = r#"
 diff = DateDiff("d", endDate, startDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -716,7 +716,7 @@ diff = DateDiff("d", endDate, startDate)
         let source = r#"
 diff = Abs(DateDiff("d", date1, date2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -734,7 +734,7 @@ Select Case DateDiff("d", dueDate, Date)
         status = "Overdue"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -745,7 +745,7 @@ End Select
         let source = r#"
 days = DateDiff("y", startDate, endDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -756,7 +756,7 @@ days = DateDiff("y", startDate, endDate)
         let source = r#"
 days = DateDiff("w", startDate, endDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -769,7 +769,7 @@ For i = 0 To count
     days(i) = DateDiff("d", startDate, dates(i))
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -782,7 +782,7 @@ If DateDiff("m", startDate, endDate) > 12 Then
     MsgBox "More than a year"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -793,7 +793,7 @@ End If
         let source = r#"
 minutes = DateDiff("n", startTime, endTime) Mod 60
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -804,7 +804,7 @@ minutes = DateDiff("n", startTime, endTime) Mod 60
         let source = r#"
 MsgBox "Days: " & DateDiff("d", startDate, endDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -816,7 +816,7 @@ MsgBox "Days: " & DateDiff("d", startDate, endDate)
 hours = DateDiff("h", startTime, endTime)
 minutes = DateDiff("n", startTime, endTime) - (hours * 60)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -827,7 +827,7 @@ minutes = DateDiff("n", startTime, endTime) - (hours * 60)
         let source = r#"
 elapsed = DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -838,7 +838,7 @@ elapsed = DateDiff("s", startTime, Now)
         let source = r#"
 diff = DateDiff("d", Date, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));
@@ -849,7 +849,7 @@ diff = DateDiff("d", Date, Date)
         let source = r#"
 total = DateDiff("d", startDate, endDate) * rate
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateDiff"));
         assert!(debug.contains("Identifier"));

@@ -507,7 +507,7 @@ mod tests {
         let source = r#"
 result = CVErr(2042)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -518,7 +518,7 @@ result = CVErr(2042)
         let source = r#"
 error = CVErr(2007)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -535,7 +535,7 @@ Function SafeDivide(a As Double, b As Double) As Variant
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -547,7 +547,7 @@ End Function
 Const xlErrNA As Long = 2042
 result = CVErr(xlErrNA)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -558,7 +558,7 @@ result = CVErr(xlErrNA)
         let source = r#"
 err = CVErr(2015)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -572,7 +572,7 @@ If IsError(result) Then
     MsgBox "Error"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -584,7 +584,7 @@ End If
 Dim myError As Variant
 myError = CVErr(2036)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -596,7 +596,7 @@ myError = CVErr(2036)
 Const APP_ERR_INVALID As Long = 1000
 result = CVErr(APP_ERR_INVALID)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -607,7 +607,7 @@ result = CVErr(APP_ERR_INVALID)
         let source = r#"
 refError = CVErr(2023)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -618,7 +618,7 @@ refError = CVErr(2023)
         let source = r#"
 numError = CVErr(2036)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -634,7 +634,7 @@ Select Case value
         result = value
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -649,7 +649,7 @@ Else
     output = CVErr(2042)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -660,7 +660,7 @@ End If
         let source = r#"
 nameErr = CVErr(2029)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -671,7 +671,7 @@ nameErr = CVErr(2029)
         let source = r#"
 nullErr = CVErr(2000)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -682,7 +682,7 @@ nullErr = CVErr(2000)
         let source = r#"
 results(i) = CVErr(2042)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -695,7 +695,7 @@ Dim errorNum As Long
 errorNum = 2042
 result = CVErr(errorNum)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -708,7 +708,7 @@ If value < 0 Then
     result = CVErr(2036)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -721,7 +721,7 @@ err1 = CVErr(2007)
 err2 = CVErr(2042)
 err3 = CVErr(2015)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -736,7 +736,7 @@ For i = 1 To 10
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -749,7 +749,7 @@ Function Validate(x As Variant) As Variant
     Validate = CVErr(2015)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -765,7 +765,7 @@ Do While Not rs.EOF
     rs.MoveNext
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -777,7 +777,7 @@ Loop
 errCode = baseError + offset
 result = CVErr(errCode)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -788,7 +788,7 @@ result = CVErr(errCode)
         let source = r#"
 errors.Add CVErr(2042)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -799,7 +799,7 @@ errors.Add CVErr(2042)
         let source = r#"
 err = CVErr(0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));
@@ -810,7 +810,7 @@ err = CVErr(0)
         let source = r#"
 result = CVErr( 2042 )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
         assert!(debug.contains("Identifier"));

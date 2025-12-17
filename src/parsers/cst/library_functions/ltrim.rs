@@ -606,7 +606,7 @@ mod tests {
             Dim result As String
             result = LTrim("   Hello")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -617,7 +617,7 @@ mod tests {
         let source = r#"
             cleaned = LTrim(userInput)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -628,7 +628,7 @@ mod tests {
         let source = r#"
             txtUsername.Text = LTrim(txtUsername.Text)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -641,7 +641,7 @@ mod tests {
                 MsgBox "Empty"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -654,7 +654,7 @@ mod tests {
                 CleanText = LTrim(s)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -665,7 +665,7 @@ mod tests {
         let source = r#"
             fullTrim = LTrim(RTrim(text))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -676,7 +676,7 @@ mod tests {
         let source = r#"
             field = LTrim(Mid(line, 1, 20))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -687,7 +687,7 @@ mod tests {
         let source = r#"
             Debug.Print LTrim(text)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -700,7 +700,7 @@ mod tests {
                 .Name = LTrim(.Name)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -716,7 +716,7 @@ mod tests {
                     Process input
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -731,7 +731,7 @@ mod tests {
                 status = "Whitespace only"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -742,7 +742,7 @@ mod tests {
         let source = r#"
             result = (LTrim(text))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -753,7 +753,7 @@ mod tests {
         let source = r#"
             result = IIf(LTrim(text) = "", "Empty", "Has data")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -766,7 +766,7 @@ mod tests {
                 m_cleanValue = LTrim(m_rawValue)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -777,7 +777,7 @@ mod tests {
         let source = r#"
             Call ProcessText(LTrim(input))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -788,7 +788,7 @@ mod tests {
         let source = r#"
             MyObject.CleanText = LTrim(dirtyText)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -799,7 +799,7 @@ mod tests {
         let source = r#"
             cleanValues(i) = LTrim(rawValues(i))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -812,7 +812,7 @@ mod tests {
                 fields(i) = LTrim(fields(i))
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -826,7 +826,7 @@ mod tests {
                 line = LTrim(line)
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -840,7 +840,7 @@ mod tests {
                 i = i + 1
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -853,7 +853,7 @@ mod tests {
                 input = InputBox("Enter text")
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -864,7 +864,7 @@ mod tests {
         let source = r#"
             MsgBox LTrim(message)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -875,7 +875,7 @@ mod tests {
         let source = r#"
             fullName = LTrim(firstName) & " " & LTrim(lastName)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ mod tests {
                 ProcessInput
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -899,7 +899,7 @@ mod tests {
         let source = r#"
             lblName.Caption = LTrim(recordset("Name"))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -912,7 +912,7 @@ mod tests {
                 MsgBox "Username required"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));
@@ -923,7 +923,7 @@ mod tests {
         let source = r#"
             customerName = LTrim(rs.Fields("CustomerName").Value)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
         assert!(text.contains("Identifier"));

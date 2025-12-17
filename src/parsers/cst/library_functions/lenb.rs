@@ -66,7 +66,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -83,7 +83,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -101,7 +101,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -119,7 +119,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -136,7 +136,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -153,7 +153,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -172,7 +172,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -190,7 +190,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -210,7 +210,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -227,7 +227,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -242,7 +242,7 @@ Function GetByteSize(text As String) As Long
 End Function
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -258,7 +258,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -281,7 +281,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -300,7 +300,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -317,7 +317,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -339,7 +339,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -357,7 +357,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -375,7 +375,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -391,7 +391,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));
@@ -408,7 +408,7 @@ Sub Test()
 End Sub
 "#;
 
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
 
         assert!(debug.contains("Identifier"));

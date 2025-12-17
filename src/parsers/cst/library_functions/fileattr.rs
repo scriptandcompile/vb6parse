@@ -781,7 +781,7 @@ mod tests {
         let source = r#"
 fileMode = FileAttr(fileNum, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -792,7 +792,7 @@ fileMode = FileAttr(fileNum, 1)
         let source = r#"
 fileHandle = FileAttr(fileNum, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -803,7 +803,7 @@ fileHandle = FileAttr(fileNum, 2)
         let source = r#"
 mode = FileAttr(1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -819,7 +819,7 @@ Select Case FileAttr(fileNum, 1)
         Debug.Print "Output"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ If FileAttr(fileNum, 1) = 1 Then
     Debug.Print "Input mode"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -845,7 +845,7 @@ Function GetFileMode(fnum As Integer) As Long
     GetFileMode = FileAttr(fnum, 1)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -856,7 +856,7 @@ End Function
         let source = r#"
 Debug.Print FileAttr(fileNum, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -867,7 +867,7 @@ Debug.Print FileAttr(fileNum, 1)
         let source = r#"
 canWrite = (FileAttr(fileNum, 1) = 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -878,7 +878,7 @@ canWrite = (FileAttr(fileNum, 1) = 2)
         let source = r#"
 isWritable = (FileAttr(fileNum, 1) = 2 Or FileAttr(fileNum, 1) = 8)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -893,7 +893,7 @@ If Err.Number <> 0 Then
     MsgBox "File not open"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -909,7 +909,7 @@ For i = 1 To 255
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -920,7 +920,7 @@ Next i
         let source = r#"
 msg = "Mode: " & FileAttr(fileNum, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -932,7 +932,7 @@ msg = "Mode: " & FileAttr(fileNum, 1)
 info.Mode = FileAttr(fileNum, 1)
 info.Handle = FileAttr(fileNum, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -943,7 +943,7 @@ info.Handle = FileAttr(fileNum, 2)
         let source = r#"
 valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -956,7 +956,7 @@ If FileAttr(fileNum, 1) = 1 Or FileAttr(fileNum, 1) = 4 Then
     canRead = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -967,7 +967,7 @@ End If
         let source = r#"
 handles.Add FileAttr(i, 2), CStr(i)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -978,7 +978,7 @@ handles.Add FileAttr(i, 2), CStr(i)
         let source = r#"
 MsgBox "File mode: " & FileAttr(fileNum, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -991,7 +991,7 @@ info = "File #" & fileNum & vbCrLf & _
        "Mode: " & FileAttr(fileNum, 1) & vbCrLf & _
        "Handle: " & FileAttr(fileNum, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1002,7 +1002,7 @@ info = "File #" & fileNum & vbCrLf & _
         let source = r#"
 formatted = Format(FileAttr(fileNum, 1), "0")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1013,7 +1013,7 @@ formatted = Format(FileAttr(fileNum, 1), "0")
         let source = r#"
 Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNum, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1024,7 +1024,7 @@ Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNu
         let source = r#"
 isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1036,7 +1036,7 @@ isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
 Const FILE_ATTR_MODE = 1
 mode = FileAttr(fileNum, FILE_ATTR_MODE)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1048,7 +1048,7 @@ mode = FileAttr(fileNum, FILE_ATTR_MODE)
 modes(i) = FileAttr(i, 1)
 handles(i) = FileAttr(i, 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1062,7 +1062,7 @@ With descriptor
     .Handle = FileAttr(fileNum, 2)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));
@@ -1073,7 +1073,7 @@ End With
         let source = r#"
 ? FileAttr(1, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
         assert!(debug.contains("Identifier"));

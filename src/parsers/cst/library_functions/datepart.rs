@@ -582,7 +582,7 @@ mod tests {
         let source = r#"
 year = DatePart("yyyy", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -593,7 +593,7 @@ year = DatePart("yyyy", Date)
         let source = r#"
 quarter = DatePart("q", currentDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -604,7 +604,7 @@ quarter = DatePart("q", currentDate)
         let source = r#"
 month = DatePart("m", #3/15/2025#)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -615,7 +615,7 @@ month = DatePart("m", #3/15/2025#)
         let source = r#"
 day = DatePart("d", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -626,7 +626,7 @@ day = DatePart("d", Date)
         let source = r#"
 dayOfYear = DatePart("y", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -637,7 +637,7 @@ dayOfYear = DatePart("y", Date)
         let source = r#"
 weekday = DatePart("w", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -648,7 +648,7 @@ weekday = DatePart("w", Date)
         let source = r#"
 week = DatePart("ww", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -659,7 +659,7 @@ week = DatePart("ww", Date)
         let source = r#"
 hour = DatePart("h", Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -670,7 +670,7 @@ hour = DatePart("h", Now)
         let source = r#"
 minute = DatePart("n", timestamp)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -681,7 +681,7 @@ minute = DatePart("n", timestamp)
         let source = r#"
 second = DatePart("s", Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -692,7 +692,7 @@ second = DatePart("s", Now)
         let source = r#"
 weekday = DatePart("w", Date, vbMonday)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -703,7 +703,7 @@ weekday = DatePart("w", Date, vbMonday)
         let source = r#"
 week = DatePart("ww", Date, vbMonday, vbFirstFourDays)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -716,7 +716,7 @@ Function GetQuarter(d As Date) As Integer
     GetQuarter = DatePart("q", d)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -732,7 +732,7 @@ Select Case DatePart("q", Date)
         MsgBox "Q2"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -745,7 +745,7 @@ If DatePart("h", Now) >= 17 Then
     MsgBox "After hours"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -756,7 +756,7 @@ End If
         let source = r#"
 key = DatePart("yyyy", Date) & "-" & DatePart("m", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -767,7 +767,7 @@ key = DatePart("yyyy", Date) & "-" & DatePart("m", Date)
         let source = r#"
 endMonth = DatePart("q", Date) * 3
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -780,7 +780,7 @@ For i = 1 To count
     months(i) = DatePart("m", dates(i))
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -793,7 +793,7 @@ If DatePart("w", Date) = vbSaturday Then
     MsgBox "Weekend"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -806,7 +806,7 @@ y = DatePart("yyyy", Date)
 m = DatePart("m", Date)
 d = DatePart("d", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -817,7 +817,7 @@ d = DatePart("d", Date)
         let source = r#"
 MsgBox "Quarter: " & DatePart("q", Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -828,7 +828,7 @@ MsgBox "Quarter: " & DatePart("q", Date)
         let source = r#"
 formatted = Format(DatePart("m", Date), "00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -839,7 +839,7 @@ formatted = Format(DatePart("m", Date), "00")
         let source = r#"
 quarterEnd = DateSerial(DatePart("yyyy", Date), DatePart("q", Date) * 3 + 1, 0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -852,7 +852,7 @@ Dim interval As String
 interval = "q"
 result = DatePart(interval, Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));
@@ -865,7 +865,7 @@ If DatePart("h", Now) >= 9 And DatePart("h", Now) < 17 Then
     MsgBox "Business hours"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DatePart"));
         assert!(debug.contains("Identifier"));

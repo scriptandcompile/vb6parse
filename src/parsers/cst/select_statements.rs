@@ -153,7 +153,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -176,7 +176,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -197,7 +197,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -221,7 +221,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -246,7 +246,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -268,7 +268,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -293,7 +293,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("SelectCaseStatement").count();
@@ -317,7 +317,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -341,7 +341,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -361,7 +361,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -381,7 +381,7 @@ Public Sub ModuleLevelTest()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -400,7 +400,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -424,7 +424,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -446,7 +446,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));
@@ -465,7 +465,7 @@ Sub Test()
 End Sub
 "#;
 
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SelectCaseStatement"));

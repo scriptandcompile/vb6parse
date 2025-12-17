@@ -160,7 +160,7 @@ mod test {
     #[test]
     fn navigation_children() {
         let source = "Attribute VB_Name\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let children = cst.children();
 
         assert_eq!(children.len(), 2); // AttributeStatement, SubStatement
@@ -173,7 +173,7 @@ mod test {
     #[test]
     fn navigation_find_children_by_kind() {
         let source = "Dim x\nDim y\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Find all DimStatements
         let dim_statements = cst.find_children_by_kind(SyntaxKind::DimStatement);
@@ -187,7 +187,7 @@ mod test {
     #[test]
     fn navigation_contains_kind() {
         let source = "Sub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert!(cst.contains_kind(SyntaxKind::SubStatement));
         assert!(!cst.contains_kind(SyntaxKind::FunctionStatement));
@@ -197,7 +197,7 @@ mod test {
     #[test]
     fn navigation_first_and_last_child() {
         let source = "Attribute VB_Name\nDim x\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let first = cst.first_child().unwrap();
         assert_eq!(first.kind, SyntaxKind::AttributeStatement);
@@ -210,7 +210,7 @@ mod test {
     #[test]
     fn navigation_child_at() {
         let source = "Attribute VB_Name\nDim x\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let first = cst.child_at(0).unwrap();
         assert_eq!(first.kind, SyntaxKind::AttributeStatement);
@@ -228,7 +228,7 @@ mod test {
     #[test]
     fn navigation_empty_tree() {
         let source = "";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Even empty code has no children now
         assert_eq!(cst.children().len(), 0);
@@ -241,7 +241,7 @@ mod test {
     #[test]
     fn navigation_with_comments_and_whitespace() {
         let source = "' Comment\n\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let children = cst.children();
 
         // Should have 4 children: EndOfLineComment, newline, newline, SubStatement

@@ -72,7 +72,7 @@ Sub Test()
     Open "TESTFILE" For Input As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -86,7 +86,7 @@ Sub Test()
     Open "TESTFILE" For Output As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -100,7 +100,7 @@ Sub Test()
     Open "TESTFILE" For Append As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -114,7 +114,7 @@ Sub Test()
     Open "TESTFILE" For Binary As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -128,7 +128,7 @@ Sub Test()
     Open "TESTFILE" For Random As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -142,7 +142,7 @@ Sub Test()
     Open "TESTFILE" For Random As #1 Len = 512
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -156,7 +156,7 @@ Sub Test()
     Open "TESTFILE" For Input Access Read As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -170,7 +170,7 @@ Sub Test()
     Open "TESTFILE" For Output Access Write As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -184,7 +184,7 @@ Sub Test()
     Open "TESTFILE" For Binary Access Read Write As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -198,7 +198,7 @@ Sub Test()
     Open "TESTFILE" For Binary Lock Read As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -212,7 +212,7 @@ Sub Test()
     Open "TESTFILE" For Binary Lock Write As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -225,7 +225,7 @@ Sub Test()
     Open "TESTFILE" For Binary Lock Read Write As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -238,7 +238,7 @@ Sub Test()
     Open "TESTFILE" For Input Shared As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -254,7 +254,7 @@ Sub Test()
     Open fileName For Input As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -270,7 +270,7 @@ Sub Test()
     Open "TESTFILE" For Input As fileNum
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -284,7 +284,7 @@ Sub Test()
     Open "TESTFILE" For Input As 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -297,7 +297,7 @@ Sub Test()
     Open "C:\Temp\TESTFILE.txt" For Output As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -310,7 +310,7 @@ Sub Test()
     Open   "TESTFILE"   For   Input   As   #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -326,7 +326,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -340,7 +340,7 @@ Sub Test()
     If needsFile Then Open "TESTFILE" For Input As #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -355,7 +355,7 @@ Sub Test()
     Open "FILE3.txt" For Append As #3
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("OpenStatement").count();
@@ -371,7 +371,7 @@ Sub Test()
     If Err.Number <> 0 Then MsgBox "Error opening file"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -380,7 +380,7 @@ End Sub
     #[test]
     fn open_at_module_level() {
         let source = r#"Open "TESTFILE" For Input As #1"#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -393,7 +393,7 @@ Sub Test()
     Open "TESTFILE" For Input As #1 ' Open file for reading
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));
@@ -407,7 +407,7 @@ Sub Test()
     Open "TESTFILE" For Random Access Read Write Lock Read Write As #1 Len = 512
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("OpenStatement"));

@@ -526,7 +526,7 @@ Sub Test()
     result = IsEmpty(myVariable)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -541,7 +541,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -556,7 +556,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -569,7 +569,7 @@ Function CheckInitialized(v As Variant) As Boolean
     CheckInitialized = Not IsEmpty(v)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -584,7 +584,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -599,7 +599,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -612,7 +612,7 @@ Sub Test()
     displayValue = IIf(IsEmpty(value), "Not Set", value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -625,7 +625,7 @@ Sub Test()
     Debug.Print "Is empty: " & IsEmpty(testVar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -638,7 +638,7 @@ Sub Test()
     MsgBox "Variable status: " & IsEmpty(myVar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -653,7 +653,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -668,7 +668,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -682,7 +682,7 @@ Sub Test()
     isEmpty = IsEmpty(dataValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -695,7 +695,7 @@ Sub Test()
     obj.IsInitialized = Not IsEmpty(obj.Value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -708,7 +708,7 @@ Private Sub Class_Initialize()
     m_isEmpty = IsEmpty(m_cachedData)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -723,7 +723,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -736,7 +736,7 @@ Sub Test()
     Call ValidateParameter(IsEmpty(optionalParam))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -754,7 +754,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -772,7 +772,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -789,7 +789,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ Sub Test()
     status = "Empty: " & IsEmpty(variable)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -815,7 +815,7 @@ Sub Test()
     result = (IsEmpty(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -828,7 +828,7 @@ Sub Test()
     checks(i) = IsEmpty(values(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -841,7 +841,7 @@ Sub Test()
     states.Add IsEmpty(data(i))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -856,7 +856,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -869,7 +869,7 @@ Sub Test()
     result = CStr(IsEmpty(myVar))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -884,7 +884,7 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));
@@ -900,7 +900,7 @@ Function Process(Optional param As Variant) As Boolean
     Process = True
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsEmpty"));
         assert!(text.contains("Identifier"));

@@ -292,7 +292,7 @@ Sub Test()
     result = IIf(x > 0, "Positive", "Negative")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -305,7 +305,7 @@ Function GetStatus(value As Integer) As String
     GetStatus = IIf(value >= 0, "OK", "Error")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -318,7 +318,7 @@ Sub Test()
     grade = IIf(score >= 90, "A", IIf(score >= 80, "B", "C"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -331,7 +331,7 @@ Sub Test()
     value = IIf(a > b, a, b)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -344,7 +344,7 @@ Sub Test()
     msg = IIf(IsNull(value), "Empty", CStr(value))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -358,7 +358,7 @@ Sub Test()
     status = IIf(count = 1, "item", "items")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -371,7 +371,7 @@ Sub Test()
     MsgBox IIf(isValid, "Valid", "Invalid")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -384,7 +384,7 @@ Sub Test()
     text = "Count: " & IIf(n = 1, "one", "many")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -397,7 +397,7 @@ Sub Test()
     isEnabled = IIf(value > 0 And value < 100, True, False)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -412,7 +412,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -428,7 +428,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -446,7 +446,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -461,7 +461,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -474,7 +474,7 @@ Sub Test()
     arr(0) = IIf(flag, 1, 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -487,7 +487,7 @@ Sub Test()
     obj.Value = IIf(enabled, 100, 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -500,7 +500,7 @@ Sub Test()
     result = (IIf(x > 0, x, -x))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -513,7 +513,7 @@ Sub Test()
     Debug.Print IIf(success, "Success", "Failure")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -526,7 +526,7 @@ Sub Test()
     Call ProcessValue(IIf(isActive, currentValue, 0))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -539,7 +539,7 @@ Function GetMax(a As Integer, b As Integer) As Integer
     GetMax = IIf(a > b, a, b)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -552,7 +552,7 @@ Sub Test()
     greeting = "Hello " & IIf(isMorning, "Good morning", "Good evening")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -565,7 +565,7 @@ Sub Test()
     total = IIf(a > 0, a, 0) + IIf(b > 0, b, 0)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -578,7 +578,7 @@ Private Sub Class_Initialize()
     m_value = IIf(IsNull(initialValue), 0, initialValue)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -591,7 +591,7 @@ Sub Test()
     result = IIf(Not isEmpty, data, "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -604,7 +604,7 @@ Sub Test()
     col.Add IIf(useKey, item, Empty), IIf(useKey, key, "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -617,7 +617,7 @@ Sub Test()
     isValid = (IIf(value <> 0, value, 1) > threshold)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -630,7 +630,7 @@ Function Sign(n As Double) As Integer
     Sign = IIf(n > 0, 1, IIf(n < 0, -1, 0))
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));
@@ -645,7 +645,7 @@ Sub Test()
     On Error GoTo 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
         assert!(text.contains("Identifier"));

@@ -64,7 +64,7 @@ Sub Test()
     MidB(text, 5, 3) = "abc"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -75,7 +75,7 @@ End Sub
     #[test]
     fn midb_at_module_level() {
         let source = r#"MidB(globalStr, 1, 5) = "START""#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -91,7 +91,7 @@ Sub Test()
     MidB(s, 10) = replacement
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -105,7 +105,7 @@ Sub Test()
     MidB(arr(i), startPos + 1, LenB(newStr)) = newStr
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -115,7 +115,7 @@ End Sub
     #[test]
     fn midb_preserves_whitespace() {
         let source = "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(
             cst.text(),
@@ -133,7 +133,7 @@ Sub Test()
     MidB(buffer, pos, 10) = data ' Replace 10 bytes
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -149,7 +149,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -162,7 +162,7 @@ Sub Test()
     If valid Then MidB(s, 1, 1) = "A"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -177,7 +177,7 @@ Sub ReplaceBytes()
     MidB(line3, 2, 4) = "TEST"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("MidBStatement").count();
@@ -192,7 +192,7 @@ Sub Test()
     MidB(dbcsStr, 1, 2) = "XX"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -205,7 +205,7 @@ Sub Test()
     MidB(obj.Data, 1, 10) = newData
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
@@ -219,7 +219,7 @@ Sub Test()
     MidB(fullText, pos, 5) = prefix & suffix
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));

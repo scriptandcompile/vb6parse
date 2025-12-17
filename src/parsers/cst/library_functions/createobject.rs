@@ -514,7 +514,7 @@ mod tests {
         let source = r#"
 Set obj = CreateObject("Excel.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -525,7 +525,7 @@ Set obj = CreateObject("Excel.Application")
         let source = r#"
 Set fso = CreateObject("Scripting.FileSystemObject")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -536,7 +536,7 @@ Set fso = CreateObject("Scripting.FileSystemObject")
         let source = r#"
 Set dict = CreateObject("Scripting.Dictionary")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -547,7 +547,7 @@ Set dict = CreateObject("Scripting.Dictionary")
         let source = r#"
 Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -558,7 +558,7 @@ Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
         let source = r#"
 Set conn = CreateObject("ADODB.Connection")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -569,7 +569,7 @@ Set conn = CreateObject("ADODB.Connection")
         let source = r#"
 Set xmlDoc = CreateObject("MSXML2.DOMDocument")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -580,7 +580,7 @@ Set xmlDoc = CreateObject("MSXML2.DOMDocument")
         let source = r#"
 Set shell = CreateObject("WScript.Shell")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -593,7 +593,7 @@ Function GetFileSystem() As Object
     Set GetFileSystem = CreateObject("Scripting.FileSystemObject")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -608,7 +608,7 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -619,7 +619,7 @@ End If
         let source = r#"
 Set wordApp = CreateObject("Word.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -631,7 +631,7 @@ Set wordApp = CreateObject("Word.Application")
 Dim xlApp As Object
 Set xlApp = CreateObject("Excel.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -642,7 +642,7 @@ Set xlApp = CreateObject("Excel.Application")
         let source = r#"
 Set msg = CreateObject("CDO.Message")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -653,7 +653,7 @@ Set msg = CreateObject("CDO.Message")
         let source = r#"
 Set http = CreateObject("MSXML2.XMLHTTP")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -666,7 +666,7 @@ If CreateObject("Excel.Application") Is Nothing Then
     MsgBox "Failed"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -677,7 +677,7 @@ End If
         let source = r#"
 Set accApp = CreateObject("Access.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -688,7 +688,7 @@ Set accApp = CreateObject("Access.Application")
         let source = r#"
 Set outlookApp = CreateObject("Outlook.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -699,7 +699,7 @@ Set outlookApp = CreateObject("Outlook.Application")
         let source = r#"
 Set rs = CreateObject("ADODB.Recordset")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -710,7 +710,7 @@ Set rs = CreateObject("ADODB.Recordset")
         let source = r#"
 Set xlApp = CreateObject("Excel.Application.16")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -721,7 +721,7 @@ Set xlApp = CreateObject("Excel.Application.16")
         let source = r#"
 Set ie = CreateObject("InternetExplorer.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -734,7 +734,7 @@ Sub Initialize()
     Set obj = CreateObject("Scripting.FileSystemObject")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -745,7 +745,7 @@ End Sub
         let source = r#"
 Set shell = CreateObject("Shell.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -759,7 +759,7 @@ Function SendEmail()
     Set config = CreateObject("CDO.Configuration")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -775,7 +775,7 @@ Select Case appType
         Set app = CreateObject("Word.Application")
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -786,7 +786,7 @@ End Select
         let source = r#"
 result = CreateObject("Scripting.FileSystemObject").FileExists(path)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));
@@ -797,7 +797,7 @@ result = CreateObject("Scripting.FileSystemObject").FileExists(path)
         let source = r#"
 Set obj = CreateObject( "Excel.Application" )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CreateObject"));
         assert!(debug.contains("Identifier"));

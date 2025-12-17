@@ -611,7 +611,7 @@ mod tests {
         let source = r#"
 result = Format(value, "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -622,7 +622,7 @@ result = Format(value, "0.00")
         let source = r#"
 formatted = Format(amount, "Currency")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -633,7 +633,7 @@ formatted = Format(amount, "Currency")
         let source = r#"
 dateStr = Format(Now, "yyyy-mm-dd")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -644,7 +644,7 @@ dateStr = Format(Now, "yyyy-mm-dd")
         let source = r#"
 pct = Format(value, "0.00%")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -655,7 +655,7 @@ pct = Format(value, "0.00%")
         let source = r##"
 formatted = Format(value, "#,##0.00")
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -666,7 +666,7 @@ formatted = Format(value, "#,##0.00")
         let source = r#"
 padded = Format(num, "000000")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -677,7 +677,7 @@ padded = Format(num, "000000")
         let source = r#"
 Debug.Print Format(value, "General Number")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -688,7 +688,7 @@ Debug.Print Format(value, "General Number")
         let source = r##"
 msg = "Amount: " & Format(total, "$#,##0.00")
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -701,7 +701,7 @@ Function FormatCurrency(amount As Double) As String
     FormatCurrency = Format(amount, "$#,##0.00")
 End Function
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -712,7 +712,7 @@ End Function
         let source = r#"
 sizeStr = Format(bytes / 1024, "0.00") & " KB"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -723,7 +723,7 @@ sizeStr = Format(bytes / 1024, "0.00") & " KB"
         let source = r#"
 timeStr = Format(dt, "h:nn AM/PM")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -734,7 +734,7 @@ timeStr = Format(dt, "h:nn AM/PM")
         let source = r#"
 sci = Format(value, "0.00E+00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -749,7 +749,7 @@ Else
     result = Format(value, "($#,##0.00)")
 End If
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -765,7 +765,7 @@ Select Case style
         result = Format(dt, "Long Date")
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -780,7 +780,7 @@ Exit Function
 ErrorHandler:
     formatted = CStr(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -793,7 +793,7 @@ If Not IsNull(value) Then
     formatted = Format(value, "0.00")
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ End If
 formatStr = String(totalDigits, "0")
 result = Format(num, formatStr)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -816,7 +816,7 @@ result = Format(num, formatStr)
         let source = r#"
 result = Format(hours, "00") & ":" & Format(minutes, "00") & ":" & Format(secs, "00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -827,7 +827,7 @@ result = Format(hours, "00") & ":" & Format(minutes, "00") & ":" & Format(secs, 
         let source = r#"
 upper = Format(text, ">")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -838,7 +838,7 @@ upper = Format(text, ">")
         let source = r#"
 lower = Format(text, "<")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -849,7 +849,7 @@ lower = Format(text, "<")
         let source = r#"
 invoiceNum = prefix & "-" & Format(num, "000000")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -860,7 +860,7 @@ invoiceNum = prefix & "-" & Format(num, "000000")
         let source = r##"
 result = Format(value, "$#,##0.00;($#,##0.00);-;N/A")
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -873,7 +873,7 @@ For i = 1 To 10
     Debug.Print Format(i, "00")
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -884,7 +884,7 @@ Next i
         let source = r##"
 lstBox.AddItem Format(items(i), "$#,##0.00")
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -897,7 +897,7 @@ If Format(dt, "yyyy-mm-dd") = targetDate Then
     found = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));
@@ -910,7 +910,7 @@ report = "Total: " & Format(total, "$#,##0.00") & vbCrLf & _
          "Tax: " & Format(tax, "$#,##0.00") & vbCrLf & _
          "Grand Total: " & Format(total + tax, "$#,##0.00")
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
         assert!(debug.contains("Identifier"));

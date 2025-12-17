@@ -778,7 +778,7 @@ Do Until EOF(1)
     Line Input #1, line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -791,7 +791,7 @@ Do Until EOF(fileNum)
     Line Input #fileNum, line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -804,7 +804,7 @@ If Not EOF(1) Then
     Line Input #1, line
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -817,7 +817,7 @@ Do While Not EOF(fileNum)
     Get #fileNum, , record
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ Function ReadAllLines(path As String) As Variant
     Loop
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -846,7 +846,7 @@ Do Until EOF(fileNum) Or count >= maxLines
     count = count + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -861,7 +861,7 @@ Do Until EOF(fileNum)
     count = count + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -875,7 +875,7 @@ Do Until EOF(fileNum)
     If line = "" Then Exit Do
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -889,7 +889,7 @@ Do Until EOF(inNum)
     Print #outNum, line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -904,7 +904,7 @@ For i = 1 To headerLines
     End If
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -920,7 +920,7 @@ Do Until EOF(fileNum)
 Loop
 Close #fileNum
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -938,7 +938,7 @@ Do Until EOF(fileNum)
     End If
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -952,7 +952,7 @@ Do Until EOF(fileNum)
     Debug.Print customer.Name
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -967,7 +967,7 @@ Do Until EOF(fileNum)
     ProcessRecord fields
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -982,7 +982,7 @@ Do Until EOF(fileNum)
     If lineCount Mod 100 = 0 Then DoEvents
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1000,7 +1000,7 @@ Exit Sub
 ErrorHandler:
 If fileNum > 0 Then Close #fileNum
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1011,7 +1011,7 @@ If fileNum > 0 Then Close #fileNum
         let source = r#"
 isAtEnd = EOF(fileNum)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1031,7 +1031,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1046,7 +1046,7 @@ Do Until EOF(fileNum)
     If Len(line) > 0 Then ProcessLine line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1060,7 +1060,7 @@ Do Until EOF(fileNum)
     Debug.Print line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1076,7 +1076,7 @@ Do Until EOF(fileNum)
     count = count + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1093,7 +1093,7 @@ Do Until EOF(fileNum)
     End If
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1109,7 +1109,7 @@ Do Until EOF(fileNum)
     End If
 Loop
 "##;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1123,7 +1123,7 @@ Do Until EOF(fileNum)
     ProcessChunk chunk
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));
@@ -1138,7 +1138,7 @@ Do Until EOF(fileNum)
     Debug.Print position, line
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
         assert!(debug.contains("Identifier"));

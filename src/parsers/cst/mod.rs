@@ -64,6 +64,7 @@ use crate::tokenize::tokenize;
 use crate::tokenstream::TokenStream;
 use crate::CodeErrorKind;
 use crate::ParseResult;
+use crate::SourceFile;
 use crate::SourceStream;
 
 use rowan::{GreenNode, GreenNodeBuilder, Language};
@@ -148,7 +149,33 @@ impl ConcreteSyntaxTree {
         Self { root }
     }
 
-    pub fn from_source<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, CodeErrorKind>
+    /// Parse a CST from a `SourceFile`.
+    ///
+    /// # Arguments
+    ///
+    /// * `source_file` - The source file to parse.
+    ///
+    /// # Returns
+    ///
+    /// A result containing the parsed CST or an error.
+    pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
+        Self::from_text(
+            source_file.file_name.clone(),
+            source_file.get_source_stream().contents,
+        )
+    }
+
+    /// Parse a CST from source code.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_name` - The name of the source file.
+    /// * `contents` - The contents of the source file.
+    ///
+    /// # Returns
+    ///
+    /// A result containing the parsed CST or an error.
+    pub fn from_text<S>(file_name: S, contents: &str) -> ParseResult<'_, Self, CodeErrorKind>
     where
         S: Into<String>,
     {
@@ -188,7 +215,7 @@ impl ConcreteSyntaxTree {
     /// use vb6parse::ConcreteSyntaxTree;
     ///
     /// let source = "Sub Test()\nEnd Sub\n";
-    /// let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    /// let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
     /// let serializable = cst.to_serializable();
     ///
     /// // Can now be used with insta::assert_yaml_snapshot!
@@ -231,7 +258,7 @@ impl ConcreteSyntaxTree {
     /// use vb6parse::parsers::SyntaxKind;
     ///
     /// let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
-    /// let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+    /// let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
     ///
     /// // Remove version statement since it's already parsed
     /// let filtered = cst.without_kinds(&[SyntaxKind::VersionStatement]);
@@ -870,7 +897,7 @@ mod test {
     #[test]
     fn parse_empty_stream() {
         let source = "";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 0);
@@ -879,7 +906,7 @@ mod test {
     #[test]
     fn parse_rem_comment() {
         let source = "REM This is a REM comment\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 2 children: the REM comment and the SubStatement
@@ -895,7 +922,7 @@ mod test {
     #[test]
     fn parse_mixed_comments() {
         let source = "' Single quote comment\nREM REM comment\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         // Should have 5 children: EndOfLineComment, Newline, RemComment, Newline, SubStatement
@@ -918,7 +945,7 @@ mod test {
     #[test]
     fn cst_with_comments() {
         let source = "' This is a comment\nSub Main()\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Now has 3 children: comment token, newline token, SubStatement
         assert_eq!(cst.child_count(), 3);
@@ -929,7 +956,7 @@ mod test {
     #[test]
     fn cst_serializable_tree() {
         let source = "Sub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Convert to serializable format
         let serializable = cst.to_serializable();
@@ -947,7 +974,7 @@ mod test {
     #[test]
     fn cst_serializable_with_insta() {
         let source = "Dim x As Integer\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let serializable = cst.to_serializable();
 
         // Example of using with insta (commented out to not create snapshot files in normal test runs)

@@ -477,7 +477,7 @@ mod tests {
         let source = r#"
 currentDir = CurDir()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -488,7 +488,7 @@ currentDir = CurDir()
         let source = r#"
 path = CurDir("C")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -499,7 +499,7 @@ path = CurDir("C")
         let source = r#"
 path = CurDir("C:")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -511,7 +511,7 @@ path = CurDir("C:")
 Dim savedDir As String
 savedDir = CurDir()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -524,7 +524,7 @@ savedDir = CurDir()
 ChDir "C:\Temp"
 ChDir savedDir
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -537,7 +537,7 @@ Function GetCurrentPath() As String
     GetCurrentPath = CurDir()
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -548,7 +548,7 @@ End Function
         let source = r#"
 fullPath = CurDir() & "\data.txt"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -561,7 +561,7 @@ If Right(CurDir(), 1) = "\" Then
     ProcessRoot
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -574,7 +574,7 @@ If Right(CurDir(), 1) <> "\" Then
     path = CurDir() & "\"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -585,7 +585,7 @@ End If
         let source = r#"
 drive = Left(CurDir(), 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -597,7 +597,7 @@ drive = Left(CurDir(), 1)
 cPath = CurDir("C")
 dPath = CurDir("D")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -612,7 +612,7 @@ If Err.Number <> 0 Then
     MsgBox "Drive not available"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -623,7 +623,7 @@ End If
         let source = r#"
 MsgBox "Current directory: " & CurDir()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -636,7 +636,7 @@ Dim drv As String
 drv = "C"
 path = CurDir(drv)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -652,7 +652,7 @@ Select Case CurDir()
         ProcessOther
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -665,7 +665,7 @@ If Len(CurDir()) = 3 Then
     isRoot = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -678,7 +678,7 @@ For i = 1 To 5
     path = CurDir() & "\file" & i & ".txt"
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -691,7 +691,7 @@ If InStr(CurDir(), "Windows") > 0 Then
     ProcessWindowsDir
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -702,7 +702,7 @@ End If
         let source = r#"
 currentPath = CurDir("")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -713,7 +713,7 @@ currentPath = CurDir("")
         let source = r#"
 Print "Current directory: "; CurDir()
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -726,7 +726,7 @@ If CurDir() = "C:\Windows" Then
     ProcessWindows
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -739,7 +739,7 @@ Do While CurDir() <> "C:\"
     ChDir ".."
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -750,7 +750,7 @@ Loop
         let source = r#"
 pathPart = Mid(CurDir(), 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -763,7 +763,7 @@ Sub SaveCurrentDir()
     savedPath = CurDir()
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));
@@ -774,7 +774,7 @@ End Sub
         let source = r#"
 path = CurDir( )
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
         assert!(debug.contains("Identifier"));

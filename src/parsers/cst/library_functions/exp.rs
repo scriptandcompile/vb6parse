@@ -659,7 +659,7 @@ mod tests {
         let source = r#"
 result = Exp(2)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -670,7 +670,7 @@ result = Exp(2)
         let source = r#"
 result = Exp(0)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -681,7 +681,7 @@ result = Exp(0)
         let source = r#"
 result = Exp(-1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -692,7 +692,7 @@ result = Exp(-1)
         let source = r#"
 y = Exp(x)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -705,7 +705,7 @@ Function ExponentialGrowth(rate As Double, time As Double) As Double
     ExponentialGrowth = initial * Exp(rate * time)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -716,7 +716,7 @@ End Function
         let source = r#"
 result = principal * Exp(rate * time)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -727,7 +727,7 @@ result = principal * Exp(rate * time)
         let source = r#"
 amount = Exp(-rate * t)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -738,7 +738,7 @@ amount = Exp(-rate * t)
         let source = r#"
 result = 1 / (1 + Exp(-x))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -749,7 +749,7 @@ result = 1 / (1 + Exp(-x))
         let source = r#"
 sinh = (Exp(x) - Exp(-x)) / 2
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -760,7 +760,7 @@ sinh = (Exp(x) - Exp(-x)) / 2
         let source = r#"
 cosh = (Exp(x) + Exp(-x)) / 2
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -771,7 +771,7 @@ cosh = (Exp(x) + Exp(-x)) / 2
         let source = r#"
 result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -782,7 +782,7 @@ result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
         let source = r#"
 power = Exp(exponent * Log(base))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -794,7 +794,7 @@ power = Exp(exponent * Log(base))
 amount = principal * Exp(rate * time)
 interest = amount - principal
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ interest = amount - principal
         let source = r#"
 Debug.Print Exp(1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -818,7 +818,7 @@ If Exp(x) > threshold Then
     ProcessValue
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -832,7 +832,7 @@ For i = 0 To 10
     Debug.Print result
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -843,7 +843,7 @@ Next i
         let source = r#"
 probability = (lambda ^ k * Exp(-lambda)) / factorial
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -854,7 +854,7 @@ probability = (lambda ^ k * Exp(-lambda)) / factorial
         let source = r#"
 temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -865,7 +865,7 @@ temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
         let source = r#"
 population = capacity / (1 + ratio * Exp(-growthRate * time))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -880,7 +880,7 @@ If Err.Number = 6 Then
     MsgBox "Overflow"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -893,7 +893,7 @@ term = term * x / i
 result = result + term
 builtin = Exp(x)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -904,7 +904,7 @@ builtin = Exp(x)
         let source = r#"
 callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -916,7 +916,7 @@ callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
 magnitude = Exp(z.Real)
 result.Real = magnitude * Cos(z.Imaginary)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -929,7 +929,7 @@ sum = sum + Exp(x)
 numerical = sum * h
 analytical = Exp(b) - Exp(a)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));
@@ -940,7 +940,7 @@ analytical = Exp(b) - Exp(a)
         let source = r#"
 result = Exp(Log(Exp(x)))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
         assert!(debug.contains("Identifier"));

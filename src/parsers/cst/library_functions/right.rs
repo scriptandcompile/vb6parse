@@ -722,7 +722,7 @@ mod tests {
 Dim result As String
 result = Right("Hello World", 5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -734,7 +734,7 @@ result = Right("Hello World", 5)
 Dim extension As String
 extension = Right(filename, 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -747,7 +747,7 @@ If Right(filename, 4) = ".txt" Then
     MsgBox "Text file"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ Function GetLastFour(s As String) As String
     GetLastFour = Right(s, 4)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -772,7 +772,7 @@ End Function
 Dim lastChars As String
 lastChars = Right(inputText, charCount)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -783,7 +783,7 @@ lastChars = Right(inputText, charCount)
         let source = r#"
 MsgBox "Last 3 chars: " & Right(text, 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -794,7 +794,7 @@ MsgBox "Last 3 chars: " & Right(text, 3)
         let source = r#"
 Debug.Print Right("Testing", 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -810,7 +810,7 @@ Select Case Right(filename, 4)
         ProcessDoc
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -825,7 +825,7 @@ Public Sub ExtractSuffix()
     m_suffix = Right(m_text, 10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -838,7 +838,7 @@ With TextBox1
     .Text = Right(.Text, 20)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -853,7 +853,7 @@ ElseIf Right(s, 4) = ".dll" Then
     fileType = "Library"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -866,7 +866,7 @@ For i = 1 To 10
     parts(i) = Right(lines(i), 5)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -879,7 +879,7 @@ Do While Right(buffer, 2) <> vbCrLf
     buffer = buffer & ReadChar()
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -892,7 +892,7 @@ Do Until Right(data, 1) = ";"
     data = data & GetNextByte()
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ While Right(line, 1) = " "
     line = Left(line, Len(line) - 1)
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -917,7 +917,7 @@ Wend
 Dim val As String
 val = (Right(input, 10))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -929,7 +929,7 @@ val = (Right(input, 10))
 Dim ext As String
 ext = IIf(hasExtension, Right(name, 4), ".txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ ext = IIf(hasExtension, Right(name, 4), ".txt")
 Dim result As String
 result = Right(Right(fullPath, 20), 10)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -953,7 +953,7 @@ result = Right(Right(fullPath, 20), 10)
 Dim suffixes(10) As String
 suffixes(i) = Right(words(i), 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -965,7 +965,7 @@ suffixes(i) = Right(words(i), 3)
 Set obj = New StringHelper
 obj.Suffix = Right(fullString, 15)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -976,7 +976,7 @@ obj.Suffix = Right(fullString, 15)
         let source = r#"
 Call ProcessExtension(Right(filename, 4))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -988,7 +988,7 @@ Call ProcessExtension(Right(filename, 4))
 Dim msg As String
 msg = "Extension: " & Right(file, 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -1001,7 +1001,7 @@ If Right(url, 4) = ".com" Or Right(url, 4) = ".net" Then
     ValidDomain = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -1013,7 +1013,7 @@ End If
 Dim remaining As String
 remaining = Right(text, Len(text) - 5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("remaining"));
@@ -1025,7 +1025,7 @@ remaining = Right(text, Len(text) - 5)
 Dim cleaned As String
 cleaned = Right(Trim(input), 10)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -1040,7 +1040,7 @@ If Err.Number <> 0 Then
     result = ""
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));
@@ -1058,7 +1058,7 @@ ErrorHandler:
     MsgBox "Error extracting suffix"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
         assert!(text.contains("Identifier"));

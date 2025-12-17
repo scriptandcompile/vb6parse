@@ -636,7 +636,7 @@ mod tests {
             Dim pos As Long
             pos = Loc(1)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -647,7 +647,7 @@ mod tests {
         let source = r#"
             currentPos = Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -660,7 +660,7 @@ mod tests {
                 MsgBox "Data written"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -671,7 +671,7 @@ mod tests {
         let source = r#"
             percentComplete = (Loc(1) / LOF(1)) * 100
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -684,7 +684,7 @@ mod tests {
                 Get #1, , data
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -697,7 +697,7 @@ mod tests {
                 GetPosition = Loc(fileNum)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -708,7 +708,7 @@ mod tests {
         let source = r#"
             Debug.Print "Position: " & Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -723,7 +723,7 @@ mod tests {
                 MsgBox "Error reading position"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -736,7 +736,7 @@ mod tests {
                 MsgBox "At end of file"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -747,7 +747,7 @@ mod tests {
         let source = r#"
             lblPosition.Caption = "Record: " & Loc(1)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ mod tests {
                 .Position = Loc(fileNum)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -776,7 +776,7 @@ mod tests {
                     MsgBox "Processing"
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -791,7 +791,7 @@ mod tests {
                 status = "Progress"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -802,7 +802,7 @@ mod tests {
         let source = r#"
             pos = (Loc(fileNum))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -813,7 +813,7 @@ mod tests {
         let source = r#"
             msg = IIf(Loc(fileNum) > 0, "Data exists", "Empty")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -826,7 +826,7 @@ mod tests {
                 m_position = Loc(m_fileNum)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -837,7 +837,7 @@ mod tests {
         let source = r#"
             Call UpdateProgress(Loc(fileNum))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -848,7 +848,7 @@ mod tests {
         let source = r#"
             MyObject.Position = Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -859,7 +859,7 @@ mod tests {
         let source = r#"
             positions(i) = Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -872,7 +872,7 @@ mod tests {
                 Get #fileNum, , record
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -885,7 +885,7 @@ mod tests {
                 Get #fileNum, , buffer
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -898,7 +898,7 @@ mod tests {
                 ProcessRecord i
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -911,7 +911,7 @@ mod tests {
                 UpdateProgress
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -922,7 +922,7 @@ mod tests {
         let source = r#"
             ProgressBar1.Value = (Loc(1) / LOF(1)) * 100
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -933,7 +933,7 @@ mod tests {
         let source = r#"
             MsgBox "Current position: " & Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -944,7 +944,7 @@ mod tests {
         let source = r#"
             lblStatus.Caption = Format(Loc(fileNum), "0,000")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ mod tests {
         let source = r#"
             bytesRemaining = LOF(fileNum) - Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
         assert!(text.contains("Identifier"));

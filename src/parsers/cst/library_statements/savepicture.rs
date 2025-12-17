@@ -121,7 +121,7 @@ Sub Test()
     SavePicture Form1.Picture, "output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -133,7 +133,7 @@ End Sub
     #[test]
     fn savepicture_at_module_level() {
         let source = "SavePicture Picture1.Picture, \"image.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -149,7 +149,7 @@ Sub Test()
     SavePicture Form1.Image, "snapshot.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -164,7 +164,7 @@ Sub Test()
     SavePicture Picture1.Picture, "C:\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -178,7 +178,7 @@ Sub Test()
     SavePicture Picture1.Picture, fileName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -192,7 +192,7 @@ Sub Test()
     SavePicture Picture1.Image, basePath & "\image.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -206,7 +206,7 @@ Sub Test()
     SavePicture Picture1.Picture, GetFileName()
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -220,7 +220,7 @@ Sub Test()
     SavePicture Clipboard.GetData(), "clipboard.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -234,7 +234,7 @@ Sub Test()
     SavePicture frmMain.picDisplay.Picture, "display.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -249,7 +249,7 @@ Sub Test()
     SavePicture Picture1.Picture, "Image_" & Format$(Now, "yyyymmdd") & ".bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -263,7 +263,7 @@ If saveFlag Then
     SavePicture Picture1.Image, "output.bmp"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -276,7 +276,7 @@ For i = 1 To 10
     SavePicture Pictures(i).Picture, "Pic" & i & ".bmp"
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -289,7 +289,7 @@ Sub Test()
     SavePicture Form1.Image, "snapshot.bmp" ' Save form image
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -299,7 +299,7 @@ End Sub
     #[test]
     fn savepicture_preserves_whitespace() {
         let source = "SavePicture   Picture1.Picture  ,   \"file.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -312,7 +312,7 @@ Sub Test()
     SavePicture Pictures(index).Picture, fileName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -330,7 +330,7 @@ Select Case format
         SavePicture Picture1.Image, "output2.bmp"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -345,7 +345,7 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -358,7 +358,7 @@ With Picture1
     SavePicture .Picture, "output.bmp"
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -368,7 +368,7 @@ End With
     #[test]
     fn savepicture_multiple_on_same_line() {
         let source = "SavePicture Pic1.Picture, \"a.bmp\": SavePicture Pic2.Picture, \"b.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -383,7 +383,7 @@ Sub Test()
     SavePicture Picture1.Picture, "..\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -396,7 +396,7 @@ Sub SaveCurrentImage()
     SavePicture Form1.Image, "current.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -410,7 +410,7 @@ Function ExportImage() As Boolean
     ExportImage = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -424,7 +424,7 @@ Sub Test()
     SavePicture Picture1.Picture, App.Path & "\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -439,7 +439,7 @@ Sub Test()
     SavePicture imgArray(5).Picture, "array_item.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -455,7 +455,7 @@ Public Sub ExportPicture(fileName As String)
     SavePicture picData.Picture, fileName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -469,7 +469,7 @@ Sub Test()
     SavePicture Picture1.Image, "C:\Program Files\MyApp\Data\Images\snapshot.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -483,7 +483,7 @@ Sub Test()
         "output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -496,7 +496,7 @@ Sub Test()
     SavePicture Picture1.Picture, "Image_" & CStr(counter) & ".bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));
@@ -510,7 +510,7 @@ Sub Test()
     SavePicture Form1.Image, "\\Server\Share\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SavePictureStatement"));

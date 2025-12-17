@@ -707,7 +707,7 @@ mod tests {
         let source = r#"
             currentMinute = Minute(Now)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -718,7 +718,7 @@ mod tests {
         let source = r#"
             m = Minute(timeValue)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -729,7 +729,7 @@ mod tests {
         let source = r#"
             m = Minute(#2:45:30 PM#)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -742,7 +742,7 @@ mod tests {
                 MsgBox "First half"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -755,7 +755,7 @@ mod tests {
                 GetMinute = Minute(Time)
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -768,7 +768,7 @@ mod tests {
                 MsgBox "Invalid"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -779,7 +779,7 @@ mod tests {
         let source = r#"
             Debug.Print Minute(Now)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -792,7 +792,7 @@ mod tests {
                 .StartMinute = Minute(.StartTime)
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -808,7 +808,7 @@ mod tests {
                     MsgBox "Quarter hour"
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -823,7 +823,7 @@ mod tests {
                 status = "Half"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ mod tests {
         let source = r#"
             result = (Minute(timeValue))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -845,7 +845,7 @@ mod tests {
         let source = r#"
             result = IIf(Minute(t) >= 30, "Late", "Early")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -858,7 +858,7 @@ mod tests {
                 m_minute = Minute(m_timeValue)
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -869,7 +869,7 @@ mod tests {
         let source = r#"
             Call ProcessMinute(Minute(Now))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -880,7 +880,7 @@ mod tests {
         let source = r#"
             MyObject.CurrentMinute = Minute(Time)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -891,7 +891,7 @@ mod tests {
         let source = r#"
             minutes(i) = Minute(times(i))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -904,7 +904,7 @@ mod tests {
                 m = Minute(appointments(i))
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -917,7 +917,7 @@ mod tests {
                 DoWork
             Wend
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -931,7 +931,7 @@ mod tests {
                 i = i + 1
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -944,7 +944,7 @@ mod tests {
                 Wait 1000
             Loop
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ mod tests {
         let source = r#"
             MsgBox "Minute: " & Minute(Now)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -966,7 +966,7 @@ mod tests {
         let source = r#"
             timeStr = Hour(t) & ":" & Format(Minute(t), "00")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -979,7 +979,7 @@ mod tests {
                 MsgBox "Same"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -990,7 +990,7 @@ mod tests {
         let source = r#"
             formatted = Format(Minute(Now), "00")
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -1002,7 +1002,7 @@ mod tests {
             minutesPast = Minute(currentTime)
             minutesLeft = 60 - Minute(currentTime)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -1013,7 +1013,7 @@ mod tests {
         let source = r#"
             lblMinute.Caption = CStr(Minute(Time))
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));
@@ -1024,7 +1024,7 @@ mod tests {
         let source = r#"
             totalMinutes = Hour(t) * 60 + Minute(t)
         "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
         assert!(text.contains("Identifier"));

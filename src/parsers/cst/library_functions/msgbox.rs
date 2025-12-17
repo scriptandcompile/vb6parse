@@ -645,7 +645,7 @@ mod tests {
 Dim result As Integer
 result = MsgBox("Hello")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -657,7 +657,7 @@ result = MsgBox("Hello")
 Dim answer As Integer
 answer = MsgBox("Continue?", vbYesNo)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -668,7 +668,7 @@ answer = MsgBox("Continue?", vbYesNo)
         let source = r#"
 MsgBox "Error occurred", vbCritical, "Error"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -680,7 +680,7 @@ If MsgBox("Save changes?", vbYesNo) = vbYes Then
     SaveFile
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -698,7 +698,7 @@ Select Case MsgBox("Choose action", vbAbortRetryIgnore)
         Continue
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -709,7 +709,7 @@ End Select
         let source = r#"
 MsgBox "Value: " & x & vbCrLf & "Status: " & status
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -721,7 +721,7 @@ Function AskUser() As Integer
     AskUser = MsgBox("Proceed?", vbYesNo + vbQuestion)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -735,7 +735,7 @@ Private Sub ShowMessage()
     result = MsgBox("Operation complete", vbInformation)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -750,7 +750,7 @@ ElseIf MsgBox("Try again?", vbRetryCancel) = vbRetry Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -763,7 +763,7 @@ Do While MsgBox("Continue loop?", vbYesNo) = vbYes
     ProcessItem
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -776,7 +776,7 @@ Do Until MsgBox("Stop?", vbYesNo) = vbYes
     ProcessData
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -789,7 +789,7 @@ With currentRecord
     MsgBox "Name: " & .Name & vbCrLf & "ID: " & .ID
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -800,7 +800,7 @@ End With
 Dim result As Integer
 result = (MsgBox("Confirm?", vbOKCancel))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -812,7 +812,7 @@ result = (MsgBox("Confirm?", vbOKCancel))
 Dim msg As String
 msg = IIf(MsgBox("Yes or No?", vbYesNo) = vbYes, "Yes clicked", "No clicked")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -824,7 +824,7 @@ msg = IIf(MsgBox("Yes or No?", vbYesNo) = vbYes, "Yes clicked", "No clicked")
 Dim responses(5) As Integer
 responses(i) = MsgBox("Question " & i, vbYesNo)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -837,7 +837,7 @@ If MsgBox("Delete?", vbYesNo) = vbYes And confirmed Then
     DeleteRecord
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -850,7 +850,7 @@ On Error Resume Next
 MsgBox "Error: " & Err.Description, vbCritical
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -860,7 +860,7 @@ On Error GoTo 0
         let source = r#"
 MsgBox "Line 1" & vbCrLf & "Line 2" & vbCrLf & "Line 3", vbInformation, "Multi-line"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -870,7 +870,7 @@ MsgBox "Line 1" & vbCrLf & "Line 2" & vbCrLf & "Line 3", vbInformation, "Multi-l
         let source = r#"
 result = MsgBox("Warning!", vbYesNo + vbExclamation + vbDefaultButton2, "Confirm")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -883,7 +883,7 @@ For i = 1 To 5
     If MsgBox("Continue?", vbYesNo) = vbNo Then Exit For
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -896,7 +896,7 @@ While MsgBox("Keep going?", vbYesNo) = vbYes
     count = count + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -907,7 +907,7 @@ Wend
         let source = r#"
 Call ProcessResponse(MsgBox("Accept?", vbYesNo))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -919,7 +919,7 @@ Call ProcessResponse(MsgBox("Accept?", vbYesNo))
 Set obj = New Dialog
 obj.UserResponse = MsgBox("Confirm action?", vbOKCancel)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -932,7 +932,7 @@ obj.UserResponse = MsgBox("Confirm action?", vbOKCancel)
     MsgBox "Debug: x = " & x
 #End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
     }
@@ -944,7 +944,7 @@ Dim buttons As VbMsgBoxStyle
 buttons = vbYesNo + vbQuestion
 result = MsgBox("Proceed?", buttons)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ result = MsgBox("Proceed?", buttons)
         let source = r#"
 Call LogUserChoice(MsgBox("Save changes?", vbYesNoCancel))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));
@@ -966,7 +966,7 @@ Call LogUserChoice(MsgBox("Save changes?", vbYesNoCancel))
         let source = r#"
 result = MsgBox("Warning", vbYesNo Or vbExclamation, "Alert")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MsgBox"));
         assert!(text.contains("Identifier"));

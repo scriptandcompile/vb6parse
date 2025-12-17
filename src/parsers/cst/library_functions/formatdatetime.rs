@@ -582,7 +582,7 @@ mod tests {
         let source = r#"
 result = FormatDateTime(dt)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -593,7 +593,7 @@ result = FormatDateTime(dt)
         let source = r#"
 formatted = FormatDateTime(dt, vbGeneralDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -604,7 +604,7 @@ formatted = FormatDateTime(dt, vbGeneralDate)
         let source = r#"
 result = FormatDateTime(dt, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -615,7 +615,7 @@ result = FormatDateTime(dt, vbLongDate)
         let source = r#"
 result = FormatDateTime(dt, vbShortDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -626,7 +626,7 @@ result = FormatDateTime(dt, vbShortDate)
         let source = r#"
 result = FormatDateTime(dt, vbLongTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -637,7 +637,7 @@ result = FormatDateTime(dt, vbLongTime)
         let source = r#"
 result = FormatDateTime(dt, vbShortTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -648,7 +648,7 @@ result = FormatDateTime(dt, vbShortTime)
         let source = r#"
 current = FormatDateTime(Now, vbShortDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -659,7 +659,7 @@ current = FormatDateTime(Now, vbShortDate)
         let source = r#"
 today = FormatDateTime(Date, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -670,7 +670,7 @@ today = FormatDateTime(Date, vbLongDate)
         let source = r#"
 currentTime = FormatDateTime(Time, vbLongTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -681,7 +681,7 @@ currentTime = FormatDateTime(Time, vbLongTime)
         let source = r#"
 Debug.Print FormatDateTime(Now, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -692,7 +692,7 @@ Debug.Print FormatDateTime(Now, vbLongDate)
         let source = r#"
 msg = "Today is " & FormatDateTime(Date, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -703,7 +703,7 @@ msg = "Today is " & FormatDateTime(Date, vbLongDate)
         let source = r#"
 lblCurrentDate.Caption = FormatDateTime(Date, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -715,7 +715,7 @@ lblCurrentDate.Caption = FormatDateTime(Date, vbLongDate)
 timestamp = FormatDateTime(Now, vbGeneralDate)
 logEntry = "[" & timestamp & "] " & message
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -727,7 +727,7 @@ logEntry = "[" & timestamp & "] " & message
 fileDate = FileDateTime(filePath)
 formatted = FormatDateTime(fileDate, vbLongDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -738,7 +738,7 @@ formatted = FormatDateTime(fileDate, vbLongDate)
         let source = r#"
 lstDates.AddItem FormatDateTime(dates(i), vbShortDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -750,7 +750,7 @@ lstDates.AddItem FormatDateTime(dates(i), vbShortDate)
 result = "Date: " & FormatDateTime(appointmentDate, vbLongDate) & vbCrLf & _
          "Time: " & FormatDateTime(appointmentDate, vbShortTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -766,7 +766,7 @@ Select Case style
         result = FormatDateTime(dt, vbShortDate)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -781,7 +781,7 @@ Else
     result = FormatDateTime(dt, vbShortDate)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -794,7 +794,7 @@ If Not IsNull(dateValue) Then
     formatted = FormatDateTime(dateValue, vbShortDate)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -805,7 +805,7 @@ End If
         let source = r#"
 range = FormatDateTime(startDate, vbShortDate) & " - " & FormatDateTime(endDate, vbShortDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -817,7 +817,7 @@ range = FormatDateTime(startDate, vbShortDate) & " - " & FormatDateTime(endDate,
 grid.TextMatrix(i, 0) = FormatDateTime(trans.TransDate, vbShortDate)
 grid.TextMatrix(i, 1) = FormatDateTime(trans.TransDate, vbShortTime)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -830,7 +830,7 @@ For i = LBound(dates) To UBound(dates)
     Debug.Print FormatDateTime(dates(i), vbShortDate)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -845,7 +845,7 @@ Exit Function
 ErrorHandler:
     formatted = "Error"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -858,7 +858,7 @@ If IsDate(value) Then
     result = FormatDateTime(CDate(value), vbShortDate)
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -869,7 +869,7 @@ End If
         let source = r#"
 formatted = FormatDateTime(rs.Fields("OrderDate").Value, vbShortDate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));
@@ -882,7 +882,7 @@ Function FormatBirthday(birthDate As Date) As String
     FormatBirthday = FormatDateTime(birthDate, vbLongDate)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatDateTime"));
         assert!(debug.contains("Identifier"));

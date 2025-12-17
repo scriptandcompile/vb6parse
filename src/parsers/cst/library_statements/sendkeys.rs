@@ -210,7 +210,7 @@ Sub Test()
     SendKeys "Hello World"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -220,7 +220,7 @@ End Sub
     #[test]
     fn sendkeys_at_module_level() {
         let source = "SendKeys \"Test\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -236,7 +236,7 @@ Sub Test()
     SendKeys "Text", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -250,7 +250,7 @@ Sub Test()
     SendKeys "Text", False
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -264,7 +264,7 @@ Sub Test()
     SendKeys "{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -277,7 +277,7 @@ Sub Test()
     SendKeys "Username{TAB}Password{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -290,7 +290,7 @@ Sub Test()
     SendKeys keyString
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -304,7 +304,7 @@ Sub Test()
     SendKeys "Hello " & userName & "{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -318,7 +318,7 @@ Sub Test()
     SendKeys "%{F4}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -331,7 +331,7 @@ Sub Test()
     SendKeys "^c"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -345,7 +345,7 @@ Sub Test()
     SendKeys "Hello", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -359,7 +359,7 @@ If needKeys Then
     SendKeys "{F5}"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -372,7 +372,7 @@ For i = 1 To 10
     SendKeys "{DOWN}"
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -385,7 +385,7 @@ Sub Test()
     SendKeys "{ENTER}", True ' Press Enter
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -395,7 +395,7 @@ End Sub
     #[test]
     fn sendkeys_preserves_whitespace() {
         let source = "SendKeys   \"Text\"  ,   True\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -410,7 +410,7 @@ Sub Test()
     SendKeys "+{F10}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -423,7 +423,7 @@ Sub Test()
     SendKeys "{RIGHT 5}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -439,7 +439,7 @@ Select Case action
         SendKeys "{F5}"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -448,7 +448,7 @@ End Select
     #[test]
     fn sendkeys_multiple_on_same_line() {
         let source = "SendKeys \"A\": SendKeys \"B\"\n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -461,7 +461,7 @@ Sub Test()
     SendKeys "Text", waitFlag
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -475,7 +475,7 @@ With automation
     SendKeys .keySequence
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -489,7 +489,7 @@ Sub SendEnter()
     SendKeys "{ENTER}", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -503,7 +503,7 @@ Function AutomateInput() As Boolean
     AutomateInput = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -517,7 +517,7 @@ Sub Test()
     SendKeys "s", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -532,7 +532,7 @@ Public Sub SendData()
     SendKeys keyData, True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.cls", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -546,7 +546,7 @@ Sub Test()
         "Long text here", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -559,7 +559,7 @@ Sub Test()
     SendKeys "John Doe{TAB}123 Main St{TAB}555-1234{ENTER}", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -572,7 +572,7 @@ Sub Test()
     SendKeys "{DOWN}{DOWN}{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -587,7 +587,7 @@ If Err.Number <> 0 Then
     MsgBox "SendKeys failed"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
@@ -600,7 +600,7 @@ Sub Test()
     SendKeys ""
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));

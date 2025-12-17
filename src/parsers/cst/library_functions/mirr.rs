@@ -748,7 +748,7 @@ mod tests {
 Dim result As Double
 result = MIRR(cashFlows(), 0.08, 0.05)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -760,7 +760,7 @@ result = MIRR(cashFlows(), 0.08, 0.05)
 Dim investmentReturn As Double
 investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -772,7 +772,7 @@ investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
 Dim rate As Double
 rate = MIRR(cashFlows(), 0.1, 0.06)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -785,7 +785,7 @@ If MIRR(cashFlows(), 0.08, 0.05) > 0.1 Then
     MsgBox "Good investment"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
     }
@@ -797,7 +797,7 @@ Function CalculateReturn() As Double
     CalculateReturn = MIRR(flows(), 0.08, 0.05)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -809,7 +809,7 @@ End Function
 Dim acceptable As Boolean
 acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -820,7 +820,7 @@ acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
         let source = r#"
 Debug.Print MIRR(cashFlows(), 0.08, 0.05)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -833,7 +833,7 @@ With investmentRecord
     .MIRR = MIRR(cashFlows(), .FinanceRate, .ReinvestRate)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -851,7 +851,7 @@ Select Case MIRR(cashFlows(), 0.08, 0.05)
         MsgBox "Poor"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -866,7 +866,7 @@ ElseIf MIRR(cashFlows(), 0.08, 0.05) > 0.1 Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -878,7 +878,7 @@ End If
 Dim result As Double
 result = (MIRR(cashFlows(), 0.08, 0.05))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -890,7 +890,7 @@ result = (MIRR(cashFlows(), 0.08, 0.05))
 Dim msg As String
 msg = IIf(MIRR(cashFlows(), 0.08, 0.05) > 0.1, "Good", "Bad")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -905,7 +905,7 @@ Public Sub Calculate()
     m_mirr = MIRR(m_cashFlows(), m_finRate, m_reinvRate)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -916,7 +916,7 @@ End Sub
         let source = r#"
 Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -928,7 +928,7 @@ Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
 Set obj = New Investment
 obj.ReturnRate = MIRR(cashFlows(), 0.08, 0.05)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -941,7 +941,7 @@ Dim returns(10) As Double
 Dim i As Integer
 returns(i) = MIRR(cashFlows(), 0.08, 0.05)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -955,7 +955,7 @@ For i = 0 To 10
     results(i) = MIRR(scenarios(i), 0.08, 0.05)
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -968,7 +968,7 @@ While MIRR(cashFlows(), rate, reinvRate) < targetReturn
     rate = rate + 0.01
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -981,7 +981,7 @@ Do While MIRR(cashFlows(), rate, reinvRate) < 0.1
     rate = rate + 0.005
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -994,7 +994,7 @@ Do Until MIRR(cashFlows(), rate, reinvRate) >= 0.1
     rate = rate + 0.005
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1005,7 +1005,7 @@ Loop
         let source = r#"
 MsgBox "MIRR: " & MIRR(cashFlows(), 0.08, 0.05)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1017,7 +1017,7 @@ MsgBox "MIRR: " & MIRR(cashFlows(), 0.08, 0.05)
 Dim report As String
 report = "Return: " & Format(MIRR(cashFlows(), 0.08, 0.05) * 100, "0.00") & "%"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1030,7 +1030,7 @@ If MIRR(projectA(), 0.08, 0.05) > MIRR(projectB(), 0.08, 0.05) Then
     MsgBox "Project A is better"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1042,7 +1042,7 @@ End If
 Dim formatted As String
 formatted = Format(MIRR(cashFlows(), 0.08, 0.05), "0.00%")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1054,7 +1054,7 @@ formatted = Format(MIRR(cashFlows(), 0.08, 0.05), "0.00%")
 Dim annualizedReturn As Double
 annualizedReturn = ((1 + MIRR(monthlyFlows(), monthlyFin, monthlyReinv)) ^ 12) - 1
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1065,7 +1065,7 @@ annualizedReturn = ((1 + MIRR(monthlyFlows(), monthlyFin, monthlyReinv)) ^ 12) -
         let source = r#"
 lblReturn.Caption = "MIRR: " & CStr(MIRR(cashFlows(), 0.08, 0.05))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));
@@ -1077,7 +1077,7 @@ lblReturn.Caption = "MIRR: " & CStr(MIRR(cashFlows(), 0.08, 0.05))
 Dim percentReturn As Double
 percentReturn = MIRR(cashFlows(), finRate, reinvRate) * 100
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
         assert!(text.contains("Identifier"));

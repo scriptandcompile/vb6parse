@@ -874,7 +874,7 @@ mod tests {
 Dim range As String
 range = Partition(15, 0, 100, 10)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -888,7 +888,7 @@ Dim rangeStr As String
 value = 42
 rangeStr = Partition(value, 0, 100, 10)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -901,7 +901,7 @@ If Partition(score, 0, 100, 10) = " 90: 99" Then
     MsgBox "Grade A"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -914,7 +914,7 @@ Function GetAgeRange(age As Integer) As String
     GetAgeRange = Partition(age, 0, 100, 10)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -926,7 +926,7 @@ End Function
 Dim bucket As String
 bucket = Partition(salesAmount, 0, 1000, 100)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -937,7 +937,7 @@ bucket = Partition(salesAmount, 0, 1000, 100)
         let source = r#"
 MsgBox "Value falls in range: " & Partition(num, 0, 50, 5)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -948,7 +948,7 @@ MsgBox "Value falls in range: " & Partition(num, 0, 50, 5)
         let source = r#"
 Debug.Print "Range: " & Partition(value, min, max, interval)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -966,7 +966,7 @@ Select Case Partition(score, 0, 100, 20)
         grade = "Other"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -981,7 +981,7 @@ Public Sub CategorizeValue(num As Long)
     m_range = Partition(num, 0, 1000, 100)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -994,7 +994,7 @@ With analyzer
     .RangeLabel = Partition(.Value, .MinVal, .MaxVal, .Interval)
 End With
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1009,7 +1009,7 @@ ElseIf Partition(x, 0, 100, 10) = " 50: 59" Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1023,7 +1023,7 @@ For i = 0 To 100
     Debug.Print i, rangeStr
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1036,7 +1036,7 @@ Do While Partition(counter, 0, 100, 10) <> "100:   "
     counter = counter + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1049,7 +1049,7 @@ Do Until Partition(val, 1, 50, 5) = " 46: 50"
     val = val + 1
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1062,7 +1062,7 @@ While InStr(Partition(num, 0, 1000, 100), "500") = 0
     num = num + 10
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1074,7 +1074,7 @@ Wend
 Dim result As String
 result = (Partition(value, 0, 100, 25))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1086,7 +1086,7 @@ result = (Partition(value, 0, 100, 25))
 Dim label As String
 label = IIf(usePartition, Partition(val, 0, 100, 10), CStr(val))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1099,7 +1099,7 @@ If Partition(val1, 0, 100, 10) = Partition(val2, 0, 100, 10) Then
     MsgBox "Same range"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1111,7 +1111,7 @@ End If
 Dim ranges(100) As String
 ranges(i) = Partition(values(i), 0, 1000, 50)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1123,7 +1123,7 @@ ranges(i) = Partition(values(i), 0, 1000, 50)
 Set obj = New DataAnalyzer
 obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1134,7 +1134,7 @@ obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
         let source = r#"
 Call ProcessRange(Partition(score, 0, 100, 10), studentName)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1146,7 +1146,7 @@ Call ProcessRange(Partition(score, 0, 100, 10), studentName)
 Dim rangeCount As Integer
 rangeCount = Len(Partition(value, 0, 100, 10))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1158,7 +1158,7 @@ rangeCount = Len(Partition(value, 0, 100, 10))
 Dim msg As String
 msg = "Value " & value & " is in range " & Partition(value, 0, 100, 10)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1170,7 +1170,7 @@ msg = "Value " & value & " is in range " & Partition(value, 0, 100, 10)
 Dim pos As Integer
 pos = InStr(Partition(num, 0, 100, 10), ":")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1182,7 +1182,7 @@ pos = InStr(Partition(num, 0, 100, 10), ":")
 Dim cleaned As String
 cleaned = Trim(Partition(value, 0, 1000, 100))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1198,7 +1198,7 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));
@@ -1216,7 +1216,7 @@ ErrorHandler:
     MsgBox "Error in partition calculation"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
         assert!(text.contains("Identifier"));

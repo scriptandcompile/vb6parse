@@ -70,7 +70,7 @@ Sub Test()
     Name "OLDFILE.TXT" As "NEWFILE.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -82,7 +82,7 @@ End Sub
     #[test]
     fn name_at_module_level() {
         let source = r#"Name "old.txt" As "new.txt""#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
         assert_eq!(cst.child_count(), 1);
@@ -98,7 +98,7 @@ Sub Test()
     Name "C:\Data\Report.doc" As "C:\Archive\OldReport.doc"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -113,7 +113,7 @@ Sub Test()
     Name oldName As newName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -124,7 +124,7 @@ End Sub
     #[test]
     fn name_preserves_whitespace() {
         let source = "    Name    \"old.txt\"    As    \"new.txt\"    \n";
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(
             cst.text(),
@@ -142,7 +142,7 @@ Sub Test()
     Name "temp.dat" As "backup.dat" ' Rename temp file
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -158,7 +158,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -171,7 +171,7 @@ Sub Test()
     If needsRename Then Name oldFile As newFile
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -186,7 +186,7 @@ Sub RenameFiles()
     Name "File3.txt" As "Backup3.txt"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         let count = debug.matches("NameStatement").count();
@@ -200,7 +200,7 @@ Sub Test()
     Name "C:\OldFolder" As "C:\NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -215,7 +215,7 @@ Sub Test()
     Name basePath & "old.dat" As basePath & "new.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
@@ -229,7 +229,7 @@ Sub Test()
     Name "C:\Temp\Test.dat" As "C:\Data\Test.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));

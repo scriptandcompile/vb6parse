@@ -532,7 +532,7 @@ Sub Test()
     pos = InStrRev("C:\Projects\file.txt", "\")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -545,7 +545,7 @@ Sub Test()
     pos = InStrRev(fileName, ".", 10)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -558,7 +558,7 @@ Sub Test()
     pos = InStrRev(text, "SEARCH", -1, vbTextCompare)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -574,7 +574,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -589,7 +589,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -602,7 +602,7 @@ Function GetLastSlashPos(path As String) As Long
     GetLastSlashPos = InStrRev(path, "\")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -616,7 +616,7 @@ Sub Test()
     fileName = Mid$(fullPath, pos + 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -630,7 +630,7 @@ Sub Test()
     baseName = Left$(fileName, pos - 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -645,7 +645,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -663,7 +663,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -676,7 +676,7 @@ Sub Test()
     Debug.Print "Last position: " & InStrRev(text, delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -689,7 +689,7 @@ Sub Test()
     positions(i) = InStrRev(lines(i), ",")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -702,7 +702,7 @@ Sub Test()
     obj.LastDelimiterPos = InStrRev(obj.Text, obj.Delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -715,7 +715,7 @@ Private Sub Class_Initialize()
     m_lastDotPos = InStrRev(m_fileName, ".")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -730,7 +730,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -743,7 +743,7 @@ Sub Test()
     Call ProcessLastPosition(InStrRev(data, marker))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -756,7 +756,7 @@ Sub Test()
     result = "Last at: " & InStrRev(text, searchTerm)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -769,7 +769,7 @@ Sub Test()
     beforeExtension = InStrRev(fileName, ".") - 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -782,7 +782,7 @@ Sub Test()
     extension = IIf(InStrRev(fileName, ".") > 0, Mid$(fileName, InStrRev(fileName, ".") + 1), "")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -795,7 +795,7 @@ Sub Test()
     MsgBox "Position: " & InStrRev(path, "\")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -808,7 +808,7 @@ Sub Test()
     positions.Add InStrRev(files(i), ".")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -821,7 +821,7 @@ Sub Test()
     hasExtension = InStrRev(fileName, ".") > 0 And InStrRev(fileName, "\") = 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -834,7 +834,7 @@ Sub Test()
     extension = UCase$(Mid$(fileName, InStrRev(fileName, ".") + 1))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -850,7 +850,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -865,7 +865,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -878,7 +878,7 @@ Sub Test()
     extension = Right$(fileName, Len(fileName) - InStrRev(fileName, "."))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));
@@ -891,7 +891,7 @@ Sub Test()
     pos = (InStrRev(text, searchText))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
         assert!(text.contains("Identifier"));

@@ -840,7 +840,7 @@ mod tests {
         let source = r#"
 fileSize = FileLen("C:\data.txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -851,7 +851,7 @@ fileSize = FileLen("C:\data.txt")
         let source = r#"
 size = FileLen(filePath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -862,7 +862,7 @@ size = FileLen(filePath)
         let source = r#"
 Debug.Print FileLen("C:\temp.dat")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -873,7 +873,7 @@ Debug.Print FileLen("C:\temp.dat")
         let source = r#"
 formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -886,7 +886,7 @@ Function GetFileSize(path As String) As Long
     GetFileSize = FileLen(path)
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -897,7 +897,7 @@ End Function
         let source = r#"
 totalSize = totalSize + FileLen(fullPath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -908,7 +908,7 @@ totalSize = totalSize + FileLen(fullPath)
         let source = r#"
 isLarger = (FileLen(file1) > FileLen(file2))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -921,7 +921,7 @@ If FileLen(fullPath) > maxSize Then
     Debug.Print "File too large"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -936,7 +936,7 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -950,7 +950,7 @@ Do While fileName <> ""
     fileName = Dir
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -961,7 +961,7 @@ Loop
         let source = r#"
 msg = "Size: " & FileLen(filePath) & " bytes"
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -974,7 +974,7 @@ If FileLen(fullPath) >= minSize And FileLen(fullPath) <= maxSize Then
     files.Add fullPath
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -985,7 +985,7 @@ End If
         let source = r#"
 isValid = (FileLen(filePath) = expectedSize)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -998,7 +998,7 @@ If FileLen(fullPath) = 0 Then
     emptyFiles.Add fullPath
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1009,7 +1009,7 @@ End If
         let source = r#"
 stats.TotalSize = stats.TotalSize + FileLen(fullPath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1023,7 +1023,7 @@ If FileLen(fullPath) > largestSize Then
     largestFile = fileName
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1035,7 +1035,7 @@ End If
 fileSize = FileLen(filePath)
 ReDim buffer(0 To fileSize - 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1046,7 +1046,7 @@ ReDim buffer(0 To fileSize - 1)
         let source = r#"
 ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1057,7 +1057,7 @@ ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
         let source = r#"
 files(count).Size = FileLen(fullPath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1069,7 +1069,7 @@ files(count).Size = FileLen(fullPath)
 averageSize = totalSize / fileCount
 sizeInMB = FileLen(filePath) / 1048576
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1080,7 +1080,7 @@ sizeInMB = FileLen(filePath) / 1048576
         let source = r#"
 MsgBox "File size: " & FormatFileSize(FileLen(filePath))
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1098,7 +1098,7 @@ Select Case FileLen(filePath)
         Debug.Print "Large"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1109,7 +1109,7 @@ End Select
         let source = r#"
 Print #reportNum, fileName, FileLen(fullPath)
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1122,7 +1122,7 @@ For i = 0 To fileCount - 1
     totalSize = totalSize + FileLen(files(i))
 Next i
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1135,7 +1135,7 @@ info = "File: " & fileName & vbCrLf & _
        "Size: " & FileLen(fullPath) & " bytes" & vbCrLf & _
        "Size (MB): " & Format(FileLen(fullPath) / 1048576, "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));
@@ -1152,7 +1152,7 @@ Else
     category = "Large"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
         assert!(debug.contains("Identifier"));

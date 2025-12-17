@@ -519,7 +519,7 @@ Sub Test()
     pos = InStr("Hello World", "World")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -532,7 +532,7 @@ Sub Test()
     pos = InStr(5, text, "search")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -545,7 +545,7 @@ Sub Test()
     pos = InStr(1, "Hello", "hello", vbTextCompare)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -560,7 +560,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -575,7 +575,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -588,7 +588,7 @@ Function FindPosition(text As String) As Long
     FindPosition = InStr(text, "target")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -604,7 +604,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -619,7 +619,7 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -637,7 +637,7 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -653,7 +653,7 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -666,7 +666,7 @@ Sub Test()
     Debug.Print "Position: " & InStr(text, "find")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -679,7 +679,7 @@ Sub Test()
     positions(i) = InStr(text, delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -692,7 +692,7 @@ Sub Test()
     obj.Position = InStr(data, marker)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -705,7 +705,7 @@ Private Sub Class_Initialize()
     m_delimiterPos = InStr(m_text, m_delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -720,7 +720,7 @@ Sub Test()
     End With
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -733,7 +733,7 @@ Sub Test()
     Call ProcessPosition(InStr(text, "marker"))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -746,7 +746,7 @@ Sub Test()
     result = "Found at: " & InStr(text, searchTerm)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -759,7 +759,7 @@ Sub Test()
     length = InStr(text, delimiter) - 1
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -772,7 +772,7 @@ Sub Test()
     result = IIf(InStr(email, "@") > 0, "Valid", "Invalid")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -786,7 +786,7 @@ Sub Test()
     dotPos = InStr(atPos, email, ".")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -799,7 +799,7 @@ Sub Test()
     MsgBox "Position: " & InStr(text, "search")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -812,7 +812,7 @@ Sub Test()
     positions.Add InStr(lines(i), delimiter)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -825,7 +825,7 @@ Sub Test()
     isValid = InStr(text, "required") > 0 And InStr(text, "approved") > 0
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -838,7 +838,7 @@ Sub Test()
     part = Mid$(text, InStr(text, ":") + 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -854,7 +854,7 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -867,7 +867,7 @@ Sub Test()
     prefix = Left$(text, InStr(text, " ") - 1)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
@@ -880,7 +880,7 @@ Sub Test()
     pos = (InStr(text, searchText))
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_source("test.bas", source).unwrap();
+        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
         assert!(text.contains("Identifier"));
