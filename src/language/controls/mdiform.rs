@@ -1,3 +1,11 @@
+//! Properties for a `MDIForm` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::MDIForm`](crate::language::controls::ControlKind::MDIForm).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::{
     controls::{
         Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
@@ -18,30 +26,55 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct MDIFormProperties {
+    /// Appearance of the MDI form.
     pub appearance: Appearance,
+    /// Auto show children setting of the MDI form.
     pub auto_show_children: bool,
+    /// Background color of the MDI form.
     pub back_color: Color,
+    /// Caption of the MDI form.
     pub caption: String,
+    /// Enabled state of the MDI form.
     pub enabled: Activation,
+    /// Height of the MDI form.
     pub height: i32,
+    /// Help context ID of the MDI form.
     pub help_context_id: i32,
+    /// Icon of the MDI form.
     pub icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Left position of the MDI form.
     pub left: i32,
+    /// Link mode of the MDI form.
     pub link_mode: FormLinkMode,
+    /// Link topic of the MDI form.
     pub link_topic: String,
+    /// Mouse icon of the MDI form.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the MDI form.
     pub mouse_pointer: MousePointer,
+    /// Movability of the MDI form.
     pub moveable: Movability,
+    /// Negotiate toolbars setting of the MDI form.
     pub negotiate_toolbars: bool,
+    /// OLE drop mode of the MDI form.
     pub ole_drop_mode: OLEDropMode,
+    /// Picture of the MDI form.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Right to left setting of the MDI form.
     pub right_to_left: TextDirection,
+    /// Scroll bars setting of the MDI form.
     pub scroll_bars: bool,
+    /// Start up position of the MDI form.
     pub start_up_position: StartUpPosition,
+    /// Top position of the MDI form.
     pub top: i32,
+    /// Visibility of the MDI form.
     pub visible: Visibility,
+    /// What's This help setting of the MDI form.
     pub whats_this_help: WhatsThisHelp,
+    /// Width of the MDI form.
     pub width: i32,
+    /// Window state of the MDI form.
     pub window_state: WindowState,
 }
 
@@ -100,6 +133,7 @@ impl Default for MDIFormProperties {
             back_color: VB_APPLICATION_WORKSPACE,
             caption: "".into(),
             enabled: Activation::Enabled,
+            // TODO: process font
             //font
             height: 3600,
             help_context_id: 0,
