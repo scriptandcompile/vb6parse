@@ -1,3 +1,12 @@
+//! Properties and structures for a `Menu` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Menu`](crate::language::controls::ControlKind::Menu).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+//! This should only be used as a child of a Form / MDIForm.
+
 use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
 use crate::parsers::Properties;
@@ -6,13 +15,18 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
-/// This should only be used as a child of a Form.
+/// This should only be used as a child of a Form / MDIForm.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuControl {
+    /// The name of the menu control.
     pub name: String,
+    /// The tag of the menu control.
     pub tag: String,
+    /// The index of the menu control.
     pub index: i32,
+    /// The properties of the menu control.
     pub properties: MenuProperties,
+    /// The sub-menus of the menu control.
     pub sub_menus: Vec<MenuControl>,
 }
 
@@ -31,13 +45,21 @@ pub struct MenuControl {
 /// As is, the parser will not enforce this, but the VB6 IDE will.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuProperties {
+    /// Caption of the menu.
     pub caption: String,
+    /// Whether or not the menu is checked.
     pub checked: bool,
+    /// Enabled state of the menu.
     pub enabled: Activation,
+    /// Help context ID of the menu.
     pub help_context_id: i32,
+    /// Negotiation position of the menu.
     pub negotiate_position: NegotiatePosition,
+    /// Shortcut key of the menu.
     pub shortcut: Option<ShortCut>,
+    /// Visibility of the menu.
     pub visible: Visibility,
+    /// Whether the menu is part of the window list.
     pub window_list: bool,
 }
 
