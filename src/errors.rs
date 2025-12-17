@@ -35,7 +35,10 @@ use ariadne::{Label, Report, ReportKind, Source};
 /// error_details.print();
 /// ```
 #[derive(Debug, Clone)]
-pub struct ErrorDetails<'a, T> {
+pub struct ErrorDetails<'a, T>
+where
+    T: ToString + Debug,
+{
     /// The name of the source file where the error occurred.
     pub source_name: String,
     /// The content of the source file where the error occurred.
@@ -52,7 +55,7 @@ pub struct ErrorDetails<'a, T> {
 
 impl<T> ErrorDetails<'_, T>
 where
-    T: ToString,
+    T: ToString + Debug,
 {
     /// Print the `ErrorDetails` using ariadne for formatting
     ///
@@ -127,7 +130,7 @@ where
             ReportKind::Error,
             (self.source_name.clone(), self.line_start..=self.line_end),
         )
-        .with_message(self.kind.to_string())
+        .with_message(format!("{:?}", self.kind))
         .with_label(
             Label::new((
                 self.source_name.clone(),

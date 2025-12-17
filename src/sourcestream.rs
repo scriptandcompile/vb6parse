@@ -18,6 +18,7 @@
 //! - [`ErrorDetails`]: for error handling details
 
 use std::borrow::Cow;
+use std::fmt::Debug;
 
 use crate::errors::ErrorDetails;
 
@@ -629,7 +630,7 @@ impl<'a> SourceStream<'a> {
     /// Generates an `ErrorDetails` struct for the current offset in the stream
     /// with the provided `error_kind`.
     #[must_use]
-    pub fn generate_error<T: ToString>(&self, error_kind: T) -> ErrorDetails<'a, T> {
+    pub fn generate_error<T: ToString + Debug>(&self, error_kind: T) -> ErrorDetails<'a, T> {
         ErrorDetails {
             error_offset: self.offset(),
             source_name: self.file_name.clone(),
@@ -643,7 +644,7 @@ impl<'a> SourceStream<'a> {
     /// Generates an `ErrorDetails` struct for the specified `offset` in the stream
     /// with the provided `error_kind`.
     #[must_use]
-    pub fn generate_error_at<T: ToString>(
+    pub fn generate_error_at<T: ToString + Debug>(
         &self,
         offset: usize,
         error_kind: T,
@@ -665,13 +666,16 @@ impl<'a> SourceStream<'a> {
     /// and adjusts them if necessary. If the `line_end` exceeds the length of
     /// the contents, it is set to the length of the contents.
     #[must_use]
-    pub fn generate_bounded_error_at<T: ToString>(
+    pub fn generate_bounded_error_at<T: ToString + Debug>(
         &self,
         line_start: usize,
         offset: usize,
         line_end: usize,
         error_kind: T,
-    ) -> ErrorDetails<'a, T> {
+    ) -> ErrorDetails<'a, T>
+    where
+        T: ToString + Debug,
+    {
         let mut offsets = [line_start, offset, line_end];
         // Used unstable sort for performance since order of usize primitives is identical to stable sort.
         offsets.sort_unstable();
