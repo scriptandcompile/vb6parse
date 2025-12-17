@@ -1,3 +1,11 @@
+//! Properties for Shape controls.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Shape`](crate::language::controls::ControlKind::Shape).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::language::color::Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
@@ -36,19 +44,33 @@ pub enum Shape {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct ShapeProperties {
+    /// Background color of the shape.
     pub back_color: Color,
+    /// Background style of the shape.
     pub back_style: BackStyle,
+    /// Border color of the shape.
     pub border_color: Color,
+    /// Border style of the shape.
     pub border_style: DrawStyle,
+    /// Border width of the shape.
     pub border_width: i32,
+    /// Draw mode of the shape.
     pub draw_mode: DrawMode,
+    /// Fill color of the shape.
     pub fill_color: Color,
+    /// Fill style of the shape.
     pub fill_style: DrawStyle,
+    /// Height of the shape control.
     pub height: i32,
+    /// Left position of the shape control.
     pub left: i32,
+    /// Specific shape to draw.
     pub shape: Shape,
+    /// Top position of the shape control.
     pub top: i32,
+    /// Visibility of the shape control.
     pub visible: Visibility,
+    /// Width of the shape control.
     pub width: i32,
 }
 
