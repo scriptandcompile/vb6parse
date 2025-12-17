@@ -12,7 +12,7 @@ fn artificial_life_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -39,7 +39,7 @@ fn blacklight_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -66,7 +66,7 @@ fn brightness_effect_part_1_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -94,7 +94,7 @@ fn brightness_effect_part_2_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -121,7 +121,7 @@ fn brightness_effect_part_3_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -148,7 +148,7 @@ fn color_shift_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -176,7 +176,7 @@ fn colorize_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -203,7 +203,7 @@ fn contrast_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -231,7 +231,7 @@ fn curves_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -259,7 +259,7 @@ fn custom_image_filters_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -287,7 +287,7 @@ fn diffuse_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -314,7 +314,7 @@ fn edge_detection_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -341,7 +341,7 @@ fn emboss_engrave_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -368,7 +368,7 @@ fn fill_image_region_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -395,7 +395,7 @@ fn fire_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -422,7 +422,7 @@ fn game_physics_basic_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -449,7 +449,7 @@ fn gradient_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -476,7 +476,7 @@ fn grayscale_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -503,7 +503,7 @@ fn hidden_markov_model_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -530,7 +530,7 @@ fn histograms_advanced_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -557,7 +557,7 @@ fn histogram_basic_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -584,7 +584,7 @@ fn levels_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -611,7 +611,7 @@ fn mandelbrot_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -638,7 +638,7 @@ fn map_editor_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -665,7 +665,7 @@ fn nature_effects_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -692,7 +692,7 @@ fn randomize_effects_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -719,7 +719,7 @@ fn scanner_twain_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -746,7 +746,7 @@ fn screen_capture_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -773,7 +773,7 @@ fn sepia_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -800,7 +800,7 @@ fn threshold_effect_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {
@@ -827,7 +827,7 @@ fn transparency_2d_project_load() {
         Err(e) => panic!("Failed to decode source file '{file_path}': {e:?}"),
     };
 
-    let result = Project::parse(&source_file);
+    let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
         for failure in result.failures {

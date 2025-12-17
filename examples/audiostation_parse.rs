@@ -2,7 +2,7 @@
 //! and parse it into a Concrete Syntax Tree (CST).
 
 use std::env;
-use vb6parse::parsers::project::Project;
+use vb6parse::parsers::project::ProjectFile;
 use vb6parse::SourceFile;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -22,7 +22,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect("Failed to decode project source file.");
 
     // Parse the project file
-    let project_parse_result = Project::parse(&project_source);
+    let project_parse_result = ProjectFile::parse(&project_source);
 
     if project_parse_result.has_failures() {
         for failure in &project_parse_result.failures {
