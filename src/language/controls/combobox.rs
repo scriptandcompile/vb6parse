@@ -1,3 +1,14 @@
+//! Properties for ComboBox controls.
+//!
+//! A ComboBox is a drop-down list that allows the user to select an item
+//! from a list or enter a new value.
+//!
+//! See [`ControlKind::ComboBox`](crate::language::controls::ControlKind::ComboBox)
+//! for usage.
+//!
+//! # References
+//! - [Microsoft Docs: ComboBox Control](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240832(v=vs.60))
+
 use crate::{
     language::controls::{
         Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
@@ -39,38 +50,71 @@ pub enum ComboBoxStyle {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ComboBoxProperties {
+    /// The appearance of the combo box.
     pub appearance: Appearance,
+    /// The background color of the combo box.
     pub back_color: Color,
+    /// Whether the combo box causes validation when it loses focus.
     pub causes_validation: CausesValidation,
+    /// The data field of the combo box.
     pub data_field: String,
+    /// The data format of the combo box.
     pub data_format: String,
+    /// The data member of the combo box.
     pub data_member: String,
+    /// The data source of the combo box.
     pub data_source: String,
+    /// The drag icon of the combo box.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The drag mode of the combo box.
     pub drag_mode: DragMode,
+    /// Whether the combo box is enabled.
     pub enabled: Activation,
+    /// The foreground color of the combo box.
     pub fore_color: Color,
+    /// The height of the combo box.
     pub height: i32,
+    /// The help context ID of the combo box.
     pub help_context_id: i32,
+    /// Whether the combo box has integral height.
     pub integral_height: bool,
-    //pub item_data: Vec<String>,
+    /// The item data of the combo box.
+    pub item_data: ReferenceOrValue<Vec<String>>,
+    /// The left position of the combo box.
     pub left: i32,
-    // pub list: Vec<String>,
+    /// The list of items in the combo box.
+    pub list: ReferenceOrValue<Vec<String>>,
+    /// Whether the combo box is locked.
     pub locked: bool,
+    /// The mouse icon of the combo box.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the combo box.
     pub mouse_pointer: MousePointer,
+    /// The OLE drag mode of the combo box.
     pub ole_drag_mode: OLEDragMode,
+    /// The OLE drop mode of the combo box.
     pub ole_drop_mode: OLEDropMode,
+    /// The text direction of the combo box.
     pub right_to_left: TextDirection,
+    /// Whether the combo box is sorted.
     pub sorted: bool,
+    /// The style of the combo box.
     pub style: ComboBoxStyle,
+    /// The tab index of the combo box.
     pub tab_index: i32,
+    /// The tab stop of the combo box.
     pub tab_stop: TabStop,
+    /// The text of the combo box.
     pub text: String,
+    /// The tool tip text of the combo box.
     pub tool_tip_text: String,
+    /// The top position of the combo box.
     pub top: i32,
+    /// Whether the combo box is visible.
     pub visible: Visibility,
+    /// The "What's This?" help ID of the combo box.
     pub whats_this_help_id: i32,
+    /// The width of the combo box.
     pub width: i32,
 }
 
@@ -91,9 +135,9 @@ impl Default for ComboBoxProperties {
             height: 30,
             help_context_id: 0,
             integral_height: true,
-            //item_data:
+            item_data: ReferenceOrValue::Value(vec![]),
             left: 30,
-            //list:
+            list: ReferenceOrValue::Value(vec![]),
             locked: false,
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
@@ -139,8 +183,11 @@ impl Serialize for ComboBoxProperties {
         s.serialize_field("height", &self.height)?;
         s.serialize_field("help_context_id", &self.help_context_id)?;
         s.serialize_field("integral_height", &self.integral_height)?;
+
+        // TODO: Serialize item_data properly
         //s.serialize_field("item_data", &self.item_data)?;
         s.serialize_field("left", &self.left)?;
+        // TODO: Serialize list properly
         //s.serialize_field("list", &self.list)?;
         s.serialize_field("locked", &self.locked)?;
 
@@ -191,6 +238,7 @@ impl From<Properties> for ComboBoxProperties {
             None => "".into(),
         };
 
+        // TODO: Handle ReferenceOrValue for drag_icon
         // drag_icon
 
         combobox_prop.drag_mode = prop.get_property("DragMode", combobox_prop.drag_mode);
@@ -204,6 +252,13 @@ impl From<Properties> for ComboBoxProperties {
         combobox_prop.left = prop.get_i32("Left", combobox_prop.left);
         combobox_prop.locked = prop.get_bool("Locked", combobox_prop.locked);
 
+        // TODO: Handle ReferenceOrValue for list
+        // list
+
+        // TODO: Handle ReferenceOrValue for item_data
+        // item_data
+
+        // TODO: Handle ReferenceOrValue for mouse_icon
         // mouse_icon
 
         combobox_prop.mouse_pointer =
