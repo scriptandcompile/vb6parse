@@ -1,4 +1,4 @@
-//#![warn(missing_docs)]
+#![warn(missing_docs)]
 
 //! # Summary
 //!
@@ -17,21 +17,11 @@
 
 //! ## Project File Parsing
 //!
-//! To load a VB6 project file, you can use the `VB6Project::parse` method.
-//! This method takes a `file_name` and a byte slice as input, and returns a
-//! `VB6Project` struct that contains the parsed information.
+//! To load a VB6 project file, you can use the `Project::parse` method.
+//! This method takes a `SourceFile` as input, and returns a
+//! `Project` struct that contains the parsed information.
 //!
-//! The `file_name` is required for error reporting, while the byte slice
-//! contains the contents of the project file. Because of the age of VB6
-//! it's possible that the file is encoded in a non-standard encoding so the
-//! byte slice is used instead of a string. The library will attempt to
-//! decode the bytes assuming it is in windows-1252 encoding.
-//!
-//! The parser will attempt to detect non-english character encodings and report
-//! an error if too many invalid characters are found. This does limit the library
-//! to currently support 'predominantly english' source code. This is a limitation
-//! which may be lifted in the future.
-//!
+//! # Example:
 //! ```rust
 //! use vb6parse::*;
 //!
@@ -132,24 +122,14 @@
 //!
 //! ## Form File Parsing
 //!
-//! To load a VB6 form file, you can use the `VB6Form::parse` method. This
+//! To load a VB6 form file, you can use the `FormFile::parse` method. This
 //! method takes a `file_name`, a byte slice as input, and a `resource_resolver`,
-//! and returns a `VB6Form` struct that contains the parsed information. This
-//! pattern is very similar to the `VB6Project::parse` method and is repeated
+//! and returns a `FormFile` struct that contains the parsed information. This
+//! pattern is very similar to the `Project::parse` method and is repeated
 //! throughout the library. This makes it easier to work with dynamically
 //! created VB6 code or test date without having to load the data from disk.
 //!
-//! A `resource_resolver` is a function that takes a `file_name` and an `offset`
-//! and returns a Result containing the resource data. This is used to resolve
-//! form resources such as images, icons, and other resources that are not
-//! included in the form file itself.
-//!
-//! Included in the library is a default `resource_file_resolver` function
-//! that can be used to resolve resources from a file. Breaking out the
-//! resource resolver allows for more flexibility in how resources are
-//! resolved as well as allowing for easier testing of the parser itself with
-//! a mock resource resolver.
-//!
+//! # Example:
 //! ```rust
 //! use vb6parse::parsers::FormFile;
 //! use vb6parse::parsers::resource_file_resolver;
