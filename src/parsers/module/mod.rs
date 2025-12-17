@@ -1,3 +1,11 @@
+//! VB6 Module File Parser Module
+//!
+//! This module provides functionality to parse VB6 module files (.bas).
+//! It defines the `ModuleFile` struct representing a VB6 module file,
+//! along with methods to parse the file and extract relevant information
+//! such as the module name and its concrete syntax tree (CST).
+//!
+
 use crate::{
     errors::ModuleErrorKind,
     parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult},
@@ -14,7 +22,9 @@ use serde::Serialize;
 /// The CST contains the parsed structure of the module code.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct ModuleFile {
+    /// The name of the module.
     pub name: String, // Attribute VB_Name = "Module1"
+    /// The concrete syntax tree of the module file.
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
 }
