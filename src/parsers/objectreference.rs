@@ -1,15 +1,40 @@
+//! Defines the ObjectReference enum representing references to compiled objects or project files.
+//!
+
 use serde::Serialize;
 use uuid::Uuid;
 
+/// Represents a reference to either a compiled object or a project file.
+/// # Examples
+/// ```rust
+/// use vb6parse::parsers::objectreference::ObjectReference;
+/// use uuid::Uuid;
+/// let compiled_ref = ObjectReference::Compiled {
+///     uuid: Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").unwrap(),
+///     version: "1.0".to_string(),
+///     unknown1: "SomeValue".to_string(),
+///     file_name: "MyLibrary.dll".to_string(),
+/// };
+/// let project_ref = ObjectReference::Project {
+///     path: "MyProject.vbp".to_string(),
+/// };
+/// ```
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum ObjectReference {
+    /// A reference to a compiled object.
     Compiled {
+        /// The UUID of the compiled object.
         uuid: Uuid,
+        /// The version of the compiled object.
         version: String,
+        /// An unknown string field.
         unknown1: String,
+        /// The file name of the compiled object.
         file_name: String,
     },
+    /// A reference to a project file.
     Project {
+        /// The path to the project file.
         path: String,
     },
 }
