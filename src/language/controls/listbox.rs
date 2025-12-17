@@ -1,3 +1,11 @@
+//! Properties for a `ListBox` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::ListBox`](crate::language::controls::ControlKind::ListBox).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
 use crate::{
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -40,38 +48,71 @@ pub enum ListBoxStyle {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct ListBoxProperties {
+    /// Appearance of the list box.
     pub appearance: Appearance,
+    /// Background color of the list box.
     pub back_color: Color,
+    /// Causes validation setting of the list box.
     pub causes_validation: CausesValidation,
+    /// Number of columns in the list box.
     pub columns: i32,
+    /// Data field of the list box.
     pub data_field: String,
+    /// Data format of the list box.
     pub data_format: String,
+    /// Data member of the list box.
     pub data_member: String,
+    /// Data source of the list box.
     pub data_source: String,
+    /// Drag icon of the list box.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the list box.
     pub drag_mode: DragMode,
+    /// Enabled state of the list box.
     pub enabled: Activation,
+    /// Foreground color of the list box.
     pub fore_color: Color,
+    /// Height of the list box.
     pub height: i32,
+    /// Help context ID of the list box.
     pub help_context_id: i32,
+    /// Integral height setting of the list box.
     pub integral_height: bool,
-    // pub item_data: Vec<String>,
+    /// Item data of the list box.
+    pub item_data: ReferenceOrValue<Vec<String>>,
+    /// Left position of the list box.
     pub left: i32,
-    // pub list: Vec<String>,
+    /// List of items in the list box.
+    pub list: ReferenceOrValue<Vec<String>>,
+    /// Mouse icon of the list box.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer of the list box.
     pub mouse_pointer: MousePointer,
+    /// Multi-select setting of the list box.
     pub multi_select: MultiSelect,
+    /// OLE drag mode of the list box.
     pub ole_drag_mode: OLEDragMode,
+    /// OLE drop mode of the list box.
     pub ole_drop_mode: OLEDropMode,
+    /// Right-to-left text setting of the list box.
     pub right_to_left: TextDirection,
+    /// Sorted setting of the list box.
     pub sorted: bool,
+    /// Style of the list box.
     pub style: ListBoxStyle,
+    /// Tab index of the list box.
     pub tab_index: i32,
+    /// Tab stop setting of the list box.
     pub tab_stop: TabStop,
+    /// Tool tip text of the list box.
     pub tool_tip_text: String,
+    /// Top position of the list box.
     pub top: i32,
+    /// Visibility of the list box.
     pub visible: Visibility,
+    /// "What's This?" help ID of the list box.
     pub whats_this_help_id: i32,
+    /// Width of the list box.
     pub width: i32,
 }
 
@@ -93,7 +134,9 @@ impl Default for ListBoxProperties {
             height: 30,
             help_context_id: 0,
             integral_height: true,
+            item_data: ReferenceOrValue::Value(vec![]),
             left: 30,
+            list: ReferenceOrValue::Value(vec![]),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             multi_select: MultiSelect::None,
@@ -139,7 +182,14 @@ impl Serialize for ListBoxProperties {
         s.serialize_field("height", &self.height)?;
         s.serialize_field("help_context_id", &self.help_context_id)?;
         s.serialize_field("integral_height", &self.integral_height)?;
+
+        // TODO: Serialize item_data
+        // item_data
+
         s.serialize_field("left", &self.left)?;
+
+        // TODO: Serialize list
+        // list
 
         let option_text = self.mouse_icon.as_ref().map(|_| "Some(DynamicImage)");
 
