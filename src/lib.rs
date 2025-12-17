@@ -1,5 +1,4 @@
 #![warn(missing_docs)]
-
 //! # Summary
 //!
 //! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is a
