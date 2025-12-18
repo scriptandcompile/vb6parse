@@ -36,7 +36,7 @@ pub struct FormFile {
     /// The list of object references in the form file.
     pub objects: Vec<ObjectReference>,
     /// The VB6 file format version.
-    pub format_version: FileFormatVersion,
+    pub version: FileFormatVersion,
     /// The file attributes extracted from the form file.
     pub attributes: FileAttributes,
     /// The concrete syntax tree of the form file.
@@ -546,7 +546,7 @@ impl FormFile {
             result: Some(FormFile {
                 form,
                 objects,
-                format_version: format_version.unwrap_or(FileFormatVersion { major: 5, minor: 0 }),
+                version: format_version.unwrap_or(FileFormatVersion { major: 5, minor: 0 }),
                 attributes,
                 cst: filtered_cst,
             }),
@@ -714,8 +714,8 @@ End
         let result = parse_result.result.unwrap();
 
         assert_eq!(result.objects.len(), 1);
-        assert_eq!(result.format_version.major, 5);
-        assert_eq!(result.format_version.minor, 0);
+        assert_eq!(result.version.major, 5);
+        assert_eq!(result.version.minor, 0);
         assert_eq!(result.form.name, "Form_Main");
         assert_eq!(matches!(result.form.kind, ControlKind::Form { .. }), true);
 
@@ -819,8 +819,8 @@ End
 
         let result = parse_result.result.unwrap();
 
-        assert_eq!(result.format_version.major, 5);
-        assert_eq!(result.format_version.minor, 0);
+        assert_eq!(result.version.major, 5);
+        assert_eq!(result.version.minor, 0);
 
         assert_eq!(result.form.name, "frmExampleForm");
         assert_eq!(result.form.tag, "");
