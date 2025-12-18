@@ -181,7 +181,7 @@ where
 }
 
 /// Errors related to source file parsing.
-#[derive(thiserror::Error, Debug, Clone)]
+#[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum SourceFileErrorKind {
     /// Indicates that the source file is malformed.
     #[error("Unable to parse source file: {message}")]
@@ -192,7 +192,7 @@ pub enum SourceFileErrorKind {
 }
 
 /// Errors related to code parsing.
-#[derive(thiserror::Error, Debug, Clone)]
+#[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum CodeErrorKind {
     /// Indicates that a variable name exceeds the maximum allowed length in VB6.
     #[error("Variable names in VB6 have a maximum length of 255 characters.")]
@@ -211,7 +211,7 @@ pub enum CodeErrorKind {
 }
 
 /// Errors related to class parsing.
-#[derive(thiserror::Error, Debug, Clone)]
+#[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum ClassErrorKind<'a> {
     /// Indicates that the 'VERSION' keyword is missing from the class file header.
     #[error("The 'VERSION' keyword is missing from the class file header.")]
@@ -329,7 +329,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ClassErrorKi
 }
 
 /// Errors related to module parsing.
-#[derive(thiserror::Error, Debug, Clone)]
+#[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum ModuleErrorKind {
     /// Indicates that the 'Attribute' keyword is missing from the module file header.
     #[error("The 'Attribute' keyword is missing from the module file header.")]
@@ -375,7 +375,7 @@ impl<'a> From<ErrorDetails<'a, CodeErrorKind>> for ErrorDetails<'a, ModuleErrorK
 }
 
 /// Errors related to project parsing.
-#[derive(thiserror::Error, Debug, Clone)]
+#[derive(thiserror::Error, Debug, Clone, PartialEq, Eq)]
 pub enum ProjectErrorKind<'a> {
     /// Indicates that a section header was expected but was not terminated properly.
     #[error("A section header was expected but was not terminated with a ']' character.")]
@@ -554,7 +554,7 @@ pub enum ProjectErrorKind<'a> {
 }
 
 /// Errors related to property parsing.
-#[derive(thiserror::Error, PartialEq, Eq, Debug)]
+#[derive(thiserror::Error, PartialEq, Eq, Debug, Clone)]
 pub enum PropertyError {
     /// Indicates that the Appearance property has an invalid value.
     #[error("Appearance can only be a 0 (Flat) or a 1 (ThreeD)")]
