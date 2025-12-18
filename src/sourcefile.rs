@@ -40,7 +40,7 @@ use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 /// Represents a VB6 source file with its content and filename.
 /// This struct provides methods to read and decode source files
 /// using Windows-1252 encoding.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SourceFile {
     /// The content of the source file as a `String`.
     file_content: String,
