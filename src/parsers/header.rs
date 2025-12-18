@@ -12,7 +12,7 @@ use serde::Serialize;
 /// may be at version 4.0 while others might be at version 5.0. It really depends
 /// on how things changed as the language and IDE evolved between major versions
 /// of the language.
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Copy, Hash)]
 pub struct FileFormatVersion {
     /// The files major version number.
     pub major: u8,
@@ -25,7 +25,7 @@ pub struct FileFormatVersion {
 /// The global name space is the default name space for a class.
 /// In the file, `VB_GlobalNameSpace` of 'False' means the class is in the local name space.
 /// `VB_GlobalNameSpace` of 'True' means the class is in the global name space.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum NameSpace {
     /// The class is in the global name space.
     Global,
@@ -38,7 +38,7 @@ pub enum NameSpace {
 ///
 /// If True, the class can be created from anywhere. The class is essentially public.
 /// If False, the class can only be created from within the class itself.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum Creatable {
     /// The class cannot be created from outside the class itself.
     False,
@@ -57,7 +57,7 @@ pub enum Creatable {
 ///
 /// If True and the `VB_GlobalNameSpace` is True, the class shares namespace
 /// access semantics with the VB6 intrinsic classes.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum PreDeclaredID {
     /// The class does not have a pre-declared ID.
     #[default]
@@ -108,7 +108,7 @@ pub enum PreDeclaredID {
 /// enclosing project and within projects that reference the enclosing project.
 ///
 /// Any module that can access the class can create instances of it.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum Exposed {
     /// The class is not exposed.
     #[default]
