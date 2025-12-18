@@ -62,7 +62,7 @@ pub struct ProjectFile<'a> {
 }
 
 /// Represents a reference to either a compiled object or a sub-project.
-#[derive(Debug, PartialEq, Eq, Copy, Clone)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Hash)]
 pub enum ProjectReference<'a> {
     /// A reference to a compiled object.
     Compiled {
@@ -121,7 +121,7 @@ impl Serialize for ProjectReference<'_> {
 }
 
 /// Represents a reference to a module in a VB6 project.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Hash)]
 pub struct ProjectModuleReference<'a> {
     /// The name of the module.
     pub name: &'a str,
@@ -130,7 +130,7 @@ pub struct ProjectModuleReference<'a> {
 }
 
 /// Represents a reference to a class in a VB6 project.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Hash)]
 pub struct ProjectClassReference<'a> {
     /// The name of the class.
     pub name: &'a str,
