@@ -20,7 +20,9 @@ use serde::Serialize;
 /// Determines the type of object an OLE container control can contain.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245856(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OLETypeAllowed {
     /// The OLE container control can contain only a linked object.
@@ -37,7 +39,9 @@ pub enum OLETypeAllowed {
 /// Specifies how an object is updated when linked data is modified.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445752(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum UpdateOptions {
     /// The object is updated each time the linked data changes.
@@ -56,7 +60,9 @@ pub enum UpdateOptions {
 /// container control or by moving the focus to the OLE container control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245027(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum AutoActivate {
     /// The object isn't automatically activated. You can activate an object
@@ -83,7 +89,9 @@ pub enum AutoActivate {
 /// Determines whether an object displays its contents or an icon.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234850(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DisplayType {
     /// When the OLE container control contains an object, the object's data is

@@ -26,7 +26,9 @@ use serde::Serialize;
 /// For a `TextBox` control, the multiline property must be set to `true`
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445672(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ScrollBars {
     /// No scroll bars are displayed.
@@ -43,7 +45,9 @@ pub enum ScrollBars {
 }
 
 /// `TextBox` controls can be either multi-line or single-line.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum MultiLine {
     /// The `TextBox` control is a single-line text box.

@@ -36,7 +36,9 @@ use serde::Serialize;
 /// The `ComboBoxStyle` enum represents the different styles of a `ComboBox` control.
 /// It can be either a drop-down list, a simple list, or a drop-down
 /// list with a text box.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ComboBoxStyle {
     /// A drop-down combo box that allows the user to select an item from a list

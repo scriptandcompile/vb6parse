@@ -33,7 +33,19 @@ use serde::Serialize;
 /// 256-color displays.
 ///
 /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum PaletteMode {
     /// In this mode, any controls, images contained on the form, or graphics
@@ -88,7 +100,19 @@ pub enum PaletteMode {
 }
 
 /// The property that determines the appearance of a forms border.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FormBorderStyle {
     /// The form has no border.
@@ -110,7 +134,19 @@ pub enum FormBorderStyle {
 
 /// The `ControlBox` property of a `Form` control determines whether the
 /// control box is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ControlBox {
     /// The control box is not displayed.
@@ -122,7 +158,19 @@ pub enum ControlBox {
 
 /// The `MaxButton` property of a `Form` control determines whether the
 /// maximize button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum MaxButton {
     /// The maximize button is not displayed.
@@ -134,7 +182,19 @@ pub enum MaxButton {
 
 /// The `MinButton` property of a `Form` control determines whether the
 /// minimize button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum MinButton {
     /// The minimize button is not displayed.
@@ -146,7 +206,19 @@ pub enum MinButton {
 
 /// The `WhatsThisButton` property of a `Form` control determines whether the
 /// 'What's This?' button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WhatsThisButton {
     /// The 'What's This?' button is not displayed.
@@ -158,7 +230,19 @@ pub enum WhatsThisButton {
 
 /// The `ShowInTaskbar` property of a `Form` control determines whether the
 /// form is shown in the taskbar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ShowInTaskbar {
     /// The form is not shown in the taskbar.

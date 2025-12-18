@@ -35,7 +35,9 @@ use serde::Serialize;
 ///
 /// This is used as a property of the [`CheckBoxProperties`](crate::language::controls::CheckBoxProperties)
 /// struct.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum CheckBoxValue {
     /// The checkbox is unchecked.

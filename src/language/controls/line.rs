@@ -18,7 +18,7 @@ use serde::Serialize;
 /// [`ControlKind::Line`](crate::language::controls::ControlKind::Line).
 /// tag, name, and index are not included in this struct, but instead are part
 /// of the parent [`Control`](crate::language::controls::Control) struct.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Copy, Hash)]
 pub struct LineProperties {
     /// Border color of the line.
     pub border_color: Color,

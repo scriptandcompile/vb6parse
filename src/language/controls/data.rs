@@ -241,7 +241,9 @@ impl From<Properties> for DataProperties {
 /// property is true.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BOFAction {
     /// Keeps the first record as the current record.
@@ -256,7 +258,7 @@ pub enum BOFAction {
 }
 
 /// Determine the type of connection to the ADODC database.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash, PartialOrd, Ord)]
 pub enum Connection {
     /// The Data control is connecting to Microsoft Access database.
     ///
@@ -334,7 +336,9 @@ impl TryFrom<&str> for Connection {
 /// created by the `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234557(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DefaultCursorType {
     /// Let the ODBC driver determine which type of cursor to use.
@@ -354,7 +358,9 @@ pub enum DefaultCursorType {
 /// `Data` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234568(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DefaultType {
     /// Use the `ODBCDirect` driver to access the data source.
@@ -370,7 +376,9 @@ pub enum DefaultType {
 /// property is true.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245042(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum EOFAction {
     /// Keep the last record as the current record.
@@ -393,7 +401,9 @@ pub enum EOFAction {
 /// create.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa268103(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum RecordSetType {
     /// Use a `Table` type `Recordset` object.

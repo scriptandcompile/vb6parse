@@ -16,7 +16,9 @@ use serde::Serialize;
 /// The specific kind of shape to draw for a `Shape` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445683(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Shape {
     /// A rectangle.

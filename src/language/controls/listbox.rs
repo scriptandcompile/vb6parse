@@ -28,7 +28,9 @@ use serde::Serialize;
 /// next to each item in the list box.
 ///
 /// This enum is used in the `ListBoxProperties` struct to specify the style of the `ListBox` control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ListBoxStyle {
     /// Standard list box.
