@@ -17,7 +17,7 @@ use crate::parsers::header::{FileAttributes, FileFormatVersion};
 /// public and creatable.
 ///
 /// Determines whether the class can be used by multiple clients or a single client.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum FileUsage {
     /// In a `COM` object a `SingleUse` class object will be created for each client.
     /// This value is stored as 0 (false) in the file.
@@ -40,7 +40,7 @@ pub enum FileUsage {
 /// added to the class module.
 ///
 /// Without these procedures, the class cannot be saved to disk.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum Persistence {
     /// The class property cannot be saved to a file in a property bag.
     /// This value is stored as 0 (false) in the file.
@@ -59,7 +59,7 @@ pub enum Persistence {
 ///
 /// Maps directly to the MTS transaction mode attribute in Microsoft Transaction
 /// Server.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum MtsStatus {
     /// This class is not an MTS component.
     /// This value is stored as 0 in the file.
@@ -81,7 +81,7 @@ pub enum MtsStatus {
 }
 
 /// Determines if a class can act as a `DataSource` for VB6 `DataBinding`.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum DataSourceBehavior {
     /// The class does not support acting as a `DataSource`.
     /// This value is stored as 0 in the file.
@@ -99,7 +99,7 @@ pub enum DataSourceBehavior {
 ///
 /// Used to specify whether the class supports `DataBinding` and the level of
 /// `DataBinding` support.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub enum DataBindingBehavior {
     /// The class does not support `DataBinding`.
     /// This value is stored as 0 in the file.
@@ -118,7 +118,7 @@ pub enum DataBindingBehavior {
 ///
 /// None of these values are normally visible in the code editor region.
 /// They are only visible in the file property explorer.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash)]
 pub struct ClassProperties {
     /// The COM usage of the class file.
     pub multi_use: FileUsage,
