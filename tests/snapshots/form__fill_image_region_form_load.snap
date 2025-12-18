@@ -176,7 +176,7 @@ form:
                 word_wrap: NonWrapping
       menus: []
 objects: []
-format_version:
+version:
   major: 5
   minor: 0
 attributes:
