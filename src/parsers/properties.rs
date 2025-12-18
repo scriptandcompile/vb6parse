@@ -110,7 +110,7 @@ impl Serialize for PropertyGroup {
 /// let width = props.get_i32("ClientWidth", 600);
 /// assert_eq!(width, 800);
 /// ```
-#[derive(Debug)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Properties {
     key_value_store: HashMap<String, String>,
 }
@@ -202,42 +202,6 @@ impl<'a> Iterator for PropertiesIter<'a> {
     /// ```
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next()
-    }
-}
-
-/// Clone implementation for `Properties`.
-impl Clone for Properties {
-    /// Clone implementation for `Properties`.
-    ///
-    /// # Examples
-    ///
-    /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
-    /// let mut props = Properties::new();
-    /// props.insert("Key1", "Value1");
-    /// let props_clone = props.clone();
-    /// assert_eq!(props.len(), props_clone.len());
-    /// ```
-    fn clone(&self) -> Self {
-        Properties {
-            key_value_store: self.key_value_store.clone(),
-        }
-    }
-}
-
-/// Default implementation for `Properties`.
-impl Default for Properties {
-    /// Default implementation for `Properties`.
-    ///
-    /// # Examples
-    ///
-    /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
-    /// let props = Properties::default();
-    /// assert!(props.is_empty());
-    /// ```
-    fn default() -> Self {
-        Properties::new()
     }
 }
 
