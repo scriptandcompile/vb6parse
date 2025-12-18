@@ -86,11 +86,11 @@ End Sub
 
     #[test]
     fn midb_without_length() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MidB(s, 10) = replacement
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -100,11 +100,11 @@ End Sub
 
     #[test]
     fn midb_with_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MidB(arr(i), startPos + 1, LenB(newStr)) = newStr
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -128,11 +128,11 @@ End Sub
 
     #[test]
     fn midb_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MidB(buffer, pos, 10) = data ' Replace 10 bytes
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -200,11 +200,11 @@ End Sub
 
     #[test]
     fn midb_with_member_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MidB(obj.Data, 1, 10) = newData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -214,11 +214,11 @@ End Sub
 
     #[test]
     fn midb_with_concatenation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MidB(fullText, pos, 5) = prefix & suffix
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

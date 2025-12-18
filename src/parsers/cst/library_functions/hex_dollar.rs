@@ -485,11 +485,11 @@ mod tests {
 
     #[test]
     fn hex_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     result = Hex$(255)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -497,12 +497,12 @@ End Sub
 
     #[test]
     fn hex_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim hexValue As String
     hexValue = Hex$(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -510,14 +510,14 @@ End Sub
 
     #[test]
     fn hex_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim num As Long
     Dim hexStr As String
     num = 4096
     hexStr = Hex$(num)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -525,11 +525,11 @@ End Sub
 
     #[test]
     fn hex_dollar_number_to_hex() {
-        let source = r#"
+        let source = r"
 Function NumberToHex(value As Long) As String
     NumberToHex = Hex$(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -537,13 +537,13 @@ End Function
 
     #[test]
     fn hex_dollar_color_conversion() {
-        let source = r#"
+        let source = r"
 Function ColorToHex(colorValue As Long) As String
     Dim hexStr As String
     hexStr = Hex$(colorValue)
     ColorToHex = hexStr
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -577,7 +577,7 @@ End Function
 
     #[test]
     fn hex_dollar_bytes_array() {
-        let source = r#"
+        let source = r"
 Function BytesToHex(bytes() As Byte) As String
     Dim result As String
     Dim i As Integer
@@ -586,7 +586,7 @@ Function BytesToHex(bytes() As Byte) As String
     Next i
     BytesToHex = result
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -606,13 +606,13 @@ End Sub
 
     #[test]
     fn hex_dollar_char_code() {
-        let source = r#"
+        let source = r"
 Function CharToHex(ch As String) As String
     If Len(ch) > 0 Then
         CharToHex = Hex$(Asc(ch))
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));
@@ -620,14 +620,14 @@ End Function
 
     #[test]
     fn hex_dollar_in_loop() {
-        let source = r#"
+        let source = r"
 Sub DumpData()
     Dim i As Integer
     For i = 0 To 255
         Debug.Print Hex$(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Hex$"));

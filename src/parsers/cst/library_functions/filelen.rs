@@ -848,9 +848,9 @@ fileSize = FileLen("C:\data.txt")
 
     #[test]
     fn filelen_variable() {
-        let source = r#"
+        let source = r"
 size = FileLen(filePath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -881,11 +881,11 @@ formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
 
     #[test]
     fn filelen_in_function() {
-        let source = r#"
+        let source = r"
 Function GetFileSize(path As String) As Long
     GetFileSize = FileLen(path)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -894,9 +894,9 @@ End Function
 
     #[test]
     fn filelen_addition() {
-        let source = r#"
+        let source = r"
 totalSize = totalSize + FileLen(fullPath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -905,9 +905,9 @@ totalSize = totalSize + FileLen(fullPath)
 
     #[test]
     fn filelen_comparison() {
-        let source = r#"
+        let source = r"
 isLarger = (FileLen(file1) > FileLen(file2))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -969,11 +969,11 @@ msg = "Size: " & FileLen(filePath) & " bytes"
 
     #[test]
     fn filelen_range_check() {
-        let source = r#"
+        let source = r"
 If FileLen(fullPath) >= minSize And FileLen(fullPath) <= maxSize Then
     files.Add fullPath
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -982,9 +982,9 @@ End If
 
     #[test]
     fn filelen_equality() {
-        let source = r#"
+        let source = r"
 isValid = (FileLen(filePath) = expectedSize)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -993,11 +993,11 @@ isValid = (FileLen(filePath) = expectedSize)
 
     #[test]
     fn filelen_zero_check() {
-        let source = r#"
+        let source = r"
 If FileLen(fullPath) = 0 Then
     emptyFiles.Add fullPath
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1006,9 +1006,9 @@ End If
 
     #[test]
     fn filelen_udt_field() {
-        let source = r#"
+        let source = r"
 stats.TotalSize = stats.TotalSize + FileLen(fullPath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1017,12 +1017,12 @@ stats.TotalSize = stats.TotalSize + FileLen(fullPath)
 
     #[test]
     fn filelen_max_comparison() {
-        let source = r#"
+        let source = r"
 If FileLen(fullPath) > largestSize Then
     largestSize = FileLen(fullPath)
     largestFile = fileName
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1031,10 +1031,10 @@ End If
 
     #[test]
     fn filelen_buffer_allocation() {
-        let source = r#"
+        let source = r"
 fileSize = FileLen(filePath)
 ReDim buffer(0 To fileSize - 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1043,9 +1043,9 @@ ReDim buffer(0 To fileSize - 1)
 
     #[test]
     fn filelen_progress_calculation() {
-        let source = r#"
+        let source = r"
 ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1054,9 +1054,9 @@ ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
 
     #[test]
     fn filelen_array_assignment() {
-        let source = r#"
+        let source = r"
 files(count).Size = FileLen(fullPath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1065,10 +1065,10 @@ files(count).Size = FileLen(fullPath)
 
     #[test]
     fn filelen_division() {
-        let source = r#"
+        let source = r"
 averageSize = totalSize / fileCount
 sizeInMB = FileLen(filePath) / 1048576
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1106,9 +1106,9 @@ End Select
 
     #[test]
     fn filelen_print_statement() {
-        let source = r#"
+        let source = r"
 Print #reportNum, fileName, FileLen(fullPath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));
@@ -1117,11 +1117,11 @@ Print #reportNum, fileName, FileLen(fullPath)
 
     #[test]
     fn filelen_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To fileCount - 1
     totalSize = totalSize + FileLen(files(i))
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileLen"));

@@ -803,9 +803,9 @@ mod tests {
 
     #[test]
     fn mid_two_arguments() {
-        let source = r#"
+        let source = r"
             result = Mid(text, 5)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -814,9 +814,9 @@ mod tests {
 
     #[test]
     fn mid_variable() {
-        let source = r#"
+        let source = r"
             substring = Mid(fullText, startPos, length)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -837,11 +837,11 @@ mod tests {
 
     #[test]
     fn mid_function_return() {
-        let source = r#"
+        let source = r"
             Function GetSubstring() As String
                 GetSubstring = Mid(data, 10, 20)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -862,9 +862,9 @@ mod tests {
 
     #[test]
     fn mid_debug_print() {
-        let source = r#"
+        let source = r"
             Debug.Print Mid(message, 5, 10)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -873,11 +873,11 @@ mod tests {
 
     #[test]
     fn mid_with_statement() {
-        let source = r#"
+        let source = r"
             With record
                 .ID = Mid(.FullData, 1, 10)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -915,9 +915,9 @@ mod tests {
 
     #[test]
     fn mid_parentheses() {
-        let source = r#"
+        let source = r"
             result = (Mid(text, 3, 5))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -937,11 +937,11 @@ mod tests {
 
     #[test]
     fn mid_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub ExtractData()
                 m_code = Mid(m_rawData, 1, 5)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -950,9 +950,9 @@ mod tests {
 
     #[test]
     fn mid_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessText(Mid(input, 10, 50))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -961,9 +961,9 @@ mod tests {
 
     #[test]
     fn mid_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.Substring = Mid(fullString, 5, 10)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -972,9 +972,9 @@ mod tests {
 
     #[test]
     fn mid_array_assignment() {
-        let source = r#"
+        let source = r"
             fields(i) = Mid(record, pos, fieldWidth)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -983,11 +983,11 @@ mod tests {
 
     #[test]
     fn mid_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To Len(text)
                 char = Mid(text, i, 1)
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -996,12 +996,12 @@ mod tests {
 
     #[test]
     fn mid_while_wend() {
-        let source = r#"
+        let source = r"
             While pos <= Len(data)
                 field = Mid(data, pos, 10)
                 pos = pos + 10
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1010,12 +1010,12 @@ mod tests {
 
     #[test]
     fn mid_do_while() {
-        let source = r#"
+        let source = r"
             Do While i <= recordCount
                 customerID = Mid(records(i), 1, 10)
                 i = i + 1
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1024,12 +1024,12 @@ mod tests {
 
     #[test]
     fn mid_do_until() {
-        let source = r#"
+        let source = r"
             Do Until pos > Len(text)
                 token = Mid(text, pos, delimPos - pos)
                 pos = delimPos + 1
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1038,9 +1038,9 @@ mod tests {
 
     #[test]
     fn mid_msgbox() {
-        let source = r#"
+        let source = r"
             MsgBox Mid(errorMessage, 1, 50)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1073,9 +1073,9 @@ mod tests {
 
     #[test]
     fn mid_with_trim() {
-        let source = r#"
+        let source = r"
             cleanField = Trim(Mid(record, 10, 30))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1084,10 +1084,10 @@ mod tests {
 
     #[test]
     fn mid_fixed_width() {
-        let source = r#"
+        let source = r"
             customerID = Mid(record, 1, 10)
             customerName = Mid(record, 11, 30)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1096,9 +1096,9 @@ mod tests {
 
     #[test]
     fn mid_nested() {
-        let source = r#"
+        let source = r"
             result = Mid(Mid(text, 5, 20), 3, 10)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));
@@ -1107,9 +1107,9 @@ mod tests {
 
     #[test]
     fn mid_single_char() {
-        let source = r#"
+        let source = r"
             char = Mid(text, position, 1)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Mid"));

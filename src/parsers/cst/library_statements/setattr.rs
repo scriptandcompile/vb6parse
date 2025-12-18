@@ -325,11 +325,11 @@ End Sub
 
     #[test]
     fn setattr_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SetAttr fileName, attrs
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -380,11 +380,11 @@ End Sub
 
     #[test]
     fn setattr_inside_if_statement() {
-        let source = r#"
+        let source = r"
 If FileExists Then
     SetAttr filePath, vbReadOnly
 End If
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -429,12 +429,12 @@ End Sub
 
     #[test]
     fn setattr_with_getattr() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentAttrs = GetAttr(filePath)
     SetAttr filePath, currentAttrs Or vbHidden
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -444,14 +444,14 @@ End Sub
 
     #[test]
     fn setattr_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case fileType
     Case 1
         SetAttr filePath, vbReadOnly
     Case 2
         SetAttr filePath, vbHidden
 End Select
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -469,11 +469,11 @@ End Select
 
     #[test]
     fn setattr_in_with_block() {
-        let source = r#"
+        let source = r"
 With fileObj
     SetAttr .Path, vbArchive
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -495,12 +495,12 @@ End Sub
 
     #[test]
     fn setattr_in_function() {
-        let source = r#"
+        let source = r"
 Function SetFileAttributes(path As String) As Boolean
     SetAttr path, vbReadOnly + vbArchive
     SetFileAttributes = True
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -522,13 +522,13 @@ End Sub
 
     #[test]
     fn setattr_in_class_module() {
-        let source = r#"
+        let source = r"
 Private filePath As String
 
 Public Sub SetReadOnly()
     SetAttr filePath, vbReadOnly
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -564,7 +564,7 @@ End Sub
 
     #[test]
     fn setattr_toggle_readonly() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If currentAttrs And vbReadOnly Then
         SetAttr filePath, currentAttrs And Not vbReadOnly
@@ -572,7 +572,7 @@ Sub Test()
         SetAttr filePath, currentAttrs Or vbReadOnly
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -626,7 +626,7 @@ End Sub
 
     #[test]
     fn setattr_conditional() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If FileIsImportant Then
         SetAttr filePath, vbReadOnly + vbArchive
@@ -634,7 +634,7 @@ Sub Test()
         SetAttr filePath, vbNormal
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

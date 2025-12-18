@@ -504,9 +504,9 @@ mod tests {
 
     #[test]
     fn cverr_basic() {
-        let source = r#"
+        let source = r"
 result = CVErr(2042)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -515,9 +515,9 @@ result = CVErr(2042)
 
     #[test]
     fn cverr_division_by_zero() {
-        let source = r#"
+        let source = r"
 error = CVErr(2007)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -526,7 +526,7 @@ error = CVErr(2007)
 
     #[test]
     fn cverr_in_function() {
-        let source = r#"
+        let source = r"
 Function SafeDivide(a As Double, b As Double) As Variant
     If b = 0 Then
         SafeDivide = CVErr(2007)
@@ -534,7 +534,7 @@ Function SafeDivide(a As Double, b As Double) As Variant
         SafeDivide = a / b
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -543,10 +543,10 @@ End Function
 
     #[test]
     fn cverr_with_constant() {
-        let source = r#"
+        let source = r"
 Const xlErrNA As Long = 2042
 result = CVErr(xlErrNA)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -555,9 +555,9 @@ result = CVErr(xlErrNA)
 
     #[test]
     fn cverr_value_error() {
-        let source = r#"
+        let source = r"
 err = CVErr(2015)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -580,10 +580,10 @@ End If
 
     #[test]
     fn cverr_in_assignment() {
-        let source = r#"
+        let source = r"
 Dim myError As Variant
 myError = CVErr(2036)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -592,10 +592,10 @@ myError = CVErr(2036)
 
     #[test]
     fn cverr_custom_error() {
-        let source = r#"
+        let source = r"
 Const APP_ERR_INVALID As Long = 1000
 result = CVErr(APP_ERR_INVALID)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -604,9 +604,9 @@ result = CVErr(APP_ERR_INVALID)
 
     #[test]
     fn cverr_ref_error() {
-        let source = r#"
+        let source = r"
 refError = CVErr(2023)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -615,9 +615,9 @@ refError = CVErr(2023)
 
     #[test]
     fn cverr_num_error() {
-        let source = r#"
+        let source = r"
 numError = CVErr(2036)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -626,14 +626,14 @@ numError = CVErr(2036)
 
     #[test]
     fn cverr_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case value
     Case Is < 0
         result = CVErr(2036)
     Case Else
         result = value
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -642,13 +642,13 @@ End Select
 
     #[test]
     fn cverr_propagation() {
-        let source = r#"
+        let source = r"
 If IsError(input) Then
     output = input
 Else
     output = CVErr(2042)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -657,9 +657,9 @@ End If
 
     #[test]
     fn cverr_name_error() {
-        let source = r#"
+        let source = r"
 nameErr = CVErr(2029)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -668,9 +668,9 @@ nameErr = CVErr(2029)
 
     #[test]
     fn cverr_null_error() {
-        let source = r#"
+        let source = r"
 nullErr = CVErr(2000)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -679,9 +679,9 @@ nullErr = CVErr(2000)
 
     #[test]
     fn cverr_in_array() {
-        let source = r#"
+        let source = r"
 results(i) = CVErr(2042)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -690,11 +690,11 @@ results(i) = CVErr(2042)
 
     #[test]
     fn cverr_with_variable() {
-        let source = r#"
+        let source = r"
 Dim errorNum As Long
 errorNum = 2042
 result = CVErr(errorNum)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -703,11 +703,11 @@ result = CVErr(errorNum)
 
     #[test]
     fn cverr_in_if_condition() {
-        let source = r#"
+        let source = r"
 If value < 0 Then
     result = CVErr(2036)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -716,11 +716,11 @@ End If
 
     #[test]
     fn cverr_multiple_errors() {
-        let source = r#"
+        let source = r"
 err1 = CVErr(2007)
 err2 = CVErr(2042)
 err3 = CVErr(2015)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -729,13 +729,13 @@ err3 = CVErr(2015)
 
     #[test]
     fn cverr_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 10
     If arr(i) < 0 Then
         arr(i) = CVErr(2036)
     End If
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -744,11 +744,11 @@ Next i
 
     #[test]
     fn cverr_return_value() {
-        let source = r#"
+        let source = r"
 Function Validate(x As Variant) As Variant
     Validate = CVErr(2015)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -773,10 +773,10 @@ Loop
 
     #[test]
     fn cverr_with_expression() {
-        let source = r#"
+        let source = r"
 errCode = baseError + offset
 result = CVErr(errCode)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -785,9 +785,9 @@ result = CVErr(errCode)
 
     #[test]
     fn cverr_in_collection() {
-        let source = r#"
+        let source = r"
 errors.Add CVErr(2042)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -796,9 +796,9 @@ errors.Add CVErr(2042)
 
     #[test]
     fn cverr_zero() {
-        let source = r#"
+        let source = r"
 err = CVErr(0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));
@@ -807,9 +807,9 @@ err = CVErr(0)
 
     #[test]
     fn cverr_with_whitespace() {
-        let source = r#"
+        let source = r"
 result = CVErr( 2042 )
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CVErr"));

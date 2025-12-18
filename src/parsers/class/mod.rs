@@ -314,7 +314,7 @@ Attribute VB_Ext_KEY = \"Saved\" ,\"False\"
 Option Explicit
 "#;
 
-        let result = SourceFile::decode_with_replacement("test.cls", &class_bytes.as_bytes());
+        let result = SourceFile::decode_with_replacement("test.cls", class_bytes.as_bytes());
 
         let source_file = match result {
             Ok(source_file) => source_file,

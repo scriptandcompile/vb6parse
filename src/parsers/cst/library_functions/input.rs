@@ -496,11 +496,11 @@ mod tests {
 
     #[test]
     fn input_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     content = Input(100, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -509,11 +509,11 @@ End Sub
 
     #[test]
     fn input_without_hash() {
-        let source = r#"
+        let source = r"
 Sub Test()
     data = Input(50, fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -522,11 +522,11 @@ End Sub
 
     #[test]
     fn input_entire_file() {
-        let source = r#"
+        let source = r"
 Sub Test()
     fileContent = Input(LOF(fileNum), #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -535,13 +535,13 @@ End Sub
 
     #[test]
     fn input_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Not EOF(1)
         chunk = Input(1024, #1)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -550,11 +550,11 @@ End Sub
 
     #[test]
     fn input_single_character() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ch = Input(1, #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -563,11 +563,11 @@ End Sub
 
     #[test]
     fn input_in_function() {
-        let source = r#"
+        let source = r"
 Function ReadFile() As String
     ReadFile = Input(LOF(1), #1)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -576,14 +576,14 @@ End Function
 
     #[test]
     fn input_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim size As Long
     Dim data As String
     size = 100
     data = Input(size, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -592,11 +592,11 @@ End Sub
 
     #[test]
     fn input_concatenation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = result & Input(100, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -620,12 +620,12 @@ End Sub
 
     #[test]
     fn input_with_freefile() {
-        let source = r#"
+        let source = r"
 Sub Test()
     fileNum = FreeFile
     content = Input(100, #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -634,11 +634,11 @@ End Sub
 
     #[test]
     fn input_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Input(50, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -647,11 +647,11 @@ End Sub
 
     #[test]
     fn input_assignment_to_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     chunks(i) = Input(1024, #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -660,11 +660,11 @@ End Sub
 
     #[test]
     fn input_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     data = (Input(100, #1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -673,11 +673,11 @@ End Sub
 
     #[test]
     fn input_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessData(Input(100, #1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -686,11 +686,11 @@ End Sub
 
     #[test]
     fn input_with_len() {
-        let source = r#"
+        let source = r"
 Sub Test()
     size = Len(Input(100, #1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -715,11 +715,11 @@ End Sub
 
     #[test]
     fn input_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     data = Input(size * 2, #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -728,11 +728,11 @@ End Sub
 
     #[test]
     fn input_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_data = Input(100, #m_fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -741,14 +741,14 @@ End Sub
 
     #[test]
     fn input_with_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     content = Input(100, #1)
     If Err.Number <> 0 Then Err.Clear
     On Error GoTo 0
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -757,13 +757,13 @@ End Sub
 
     #[test]
     fn input_in_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With fileReader
         .Data = Input(100, #.FileNum)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -772,11 +772,11 @@ End Sub
 
     #[test]
     fn input_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Content = Input(200, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -785,11 +785,11 @@ End Sub
 
     #[test]
     fn input_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     col.Add Input(100, #fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -813,14 +813,14 @@ End Sub
 
     #[test]
     fn input_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         data = Input(100, #fileNum)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -829,11 +829,11 @@ End Sub
 
     #[test]
     fn input_msgbox() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MsgBox Input(20, #1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));
@@ -842,11 +842,11 @@ End Sub
 
     #[test]
     fn input_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     cleaned = Trim$(Input(100, #1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Input"));

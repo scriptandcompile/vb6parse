@@ -248,11 +248,11 @@ mod test {
 
     #[test]
     fn stop_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Stop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -274,11 +274,11 @@ End Sub
 
     #[test]
     fn stop_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Stop ' Debug breakpoint
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -288,11 +288,11 @@ End Sub
 
     #[test]
     fn stop_in_if_statement() {
-        let source = r#"
+        let source = r"
 If value < 0 Then
     Stop
 End If
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -301,13 +301,13 @@ End If
 
     #[test]
     fn stop_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 100
     If i = 50 Then
         Stop
     End If
 Next i
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -316,7 +316,7 @@ Next i
 
     #[test]
     fn stop_in_error_handler() {
-        let source = r#"
+        let source = r"
 On Error GoTo ErrorHandler
 ProcessData
 Exit Sub
@@ -324,7 +324,7 @@ Exit Sub
 ErrorHandler:
     Stop
     MsgBox Err.Description
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -351,14 +351,14 @@ ErrorHandler:
 
     #[test]
     fn stop_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case userType
     Case 1
         ProcessAdmin
     Case Else
         Stop
 End Select
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -367,12 +367,12 @@ End Select
 
     #[test]
     fn stop_in_function() {
-        let source = r#"
+        let source = r"
 Function ValidateData(data As String) As Boolean
     Stop
     ValidateData = True
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -381,12 +381,12 @@ End Function
 
     #[test]
     fn stop_in_sub() {
-        let source = r#"
+        let source = r"
 Sub ProcessData()
     Stop
     ' Process here
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -395,12 +395,12 @@ End Sub
 
     #[test]
     fn stop_in_class_initialize() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     Stop
     InitializeProperties
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -409,14 +409,14 @@ End Sub
 
     #[test]
     fn stop_before_critical_operation() {
-        let source = r#"
+        let source = r"
 Sub DeleteAllRecords()
     Stop
     
     Dim rs As Recordset
     rs.Delete
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -425,13 +425,13 @@ End Sub
 
     #[test]
     fn stop_in_property_let() {
-        let source = r#"
+        let source = r"
 Public Property Let Value(ByVal newValue As Integer)
     If newValue < 0 Then
         Stop
     End If
 End Property
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -440,14 +440,14 @@ End Property
 
     #[test]
     fn stop_with_doevents() {
-        let source = r#"
+        let source = r"
 For i = 1 To 1000
     DoEvents
     If ShouldDebug Then
         Stop
     End If
 Next i
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -456,12 +456,12 @@ Next i
 
     #[test]
     fn stop_in_event_handler() {
-        let source = r#"
+        let source = r"
 Private Sub Form_Load()
     Stop
     InitializeControls
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -470,13 +470,13 @@ End Sub
 
     #[test]
     fn stop_with_array_check() {
-        let source = r#"
+        let source = r"
 Sub ProcessArray(arr() As Integer)
     If UBound(arr) < LBound(arr) Then
         Stop
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -485,7 +485,7 @@ End Sub
 
     #[test]
     fn stop_multiple_in_function() {
-        let source = r#"
+        let source = r"
 Function ValidateData(data As String) As Boolean
     Stop
     
@@ -498,7 +498,7 @@ Function ValidateData(data As String) As Boolean
     Stop
     ValidateData = True
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -516,12 +516,12 @@ End Function
 
     #[test]
     fn stop_in_with_block() {
-        let source = r#"
+        let source = r"
 With objData
     Stop
     .Property = Value
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -530,13 +530,13 @@ End With
 
     #[test]
     fn stop_in_do_loop() {
-        let source = r#"
+        let source = r"
 Do While Not rs.EOF
     Stop
     ProcessRecord rs
     rs.MoveNext
 Loop
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -545,13 +545,13 @@ Loop
 
     #[test]
     fn stop_conditional_debugging() {
-        let source = r#"
+        let source = r"
 Sub ProcessData(value As Integer)
     If value < 0 Then
         Stop
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -560,12 +560,12 @@ End Sub
 
     #[test]
     fn stop_in_class_terminate() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Terminate()
     Stop
     Cleanup
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -574,12 +574,12 @@ End Sub
 
     #[test]
     fn stop_in_property_get() {
-        let source = r#"
+        let source = r"
 Public Property Get Value() As Integer
     Stop
     Value = m_Value
 End Property
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -588,7 +588,7 @@ End Property
 
     #[test]
     fn stop_after_calculation() {
-        let source = r#"
+        let source = r"
 Sub Calculate()
     Dim total As Double
     total = GetSubtotal()
@@ -597,7 +597,7 @@ Sub Calculate()
         Stop
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -606,14 +606,14 @@ End Sub
 
     #[test]
     fn stop_in_for_each() {
-        let source = r#"
+        let source = r"
 For Each item In collection
     If item.IsInvalid Then
         Stop
     End If
     ProcessItem item
 Next item
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -631,13 +631,13 @@ Next item
 
     #[test]
     fn stop_in_multiline_if() {
-        let source = r#"
+        let source = r"
 If condition1 Then
     If condition2 Then
         Stop
     End If
 End If
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -646,7 +646,7 @@ End If
 
     #[test]
     fn stop_multiple_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Stop
     ProcessData
@@ -654,7 +654,7 @@ Sub Test()
     SaveData
     Stop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -663,13 +663,13 @@ End Sub
 
     #[test]
     fn stop_in_type_initialization() {
-        let source = r#"
+        let source = r"
 Sub InitializeType()
     Dim data As MyType
     Stop
     data.Field1 = 10
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

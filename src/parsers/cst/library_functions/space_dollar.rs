@@ -400,11 +400,11 @@ mod tests {
 
     #[test]
     fn space_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     result = Space$(10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -412,12 +412,12 @@ End Sub
 
     #[test]
     fn space_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim padding As String
     padding = Space$(5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -425,14 +425,14 @@ End Sub
 
     #[test]
     fn space_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim count As Integer
     Dim spaces As String
     count = 20
     spaces = Space$(count)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -440,7 +440,7 @@ End Sub
 
     #[test]
     fn space_dollar_padding() {
-        let source = r#"
+        let source = r"
 Function PadRight(text As String, width As Integer) As String
     If Len(text) >= width Then
         PadRight = text
@@ -448,7 +448,7 @@ Function PadRight(text As String, width As Integer) As String
         PadRight = text & Space$(width - Len(text))
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -456,13 +456,13 @@ End Function
 
     #[test]
     fn space_dollar_fixed_width() {
-        let source = r#"
+        let source = r"
 Function FormatField(value As String, fieldWidth As Integer) As String
     Dim temp As String
     temp = value & Space$(fieldWidth)
     FormatField = Left$(temp, fieldWidth)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -470,11 +470,11 @@ End Function
 
     #[test]
     fn space_dollar_indentation() {
-        let source = r#"
+        let source = r"
 Function IndentText(text As String, level As Integer) As String
     IndentText = Space$(level * 4) & text
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -496,7 +496,7 @@ End Sub
 
     #[test]
     fn space_dollar_centering() {
-        let source = r#"
+        let source = r"
 Function CenterText(text As String, width As Integer) As String
     Dim padding As Integer
     If Len(text) >= width Then
@@ -506,7 +506,7 @@ Function CenterText(text As String, width As Integer) As String
         CenterText = Space$(padding) & text
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -514,11 +514,11 @@ End Function
 
     #[test]
     fn space_dollar_buffer_creation() {
-        let source = r#"
+        let source = r"
 Function CreateBuffer(size As Integer) As String
     CreateBuffer = Space$(size)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -568,13 +568,13 @@ End Sub
 
     #[test]
     fn space_dollar_table_formatting() {
-        let source = r#"
+        let source = r"
 Sub PrintTableRow(col1 As String, col2 As String, col3 As String)
     Dim row As String
     row = Left$(col1 & Space$(20), 20) & Left$(col2 & Space$(15), 15)
     Debug.Print row
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -582,12 +582,12 @@ End Sub
 
     #[test]
     fn space_dollar_zero_spaces() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim empty As String
     empty = Space$(0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -595,12 +595,12 @@ End Sub
 
     #[test]
     fn space_dollar_expression_arg() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Space$(maxWidth - Len(text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -649,11 +649,11 @@ End Sub
 
     #[test]
     fn space_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetSpaces(count As Integer) As String
     GetSpaces = Space$(count)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));
@@ -661,13 +661,13 @@ End Function
 
     #[test]
     fn space_dollar_with_left() {
-        let source = r#"
+        let source = r"
 Function FixedWidth(text As String, width As Integer) As String
     Dim temp As String
     temp = text & Space$(width)
     FixedWidth = Left$(temp, width)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Space$"));

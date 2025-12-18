@@ -332,11 +332,11 @@ mod test {
 
     #[test]
     fn redim_simple_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim myArray(10)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -346,11 +346,11 @@ End Sub
 
     #[test]
     fn redim_with_preserve() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Preserve argv(argc - 1&)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -361,11 +361,11 @@ End Sub
 
     #[test]
     fn redim_with_as_type() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim ICI(1 To num) As ImageCodecInfo
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -376,11 +376,11 @@ End Sub
 
     #[test]
     fn redim_preserve_with_as_type() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -392,11 +392,11 @@ End Sub
 
     #[test]
     fn redim_zero_based() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim argv(0&)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -406,11 +406,11 @@ End Sub
 
     #[test]
     fn redim_with_to_clause() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim hIcon(lIconIndex To lIconIndex + nIcons * 2 - 1)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -421,11 +421,11 @@ End Sub
 
     #[test]
     fn redim_multiple_arrays() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim arr1(10), arr2(20), arr3(30)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -435,11 +435,11 @@ End Sub
 
     #[test]
     fn redim_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needResize Then ReDim myArray(newSize)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -449,11 +449,11 @@ End Sub
 
     #[test]
     fn redim_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String ' the file location of the original icons
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -464,13 +464,13 @@ End Sub
 
     #[test]
     fn redim_multiple_in_sequence() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String
     ReDim Preserve dictionaryLocationArray(rdIconMaximum) As String
     ReDim Preserve namesListArray(rdIconMaximum) As String
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -480,13 +480,13 @@ End Sub
 
     #[test]
     fn redim_in_multiline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If arraysNeedResize Then
         ReDim Preserve myArray(newSize)
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -496,11 +496,11 @@ End Sub
 
     #[test]
     fn redim_with_expression_bounds() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Buffer(1 To Size) As Byte
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -510,9 +510,9 @@ End Sub
 
     #[test]
     fn redim_at_module_level() {
-        let source = r#"
+        let source = r"
 ReDim globalArray(100)
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -522,11 +522,11 @@ ReDim globalArray(100)
 
     #[test]
     fn redim_multidimensional() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim matrix(10, 20)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -634,11 +634,11 @@ End Sub
     // Erase statement tests
     #[test]
     fn erase_simple_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase myArray
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -648,11 +648,11 @@ End Sub
 
     #[test]
     fn erase_multiple_arrays() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase array1, array2, array3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -687,11 +687,11 @@ End Sub
 
     #[test]
     fn erase_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase tempArray ' Free up memory
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -701,13 +701,13 @@ End Sub
 
     #[test]
     fn erase_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Cleanup()
     If shouldClear Then
         Erase dataArray
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -716,11 +716,11 @@ End Sub
 
     #[test]
     fn erase_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If resetFlag Then Erase buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -729,13 +729,13 @@ End Sub
 
     #[test]
     fn erase_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Erase tempArrays(i)
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -744,11 +744,11 @@ End Sub
 
     #[test]
     fn erase_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase myArray()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -757,13 +757,13 @@ End Sub
 
     #[test]
     fn multiple_erase_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase array1
     DoSomething
     Erase array2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -790,13 +790,13 @@ End Sub
 
     #[test]
     fn erase_after_redim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim myArray(100)
     ' Use the array
     Erase myArray
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -806,11 +806,11 @@ End Sub
 
     #[test]
     fn erase_complex_array_list() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Erase buffer1, buffer2, cache(), tempData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1022,7 +1022,7 @@ End Sub
 
     #[test]
     fn private_withevents_in_class_module() {
-        let source = r#"VERSION 1.0 CLASS
+        let source = r"VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
@@ -1031,7 +1031,7 @@ Private WithEvents m_timer As Timer
 Private Sub m_timer_Tick()
     ' Handle timer event
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1294,7 +1294,7 @@ End Sub
 
     #[test]
     fn public_withevents_in_class_module() {
-        let source = r#"VERSION 1.0 CLASS
+        let source = r"VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
@@ -1303,7 +1303,7 @@ Public WithEvents g_worker As BackgroundWorker
 Private Sub g_worker_Complete()
     ' Handle completion event
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();

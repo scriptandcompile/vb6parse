@@ -434,11 +434,11 @@ mod tests {
 
     #[test]
     fn hour_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     h = Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -447,11 +447,11 @@ End Sub
 
     #[test]
     fn hour_in_function() {
-        let source = r#"
+        let source = r"
 Function GetCurrentHour() As Integer
     GetCurrentHour = Hour(Now)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -475,11 +475,11 @@ End Sub
 
     #[test]
     fn hour_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Hour(Time)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -508,14 +508,14 @@ End Sub
 
     #[test]
     fn hour_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To 23
         If Hour(Now) = i Then Exit For
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -524,13 +524,13 @@ End Sub
 
     #[test]
     fn hour_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Hour(Now) < 17
         DoWork
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -539,11 +539,11 @@ End Sub
 
     #[test]
     fn hour_class_member() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_hour = Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -552,12 +552,12 @@ End Sub
 
     #[test]
     fn hour_type_field() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim timeInfo As TimeType
     timeInfo.currentHour = Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -566,12 +566,12 @@ End Sub
 
     #[test]
     fn hour_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim col As New Collection
     col.Add Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -580,13 +580,13 @@ End Sub
 
     #[test]
     fn hour_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With timeObject
         .HourValue = Hour(.TimeStamp)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -608,11 +608,11 @@ End Sub
 
     #[test]
     fn hour_property() {
-        let source = r#"
+        let source = r"
 Property Get CurrentHour() As Integer
     CurrentHour = Hour(Now)
 End Property
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -634,14 +634,14 @@ End Sub
 
     #[test]
     fn hour_for_each() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim dt As Variant
     For Each dt In dateCollection
         Debug.Print Hour(dt)
     Next
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -650,14 +650,14 @@ End Sub
 
     #[test]
     fn hour_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     h = Hour(someDate)
     If Err.Number <> 0 Then Err.Clear
     On Error GoTo 0
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -681,12 +681,12 @@ End Sub
 
     #[test]
     fn hour_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim hours(1 To 10) As Integer
     hours(1) = Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -695,11 +695,11 @@ End Sub
 
     #[test]
     fn hour_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ProcessHour Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -708,11 +708,11 @@ End Sub
 
     #[test]
     fn hour_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(Hour(Now))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -734,11 +734,11 @@ End Sub
 
     #[test]
     fn hour_time_literal() {
-        let source = r#"
+        let source = r"
 Sub Test()
     h = Hour(#3:45:00 PM#)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -747,13 +747,13 @@ End Sub
 
     #[test]
     fn hour_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim myTime As Date
     myTime = Now
     h = Hour(myTime)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -762,11 +762,11 @@ End Sub
 
     #[test]
     fn hour_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (Hour(Now))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -775,13 +775,13 @@ End Sub
 
     #[test]
     fn hour_business_logic() {
-        let source = r#"
+        let source = r"
 Function IsBusinessHours() As Boolean
     Dim h As Integer
     h = Hour(Now)
     IsBusinessHours = (h >= 9 And h < 17)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));
@@ -807,11 +807,11 @@ End Sub
 
     #[test]
     fn hour_math_operation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     hoursUntilMidnight = 24 - Hour(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hour"));

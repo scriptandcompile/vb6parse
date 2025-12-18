@@ -592,11 +592,11 @@ mod tests {
 
     #[test]
     fn ubound_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     upper = UBound(myArray)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -604,12 +604,12 @@ End Sub
 
     #[test]
     fn ubound_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim maxIndex As Long
     maxIndex = UBound(values)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -618,12 +618,12 @@ End Sub
 
     #[test]
     fn ubound_with_dimension() {
-        let source = r#"
+        let source = r"
 Sub Test()
     rows = UBound(matrix, 1)
     cols = UBound(matrix, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -631,13 +631,13 @@ End Sub
 
     #[test]
     fn ubound_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
         Process arr(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -645,11 +645,11 @@ End Sub
 
     #[test]
     fn ubound_function_return() {
-        let source = r#"
+        let source = r"
 Function GetArraySize(arr() As Variant) As Long
     GetArraySize = UBound(arr) - LBound(arr) + 1
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -657,13 +657,13 @@ End Function
 
     #[test]
     fn ubound_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If index > UBound(data) Then
         Err.Raise 9
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -700,11 +700,11 @@ End Sub
 
     #[test]
     fn ubound_redim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ReDim Preserve arr(LBound(arr) To UBound(arr) + 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -712,11 +712,11 @@ End Sub
 
     #[test]
     fn ubound_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessArray(data, UBound(data))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -724,13 +724,13 @@ End Sub
 
     #[test]
     fn ubound_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If UBound(arr1) > UBound(arr2) Then
         larger = arr1
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -750,14 +750,14 @@ End Sub
 
     #[test]
     fn ubound_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While i <= UBound(items)
         Process items(i)
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -765,13 +765,13 @@ End Sub
 
     #[test]
     fn ubound_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until i > UBound(data)
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -779,13 +779,13 @@ End Sub
 
     #[test]
     fn ubound_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While idx <= UBound(arr)
         idx = idx + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -805,13 +805,13 @@ End Sub
 
     #[test]
     fn ubound_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With arrayManager
         .MaxIndex = UBound(.Data)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -819,11 +819,11 @@ End Sub
 
     #[test]
     fn ubound_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (UBound(arr) + 1) * 2
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -831,7 +831,7 @@ End Sub
 
     #[test]
     fn ubound_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     maxIdx = UBound(dynamicArray)
@@ -839,7 +839,7 @@ Sub Test()
         maxIdx = -1
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -847,11 +847,11 @@ End Sub
 
     #[test]
     fn ubound_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.UpperBound = UBound(obj.Items)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -871,11 +871,11 @@ End Sub
 
     #[test]
     fn ubound_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     lastIndex = UBound(values) - 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -883,11 +883,11 @@ End Sub
 
     #[test]
     fn ubound_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, UBound(data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -895,12 +895,12 @@ End Sub
 
     #[test]
     fn ubound_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set manager = New ArrayManager
     manager.Size = UBound(manager.Data) + 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -908,11 +908,11 @@ End Sub
 
     #[test]
     fn ubound_array_bounds() {
-        let source = r#"
+        let source = r"
 Sub Test()
     lastElement = arr(UBound(arr))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -936,7 +936,7 @@ End Sub
 
     #[test]
     fn ubound_nested_arrays() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(matrix, 1) To UBound(matrix, 1)
         For j = LBound(matrix, 2) To UBound(matrix, 2)
@@ -944,7 +944,7 @@ Sub Test()
         Next j
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));
@@ -952,14 +952,14 @@ End Sub
 
     #[test]
     fn ubound_paramarray() {
-        let source = r#"
+        let source = r"
 Function Sum(ParamArray values() As Variant) As Double
     For i = LBound(values) To UBound(values)
         total = total + values(i)
     Next i
     Sum = total
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UBound"));

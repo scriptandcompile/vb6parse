@@ -25,11 +25,11 @@ mod test {
 
     #[test]
     fn close_all_files() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -39,11 +39,11 @@ End Sub
 
     #[test]
     fn close_single_file() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close #1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -53,11 +53,11 @@ End Sub
 
     #[test]
     fn close_single_file_without_hash() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close 1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -67,11 +67,11 @@ End Sub
 
     #[test]
     fn close_multiple_files() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close #1, #2, #3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -81,11 +81,11 @@ End Sub
 
     #[test]
     fn close_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close fileNum
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -95,11 +95,11 @@ End Sub
 
     #[test]
     fn close_with_hash_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close #fileNum
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -109,11 +109,11 @@ End Sub
 
     #[test]
     fn close_multiple_files_mixed() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close #1, fileNum2, #3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -123,11 +123,11 @@ End Sub
 
     #[test]
     fn close_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close   #1  ,  #2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -137,13 +137,13 @@ End Sub
 
     #[test]
     fn multiple_close_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Close #1
     Close #2
     Close
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -153,13 +153,13 @@ End Sub
 
     #[test]
     fn close_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If fileOpen Then
         Close #1
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -169,11 +169,11 @@ End Sub
 
     #[test]
     fn close_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If fileOpen Then Close #fileNum
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -197,9 +197,9 @@ End Sub
 
     #[test]
     fn close_at_module_level() {
-        let source = r#"
+        let source = r"
 Close #1
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

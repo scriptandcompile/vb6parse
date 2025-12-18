@@ -265,11 +265,11 @@ mod tests {
 
     #[test]
     fn chrw_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ch = ChrW$(65)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -277,11 +277,11 @@ End Sub
 
     #[test]
     fn chrw_dollar_euro() {
-        let source = r#"
+        let source = r"
 Sub Test()
     euro = ChrW$(8364)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -289,11 +289,11 @@ End Sub
 
     #[test]
     fn chrw_dollar_copyright() {
-        let source = r#"
+        let source = r"
 Sub Test()
     copyright = ChrW$(169)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -376,11 +376,11 @@ End Function
 
     #[test]
     fn chrw_dollar_tsv() {
-        let source = r#"
+        let source = r"
 Function CreateTSV(col1 As String, col2 As String) As String
     CreateTSV = col1 & ChrW$(9) & col2
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -388,11 +388,11 @@ End Function
 
     #[test]
     fn chrw_dollar_quotes() {
-        let source = r#"
+        let source = r"
 Function AddQuotes(text As String) As String
     AddQuotes = ChrW$(34) & text & ChrW$(34)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -414,11 +414,11 @@ End Function
 
     #[test]
     fn chrw_dollar_null_terminated() {
-        let source = r#"
+        let source = r"
 Function CreateNullTerminated(text As String) As String
     CreateNullTerminated = text & ChrW$(0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -426,7 +426,7 @@ End Function
 
     #[test]
     fn chrw_dollar_alphabet() {
-        let source = r#"
+        let source = r"
 Function GenerateAlphabet() As String
     Dim i As Integer
     Dim result As String
@@ -435,7 +435,7 @@ Function GenerateAlphabet() As String
     Next i
     GenerateAlphabet = result
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -460,11 +460,11 @@ End Function
 
     #[test]
     fn chrw_dollar_multiple_calls() {
-        let source = r#"
+        let source = r"
 Sub Test()
     text = ChrW$(65) & ChrW$(66) & ChrW$(67)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -486,11 +486,11 @@ End Sub
 
     #[test]
     fn chrw_dollar_nested_functions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = UCase$(ChrW$(97))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -498,11 +498,11 @@ End Sub
 
     #[test]
     fn chrw_dollar_pound_sign() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pound = ChrW$(163)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -510,12 +510,12 @@ End Sub
 
     #[test]
     fn chrw_dollar_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     charCode = 8364
     ch = ChrW$(charCode)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));
@@ -523,11 +523,11 @@ End Sub
 
     #[test]
     fn chrw_dollar_registered_trademark() {
-        let source = r#"
+        let source = r"
 Sub Test()
     trademark = ChrW$(174)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("ChrW$"));

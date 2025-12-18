@@ -601,11 +601,11 @@ mod tests {
 
     #[test]
     fn isnull_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IsNull(myVariable)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -614,13 +614,13 @@ End Sub
 
     #[test]
     fn isnull_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNull(value) Then
         value = defaultValue
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -629,13 +629,13 @@ End Sub
 
     #[test]
     fn isnull_not_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not IsNull(field) Then
         ProcessField field
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -644,11 +644,11 @@ End Sub
 
     #[test]
     fn isnull_function_return() {
-        let source = r#"
+        let source = r"
 Function IsValid(v As Variant) As Boolean
     IsValid = Not IsNull(v)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -657,13 +657,13 @@ End Function
 
     #[test]
     fn isnull_boolean_and() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNull(field1) And IsNull(field2) Then
         ShowError
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -672,13 +672,13 @@ End Sub
 
     #[test]
     fn isnull_boolean_or() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNull(value) Or IsEmpty(value) Then
         UseDefault
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -726,13 +726,13 @@ End Sub
 
     #[test]
     fn isnull_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IsNull(currentValue)
         currentValue = GetNextValue()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -741,13 +741,13 @@ End Sub
 
     #[test]
     fn isnull_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Not IsNull(result)
         result = TryGetResult()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -756,12 +756,12 @@ End Sub
 
     #[test]
     fn isnull_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isNull As Boolean
     isNull = IsNull(dataValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -770,11 +770,11 @@ End Sub
 
     #[test]
     fn isnull_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.IsNullValue = IsNull(obj.Data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -783,11 +783,11 @@ End Sub
 
     #[test]
     fn isnull_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_isNull = IsNull(m_value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -811,11 +811,11 @@ End Sub
 
     #[test]
     fn isnull_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ValidateField(IsNull(rs!Name))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -824,7 +824,7 @@ End Sub
 
     #[test]
     fn isnull_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case True
         Case IsNull(value)
@@ -833,7 +833,7 @@ Sub Test()
             ProcessValue
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -842,7 +842,7 @@ End Sub
 
     #[test]
     fn isnull_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(arr)
@@ -851,7 +851,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -860,7 +860,7 @@ End Sub
 
     #[test]
     fn isnull_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsEmpty(data) Then
         ProcessEmpty
@@ -868,7 +868,7 @@ Sub Test()
         ProcessNull
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -890,11 +890,11 @@ End Sub
 
     #[test]
     fn isnull_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IsNull(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -903,11 +903,11 @@ End Sub
 
     #[test]
     fn isnull_array_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     checks(i) = IsNull(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -916,11 +916,11 @@ End Sub
 
     #[test]
     fn isnull_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     nullStates.Add IsNull(data(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -944,11 +944,11 @@ End Sub
 
     #[test]
     fn isnull_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IsNull(myVar))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));
@@ -957,13 +957,13 @@ End Sub
 
     #[test]
     fn isnull_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While IsNull(buffer)
         buffer = ReadNextValue()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNull"));

@@ -474,9 +474,9 @@ mod tests {
 
     #[test]
     fn curdir_basic() {
-        let source = r#"
+        let source = r"
 currentDir = CurDir()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -507,10 +507,10 @@ path = CurDir("C:")
 
     #[test]
     fn curdir_in_assignment() {
-        let source = r#"
+        let source = r"
 Dim savedDir As String
 savedDir = CurDir()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -532,11 +532,11 @@ ChDir savedDir
 
     #[test]
     fn curdir_in_function() {
-        let source = r#"
+        let source = r"
 Function GetCurrentPath() As String
     GetCurrentPath = CurDir()
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -582,9 +582,9 @@ End If
 
     #[test]
     fn curdir_with_left() {
-        let source = r#"
+        let source = r"
 drive = Left(CurDir(), 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -660,11 +660,11 @@ End Select
 
     #[test]
     fn curdir_with_len() {
-        let source = r#"
+        let source = r"
 If Len(CurDir()) = 3 Then
     isRoot = True
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -747,9 +747,9 @@ Loop
 
     #[test]
     fn curdir_with_mid() {
-        let source = r#"
+        let source = r"
 pathPart = Mid(CurDir(), 4)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -758,11 +758,11 @@ pathPart = Mid(CurDir(), 4)
 
     #[test]
     fn curdir_in_sub() {
-        let source = r#"
+        let source = r"
 Sub SaveCurrentDir()
     savedPath = CurDir()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));
@@ -771,9 +771,9 @@ End Sub
 
     #[test]
     fn curdir_with_whitespace() {
-        let source = r#"
+        let source = r"
 path = CurDir( )
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("CurDir"));

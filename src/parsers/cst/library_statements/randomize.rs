@@ -54,11 +54,11 @@ mod test {
 
     #[test]
     fn randomize_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -68,11 +68,11 @@ End Sub
 
     #[test]
     fn randomize_with_seed() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize 42
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -83,11 +83,11 @@ End Sub
 
     #[test]
     fn randomize_with_timer() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize Timer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -97,11 +97,11 @@ End Sub
 
     #[test]
     fn randomize_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize x * 100 + 42
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -110,13 +110,13 @@ End Sub
 
     #[test]
     fn randomize_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim seed As Long
     seed = 12345
     Randomize seed
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -126,13 +126,13 @@ End Sub
 
     #[test]
     fn randomize_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsRandom Then
         Randomize
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -142,11 +142,11 @@ End Sub
 
     #[test]
     fn randomize_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If initialize Then Randomize
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -155,11 +155,11 @@ End Sub
 
     #[test]
     fn randomize_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize ' Initialize RNG
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -192,14 +192,14 @@ End Sub
 
     #[test]
     fn randomize_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Randomize i
         x = Rnd
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -209,14 +209,14 @@ End Sub
 
     #[test]
     fn multiple_randomize_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize
     x = Rnd
     Randomize 42
     y = Rnd
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -244,11 +244,11 @@ End Sub
 
     #[test]
     fn randomize_with_negative_seed() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize -1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -257,11 +257,11 @@ End Sub
 
     #[test]
     fn randomize_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize GetSeed()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -271,12 +271,12 @@ End Sub
 
     #[test]
     fn randomize_before_rnd() {
-        let source = r#"
+        let source = r"
 Function GetRandomNumber() As Integer
     Randomize
     GetRandomNumber = Int((100 * Rnd) + 1)
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -286,7 +286,7 @@ End Function
 
     #[test]
     fn randomize_with_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case mode
         Case 1
@@ -297,7 +297,7 @@ Sub Test()
             Randomize 0
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -307,7 +307,7 @@ End Sub
 
     #[test]
     fn randomize_with_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While True
         Randomize
@@ -315,7 +315,7 @@ Sub Test()
         If x > 0.9 Then Exit Do
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -325,12 +325,12 @@ End Sub
 
     #[test]
     fn randomize_multiline_with_continuation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize _
         Timer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -339,11 +339,11 @@ End Sub
 
     #[test]
     fn randomize_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize (seed)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -352,11 +352,11 @@ End Sub
 
     #[test]
     fn randomize_in_class_module() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     Randomize
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -365,11 +365,11 @@ End Sub
 
     #[test]
     fn randomize_with_decimal_seed() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Randomize 123.456
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -378,7 +378,7 @@ End Sub
 
     #[test]
     fn randomize_with_multiple_operations() {
-        let source = r#"
+        let source = r"
 Sub GenerateRandomNumbers()
     Randomize Timer
     Dim nums(10) As Integer
@@ -387,7 +387,7 @@ Sub GenerateRandomNumbers()
         nums(i) = Int((100 * Rnd) + 1)
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

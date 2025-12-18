@@ -397,11 +397,11 @@ End Sub
 
     #[test]
     fn lcase_dollar_compare_function() {
-        let source = r#"
+        let source = r"
 Function CompareIgnoreCase(str1 As String, str2 As String) As Boolean
     CompareIgnoreCase = (LCase$(str1) = LCase$(str2))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -409,11 +409,11 @@ End Function
 
     #[test]
     fn lcase_dollar_normalize_input() {
-        let source = r#"
+        let source = r"
 Function NormalizeInput(userInput As String) As String
     NormalizeInput = Trim$(LCase$(userInput))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -421,11 +421,11 @@ End Function
 
     #[test]
     fn lcase_dollar_email_normalization() {
-        let source = r#"
+        let source = r"
 Function NormalizeEmail(email As String) As String
     NormalizeEmail = LCase$(Trim$(email))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -433,11 +433,11 @@ End Function
 
     #[test]
     fn lcase_dollar_search() {
-        let source = r#"
+        let source = r"
 Function ContainsIgnoreCase(text As String, searchFor As String) As Boolean
     ContainsIgnoreCase = (InStr(LCase$(text), LCase$(searchFor)) > 0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -445,11 +445,11 @@ End Function
 
     #[test]
     fn lcase_dollar_username_validation() {
-        let source = r#"
+        let source = r"
 Function ValidateUsername(username As String) As String
     ValidateUsername = LCase$(Trim$(username))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -457,13 +457,13 @@ End Function
 
     #[test]
     fn lcase_dollar_file_extension() {
-        let source = r#"
+        let source = r"
 Function HasExtension(filename As String, ext As String) As Boolean
     Dim fileExt As String
     fileExt = LCase$(Right$(filename, Len(ext)))
     HasExtension = (fileExt = LCase$(ext))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -471,11 +471,11 @@ End Function
 
     #[test]
     fn lcase_dollar_dictionary_key() {
-        let source = r#"
+        let source = r"
 Sub AddToDictionary(dict As Object, key As String, value As Variant)
     lowercaseKey = LCase$(key)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -483,12 +483,12 @@ End Sub
 
     #[test]
     fn lcase_dollar_command_parser() {
-        let source = r#"
+        let source = r"
 Function ParseCommand(input As String) As String
     Dim cmd As String
     cmd = LCase$(Trim$(input))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -496,12 +496,12 @@ End Function
 
     #[test]
     fn lcase_dollar_collection_lookup() {
-        let source = r#"
+        let source = r"
 Function FindInCollection(col As Collection, key As String) As Variant
     Dim lowerKey As String
     lowerKey = LCase$(key)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -509,12 +509,12 @@ End Function
 
     #[test]
     fn lcase_dollar_sql_builder() {
-        let source = r#"
+        let source = r"
 Function BuildWhereClause(fieldName As String, operator As String) As String
     Dim op As String
     op = LCase$(Trim$(operator))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -522,11 +522,11 @@ End Function
 
     #[test]
     fn lcase_dollar_config_parser() {
-        let source = r#"
+        let source = r"
 Function ParseConfigLine(line As String, key As String) As Boolean
     key = LCase$(Trim$(Left$(line, 10)))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -534,13 +534,13 @@ End Function
 
     #[test]
     fn lcase_dollar_smart_compare() {
-        let source = r#"
+        let source = r"
 Function SmartCompare(str1 As String, str2 As String, caseSensitive As Boolean) As Boolean
     If Not caseSensitive Then
         SmartCompare = (LCase$(str1) = LCase$(str2))
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -548,11 +548,11 @@ End Function
 
     #[test]
     fn lcase_dollar_safe_wrapper() {
-        let source = r#"
+        let source = r"
 Function SafeLCase(text As String) As String
     SafeLCase = LCase$(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -560,7 +560,7 @@ End Function
 
     #[test]
     fn lcase_dollar_array_contains() {
-        let source = r#"
+        let source = r"
 Function ArrayContains(arr() As String, value As String) As Boolean
     Dim lowerValue As String
     lowerValue = LCase$(value)
@@ -568,7 +568,7 @@ Function ArrayContains(arr() As String, value As String) As Boolean
         ArrayContains = True
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -576,12 +576,12 @@ End Function
 
     #[test]
     fn lcase_dollar_url_parameter() {
-        let source = r#"
+        let source = r"
 Function GetURLParameter(url As String, paramName As String) As String
     Dim lowerURL As String
     lowerURL = LCase$(url)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));
@@ -606,13 +606,13 @@ End Sub
 
     #[test]
     fn lcase_dollar_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 0 To 10
         items(i) = LCase$(items(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LCase$"));

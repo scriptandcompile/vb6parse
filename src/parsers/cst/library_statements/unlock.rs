@@ -49,11 +49,11 @@ mod test {
     // Unlock statement tests
     #[test]
     fn unlock_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock #1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -75,11 +75,11 @@ End Sub
 
     #[test]
     fn unlock_entire_file() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock #1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -88,11 +88,11 @@ End Sub
 
     #[test]
     fn unlock_single_record() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock #1, 5
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -101,11 +101,11 @@ End Sub
 
     #[test]
     fn unlock_record_range() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock #1, 10 To 20
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -115,11 +115,11 @@ End Sub
 
     #[test]
     fn unlock_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock fileNum, recordNum
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -141,11 +141,11 @@ End Sub
 
     #[test]
     fn unlock_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unlock #1, 5 ' Release record lock
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -155,13 +155,13 @@ End Sub
 
     #[test]
     fn unlock_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If isDone Then
         Unlock #1, currentRecord
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -170,11 +170,11 @@ End Sub
 
     #[test]
     fn unlock_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If finished Then Unlock #1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -183,14 +183,14 @@ End Sub
 
     #[test]
     fn lock_unlock_matching_pair() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Lock #1, 5
     myData.Value = 100
     Put #1, 5, myData
     Unlock #1, 5
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

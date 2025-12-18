@@ -163,11 +163,11 @@ End Sub
 
     #[test]
     fn savesetting_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SaveSetting appName, sectionName, keyName, value
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

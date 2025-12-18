@@ -521,11 +521,11 @@ mod tests {
 
     #[test]
     fn ipmt_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     interest = IPmt(0.08 / 12, 1, 48, -20000)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -534,11 +534,11 @@ End Sub
 
     #[test]
     fn ipmt_with_future_value() {
-        let source = r#"
+        let source = r"
 Sub Test()
     interest = IPmt(rate, period, nper, pv, fv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -547,11 +547,11 @@ End Sub
 
     #[test]
     fn ipmt_with_type() {
-        let source = r#"
+        let source = r"
 Sub Test()
     interest = IPmt(monthlyRate, 1, totalMonths, loanAmount, 0, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -560,14 +560,14 @@ End Sub
 
     #[test]
     fn ipmt_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 12
         totalInterest = totalInterest + IPmt(monthlyRate, i, totalMonths, loanAmount)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -591,11 +591,11 @@ End Sub
 
     #[test]
     fn ipmt_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateInterest() As Double
     CalculateInterest = IPmt(0.06 / 12, 1, 360, -200000)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -604,11 +604,11 @@ End Function
 
     #[test]
     fn ipmt_abs() {
-        let source = r#"
+        let source = r"
 Sub Test()
     positiveInterest = Abs(IPmt(rate, period, nper, pv))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -643,11 +643,11 @@ End Sub
 
     #[test]
     fn ipmt_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     interestPayments(i) = IPmt(rate, i, nper, pv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -656,11 +656,11 @@ End Sub
 
     #[test]
     fn ipmt_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     loan.InterestPayment = IPmt(loan.Rate, loan.Period, loan.NPer, loan.Amount)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -669,11 +669,11 @@ End Sub
 
     #[test]
     fn ipmt_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_interest = IPmt(m_rate, m_period, m_nper, m_pv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -682,13 +682,13 @@ End Sub
 
     #[test]
     fn ipmt_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With loanInfo
         .Interest = IPmt(.Rate, .Period, .NPer, .PV)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -697,11 +697,11 @@ End Sub
 
     #[test]
     fn ipmt_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessPayment(IPmt(rate, period, nper, pv))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -756,11 +756,11 @@ End Sub
 
     #[test]
     fn ipmt_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     payments.Add IPmt(rate, i, nper, pv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -769,11 +769,11 @@ End Sub
 
     #[test]
     fn ipmt_math_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     totalPayment = IPmt(rate, period, nper, pv) + PPmt(rate, period, nper, pv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -795,11 +795,11 @@ End Sub
 
     #[test]
     fn ipmt_nested_calculation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     yearlyInterest = IPmt(annualRate / 12, month, years * 12, -loanAmount) * 12
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -808,7 +808,7 @@ End Sub
 
     #[test]
     fn ipmt_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim period As Integer
     period = 1
@@ -817,7 +817,7 @@ Sub Test()
         period = period + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -826,11 +826,11 @@ End Sub
 
     #[test]
     fn ipmt_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isHighInterest = Abs(IPmt(rate, 1, nper, pv)) > threshold And period = 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -839,12 +839,12 @@ End Sub
 
     #[test]
     fn ipmt_type_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim entry As AmortizationEntry
     entry.InterestPayment = IPmt(monthlyRate, paymentNum, totalMonths, loanAmount)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -853,13 +853,13 @@ End Sub
 
     #[test]
     fn ipmt_range_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If period >= 1 And period <= nper Then
         interest = IPmt(rate, period, nper, pv)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));
@@ -868,11 +868,11 @@ End Sub
 
     #[test]
     fn ipmt_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (IPmt(rate, period, nper, pv))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IPmt"));

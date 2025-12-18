@@ -99,7 +99,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: DegreesToRadians
+/// ### Pattern 1: `DegreesToRadians`
 /// Convert degrees to radians for Sin function
 /// ```vb
 /// Function DegreesToRadians(degrees As Double) As Double
@@ -111,7 +111,7 @@
 /// result = Sin(DegreesToRadians(45))
 /// ```
 ///
-/// ### Pattern 2: SinDegrees
+/// ### Pattern 2: `SinDegrees`
 /// Sine function that accepts degrees
 /// ```vb
 /// Function SinDegrees(degrees As Double) As Double
@@ -120,7 +120,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: GenerateSineWave
+/// ### Pattern 3: `GenerateSineWave`
 /// Generate array of sine wave values
 /// ```vb
 /// Function GenerateSineWave(samples As Integer, amplitude As Double, _
@@ -141,7 +141,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: CircularMotionY
+/// ### Pattern 4: `CircularMotionY`
 /// Calculate vertical position in circular motion
 /// ```vb
 /// Function CircularMotionY(centerY As Double, radius As Double, _
@@ -151,7 +151,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: OscillatingValue
+/// ### Pattern 5: `OscillatingValue`
 /// Create oscillating value over time
 /// ```vb
 /// Function OscillatingValue(time As Double, amplitude As Double, _
@@ -161,7 +161,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: SineInterpolation
+/// ### Pattern 6: `SineInterpolation`
 /// Smooth interpolation using sine
 /// ```vb
 /// Function SineInterpolation(startValue As Double, endValue As Double, _
@@ -175,7 +175,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: AngleFromSine
+/// ### Pattern 7: `AngleFromSine`
 /// Get angle from sine value (inverse sine approximation)
 /// ```vb
 /// Function ArcSineApprox(sineValue As Double) As Double
@@ -190,7 +190,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: SineWaveAnalysis
+/// ### Pattern 8: `SineWaveAnalysis`
 /// Analyze sine wave properties
 /// ```vb
 /// Sub AnalyzeSineWave(amplitude As Double, frequency As Double, _
@@ -204,7 +204,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 9: ProjectileMotionY
+/// ### Pattern 9: `ProjectileMotionY`
 /// Calculate vertical position in projectile motion
 /// ```vb
 /// Function ProjectileY(initialY As Double, velocity As Double, _
@@ -217,7 +217,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: HarmonicMotion
+/// ### Pattern 10: `HarmonicMotion`
 /// Simple harmonic motion displacement
 /// ```vb
 /// Function HarmonicDisplacement(amplitude As Double, angularFrequency As Double, _
@@ -228,7 +228,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: WaveformGenerator Class
+/// ### Example 1: `WaveformGenerator` Class
 /// Generate various waveforms using sine function
 /// ```vb
 /// ' Class: WaveformGenerator
@@ -328,7 +328,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: CircularMotion Module
+/// ### Example 2: `CircularMotion` Module
 /// Calculate circular and elliptical motion using trigonometry
 /// ```vb
 /// ' Module: CircularMotion
@@ -379,7 +379,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 3: PhysicsSimulator Class
+/// ### Example 3: `PhysicsSimulator` Class
 /// Simulate physics using trigonometric functions
 /// ```vb
 /// ' Class: PhysicsSimulator
@@ -434,7 +434,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 4: GraphicsHelper Module
+/// ### Example 4: `GraphicsHelper` Module
 /// Graphics and animation helpers using trigonometry
 /// ```vb
 /// ' Module: GraphicsHelper
@@ -582,12 +582,12 @@ mod tests {
 
     #[test]
     fn sin_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As Double
     result = Sin(1.5708)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -596,14 +596,14 @@ End Sub
 
     #[test]
     fn sin_with_pi() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim pi As Double
     Dim sineValue As Double
     pi = Atn(1) * 4
     sineValue = Sin(pi / 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -626,11 +626,11 @@ End Sub
 
     #[test]
     fn sin_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateSine(angle As Double) As Double
     CalculateSine = Sin(angle)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -639,16 +639,16 @@ End Function
 
     #[test]
     fn sin_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim y As Double
     y = Sin(x)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
-        assert!(debug.contains("y"));
+        assert!(debug.contains('y'));
     }
 
     #[test]
@@ -666,11 +666,11 @@ End Sub
 
     #[test]
     fn sin_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Sin(1.0472)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -698,13 +698,13 @@ End Sub
 
     #[test]
     fn sin_class_usage() {
-        let source = r#"
+        let source = r"
 Class TrigCalculator
     Public Function GetSine(angle As Double) As Double
         GetSine = Sin(angle)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -713,18 +713,18 @@ End Class
 
     #[test]
     fn sin_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With Calculator
         Dim s As Double
         s = Sin(angle)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]
@@ -747,14 +747,14 @@ End Sub
 
     #[test]
     fn sin_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To 360
         Debug.Print Sin(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -762,13 +762,13 @@ End Sub
 
     #[test]
     fn sin_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Sin(angle) < 1
         angle = angle + 0.1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -776,13 +776,13 @@ End Sub
 
     #[test]
     fn sin_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Sin(x) > threshold
         x = x + step
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -790,13 +790,13 @@ End Sub
 
     #[test]
     fn sin_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Abs(Sin(angle)) > 0.01
         angle = angle - 0.1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -804,12 +804,12 @@ End Sub
 
     #[test]
     fn sin_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim value As Double
     value = (Sin(a) + Sin(b)) / 2
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -832,12 +832,12 @@ End Sub
 
     #[test]
     fn sin_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim waveform(100) As Double
     waveform(0) = Sin(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -846,7 +846,7 @@ End Sub
 
     #[test]
     fn sin_property_assignment() {
-        let source = r#"
+        let source = r"
 Class Point
     Public Y As Double
 End Class
@@ -855,7 +855,7 @@ Sub Test()
     Dim pt As New Point
     pt.Y = Sin(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -863,14 +863,14 @@ End Sub
 
     #[test]
     fn sin_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessValue(v As Double)
 End Sub
 
 Sub Test()
     ProcessValue Sin(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -893,12 +893,12 @@ End Sub
 
     #[test]
     fn sin_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isPositive As Boolean
     isPositive = (Sin(angle) > 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -907,13 +907,13 @@ End Sub
 
     #[test]
     fn sin_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim amplitude As Double
     Dim wave As Double
     wave = amplitude * Sin(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -922,7 +922,7 @@ End Sub
 
     #[test]
     fn sin_degrees_conversion() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Const PI As Double = 3.14159265358979
     Dim degrees As Double
@@ -932,7 +932,7 @@ Sub Test()
     radians = degrees * (PI / 180)
     result = Sin(radians)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
@@ -954,7 +954,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]
@@ -977,16 +977,16 @@ End Sub
 
     #[test]
     fn sin_circular_motion() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim y As Double
     Dim radius As Double
     y = centerY + radius * Sin(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sin"));
-        assert!(debug.contains("y"));
+        assert!(debug.contains('y'));
     }
 }

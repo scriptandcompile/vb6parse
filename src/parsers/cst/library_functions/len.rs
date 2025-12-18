@@ -583,11 +583,11 @@ mod tests {
 
     #[test]
     fn len_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Len(myString)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -624,11 +624,11 @@ End Sub
 
     #[test]
     fn len_function_return() {
-        let source = r#"
+        let source = r"
 Function GetLength(text As String) As Long
     GetLength = Len(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -637,14 +637,14 @@ End Function
 
     #[test]
     fn len_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = 1 To Len(text)
         Debug.Print Mid(text, i, 1)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -679,12 +679,12 @@ End Sub
 
     #[test]
     fn len_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim length As Long
     length = Len(myString)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -693,11 +693,11 @@ End Sub
 
     #[test]
     fn len_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Length = Len(obj.Text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -721,11 +721,11 @@ End Sub
 
     #[test]
     fn len_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     position = Len(text) - 5
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -734,11 +734,11 @@ End Sub
 
     #[test]
     fn len_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_length = Len(m_text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -747,13 +747,13 @@ End Sub
 
     #[test]
     fn len_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With record
         .Size = Len(.Data)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -762,11 +762,11 @@ End Sub
 
     #[test]
     fn len_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ValidateLength(Len(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -775,7 +775,7 @@ End Sub
 
     #[test]
     fn len_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case Len(code)
         Case 3
@@ -784,7 +784,7 @@ Sub Test()
             ProcessLong
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -793,7 +793,7 @@ End Sub
 
     #[test]
     fn len_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Len(text) = 0 Then
         HandleEmpty
@@ -801,7 +801,7 @@ Sub Test()
         HandleLong
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -823,11 +823,11 @@ End Sub
 
     #[test]
     fn len_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (Len(text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -836,11 +836,11 @@ End Sub
 
     #[test]
     fn len_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     lengths(i) = Len(strings(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -849,11 +849,11 @@ End Sub
 
     #[test]
     fn len_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     sizes.Add Len(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -875,13 +875,13 @@ End Sub
 
     #[test]
     fn len_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Len(buffer) < maxSize
         buffer = buffer & GetData()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -890,13 +890,13 @@ End Sub
 
     #[test]
     fn len_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Len(input) > 0
         ProcessChar
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -920,11 +920,11 @@ End Sub
 
     #[test]
     fn len_with_left() {
-        let source = r#"
+        let source = r"
 Sub Test()
     prefix = Left(text, Len(text) - 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));
@@ -933,11 +933,11 @@ End Sub
 
     #[test]
     fn len_validation() {
-        let source = r#"
+        let source = r"
 Function IsValidLength(text As String) As Boolean
     IsValidLength = (Len(text) >= 3 And Len(text) <= 50)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Len"));

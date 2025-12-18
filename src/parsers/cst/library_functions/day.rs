@@ -567,9 +567,9 @@ mod tests {
 
     #[test]
     fn day_basic() {
-        let source = r#"
+        let source = r"
 d = Day(#1/15/2025#)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -578,9 +578,9 @@ d = Day(#1/15/2025#)
 
     #[test]
     fn day_with_variable() {
-        let source = r#"
+        let source = r"
 dayNum = Day(birthday)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -589,9 +589,9 @@ dayNum = Day(birthday)
 
     #[test]
     fn day_current_date() {
-        let source = r#"
+        let source = r"
 d = Day(Date)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -600,9 +600,9 @@ d = Day(Date)
 
     #[test]
     fn day_with_dateserial() {
-        let source = r#"
+        let source = r"
 dayNum = Day(DateSerial(2025, 12, 25))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -611,11 +611,11 @@ dayNum = Day(DateSerial(2025, 12, 25))
 
     #[test]
     fn day_in_function() {
-        let source = r#"
+        let source = r"
 Function IsLastDayOfMonth(dt As Date) As Boolean
     IsLastDayOfMonth = (Day(dt + 1) = 1)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -624,9 +624,9 @@ End Function
 
     #[test]
     fn day_days_in_month() {
-        let source = r#"
+        let source = r"
 daysInMonth = Day(DateSerial(yr, mo + 1, 0))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -648,11 +648,11 @@ End If
 
     #[test]
     fn day_with_year_month() {
-        let source = r#"
+        let source = r"
 yr = Year(dt)
 mo = Month(dt)
 dy = Day(dt)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -661,9 +661,9 @@ dy = Day(dt)
 
     #[test]
     fn day_equality_check() {
-        let source = r#"
+        let source = r"
 sameDay = (Day(date1) = Day(date2))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -672,9 +672,9 @@ sameDay = (Day(date1) = Day(date2))
 
     #[test]
     fn day_in_dateserial_reconstruction() {
-        let source = r#"
+        let source = r"
 newDate = DateSerial(Year(oldDate), Month(oldDate), Day(oldDate))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -725,9 +725,9 @@ dayNum = Day(DateAdd("d", 10, Date))
 
     #[test]
     fn day_birthday_check() {
-        let source = r#"
+        let source = r"
 isToday = (Month(Date) = Month(birthday)) And (Day(Date) = Day(birthday))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -751,9 +751,9 @@ End If
 
     #[test]
     fn day_leap_year_check() {
-        let source = r#"
+        let source = r"
 isLeapDay = (Month(dt) = 2) And (Day(dt) = 29)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -762,9 +762,9 @@ isLeapDay = (Month(dt) = 2) And (Day(dt) = 29)
 
     #[test]
     fn day_with_arithmetic() {
-        let source = r#"
+        let source = r"
 nextDay = Day(currentDate + 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -773,9 +773,9 @@ nextDay = Day(currentDate + 1)
 
     #[test]
     fn day_array_assignment() {
-        let source = r#"
+        let source = r"
 days(i) = Day(dates(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -795,11 +795,11 @@ MsgBox "Day: " & Day(someDate)
 
     #[test]
     fn day_multiple_calls() {
-        let source = r#"
+        let source = r"
 d1 = Day(date1)
 d2 = Day(date2)
 diff = d2 - d1
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));
@@ -843,13 +843,13 @@ filter = "Day(DateField) = " & Day(targetDate)
 
     #[test]
     fn day_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 result = Day(userInput)
 If Err.Number <> 0 Then
     result = 0
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Day"));

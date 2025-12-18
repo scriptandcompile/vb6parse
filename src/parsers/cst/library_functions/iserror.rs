@@ -585,11 +585,11 @@ mod tests {
 
     #[test]
     fn iserror_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IsError(myVariable)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -598,13 +598,13 @@ End Sub
 
     #[test]
     fn iserror_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsError(value) Then
         HandleError value
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -613,13 +613,13 @@ End Sub
 
     #[test]
     fn iserror_not_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not IsError(result) Then
         ProcessResult result
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -628,11 +628,11 @@ End Sub
 
     #[test]
     fn iserror_function_return() {
-        let source = r#"
+        let source = r"
 Function IsValid(v As Variant) As Boolean
     IsValid = Not IsError(v)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -641,13 +641,13 @@ End Function
 
     #[test]
     fn iserror_boolean_and() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsError(value1) And IsError(value2) Then
         ReportErrors
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -656,13 +656,13 @@ End Sub
 
     #[test]
     fn iserror_boolean_or() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsError(field) Or IsNull(field) Then
         ShowWarning
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -710,13 +710,13 @@ End Sub
 
     #[test]
     fn iserror_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IsError(currentValue)
         currentValue = GetNextValue()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -725,13 +725,13 @@ End Sub
 
     #[test]
     fn iserror_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Not IsError(result)
         result = TryOperation()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -740,12 +740,12 @@ End Sub
 
     #[test]
     fn iserror_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim hasError As Boolean
     hasError = IsError(dataValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -754,11 +754,11 @@ End Sub
 
     #[test]
     fn iserror_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.HasError = IsError(obj.Value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -767,11 +767,11 @@ End Sub
 
     #[test]
     fn iserror_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_hasError = IsError(m_data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -780,13 +780,13 @@ End Sub
 
     #[test]
     fn iserror_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With record
         .IsValid = Not IsError(.Data)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -795,11 +795,11 @@ End Sub
 
     #[test]
     fn iserror_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call LogError(IsError(calculation))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -808,7 +808,7 @@ End Sub
 
     #[test]
     fn iserror_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case True
         Case IsError(value)
@@ -817,7 +817,7 @@ Sub Test()
             ProcessValue
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -826,7 +826,7 @@ End Sub
 
     #[test]
     fn iserror_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(arr)
@@ -835,7 +835,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -844,7 +844,7 @@ End Sub
 
     #[test]
     fn iserror_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNull(data) Then
         ProcessNull
@@ -852,7 +852,7 @@ Sub Test()
         ProcessError
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -874,11 +874,11 @@ End Sub
 
     #[test]
     fn iserror_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IsError(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -887,11 +887,11 @@ End Sub
 
     #[test]
     fn iserror_array_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     checks(i) = IsError(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -900,11 +900,11 @@ End Sub
 
     #[test]
     fn iserror_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     errorStates.Add IsError(data(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -928,11 +928,11 @@ End Sub
 
     #[test]
     fn iserror_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IsError(myVar))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -941,13 +941,13 @@ End Sub
 
     #[test]
     fn iserror_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While IsError(buffer)
         buffer = GetValidData()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));
@@ -956,7 +956,7 @@ End Sub
 
     #[test]
     fn iserror_error_propagation() {
-        let source = r#"
+        let source = r"
 Function Calculate(a As Variant) As Variant
     If IsError(a) Then
         Calculate = a
@@ -964,7 +964,7 @@ Function Calculate(a As Variant) As Variant
         Calculate = a * 2
     End If
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsError"));

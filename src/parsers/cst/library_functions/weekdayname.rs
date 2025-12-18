@@ -506,11 +506,11 @@ mod tests {
 
     #[test]
     fn weekdayname_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dayName = WeekdayName(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -518,12 +518,12 @@ End Sub
 
     #[test]
     fn weekdayname_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim name As String
     name = WeekdayName(dayNumber)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -532,11 +532,11 @@ End Sub
 
     #[test]
     fn weekdayname_with_abbreviate() {
-        let source = r#"
+        let source = r"
 Sub Test()
     shortName = WeekdayName(3, True)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -544,11 +544,11 @@ End Sub
 
     #[test]
     fn weekdayname_all_parameters() {
-        let source = r#"
+        let source = r"
 Sub Test()
     name = WeekdayName(2, False, vbMonday)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -556,11 +556,11 @@ End Sub
 
     #[test]
     fn weekdayname_with_weekday() {
-        let source = r#"
+        let source = r"
 Sub Test()
     todayName = WeekdayName(Weekday(Date))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -568,13 +568,13 @@ End Sub
 
     #[test]
     fn weekdayname_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 7
         Debug.Print WeekdayName(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -594,11 +594,11 @@ End Sub
 
     #[test]
     fn weekdayname_function_return() {
-        let source = r#"
+        let source = r"
 Function GetDayName(dayNum As Integer) As String
     GetDayName = WeekdayName(dayNum)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -606,11 +606,11 @@ End Function
 
     #[test]
     fn weekdayname_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dayNames(i) = WeekdayName(i, True)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -618,11 +618,11 @@ End Sub
 
     #[test]
     fn weekdayname_concatenation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     header = WeekdayName(1, True) & vbTab & WeekdayName(2, True)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -630,11 +630,11 @@ End Sub
 
     #[test]
     fn weekdayname_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call DisplayDay(WeekdayName(dayNum))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -642,11 +642,11 @@ End Sub
 
     #[test]
     fn weekdayname_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print WeekdayName(vbMonday)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -685,13 +685,13 @@ End Sub
 
     #[test]
     fn weekdayname_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If WeekdayName(day1) = WeekdayName(day2) Then
         SameDay
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -711,11 +711,11 @@ End Sub
 
     #[test]
     fn weekdayname_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.DayName = WeekdayName(obj.DayNumber)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -723,13 +723,13 @@ End Sub
 
     #[test]
     fn weekdayname_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With dateInfo
         .Name = WeekdayName(.DayNumber, .Abbreviate)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -737,11 +737,11 @@ End Sub
 
     #[test]
     fn weekdayname_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (WeekdayName(dayNum))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -765,11 +765,11 @@ End Sub
 
     #[test]
     fn weekdayname_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, WeekdayName(i, True)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -777,12 +777,12 @@ End Sub
 
     #[test]
     fn weekdayname_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set formatter = New DateFormatter
     formatter.DayName = WeekdayName(Weekday(formatter.TargetDate))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -820,11 +820,11 @@ End Sub
 
     #[test]
     fn weekdayname_left_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     initial = Left$(WeekdayName(dayNum, True), 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -832,11 +832,11 @@ End Sub
 
     #[test]
     fn weekdayname_ucase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     upperName = UCase$(WeekdayName(dayNum))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -844,11 +844,11 @@ End Sub
 
     #[test]
     fn weekdayname_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     display = IIf(abbreviated, WeekdayName(day, True), WeekdayName(day, False))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));
@@ -856,11 +856,11 @@ End Sub
 
     #[test]
     fn weekdayname_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     days.Add WeekdayName(i), CStr(i)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("WeekdayName"));

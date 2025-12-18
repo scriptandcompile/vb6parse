@@ -44,11 +44,11 @@ mod test {
     // Error statement tests
     #[test]
     fn error_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error 11
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -70,11 +70,11 @@ End Sub
 
     #[test]
     fn error_with_literal() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error 9
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -83,11 +83,11 @@ End Sub
 
     #[test]
     fn error_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error vbObjectError + 1000
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -97,11 +97,11 @@ End Sub
 
     #[test]
     fn error_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error errorNumber
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -122,11 +122,11 @@ End Sub
 
     #[test]
     fn error_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error 11 ' Division by zero
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -136,13 +136,13 @@ End Sub
 
     #[test]
     fn error_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If shouldFail Then
         Error 5
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -151,11 +151,11 @@ End Sub
 
     #[test]
     fn error_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If invalidData Then Error 13
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -164,7 +164,7 @@ End Sub
 
     #[test]
     fn error_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case errorType
         Case 1
@@ -173,7 +173,7 @@ Sub Test()
             Error 13
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -183,7 +183,7 @@ End Sub
 
     #[test]
     fn error_with_error_handler() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     DoSomething
@@ -191,7 +191,7 @@ Sub Test()
 ErrorHandler:
     Error 1000
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -200,11 +200,11 @@ End Sub
 
     #[test]
     fn error_custom_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error 32000
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -213,13 +213,13 @@ End Sub
 
     #[test]
     fn multiple_error_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Error 1
     DoSomething
     Error 2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

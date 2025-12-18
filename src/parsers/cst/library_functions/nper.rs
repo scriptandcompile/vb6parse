@@ -751,10 +751,10 @@ mod tests {
 
     #[test]
     fn nper_basic() {
-        let source = r#"
+        let source = r"
 Dim months As Double
 months = NPer(0.08 / 12, -200, 10000)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -763,10 +763,10 @@ months = NPer(0.08 / 12, -200, 10000)
 
     #[test]
     fn nper_with_fv() {
-        let source = r#"
+        let source = r"
 Dim periods As Double
 periods = NPer(0.06 / 12, -300, 0, 50000)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -775,10 +775,10 @@ periods = NPer(0.06 / 12, -300, 0, 50000)
 
     #[test]
     fn nper_with_type() {
-        let source = r#"
+        let source = r"
 Dim n As Double
 n = NPer(rate, pmt, pv, fv, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -800,11 +800,11 @@ End If
 
     #[test]
     fn nper_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculatePayoffMonths(loan As Double, payment As Double, rate As Double) As Double
     CalculatePayoffMonths = NPer(rate / 12, -payment, loan)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -813,10 +813,10 @@ End Function
 
     #[test]
     fn nper_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim payoffYears As Double
 payoffYears = NPer(0.05 / 12, -1000, 200000) / 12
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -865,13 +865,13 @@ End Select
 
     #[test]
     fn nper_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_periods As Double
 
 Public Sub CalculatePeriods()
     m_periods = NPer(m_rate / 12, -m_payment, m_balance)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -880,11 +880,11 @@ End Sub
 
     #[test]
     fn nper_with_statement() {
-        let source = r#"
+        let source = r"
 With loanInfo
     .PayoffMonths = NPer(.Rate / 12, -.MonthlyPayment, .Principal)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -893,13 +893,13 @@ End With
 
     #[test]
     fn nper_elseif() {
-        let source = r#"
+        let source = r"
 If x > 0 Then
     y = 1
 ElseIf NPer(r, p, v) < 36 Then
     y = 2
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -908,12 +908,12 @@ End If
 
     #[test]
     fn nper_for_loop() {
-        let source = r#"
+        let source = r"
 For payment = 100 To 500 Step 50
     months = NPer(0.1 / 12, -payment, 10000)
     Debug.Print payment, months
 Next payment
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -922,11 +922,11 @@ Next payment
 
     #[test]
     fn nper_do_while() {
-        let source = r#"
+        let source = r"
 Do While NPer(rate, -payment, balance) > targetMonths
     payment = payment + 10
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -935,11 +935,11 @@ Loop
 
     #[test]
     fn nper_do_until() {
-        let source = r#"
+        let source = r"
 Do Until NPer(apr / 12, -pmt, bal) <= 12
     pmt = pmt + 50
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -948,11 +948,11 @@ Loop
 
     #[test]
     fn nper_while_wend() {
-        let source = r#"
+        let source = r"
 While NPer(0.05 / 12, -amount, 50000) > 120
     amount = amount + 25
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -961,10 +961,10 @@ Wend
 
     #[test]
     fn nper_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (NPer(rate, payment, principal))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -998,10 +998,10 @@ End If
 
     #[test]
     fn nper_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim payoffTimes(10) As Double
 payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -1010,10 +1010,10 @@ payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
 
     #[test]
     fn nper_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New LoanCalculator
 obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -1022,9 +1022,9 @@ obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
 
     #[test]
     fn nper_function_argument() {
-        let source = r#"
+        let source = r"
 Call DisplayPayoffSchedule(NPer(apr / 12, -monthlyPmt, loanAmount))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -1045,10 +1045,10 @@ formatted = Format(NPer(0.06 / 12, -500, 25000), "0.00")
 
     #[test]
     fn nper_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim years As Double
 years = NPer(rate / 12, -payment, principal) / 12
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));
@@ -1069,10 +1069,10 @@ msg = "Payoff time: " & NPer(r, p, v) & " months"
 
     #[test]
     fn nper_int_conversion() {
-        let source = r#"
+        let source = r"
 Dim wholeMonths As Integer
 wholeMonths = Int(NPer(0.08 / 12, -300, 15000))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPer"));

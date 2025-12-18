@@ -11,7 +11,7 @@ fn expression_whitespace_conservation() {
     // Check for errors
     if !result.failures.is_empty() {
         for failure in &result.failures {
-            println!("Error: {:?}", failure);
+            println!("Error: {failure:?}");
         }
         panic!("Parsing failed with errors");
     }
@@ -106,10 +106,10 @@ fn print_node(node: &vb6parse::parsers::cst::CstNode, depth: usize) {
     }
 }
 
-fn find_node_by_kind<'a>(
-    node: &'a vb6parse::parsers::cst::CstNode,
+fn find_node_by_kind(
+    node: &vb6parse::parsers::cst::CstNode,
     kind: SyntaxKind,
-) -> Option<&'a vb6parse::parsers::cst::CstNode> {
+) -> Option<&vb6parse::parsers::cst::CstNode> {
     if node.kind == kind {
         return Some(node);
     }

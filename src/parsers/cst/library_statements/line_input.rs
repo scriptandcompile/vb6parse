@@ -71,11 +71,11 @@ mod test {
     // Line Input statement tests
     #[test]
     fn line_input_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Line Input #1, textLine
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -98,11 +98,11 @@ End Sub
 
     #[test]
     fn line_input_with_file_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Line Input #fileNum, buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -124,11 +124,11 @@ End Sub
 
     #[test]
     fn line_input_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Line Input #1, textLine ' Read one line
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -138,13 +138,13 @@ End Sub
 
     #[test]
     fn line_input_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not EOF(1) Then
         Line Input #1, currentLine
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -153,11 +153,11 @@ End Sub
 
     #[test]
     fn line_input_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If hasData Then Line Input #1, nextLine
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -166,13 +166,13 @@ End Sub
 
     #[test]
     fn line_input_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Not EOF(1)
         Line Input #1, textLine
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -181,12 +181,12 @@ End Sub
 
     #[test]
     fn multiple_line_input_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Line Input #1, line1
     Line Input #1, line2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -228,12 +228,12 @@ End Sub
 
     #[test]
     fn line_input_vs_input() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Line Input #1, wholeLine
     Input #1, parsedData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -243,12 +243,12 @@ End Sub
 
     #[test]
     fn line_input_string_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim myText As String
     Line Input #1, myText
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

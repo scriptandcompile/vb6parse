@@ -660,9 +660,9 @@ mod tests {
 
     #[test]
     fn doevents_basic() {
-        let source = r#"
+        let source = r"
 DoEvents
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -671,9 +671,9 @@ DoEvents
 
     #[test]
     fn doevents_with_parentheses() {
-        let source = r#"
+        let source = r"
 DoEvents()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -682,12 +682,12 @@ DoEvents()
 
     #[test]
     fn doevents_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 10000
     ProcessItem i
     If i Mod 100 = 0 Then DoEvents
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -696,9 +696,9 @@ Next i
 
     #[test]
     fn doevents_with_assignment() {
-        let source = r#"
+        let source = r"
 formCount = DoEvents()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -707,12 +707,12 @@ formCount = DoEvents()
 
     #[test]
     fn doevents_in_do_loop() {
-        let source = r#"
+        let source = r"
 Do Until EOF(1)
     ProcessLine line
     DoEvents
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -721,13 +721,13 @@ Loop
 
     #[test]
     fn doevents_cancellable_operation() {
-        let source = r#"
+        let source = r"
 For i = 1 To 100000
     If cancelOperation Then Exit For
     ProcessItem i
     If i Mod 100 = 0 Then DoEvents
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -749,10 +749,10 @@ ProcessData
 
     #[test]
     fn doevents_progress_bar() {
-        let source = r#"
+        let source = r"
 ProgressBar1.Value = i
 DoEvents
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -776,13 +776,13 @@ Loop
 
     #[test]
     fn doevents_batch_update() {
-        let source = r#"
+        let source = r"
 Do Until rs.EOF
     rs.Update
     If count Mod 25 = 0 Then DoEvents
     rs.MoveNext
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -807,7 +807,7 @@ ProcessData
 
     #[test]
     fn doevents_in_function() {
-        let source = r#"
+        let source = r"
 Function ProcessData() As Boolean
     Dim i As Long
     For i = 1 To 1000
@@ -816,7 +816,7 @@ Function ProcessData() As Boolean
     Next i
     ProcessData = True
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -825,13 +825,13 @@ End Function
 
     #[test]
     fn doevents_with_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 For i = 1 To 10000
     ProcessItem i
     DoEvents
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -840,14 +840,14 @@ Next i
 
     #[test]
     fn doevents_reentrancy_guard() {
-        let source = r#"
+        let source = r"
 If isProcessing Then Exit Sub
 isProcessing = True
 For i = 1 To 1000
     DoEvents
 Next i
 isProcessing = False
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -856,14 +856,14 @@ isProcessing = False
 
     #[test]
     fn doevents_file_processing() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     ProcessLine line
     lineCount = lineCount + 1
     If lineCount Mod 100 = 0 Then DoEvents
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -872,12 +872,12 @@ Loop
 
     #[test]
     fn doevents_conditional() {
-        let source = r#"
+        let source = r"
 If Timer - lastUpdate > 0.1 Then
     DoEvents
     lastUpdate = Timer
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -886,7 +886,7 @@ End If
 
     #[test]
     fn doevents_select_case() {
-        let source = r#"
+        let source = r"
 Select Case step
     Case 1
         x = DoEvents()
@@ -895,7 +895,7 @@ Select Case step
         y = DoEvents()
         ProcessStep2
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -904,14 +904,14 @@ End Select
 
     #[test]
     fn doevents_nested_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 100
     For j = 1 To 100
         Process i, j
     Next j
     DoEvents
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -920,12 +920,12 @@ Next i
 
     #[test]
     fn doevents_with_sleep() {
-        let source = r#"
+        let source = r"
 Do Until processingComplete
     DoEvents
     Sleep 10
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -952,12 +952,12 @@ Loop
 
     #[test]
     fn doevents_animation() {
-        let source = r#"
+        let source = r"
 For i = 1 To 100
     shpIndicator.Left = i * 50
     DoEvents
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -966,9 +966,9 @@ Next i
 
     #[test]
     fn doevents_inline_if() {
-        let source = r#"
+        let source = r"
 If i Mod 100 = 0 Then DoEvents Else ProcessFast
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -977,12 +977,12 @@ If i Mod 100 = 0 Then DoEvents Else ProcessFast
 
     #[test]
     fn doevents_record_processing() {
-        let source = r#"
+        let source = r"
 For Each item In collection
     ProcessItem item
     DoEvents
 Next item
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));
@@ -1008,9 +1008,9 @@ Next i
 
     #[test]
     fn doevents_with_call() {
-        let source = r#"
+        let source = r"
 Call DoEvents
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DoEvents"));

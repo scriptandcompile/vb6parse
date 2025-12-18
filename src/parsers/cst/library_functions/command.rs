@@ -538,9 +538,9 @@ mod tests {
 
     #[test]
     fn command_basic() {
-        let source = r#"
+        let source = r"
 args = Command()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -549,10 +549,10 @@ args = Command()
 
     #[test]
     fn command_in_assignment() {
-        let source = r#"
+        let source = r"
 Dim cmdLine As String
 cmdLine = Command()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -574,9 +574,9 @@ End If
 
     #[test]
     fn command_with_trim() {
-        let source = r#"
+        let source = r"
 args = Trim(Command())
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -598,12 +598,12 @@ End If
 
     #[test]
     fn command_in_sub_main() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim args As String
     args = Command()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -623,9 +623,9 @@ MsgBox "Args: " & Command()
 
     #[test]
     fn command_with_lcase() {
-        let source = r#"
+        let source = r"
 cmdLine = LCase(Command())
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -634,11 +634,11 @@ cmdLine = LCase(Command())
 
     #[test]
     fn command_in_function() {
-        let source = r#"
+        let source = r"
 Function GetArgs() As String
     GetArgs = Command()
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -724,11 +724,11 @@ args = Replace(Command(), "/", "-")
 
     #[test]
     fn command_len_check() {
-        let source = r#"
+        let source = r"
 If Len(Command()) > 0 Then
     ParseArgs
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -748,10 +748,10 @@ fullCmd = App.EXEName & " " & Command()
 
     #[test]
     fn command_multiple_calls() {
-        let source = r#"
+        let source = r"
 cmd1 = Command()
 cmd2 = Command()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -760,11 +760,11 @@ cmd2 = Command()
 
     #[test]
     fn command_in_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To Len(Command())
     ch = Mid(Command(), i, 1)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -773,9 +773,9 @@ Next i
 
     #[test]
     fn command_with_ucase() {
-        let source = r#"
+        let source = r"
 cmdUpper = UCase(Command())
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -808,9 +808,9 @@ End If
 
     #[test]
     fn command_with_mid() {
-        let source = r#"
+        let source = r"
 part = Mid(Command(), 2, 5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));
@@ -819,9 +819,9 @@ part = Mid(Command(), 2, 5)
 
     #[test]
     fn command_with_whitespace() {
-        let source = r#"
+        let source = r"
 args = Command( )
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Command"));

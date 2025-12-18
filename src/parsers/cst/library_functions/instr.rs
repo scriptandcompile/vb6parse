@@ -568,13 +568,13 @@ End Sub
 
     #[test]
     fn instr_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While InStr(text, delimiter) > 0
         pos = InStr(text, delimiter)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -645,14 +645,14 @@ End Sub
 
     #[test]
     fn instr_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = 1 To Len(text)
         If InStr(i, text, searchChar) > 0 Then Exit For
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -674,11 +674,11 @@ End Sub
 
     #[test]
     fn instr_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     positions(i) = InStr(text, delimiter)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -687,11 +687,11 @@ End Sub
 
     #[test]
     fn instr_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Position = InStr(data, marker)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -700,11 +700,11 @@ End Sub
 
     #[test]
     fn instr_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_delimiterPos = InStr(m_text, m_delimiter)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -713,13 +713,13 @@ End Sub
 
     #[test]
     fn instr_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With parser
         .Position = InStr(.Text, .Delimiter)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -754,11 +754,11 @@ End Sub
 
     #[test]
     fn instr_math_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     length = InStr(text, delimiter) - 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -807,11 +807,11 @@ End Sub
 
     #[test]
     fn instr_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     positions.Add InStr(lines(i), delimiter)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -846,14 +846,14 @@ End Sub
 
     #[test]
     fn instr_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until InStr(startPos, text, delimiter) = 0
         pos = InStr(startPos, text, delimiter)
         startPos = pos + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));
@@ -875,11 +875,11 @@ End Sub
 
     #[test]
     fn instr_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pos = (InStr(text, searchText))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStr"));

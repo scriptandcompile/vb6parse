@@ -281,11 +281,11 @@ mod tests {
 
     #[test]
     fn date_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     dateStr = Date$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Date$"));
@@ -293,12 +293,12 @@ End Sub
 
     #[test]
     fn date_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim currentDate As String
     currentDate = Date$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Date$"));
@@ -410,11 +410,11 @@ End Function
 
     #[test]
     fn date_dollar_validation() {
-        let source = r#"
+        let source = r"
 Function IsToday(dateStr As String) As Boolean
     IsToday = (dateStr = Date$)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Date$"));
@@ -473,11 +473,11 @@ End Sub
 
     #[test]
     fn date_dollar_function_call() {
-        let source = r#"
+        let source = r"
 Function GetCurrentDate() As String
     GetCurrentDate = Date$
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Date$"));
@@ -528,11 +528,11 @@ End Sub
 
     #[test]
     fn date_dollar_len() {
-        let source = r#"
+        let source = r"
 Sub Main()
     dateLen = Len(Date$)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Date$"));

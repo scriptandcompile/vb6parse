@@ -46,11 +46,11 @@ mod test {
     // Load statement tests
     #[test]
     fn load_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load Form1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -73,11 +73,11 @@ End Sub
 
     #[test]
     fn load_form() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load frmDialog
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -87,11 +87,11 @@ End Sub
 
     #[test]
     fn load_control_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load txtControl(5)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -112,11 +112,11 @@ End Sub
 
     #[test]
     fn load_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load frmAbout ' Show about dialog
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -126,13 +126,13 @@ End Sub
 
     #[test]
     fn load_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsForm Then
         Load frmSettings
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -141,11 +141,11 @@ End Sub
 
     #[test]
     fn load_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If showDialog Then Load frmInput
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -154,13 +154,13 @@ End Sub
 
     #[test]
     fn multiple_load_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load Form1
     Load Form2
     Load Form3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -170,12 +170,12 @@ End Sub
 
     #[test]
     fn load_then_show() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Load frmSplash
     frmSplash.Show
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -202,14 +202,14 @@ End Sub
 
     #[test]
     fn load_dynamic_control() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         Load lblLabel(i)
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

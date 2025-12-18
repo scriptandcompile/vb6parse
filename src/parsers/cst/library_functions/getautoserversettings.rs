@@ -735,7 +735,7 @@ mod tests {
 
     #[test]
     fn getautoserversettings_with_variables() {
-        let source = r#"result = GetAutoServerSettings(progID, clsID, serverName)"#;
+        let source = r"result = GetAutoServerSettings(progID, clsID, serverName)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -754,9 +754,9 @@ mod tests {
 
     #[test]
     fn getautoserversettings_in_function() {
-        let source = r#"Function ValidateServer() As Boolean
+        let source = r"Function ValidateServer() As Boolean
     ValidateServer = (GetAutoServerSettings(m_ProgID, m_CLSID, m_Server) <> 0)
-End Function"#;
+End Function";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -786,9 +786,9 @@ End If"#;
 
     #[test]
     fn getautoserversettings_for_loop() {
-        let source = r#"For i = 1 To serverCount
+        let source = r"For i = 1 To serverCount
     settings = GetAutoServerSettings(progID, clsID, servers(i))
-Next i"#;
+Next i";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -809,8 +809,8 @@ End Select"#;
 
     #[test]
     fn getautoserversettings_error_handling() {
-        let source = r#"On Error GoTo ErrorHandler
-settings = GetAutoServerSettings(progID, clsID, serverName)"#;
+        let source = r"On Error GoTo ErrorHandler
+settings = GetAutoServerSettings(progID, clsID, serverName)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -829,7 +829,7 @@ settings = GetAutoServerSettings(progID, clsID, serverName)"#;
 
     #[test]
     fn getautoserversettings_array_element() {
-        let source = r#"settings(i) = GetAutoServerSettings(progID, clsID, servers(i))"#;
+        let source = r"settings(i) = GetAutoServerSettings(progID, clsID, servers(i))";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -838,7 +838,7 @@ settings = GetAutoServerSettings(progID, clsID, serverName)"#;
 
     #[test]
     fn getautoserversettings_class_member() {
-        let source = r#"m_Settings = GetAutoServerSettings(m_ProgID, m_CLSID, m_ServerName)"#;
+        let source = r"m_Settings = GetAutoServerSettings(m_ProgID, m_CLSID, m_ServerName)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -847,8 +847,7 @@ settings = GetAutoServerSettings(progID, clsID, serverName)"#;
 
     #[test]
     fn getautoserversettings_type_field() {
-        let source =
-            r#"serverInfo.Settings = GetAutoServerSettings(progID, clsID, serverInfo.Name)"#;
+        let source = r"serverInfo.Settings = GetAutoServerSettings(progID, clsID, serverInfo.Name)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -857,10 +856,10 @@ settings = GetAutoServerSettings(progID, clsID, serverName)"#;
 
     #[test]
     fn getautoserversettings_do_loop() {
-        let source = r#"Do While retry < maxRetries
+        let source = r"Do While retry < maxRetries
     settings = GetAutoServerSettings(progID, clsID, serverName)
     If settings <> 0 Then Exit Do
-Loop"#;
+Loop";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -897,7 +896,7 @@ Loop"#;
 
     #[test]
     fn getautoserversettings_collection() {
-        let source = r#"results.Add GetAutoServerSettings(progID, clsID, serverName)"#;
+        let source = r"results.Add GetAutoServerSettings(progID, clsID, serverName)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -924,9 +923,9 @@ Loop"#;
 
     #[test]
     fn getautoserversettings_with_statement() {
-        let source = r#"With serverConfig
+        let source = r"With serverConfig
     .Settings = GetAutoServerSettings(.ProgID, .CLSID, .ServerName)
-End With"#;
+End With";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -935,9 +934,9 @@ End With"#;
 
     #[test]
     fn getautoserversettings_on_error_resume() {
-        let source = r#"On Error Resume Next
+        let source = r"On Error Resume Next
 settings = GetAutoServerSettings(progID, clsID, serverName)
-On Error GoTo 0"#;
+On Error GoTo 0";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -946,9 +945,9 @@ On Error GoTo 0"#;
 
     #[test]
     fn getautoserversettings_min_comparison() {
-        let source = r#"If GetAutoServerSettings(progID, clsID, serverName) < minSettings Then
+        let source = r"If GetAutoServerSettings(progID, clsID, serverName) < minSettings Then
     minSettings = GetAutoServerSettings(progID, clsID, serverName)
-End If"#;
+End If";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -957,9 +956,9 @@ End If"#;
 
     #[test]
     fn getautoserversettings_for_each() {
-        let source = r#"For Each server In servers
+        let source = r"For Each server In servers
     settings = GetAutoServerSettings(progID, clsID, CStr(server))
-Next server"#;
+Next server";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -968,9 +967,9 @@ Next server"#;
 
     #[test]
     fn getautoserversettings_property() {
-        let source = r#"Property Get ServerSettings() As Long
+        let source = r"Property Get ServerSettings() As Long
     ServerSettings = GetAutoServerSettings(m_ProgID, m_CLSID, m_ServerName)
-End Property"#;
+End Property";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));
@@ -979,8 +978,7 @@ End Property"#;
 
     #[test]
     fn getautoserversettings_exit_condition() {
-        let source =
-            r#"If GetAutoServerSettings(progID, clsID, serverName) = 0 Then Exit Function"#;
+        let source = r"If GetAutoServerSettings(progID, clsID, serverName) = 0 Then Exit Function";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetAutoServerSettings"));

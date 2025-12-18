@@ -84,11 +84,11 @@ End Sub
 
     #[test]
     fn mid_without_length() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Mid(s, 10) = replacement
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -98,11 +98,11 @@ End Sub
 
     #[test]
     fn mid_with_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Mid(arr(i), startPos + 1, Len(newStr)) = newStr
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -126,11 +126,11 @@ End Sub
 
     #[test]
     fn mid_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Mid(buffer, pos, 10) = data ' Replace 10 characters
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -200,11 +200,11 @@ End Sub
 
     #[test]
     fn mid_with_member_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Mid(obj.Name, 1, 10) = newName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -214,11 +214,11 @@ End Sub
 
     #[test]
     fn mid_with_concatenation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Mid(fullText, pos, 5) = prefix & suffix
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

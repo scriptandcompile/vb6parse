@@ -252,11 +252,11 @@ End Sub
 
     #[test]
     fn inline_if_then_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If enabled Then Call DoSomething
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -280,11 +280,11 @@ End Sub
 
     #[test]
     fn inline_if_then_set() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If obj Is Nothing Then Set obj = New MyClass
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -309,11 +309,11 @@ End Sub
 
     #[test]
     fn inline_if_then_multiple_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then x = 1: y = 2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -327,13 +327,13 @@ End Sub
 
     #[test]
     fn inline_if_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x > 0 Then GoTo Label1
 Label1:
     x = 1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -344,13 +344,13 @@ End Sub
 
     #[test]
     fn inline_if_then_goto_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x > 0 Then GoTo Positive ' go to positive case
 Positive:
     result = x
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -361,11 +361,11 @@ End Sub
 
     #[test]
     fn inline_if_then_call_with_args() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If ready Then Call Process(x, y, z)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -375,11 +375,11 @@ End Sub
 
     #[test]
     fn inline_if_then_nested_calls() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If value > 0 Then result = Calculate(value)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -389,13 +389,13 @@ End Sub
 
     #[test]
     fn inline_if_complex_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x > 0 And y < 10 Then GoTo Valid
 Valid:
     Process
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -405,11 +405,11 @@ End Sub
 
     #[test]
     fn inline_if_not_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not IsValid Then Exit Sub
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -419,11 +419,11 @@ End Sub
 
     #[test]
     fn binary_conditional() {
-        let source = r#"Sub Test()
+        let source = r"Sub Test()
     If x = 5 Then
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Navigate the tree structure
@@ -488,11 +488,11 @@ End Sub
 
     #[test]
     fn unary_conditional() {
-        let source = r#"Sub Test()
+        let source = r"Sub Test()
     If Not isEmpty(x) Then
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Navigate the tree structure
@@ -553,7 +553,7 @@ End Sub
 
     #[test]
     fn nested_if_elseif_else() {
-        let source = r#"Sub Test()
+        let source = r"Sub Test()
     If x > 0 Then
         If y > 0 Then
         ElseIf y < 0 Then
@@ -563,7 +563,7 @@ End Sub
     Else
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         // Navigate the tree structure

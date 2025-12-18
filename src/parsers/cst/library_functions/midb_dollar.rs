@@ -256,12 +256,12 @@ End Sub
 
     #[test]
     fn midb_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim field As String
     field = MidB$(record, 5, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -269,12 +269,12 @@ End Sub
 
     #[test]
     fn midb_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     data = GetBinaryData()
     bytes = MidB$(data, 1, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -282,11 +282,11 @@ End Sub
 
     #[test]
     fn midb_dollar_no_length() {
-        let source = r#"
+        let source = r"
 Sub Main()
     tail = MidB$(data, 10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -294,13 +294,13 @@ End Sub
 
     #[test]
     fn midb_dollar_protocol_header() {
-        let source = r#"
+        let source = r"
 Sub Main()
     packet = ReceivePacket()
     version = MidB$(packet, 1, 2)
     msgType = MidB$(packet, 3, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -308,13 +308,13 @@ End Sub
 
     #[test]
     fn midb_dollar_guid_extraction() {
-        let source = r#"
+        let source = r"
 Sub Main()
     guidBytes = GetGUID()
     data1 = MidB$(guidBytes, 1, 4)
     data2 = MidB$(guidBytes, 5, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -336,14 +336,14 @@ End Sub
 
     #[test]
     fn midb_dollar_binary_structure() {
-        let source = r#"
+        let source = r"
 Sub Main()
     buffer = GetBinaryData()
     magic = MidB$(buffer, 1, 4)
     version = MidB$(buffer, 5, 2)
     flags = MidB$(buffer, 7, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -351,13 +351,13 @@ End Sub
 
     #[test]
     fn midb_dollar_with_lenb() {
-        let source = r#"
+        let source = r"
 Sub Main()
     If LenB(data) >= 10 Then
         chunk = MidB$(data, 1, 10)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -365,7 +365,7 @@ End Sub
 
     #[test]
     fn midb_dollar_loop_processing() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim pos As Long
     pos = 1
@@ -374,7 +374,7 @@ Sub Main()
         pos = pos + 512
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -398,13 +398,13 @@ End Sub
 
     #[test]
     fn midb_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub Main()
     header = MidB$(buffer, 1, 16)
     payload = MidB$(buffer, 17)
     combined = header & payload
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -412,11 +412,11 @@ End Sub
 
     #[test]
     fn midb_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function ExtractField(data As String, offset As Long) As String
     ExtractField = MidB$(data, offset, 8)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -424,12 +424,12 @@ End Function
 
     #[test]
     fn midb_dollar_expression_args() {
-        let source = r#"
+        let source = r"
 Sub Main()
     n = 5
     result = MidB$(data, n * 2, n + 3)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -453,13 +453,13 @@ End Sub
 
     #[test]
     fn midb_dollar_record_fields() {
-        let source = r#"
+        let source = r"
 Sub Main()
     record = ReadBinaryRecord()
     customerID = MidB$(record, 1, 10)
     orderDate = MidB$(record, 11, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -467,13 +467,13 @@ End Sub
 
     #[test]
     fn midb_dollar_with_ascb() {
-        let source = r#"
+        let source = r"
 Sub Main()
     ipBytes = GetIPv4Bytes()
     octet1 = AscB(MidB$(ipBytes, 1, 1))
     octet2 = AscB(MidB$(ipBytes, 2, 1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -493,14 +493,14 @@ End Sub
 
     #[test]
     fn midb_dollar_length_prefixed() {
-        let source = r#"
+        let source = r"
 Sub Main()
     message = buffer
     lenByte = MidB$(message, 1, 1)
     strLen = AscB(lenByte)
     text = MidB$(message, 2, strLen)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));
@@ -508,14 +508,14 @@ End Sub
 
     #[test]
     fn midb_dollar_network_packet() {
-        let source = r#"
+        let source = r"
 Sub Main()
     msg = ReceiveMessage()
     msgID = MidB$(msg, 1, 4)
     timestamp = MidB$(msg, 5, 8)
     sender = MidB$(msg, 13, 16)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("MidB$"));

@@ -851,11 +851,11 @@ textFiles = Filter(files, ".bak", False)
 
     #[test]
     fn filter_in_function() {
-        let source = r#"
+        let source = r"
 Function SearchList(items() As String, searchTerm As String) As String()
     SearchList = Filter(items, searchTerm, True, vbTextCompare)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -864,12 +864,12 @@ End Function
 
     #[test]
     fn filter_ubound_check() {
-        let source = r#"
+        let source = r"
 matches = Filter(items, searchTerm, True, vbTextCompare)
 If UBound(matches) >= 0 Then
     count = UBound(matches) + 1
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -878,10 +878,10 @@ End If
 
     #[test]
     fn filter_sequential() {
-        let source = r#"
+        let source = r"
 temp = Filter(result, filters(i), True, vbTextCompare)
 result = temp
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -904,13 +904,13 @@ Next i
 
     #[test]
     fn filter_error_handling() {
-        let source = r#"
+        let source = r"
 On Error GoTo ErrorHandler
 filtered = Filter(sourceArray, searchText, True, vbTextCompare)
 Exit Function
 ErrorHandler:
     ReDim filtered(0 To -1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -945,11 +945,11 @@ txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
 
     #[test]
     fn filter_with_variables() {
-        let source = r#"
+        let source = r"
 searchMode = vbTextCompare
 includeMatches = True
 result = Filter(sourceData, pattern, includeMatches, searchMode)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -970,10 +970,10 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
 
     #[test]
     fn filter_combine_operations() {
-        let source = r#"
+        let source = r"
 temp = Filter(items, includeText, True, vbTextCompare)
 temp = Filter(temp, excludeText, False, vbTextCompare)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -993,9 +993,9 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
 
     #[test]
     fn filter_array_access() {
-        let source = r#"
+        let source = r"
 matchedNames = Filter(names, searchTerm, True, vbTextCompare)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1004,11 +1004,11 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
 
     #[test]
     fn filter_instr_comparison() {
-        let source = r#"
+        let source = r"
 If InStr(1, records(i).Name, searchTerm, vbTextCompare) > 0 Then
     matches = Filter(names, searchTerm, True, vbTextCompare)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1017,10 +1017,10 @@ End If
 
     #[test]
     fn filter_cache_update() {
-        let source = r#"
+        let source = r"
 filtered = Filter(cachedResults, currentSearch, True, vbTextCompare)
 cachedResults = filtered
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1043,14 +1043,14 @@ End If
 
     #[test]
     fn filter_smart_case() {
-        let source = r#"
+        let source = r"
 If searchTerm <> LCase(searchTerm) Then
     compareMode = vbBinaryCompare
 Else
     compareMode = vbTextCompare
 End If
 result = Filter(items, searchTerm, True, compareMode)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1059,11 +1059,11 @@ result = Filter(items, searchTerm, True, compareMode)
 
     #[test]
     fn filter_isnull_check() {
-        let source = r#"
+        let source = r"
 If Not IsNull(items) Then
     result = Filter(items, searchTerm, True, vbTextCompare)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1072,11 +1072,11 @@ End If
 
     #[test]
     fn filter_isarray_check() {
-        let source = r#"
+        let source = r"
 If IsArray(items) Then
     filtered = Filter(items, searchTerm, True, vbTextCompare)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1085,11 +1085,11 @@ End If
 
     #[test]
     fn filter_timer_tracking() {
-        let source = r#"
+        let source = r"
 startTime = Timer
 results = Filter(items, searchTerm, True, vbTextCompare)
 elapsedMs = (Timer - startTime) * 1000
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));
@@ -1098,13 +1098,13 @@ elapsedMs = (Timer - startTime) * 1000
 
     #[test]
     fn filter_for_each_prep() {
-        let source = r#"
+        let source = r"
 Dim item As Variant
 matches = Filter(sourceArray, pattern, True, vbTextCompare)
 For Each item In matches
     Debug.Print item
 Next item
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Filter"));

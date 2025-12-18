@@ -420,9 +420,9 @@ mod tests {
 
     #[test]
     fn chr_basic() {
-        let source = r#"
+        let source = r"
 ch = Chr(65)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -431,9 +431,9 @@ ch = Chr(65)
 
     #[test]
     fn chr_with_variable() {
-        let source = r#"
+        let source = r"
 result = Chr(code)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -442,12 +442,12 @@ result = Chr(code)
 
     #[test]
     fn chr_special_characters() {
-        let source = r#"
+        let source = r"
 tab = Chr(9)
 lf = Chr(10)
 cr = Chr(13)
 space = Chr(32)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -467,11 +467,11 @@ msg = "Line 1" & Chr(13) & Chr(10) & "Line 2"
 
     #[test]
     fn chr_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 65 To 90
     alphabet = alphabet & Chr(i)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -480,9 +480,9 @@ Next i
 
     #[test]
     fn chr_quote_character() {
-        let source = r#"
+        let source = r"
 quote = Chr(34)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -491,11 +491,11 @@ quote = Chr(34)
 
     #[test]
     fn chr_in_function() {
-        let source = r#"
+        let source = r"
 Function QuoteString(text As String) As String
     QuoteString = Chr(34) & text & Chr(34)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -504,9 +504,9 @@ End Function
 
     #[test]
     fn chr_with_expression() {
-        let source = r#"
+        let source = r"
 ch = Chr(65 + offset)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -515,11 +515,11 @@ ch = Chr(65 + offset)
 
     #[test]
     fn chr_in_if_statement() {
-        let source = r#"
+        let source = r"
 If ch = Chr(13) Then
     ProcessNewline
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -528,9 +528,9 @@ End If
 
     #[test]
     fn chr_multiple_calls() {
-        let source = r#"
+        let source = r"
 line = Chr(218) & Chr(196) & Chr(191)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -539,10 +539,10 @@ line = Chr(218) & Chr(196) & Chr(191)
 
     #[test]
     fn chr_in_assignment() {
-        let source = r#"
+        let source = r"
 Dim separator As String
 separator = Chr(9)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -551,14 +551,14 @@ separator = Chr(9)
 
     #[test]
     fn chr_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case ch
     Case Chr(13)
         HandleCR
     Case Chr(10)
         HandleLF
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -567,9 +567,9 @@ End Select
 
     #[test]
     fn chr_with_asc() {
-        let source = r#"
+        let source = r"
 original = Chr(Asc(text))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -578,12 +578,12 @@ original = Chr(Asc(text))
 
     #[test]
     fn chr_in_while_loop() {
-        let source = r#"
+        let source = r"
 While i <= 90
     result = result & Chr(i)
     i = i + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -592,12 +592,12 @@ Wend
 
     #[test]
     fn chr_in_do_loop() {
-        let source = r#"
+        let source = r"
 Do While i < 256
     chars = chars & Chr(i)
     i = i + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -606,9 +606,9 @@ Loop
 
     #[test]
     fn chr_null_character() {
-        let source = r#"
+        let source = r"
 nullChar = Chr(0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -631,9 +631,9 @@ msg = "Text" & _
 
     #[test]
     fn chr_in_array() {
-        let source = r#"
+        let source = r"
 chars(i) = Chr(code)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -653,9 +653,9 @@ MsgBox "Line 1" & Chr(13) & "Line 2"
 
     #[test]
     fn chr_extended_ascii() {
-        let source = r#"
+        let source = r"
 boxChar = Chr(196)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -675,9 +675,9 @@ result = Replace(text, Chr(13), "")
 
     #[test]
     fn chr_with_mod() {
-        let source = r#"
+        let source = r"
 ch = Chr(value Mod 256)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -686,9 +686,9 @@ ch = Chr(value Mod 256)
 
     #[test]
     fn chr_in_split() {
-        let source = r#"
+        let source = r"
 parts = Split(data, Chr(9))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -697,9 +697,9 @@ parts = Split(data, Chr(9))
 
     #[test]
     fn chr_with_cint() {
-        let source = r#"
+        let source = r"
 ch = Chr(CInt(value))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));
@@ -708,9 +708,9 @@ ch = Chr(CInt(value))
 
     #[test]
     fn chr_with_whitespace() {
-        let source = r#"
+        let source = r"
 result = Chr( 65 )
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Chr"));

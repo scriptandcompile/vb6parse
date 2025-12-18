@@ -114,10 +114,10 @@ mod test {
 
     #[test]
     fn parameter_list_empty() {
-        let source = r#"
+        let source = r"
 Sub Test()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -127,10 +127,10 @@ End Sub
 
     #[test]
     fn parameter_list_single_parameter() {
-        let source = r#"
+        let source = r"
 Sub Test(x As Integer)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -141,10 +141,10 @@ End Sub
 
     #[test]
     fn parameter_list_multiple_parameters() {
-        let source = r#"
+        let source = r"
 Function Calculate(x As Integer, y As Integer, z As Integer) As Integer
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -154,10 +154,10 @@ End Function
 
     #[test]
     fn parameter_list_with_byval() {
-        let source = r#"
+        let source = r"
 Sub Process(ByVal value As Long)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -167,10 +167,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_byref() {
-        let source = r#"
+        let source = r"
 Sub Modify(ByRef value As Long)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -180,10 +180,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_optional() {
-        let source = r#"
+        let source = r"
 Sub Test(Optional x As Integer)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -193,10 +193,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_default_value() {
-        let source = r#"
+        let source = r"
 Sub Test(Optional x As Integer = 10)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -206,10 +206,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_array() {
-        let source = r#"
+        let source = r"
 Sub ProcessArray(arr() As Integer)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -219,10 +219,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_paramarray() {
-        let source = r#"
+        let source = r"
 Sub VarArgs(ParamArray args() As Variant)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -247,10 +247,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_object_type() {
-        let source = r#"
+        let source = r"
 Sub SetObject(obj As Object)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -260,10 +260,10 @@ End Sub
 
     #[test]
     fn parameter_list_with_variant() {
-        let source = r#"
+        let source = r"
 Function ProcessData(data As Variant) As Boolean
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -273,12 +273,12 @@ End Function
 
     #[test]
     fn parameter_list_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Public Function Test( _
   ByVal x As Long _
 ) As String
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -288,14 +288,14 @@ End Function
 
     #[test]
     fn parameter_list_multiple_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Public Function Process( _
   ByRef Switch As String, _
   Optional ByRef Position As Long, _
   Optional ByVal UseWildcard As Boolean _
 ) As String
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -305,10 +305,10 @@ End Function
 
     #[test]
     fn parameter_list_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test(  x   As   Integer  ,  y   As   Long  )
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -318,10 +318,10 @@ End Sub
 
     #[test]
     fn parameter_list_nested_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test(arr() As Integer, Optional index As Long = (5 + 3))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -330,10 +330,10 @@ End Sub
 
     #[test]
     fn parameter_list_custom_type() {
-        let source = r#"
+        let source = r"
 Sub Process(emp As Employee)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -343,10 +343,10 @@ End Sub
 
     #[test]
     fn parameter_list_no_type_specified() {
-        let source = r#"
+        let source = r"
 Sub Test(x, y, z)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -355,10 +355,10 @@ End Sub
 
     #[test]
     fn parameter_list_in_property_get() {
-        let source = r#"
+        let source = r"
 Property Get Item(index As Long) As Variant
 End Property
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -368,10 +368,10 @@ End Property
 
     #[test]
     fn parameter_list_in_property_let() {
-        let source = r#"
+        let source = r"
 Property Let Value(newValue As Long)
 End Property
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

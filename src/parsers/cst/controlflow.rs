@@ -486,14 +486,14 @@ mod test {
 
     #[test]
     fn exit_do() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do
         If x > 10 Then Exit Do
         x = x + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -504,13 +504,13 @@ End Sub
 
     #[test]
     fn exit_for() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         If i = 5 Then Exit For
     Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -521,14 +521,14 @@ End Sub
 
     #[test]
     fn exit_function() {
-        let source = r#"
+        let source = r"
 Function Test() As Integer
     If x = 0 Then
         Exit Function
     End If
     Test = 42
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -555,12 +555,12 @@ End Sub
 
     #[test]
     fn exit_property() {
-        let source = r#"
+        let source = r"
 Property Set Callback(ByRef newObj As InterPress)
     Set mCallback = newObj
     Exit Property
 End Property
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -571,14 +571,14 @@ End Property
 
     #[test]
     fn multiple_exit_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         If i = 3 Then Exit For
         If i = 7 Then Exit Sub
     Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -589,7 +589,7 @@ End Sub
 
     #[test]
     fn exit_in_nested_loops() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While x < 100
         For i = 1 To 10
@@ -599,7 +599,7 @@ Sub Test()
         x = x + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -609,11 +609,11 @@ End Sub
 
     #[test]
     fn exit_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Exit   Sub
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -624,12 +624,12 @@ End Sub
 
     #[test]
     fn inline_exit_in_if_statement() {
-        let source = r#"
+        let source = r"
 Function Test(x As Integer) As Integer
     If x = 0 Then Exit Function
     Test = x * 2
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -737,7 +737,7 @@ End Sub
 
     #[test]
     fn goto_statement_forward_jump() {
-        let source = r#"
+        let source = r"
 Sub Test()
     x = 1
     GoTo SkipCode
@@ -746,7 +746,7 @@ Sub Test()
 SkipCode:
     x = 4
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -756,7 +756,7 @@ End Sub
 
     #[test]
     fn goto_statement_backward_jump() {
-        let source = r#"
+        let source = r"
 Sub Test()
 StartLoop:
     counter = counter + 1
@@ -764,7 +764,7 @@ StartLoop:
         GoTo StartLoop
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -850,13 +850,13 @@ End Sub
 
     #[test]
     fn goto_statement_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoTo MyLabel
 MyLabel:
     x = 1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -867,7 +867,7 @@ End Sub
 
     #[test]
     fn goto_statement_same_line_as_then() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then
         GoTo Handler
@@ -875,7 +875,7 @@ Sub Test()
 Handler:
     result = True
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -885,7 +885,7 @@ End Sub
 
     #[test]
     fn goto_statement_exit_cleanup() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo Cleanup
     ' do work
@@ -893,7 +893,7 @@ Sub Test()
 Cleanup:
     ' cleanup code
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -902,11 +902,11 @@ End Sub
 
     #[test]
     fn label_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MyLabel:
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -951,12 +951,12 @@ End Sub
 
     #[test]
     fn label_at_module_level() {
-        let source = r#"
+        let source = r"
 Sub Test()
 StartHere:
     x = 1
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -967,7 +967,7 @@ End Sub
 
     #[test]
     fn label_multiple() {
-        let source = r#"
+        let source = r"
 Sub Test()
 Start:
     x = 1
@@ -976,7 +976,7 @@ Middle:
 End_Label:
     z = 3
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -987,11 +987,11 @@ End Sub
 
     #[test]
     fn label_with_space_after_colon() {
-        let source = r#"
+        let source = r"
 Sub Test()
 MyLabel: x = 1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1001,7 +1001,7 @@ End Sub
 
     #[test]
     fn label_error_handler_pattern() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     ' Some code
@@ -1009,7 +1009,7 @@ Sub Test()
 ErrorHandler:
     MsgBox Err.Description
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1019,12 +1019,12 @@ End Sub
 
     #[test]
     fn label_with_numbers() {
-        let source = r#"
+        let source = r"
 Sub Test()
 Label123:
     x = 1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1034,13 +1034,13 @@ End Sub
 
     #[test]
     fn label_cleanup_pattern() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoTo Cleanup
 Cleanup:
     Set obj = Nothing
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1061,12 +1061,12 @@ End Sub
 
     #[test]
     fn label_in_function() {
-        let source = r#"
+        let source = r"
 Function Calculate() As Integer
 Start:
     Calculate = 42
 End Function
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -1132,7 +1132,7 @@ End Sub
 
     #[test]
     fn gosub_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x > 0 Then
         GoSub ProcessPositive
@@ -1142,7 +1142,7 @@ ProcessPositive:
     y = y + 1
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1195,13 +1195,13 @@ End Sub
 
     #[test]
     fn gosub_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub   MyLabel
 MyLabel:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1211,13 +1211,13 @@ End Sub
 
     #[test]
     fn gosub_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Cleanup ' Call cleanup routine
 Cleanup:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1227,7 +1227,7 @@ End Sub
 
     #[test]
     fn gosub_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsInit Then GoSub Initialize
     Exit Sub
@@ -1235,7 +1235,7 @@ Initialize:
     x = 0
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1245,7 +1245,7 @@ End Sub
 
     #[test]
     fn gosub_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         GoSub ProcessItem
@@ -1255,7 +1255,7 @@ ProcessItem:
     Debug.Print i
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1265,7 +1265,7 @@ End Sub
 
     #[test]
     fn gosub_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case x
         Case 1
@@ -1279,7 +1279,7 @@ Handler1:
 Handler2:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1289,14 +1289,14 @@ End Sub
 
     #[test]
     fn gosub_with_underscore_label() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Error_Handler
     Exit Sub
 Error_Handler:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1328,14 +1328,14 @@ End Sub
     // Return statement tests
     #[test]
     fn return_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub SubRoutine
     Exit Sub
 SubRoutine:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1345,7 +1345,7 @@ End Sub
 
     #[test]
     fn return_multiple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Process
     Exit Sub
@@ -1356,7 +1356,7 @@ Process:
     y = 1
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1366,7 +1366,7 @@ End Sub
 
     #[test]
     fn return_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Check
     Exit Sub
@@ -1377,7 +1377,7 @@ Check:
     x = x + 1
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1387,7 +1387,7 @@ End Sub
 
     #[test]
     fn return_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Validate
     Exit Sub
@@ -1396,7 +1396,7 @@ Validate:
     DoSomething
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1405,7 +1405,7 @@ End Sub
 
     #[test]
     fn return_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Cleanup
     Exit Sub
@@ -1413,7 +1413,7 @@ Cleanup:
     Set obj = Nothing
     Return ' Exit subroutine
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1423,14 +1423,14 @@ End Sub
 
     #[test]
     fn return_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Sub1
     Exit Sub
 Sub1:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1441,7 +1441,7 @@ End Sub
 
     #[test]
     fn return_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub Process
     Exit Sub
@@ -1454,7 +1454,7 @@ Process:
     End Select
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1464,7 +1464,7 @@ End Sub
 
     #[test]
     fn return_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     GoSub FindValue
     Exit Sub
@@ -1474,7 +1474,7 @@ FindValue:
     Next i
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1484,7 +1484,7 @@ End Sub
 
     #[test]
     fn gosub_return_complete_example() {
-        let source = r#"
+        let source = r"
 Sub Main()
     x = 10
     GoSub DoubleValue
@@ -1494,7 +1494,7 @@ DoubleValue:
     x = x * 2
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1528,14 +1528,14 @@ End Sub
 
     #[test]
     fn return_at_module_level() {
-        let source = r#"
+        let source = r"
 Public Sub TestReturn()
     GoSub Handler
     Exit Sub
 Handler:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1544,7 +1544,7 @@ End Sub
 
     #[test]
     fn gosub_return_error_pattern() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrHandler
     GoSub ProcessData
@@ -1555,7 +1555,7 @@ ProcessData:
 ErrHandler:
     MsgBox Err.Description
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1566,7 +1566,7 @@ End Sub
     // On Error statement tests
     #[test]
     fn on_error_goto_label() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     ' Code that might error
@@ -1574,7 +1574,7 @@ Sub Test()
 ErrorHandler:
     MsgBox Err.Description
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1604,12 +1604,12 @@ End Sub
 
     #[test]
     fn on_error_goto_0() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo 0
     ' Error handling disabled
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1620,7 +1620,7 @@ End Sub
 
     #[test]
     fn on_error_at_module_level() {
-        let source = r#"On Error GoTo ErrorHandler"#;
+        let source = r"On Error GoTo ErrorHandler";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1638,11 +1638,11 @@ End Sub
 
     #[test]
     fn on_error_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler ' Setup error handling
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1652,13 +1652,13 @@ End Sub
 
     #[test]
     fn on_error_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsErrorHandling Then
         On Error GoTo ErrorHandler
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1667,11 +1667,11 @@ End Sub
 
     #[test]
     fn on_error_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If debug Then On Error GoTo 0
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1680,7 +1680,7 @@ End Sub
 
     #[test]
     fn multiple_on_error_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     ' Do something
@@ -1689,7 +1689,7 @@ Sub Test()
     On Error Resume Next
     ' Continue on error
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1790,11 +1790,11 @@ End Sub
 
     #[test]
     fn on_goto_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On x + 1 GoTo First, Second, Third
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1820,7 +1820,7 @@ End Sub
 
     #[test]
     fn on_goto_numeric_labels() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice GoTo 100, 200, 300
     Exit Sub
@@ -1833,7 +1833,7 @@ Sub Test()
 300:
     x = 3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1842,11 +1842,11 @@ End Sub
 
     #[test]
     fn on_goto_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On   choice   GoTo   Label1  ,  Label2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1856,13 +1856,13 @@ End Sub
 
     #[test]
     fn on_goto_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then
         On menuChoice GoTo Menu1, Menu2
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1872,11 +1872,11 @@ End Sub
 
     #[test]
     fn on_goto_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If useMenu Then On choice GoTo Menu1, Menu2, Menu3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1885,7 +1885,7 @@ End Sub
 
     #[test]
     fn on_goto_at_module_level() {
-        let source = r#"On choice GoTo Label1, Label2"#;
+        let source = r"On choice GoTo Label1, Label2";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1894,11 +1894,11 @@ End Sub
 
     #[test]
     fn on_goto_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice GoTo Label1, Label2 ' Branch based on choice
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1908,11 +1908,11 @@ End Sub
 
     #[test]
     fn on_goto_complex_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On (x * 2) + 1 GoTo First, Second, Third, Fourth
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1921,12 +1921,12 @@ End Sub
 
     #[test]
     fn multiple_on_goto_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice1 GoTo A1, A2, A3
     On choice2 GoTo B1, B2, B3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1936,11 +1936,11 @@ End Sub
 
     #[test]
     fn on_goto_many_labels() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice GoTo L1, L2, L3, L4, L5, L6, L7, L8, L9, L10
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1975,11 +1975,11 @@ End Sub
 
     #[test]
     fn on_gosub_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On x Mod 3 GoSub First, Second, Third
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2030,11 +2030,11 @@ End Sub
 
     #[test]
     fn on_gosub_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On   choice   GoSub   Sub1  ,  Sub2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2044,13 +2044,13 @@ End Sub
 
     #[test]
     fn on_gosub_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then
         On choice GoSub Handler1, Handler2
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2060,11 +2060,11 @@ End Sub
 
     #[test]
     fn on_gosub_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsProcessing Then On choice GoSub Process1, Process2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2073,7 +2073,7 @@ End Sub
 
     #[test]
     fn on_gosub_at_module_level() {
-        let source = r#"On choice GoSub Sub1, Sub2"#;
+        let source = r"On choice GoSub Sub1, Sub2";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2082,11 +2082,11 @@ End Sub
 
     #[test]
     fn on_gosub_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice GoSub Sub1, Sub2 ' Call appropriate subroutine
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2096,7 +2096,7 @@ End Sub
 
     #[test]
     fn on_gosub_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice1 GoSub Level1A, Level1B
     Exit Sub
@@ -2110,7 +2110,7 @@ Level2A:
 Level2B:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2120,7 +2120,7 @@ End Sub
 
     #[test]
     fn on_gosub_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         On i Mod 3 GoSub Handler1, Handler2, Handler3
@@ -2133,7 +2133,7 @@ Handler2:
 Handler3:
     Return
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2143,12 +2143,12 @@ End Sub
 
     #[test]
     fn multiple_on_gosub_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On choice1 GoSub A1, A2, A3
     On choice2 GoSub B1, B2, B3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2159,14 +2159,14 @@ End Sub
     // Resume statement tests
     #[test]
     fn resume_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
 ErrorHandler:
     Resume
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2176,7 +2176,7 @@ End Sub
 
     #[test]
     fn resume_next() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     x = 1 / 0
@@ -2184,7 +2184,7 @@ Sub Test()
 ErrorHandler:
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2214,14 +2214,14 @@ End Sub
 
     #[test]
     fn resume_with_line_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
 ErrorHandler:
     Resume 100
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2254,14 +2254,14 @@ End Sub
 
     #[test]
     fn resume_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
 ErrorHandler:
     Resume Next ' Continue after error
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2282,7 +2282,7 @@ End Sub
 
     #[test]
     fn resume_in_nested_error_handler() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Call SubProcedure
@@ -2296,7 +2296,7 @@ ErrorHandler:
 CleanUp:
     ' Cleanup code
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2318,7 +2318,7 @@ End Sub
 
     #[test]
     fn resume_with_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
@@ -2334,7 +2334,7 @@ ErrorHandler:
 CleanUp:
     ' Cleanup
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2344,7 +2344,7 @@ End Sub
 
     #[test]
     fn resume_in_loop() {
-        let source = r#"
+        let source = r"
 Sub ProcessFiles()
     On Error GoTo ErrorHandler
     For i = 1 To 10
@@ -2354,7 +2354,7 @@ Sub ProcessFiles()
 ErrorHandler:
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2398,7 +2398,7 @@ End Function
 
     #[test]
     fn resume_with_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Do
@@ -2408,7 +2408,7 @@ Sub Test()
 ErrorHandler:
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2418,7 +2418,7 @@ End Sub
 
     #[test]
     fn multiple_resume_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
@@ -2433,7 +2433,7 @@ ErrorHandler:
 CleanUp:
     ' Cleanup
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2461,7 +2461,7 @@ End Sub
 
     #[test]
     fn resume_in_class_module() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     On Error GoTo InitError
     ' Initialization code
@@ -2469,7 +2469,7 @@ Private Sub Class_Initialize()
 InitError:
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2478,7 +2478,7 @@ End Sub
 
     #[test]
     fn resume_with_error_number_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
@@ -2492,7 +2492,7 @@ ErrorHandler:
     End If
 ExitSub:
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2502,7 +2502,7 @@ End Sub
 
     #[test]
     fn resume_in_function() {
-        let source = r#"
+        let source = r"
 Function Calculate() As Double
     On Error GoTo CalcError
     Calculate = x / y
@@ -2511,7 +2511,7 @@ CalcError:
     Calculate = 0
     Resume Next
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2521,7 +2521,7 @@ End Function
 
     #[test]
     fn resume_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
@@ -2529,7 +2529,7 @@ ErrorHandler:
     Resume _
         Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2538,14 +2538,14 @@ End Sub
 
     #[test]
     fn resume_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
 ErrorHandler:
     If Err.Number = 5 Then Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2554,7 +2554,7 @@ End Sub
 
     #[test]
     fn resume_with_transaction() {
-        let source = r#"
+        let source = r"
 Sub ProcessTransaction()
     On Error GoTo TransError
     BeginTrans
@@ -2565,7 +2565,7 @@ TransError:
     Rollback
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2574,7 +2574,7 @@ End Sub
 
     #[test]
     fn resume_with_goto_label() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     GoTo ProcessData
@@ -2584,7 +2584,7 @@ ProcessData:
 ErrorHandler:
     Resume ProcessData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -2594,7 +2594,7 @@ End Sub
 
     #[test]
     fn resume_with_exit_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     For i = 1 To 10
@@ -2604,7 +2604,7 @@ Sub Test()
 ErrorHandler:
     Resume Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

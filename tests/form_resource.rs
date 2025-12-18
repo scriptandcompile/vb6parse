@@ -42,7 +42,7 @@ fn audiostation_about_frx_load() {
         about_icon_offset,
     ) {
         Ok(about_icon) => about_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let about_picture = match vb6parse::parsers::resource_file_resolver(
@@ -50,7 +50,7 @@ fn audiostation_about_frx_load() {
         about_picture_offset,
     ) {
         Ok(about_picture) => about_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let label6_caption = match vb6parse::parsers::resource_file_resolver(
@@ -58,7 +58,7 @@ fn audiostation_about_frx_load() {
         label6_caption_offset,
     ) {
         Ok(label6_caption) => label6_caption,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let label4_caption = match vb6parse::parsers::resource_file_resolver(
@@ -66,7 +66,7 @@ fn audiostation_about_frx_load() {
         label4_caption_offset,
     ) {
         Ok(label4_caption) => label4_caption,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(about_icon.len(), about_icon_buffer_size);
@@ -98,7 +98,7 @@ fn audiostation_busy_frx_load() {
         busy_icon_offset,
     ) {
         Ok(busy_icon) => busy_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(busy_icon.len(), busy_icon_buffer_size);
@@ -168,7 +168,7 @@ fn audiostation_init_frx_load() {
         init_icon_offset,
     ) {
         Ok(init_icon) => init_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let alpha_img_ctl2_image = match vb6parse::parsers::resource_file_resolver(
@@ -176,7 +176,7 @@ fn audiostation_init_frx_load() {
         alpha_img_ctl2_image_offset,
     ) {
         Ok(alpha_img_ctl2_image) => alpha_img_ctl2_image,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let alpha_img_ctl2_effects = match vb6parse::parsers::resource_file_resolver(
@@ -184,7 +184,7 @@ fn audiostation_init_frx_load() {
         alpha_img_ctl2_effects_offset,
     ) {
         Ok(alpha_img_ctl2_effects) => alpha_img_ctl2_effects,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let alpha_img_ctl1_image = match vb6parse::parsers::resource_file_resolver(
@@ -192,7 +192,7 @@ fn audiostation_init_frx_load() {
         alpha_img_ctl1_image_offset,
     ) {
         Ok(alpha_img_ctl1_image) => alpha_img_ctl1_image,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let alpha_img_ctl1_effects = match vb6parse::parsers::resource_file_resolver(
@@ -200,7 +200,7 @@ fn audiostation_init_frx_load() {
         alpha_img_ctl1_effects_offset,
     ) {
         Ok(alpha_img_ctl1_effects) => alpha_img_ctl1_effects,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(init_icon.len(), init_icon_buffer_size);
@@ -1152,7 +1152,7 @@ fn audiostation_main_frx_load() {
         main_icon_offset,
     ) {
         Ok(main_icon) => main_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1160,7 +1160,7 @@ fn audiostation_main_frx_load() {
         element1_picture_offset,
     ) {
         Ok(element1_picture) => element1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_display_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1168,7 +1168,7 @@ fn audiostation_main_frx_load() {
         cd_display_list_image1_picture_offset,
     ) {
         Ok(cd_display_list_image1_picture) => cd_display_list_image1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_display_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1176,7 +1176,7 @@ fn audiostation_main_frx_load() {
         cd_display_list_image2_picture_offset,
     ) {
         Ok(cd_display_list_image2_picture) => cd_display_list_image2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_display_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1184,7 +1184,7 @@ fn audiostation_main_frx_load() {
         cd_display_list_image3_picture_offset,
     ) {
         Ok(cd_display_list_image3_picture) => cd_display_list_image3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_display_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1192,7 +1192,7 @@ fn audiostation_main_frx_load() {
         cd_display_list_image4_picture_offset,
     ) {
         Ok(cd_display_list_image4_picture) => cd_display_list_image4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_display_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1200,7 +1200,7 @@ fn audiostation_main_frx_load() {
         cd_display_list_image5_picture_offset,
     ) {
         Ok(cd_display_list_image5_picture) => cd_display_list_image5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1208,7 +1208,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image1_picture_offset,
     ) {
         Ok(cd_animation_list_image1_picture) => cd_animation_list_image1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1216,7 +1216,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image2_picture_offset,
     ) {
         Ok(cd_animation_list_image2_picture) => cd_animation_list_image2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1224,7 +1224,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image3_picture_offset,
     ) {
         Ok(cd_animation_list_image3_picture) => cd_animation_list_image3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1232,7 +1232,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image4_picture_offset,
     ) {
         Ok(cd_animation_list_image4_picture) => cd_animation_list_image4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1240,7 +1240,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image5_picture_offset,
     ) {
         Ok(cd_animation_list_image5_picture) => cd_animation_list_image5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1248,7 +1248,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image6_picture_offset,
     ) {
         Ok(cd_animation_list_image6_picture) => cd_animation_list_image6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cd_animation_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1256,7 +1256,7 @@ fn audiostation_main_frx_load() {
         cd_animation_list_image7_picture_offset,
     ) {
         Ok(cd_animation_list_image7_picture) => cd_animation_list_image7_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1264,7 +1264,7 @@ fn audiostation_main_frx_load() {
         element2_picture_offset,
     ) {
         Ok(element2_picture) => element2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let switch_master_glyph = match vb6parse::parsers::resource_file_resolver(
@@ -1272,7 +1272,7 @@ fn audiostation_main_frx_load() {
         switch_master_glyph_offset,
     ) {
         Ok(switch_master_glyph) => switch_master_glyph,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let switch_rec_glyph = match vb6parse::parsers::resource_file_resolver(
@@ -1280,7 +1280,7 @@ fn audiostation_main_frx_load() {
         switch_rec_glyph_offset,
     ) {
         Ok(switch_rec_glyph) => switch_rec_glyph,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let switch_cd_glyph = match vb6parse::parsers::resource_file_resolver(
@@ -1288,7 +1288,7 @@ fn audiostation_main_frx_load() {
         switch_cd_glyph_offset,
     ) {
         Ok(switch_cd_glyph) => switch_cd_glyph,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let switch_dat_glyph = match vb6parse::parsers::resource_file_resolver(
@@ -1296,7 +1296,7 @@ fn audiostation_main_frx_load() {
         switch_dat_glyph_offset,
     ) {
         Ok(switch_dat_glyph) => switch_dat_glyph,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let switch_midi_glyph = match vb6parse::parsers::resource_file_resolver(
@@ -1304,7 +1304,7 @@ fn audiostation_main_frx_load() {
         switch_midi_glyph_offset,
     ) {
         Ok(switch_midi_glyph) => switch_midi_glyph,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1312,7 +1312,7 @@ fn audiostation_main_frx_load() {
         image1_picture_offset,
     ) {
         Ok(image1_picture) => image1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1320,7 +1320,7 @@ fn audiostation_main_frx_load() {
         image3_picture_offset,
     ) {
         Ok(image3_picture) => image3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1330,7 +1330,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image1_picture) => {
             media_player_animation_list_image1_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1340,7 +1340,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image2_picture) => {
             media_player_animation_list_image2_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1350,7 +1350,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image3_picture) => {
             media_player_animation_list_image3_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1360,7 +1360,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image4_picture) => {
             media_player_animation_list_image4_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1370,7 +1370,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image5_picture) => {
             media_player_animation_list_image5_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1380,7 +1380,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image6_picture) => {
             media_player_animation_list_image6_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1390,7 +1390,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image7_picture) => {
             media_player_animation_list_image7_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let media_player_animation_list_image8_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1400,7 +1400,7 @@ fn audiostation_main_frx_load() {
         Ok(media_player_animation_list_image8_picture) => {
             media_player_animation_list_image8_picture
         }
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1408,7 +1408,7 @@ fn audiostation_main_frx_load() {
         element3_picture_offset,
     ) {
         Ok(element3_picture) => element3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1416,7 +1416,7 @@ fn audiostation_main_frx_load() {
         button_cd_player1_picture_offset,
     ) {
         Ok(button_cd_player1_picture) => button_cd_player1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1424,7 +1424,7 @@ fn audiostation_main_frx_load() {
         button_cd_player2_picture_offset,
     ) {
         Ok(button_cd_player2_picture) => button_cd_player2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1432,7 +1432,7 @@ fn audiostation_main_frx_load() {
         button_cd_player3_picture_offset,
     ) {
         Ok(button_cd_player3_picture) => button_cd_player3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1440,7 +1440,7 @@ fn audiostation_main_frx_load() {
         button_cd_player4_picture_offset,
     ) {
         Ok(button_cd_player4_picture) => button_cd_player4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1448,7 +1448,7 @@ fn audiostation_main_frx_load() {
         button_cd_player5_picture_offset,
     ) {
         Ok(button_cd_player5_picture) => button_cd_player5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1456,7 +1456,7 @@ fn audiostation_main_frx_load() {
         button_cd_player6_picture_offset,
     ) {
         Ok(button_cd_player6_picture) => button_cd_player6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1464,7 +1464,7 @@ fn audiostation_main_frx_load() {
         button_cd_player7_picture_offset,
     ) {
         Ok(button_cd_player7_picture) => button_cd_player7_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_cd_player8_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1472,7 +1472,7 @@ fn audiostation_main_frx_load() {
         button_cd_player8_picture_offset,
     ) {
         Ok(button_cd_player8_picture) => button_cd_player8_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_cd_play_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1480,7 +1480,7 @@ fn audiostation_main_frx_load() {
         light_cd_play_on_picture_offset,
     ) {
         Ok(light_cd_play_on_picture) => light_cd_play_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_cd_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1488,7 +1488,7 @@ fn audiostation_main_frx_load() {
         light_cd_pause_on_picture_offset,
     ) {
         Ok(light_cd_pause_on_picture) => light_cd_pause_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1496,7 +1496,7 @@ fn audiostation_main_frx_load() {
         element4_picture_offset,
     ) {
         Ok(element4_picture) => element4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_open_stream_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1504,7 +1504,7 @@ fn audiostation_main_frx_load() {
         button_open_stream_picture_offset,
     ) {
         Ok(button_open_stream_picture) => button_open_stream_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_stop_stream_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1512,7 +1512,7 @@ fn audiostation_main_frx_load() {
         button_stop_stream_picture_offset,
     ) {
         Ok(button_stop_stream_picture) => button_stop_stream_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_play_stream_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1520,7 +1520,7 @@ fn audiostation_main_frx_load() {
         button_play_stream_picture_offset,
     ) {
         Ok(button_play_stream_picture) => button_play_stream_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1528,7 +1528,7 @@ fn audiostation_main_frx_load() {
         element5_picture_offset,
     ) {
         Ok(element5_picture) => element5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image_recording_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1536,7 +1536,7 @@ fn audiostation_main_frx_load() {
         recording_picture_offset,
     ) {
         Ok(image_recording_picture) => image_recording_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1544,7 +1544,7 @@ fn audiostation_main_frx_load() {
         image4_picture_offset,
     ) {
         Ok(image4_picture) => image4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let picture17_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1552,7 +1552,7 @@ fn audiostation_main_frx_load() {
         picture17_picture_offset,
     ) {
         Ok(picture17_picture) => picture17_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1560,7 +1560,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer1_picture_offset,
     ) {
         Ok(cmd_audioplayer1_picture) => cmd_audioplayer1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1568,7 +1568,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer2_picture_offset,
     ) {
         Ok(cmd_audioplayer2_picture) => cmd_audioplayer2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1576,7 +1576,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer3_picture_offset,
     ) {
         Ok(cmd_audioplayer3_picture) => cmd_audioplayer3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1584,7 +1584,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer4_picture_offset,
     ) {
         Ok(cmd_audioplayer4_picture) => cmd_audioplayer4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1592,7 +1592,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer5_picture_offset,
     ) {
         Ok(cmd_audioplayer5_picture) => cmd_audioplayer5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1600,7 +1600,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer6_picture_offset,
     ) {
         Ok(cmd_audioplayer6_picture) => cmd_audioplayer6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1608,7 +1608,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer7_picture_offset,
     ) {
         Ok(cmd_audioplayer7_picture) => cmd_audioplayer7_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer8_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1616,7 +1616,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer8_picture_offset,
     ) {
         Ok(cmd_audioplayer8_picture) => cmd_audioplayer8_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let cmd_audioplayer9_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1624,7 +1624,7 @@ fn audiostation_main_frx_load() {
         cmd_audioplayer9_picture_offset,
     ) {
         Ok(cmd_audioplayer9_picture) => cmd_audioplayer9_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_dat_play_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1632,7 +1632,7 @@ fn audiostation_main_frx_load() {
         light_dat_play_on_picture_offset,
     ) {
         Ok(light_dat_play_on_picture) => light_dat_play_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_dat_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1640,7 +1640,7 @@ fn audiostation_main_frx_load() {
         light_dat_pause_on_picture_offset,
     ) {
         Ok(light_dat_pause_on_picture) => light_dat_pause_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1648,7 +1648,7 @@ fn audiostation_main_frx_load() {
         element6_picture_offset,
     ) {
         Ok(element6_picture) => element6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1656,7 +1656,7 @@ fn audiostation_main_frx_load() {
         button_midi_player1_picture_offset,
     ) {
         Ok(button_midi_player1_picture) => button_midi_player1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1664,7 +1664,7 @@ fn audiostation_main_frx_load() {
         button_midi_player2_picture_offset,
     ) {
         Ok(button_midi_player2_picture) => button_midi_player2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player3_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1672,7 +1672,7 @@ fn audiostation_main_frx_load() {
         button_midi_player3_picture_offset,
     ) {
         Ok(button_midi_player3_picture) => button_midi_player3_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player4_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1680,7 +1680,7 @@ fn audiostation_main_frx_load() {
         button_midi_player4_picture_offset,
     ) {
         Ok(button_midi_player4_picture) => button_midi_player4_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1688,7 +1688,7 @@ fn audiostation_main_frx_load() {
         button_midi_player5_picture_offset,
     ) {
         Ok(button_midi_player5_picture) => button_midi_player5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1696,7 +1696,7 @@ fn audiostation_main_frx_load() {
         button_midi_player6_picture_offset,
     ) {
         Ok(button_midi_player6_picture) => button_midi_player6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let button_midi_player7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1704,7 +1704,7 @@ fn audiostation_main_frx_load() {
         button_midi_player7_picture_offset,
     ) {
         Ok(button_midi_player7_picture) => button_midi_player7_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_midi_floppy_drive_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1712,7 +1712,7 @@ fn audiostation_main_frx_load() {
         light_midi_floppy_drive_picture_offset,
     ) {
         Ok(light_midi_floppy_drive_picture) => light_midi_floppy_drive_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image6_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1720,7 +1720,7 @@ fn audiostation_main_frx_load() {
         image6_picture_offset,
     ) {
         Ok(image6_picture) => image6_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let floppy_in_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1728,7 +1728,7 @@ fn audiostation_main_frx_load() {
         floppy_in_picture_offset,
     ) {
         Ok(floppy_in_picture) => floppy_in_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let floppy_out_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1736,7 +1736,7 @@ fn audiostation_main_frx_load() {
         floppy_out_picture_offset,
     ) {
         Ok(floppy_out_picture) => floppy_out_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_midi_play_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1744,7 +1744,7 @@ fn audiostation_main_frx_load() {
         light_midi_play_on_picture_offset,
     ) {
         Ok(light_midi_play_on_picture) => light_midi_play_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let light_midi_pause_on_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1752,7 +1752,7 @@ fn audiostation_main_frx_load() {
         light_midi_pause_on_picture_offset,
     ) {
         Ok(light_midi_pause_on_picture) => light_midi_pause_on_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let element7_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1760,7 +1760,7 @@ fn audiostation_main_frx_load() {
         element7_picture_offset,
     ) {
         Ok(element7_picture) => element7_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let options_menu_button_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1768,7 +1768,7 @@ fn audiostation_main_frx_load() {
         options_menu_button_picture_offset,
     ) {
         Ok(options_menu_button_picture) => options_menu_button_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let image5_picture = match vb6parse::parsers::resource_file_resolver(
@@ -1776,7 +1776,7 @@ fn audiostation_main_frx_load() {
         image5_picture_offset,
     ) {
         Ok(image5_picture) => image5_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let elements_disabled_image_list_image1_picture =
@@ -1787,7 +1787,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image1_picture) => {
                 elements_disabled_image_list_image1_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image2_picture =
@@ -1798,7 +1798,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image2_picture) => {
                 elements_disabled_image_list_image2_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image3_picture =
@@ -1809,7 +1809,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image3_picture) => {
                 elements_disabled_image_list_image3_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image4_picture =
@@ -1820,7 +1820,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image4_picture) => {
                 elements_disabled_image_list_image4_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image5_picture =
@@ -1831,7 +1831,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image5_picture) => {
                 elements_disabled_image_list_image5_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image6_picture =
@@ -1842,7 +1842,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image6_picture) => {
                 elements_disabled_image_list_image6_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     let elements_disabled_image_list_image7_picture =
@@ -1853,7 +1853,7 @@ fn audiostation_main_frx_load() {
             Ok(elements_disabled_image_list_image7_picture) => {
                 elements_disabled_image_list_image7_picture
             }
-            Err(e) => panic!("Failed to resolve resource file: {}", e),
+            Err(e) => panic!("Failed to resolve resource file: {e}"),
         };
 
     assert_eq!(main_icon.len(), main_icon_buffer_size);
@@ -2357,7 +2357,7 @@ fn audiostation_normalize_frx_load() {
         normalize_icon_offset,
     ) {
         Ok(normalize_icon) => normalize_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(normalize_icon.len(), normalize_icon_buffer_size);
@@ -2418,7 +2418,7 @@ fn audiostation_open_dialog_frx_load() {
         open_stream_form_icon_offset,
     ) {
         Ok(open_stream_form_icon) => open_stream_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let tab_strip_tab_picture0 = match vb6parse::parsers::resource_file_resolver(
@@ -2426,7 +2426,7 @@ fn audiostation_open_dialog_frx_load() {
         tab_strip_tab_picture0_offset,
     ) {
         Ok(tab_strip_tab_picture0) => tab_strip_tab_picture0,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let list_view_list_image1_picture = match vb6parse::parsers::resource_file_resolver(
@@ -2434,7 +2434,7 @@ fn audiostation_open_dialog_frx_load() {
         list_view_list_image1_picture_offset,
     ) {
         Ok(list_view_list_image1_picture) => list_view_list_image1_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let list_view_list_image2_picture = match vb6parse::parsers::resource_file_resolver(
@@ -2442,7 +2442,7 @@ fn audiostation_open_dialog_frx_load() {
         list_view_list_image2_picture_offset,
     ) {
         Ok(list_view_list_image2_picture) => list_view_list_image2_picture,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(
@@ -2495,7 +2495,7 @@ fn audiostation_playlist_frx_load() {
         playlist_form_icon_offset,
     ) {
         Ok(playlist_form_icon) => playlist_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
     assert_eq!(playlist_form_icon.len(), playlist_form_icon_buffer_size);
     assert_eq!(playlist_form_icon, playlist_form_icon_buffer);
@@ -2520,7 +2520,7 @@ fn audiostation_plugins_frx_load() {
         plugins_form_icon_offset,
     ) {
         Ok(plugins_form_icon) => plugins_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
     assert_eq!(plugins_form_icon.len(), plugins_form_icon_buffer_size);
     assert_eq!(plugins_form_icon, plugins_form_icon_buffer);
@@ -2602,7 +2602,7 @@ fn audiostation_settings_record_frx_load() {
         settings_record_form_icon_offset,
     ) {
         Ok(settings_record_form_icon) => settings_record_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let combo_language_item_data = match vb6parse::parsers::resource_file_resolver(
@@ -2610,7 +2610,7 @@ fn audiostation_settings_record_frx_load() {
         combo_language_item_data_offset,
     ) {
         Ok(combo_language_item_data) => combo_language_item_data,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let combo_language_list = match vb6parse::parsers::resource_file_resolver(
@@ -2618,7 +2618,7 @@ fn audiostation_settings_record_frx_load() {
         combo_language_list_offset,
     ) {
         Ok(combo_language_list) => combo_language_list,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let combo_midi_device_item_data = match vb6parse::parsers::resource_file_resolver(
@@ -2626,7 +2626,7 @@ fn audiostation_settings_record_frx_load() {
         combo_midi_device_item_data_offset,
     ) {
         Ok(combo_midi_device_item_data) => combo_midi_device_item_data,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let combo_midi_device_list = match vb6parse::parsers::resource_file_resolver(
@@ -2634,7 +2634,7 @@ fn audiostation_settings_record_frx_load() {
         combo_midi_device_list_offset,
     ) {
         Ok(combo_midi_device_list) => combo_midi_device_list,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(
@@ -2706,7 +2706,7 @@ fn audiostation_settings_recorder_frx_load() {
         settings_recorder_form_icon_offset,
     ) {
         Ok(settings_recorder_form_icon) => settings_recorder_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(
@@ -2738,7 +2738,7 @@ fn audiostation_streams_frx_load() {
         streams_form_icon_offset,
     ) {
         Ok(streams_form_icon) => streams_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(streams_form_icon.len(), streams_form_icon_buffer_size);
@@ -2780,7 +2780,7 @@ fn audiostation_track_properties_frx_load() {
         track_properties_form_icon_offset,
     ) {
         Ok(track_properties_form_icon) => track_properties_form_icon,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     let track_properties_text_properties_text = match vb6parse::parsers::resource_file_resolver(
@@ -2788,7 +2788,7 @@ fn audiostation_track_properties_frx_load() {
         track_properties_text_properties_text_offset,
     ) {
         Ok(track_properties_text_properties_text) => track_properties_text_properties_text,
-        Err(e) => panic!("Failed to resolve resource file: {}", e),
+        Err(e) => panic!("Failed to resolve resource file: {e}"),
     };
 
     assert_eq!(

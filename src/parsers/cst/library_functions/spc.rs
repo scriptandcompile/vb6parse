@@ -80,7 +80,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: FormatFileOutput
+/// ### Pattern 1: `FormatFileOutput`
 /// Format data in file with consistent spacing
 /// ```vb
 /// Sub FormatFileOutput(fileNum As Integer, name As String, _
@@ -90,7 +90,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 2: PrintAlignedData
+/// ### Pattern 2: `PrintAlignedData`
 /// Print data with aligned columns
 /// ```vb
 /// Sub PrintAlignedData(label As String, value As Variant, spacing As Integer)
@@ -98,7 +98,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 3: CreateTableRow
+/// ### Pattern 3: `CreateTableRow`
 /// Create table row with Spc spacing
 /// ```vb
 /// Sub CreateTableRow(fileNum As Integer, col1 As String, _
@@ -109,7 +109,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 4: FormatLogEntry
+/// ### Pattern 4: `FormatLogEntry`
 /// Format log entries with timestamps and messages
 /// ```vb
 /// Sub FormatLogEntry(fileNum As Integer, timestamp As String, _
@@ -120,7 +120,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 5: PrintWithIndent
+/// ### Pattern 5: `PrintWithIndent`
 /// Print text with indentation using Spc
 /// ```vb
 /// Sub PrintWithIndent(fileNum As Integer, indentLevel As Integer, _
@@ -129,7 +129,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 6: FormatKeyValuePair
+/// ### Pattern 6: `FormatKeyValuePair`
 /// Format key-value pairs with consistent spacing
 /// ```vb
 /// Sub FormatKeyValuePair(fileNum As Integer, key As String, _
@@ -141,7 +141,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 7: PrintHeader
+/// ### Pattern 7: `PrintHeader`
 /// Print formatted header with separators
 /// ```vb
 /// Sub PrintHeader(fileNum As Integer, title1 As String, _
@@ -155,7 +155,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 8: DebugPrintArray
+/// ### Pattern 8: `DebugPrintArray`
 /// Print array elements with spacing
 /// ```vb
 /// Sub DebugPrintArray(arr() As Variant)
@@ -167,7 +167,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 9: FormatNumericTable
+/// ### Pattern 9: `FormatNumericTable`
 /// Print numeric data in aligned columns
 /// ```vb
 /// Sub FormatNumericTable(fileNum As Integer, values() As Double)
@@ -181,7 +181,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 10: PrintReportLine
+/// ### Pattern 10: `PrintReportLine`
 /// Print formatted report line
 /// ```vb
 /// Sub PrintReportLine(fileNum As Integer, lineNum As Integer, _
@@ -194,7 +194,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: ReportWriter Class
+/// ### Example 1: `ReportWriter` Class
 /// Generate formatted text reports with Spc
 /// ```vb
 /// ' Class: ReportWriter
@@ -257,7 +257,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 2: LogFileFormatter Module
+/// ### Example 2: `LogFileFormatter` Module
 /// Format log file entries with timestamps
 /// ```vb
 /// ' Module: LogFileFormatter
@@ -315,7 +315,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 3: DataTablePrinter Class
+/// ### Example 3: `DataTablePrinter` Class
 /// Print data in formatted tables
 /// ```vb
 /// ' Class: DataTablePrinter
@@ -379,7 +379,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 4: DebugOutputHelper Module
+/// ### Example 4: `DebugOutputHelper` Module
 /// Format debug output with Spc
 /// ```vb
 /// ' Module: DebugOutputHelper
@@ -457,7 +457,7 @@
 /// ## Performance Considerations
 ///
 /// - Spc is very efficient for positioning output
-/// - More efficient than concatenating Space() strings in Print statements
+/// - More efficient than concatenating `Space()` strings in Print statements
 /// - No performance difference between Spc and Space within Print statements
 /// - File I/O is the bottleneck, not Spc itself
 ///
@@ -467,7 +467,7 @@
 /// 2. **Validate Arguments**: Ensure n is positive and reasonable
 /// 3. **Consistent Spacing**: Use constants for column widths
 /// 4. **Calculate Dynamically**: Adjust spacing based on content length
-/// 5. **Use Space Alternative**: Use Space() function if need string result
+/// 5. **Use Space Alternative**: Use `Space()` function if need string result
 /// 6. **Combine with Tab**: Use Tab for absolute positioning, Spc for relative
 /// 7. **Test Output**: Verify alignment with actual data
 /// 8. **Monospace Fonts**: Ensure output viewed in monospace font
@@ -581,14 +581,14 @@ End Sub
 
     #[test]
     fn spc_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         Debug.Print i; Spc(5); i * 10
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));
@@ -610,11 +610,11 @@ End Sub
 
     #[test]
     fn spc_with_numbers() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print 100; Spc(10); 200; Spc(10); 300
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));
@@ -622,13 +622,13 @@ End Sub
 
     #[test]
     fn spc_class_usage() {
-        let source = r#"
+        let source = r"
 Class Reporter
     Public Sub WriteRow(f As Integer, a As String, b As String)
         Print #f, a; Spc(10); b
     End Sub
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));
@@ -683,14 +683,14 @@ End Sub
 
     #[test]
     fn spc_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While i < 10
         Print #1, i; Spc(5); i * 2
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));
@@ -713,14 +713,14 @@ End Sub
 
     #[test]
     fn spc_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While count < 5
         Print #1, count; Spc(10); count * 10
         count = count + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));
@@ -780,11 +780,11 @@ End Sub
 
     #[test]
     fn spc_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print GetLabel(); Spc(10); GetValue()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Spc"));

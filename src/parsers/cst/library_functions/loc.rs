@@ -632,10 +632,10 @@ mod tests {
 
     #[test]
     fn loc_basic() {
-        let source = r#"
+        let source = r"
             Dim pos As Long
             pos = Loc(1)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -644,9 +644,9 @@ mod tests {
 
     #[test]
     fn loc_file_variable() {
-        let source = r#"
+        let source = r"
             currentPos = Loc(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -668,9 +668,9 @@ mod tests {
 
     #[test]
     fn loc_progress_calculation() {
-        let source = r#"
+        let source = r"
             percentComplete = (Loc(1) / LOF(1)) * 100
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -679,11 +679,11 @@ mod tests {
 
     #[test]
     fn loc_do_while() {
-        let source = r#"
+        let source = r"
             Do While Loc(1) < LOF(1)
                 Get #1, , data
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -692,11 +692,11 @@ mod tests {
 
     #[test]
     fn loc_function_return() {
-        let source = r#"
+        let source = r"
             Function GetPosition() As Long
                 GetPosition = Loc(fileNum)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -755,11 +755,11 @@ mod tests {
 
     #[test]
     fn loc_with_statement() {
-        let source = r#"
+        let source = r"
             With fileInfo
                 .Position = Loc(fileNum)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -799,9 +799,9 @@ mod tests {
 
     #[test]
     fn loc_parentheses() {
-        let source = r#"
+        let source = r"
             pos = (Loc(fileNum))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -821,11 +821,11 @@ mod tests {
 
     #[test]
     fn loc_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Method()
                 m_position = Loc(m_fileNum)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -834,9 +834,9 @@ mod tests {
 
     #[test]
     fn loc_function_argument() {
-        let source = r#"
+        let source = r"
             Call UpdateProgress(Loc(fileNum))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -845,9 +845,9 @@ mod tests {
 
     #[test]
     fn loc_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.Position = Loc(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -856,9 +856,9 @@ mod tests {
 
     #[test]
     fn loc_array_assignment() {
-        let source = r#"
+        let source = r"
             positions(i) = Loc(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -867,11 +867,11 @@ mod tests {
 
     #[test]
     fn loc_while_wend() {
-        let source = r#"
+        let source = r"
             While Loc(fileNum) < totalRecords
                 Get #fileNum, , record
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -880,11 +880,11 @@ mod tests {
 
     #[test]
     fn loc_do_until() {
-        let source = r#"
+        let source = r"
             Do Until Loc(fileNum) >= targetPosition
                 Get #fileNum, , buffer
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -893,11 +893,11 @@ mod tests {
 
     #[test]
     fn loc_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To Loc(fileNum)
                 ProcessRecord i
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -906,11 +906,11 @@ mod tests {
 
     #[test]
     fn loc_modulo() {
-        let source = r#"
+        let source = r"
             If Loc(fileNum) Mod 1024 = 0 Then
                 UpdateProgress
             End If
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -919,9 +919,9 @@ mod tests {
 
     #[test]
     fn loc_progressbar() {
-        let source = r#"
+        let source = r"
             ProgressBar1.Value = (Loc(1) / LOF(1)) * 100
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));
@@ -952,9 +952,9 @@ mod tests {
 
     #[test]
     fn loc_arithmetic() {
-        let source = r#"
+        let source = r"
             bytesRemaining = LOF(fileNum) - Loc(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Loc"));

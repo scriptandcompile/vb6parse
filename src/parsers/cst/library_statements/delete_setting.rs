@@ -171,11 +171,11 @@ End Sub
     #[test]
     fn deletesetting_with_function_call() {
         // Test DeleteSetting with function call as argument
-        let source = r#"
+        let source = r"
 Sub Test()
     DeleteSetting GetAppName(), GetSection(), GetKey()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

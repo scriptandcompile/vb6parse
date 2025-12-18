@@ -358,11 +358,11 @@ mod tests {
 
     #[test]
     fn str_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     result = Str$(123)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -370,12 +370,12 @@ End Sub
 
     #[test]
     fn str_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim numStr As String
     numStr = Str$(456)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -383,14 +383,14 @@ End Sub
 
     #[test]
     fn str_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim value As Integer
     Dim text As String
     value = 100
     text = Str$(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -398,12 +398,12 @@ End Sub
 
     #[test]
     fn str_dollar_negative() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Str$(-42)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -411,11 +411,11 @@ End Sub
 
     #[test]
     fn str_dollar_with_ltrim() {
-        let source = r#"
+        let source = r"
 Function NumberToString(value As Long) As String
     NumberToString = LTrim$(Str$(value))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -473,14 +473,14 @@ End Sub
 
     #[test]
     fn str_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub ProcessValues()
     Dim text1 As String
     Dim text2 As String
     text1 = Str$(10)
     text2 = Str$(20)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -517,11 +517,11 @@ End Function
 
     #[test]
     fn str_dollar_file_output() {
-        let source = r#"
+        let source = r"
 Sub WriteData(fileNum As Integer, id As Long)
     Print #fileNum, LTrim$(Str$(id))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -568,14 +568,14 @@ End Function
 
     #[test]
     fn str_dollar_double_value() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     Dim value As Double
     value = 123.45
     result = Str$(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -583,14 +583,14 @@ End Sub
 
     #[test]
     fn str_dollar_currency_value() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim amount As Currency
     Dim text As String
     amount = 1234.56
     text = Str$(amount)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));
@@ -598,11 +598,11 @@ End Sub
 
     #[test]
     fn str_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function ConvertNumber(num As Long) As String
     ConvertNumber = Str$(num)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Str$"));

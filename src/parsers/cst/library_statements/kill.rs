@@ -92,11 +92,11 @@ End Sub
 
     #[test]
     fn kill_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Kill myFileName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -145,13 +145,13 @@ End Sub
 
     #[test]
     fn kill_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If fileExists Then
         Kill fileName
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

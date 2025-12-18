@@ -352,9 +352,9 @@ result = Choose(index, "A", "B", "C", "D")
 
     #[test]
     fn choose_numeric_values() {
-        let source = r#"
+        let source = r"
 value = Choose(level, 1, 5, 10, 50, 100)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -448,9 +448,9 @@ End If
 
     #[test]
     fn choose_color_values() {
-        let source = r#"
+        let source = r"
 color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -459,9 +459,9 @@ color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
 
     #[test]
     fn choose_boolean_values() {
-        let source = r#"
+        let source = r"
 isValid = Choose(dayOfWeek, False, True, True, True, True, True, False)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -494,9 +494,9 @@ result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
 
     #[test]
     fn choose_with_calculations() {
-        let source = r#"
+        let source = r"
 discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -505,14 +505,14 @@ discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
 
     #[test]
     fn choose_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case Choose(index, 1, 2, 3)
     Case 1
         DoSomething
     Case 2
         DoOther
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -521,9 +521,9 @@ End Select
 
     #[test]
     fn choose_with_dates() {
-        let source = r#"
+        let source = r"
 dueDate = Choose(priority, #1/1/2000#, #1/15/2000#, #2/1/2000#)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -556,9 +556,9 @@ result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
 
     #[test]
     fn choose_with_object_properties() {
-        let source = r#"
+        let source = r"
 value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -567,9 +567,9 @@ value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
 
     #[test]
     fn choose_with_array_elements() {
-        let source = r#"
+        let source = r"
 result = Choose(index, arr(0), arr(1), arr(2))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));
@@ -590,9 +590,9 @@ msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
 
     #[test]
     fn choose_with_method_calls() {
-        let source = r#"
+        let source = r"
 result = Choose(index, obj.Method1(), obj.Method2(), obj.Method3())
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Choose"));

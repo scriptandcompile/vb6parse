@@ -611,9 +611,9 @@ result = DateValue("1/15/2025")
 
     #[test]
     fn datevalue_with_variable() {
-        let source = r#"
+        let source = r"
 birthday = DateValue(userInput)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -644,11 +644,11 @@ dt = DateValue("2025-01-15")
 
     #[test]
     fn datevalue_in_function() {
-        let source = r#"
+        let source = r"
 Function ParseDate(input As String) As Date
     ParseDate = DateValue(input)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -657,11 +657,11 @@ End Function
 
     #[test]
     fn datevalue_with_isdate() {
-        let source = r#"
+        let source = r"
 If IsDate(txtDate.Text) Then
     result = DateValue(txtDate.Text)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -709,11 +709,11 @@ End If
 
     #[test]
     fn datevalue_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To count
     dates(i) = DateValue(dateStrings(i))
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -722,9 +722,9 @@ Next i
 
     #[test]
     fn datevalue_with_trim() {
-        let source = r#"
+        let source = r"
 cleanDate = DateValue(Trim(input))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -749,9 +749,9 @@ End Select
 
     #[test]
     fn datevalue_with_cstr() {
-        let source = r#"
+        let source = r"
 dateOnly = DateValue(CStr(dateTime))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -775,9 +775,9 @@ End If
 
     #[test]
     fn datevalue_with_year() {
-        let source = r#"
+        let source = r"
 y = Year(DateValue(dateStr))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -831,11 +831,11 @@ days = DateDiff("d", DateValue(start), DateValue(finish))
 
     #[test]
     fn datevalue_multiple_calls() {
-        let source = r#"
+        let source = r"
 d1 = DateValue(str1)
 d2 = DateValue(str2)
 diff = d2 - d1
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -855,9 +855,9 @@ MsgBox "Parsed: " & DateValue(userInput)
 
     #[test]
     fn datevalue_textbox_validation() {
-        let source = r#"
+        let source = r"
 testDate = DateValue(txtDate.Text)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));
@@ -866,12 +866,12 @@ testDate = DateValue(txtDate.Text)
 
     #[test]
     fn datevalue_with_isnull() {
-        let source = r#"
+        let source = r"
 result = DateValue(input)
 If Not IsNull(result) Then
     Process result
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateValue"));

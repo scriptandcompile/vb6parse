@@ -399,11 +399,11 @@ mod tests {
 
     #[test]
     fn imestatus_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     status = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -412,11 +412,11 @@ End Sub
 
     #[test]
     fn imestatus_in_function() {
-        let source = r#"
+        let source = r"
 Function GetIMEMode() As Integer
     GetIMEMode = IMEStatus()
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -473,11 +473,11 @@ End Sub
 
     #[test]
     fn imestatus_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -486,12 +486,12 @@ End Sub
 
     #[test]
     fn imestatus_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim mode As Integer
     mode = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -526,11 +526,11 @@ End Sub
 
     #[test]
     fn imestatus_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (IMEStatus())
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -539,13 +539,13 @@ End Sub
 
     #[test]
     fn imestatus_in_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IMEStatus() = vbIMENoOp
         DoEvents
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -554,11 +554,11 @@ End Sub
 
     #[test]
     fn imestatus_class_member() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_imeMode = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -582,11 +582,11 @@ End Sub
 
     #[test]
     fn imestatus_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessMode(IMEStatus())
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -595,11 +595,11 @@ End Sub
 
     #[test]
     fn imestatus_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.IMEMode = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -608,11 +608,11 @@ End Sub
 
     #[test]
     fn imestatus_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     modes(0) = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -621,13 +621,13 @@ End Sub
 
     #[test]
     fn imestatus_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With statusInfo
         .CurrentMode = IMEStatus()
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -636,14 +636,14 @@ End Sub
 
     #[test]
     fn imestatus_in_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         If IMEStatus() <> vbIMENoOp Then Exit For
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -652,11 +652,11 @@ End Sub
 
     #[test]
     fn imestatus_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IMEStatus())
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -695,11 +695,11 @@ End Sub
 
     #[test]
     fn imestatus_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     col.Add IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -708,11 +708,11 @@ End Sub
 
     #[test]
     fn imestatus_return_value() {
-        let source = r#"
+        let source = r"
 Function CheckIME() As Integer
     CheckIME = IMEStatus()
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -721,12 +721,12 @@ End Function
 
     #[test]
     fn imestatus_type_field() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim info As SystemInfo
     info.IMEMode = IMEStatus()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));
@@ -735,11 +735,11 @@ End Sub
 
     #[test]
     fn imestatus_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isEnabled = (IMEStatus() <> vbIMENoOp)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IMEStatus"));

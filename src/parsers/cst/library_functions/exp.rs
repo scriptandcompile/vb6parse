@@ -656,9 +656,9 @@ mod tests {
 
     #[test]
     fn exp_basic() {
-        let source = r#"
+        let source = r"
 result = Exp(2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -667,9 +667,9 @@ result = Exp(2)
 
     #[test]
     fn exp_zero() {
-        let source = r#"
+        let source = r"
 result = Exp(0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -678,9 +678,9 @@ result = Exp(0)
 
     #[test]
     fn exp_negative() {
-        let source = r#"
+        let source = r"
 result = Exp(-1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -689,9 +689,9 @@ result = Exp(-1)
 
     #[test]
     fn exp_variable() {
-        let source = r#"
+        let source = r"
 y = Exp(x)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -700,11 +700,11 @@ y = Exp(x)
 
     #[test]
     fn exp_in_function() {
-        let source = r#"
+        let source = r"
 Function ExponentialGrowth(rate As Double, time As Double) As Double
     ExponentialGrowth = initial * Exp(rate * time)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -713,9 +713,9 @@ End Function
 
     #[test]
     fn exp_multiplication() {
-        let source = r#"
+        let source = r"
 result = principal * Exp(rate * time)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -724,9 +724,9 @@ result = principal * Exp(rate * time)
 
     #[test]
     fn exp_decay() {
-        let source = r#"
+        let source = r"
 amount = Exp(-rate * t)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -735,9 +735,9 @@ amount = Exp(-rate * t)
 
     #[test]
     fn exp_sigmoid() {
-        let source = r#"
+        let source = r"
 result = 1 / (1 + Exp(-x))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -746,9 +746,9 @@ result = 1 / (1 + Exp(-x))
 
     #[test]
     fn exp_hyperbolic() {
-        let source = r#"
+        let source = r"
 sinh = (Exp(x) - Exp(-x)) / 2
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -757,9 +757,9 @@ sinh = (Exp(x) - Exp(-x)) / 2
 
     #[test]
     fn exp_cosh() {
-        let source = r#"
+        let source = r"
 cosh = (Exp(x) + Exp(-x)) / 2
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -768,9 +768,9 @@ cosh = (Exp(x) + Exp(-x)) / 2
 
     #[test]
     fn exp_normal_distribution() {
-        let source = r#"
+        let source = r"
 result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -779,9 +779,9 @@ result = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
 
     #[test]
     fn exp_with_log() {
-        let source = r#"
+        let source = r"
 power = Exp(exponent * Log(base))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -790,10 +790,10 @@ power = Exp(exponent * Log(base))
 
     #[test]
     fn exp_compound_interest() {
-        let source = r#"
+        let source = r"
 amount = principal * Exp(rate * time)
 interest = amount - principal
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -802,9 +802,9 @@ interest = amount - principal
 
     #[test]
     fn exp_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print Exp(1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -813,11 +813,11 @@ Debug.Print Exp(1)
 
     #[test]
     fn exp_in_if() {
-        let source = r#"
+        let source = r"
 If Exp(x) > threshold Then
     ProcessValue
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -826,12 +826,12 @@ End If
 
     #[test]
     fn exp_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To 10
     result = Exp(i * 0.1)
     Debug.Print result
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -840,9 +840,9 @@ Next i
 
     #[test]
     fn exp_poisson() {
-        let source = r#"
+        let source = r"
 probability = (lambda ^ k * Exp(-lambda)) / factorial
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -851,9 +851,9 @@ probability = (lambda ^ k * Exp(-lambda)) / factorial
 
     #[test]
     fn exp_cooling() {
-        let source = r#"
+        let source = r"
 temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -862,9 +862,9 @@ temp = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
 
     #[test]
     fn exp_logistic_growth() {
-        let source = r#"
+        let source = r"
 population = capacity / (1 + ratio * Exp(-growthRate * time))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -888,11 +888,11 @@ End If
 
     #[test]
     fn exp_taylor_series() {
-        let source = r#"
+        let source = r"
 term = term * x / i
 result = result + term
 builtin = Exp(x)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -901,9 +901,9 @@ builtin = Exp(x)
 
     #[test]
     fn exp_black_scholes() {
-        let source = r#"
+        let source = r"
 callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -912,10 +912,10 @@ callPrice = stockPrice * d1Value - strikePrice * Exp(-rate * time) * d2Value
 
     #[test]
     fn exp_complex() {
-        let source = r#"
+        let source = r"
 magnitude = Exp(z.Real)
 result.Real = magnitude * Cos(z.Imaginary)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -924,11 +924,11 @@ result.Real = magnitude * Cos(z.Imaginary)
 
     #[test]
     fn exp_integration() {
-        let source = r#"
+        let source = r"
 sum = sum + Exp(x)
 numerical = sum * h
 analytical = Exp(b) - Exp(a)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));
@@ -937,9 +937,9 @@ analytical = Exp(b) - Exp(a)
 
     #[test]
     fn exp_nested() {
-        let source = r#"
+        let source = r"
 result = Exp(Log(Exp(x)))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Exp"));

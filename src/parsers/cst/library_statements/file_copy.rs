@@ -80,11 +80,11 @@ End Sub
 
     #[test]
     fn filecopy_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     FileCopy oldFile, newFile
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

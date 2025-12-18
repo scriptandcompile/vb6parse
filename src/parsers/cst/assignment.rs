@@ -161,9 +161,9 @@ mod test {
 
     #[test]
     fn simple_assignment() {
-        let source = r#"
+        let source = r"
 x = 5
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -239,9 +239,9 @@ myName = "John"
 
     #[test]
     fn property_assignment() {
-        let source = r#"
+        let source = r"
 obj.subProperty = value
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -275,9 +275,9 @@ obj.subProperty = value
 
     #[test]
     fn array_assignment() {
-        let source = r#"
+        let source = r"
 arr(0) = 100
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -288,7 +288,7 @@ arr(0) = 100
             SyntaxKind::CallExpression
         );
         assert!(cst.children()[1].children[0].text.contains("arr"));
-        assert!(cst.children()[1].children[0].text.contains("0"));
+        assert!(cst.children()[1].children[0].text.contains('0'));
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[1].children[2].kind,
@@ -308,9 +308,9 @@ arr(0) = 100
 
     #[test]
     fn multidimensional_array_assignment() {
-        let source = r#"
+        let source = r"
 matrix(i, j) = value
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -320,8 +320,8 @@ matrix(i, j) = value
             SyntaxKind::CallExpression
         );
         assert!(cst.children()[1].children[0].text.contains("matrix"));
-        assert!(cst.children()[1].children[0].text.contains("i"));
-        assert!(cst.children()[1].children[0].text.contains("j"));
+        assert!(cst.children()[1].children[0].text.contains('i'));
+        assert!(cst.children()[1].children[0].text.contains('j'));
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[1].children[2].kind,
@@ -340,9 +340,9 @@ matrix(i, j) = value
 
     #[test]
     fn assignment_with_function_call() {
-        let source = r#"
+        let source = r"
 result = MyFunction(arg1, arg2)
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -372,9 +372,9 @@ result = MyFunction(arg1, arg2)
 
     #[test]
     fn assignment_with_expression() {
-        let source = r#"
+        let source = r"
 sum = a + b * c
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -395,11 +395,11 @@ sum = a + b * c
             cst.children()[1].children[4].kind,
             SyntaxKind::BinaryExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("a"));
-        assert!(cst.children()[1].children[4].text.contains("+"));
-        assert!(cst.children()[1].children[4].text.contains("b"));
-        assert!(cst.children()[1].children[4].text.contains("*"));
-        assert!(cst.children()[1].children[4].text.contains("c"));
+        assert!(cst.children()[1].children[4].text.contains('a'));
+        assert!(cst.children()[1].children[4].text.contains('+'));
+        assert!(cst.children()[1].children[4].text.contains('b'));
+        assert!(cst.children()[1].children[4].text.contains('*'));
+        assert!(cst.children()[1].children[4].text.contains('c'));
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
@@ -407,9 +407,9 @@ sum = a + b * c
 
     #[test]
     fn assignment_with_method_call() {
-        let source = r#"
+        let source = r"
 text = obj.GetText()
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -440,9 +440,9 @@ text = obj.GetText()
 
     #[test]
     fn assignment_with_nested_property() {
-        let source = r#"
+        let source = r"
 value = obj.SubObj.SubProperty
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -473,11 +473,11 @@ value = obj.SubObj.SubProperty
 
     #[test]
     fn multiple_assignments() {
-        let source = r#"
+        let source = r"
 x = 1
 y = 2
 z = 3
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -486,7 +486,7 @@ z = 3
             cst.children()[1].children[0].kind,
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("x"));
+        assert!(cst.children()[1].children[0].text.contains('x'));
         assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[1].children[2].kind,
@@ -503,7 +503,7 @@ z = 3
             cst.children()[2].children[0].kind,
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[2].children[0].text.contains("y"));
+        assert!(cst.children()[2].children[0].text.contains('y'));
         assert_eq!(cst.children()[2].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[2].children[2].kind,
@@ -520,7 +520,7 @@ z = 3
             cst.children()[3].children[0].kind,
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[3].children[0].text.contains("z"));
+        assert!(cst.children()[3].children[0].text.contains('z'));
         assert_eq!(cst.children()[3].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[3].children[2].kind,
@@ -545,7 +545,7 @@ z = 3
             cst.children()[0].children[0].kind,
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[0].children[0].text.contains("x"));
+        assert!(cst.children()[0].children[0].text.contains('x'));
         assert_eq!(cst.children()[0].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
             cst.children()[0].children[2].kind,
@@ -563,11 +563,11 @@ z = 3
 
     #[test]
     fn assignment_in_function() {
-        let source = r#"
+        let source = r"
 Public Function Calculate()
     result = 42
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let assignment = &cst.children()[1].children[7].children[1];
@@ -654,10 +654,10 @@ path = Environ$("TEMP")
 
     #[test]
     fn assignment_at_module_level() {
-        let source = r#"
+        let source = r"
 Option Explicit
 x = 5
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert!(cst.children()[0].kind == SyntaxKind::Newline);
@@ -670,12 +670,12 @@ x = 5
 
         assert!(cst.children()[2].kind == SyntaxKind::AssignmentStatement);
         assert!(cst.children()[2].children[0].kind == SyntaxKind::IdentifierExpression);
-        assert!(cst.children()[2].children[0].text.contains("x"));
+        assert!(cst.children()[2].children[0].text.contains('x'));
         assert!(cst.children()[2].children[1].kind == SyntaxKind::Whitespace);
         assert!(cst.children()[2].children[2].kind == SyntaxKind::EqualityOperator);
         assert!(cst.children()[2].children[3].kind == SyntaxKind::Whitespace);
         assert!(cst.children()[2].children[4].kind == SyntaxKind::NumericLiteralExpression);
-        assert!(cst.children()[2].children[4].text.contains("5"));
+        assert!(cst.children()[2].children[4].text.contains('5'));
         assert!(cst.children()[2].children[5].kind == SyntaxKind::Newline);
 
         // Verify the parsed tree can be converted back to the original source
@@ -684,9 +684,9 @@ x = 5
 
     #[test]
     fn assignment_with_numeric_literal() {
-        let source = r#"
+        let source = r"
 pi = 3.14159
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -738,7 +738,7 @@ fullName = firstName & " " & lastName
             SyntaxKind::BinaryExpression
         );
         assert!(cst.children()[1].children[4].text.contains("firstName"));
-        assert!(cst.children()[1].children[4].text.contains("&"));
+        assert!(cst.children()[1].children[4].text.contains('&'));
         assert!(cst.children()[1].children[4].text.contains("lastName"));
         assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
 
@@ -747,9 +747,9 @@ fullName = firstName & " " & lastName
 
     #[test]
     fn assignment_to_type_member() {
-        let source = r#"
+        let source = r"
 person.Age = 25
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -778,9 +778,9 @@ person.Age = 25
 
     #[test]
     fn assignment_with_parenthesized_expression() {
-        let source = r#"
+        let source = r"
 result = (a + b) * c
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
@@ -810,17 +810,17 @@ result = (a + b) * c
 
     #[test]
     fn let_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let x = 5
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("LetStatement"));
         assert!(debug.contains("LetKeyword"));
-        assert!(debug.contains("x"));
+        assert!(debug.contains('x'));
     }
 
     #[test]
@@ -850,11 +850,11 @@ End Sub
 
     #[test]
     fn let_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let result = x + y * 2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -864,11 +864,11 @@ End Sub
 
     #[test]
     fn let_property_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let obj.Value = 100
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -879,11 +879,11 @@ End Sub
 
     #[test]
     fn let_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let arr(5) = 42
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -904,11 +904,11 @@ End Sub
 
     #[test]
     fn let_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let counter = 0 ' Initialize counter
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -918,13 +918,13 @@ End Sub
 
     #[test]
     fn let_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x > 0 Then
         Let y = x
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -933,11 +933,11 @@ End Sub
 
     #[test]
     fn let_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then Let x = 5
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -946,13 +946,13 @@ End Sub
 
     #[test]
     fn multiple_let_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let a = 1
     Let b = 2
     Let c = 3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -962,11 +962,11 @@ End Sub
 
     #[test]
     fn let_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Let result = Calculate(x, y)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

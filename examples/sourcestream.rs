@@ -28,12 +28,12 @@ End Function"#;
 
     // Peek at the first 7 characters
     if let Some(peek_text) = stream.peek(7) {
-        println!("Peeking at first 7 characters: '{}'", peek_text);
+        println!("Peeking at first 7 characters: '{peek_text}'");
     }
 
     // Check if we can find "Private" at the current position (case-sensitive)
     if let Some(private_text) = stream.peek_text("Private", Comparator::CaseSensitive) {
-        println!("Found 'Private' at current position: '{}'", private_text);
+        println!("Found 'Private' at current position: '{private_text}'");
         stream.forward(7); // Move past "Private"
     }
 
@@ -41,12 +41,12 @@ End Function"#;
 
     // Take a space
     if let Some(whitespace) = stream.take_ascii_whitespaces() {
-        println!("Consumed whitespace: '{:?}'", whitespace);
+        println!("Consumed whitespace: '{whitespace:?}'");
     }
 
     // Take the word "Sub"
     if let Some(sub_keyword) = stream.take_ascii_alphabetics() {
-        println!("Found keyword: '{}'", sub_keyword);
+        println!("Found keyword: '{sub_keyword}'");
     }
 
     println!();
@@ -59,17 +59,17 @@ End Function"#;
 
     // Take until newline to get the first line
     if let Some((line, newline)) = stream.take_until_newline() {
-        println!("First line: '{}'", line);
+        println!("First line: '{line}'");
         if let Some(nl) = newline {
-            println!("Newline character(s): '{:?}'", nl);
+            println!("Newline character(s): '{nl:?}'");
         }
     }
 
     // Get line information
     let start_of_line = stream.start_of_line();
     let end_of_line = stream.end_of_line();
-    println!("Start of current line: {}", start_of_line);
-    println!("End of current line: {}", end_of_line);
+    println!("Start of current line: {start_of_line}");
+    println!("End of current line: {end_of_line}");
 
     // Example 3: Parsing identifiers and keywords
     println!("\n=== Example 3: Parsing Tokens ===");
@@ -138,7 +138,10 @@ End Function"#;
         let mut found_positions = Vec::new();
 
         while !search_stream.is_empty() {
-            if let Some(_) = search_stream.peek_text(*keyword, Comparator::CaseInsensitive) {
+            if search_stream
+                .peek_text(*keyword, Comparator::CaseInsensitive)
+                .is_some()
+            {
                 found_positions.push(search_stream.offset());
                 search_stream.forward(keyword.len());
             } else {
@@ -152,7 +155,7 @@ End Function"#;
         }
 
         if !found_positions.is_empty() {
-            println!("Found '{}' at positions: {:?}", keyword, found_positions);
+            println!("Found '{keyword}' at positions: {found_positions:?}");
         }
     }
 
@@ -164,7 +167,10 @@ End Function"#;
     // Find and extract function definitions
     while !stream.is_empty() {
         // Look for "Function" keyword
-        if let Some(_) = stream.peek_text("Function", Comparator::CaseInsensitive) {
+        if stream
+            .peek_text("Function", Comparator::CaseInsensitive)
+            .is_some()
+        {
             let function_start = stream.offset();
 
             // Take until the end of the line to get function signature
@@ -187,7 +193,7 @@ End Function"#;
 
     // Try to peek beyond the end of the stream
     let beyond_end = stream.peek(stream.contents.len() + 10);
-    println!("Peeking beyond end result: {:?}", beyond_end);
+    println!("Peeking beyond end result: {beyond_end:?}");
 
     // Move to near the end
     let original_len = stream.contents.len();
@@ -198,7 +204,7 @@ End Function"#;
 
     // Try to take more characters than available
     if let Some(remaining) = stream.peek(20) {
-        println!("Last characters: '{}'", remaining);
+        println!("Last characters: '{remaining}'");
     } else {
         println!("Cannot peek 20 characters from current position");
     }
@@ -206,7 +212,7 @@ End Function"#;
     // Take the remaining characters
     let remaining_count = stream.contents.len() - stream.offset();
     if let Some(final_chars) = stream.take_count(remaining_count) {
-        println!("Final {} characters: '{:?}'", remaining_count, final_chars);
+        println!("Final {remaining_count} characters: '{final_chars:?}'");
     }
 
     println!("Stream is empty: {}", stream.is_empty());

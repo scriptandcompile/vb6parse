@@ -88,19 +88,19 @@ End Sub
 
     #[test]
     fn print_multiple_items() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, x, y, z
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("PrintStatement"));
         assert!(debug.contains("PrintKeyword"));
-        assert!(debug.contains("x"));
-        assert!(debug.contains("y"));
-        assert!(debug.contains("z"));
+        assert!(debug.contains('x'));
+        assert!(debug.contains('y'));
+        assert!(debug.contains('z'));
     }
 
     #[test]
@@ -121,11 +121,11 @@ End Sub
 
     #[test]
     fn print_blank_line() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1,
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -135,13 +135,13 @@ End Sub
 
     #[test]
     fn print_variable_file_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fileNum As Integer
     fileNum = FreeFile
     Print #fileNum, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -235,11 +235,11 @@ End Sub
 
     #[test]
     fn print_numeric_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, 42, 3.14, -100
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -254,11 +254,11 @@ End Sub
 
     #[test]
     fn print_boolean_values() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, True, False
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

@@ -635,9 +635,9 @@ userName = Environ("USERNAME")
 
     #[test]
     fn environ_with_number() {
-        let source = r#"
+        let source = r"
 firstVar = Environ(1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Environ"));

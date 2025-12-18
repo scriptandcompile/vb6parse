@@ -811,10 +811,10 @@ mod tests {
 
     #[test]
     fn npv_basic() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = NPV(0.1, cashFlows)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -823,10 +823,10 @@ result = NPV(0.1, cashFlows)
 
     #[test]
     fn npv_with_initial_investment() {
-        let source = r#"
+        let source = r"
 Dim netValue As Double
 netValue = NPV(0.08, cashFlows) - initialInvestment
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -848,11 +848,11 @@ End If
 
     #[test]
     fn npv_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateNPV(rate As Double, flows() As Double) As Double
     CalculateNPV = NPV(rate, flows)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -861,10 +861,10 @@ End Function
 
     #[test]
     fn npv_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim presentValue As Double
 presentValue = NPV(0.12, projectedCashFlows)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -913,13 +913,13 @@ End Select
 
     #[test]
     fn npv_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_npv As Double
 
 Public Sub Calculate()
     m_npv = NPV(m_rate, m_cashFlows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -928,11 +928,11 @@ End Sub
 
     #[test]
     fn npv_with_statement() {
-        let source = r#"
+        let source = r"
 With investment
     .NetPresentValue = NPV(.DiscountRate, .CashFlows) - .InitialCost
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -941,13 +941,13 @@ End With
 
     #[test]
     fn npv_elseif() {
-        let source = r#"
+        let source = r"
 If x > 0 Then
     y = 1
 ElseIf NPV(r, flows) > threshold Then
     y = 2
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -956,12 +956,12 @@ End If
 
     #[test]
     fn npv_for_loop() {
-        let source = r#"
+        let source = r"
 For rate = 0.05 To 0.15 Step 0.01
     npvValue = NPV(rate, cashFlows) - initialCost
     Debug.Print rate, npvValue
 Next rate
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -970,11 +970,11 @@ Next rate
 
     #[test]
     fn npv_do_while() {
-        let source = r#"
+        let source = r"
 Do While NPV(currentRate, flows) - cost > 0
     currentRate = currentRate + 0.01
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -983,11 +983,11 @@ Loop
 
     #[test]
     fn npv_do_until() {
-        let source = r#"
+        let source = r"
 Do Until NPV(r, values) - investment <= 0
     r = r + 0.001
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -996,11 +996,11 @@ Loop
 
     #[test]
     fn npv_while_wend() {
-        let source = r#"
+        let source = r"
 While NPV(discountRate, projections) > minValue
     discountRate = discountRate + 0.005
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1009,10 +1009,10 @@ Wend
 
     #[test]
     fn npv_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (NPV(rate, cashFlows))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1046,10 +1046,10 @@ End If
 
     #[test]
     fn npv_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim npvValues(10) As Double
 npvValues(i) = NPV(rates(i), cashFlows)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1058,10 +1058,10 @@ npvValues(i) = NPV(rates(i), cashFlows)
 
     #[test]
     fn npv_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Investment
 obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1070,9 +1070,9 @@ obj.PresentValue = NPV(obj.Rate, obj.CashFlows)
 
     #[test]
     fn npv_function_argument() {
-        let source = r#"
+        let source = r"
 Call DisplayInvestmentAnalysis(NPV(discountRate, projectedFlows))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1093,10 +1093,10 @@ formatted = "NPV: " & Format(NPV(0.1, flows), "0.00")
 
     #[test]
     fn npv_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim profitabilityIndex As Double
 profitabilityIndex = NPV(rate, flows) / initialInvestment
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));
@@ -1117,10 +1117,10 @@ msg = "Present Value: $" & NPV(r, cf) & " at " & r * 100 & "%"
 
     #[test]
     fn npv_abs_function() {
-        let source = r#"
+        let source = r"
 Dim absValue As Double
 absValue = Abs(NPV(discountRate, cashFlows) - targetValue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("NPV"));

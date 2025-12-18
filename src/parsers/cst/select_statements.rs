@@ -277,7 +277,7 @@ End Sub
 
     #[test]
     fn select_case_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case x
         Case 1
@@ -291,7 +291,7 @@ Sub Test()
             result = 2
     End Select
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -350,7 +350,7 @@ End Sub
 
     #[test]
     fn select_case_empty_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case x
         Case 1
@@ -359,7 +359,7 @@ Sub Test()
         Case 3
     End Select
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 

@@ -744,10 +744,10 @@ mod tests {
 
     #[test]
     fn mirr_basic() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = MIRR(cashFlows(), 0.08, 0.05)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -756,10 +756,10 @@ result = MIRR(cashFlows(), 0.08, 0.05)
 
     #[test]
     fn mirr_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim investmentReturn As Double
 investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -768,10 +768,10 @@ investmentReturn = MIRR(projectFlows(), financeRate, reinvestRate)
 
     #[test]
     fn mirr_literal_rates() {
-        let source = r#"
+        let source = r"
 Dim rate As Double
 rate = MIRR(cashFlows(), 0.1, 0.06)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -792,11 +792,11 @@ End If
 
     #[test]
     fn mirr_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateReturn() As Double
     CalculateReturn = MIRR(flows(), 0.08, 0.05)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -805,10 +805,10 @@ End Function
 
     #[test]
     fn mirr_comparison() {
-        let source = r#"
+        let source = r"
 Dim acceptable As Boolean
 acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -817,9 +817,9 @@ acceptable = MIRR(cashFlows(), finRate, reinvRate) >= hurdle
 
     #[test]
     fn mirr_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print MIRR(cashFlows(), 0.08, 0.05)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -828,11 +828,11 @@ Debug.Print MIRR(cashFlows(), 0.08, 0.05)
 
     #[test]
     fn mirr_with_statement() {
-        let source = r#"
+        let source = r"
 With investmentRecord
     .MIRR = MIRR(cashFlows(), .FinanceRate, .ReinvestRate)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -859,13 +859,13 @@ End Select
 
     #[test]
     fn mirr_elseif() {
-        let source = r#"
+        let source = r"
 If x > 0 Then
     y = 1
 ElseIf MIRR(cashFlows(), 0.08, 0.05) > 0.1 Then
     y = 2
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -874,10 +874,10 @@ End If
 
     #[test]
     fn mirr_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (MIRR(cashFlows(), 0.08, 0.05))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -898,13 +898,13 @@ msg = IIf(MIRR(cashFlows(), 0.08, 0.05) > 0.1, "Good", "Bad")
 
     #[test]
     fn mirr_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_mirr As Double
 
 Public Sub Calculate()
     m_mirr = MIRR(m_cashFlows(), m_finRate, m_reinvRate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -913,9 +913,9 @@ End Sub
 
     #[test]
     fn mirr_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -924,10 +924,10 @@ Call ProcessReturn(MIRR(cashFlows(), 0.08, 0.05))
 
     #[test]
     fn mirr_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Investment
 obj.ReturnRate = MIRR(cashFlows(), 0.08, 0.05)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -936,11 +936,11 @@ obj.ReturnRate = MIRR(cashFlows(), 0.08, 0.05)
 
     #[test]
     fn mirr_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim returns(10) As Double
 Dim i As Integer
 returns(i) = MIRR(cashFlows(), 0.08, 0.05)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -949,12 +949,12 @@ returns(i) = MIRR(cashFlows(), 0.08, 0.05)
 
     #[test]
     fn mirr_for_loop() {
-        let source = r#"
+        let source = r"
 Dim i As Integer
 For i = 0 To 10
     results(i) = MIRR(scenarios(i), 0.08, 0.05)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -963,11 +963,11 @@ Next i
 
     #[test]
     fn mirr_while_wend() {
-        let source = r#"
+        let source = r"
 While MIRR(cashFlows(), rate, reinvRate) < targetReturn
     rate = rate + 0.01
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -976,11 +976,11 @@ Wend
 
     #[test]
     fn mirr_do_while() {
-        let source = r#"
+        let source = r"
 Do While MIRR(cashFlows(), rate, reinvRate) < 0.1
     rate = rate + 0.005
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -989,11 +989,11 @@ Loop
 
     #[test]
     fn mirr_do_until() {
-        let source = r#"
+        let source = r"
 Do Until MIRR(cashFlows(), rate, reinvRate) >= 0.1
     rate = rate + 0.005
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -1050,10 +1050,10 @@ formatted = Format(MIRR(cashFlows(), 0.08, 0.05), "0.00%")
 
     #[test]
     fn mirr_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim annualizedReturn As Double
 annualizedReturn = ((1 + MIRR(monthlyFlows(), monthlyFin, monthlyReinv)) ^ 12) - 1
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));
@@ -1073,10 +1073,10 @@ lblReturn.Caption = "MIRR: " & CStr(MIRR(cashFlows(), 0.08, 0.05))
 
     #[test]
     fn mirr_calculation() {
-        let source = r#"
+        let source = r"
 Dim percentReturn As Double
 percentReturn = MIRR(cashFlows(), finRate, reinvRate) * 100
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MIRR"));

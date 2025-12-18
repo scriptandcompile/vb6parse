@@ -470,12 +470,12 @@ End Sub
 
     #[test]
     fn trim_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim cleaned As String
     cleaned = Trim$(userInput)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -498,11 +498,11 @@ End Sub
 
     #[test]
     fn trim_dollar_clean_input() {
-        let source = r#"
+        let source = r"
 Function CleanInput(userInput As String) As String
     CleanInput = Trim$(userInput)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -510,11 +510,11 @@ End Function
 
     #[test]
     fn trim_dollar_validate_input() {
-        let source = r#"
+        let source = r"
 Function IsValidInput(input As String) As Boolean
     IsValidInput = (Len(Trim$(input)) > 0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -536,11 +536,11 @@ End Sub
 
     #[test]
     fn trim_dollar_comparison() {
-        let source = r#"
+        let source = r"
 Function CompareValues(value1 As String, value2 As String) As Boolean
     CompareValues = (Trim$(value1) = Trim$(value2))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -548,11 +548,11 @@ End Function
 
     #[test]
     fn trim_dollar_database_field() {
-        let source = r#"
+        let source = r"
 Function GetFieldValue(fieldValue As String) As String
     GetFieldValue = Trim$(fieldValue)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -560,14 +560,14 @@ End Function
 
     #[test]
     fn trim_dollar_array_cleanup() {
-        let source = r#"
+        let source = r"
 Sub CleanStringArray(arr() As String)
     Dim i As Integer
     For i = LBound(arr) To UBound(arr)
         arr(i) = Trim$(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -575,14 +575,14 @@ End Sub
 
     #[test]
     fn trim_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub ProcessForm()
     Dim userName As String
     Dim userEmail As String
     userName = Trim$(txtName.Text)
     userEmail = Trim$(txtEmail.Text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -636,13 +636,13 @@ End Function
 
     #[test]
     fn trim_dollar_file_processing() {
-        let source = r#"
+        let source = r"
 Function ReadCleanLine(fileNum As Integer) As String
     Dim rawLine As String
     Line Input #fileNum, rawLine
     ReadCleanLine = Trim$(rawLine)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -664,11 +664,11 @@ End Sub
 
     #[test]
     fn trim_dollar_with_ucase() {
-        let source = r#"
+        let source = r"
 Function NormalizeText(text As String) As String
     NormalizeText = UCase$(Trim$(text))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -676,7 +676,7 @@ End Function
 
     #[test]
     fn trim_dollar_loop_processing() {
-        let source = r#"
+        let source = r"
 Sub ProcessLines()
     Dim i As Integer
     Dim cleanLine As String
@@ -685,7 +685,7 @@ Sub ProcessLines()
         Debug.Print cleanLine
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -693,11 +693,11 @@ End Sub
 
     #[test]
     fn trim_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetCleanValue(value As String) As String
     GetCleanValue = Trim$(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -705,11 +705,11 @@ End Function
 
     #[test]
     fn trim_dollar_csv_parsing() {
-        let source = r#"
+        let source = r"
 Function ParseCSVField(field As String) As String
     ParseCSVField = Trim$(field)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));
@@ -717,13 +717,13 @@ End Function
 
     #[test]
     fn trim_dollar_search_query() {
-        let source = r#"
+        let source = r"
 Function PrepareSearchQuery(query As String) As String
     Dim cleaned As String
     cleaned = Trim$(query)
     PrepareSearchQuery = cleaned
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Trim$"));

@@ -223,12 +223,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim cleaned As String
     cleaned = LTrim$(userInput)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -277,12 +277,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_user_input() {
-        let source = r#"
+        let source = r"
 Sub Main()
     userInput = txtName.Text
     cleaned = LTrim$(userInput)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -303,13 +303,13 @@ End Sub
 
     #[test]
     fn ltrim_dollar_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Main()
     For i = 0 To UBound(fields)
         fields(i) = LTrim$(fields(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -317,12 +317,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_with_left() {
-        let source = r##"
+        let source = r"
 Sub Main()
     textLine = LTrim$(configLine)
     firstChar = Left$(textLine, 1)
 End Sub
-"##;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -359,13 +359,13 @@ End Sub
 
     #[test]
     fn ltrim_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub Main()
     first = LTrim$(field1)
     second = LTrim$(field2)
     combined = first & second
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -373,11 +373,11 @@ End Sub
 
     #[test]
     fn ltrim_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function CleanText(text As String) As String
     CleanText = LTrim$(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -427,12 +427,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_file_processing() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Line Input #1, dataLine
     dataLine = LTrim$(dataLine)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -440,12 +440,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_with_len() {
-        let source = r#"
+        let source = r"
 Sub Main()
     trimmed = LTrim$(text)
     length = Len(trimmed)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));
@@ -453,12 +453,12 @@ End Sub
 
     #[test]
     fn ltrim_dollar_textbox_input() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim input As String
     input = LTrim$(Text1.Text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LTrim$"));

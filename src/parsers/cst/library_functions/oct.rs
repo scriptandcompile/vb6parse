@@ -664,10 +664,10 @@ mod tests {
 
     #[test]
     fn oct_basic() {
-        let source = r#"
+        let source = r"
 Dim result As String
 result = Oct(64)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -676,11 +676,11 @@ result = Oct(64)
 
     #[test]
     fn oct_with_variable() {
-        let source = r#"
+        let source = r"
 Dim permissions As Integer
 permissions = 493
 Debug.Print Oct(permissions)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -702,11 +702,11 @@ End If
 
     #[test]
     fn oct_function_return() {
-        let source = r#"
+        let source = r"
 Function GetOctalString(num As Long) As String
     GetOctalString = Oct(num)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -715,10 +715,10 @@ End Function
 
     #[test]
     fn oct_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim octStr As String
 octStr = Oct(511)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -767,13 +767,13 @@ End Select
 
     #[test]
     fn oct_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_octal As String
 
 Public Sub ConvertValue(num As Long)
     m_octal = Oct(num)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -782,11 +782,11 @@ End Sub
 
     #[test]
     fn oct_with_statement() {
-        let source = r#"
+        let source = r"
 With converter
     .OctalValue = Oct(.DecimalValue)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -810,11 +810,11 @@ End If
 
     #[test]
     fn oct_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To 15
     Debug.Print i, Oct(i), Hex(i)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -823,11 +823,11 @@ Next i
 
     #[test]
     fn oct_do_while() {
-        let source = r#"
+        let source = r"
 Do While Len(Oct(counter)) < 4
     counter = counter * 8
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -836,11 +836,11 @@ Loop
 
     #[test]
     fn oct_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Oct(val) = targetOctal
     val = val + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -863,10 +863,10 @@ Wend
 
     #[test]
     fn oct_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As String
 result = (Oct(value))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -875,10 +875,10 @@ result = (Oct(value))
 
     #[test]
     fn oct_iif() {
-        let source = r#"
+        let source = r"
 Dim display As String
 display = IIf(showOctal, Oct(num), Hex(num))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -900,10 +900,10 @@ End If
 
     #[test]
     fn oct_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim octValues(10) As String
 octValues(i) = Oct(numbers(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -912,10 +912,10 @@ octValues(i) = Oct(numbers(i))
 
     #[test]
     fn oct_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New BaseConverter
 obj.OctalString = Oct(obj.DecimalValue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));
@@ -971,10 +971,10 @@ formatted = "&O" & Oct(value)
 
     #[test]
     fn oct_len_function() {
-        let source = r#"
+        let source = r"
 Dim digitCount As Integer
 digitCount = Len(Oct(number))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Oct"));

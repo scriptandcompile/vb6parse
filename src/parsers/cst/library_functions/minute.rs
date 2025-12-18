@@ -704,9 +704,9 @@ mod tests {
 
     #[test]
     fn minute_basic() {
-        let source = r#"
+        let source = r"
             currentMinute = Minute(Now)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -715,9 +715,9 @@ mod tests {
 
     #[test]
     fn minute_variable() {
-        let source = r#"
+        let source = r"
             m = Minute(timeValue)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -726,9 +726,9 @@ mod tests {
 
     #[test]
     fn minute_time_literal() {
-        let source = r#"
+        let source = r"
             m = Minute(#2:45:30 PM#)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -750,11 +750,11 @@ mod tests {
 
     #[test]
     fn minute_function_return() {
-        let source = r#"
+        let source = r"
             Function GetMinute() As Integer
                 GetMinute = Minute(Time)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -776,9 +776,9 @@ mod tests {
 
     #[test]
     fn minute_debug_print() {
-        let source = r#"
+        let source = r"
             Debug.Print Minute(Now)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -787,11 +787,11 @@ mod tests {
 
     #[test]
     fn minute_with_statement() {
-        let source = r#"
+        let source = r"
             With appointmentRecord
                 .StartMinute = Minute(.StartTime)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -831,9 +831,9 @@ mod tests {
 
     #[test]
     fn minute_parentheses() {
-        let source = r#"
+        let source = r"
             result = (Minute(timeValue))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -853,11 +853,11 @@ mod tests {
 
     #[test]
     fn minute_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub ExtractTime()
                 m_minute = Minute(m_timeValue)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -866,9 +866,9 @@ mod tests {
 
     #[test]
     fn minute_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessMinute(Minute(Now))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -877,9 +877,9 @@ mod tests {
 
     #[test]
     fn minute_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.CurrentMinute = Minute(Time)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -888,9 +888,9 @@ mod tests {
 
     #[test]
     fn minute_array_assignment() {
-        let source = r#"
+        let source = r"
             minutes(i) = Minute(times(i))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -899,11 +899,11 @@ mod tests {
 
     #[test]
     fn minute_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To count
                 m = Minute(appointments(i))
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -912,11 +912,11 @@ mod tests {
 
     #[test]
     fn minute_while_wend() {
-        let source = r#"
+        let source = r"
             While Minute(currentTime) < 30
                 DoWork
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -925,12 +925,12 @@ mod tests {
 
     #[test]
     fn minute_do_while() {
-        let source = r#"
+        let source = r"
             Do While i < recordCount
                 minuteValue = Minute(records(i).Time)
                 i = i + 1
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -939,11 +939,11 @@ mod tests {
 
     #[test]
     fn minute_do_until() {
-        let source = r#"
+        let source = r"
             Do Until Minute(Now) = 0
                 Wait 1000
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -998,10 +998,10 @@ mod tests {
 
     #[test]
     fn minute_arithmetic() {
-        let source = r#"
+        let source = r"
             minutesPast = Minute(currentTime)
             minutesLeft = 60 - Minute(currentTime)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -1010,9 +1010,9 @@ mod tests {
 
     #[test]
     fn minute_label_caption() {
-        let source = r#"
+        let source = r"
             lblMinute.Caption = CStr(Minute(Time))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));
@@ -1021,9 +1021,9 @@ mod tests {
 
     #[test]
     fn minute_calculation() {
-        let source = r#"
+        let source = r"
             totalMinutes = Hour(t) * 60 + Minute(t)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Minute"));

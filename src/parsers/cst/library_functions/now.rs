@@ -748,10 +748,10 @@ mod tests {
 
     #[test]
     fn now_basic() {
-        let source = r#"
+        let source = r"
 Dim currentTime As Date
 currentTime = Now
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -760,10 +760,10 @@ currentTime = Now
 
     #[test]
     fn now_parentheses() {
-        let source = r#"
+        let source = r"
 Dim dt As Date
 dt = Now()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -785,11 +785,11 @@ End If
 
     #[test]
     fn now_function_return() {
-        let source = r#"
+        let source = r"
 Function GetCurrentTime() As Date
     GetCurrentTime = Now
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -856,13 +856,13 @@ elapsed = DateDiff("s", startTime, Now)
 
     #[test]
     fn now_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_timestamp As Date
 
 Public Sub UpdateTimestamp()
     m_timestamp = Now
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -871,12 +871,12 @@ End Sub
 
     #[test]
     fn now_with_statement() {
-        let source = r#"
+        let source = r"
 With currentRecord
     .CreatedDate = Now
     .ModifiedDate = Now
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -885,10 +885,10 @@ End With
 
     #[test]
     fn now_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim timestamps(10) As Date
 timestamps(i) = Now
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -897,10 +897,10 @@ timestamps(i) = Now
 
     #[test]
     fn now_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Logger
 obj.Timestamp = Now
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -927,13 +927,13 @@ End Select
 
     #[test]
     fn now_elseif() {
-        let source = r#"
+        let source = r"
 If x > 0 Then
     y = 1
 ElseIf Now > deadline Then
     y = 2
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -958,11 +958,11 @@ MsgBox "Elapsed: " & DateDiff("s", startTime, Now)
 
     #[test]
     fn now_do_while() {
-        let source = r#"
+        let source = r"
 Do While Now < endTime
     ProcessData
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -971,11 +971,11 @@ Loop
 
     #[test]
     fn now_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Now >= targetTime
     WaitForEvent
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -984,11 +984,11 @@ Loop
 
     #[test]
     fn now_while_wend() {
-        let source = r#"
+        let source = r"
 While Now < cutoffTime
     count = count + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -1044,10 +1044,10 @@ sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh
 
     #[test]
     fn now_year_function() {
-        let source = r#"
+        let source = r"
 Dim currentYear As Integer
 currentYear = Year(Now)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -1056,10 +1056,10 @@ currentYear = Year(Now)
 
     #[test]
     fn now_month_function() {
-        let source = r#"
+        let source = r"
 Dim currentMonth As Integer
 currentMonth = Month(Now)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));
@@ -1080,13 +1080,13 @@ futureDate = DateAdd("d", 7, Now)
 
     #[test]
     fn now_multiple_calls() {
-        let source = r#"
+        let source = r"
 Dim start As Date
 Dim finish As Date
 start = Now
 DoWork
 finish = Now
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Now"));

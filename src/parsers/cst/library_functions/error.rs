@@ -697,9 +697,9 @@ mod tests {
 
     #[test]
     fn error_basic() {
-        let source = r#"
+        let source = r"
 msg = Error(53)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -708,9 +708,9 @@ msg = Error(53)
 
     #[test]
     fn error_no_argument() {
-        let source = r#"
+        let source = r"
 msg = Error()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -730,9 +730,9 @@ MsgBox "Error: " & Error(Err.Number)
 
     #[test]
     fn error_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print Error(11)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -741,11 +741,11 @@ Debug.Print Error(11)
 
     #[test]
     fn error_in_function() {
-        let source = r#"
+        let source = r"
 Function GetErrorMessage(errNum As Long) As String
     GetErrorMessage = Error(errNum)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -754,9 +754,9 @@ End Function
 
     #[test]
     fn error_with_variable() {
-        let source = r#"
+        let source = r"
 errorMsg = Error(errorNumber)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -840,9 +840,9 @@ Next i
 
     #[test]
     fn error_collection_add() {
-        let source = r#"
+        let source = r"
 dict.Add Error(i), CStr(i)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -865,9 +865,9 @@ End If
 
     #[test]
     fn error_udt_field() {
-        let source = r#"
+        let source = r"
 info.Message = Error(errorNumber)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -889,9 +889,9 @@ msg = "An error occurred:" & vbCrLf & _
 
     #[test]
     fn error_with_left() {
-        let source = r#"
+        let source = r"
 shortMsg = Left(Error(errNum), 50)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -911,11 +911,11 @@ logEntry = Replace(Error(Err.Number), vbCrLf, " ")
 
     #[test]
     fn error_with_len() {
-        let source = r#"
+        let source = r"
 If Len(Error(errNum)) > 0 Then
     ProcessError
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -924,11 +924,11 @@ End If
 
     #[test]
     fn error_type_assignment() {
-        let source = r#"
+        let source = r"
 Dim errorInfo As ErrorInfo
 errorInfo.Message = Error(errorNumber)
 errorInfo.Number = errorNumber
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -953,9 +953,9 @@ Next i
 
     #[test]
     fn error_with_trim() {
-        let source = r#"
+        let source = r"
 cleanMsg = Trim(Error(errNum))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -964,14 +964,14 @@ cleanMsg = Trim(Error(errNum))
 
     #[test]
     fn error_case_statement() {
-        let source = r#"
+        let source = r"
 Select Case errNum
     Case 53
         msg = Error(errNum)
     Case 61
         msg = Error(61)
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -980,9 +980,9 @@ End Select
 
     #[test]
     fn error_with_ucase() {
-        let source = r#"
+        let source = r"
 upperMsg = UCase(Error(errNum))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -991,11 +991,11 @@ upperMsg = UCase(Error(errNum))
 
     #[test]
     fn error_immediate_print() {
-        let source = r#"
+        let source = r"
 Sub ShowError()
     Debug.Print Error
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));
@@ -1004,11 +1004,11 @@ End Sub
 
     #[test]
     fn error_return_value() {
-        let source = r#"
+        let source = r"
 Function GetMsg() As String
     GetMsg = Error()
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Error"));

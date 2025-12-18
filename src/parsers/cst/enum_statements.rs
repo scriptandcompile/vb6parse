@@ -153,13 +153,13 @@ mod test {
 
     #[test]
     fn enum_simple() {
-        let source = r#"
+        let source = r"
 Enum Colors
     Red
     Green
     Blue
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -170,13 +170,13 @@ End Enum
 
     #[test]
     fn enum_with_values() {
-        let source = r#"
+        let source = r"
 Enum SecurityLevel
     IllegalEntry = -1
     SecurityLevel1 = 0
     SecurityLevel2 = 1
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -188,12 +188,12 @@ End Enum
 
     #[test]
     fn enum_public() {
-        let source = r#"
+        let source = r"
 Public Enum Status
     Active = 1
     Inactive = 0
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -204,13 +204,13 @@ End Enum
 
     #[test]
     fn enum_private() {
-        let source = r#"
+        let source = r"
 Private Enum InternalState
     Pending = 0
     Processing = 1
     Complete = 2
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -220,13 +220,13 @@ End Enum
 
     #[test]
     fn enum_at_module_level() {
-        let source = r#"Enum Direction
+        let source = r"Enum Direction
     North = 0
     South = 1
     East = 2
     West = 3
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);
@@ -238,13 +238,13 @@ End Enum
 
     #[test]
     fn enum_with_comments() {
-        let source = r#"
+        let source = r"
 Enum Priority
     Low = 0      ' Lowest priority
     Medium = 5   ' Medium priority
     High = 10    ' Highest priority
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -265,7 +265,7 @@ End Enum
 
     #[test]
     fn enum_with_expressions() {
-        let source = r#"
+        let source = r"
 Enum Flags
     None = 0
     Read = 1
@@ -273,7 +273,7 @@ Enum Flags
     ReadWrite = Read + Write
     All = &HFF
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -283,10 +283,10 @@ End Enum
 
     #[test]
     fn enum_empty() {
-        let source = r#"
+        let source = r"
 Enum EmptyEnum
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -295,7 +295,7 @@ End Enum
 
     #[test]
     fn enum_multiple_in_module() {
-        let source = r#"
+        let source = r"
 Public Enum Color
     Red = 1
     Green = 2
@@ -307,7 +307,7 @@ Private Enum Size
     Medium = 1
     Large = 2
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -318,14 +318,14 @@ End Enum
 
     #[test]
     fn enum_with_hex_values() {
-        let source = r#"
+        let source = r"
 Enum FileAttributes
     ReadOnly = &H1
     Hidden = &H2
     System = &H4
     Archive = &H20
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -335,7 +335,7 @@ End Enum
 
     #[test]
     fn enum_long_member_list() {
-        let source = r#"
+        let source = r"
 Enum DayOfWeek
     Sunday = 1
     Monday = 2
@@ -345,7 +345,7 @@ Enum DayOfWeek
     Friday = 6
     Saturday = 7
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -356,13 +356,13 @@ End Enum
 
     #[test]
     fn enum_negative_values() {
-        let source = r#"
+        let source = r"
 Enum Temperature
     FreezingPoint = -273
     Zero = 0
     BoilingPoint = 100
 End Enum
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

@@ -106,7 +106,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: ParseCSVLine
+/// ### Pattern 1: `ParseCSVLine`
 /// Parse a CSV line handling quotes
 /// ```vb
 /// Function ParseCSVLine(line As String) As String()
@@ -115,7 +115,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: GetWords
+/// ### Pattern 2: `GetWords`
 /// Extract words from text, handling multiple spaces
 /// ```vb
 /// Function GetWords(text As String) As String()
@@ -147,7 +147,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: SplitPath
+/// ### Pattern 3: `SplitPath`
 /// Split file path into components
 /// ```vb
 /// Function SplitPath(filePath As String) As String()
@@ -164,7 +164,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: ParseKeyValue
+/// ### Pattern 4: `ParseKeyValue`
 /// Parse key=value pairs
 /// ```vb
 /// Sub ParseKeyValue(kvPair As String, key As String, value As String)
@@ -182,7 +182,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 5: SplitLines
+/// ### Pattern 5: `SplitLines`
 /// Split text into lines, handling different line endings
 /// ```vb
 /// Function SplitLines(text As String) As String()
@@ -196,7 +196,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: ParseDelimitedData
+/// ### Pattern 6: `ParseDelimitedData`
 /// Parse delimited data with custom delimiter
 /// ```vb
 /// Function ParseDelimitedData(data As String, delimiter As String) As Variant
@@ -215,7 +215,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: ExtractFields
+/// ### Pattern 7: `ExtractFields`
 /// Extract specific fields from delimited string
 /// ```vb
 /// Function ExtractField(delimitedString As String, _
@@ -232,7 +232,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: CountTokens
+/// ### Pattern 8: `CountTokens`
 /// Count number of tokens in string
 /// ```vb
 /// Function CountTokens(text As String, delimiter As String) As Integer
@@ -242,7 +242,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: ReverseArray
+/// ### Pattern 9: `ReverseArray`
 /// Split and reverse the order
 /// ```vb
 /// Function ReverseSplit(text As String, delimiter As String) As String()
@@ -263,7 +263,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: FilterEmptyElements
+/// ### Pattern 10: `FilterEmptyElements`
 /// Split and remove empty elements
 /// ```vb
 /// Function SplitNonEmpty(text As String, delimiter As String) As String()
@@ -299,7 +299,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: CSVParser Class
+/// ### Example 1: `CSVParser` Class
 /// Parse CSV data with Split
 /// ```vb
 /// ' Class: CSVParser
@@ -377,7 +377,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: ConfigFileParser Module
+/// ### Example 2: `ConfigFileParser` Module
 /// Parse configuration files
 /// ```vb
 /// ' Module: ConfigFileParser
@@ -444,7 +444,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: TextProcessor Class
+/// ### Example 3: `TextProcessor` Class
 /// Process text with various split operations
 /// ```vb
 /// ' Class: TextProcessor
@@ -534,7 +534,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 4: DataImporter Module
+/// ### Example 4: `DataImporter` Module
 /// Import delimited data files
 /// ```vb
 /// ' Module: DataImporter
@@ -659,7 +659,7 @@
 ///
 /// ## Best Practices
 ///
-/// 1. **Check Array Bounds**: Always verify UBound before accessing elements
+/// 1. **Check Array Bounds**: Always verify `UBound` before accessing elements
 /// 2. **Handle Empty Results**: Check if array has elements before processing
 /// 3. **Trim Whitespace**: Use Trim on results to remove unwanted spaces
 /// 4. **Validate Delimiter**: Ensure delimiter is appropriate for data
@@ -843,13 +843,13 @@ End Sub
 
     #[test]
     fn split_class_usage() {
-        let source = r#"
+        let source = r"
 Class Parser
     Public Function GetFields(line As String) As String()
         GetFields = Split(line, vbTab)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
@@ -858,14 +858,14 @@ End Class
 
     #[test]
     fn split_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With parser
         Dim data() As String
         data = Split(.Text, .Delimiter)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
@@ -989,12 +989,12 @@ End Sub
 
     #[test]
     fn split_vbcrlf() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim lines() As String
     lines = Split(multilineText, vbCrLf)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));
@@ -1098,12 +1098,12 @@ End Sub
 
     #[test]
     fn split_compare_parameter() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim items() As String
     items = Split(text, delimiter, -1, vbTextCompare)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Split"));

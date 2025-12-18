@@ -855,19 +855,19 @@ mod tests {
         let contents = "Hello, World!\nThis is a test.\n";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(
             stream.take_until_newline(),
             Some(("Hello, World!", Some("\n")))
         );
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(
             stream.take_until_newline(),
             Some(("This is a test.", Some("\n")))
         );
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(stream.take_until_newline(), None);
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -875,13 +875,13 @@ mod tests {
         let contents = "Words\r\nAre hard.";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.take_until_newline(), Some(("Words", Some("\r\n"))));
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.take_until_newline(), Some(("Are hard.", None)));
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(stream.take_until_newline(), None);
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -889,11 +889,11 @@ mod tests {
         let contents = "Words Are hard.";
         let mut stream = SourceStream::new("test.txt", contents);
 
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.take_until_newline(), Some(("Words Are hard.", None)));
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(stream.take_until_newline(), None);
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -908,13 +908,13 @@ mod tests {
             stream.take("Hello, World!", Comparator::CaseSensitive),
             Some("Hello, World!")
         );
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.take_ascii_whitespaces(), Some("   "));
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.take_ascii_whitespaces(), None);
         assert_eq!(stream.peek(1), Some("\r"));
         assert_eq!(stream.take("\r\n", Comparator::CaseSensitive), Some("\r\n"));
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(stream.take_ascii_whitespaces(), None);
     }
 
@@ -930,7 +930,7 @@ mod tests {
             stream.take("123 World!", Comparator::CaseSensitive),
             Some("123 World!")
         );
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -945,7 +945,7 @@ mod tests {
             stream.take(" World!", Comparator::CaseSensitive),
             Some(" World!")
         );
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -960,7 +960,7 @@ mod tests {
             stream.take("abcde", Comparator::CaseSensitive),
             Some("abcde")
         );
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 
     #[test]
@@ -982,17 +982,17 @@ mod tests {
         );
         assert_eq!(stream.peek(1), Some("!"));
         assert_eq!(stream.take_ascii_punctuation(), Some("!"));
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.peek(1), Some("!"));
         assert_eq!(stream.take_ascii_punctuation(), Some("!"));
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(
             stream.take(" How are you", Comparator::CaseSensitive),
             Some(" How are you")
         );
         assert_eq!(stream.peek(1), Some("?"));
         assert_eq!(stream.take_ascii_punctuation(), Some("?"));
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(stream.take_ascii_punctuation(), None);
         assert_eq!(stream.peek(1), None);
     }
@@ -1036,15 +1036,15 @@ mod tests {
             stream.take_until_lambda(|character| character == '.', false),
             Some("test")
         );
-        assert_eq!(stream.is_empty(), false);
+        assert!(!stream.is_empty());
         assert_eq!(stream.peek(1), Some("."));
         assert_eq!(stream.take(".", Comparator::CaseSensitive), Some("."));
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
         assert_eq!(
             stream.take_until_lambda(|character| character == ' ', false),
             None
         );
         assert_eq!(stream.peek(1), None);
-        assert_eq!(stream.is_empty(), true);
+        assert!(stream.is_empty());
     }
 }

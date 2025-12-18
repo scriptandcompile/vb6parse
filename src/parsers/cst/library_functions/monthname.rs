@@ -607,10 +607,10 @@ mod tests {
 
     #[test]
     fn monthname_basic() {
-        let source = r#"
+        let source = r"
 Dim name As String
 name = MonthName(3)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -619,10 +619,10 @@ name = MonthName(3)
 
     #[test]
     fn monthname_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim monthName As String
 monthName = MonthName(Month(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -631,10 +631,10 @@ monthName = MonthName(Month(Date))
 
     #[test]
     fn monthname_abbreviated() {
-        let source = r#"
+        let source = r"
 Dim shortName As String
 shortName = MonthName(11, True)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -656,11 +656,11 @@ End If
 
     #[test]
     fn monthname_function_return() {
-        let source = r#"
+        let source = r"
 Function GetCurrentMonthName() As String
     GetCurrentMonthName = MonthName(Month(Date))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -681,9 +681,9 @@ dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
 
     #[test]
     fn monthname_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print MonthName(5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -692,11 +692,11 @@ Debug.Print MonthName(5)
 
     #[test]
     fn monthname_with_statement() {
-        let source = r#"
+        let source = r"
 With reportData
     .MonthDisplay = MonthName(Month(.ReportDate), True)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -736,10 +736,10 @@ End If
 
     #[test]
     fn monthname_parentheses() {
-        let source = r#"
+        let source = r"
 Dim name As String
 name = (MonthName(6, False))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -748,10 +748,10 @@ name = (MonthName(6, False))
 
     #[test]
     fn monthname_iif() {
-        let source = r#"
+        let source = r"
 Dim display As String
 display = IIf(useShort, MonthName(m, True), MonthName(m, False))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -760,13 +760,13 @@ display = IIf(useShort, MonthName(m, True), MonthName(m, False))
 
     #[test]
     fn monthname_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_monthName As String
 
 Public Sub UpdateMonth()
     m_monthName = MonthName(Month(Now), True)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -775,9 +775,9 @@ End Sub
 
     #[test]
     fn monthname_function_argument() {
-        let source = r#"
+        let source = r"
 Call DisplayMonth(MonthName(m, True))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -786,10 +786,10 @@ Call DisplayMonth(MonthName(m, True))
 
     #[test]
     fn monthname_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Calendar
 obj.CurrentMonth = MonthName(Month(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -798,11 +798,11 @@ obj.CurrentMonth = MonthName(Month(Date))
 
     #[test]
     fn monthname_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim monthNames(12) As String
 Dim i As Integer
 monthNames(i) = MonthName(i, True)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -811,12 +811,12 @@ monthNames(i) = MonthName(i, True)
 
     #[test]
     fn monthname_for_loop() {
-        let source = r#"
+        let source = r"
 Dim i As Integer
 For i = 1 To 12
     cboMonth.AddItem MonthName(i)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -825,12 +825,12 @@ Next i
 
     #[test]
     fn monthname_while_wend() {
-        let source = r#"
+        let source = r"
 While m <= 12
     Debug.Print MonthName(m)
     m = m + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -839,12 +839,12 @@ Wend
 
     #[test]
     fn monthname_do_while() {
-        let source = r#"
+        let source = r"
 Do While i < 12
     months(i) = MonthName(i)
     i = i + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -853,12 +853,12 @@ Loop
 
     #[test]
     fn monthname_do_until() {
-        let source = r#"
+        let source = r"
 Do Until i > 12
     list.AddItem MonthName(i, True)
     i = i + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -891,10 +891,10 @@ End If
 
     #[test]
     fn monthname_ucase() {
-        let source = r#"
+        let source = r"
 Dim upper As String
 upper = UCase(MonthName(3, True))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -903,9 +903,9 @@ upper = UCase(MonthName(3, True))
 
     #[test]
     fn monthname_label_caption() {
-        let source = r#"
+        let source = r"
 lblMonth.Caption = MonthName(Month(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -914,9 +914,9 @@ lblMonth.Caption = MonthName(Month(Date))
 
     #[test]
     fn monthname_combo_additem() {
-        let source = r#"
+        let source = r"
 cboMonths.AddItem MonthName(i, False)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));
@@ -937,10 +937,10 @@ formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
 
     #[test]
     fn monthname_left_function() {
-        let source = r#"
+        let source = r"
 Dim firstLetter As String
 firstLetter = Left(MonthName(m), 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("MonthName"));

@@ -730,10 +730,10 @@ result = Right("Hello World", 5)
 
     #[test]
     fn right_file_extension() {
-        let source = r#"
+        let source = r"
 Dim extension As String
 extension = Right(filename, 4)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -755,11 +755,11 @@ End If
 
     #[test]
     fn right_function_return() {
-        let source = r#"
+        let source = r"
 Function GetLastFour(s As String) As String
     GetLastFour = Right(s, 4)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -768,10 +768,10 @@ End Function
 
     #[test]
     fn right_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim lastChars As String
 lastChars = Right(inputText, charCount)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -818,13 +818,13 @@ End Select
 
     #[test]
     fn right_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_suffix As String
 
 Public Sub ExtractSuffix()
     m_suffix = Right(m_text, 10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -833,11 +833,11 @@ End Sub
 
     #[test]
     fn right_with_statement() {
-        let source = r#"
+        let source = r"
 With TextBox1
     .Text = Right(.Text, 20)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -861,11 +861,11 @@ End If
 
     #[test]
     fn right_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 10
     parts(i) = Right(lines(i), 5)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -874,11 +874,11 @@ Next i
 
     #[test]
     fn right_do_while() {
-        let source = r#"
+        let source = r"
 Do While Right(buffer, 2) <> vbCrLf
     buffer = buffer & ReadChar()
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -913,10 +913,10 @@ Wend
 
     #[test]
     fn right_parentheses() {
-        let source = r#"
+        let source = r"
 Dim val As String
 val = (Right(input, 10))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -937,10 +937,10 @@ ext = IIf(hasExtension, Right(name, 4), ".txt")
 
     #[test]
     fn right_nested() {
-        let source = r#"
+        let source = r"
 Dim result As String
 result = Right(Right(fullPath, 20), 10)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -949,10 +949,10 @@ result = Right(Right(fullPath, 20), 10)
 
     #[test]
     fn right_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim suffixes(10) As String
 suffixes(i) = Right(words(i), 3)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -961,10 +961,10 @@ suffixes(i) = Right(words(i), 3)
 
     #[test]
     fn right_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New StringHelper
 obj.Suffix = Right(fullString, 15)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -973,9 +973,9 @@ obj.Suffix = Right(fullString, 15)
 
     #[test]
     fn right_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessExtension(Right(filename, 4))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -1009,10 +1009,10 @@ End If
 
     #[test]
     fn right_with_len() {
-        let source = r#"
+        let source = r"
 Dim remaining As String
 remaining = Right(text, Len(text) - 5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));
@@ -1021,10 +1021,10 @@ remaining = Right(text, Len(text) - 5)
 
     #[test]
     fn right_trim_combination() {
-        let source = r#"
+        let source = r"
 Dim cleaned As String
 cleaned = Right(Trim(input), 10)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Right"));

@@ -670,10 +670,10 @@ mod tests {
 
     #[test]
     fn pv_basic() {
-        let source = r#"
+        let source = r"
 Dim loanAmount As Double
 loanAmount = PV(0.06 / 12, 60, -500)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -682,10 +682,10 @@ loanAmount = PV(0.06 / 12, 60, -500)
 
     #[test]
     fn pv_with_all_parameters() {
-        let source = r#"
+        let source = r"
 Dim presentValue As Double
 presentValue = PV(0.05 / 12, 120, 1000, 0, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -707,11 +707,11 @@ End If
 
     #[test]
     fn pv_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateLoanCapacity(payment As Double) As Double
     CalculateLoanCapacity = Abs(PV(0.05 / 12, 360, -payment))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -720,10 +720,10 @@ End Function
 
     #[test]
     fn pv_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim affordableAmount As Double
 affordableAmount = PV(monthlyRate, periods, monthlyPayment)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -774,13 +774,13 @@ End Select
 
     #[test]
     fn pv_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_presentValue As Double
 
 Public Sub Calculate()
     m_presentValue = PV(m_rate, m_periods, m_payment)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -789,11 +789,11 @@ End Sub
 
     #[test]
     fn pv_with_statement() {
-        let source = r#"
+        let source = r"
 With loanCalc
     .LoanAmount = PV(.Rate, .Term, .Payment)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -802,13 +802,13 @@ End With
 
     #[test]
     fn pv_elseif() {
-        let source = r#"
+        let source = r"
 If amount > 1000000 Then
     rate = 0.04
 ElseIf PV(0.05 / 12, 360, -payment) > budget Then
     rate = 0.05
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -817,12 +817,12 @@ End If
 
     #[test]
     fn pv_for_loop() {
-        let source = r#"
+        let source = r"
 For payment = 1000 To 3000 Step 100
     loanAmount = Abs(PV(0.05 / 12, 360, -payment))
     Debug.Print payment, loanAmount
 Next payment
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -831,11 +831,11 @@ Next payment
 
     #[test]
     fn pv_do_while() {
-        let source = r#"
+        let source = r"
 Do While Abs(PV(rate, nper, -payment)) < targetLoan
     payment = payment + 10
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -844,11 +844,11 @@ Loop
 
     #[test]
     fn pv_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Abs(PV(r / 12, n, -pmt)) >= desiredAmount
     pmt = pmt + 50
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -857,11 +857,11 @@ Loop
 
     #[test]
     fn pv_while_wend() {
-        let source = r#"
+        let source = r"
 While Abs(PV(interestRate, periods, -payment)) > 0
     payment = payment + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -870,10 +870,10 @@ Wend
 
     #[test]
     fn pv_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (PV(rate, nper, pmt))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -882,10 +882,10 @@ result = (PV(rate, nper, pmt))
 
     #[test]
     fn pv_iif() {
-        let source = r#"
+        let source = r"
 Dim presentValue As Double
 presentValue = IIf(useFV, PV(r, n, p, fv), PV(r, n, p))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -907,10 +907,10 @@ End If
 
     #[test]
     fn pv_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim loanAmounts(10) As Double
 loanAmounts(i) = PV(rates(i), periods, payment)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -919,10 +919,10 @@ loanAmounts(i) = PV(rates(i), periods, payment)
 
     #[test]
     fn pv_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New LoanCalculator
 obj.MaxLoan = PV(obj.Rate, obj.Term, obj.Payment)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -931,9 +931,9 @@ obj.MaxLoan = PV(obj.Rate, obj.Term, obj.Payment)
 
     #[test]
     fn pv_function_argument() {
-        let source = r#"
+        let source = r"
 Call AnalyzeLoan(PV(monthlyRate, months, -payment), interestRate)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -942,10 +942,10 @@ Call AnalyzeLoan(PV(monthlyRate, months, -payment), interestRate)
 
     #[test]
     fn pv_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim downPayment As Double
 downPayment = homePrice - Abs(PV(rate, nper, -payment))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -966,10 +966,10 @@ msg = "Maximum loan: $" & Format(Abs(PV(r, n, -pmt)), "0.00")
 
     #[test]
     fn pv_abs_function() {
-        let source = r#"
+        let source = r"
 Dim displayValue As Double
 displayValue = Abs(PV(interestRate / 12, years * 12, -monthlyPayment))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));
@@ -978,10 +978,10 @@ displayValue = Abs(PV(interestRate / 12, years * 12, -monthlyPayment))
 
     #[test]
     fn pv_with_future_value() {
-        let source = r#"
+        let source = r"
 Dim lumpSumPV As Double
 lumpSumPV = Abs(PV(0.06, 10, 0, -50000))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("PV"));

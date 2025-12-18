@@ -18,17 +18,16 @@ fn artificial_life_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = match result.result {
-        Some(module_file) => module_file,
-        None => {
-            if result.has_failures() && result.failures.len() != 0 {
-                for failure in result.failures {
-                    failure.eprint();
-                }
+    let module_file = if let Some(module_file) = result.result {
+        module_file
+    } else {
+        if result.has_failures() && !result.failures.is_empty() {
+            for failure in result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{file_path}' module file");
         }
+
+        panic!("Failed to parse '{file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(module_file);
@@ -51,17 +50,16 @@ fn game_physics_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = match result.result {
-        Some(module_file) => module_file,
-        None => {
-            if result.has_failures() && result.failures.len() != 0 {
-                for failure in result.failures {
-                    failure.eprint();
-                }
+    let module_file = if let Some(module_file) = result.result {
+        module_file
+    } else {
+        if result.has_failures() && !result.failures.is_empty() {
+            for failure in result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{file_path}' module file");
         }
+
+        panic!("Failed to parse '{file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(module_file);
@@ -83,17 +81,16 @@ fn histograms_advanced_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = match result.result {
-        Some(module_file) => module_file,
-        None => {
-            if result.has_failures() && result.failures.len() != 0 {
-                for failure in result.failures {
-                    failure.eprint();
-                }
+    let module_file = if let Some(module_file) = result.result {
+        module_file
+    } else {
+        if result.has_failures() && !result.failures.is_empty() {
+            for failure in result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{file_path}' module file");
         }
+
+        panic!("Failed to parse '{file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(module_file);
@@ -115,17 +112,16 @@ fn histograms_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = match result.result {
-        Some(module_file) => module_file,
-        None => {
-            if result.has_failures() && result.failures.len() != 0 {
-                for failure in result.failures {
-                    failure.eprint();
-                }
+    let module_file = if let Some(module_file) = result.result {
+        module_file
+    } else {
+        if result.has_failures() && !result.failures.is_empty() {
+            for failure in result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{file_path}' module file");
         }
+
+        panic!("Failed to parse '{file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(module_file);
@@ -147,17 +143,16 @@ fn levels_effect_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = match result.result {
-        Some(module_file) => module_file,
-        None => {
-            if result.has_failures() && result.failures.len() != 0 {
-                for failure in result.failures {
-                    failure.eprint();
-                }
+    let module_file = if let Some(module_file) = result.result {
+        module_file
+    } else {
+        if result.has_failures() && !result.failures.is_empty() {
+            for failure in result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{file_path}' module file");
         }
+
+        panic!("Failed to parse '{file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(module_file);
@@ -182,17 +177,16 @@ fn map_editor_2d_module_load() {
 
     let subs_result = ModuleFile::parse(&subs_module_source_file);
 
-    let subs_module_file = match subs_result.result {
-        Some(module_file) => module_file,
-        None => {
-            if subs_result.has_failures() && subs_result.failures.len() != 0 {
-                for failure in subs_result.failures {
-                    failure.eprint();
-                }
+    let subs_module_file = if let Some(module_file) = subs_result.result {
+        module_file
+    } else {
+        if subs_result.has_failures() && !subs_result.failures.is_empty() {
+            for failure in subs_result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{subs_file_path}' module file");
         }
+
+        panic!("Failed to parse '{subs_file_path}' module file");
     };
 
     let declaration_file_path = "./tests/data/vb6-code/Map-editor-2D/Declarations.bas";
@@ -212,17 +206,16 @@ fn map_editor_2d_module_load() {
 
     let declaration_result = ModuleFile::parse(&declaration_module_source_file);
 
-    let declaration_module_file = match declaration_result.result {
-        Some(module_file) => module_file,
-        None => {
-            if declaration_result.has_failures() && declaration_result.failures.len() != 0 {
-                for failure in declaration_result.failures {
-                    failure.eprint();
-                }
+    let declaration_module_file = if let Some(module_file) = declaration_result.result {
+        module_file
+    } else {
+        if declaration_result.has_failures() && !declaration_result.failures.is_empty() {
+            for failure in declaration_result.failures {
+                failure.eprint();
             }
-
-            panic!("Failed to parse '{declaration_file_path}' module file");
         }
+
+        panic!("Failed to parse '{declaration_file_path}' module file");
     };
 
     insta::assert_yaml_snapshot!(subs_module_file);

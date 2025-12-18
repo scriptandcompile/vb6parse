@@ -148,13 +148,13 @@ mod test {
 
     #[test]
     fn simple_for_loop() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 1 To 10
         Debug.Print i
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -167,13 +167,13 @@ End Sub
 
     #[test]
     fn for_loop_with_step() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 1 To 100 Step 5
         Debug.Print i
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -184,13 +184,13 @@ End Sub
 
     #[test]
     fn for_loop_with_negative_step() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 10 To 1 Step -1
         Debug.Print i
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -201,13 +201,13 @@ End Sub
 
     #[test]
     fn for_loop_without_counter_after_next() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 1 To 10
         Debug.Print i
     Next
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -218,7 +218,7 @@ End Sub
 
     #[test]
     fn nested_for_loops() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 1 To 5
         For j = 1 To 5
@@ -226,7 +226,7 @@ Sub TestSub()
         Next j
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -238,13 +238,13 @@ End Sub
 
     #[test]
     fn for_loop_with_function_calls() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = GetStart() To GetEnd() Step GetStep()
         Debug.Print i
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -256,13 +256,13 @@ End Sub
 
     #[test]
     fn for_loop_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For   i   =   1   To   10   Step   2
         Debug.Print i
     Next   i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -295,13 +295,13 @@ End Sub
 
     #[test]
     fn for_each_loop_simple() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For Each item In collection
         Debug.Print item
     Next item
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -315,13 +315,13 @@ End Sub
 
     #[test]
     fn for_each_loop_without_variable_after_next() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For Each element In myArray
         Debug.Print element
     Next
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -333,7 +333,7 @@ End Sub
 
     #[test]
     fn nested_for_and_for_each() {
-        let source = r#"
+        let source = r"
 Sub TestSub()
     For i = 1 To 10
         For Each item In items(i)
@@ -341,7 +341,7 @@ Sub TestSub()
         Next item
     Next i
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 

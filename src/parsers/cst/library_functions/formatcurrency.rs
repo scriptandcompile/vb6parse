@@ -592,9 +592,9 @@ mod tests {
 
     #[test]
     fn formatcurrency_basic() {
-        let source = r#"
+        let source = r"
 result = FormatCurrency(amount)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -603,9 +603,9 @@ result = FormatCurrency(amount)
 
     #[test]
     fn formatcurrency_decimals() {
-        let source = r#"
+        let source = r"
 formatted = FormatCurrency(value, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -614,9 +614,9 @@ formatted = FormatCurrency(value, 2)
 
     #[test]
     fn formatcurrency_no_decimals() {
-        let source = r#"
+        let source = r"
 formatted = FormatCurrency(amount, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -625,9 +625,9 @@ formatted = FormatCurrency(amount, 0)
 
     #[test]
     fn formatcurrency_parens() {
-        let source = r#"
+        let source = r"
 result = FormatCurrency(balance, 2, , vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -636,9 +636,9 @@ result = FormatCurrency(balance, 2, , vbTrue)
 
     #[test]
     fn formatcurrency_all_params() {
-        let source = r#"
+        let source = r"
 formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -647,9 +647,9 @@ formatted = FormatCurrency(amount, 2, vbTrue, vbTrue, vbTrue)
 
     #[test]
     fn formatcurrency_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print FormatCurrency(price)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -669,11 +669,11 @@ msg = "Total: " & FormatCurrency(total)
 
     #[test]
     fn formatcurrency_in_function() {
-        let source = r#"
+        let source = r"
 Function FormatAccountBalance(balance As Double) As String
     FormatAccountBalance = FormatCurrency(balance, 2, vbTrue, vbTrue, vbTrue)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -682,13 +682,13 @@ End Function
 
     #[test]
     fn formatcurrency_if_statement() {
-        let source = r#"
+        let source = r"
 If showCents Then
     result = FormatCurrency(price, 2)
 Else
     result = FormatCurrency(price, 0)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -697,9 +697,9 @@ End If
 
     #[test]
     fn formatcurrency_listbox() {
-        let source = r#"
+        let source = r"
 lstPrices.AddItem FormatCurrency(prices(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -721,9 +721,9 @@ summary = "Subtotal: " & FormatCurrency(subtotal) & vbCrLf & _
 
     #[test]
     fn formatcurrency_calculation() {
-        let source = r#"
+        let source = r"
 result = FormatCurrency(price * quantity)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -732,11 +732,11 @@ result = FormatCurrency(price * quantity)
 
     #[test]
     fn formatcurrency_isnull_check() {
-        let source = r#"
+        let source = r"
 If Not IsNull(amount) Then
     formatted = FormatCurrency(amount)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -771,11 +771,11 @@ ErrorHandler:
 
     #[test]
     fn formatcurrency_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To itemCount
     Debug.Print FormatCurrency(amounts(i))
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -784,14 +784,14 @@ Next i
 
     #[test]
     fn formatcurrency_select_case() {
-        let source = r#"
+        let source = r"
 Select Case amount
     Case Is > 1000
         result = FormatCurrency(amount, 0)
     Case Else
         result = FormatCurrency(amount, 2)
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -811,9 +811,9 @@ MsgBox "Total: " & FormatCurrency(total)
 
     #[test]
     fn formatcurrency_label_caption() {
-        let source = r#"
+        let source = r"
 lblPrice.Caption = FormatCurrency(price)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -833,9 +833,9 @@ formatted = FormatCurrency(rs.Fields("Amount").Value)
 
     #[test]
     fn formatcurrency_vbfalse() {
-        let source = r#"
+        let source = r"
 result = FormatCurrency(fraction, 2, vbFalse)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -844,9 +844,9 @@ result = FormatCurrency(fraction, 2, vbFalse)
 
     #[test]
     fn formatcurrency_negative() {
-        let source = r#"
+        let source = r"
 formatted = FormatCurrency(balance, 2, , vbFalse)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -855,9 +855,9 @@ formatted = FormatCurrency(balance, 2, , vbFalse)
 
     #[test]
     fn formatcurrency_subtraction() {
-        let source = r#"
+        let source = r"
 difference = FormatCurrency(price1 - price2, 2, , vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -866,9 +866,9 @@ difference = FormatCurrency(price1 - price2, 2, , vbTrue)
 
     #[test]
     fn formatcurrency_addition() {
-        let source = r#"
+        let source = r"
 total = FormatCurrency(subtotal + tax + shipping)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -877,9 +877,9 @@ total = FormatCurrency(subtotal + tax + shipping)
 
     #[test]
     fn formatcurrency_with_cdbl() {
-        let source = r#"
+        let source = r"
 result = FormatCurrency(CDbl(value), decimals)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));
@@ -888,10 +888,10 @@ result = FormatCurrency(CDbl(value), decimals)
 
     #[test]
     fn formatcurrency_iif() {
-        let source = r#"
+        let source = r"
 parens = IIf(useParens, vbTrue, vbFalse)
 result = FormatCurrency(amount, 2, vbTrue, parens, vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatCurrency"));

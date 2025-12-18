@@ -324,11 +324,11 @@ End Sub
 
     #[test]
     fn time_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Time = newTime
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -388,11 +388,11 @@ End Sub
 
     #[test]
     fn time_with_now() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Time = Now
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -415,11 +415,11 @@ End If
 
     #[test]
     fn time_with_timeserial() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Time = TimeSerial(14, 30, 0)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -498,11 +498,11 @@ End Sub
 
     #[test]
     fn time_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To 23
     Time = TimeSerial(i, 0, 0)
 Next i
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -511,13 +511,13 @@ Next i
 
     #[test]
     fn time_with_isdate() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsDate(userTime) Then
         Time = userTime
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -552,11 +552,11 @@ End Select
 
     #[test]
     fn time_in_with_block() {
-        let source = r#"
+        let source = r"
 With timeSettings
     Time = .DefaultTime
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -580,11 +580,11 @@ End Sub
 
     #[test]
     fn time_numeric_value() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Time = 0.5
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -629,11 +629,11 @@ End Sub
 
     #[test]
     fn time_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Time = baseTime + offset
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

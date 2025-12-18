@@ -231,13 +231,13 @@ mod tests {
 
     #[test]
     fn error_dollar_current_error() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     x = 1 / 0
     msg = Error$()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Error$"));
@@ -245,11 +245,11 @@ End Sub
 
     #[test]
     fn error_dollar_specific_error() {
-        let source = r#"
+        let source = r"
 Sub Test()
     msg = Error$(11)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Error$"));
@@ -322,11 +322,11 @@ End Sub
 
     #[test]
     fn error_dollar_get_specific() {
-        let source = r#"
+        let source = r"
 Sub Test()
     errMsg = Error$(53)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Error$"));
@@ -351,13 +351,13 @@ End Sub
 
     #[test]
     fn error_dollar_compare_messages() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Error$() = Error$(11) Then
         ' Handle division by zero
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Error$"));
@@ -472,14 +472,14 @@ End Sub
 
     #[test]
     fn error_dollar_testing_utility() {
-        let source = r#"
+        let source = r"
 Function TestError(errNum As Integer) As String
     On Error Resume Next
     Err.Raise errNum
     TestError = Error$()
     Err.Clear
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Error$"));

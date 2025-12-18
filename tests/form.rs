@@ -10,7 +10,7 @@ fn artificial_life_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmMain.frm' source file");
         }
     };
@@ -36,7 +36,7 @@ fn blacklight_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Blacklight.frm' source file");
         }
     };
@@ -63,7 +63,7 @@ fn brightness_effect_part_1_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Brightness.frm' source file");
         }
     };
@@ -91,7 +91,7 @@ fn brightness_effect_part_2_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Brightness2.frm' source file");
         }
     };
@@ -118,7 +118,7 @@ fn brightness_effect_part_3_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Brightness3.frm' source file");
         }
     };
@@ -146,7 +146,7 @@ fn brightness_effect_part_4_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Brightness.frm' source file");
         }
     };
@@ -172,7 +172,7 @@ fn color_shift_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'ShiftColors.frm' source file");
         }
     };
@@ -198,7 +198,7 @@ fn colorize_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Colorize.frm' source file");
         }
     };
@@ -224,7 +224,7 @@ fn contrast_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Contrast.frm' source file");
         }
     };
@@ -250,7 +250,7 @@ fn curves_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Curves.frm' source file");
         }
     };
@@ -275,7 +275,7 @@ fn custom_image_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'CustomFilters.frm' source file");
         }
     };
@@ -301,7 +301,7 @@ fn diffuse_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Diffuse.frm' source file");
         }
     };
@@ -327,7 +327,7 @@ fn edge_detection_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'EdgeDetection.frm' source file");
         }
     };
@@ -353,7 +353,7 @@ fn emboss_engrave_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'EmbossEngrave.frm' source file");
         }
     };
@@ -379,7 +379,7 @@ fn fill_image_region_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmFill.frm' source file");
         }
     };
@@ -405,7 +405,7 @@ fn fire_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmFire.frm' source file");
         }
     };
@@ -431,7 +431,7 @@ fn game_physics_basic_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'formPhysics.frm' source file");
         }
     };
@@ -457,7 +457,7 @@ fn gradient_2d_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Gradient.frm' source file");
         }
     };
@@ -483,7 +483,7 @@ fn grayscale_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Grayscale.frm' source file");
         }
     };
@@ -509,7 +509,7 @@ fn hidden_markov_model_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmHMM.frm' source file");
         }
     };
@@ -535,7 +535,7 @@ fn histograms_advanced_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Histogram.frm' source file");
         }
     };
@@ -561,7 +561,7 @@ fn histograms_basic_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Histogram.frm' source file");
         }
     };
@@ -587,7 +587,7 @@ fn levels_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Main.frm' source file");
         }
     };
@@ -613,7 +613,7 @@ fn mandelbrot_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Mandelbrot.frm' source file");
         }
     };
@@ -639,7 +639,7 @@ fn map_editor_2d_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Main Editor.frm' source file");
         }
     };
@@ -665,7 +665,7 @@ fn nature_effects_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'NatureFilters.frm' source file");
         }
     };
@@ -691,7 +691,7 @@ fn randomize_effects_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'RandomizationFX.frm' source file");
         }
     };
@@ -717,7 +717,7 @@ fn scanner_twain_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmScanner.frm' source file");
         }
     };
@@ -743,7 +743,7 @@ fn screen_capture_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'FormScreenCapture.frm' source file");
         }
     };
@@ -769,7 +769,7 @@ fn sepia_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Sepia.frm' source file");
         }
     };
@@ -795,7 +795,7 @@ fn threshold_effect_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'Threshold.frm' source file");
         }
     };
@@ -821,7 +821,7 @@ fn transparency_2d_form_load() {
     let source_file = match source_file {
         Ok(source_file) => source_file,
         Err(e) => {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             panic!("Failed to decode 'frmTransparency.frm' source file");
         }
     };

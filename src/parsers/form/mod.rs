@@ -737,7 +737,7 @@ End
                 assert_eq!(properties.len(), 9);
                 assert_eq!(property_groups.len(), 1);
 
-                if let Some(group) = property_groups.get(0) {
+                if let Some(group) = property_groups.first() {
                     assert_eq!(group.name, "Images");
                     assert_eq!(group.properties.len(), 6);
 
@@ -838,7 +838,7 @@ End
                 menus,
                 &vec![MenuControl {
                     name: "mnuFile".into(),
-                    tag: "".into(),
+                    tag: String::new(),
                     index: 0,
                     properties: MenuProperties {
                         caption: "&File".into(),
@@ -846,7 +846,7 @@ End
                     },
                     sub_menus: vec![MenuControl {
                         name: "mnuOpenImage".into(),
-                        tag: "".into(),
+                        tag: String::new(),
                         index: 0,
                         properties: MenuProperties {
                             caption: "&Open image".into(),

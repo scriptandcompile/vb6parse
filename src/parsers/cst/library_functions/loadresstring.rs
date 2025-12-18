@@ -629,10 +629,10 @@ mod tests {
 
     #[test]
     fn loadresstring_basic() {
-        let source = r#"
+        let source = r"
             Dim msg As String
             msg = LoadResString(1001)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -641,9 +641,9 @@ mod tests {
 
     #[test]
     fn loadresstring_msgbox() {
-        let source = r#"
+        let source = r"
             MsgBox LoadResString(2001), vbCritical
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -652,11 +652,11 @@ mod tests {
 
     #[test]
     fn loadresstring_if_statement() {
-        let source = r#"
+        let source = r"
             If Not fileExists Then
                 MsgBox LoadResString(3001), vbCritical
             End If
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -665,9 +665,9 @@ mod tests {
 
     #[test]
     fn loadresstring_caption() {
-        let source = r#"
+        let source = r"
             Me.Caption = LoadResString(4001)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -676,11 +676,11 @@ mod tests {
 
     #[test]
     fn loadresstring_form_load() {
-        let source = r#"
+        let source = r"
             Private Sub Form_Load()
                 lblWelcome.Caption = LoadResString(5001)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -689,11 +689,11 @@ mod tests {
 
     #[test]
     fn loadresstring_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To 5
                 labels(i).Caption = LoadResString(6000 + i)
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -702,11 +702,11 @@ mod tests {
 
     #[test]
     fn loadresstring_function_return() {
-        let source = r#"
+        let source = r"
             Function GetErrorMessage() As String
                 GetErrorMessage = LoadResString(7001)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -730,11 +730,11 @@ mod tests {
 
     #[test]
     fn loadresstring_with_statement() {
-        let source = r#"
+        let source = r"
             With lblStatus
                 .Caption = LoadResString(8001)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -743,14 +743,14 @@ mod tests {
 
     #[test]
     fn loadresstring_select_case() {
-        let source = r#"
+        let source = r"
             Select Case errorType
                 Case 1
                     msg = LoadResString(9001)
                 Case 2
                     msg = LoadResString(9002)
             End Select
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -774,10 +774,10 @@ mod tests {
 
     #[test]
     fn loadresstring_concatenation() {
-        let source = r#"
+        let source = r"
             Dim fullMsg As String
             fullMsg = LoadResString(12001) & vbCrLf & details
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -786,9 +786,9 @@ mod tests {
 
     #[test]
     fn loadresstring_parentheses() {
-        let source = r#"
+        let source = r"
             msg = (LoadResString(13001))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -797,9 +797,9 @@ mod tests {
 
     #[test]
     fn loadresstring_iif() {
-        let source = r#"
+        let source = r"
             msg = IIf(success, LoadResString(14001), LoadResString(14002))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -808,11 +808,11 @@ mod tests {
 
     #[test]
     fn loadresstring_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Initialize()
                 m_errorMsg = LoadResString(15001)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -821,9 +821,9 @@ mod tests {
 
     #[test]
     fn loadresstring_function_argument() {
-        let source = r#"
+        let source = r"
             Call ShowMessage(LoadResString(16001))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -832,9 +832,9 @@ mod tests {
 
     #[test]
     fn loadresstring_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.Message = LoadResString(17001)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -843,9 +843,9 @@ mod tests {
 
     #[test]
     fn loadresstring_array_assignment() {
-        let source = r#"
+        let source = r"
             messages(i) = LoadResString(18000 + i)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -854,12 +854,12 @@ mod tests {
 
     #[test]
     fn loadresstring_while_wend() {
-        let source = r#"
+        let source = r"
             While index < maxStrings
                 text = LoadResString(19000 + index)
                 index = index + 1
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -868,11 +868,11 @@ mod tests {
 
     #[test]
     fn loadresstring_do_while() {
-        let source = r#"
+        let source = r"
             Do While hasMore
                 currentMsg = LoadResString(GetNextID())
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -881,13 +881,13 @@ mod tests {
 
     #[test]
     fn loadresstring_do_until() {
-        let source = r#"
+        let source = r"
             Do Until loaded
                 On Error Resume Next
                 msg = LoadResString(resID)
                 loaded = (Err.Number = 0)
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -896,10 +896,10 @@ mod tests {
 
     #[test]
     fn loadresstring_constants() {
-        let source = r#"
+        let source = r"
             Const MSG_ERROR = 20001
             MsgBox LoadResString(MSG_ERROR), vbCritical
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -908,11 +908,11 @@ mod tests {
 
     #[test]
     fn loadresstring_addition() {
-        let source = r#"
+        let source = r"
             Dim baseID As Integer
             baseID = 21000
             msg = LoadResString(baseID + offset)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -945,9 +945,9 @@ mod tests {
 
     #[test]
     fn loadresstring_debug_print() {
-        let source = r#"
+        let source = r"
             Debug.Print LoadResString(24001)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));
@@ -956,9 +956,9 @@ mod tests {
 
     #[test]
     fn loadresstring_tooltip() {
-        let source = r#"
+        let source = r"
             cmdSave.ToolTipText = LoadResString(25001)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResString"));

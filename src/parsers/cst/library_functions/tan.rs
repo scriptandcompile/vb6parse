@@ -208,11 +208,11 @@ mod tests {
 
     #[test]
     fn tan_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Tan(0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -220,11 +220,11 @@ End Sub
 
     #[test]
     fn tan_45_degrees() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Tan(45 * 3.14159265358979 / 180)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -232,11 +232,11 @@ End Sub
 
     #[test]
     fn tan_pi_over_4() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Tan(3.14159265358979 / 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -244,12 +244,12 @@ End Sub
 
     #[test]
     fn tan_with_atn() {
-        let source = r#"
+        let source = r"
 Sub Test()
     angle = Atn(1)
     result = Tan(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -257,11 +257,11 @@ End Sub
 
     #[test]
     fn tan_null() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Tan(Null)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -269,14 +269,14 @@ End Sub
 
     #[test]
     fn tan_degrees_to_radians() {
-        let source = r#"
+        let source = r"
 Function DegreesToRadians(degrees As Double) As Double
     DegreesToRadians = degrees * 3.14159265358979 / 180
 End Function
 Sub Test()
     result = Tan(DegreesToRadians(60))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -284,11 +284,11 @@ End Sub
 
     #[test]
     fn tan_slope_from_angle() {
-        let source = r#"
+        let source = r"
 Function SlopeFromAngle(angleRadians As Double) As Double
     SlopeFromAngle = Tan(angleRadians)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -296,11 +296,11 @@ End Function
 
     #[test]
     fn tan_triangle_calculation() {
-        let source = r#"
+        let source = r"
 Function OppositeFromAdjacent(adjacent As Double, angleRadians As Double) As Double
     OppositeFromAdjacent = adjacent * Tan(angleRadians)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -308,12 +308,12 @@ End Function
 
     #[test]
     fn tan_animation_rotation() {
-        let source = r#"
+        let source = r"
 Sub Animate()
     angle = t * 3.14159265358979 / 180
     y = Tan(angle) * x
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -321,13 +321,13 @@ End Sub
 
     #[test]
     fn tan_periodic_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 0 To 360 Step 45
         Debug.Print Tan(i * 3.14159265358979 / 180)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -352,13 +352,13 @@ End Sub
 
     #[test]
     fn tan_array_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
         arr(i) = Tan(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -366,11 +366,11 @@ End Sub
 
     #[test]
     fn tan_inverse_calculation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     angle = Atn(Tan(x))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -378,12 +378,12 @@ End Sub
 
     #[test]
     fn tan_normalize_angle() {
-        let source = r#"
+        let source = r"
 Sub Test()
     angle = angle Mod (2 * 3.14159265358979)
     result = Tan(angle)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -391,11 +391,11 @@ End Sub
 
     #[test]
     fn tan_coordinate_conversion() {
-        let source = r#"
+        let source = r"
 Sub Test()
     y = r * Tan(theta)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -417,11 +417,11 @@ End Sub
 
     #[test]
     fn tan_slope_function() {
-        let source = r#"
+        let source = r"
 Function Slope(degrees As Double) As Double
     Slope = Tan(degrees * 3.14159265358979 / 180)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -429,7 +429,7 @@ End Function
 
     #[test]
     fn tan_undefined_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     result = Tan(3.14159265358979 / 2)
@@ -438,7 +438,7 @@ Sub Test()
     End If
     On Error GoTo 0
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));
@@ -446,11 +446,11 @@ End Sub
 
     #[test]
     fn tan_physics_formula() {
-        let source = r#"
+        let source = r"
 Sub Test()
     height = distance * Tan(angleRadians)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tan"));

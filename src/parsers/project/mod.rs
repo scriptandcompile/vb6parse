@@ -1707,7 +1707,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, parameter_name);
 
         assert!(matches!(
             result.err().unwrap().kind,
@@ -1727,7 +1727,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::NoCompatibility);
     }
@@ -1744,7 +1744,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::Project);
     }
@@ -1761,7 +1761,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompatibilityMode, ErrorDetails<ProjectErrorKind>> =
-            parse_quoted_converted_value(&mut input, &parameter_name);
+            parse_quoted_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompatibilityMode::CompatibleExe);
     }
@@ -1776,7 +1776,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, &parameter_name);
+            parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Exe);
     }
@@ -1791,7 +1791,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, &parameter_name);
+            parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleDll);
     }
@@ -1806,7 +1806,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, &parameter_name);
+            parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::Control);
     }
@@ -1821,7 +1821,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, &parameter_name);
+            parse_converted_value(&mut input, parameter_name);
 
         assert_eq!(result.unwrap(), CompileTargetType::OleExe);
     }
@@ -1836,7 +1836,7 @@ mod tests {
         let _ = input.take("=", Comparator::CaseSensitive).unwrap();
 
         let result: Result<CompileTargetType, ErrorDetails<ProjectErrorKind>> =
-            parse_converted_value(&mut input, &parameter_name);
+            parse_converted_value(&mut input, parameter_name);
 
         assert!(result.is_err());
 
@@ -1861,7 +1861,7 @@ mod tests {
 
         let expected_uuid = Uuid::parse_str("000440D8-E9ED-4435-A9A2-06B05387BB16").unwrap();
 
-        assert_eq!(input.is_empty(), true);
+        assert!(input.is_empty());
         let result = result.unwrap();
         assert_eq!(matches!(result, ProjectReference::Compiled { .. }), true);
 
@@ -1895,13 +1895,13 @@ mod tests {
         let result = parse_reference(&mut input);
 
         if result.is_err() {
-            for error in result.err().iter() {
+            if let Some(error) = result.err() {
                 error.print();
             }
             panic!("Failed to parse reference line");
         }
 
-        assert_eq!(input.is_empty(), true);
+        assert!(input.is_empty());
         assert_eq!(
             result.unwrap(),
             ProjectReference::SubProject { path: "test.vbp" }
@@ -1919,7 +1919,7 @@ mod tests {
 
         let result = parse_module(&mut input).unwrap();
 
-        assert_eq!(input.is_empty(), true);
+        assert!(input.is_empty());
         assert_eq!(result.name, "modDBAssist");
         assert_eq!(result.path, "..\\DBCommon\\DBAssist.bas");
     }
@@ -1938,7 +1938,7 @@ mod tests {
 
         let result = parse_class(&mut input).unwrap();
 
-        assert_eq!(input.is_empty(), true);
+        assert!(input.is_empty());
         assert_eq!(result.name, "CStatusBarClass");
         assert_eq!(result.path, "..\\DBCommon\\CStatusBarClass.cls");
     }
@@ -1958,7 +1958,7 @@ mod tests {
         let result = parse_object(&mut input);
 
         if result.is_err() {
-            for error in result.err().iter() {
+            if let Some(error) = result.err() {
                 error.print();
             }
             panic!("Failed to parse object line");
@@ -1966,7 +1966,7 @@ mod tests {
 
         let object = result.unwrap();
 
-        assert_eq!(input.is_empty(), true);
+        assert!(input.is_empty());
         match object {
             ObjectReference::Compiled {
                 uuid,
@@ -2135,8 +2135,8 @@ mod tests {
 
         let mut input = SourceStream::new(
             "project.vbp",
-            r#"Type=Exe
-     Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation"#,
+            r"Type=Exe
+     Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation",
         );
 
         let _ = input.take_ascii_whitespaces();

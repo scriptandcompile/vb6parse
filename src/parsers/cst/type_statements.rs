@@ -304,12 +304,12 @@ mod test {
 
     #[test]
     fn type_simple() {
-        let source = r#"
+        let source = r"
 Type Point
     x As Single
     y As Single
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -320,7 +320,7 @@ End Type
 
     #[test]
     fn type_with_multiple_fields() {
-        let source = r#"
+        let source = r"
 Type Employee
     EmployeeID As Long
     FirstName As String
@@ -328,7 +328,7 @@ Type Employee
     HireDate As Date
     Salary As Currency
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -340,14 +340,14 @@ End Type
 
     #[test]
     fn type_public() {
-        let source = r#"
+        let source = r"
 Public Type Rectangle
     Left As Long
     Top As Long
     Right As Long
     Bottom As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -358,12 +358,12 @@ End Type
 
     #[test]
     fn type_private() {
-        let source = r#"
+        let source = r"
 Private Type InternalData
     Buffer As String
     Length As Integer
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -374,13 +374,13 @@ End Type
 
     #[test]
     fn type_with_fixed_length_string() {
-        let source = r#"
+        let source = r"
 Type CustomerRecord
     CustomerID As Long
     CustomerName As String * 50
     Address As String * 100
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -392,28 +392,28 @@ End Type
 
     #[test]
     fn type_with_array_element() {
-        let source = r#"
+        let source = r"
 Type SalesData
     SalesPersonID As Long
     MonthlySales(1 To 12) As Currency
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
         assert!(debug.contains("MonthlySales"));
-        assert!(debug.contains("1"));
+        assert!(debug.contains('1'));
         assert!(debug.contains("12"));
     }
 
     #[test]
     fn type_with_multiple_array_dimensions() {
-        let source = r#"
+        let source = r"
 Type Matrix
     Data(1 To 10, 1 To 10) As Double
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -424,12 +424,12 @@ End Type
 
     #[test]
     fn type_with_dynamic_array() {
-        let source = r#"
+        let source = r"
 Type DynamicBuffer
     Items() As Variant
     Count As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -440,7 +440,7 @@ End Type
 
     #[test]
     fn type_with_all_data_types() {
-        let source = r#"
+        let source = r"
 Type AllTypes
     ByteField As Byte
     BoolField As Boolean
@@ -454,7 +454,7 @@ Type AllTypes
     ObjectField As Object
     VariantField As Variant
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -465,7 +465,7 @@ End Type
 
     #[test]
     fn type_with_nested_type_reference() {
-        let source = r#"
+        let source = r"
 Type Address
     Street As String
     City As String
@@ -475,7 +475,7 @@ Type Person
     Name As String
     HomeAddress As Address
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -487,14 +487,14 @@ End Type
 
     #[test]
     fn type_with_comments() {
-        let source = r#"
+        let source = r"
 Type Employee
     ' Employee identification
     EmployeeID As Long
     FirstName As String  ' First name
     LastName As String   ' Last name
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -504,10 +504,10 @@ End Type
 
     #[test]
     fn type_empty() {
-        let source = r#"
+        let source = r"
 Type EmptyType
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -517,11 +517,11 @@ End Type
 
     #[test]
     fn type_single_field() {
-        let source = r#"
+        let source = r"
 Type SimpleType
     Value As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -531,26 +531,26 @@ End Type
 
     #[test]
     fn type_with_array_bounds() {
-        let source = r#"
+        let source = r"
 Type BoundedArray
     Items(0 To 99) As Integer
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
-        assert!(debug.contains("0"));
+        assert!(debug.contains('0'));
         assert!(debug.contains("99"));
     }
 
     #[test]
     fn type_with_negative_array_bounds() {
-        let source = r#"
+        let source = r"
 Type NegativeBounds
     Values(-10 To 10) As Single
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -560,14 +560,14 @@ End Type
 
     #[test]
     fn type_api_structure() {
-        let source = r#"
+        let source = r"
 Type RECT
     Left As Long
     Top As Long
     Right As Long
     Bottom As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -579,7 +579,7 @@ End Type
 
     #[test]
     fn type_multiple_declarations() {
-        let source = r#"
+        let source = r"
 Type Type1
     Field1 As Integer
 End Type
@@ -587,7 +587,7 @@ End Type
 Type Type2
     Field2 As String
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -599,12 +599,12 @@ End Type
 
     #[test]
     fn type_with_object_reference() {
-        let source = r#"
+        let source = r"
 Type DataContainer
     RecordSet As Object
     Connection As Object
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -615,12 +615,12 @@ End Type
 
     #[test]
     fn type_with_variant_field() {
-        let source = r#"
+        let source = r"
 Type FlexibleData
     DataType As Integer
     DataValue As Variant
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -631,12 +631,12 @@ End Type
 
     #[test]
     fn type_complex_array_subscripts() {
-        let source = r#"
+        let source = r"
 Type ComplexArrays
     Matrix2D(1 To 5, 1 To 5) As Double
     Matrix3D(0 To 2, 0 To 2, 0 To 2) As Single
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -647,13 +647,13 @@ End Type
 
     #[test]
     fn type_keyword_as_field_name() {
-        let source = r#"
+        let source = r"
 Type KeywordFields
     Name As String
     Type As Integer
     End As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -663,12 +663,12 @@ End Type
 
     #[test]
     fn type_long_fixed_string() {
-        let source = r#"
+        let source = r"
 Type FileRecord
     FileName As String * 255
     FileSize As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -678,14 +678,14 @@ End Type
 
     #[test]
     fn type_multiple_fixed_strings() {
-        let source = r#"
+        let source = r"
 Type ContactInfo
     FirstName As String * 30
     LastName As String * 30
     Phone As String * 15
     Email As String * 50
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -696,12 +696,12 @@ End Type
 
     #[test]
     fn type_with_inline_comments() {
-        let source = r#"
+        let source = r"
 Type Config
     MaxConnections As Integer  ' Maximum allowed connections
     TimeoutSeconds As Long     ' Timeout in seconds
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -712,14 +712,14 @@ End Type
 
     #[test]
     fn type_with_rem_comments() {
-        let source = r#"
+        let source = r"
 Type Data
     Rem This is the ID field
     ID As Long
     Rem This is the name field
     Name As String
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -730,13 +730,13 @@ End Type
 
     #[test]
     fn type_uppercase_name() {
-        let source = r#"
+        let source = r"
 Type PROCESSENTRY32
     dwSize As Long
     cntUsage As Long
     th32ProcessID As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -746,13 +746,13 @@ End Type
 
     #[test]
     fn type_mixed_case_fields() {
-        let source = r#"
+        let source = r"
 Type MixedCase
     firstName As String
     LastName As String
     EMPLOYEE_ID As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -763,12 +763,12 @@ End Type
 
     #[test]
     fn type_with_byte_array() {
-        let source = r#"
+        let source = r"
 Type BinaryData
     Buffer(0 To 255) As Byte
     Length As Integer
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -779,7 +779,7 @@ End Type
 
     #[test]
     fn type_comprehensive_example() {
-        let source = r#"
+        let source = r"
 Public Type CustomerRecord
     ' Identification
     CustomerID As Long
@@ -800,7 +800,7 @@ Public Type CustomerRecord
     LastModified As Date
     IsActive As Boolean
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -813,19 +813,19 @@ End Type
 
     #[test]
     fn type_with_zero_based_array() {
-        let source = r#"
+        let source = r"
 Type ZeroBasedData
     Items(0 To 9) As Integer
     Count As Long
 End Type
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
         assert!(debug.contains("TypeStatement"));
         assert!(debug.contains("Items"));
-        assert!(debug.contains("0"));
-        assert!(debug.contains("9"));
+        assert!(debug.contains('0'));
+        assert!(debug.contains('9'));
         assert!(debug.contains("Count"));
     }
 }

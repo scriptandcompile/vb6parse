@@ -512,12 +512,12 @@ End Sub
 
     #[test]
     fn ucase_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim upper As String
     upper = UCase(text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -526,11 +526,11 @@ End Sub
 
     #[test]
     fn ucase_dollar_sign() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = UCase$(input)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -538,11 +538,11 @@ End Sub
 
     #[test]
     fn ucase_function_return() {
-        let source = r#"
+        let source = r"
 Function NormalizeString(text As String) As String
     NormalizeString = UCase$(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -550,13 +550,13 @@ End Function
 
     #[test]
     fn ucase_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If UCase$(str1) = UCase$(str2) Then
         Match
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -581,13 +581,13 @@ End Sub
 
     #[test]
     fn ucase_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         items(i) = UCase$(items(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -619,11 +619,11 @@ End Sub
 
     #[test]
     fn ucase_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessText(UCase$(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -631,11 +631,11 @@ End Sub
 
     #[test]
     fn ucase_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     normalized(i) = UCase$(original(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -655,11 +655,11 @@ End Sub
 
     #[test]
     fn ucase_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     cleaned = UCase$(Trim$(rawInput))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -721,13 +721,13 @@ End Sub
 
     #[test]
     fn ucase_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With user
         .Name = UCase$(.Name)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -735,11 +735,11 @@ End Sub
 
     #[test]
     fn ucase_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (UCase$(text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -763,11 +763,11 @@ End Sub
 
     #[test]
     fn ucase_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.DisplayName = UCase$(obj.Name)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -775,11 +775,11 @@ End Sub
 
     #[test]
     fn ucase_instr() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pos = InStr(UCase$(text), UCase$(search))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -787,11 +787,11 @@ End Sub
 
     #[test]
     fn ucase_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, UCase$(data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -799,12 +799,12 @@ End Sub
 
     #[test]
     fn ucase_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set formatter = New TextFormatter
     formatter.Text = UCase$(inputText)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -828,11 +828,11 @@ End Sub
 
     #[test]
     fn ucase_left_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     initial = UCase$(Left$(name, 1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));
@@ -840,11 +840,11 @@ End Sub
 
     #[test]
     fn ucase_right_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     extension = UCase$(Right$(fileName, 4))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("UCase"));

@@ -535,11 +535,11 @@ mod tests {
 
     #[test]
     fn lcase_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = LCase(myString)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -576,11 +576,11 @@ End Sub
 
     #[test]
     fn lcase_function_return() {
-        let source = r#"
+        let source = r"
 Function Normalize(text As String) As String
     Normalize = LCase(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -617,11 +617,11 @@ End Sub
 
     #[test]
     fn lcase_msgbox() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MsgBox LCase(userName)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -630,12 +630,12 @@ End Sub
 
     #[test]
     fn lcase_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim lower As String
     lower = LCase(original)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -644,11 +644,11 @@ End Sub
 
     #[test]
     fn lcase_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.LowerText = LCase(obj.Text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -670,11 +670,11 @@ End Sub
 
     #[test]
     fn lcase_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_key = LCase(m_name)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -683,13 +683,13 @@ End Sub
 
     #[test]
     fn lcase_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With record
         .NormalizedName = LCase(.Name)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -698,11 +698,11 @@ End Sub
 
     #[test]
     fn lcase_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessString(LCase(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -729,14 +729,14 @@ End Sub
 
     #[test]
     fn lcase_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(arr)
         arr(i) = LCase(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -775,11 +775,11 @@ End Sub
 
     #[test]
     fn lcase_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (LCase(text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -788,11 +788,11 @@ End Sub
 
     #[test]
     fn lcase_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     normalized(i) = LCase(original(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -801,11 +801,11 @@ End Sub
 
     #[test]
     fn lcase_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     keywords.Add LCase(word)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -814,11 +814,11 @@ End Sub
 
     #[test]
     fn lcase_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Trim(LCase(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -872,11 +872,11 @@ End Sub
 
     #[test]
     fn lcase_instr() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pos = InStr(1, LCase(text), LCase(search))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -885,11 +885,11 @@ End Sub
 
     #[test]
     fn lcase_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     normalized = LCase(Trim(userInput))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));
@@ -898,11 +898,11 @@ End Sub
 
     #[test]
     fn lcase_dictionary_key() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dict.Add LCase(key), value
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LCase"));

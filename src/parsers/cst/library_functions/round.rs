@@ -684,10 +684,10 @@ mod tests {
 
     #[test]
     fn round_basic() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = Round(3.7)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -696,10 +696,10 @@ result = Round(3.7)
 
     #[test]
     fn round_with_decimals() {
-        let source = r#"
+        let source = r"
 Dim rounded As Double
 rounded = Round(12.3456, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -721,11 +721,11 @@ End If
 
     #[test]
     fn round_function_return() {
-        let source = r#"
+        let source = r"
 Function RoundCurrency(amount As Double) As Double
     RoundCurrency = Round(amount, 2)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -734,10 +734,10 @@ End Function
 
     #[test]
     fn round_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim value As Double
 value = Round(inputValue, decimalPlaces)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -757,9 +757,9 @@ MsgBox "Rounded: " & Round(pi, 3)
 
     #[test]
     fn round_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print Round(value, 4)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -784,13 +784,13 @@ End Select
 
     #[test]
     fn round_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_roundedValue As Double
 
 Public Sub SetValue(value As Double)
     m_roundedValue = Round(value, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -799,11 +799,11 @@ End Sub
 
     #[test]
     fn round_with_statement() {
-        let source = r#"
+        let source = r"
 With calculation
     .Result = Round(.RawValue, .Precision)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -827,11 +827,11 @@ End If
 
     #[test]
     fn round_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 10
     rounded(i) = Round(values(i), 2)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -840,11 +840,11 @@ Next i
 
     #[test]
     fn round_do_while() {
-        let source = r#"
+        let source = r"
 Do While Round(balance, 2) > 0
     balance = balance - payment
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -853,11 +853,11 @@ Loop
 
     #[test]
     fn round_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Round(distance) >= target
     distance = distance + step
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -866,11 +866,11 @@ Loop
 
     #[test]
     fn round_while_wend() {
-        let source = r#"
+        let source = r"
 While Round(counter, 1) < 100.5
     counter = counter + increment
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -879,10 +879,10 @@ Wend
 
     #[test]
     fn round_parentheses() {
-        let source = r#"
+        let source = r"
 Dim val As Double
 val = (Round(input, 3))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -903,10 +903,10 @@ display = IIf(Round(value) > 10, "High", "Low")
 
     #[test]
     fn round_nested() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = Round(Round(value, 3) * 100, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -915,10 +915,10 @@ result = Round(Round(value, 3) * 100, 1)
 
     #[test]
     fn round_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim prices(10) As Double
 prices(i) = Round(rawPrices(i), 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -927,10 +927,10 @@ prices(i) = Round(rawPrices(i), 2)
 
     #[test]
     fn round_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Calculator
 obj.RoundedValue = Round(obj.RawValue, 4)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -939,9 +939,9 @@ obj.RoundedValue = Round(obj.RawValue, 4)
 
     #[test]
     fn round_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessValue(Round(measurement, 2))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -975,10 +975,10 @@ End If
 
     #[test]
     fn round_negative_decimals() {
-        let source = r#"
+        let source = r"
 Dim roundedToTens As Long
 roundedToTens = Round(2748, -1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -987,11 +987,11 @@ roundedToTens = Round(2748, -1)
 
     #[test]
     fn round_bankers_rounding() {
-        let source = r#"
+        let source = r"
 Dim r1 As Integer, r2 As Integer
 r1 = Round(2.5)
 r2 = Round(3.5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));
@@ -1000,14 +1000,14 @@ r2 = Round(3.5)
 
     #[test]
     fn round_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 Dim result As Double
 result = Round(userInput, places)
 If Err.Number <> 0 Then
     result = 0
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Round"));

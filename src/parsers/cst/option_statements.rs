@@ -612,12 +612,12 @@ Option Compare Text
 
     #[test]
     fn option_private_in_class_module() {
-        let source = r#"VERSION 1.0 CLASS
+        let source = r"VERSION 1.0 CLASS
 Option Private Module
 
 Public Function Test() As String
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();

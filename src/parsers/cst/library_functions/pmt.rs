@@ -835,10 +835,10 @@ mod tests {
 
     #[test]
     fn pmt_basic() {
-        let source = r#"
+        let source = r"
 Dim payment As Double
 payment = Pmt(0.06 / 12, 60, 20000)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -847,10 +847,10 @@ payment = Pmt(0.06 / 12, 60, 20000)
 
     #[test]
     fn pmt_with_all_parameters() {
-        let source = r#"
+        let source = r"
 Dim monthlyPayment As Double
 monthlyPayment = Pmt(0.045 / 12, 360, 200000, 0, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -872,11 +872,11 @@ End If
 
     #[test]
     fn pmt_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculatePayment(amount As Double, years As Integer) As Double
     CalculatePayment = Abs(Pmt(0.05 / 12, years * 12, amount))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -885,10 +885,10 @@ End Function
 
     #[test]
     fn pmt_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim loanPayment As Double
 loanPayment = Pmt(interestRate, periods, loanAmount)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -939,13 +939,13 @@ End Select
 
     #[test]
     fn pmt_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_payment As Double
 
 Public Sub CalculateLoan()
     m_payment = Pmt(m_rate, m_periods, m_principal)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -954,11 +954,11 @@ End Sub
 
     #[test]
     fn pmt_with_statement() {
-        let source = r#"
+        let source = r"
 With loanCalc
     .MonthlyPayment = Pmt(.Rate, .NumPayments, .Amount)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -967,13 +967,13 @@ End With
 
     #[test]
     fn pmt_elseif() {
-        let source = r#"
+        let source = r"
 If amount < 10000 Then
     rate = 0.05
 ElseIf Pmt(0.06 / 12, 60, amount) < budget Then
     rate = 0.06
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -982,12 +982,12 @@ End If
 
     #[test]
     fn pmt_for_loop() {
-        let source = r#"
+        let source = r"
 For years = 1 To 30
     payment = Abs(Pmt(0.05 / 12, years * 12, 100000))
     Debug.Print years, payment
 Next years
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -996,11 +996,11 @@ Next years
 
     #[test]
     fn pmt_do_while() {
-        let source = r#"
+        let source = r"
 Do While Abs(Pmt(rate, 360, amount)) > maxPayment
     amount = amount - 1000
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1009,11 +1009,11 @@ Loop
 
     #[test]
     fn pmt_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Abs(Pmt(r / 12, n, principal)) <= affordablePayment
     n = n + 12
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1022,11 +1022,11 @@ Loop
 
     #[test]
     fn pmt_while_wend() {
-        let source = r#"
+        let source = r"
 While Pmt(interestRate, periods, loanAmt) < -500
     periods = periods + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1035,10 +1035,10 @@ Wend
 
     #[test]
     fn pmt_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (Pmt(rate, nper, pv))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1047,10 +1047,10 @@ result = (Pmt(rate, nper, pv))
 
     #[test]
     fn pmt_iif() {
-        let source = r#"
+        let source = r"
 Dim payment As Double
 payment = IIf(useBeginning, Pmt(r, n, pv, fv, 1), Pmt(r, n, pv, fv, 0))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1072,10 +1072,10 @@ End If
 
     #[test]
     fn pmt_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim payments(10) As Double
 payments(i) = Pmt(rates(i), periods, principal)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1084,10 +1084,10 @@ payments(i) = Pmt(rates(i), periods, principal)
 
     #[test]
     fn pmt_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New Loan
 obj.Payment = Pmt(obj.Rate, obj.Term, obj.Principal)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1096,9 +1096,9 @@ obj.Payment = Pmt(obj.Rate, obj.Term, obj.Principal)
 
     #[test]
     fn pmt_function_argument() {
-        let source = r#"
+        let source = r"
 Call DisplayLoanInfo(loanAmount, Pmt(monthlyRate, months, loanAmount))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1107,10 +1107,10 @@ Call DisplayLoanInfo(loanAmount, Pmt(monthlyRate, months, loanAmount))
 
     #[test]
     fn pmt_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim totalCost As Double
 totalCost = Abs(Pmt(rate, nper, principal)) * nper
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));
@@ -1131,10 +1131,10 @@ msg = "Your monthly payment is $" & Format(Abs(Pmt(r, n, amt)), "0.00")
 
     #[test]
     fn pmt_abs_function() {
-        let source = r#"
+        let source = r"
 Dim displayPayment As Double
 displayPayment = Abs(Pmt(interestRate / 12, years * 12, loanAmount))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Pmt"));

@@ -108,7 +108,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: GetChangeDirection
+/// ### Pattern 1: `GetChangeDirection`
 /// Determine if value increased, decreased, or stayed same
 /// ```vb
 /// Function GetChangeDirection(oldVal As Double, newVal As Double) As String
@@ -126,7 +126,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: SameSign
+/// ### Pattern 2: `SameSign`
 /// Check if two numbers have the same sign
 /// ```vb
 /// Function SameSign(a As Double, b As Double) As Boolean
@@ -139,7 +139,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: OppositeSign
+/// ### Pattern 3: `OppositeSign`
 /// Check if two numbers have opposite signs
 /// ```vb
 /// Function OppositeSign(a As Double, b As Double) As Boolean
@@ -147,7 +147,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: SignMultiplier
+/// ### Pattern 4: `SignMultiplier`
 /// Get sign as multiplier for calculations
 /// ```vb
 /// Function SignMultiplier(value As Double) As Integer
@@ -156,7 +156,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: ClampToSign
+/// ### Pattern 5: `ClampToSign`
 /// Ensure value has specific sign
 /// ```vb
 /// Function ClampToSign(value As Double, requiredSign As Integer) As Double
@@ -168,7 +168,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: SignString
+/// ### Pattern 6: `SignString`
 /// Convert sign to string representation
 /// ```vb
 /// Function SignString(value As Double) As String
@@ -183,7 +183,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: CompareBySign
+/// ### Pattern 7: `CompareBySign`
 /// Three-way comparison using sign
 /// ```vb
 /// Function CompareBySign(a As Double, b As Double) As Integer
@@ -192,7 +192,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: CountBySign
+/// ### Pattern 8: `CountBySign`
 /// Count positive, negative, and zero values
 /// ```vb
 /// Sub CountBySign(arr() As Double, ByRef positive As Long, _
@@ -215,7 +215,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 9: TrendDirection
+/// ### Pattern 9: `TrendDirection`
 /// Determine overall trend in series
 /// ```vb
 /// Function TrendDirection(values() As Double) As String
@@ -242,7 +242,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: ApplySignTo
+/// ### Pattern 10: `ApplySignTo`
 /// Apply sign of one number to another
 /// ```vb
 /// Function ApplySignTo(magnitude As Double, signSource As Double) As Double
@@ -253,7 +253,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: ChangeAnalyzer Class
+/// ### Example 1: `ChangeAnalyzer` Class
 /// Analyze changes in data series with trend detection
 /// ```vb
 /// ' Class: ChangeAnalyzer
@@ -363,7 +363,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: SignComparator Module
+/// ### Example 2: `SignComparator` Module
 /// Compare and analyze signs in numeric data
 /// ```vb
 /// ' Module: SignComparator
@@ -461,7 +461,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: DirectionIndicator Class
+/// ### Example 3: `DirectionIndicator` Class
 /// Track and display directional changes with symbols
 /// ```vb
 /// ' Class: DirectionIndicator
@@ -528,7 +528,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 4: MathSignHelper Module
+/// ### Example 4: `MathSignHelper` Module
 /// Mathematical operations using sign function
 /// ```vb
 /// ' Module: MathSignHelper
@@ -648,7 +648,7 @@
 /// ## Platform Considerations
 ///
 /// - Available in VB6, VBA (all versions)
-/// - Available in VBScript
+/// - Available in `VBScript`
 /// - Part of core VB language
 /// - Consistent behavior across all VB variants
 /// - No platform-specific quirks
@@ -675,12 +675,12 @@ mod tests {
 
     #[test]
     fn sgn_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As Integer
     result = Sgn(10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -689,12 +689,12 @@ End Sub
 
     #[test]
     fn sgn_negative() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim sign As Integer
     sign = Sgn(-5.5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -717,11 +717,11 @@ End Sub
 
     #[test]
     fn sgn_function_return() {
-        let source = r#"
+        let source = r"
 Function GetSign(num As Double) As Integer
     GetSign = Sgn(num)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -730,12 +730,12 @@ End Function
 
     #[test]
     fn sgn_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim direction As Integer
     direction = Sgn(newValue - oldValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -757,11 +757,11 @@ End Sub
 
     #[test]
     fn sgn_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Sgn(number)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -789,13 +789,13 @@ End Sub
 
     #[test]
     fn sgn_class_usage() {
-        let source = r#"
+        let source = r"
 Class Calculator
     Public Function GetDirection(value As Double) As Integer
         GetDirection = Sgn(value)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -804,18 +804,18 @@ End Class
 
     #[test]
     fn sgn_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With Calculator
         Dim s As Integer
         s = Sgn(value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]
@@ -838,14 +838,14 @@ End Sub
 
     #[test]
     fn sgn_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         Debug.Print Sgn(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -853,13 +853,13 @@ End Sub
 
     #[test]
     fn sgn_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Sgn(value) = 1
         value = value - 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -867,13 +867,13 @@ End Sub
 
     #[test]
     fn sgn_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Sgn(counter) = 0
         counter = counter - 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -881,13 +881,13 @@ End Sub
 
     #[test]
     fn sgn_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Sgn(remaining) > 0
         remaining = remaining - 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -895,12 +895,12 @@ End Sub
 
     #[test]
     fn sgn_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As Integer
     result = (Sgn(a) + Sgn(b))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -923,12 +923,12 @@ End Sub
 
     #[test]
     fn sgn_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim signs(10) As Integer
     signs(0) = Sgn(values(0))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -937,7 +937,7 @@ End Sub
 
     #[test]
     fn sgn_property_assignment() {
-        let source = r#"
+        let source = r"
 Class DataPoint
     Public Sign As Integer
 End Class
@@ -946,7 +946,7 @@ Sub Test()
     Dim pt As New DataPoint
     pt.Sign = Sgn(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -954,14 +954,14 @@ End Sub
 
     #[test]
     fn sgn_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessSign(s As Integer)
 End Sub
 
 Sub Test()
     ProcessSign Sgn(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -984,12 +984,12 @@ End Sub
 
     #[test]
     fn sgn_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim sameSign As Boolean
     sameSign = (Sgn(a) = Sgn(b))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -998,12 +998,12 @@ End Sub
 
     #[test]
     fn sgn_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim normalized As Double
     normalized = Abs(value) * Sgn(reference)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -1012,12 +1012,12 @@ End Sub
 
     #[test]
     fn sgn_subtraction() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim trend As Integer
     trend = Sgn(newVal - oldVal)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
@@ -1039,7 +1039,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]
@@ -1062,12 +1062,12 @@ End Sub
 
     #[test]
     fn sgn_three_way_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim compareResult As Integer
     compareResult = Sgn(value1 - value2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sgn"));

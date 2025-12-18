@@ -336,11 +336,11 @@ mod tests {
 
     #[test]
     fn hex_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Hex(255)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -349,11 +349,11 @@ End Sub
 
     #[test]
     fn hex_in_function() {
-        let source = r#"
+        let source = r"
 Function ToHexString(value As Long) As String
     ToHexString = Hex(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -375,11 +375,11 @@ End Sub
 
     #[test]
     fn hex_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Hex(255)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -403,14 +403,14 @@ End Sub
 
     #[test]
     fn hex_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To 255
         hexValues(i) = Hex(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -437,13 +437,13 @@ End Sub
 
     #[test]
     fn hex_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Len(Hex(counter)) < 8
         counter = counter + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -452,11 +452,11 @@ End Sub
 
     #[test]
     fn hex_class_member() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_hexValue = Hex(initialValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -465,12 +465,12 @@ End Sub
 
     #[test]
     fn hex_type_field() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim config As ConfigType
     config.hexCode = Hex(statusValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -493,13 +493,13 @@ End Sub
 
     #[test]
     fn hex_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With myObject
         .HexString = Hex(.Value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -521,11 +521,11 @@ End Sub
 
     #[test]
     fn hex_property() {
-        let source = r#"
+        let source = r"
 Property Get HexValue() As String
     HexValue = Hex(m_value)
 End Property
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -547,14 +547,14 @@ End Sub
 
     #[test]
     fn hex_for_each() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim item As Variant
     For Each item In collection
         Debug.Print Hex(item)
     Next
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -563,14 +563,14 @@ End Sub
 
     #[test]
     fn hex_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     hexStr = Hex(value)
     If Err.Number <> 0 Then Err.Clear
     On Error GoTo 0
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -592,12 +592,12 @@ End Sub
 
     #[test]
     fn hex_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim hexArray(1 To 10) As String
     hexArray(1) = Hex(255)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -606,11 +606,11 @@ End Sub
 
     #[test]
     fn hex_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     DisplayHexValue Hex(colorValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -619,11 +619,11 @@ End Sub
 
     #[test]
     fn hex_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     length = Len(Hex(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -632,11 +632,11 @@ End Sub
 
     #[test]
     fn hex_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     display = IIf(showHex, Hex(value), Str(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -675,11 +675,11 @@ End Sub
 
     #[test]
     fn hex_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (Hex(number))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));
@@ -701,13 +701,13 @@ End Function
 
     #[test]
     fn hex_negative_value() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim negHex As String
     negHex = Hex(-1)
     Debug.Print negHex
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Hex"));

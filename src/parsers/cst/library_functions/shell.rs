@@ -29,7 +29,7 @@
 /// Returns a Variant (Double) containing the task ID of the started program:
 /// - If successful: Returns the task ID (a unique identifier for the process)
 /// - If unsuccessful: Returns 0
-/// - Task ID can be used with AppActivate statement to give focus to the window
+/// - Task ID can be used with `AppActivate` statement to give focus to the window
 ///
 /// ## Remarks
 ///
@@ -40,7 +40,7 @@
 /// - Returns immediately after starting the program
 /// - Can launch any executable file (.exe, .com, .bat, .cmd, etc.)
 /// - Can include command-line arguments in pathname
-/// - Task ID can be used with AppActivate to switch focus
+/// - Task ID can be used with `AppActivate` to switch focus
 /// - If program cannot be started, returns 0
 /// - On error, generates Error 5 (Invalid procedure call) or Error 53 (File not found)
 ///
@@ -51,7 +51,7 @@
 /// - Command with arguments: "notepad.exe C:\readme.txt"
 ///
 /// Important considerations:
-/// - Shell executes asynchronously - use AppActivate or API calls to synchronize
+/// - Shell executes asynchronously - use `AppActivate` or API calls to synchronize
 /// - No direct way to know when shelled program terminates from VB6
 /// - Can't capture standard output/error directly (use API or temp files)
 /// - Security: Be cautious with user-supplied paths to avoid injection
@@ -99,7 +99,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: SafeShell
+/// ### Pattern 1: `SafeShell`
 /// Execute program with error handling
 /// ```vb
 /// Function SafeShell(programPath As String, Optional windowStyle As Integer = vbNormalFocus) As Double
@@ -113,8 +113,8 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: ShellAndWait
-/// Execute program and wait for completion (using AppActivate)
+/// ### Pattern 2: `ShellAndWait`
+/// Execute program and wait for completion (using `AppActivate`)
 /// ```vb
 /// Function ShellAndWait(programPath As String, windowStyle As Integer) As Boolean
 ///     Dim taskId As Double
@@ -149,7 +149,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: QuotePath
+/// ### Pattern 3: `QuotePath`
 /// Ensure path is properly quoted for spaces
 /// ```vb
 /// Function QuotePath(path As String) As String
@@ -164,7 +164,7 @@
 /// taskId = Shell(QuotePath("C:\Program Files\MyApp\app.exe"), vbNormalFocus)
 /// ```
 ///
-/// ### Pattern 4: OpenFileWithApp
+/// ### Pattern 4: `OpenFileWithApp`
 /// Open file with specific application
 /// ```vb
 /// Function OpenFileWithApp(appPath As String, filePath As String, _
@@ -184,7 +184,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: ExecuteCommand
+/// ### Pattern 5: `ExecuteCommand`
 /// Execute command-line command
 /// ```vb
 /// Function ExecuteCommand(command As String, Optional waitSeconds As Integer = 0) As Double
@@ -211,7 +211,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: LaunchAndActivate
+/// ### Pattern 6: `LaunchAndActivate`
 /// Launch program and bring to front
 /// ```vb
 /// Function LaunchAndActivate(programPath As String) As Boolean
@@ -241,7 +241,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: CheckProgramExists
+/// ### Pattern 7: `CheckProgramExists`
 /// Verify program exists before shelling
 /// ```vb
 /// Function CheckProgramExists(programPath As String) As Boolean
@@ -257,7 +257,7 @@
 /// End If
 /// ```
 ///
-/// ### Pattern 8: ShellWithTimeout
+/// ### Pattern 8: `ShellWithTimeout`
 /// Execute with timeout detection
 /// ```vb
 /// Function ShellWithTimeout(programPath As String, timeoutSeconds As Integer) As Boolean
@@ -285,7 +285,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: OpenDocument
+/// ### Pattern 9: `OpenDocument`
 /// Open document with default application
 /// ```vb
 /// Function OpenDocument(filePath As String) As Boolean
@@ -300,7 +300,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: RunBatchFile
+/// ### Pattern 10: `RunBatchFile`
 /// Execute batch file with parameters
 /// ```vb
 /// Function RunBatchFile(batchPath As String, parameters As String, _
@@ -327,7 +327,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: ProcessLauncher Class
+/// ### Example 1: `ProcessLauncher` Class
 /// Manage launching and tracking external processes
 /// ```vb
 /// ' Class: ProcessLauncher
@@ -401,7 +401,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 2: CommandExecutor Module
+/// ### Example 2: `CommandExecutor` Module
 /// Execute command-line commands with output capture
 /// ```vb
 /// ' Module: CommandExecutor
@@ -463,7 +463,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: ApplicationLauncher Class
+/// ### Example 3: `ApplicationLauncher` Class
 /// Launch applications with comprehensive error handling
 /// ```vb
 /// ' Class: ApplicationLauncher
@@ -569,7 +569,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 4: BatchFileRunner Module
+/// ### Example 4: `BatchFileRunner` Module
 /// Execute batch files with enhanced functionality
 /// ```vb
 /// ' Module: BatchFileRunner
@@ -702,7 +702,7 @@
 /// - Multiple programs can be launched simultaneously
 /// - Task ID allows tracking and activation
 /// - Consider resource usage when launching many programs
-/// - Use DoEvents to allow UI updates after Shell
+/// - Use `DoEvents` to allow UI updates after Shell
 ///
 /// ## Best Practices
 ///
@@ -712,7 +712,7 @@
 /// 4. **Security**: Validate user input to prevent command injection
 /// 5. **Resource Management**: Track launched processes
 /// 6. **Window Style**: Choose appropriate window style for user experience
-/// 7. **Wait Strategy**: Use AppActivate or API for synchronization if needed
+/// 7. **Wait Strategy**: Use `AppActivate` or API for synchronization if needed
 /// 8. **Return Value**: Check return value (0 = failure)
 /// 9. **Documentation**: Document external dependencies
 /// 10. **Testing**: Test with various paths and edge cases
@@ -722,10 +722,10 @@
 /// | Method | Purpose | Wait for Completion | Capture Output | Platform |
 /// |--------|---------|---------------------|----------------|----------|
 /// | Shell | Execute program | No (async) | No | VB6/VBA |
-/// | CreateProcess API | Execute program | Optional | Optional | Windows API |
+/// | `CreateProcess` API | Execute program | Optional | Optional | Windows API |
 /// | WScript.Shell.Run | Execute program | Optional | No | WSH |
 /// | Exec method | Execute program | No | Yes | WSH |
-/// | ShellExecute API | Execute/open files | No | No | Windows API |
+/// | `ShellExecute` API | Execute/open files | No | No | Windows API |
 ///
 /// ## Platform Considerations
 ///
@@ -817,12 +817,12 @@ End Function
 
     #[test]
     fn shell_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim procId As Double
     procId = Shell(programPath, vbMaximizedFocus)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -874,13 +874,13 @@ End Sub
 
     #[test]
     fn shell_class_usage() {
-        let source = r#"
+        let source = r"
 Class AppLauncher
     Public Function Launch(path As String) As Double
         Launch = Shell(path, vbNormalFocus)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -938,13 +938,13 @@ End Sub
 
     #[test]
     fn shell_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Shell(program, vbHide) <> 0
         Exit Do
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -952,13 +952,13 @@ End Sub
 
     #[test]
     fn shell_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Shell(cmd, vbNormalFocus) > 0
         DoEvents
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -966,14 +966,14 @@ End Sub
 
     #[test]
     fn shell_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While retries < 3
         Shell program, vbNormalFocus
         retries = retries + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -1070,12 +1070,12 @@ End Sub
 
     #[test]
     fn shell_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim success As Boolean
     success = (Shell(path, vbNormalFocus) > 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -1093,17 +1093,17 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
-        assert!(debug.contains("t"));
+        assert!(debug.contains('t'));
     }
 
     #[test]
     fn shell_quoted_path() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim id As Double
     id = Shell(Chr(34) & path & Chr(34), vbNormalFocus)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
@@ -1125,7 +1125,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Shell"));
-        assert!(debug.contains("t"));
+        assert!(debug.contains('t'));
     }
 
     #[test]

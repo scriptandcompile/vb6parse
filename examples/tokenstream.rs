@@ -11,7 +11,7 @@ fn main() {
     if result.has_failures() {
         println!("Parsing failures:");
         for failure in &result.failures {
-            println!("  {:?}", failure);
+            println!("  {failure:?}");
         }
     }
 
@@ -24,7 +24,7 @@ fn main() {
         // Iterate through tokens
         println!("Tokens:");
         for (i, &(text, token_type)) in token_stream.tokens.iter().enumerate() {
-            println!("  {}: {:?} = '{}'", i, token_type, text);
+            println!("  {i}: {token_type:?} = '{text}'");
         }
 
         // Demonstrate navigation
@@ -34,7 +34,7 @@ fn main() {
         // Get first few tokens using next()
         for i in 0..3 {
             if let Some((text, token)) = stream.next() {
-                println!("Token {}: {:?} = '{}'", i, token, text);
+                println!("Token {i}: {token:?} = '{text}'");
             }
         }
 

@@ -592,12 +592,12 @@ End Sub
 
     #[test]
     fn string_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim separator As String
     separator = String(width, char)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("String"));
@@ -606,11 +606,11 @@ End Sub
 
     #[test]
     fn string_character_code() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = String(10, 65)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("String"));
@@ -773,13 +773,13 @@ End Sub
 
     #[test]
     fn string_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Len(str) >= width
         str = str & String(1, fillChar)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("String"));
