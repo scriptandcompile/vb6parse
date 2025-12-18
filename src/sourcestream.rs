@@ -38,12 +38,12 @@ pub struct SourceStream<'a> {
 /// An enum representing the type of comparison to be used when taking characters
 /// from the `SourceStream`.
 /// It can be either case-sensitive or case-insensitive.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Comparator {
     /// A case-sensitive comparison.
-    CaseSensitive,
+    CaseSensitive = 0,
     /// A case-insensitive comparison.
-    CaseInsensitive,
+    CaseInsensitive = 1,
 }
 
 impl<'a> SourceStream<'a> {
