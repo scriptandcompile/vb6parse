@@ -113,11 +113,11 @@ End Sub
 
     #[test]
     fn rset_fixed_length_string() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet FixedString = userName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -128,11 +128,11 @@ End Sub
 
     #[test]
     fn rset_user_defined_type() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet myRecord = sourceRecord
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -143,11 +143,11 @@ End Sub
 
     #[test]
     fn rset_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet buffer = Left$(inputStr, 5)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -158,11 +158,11 @@ End Sub
 
     #[test]
     fn rset_with_member_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet obj.Property = value
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -173,11 +173,11 @@ End Sub
 
     #[test]
     fn rset_with_concatenation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet result = prefix & suffix
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -202,11 +202,11 @@ End If
 
     #[test]
     fn rset_inside_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 10
     RSet buffer = data(i)
 Next i
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -216,11 +216,11 @@ Next i
 
     #[test]
     fn rset_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet aligned = text ' Right-align text
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -241,11 +241,11 @@ End Sub
 
     #[test]
     fn rset_with_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet arr(index) = value
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -256,11 +256,11 @@ End Sub
 
     #[test]
     fn rset_with_multidimensional_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet matrix(row, col) = data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -270,11 +270,11 @@ End Sub
 
     #[test]
     fn rset_with_nested_property() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet obj.Field.Value = newValue
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -286,11 +286,11 @@ End Sub
 
     #[test]
     fn rset_with_str_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet buffer = Str$(number)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -301,11 +301,11 @@ End Sub
 
     #[test]
     fn rset_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet output = RTrim$(input)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -322,8 +322,8 @@ End Sub
         let debug = cst.debug_tree();
         // Check that both RSet statements are present
         assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("a"));
-        assert!(debug.contains("b"));
+        assert!(debug.contains('a'));
+        assert!(debug.contains('b'));
     }
 
     #[test]
@@ -342,11 +342,11 @@ End Sub
 
     #[test]
     fn rset_with_space_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet padded = Space$(10) & text
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -388,11 +388,11 @@ End Select
 
     #[test]
     fn rset_in_with_block() {
-        let source = r#"
+        let source = r"
 With recordset
     RSet .Name = newName
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -403,11 +403,11 @@ End With
 
     #[test]
     fn rset_in_sub() {
-        let source = r#"
+        let source = r"
 Sub FormatOutput()
     RSet buffer = data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -417,11 +417,11 @@ End Sub
 
     #[test]
     fn rset_in_function() {
-        let source = r#"
+        let source = r"
 Function RightJustify(text As String) As String
     RSet RightJustify = text
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -431,11 +431,11 @@ End Function
 
     #[test]
     fn rset_with_string_functions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet formatted = Left$(s, 5) & Mid$(s, 6, 3) & Right$(s, 2)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -445,13 +445,13 @@ End Sub
 
     #[test]
     fn rset_in_class_module() {
-        let source = r#"
+        let source = r"
 Private buffer As String * 20
 
 Public Sub Align(text As String)
     RSet buffer = text
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -476,11 +476,11 @@ End Sub
 
     #[test]
     fn rset_with_ucase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet result = UCase$(input)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -505,12 +505,12 @@ End Sub
 
     #[test]
     fn rset_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RSet longVar _
         = expression
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

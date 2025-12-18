@@ -378,14 +378,14 @@ End Sub
 
     #[test]
     fn environ_dollar_list_all() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim idx As Integer
     Dim entry As String
     idx = 1
     entry = Environ$(idx)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Environ$"));
@@ -447,14 +447,14 @@ End Sub
 
     #[test]
     fn environ_dollar_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim i As Integer
     For i = 1 To 50
         v = Environ$(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Environ$"));

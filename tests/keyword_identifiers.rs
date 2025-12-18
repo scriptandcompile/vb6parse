@@ -83,8 +83,7 @@ obj.binary = True
     let identifier_count = debug.matches("Identifier").count();
     assert!(
         identifier_count >= 3,
-        "Expected at least 3 identifiers, found {}",
-        identifier_count
+        "Expected at least 3 identifiers, found {identifier_count}"
     );
 }
 

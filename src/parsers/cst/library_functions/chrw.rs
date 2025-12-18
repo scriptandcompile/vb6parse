@@ -301,11 +301,11 @@ mod tests {
 
     #[test]
     fn chrw_simple_ascii() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ch = ChrW(65)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
@@ -313,11 +313,11 @@ End Sub
 
     #[test]
     fn chrw_euro_symbol() {
-        let source = r#"
+        let source = r"
 Sub Test()
     euro = ChrW(8364)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
@@ -325,11 +325,11 @@ End Sub
 
     #[test]
     fn chrw_greek_letter() {
-        let source = r#"
+        let source = r"
 Sub Test()
     alpha = ChrW(945)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
@@ -337,11 +337,11 @@ End Sub
 
     #[test]
     fn chrw_chinese_character() {
-        let source = r#"
+        let source = r"
 Sub Test()
     hanzi = ChrW(20013)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("IntegerLiteral"));
@@ -361,11 +361,11 @@ End Sub
 
     #[test]
     fn chrw_bullet_point() {
-        let source = r#"
+        let source = r"
 Sub Test()
     bullet = ChrW(8226)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -386,12 +386,12 @@ End Sub
 
     #[test]
     fn chrw_mathematical_symbols() {
-        let source = r#"
+        let source = r"
 Sub Test()
     infinity = ChrW(8734)
     pi = ChrW(960)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -399,12 +399,12 @@ End Sub
 
     #[test]
     fn chrw_arrow_symbols() {
-        let source = r#"
+        let source = r"
 Sub Test()
     rightArrow = ChrW(8594)
     leftArrow = ChrW(8592)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -425,11 +425,11 @@ End Sub
 
     #[test]
     fn chrw_heart_symbol() {
-        let source = r#"
+        let source = r"
 Sub Test()
     heart = ChrW(9829)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -437,12 +437,12 @@ End Sub
 
     #[test]
     fn chrw_currency_symbols() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pound = ChrW(163)
     yen = ChrW(165)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -467,13 +467,13 @@ End Function
 
     #[test]
     fn chrw_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim code As Long
     code = 945
     ch = ChrW(code)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -481,13 +481,13 @@ End Sub
 
     #[test]
     fn chrw_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 65 To 90
         chars = chars & ChrW(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -495,11 +495,11 @@ End Sub
 
     #[test]
     fn chrw_range_validator() {
-        let source = r#"
+        let source = r"
 Function IsInUnicodeRange(code As Long, rangeStart As Long, rangeEnd As Long) As Boolean
     IsInUnicodeRange = (code >= rangeStart And code <= rangeEnd)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -523,11 +523,11 @@ End Function
 
     #[test]
     fn chrw_bom_marker() {
-        let source = r#"
+        let source = r"
 Sub Test()
     bom = ChrW(65279)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));
@@ -548,13 +548,13 @@ End Sub
 
     #[test]
     fn chrw_in_conditional() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsSpecial Then
         text = ChrW(8594)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier"));

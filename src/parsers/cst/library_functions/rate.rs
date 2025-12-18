@@ -744,10 +744,10 @@ mod tests {
 
     #[test]
     fn rate_basic() {
-        let source = r#"
+        let source = r"
 Dim interestRate As Double
 interestRate = Rate(60, -200, 10000)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -756,10 +756,10 @@ interestRate = Rate(60, -200, 10000)
 
     #[test]
     fn rate_with_all_parameters() {
-        let source = r#"
+        let source = r"
 Dim rate As Double
 rate = Rate(48, -250, 10000, 0, 0, 0.08)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -781,13 +781,13 @@ End If
 
     #[test]
     fn rate_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateAPR(loan As Double, payment As Double) As Double
     Dim monthlyRate As Double
     monthlyRate = Rate(60, -payment, loan)
     CalculateAPR = monthlyRate * 12
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -796,10 +796,10 @@ End Function
 
     #[test]
     fn rate_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim monthlyRate As Double
 monthlyRate = Rate(months, payment, principal)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -850,13 +850,13 @@ End Select
 
     #[test]
     fn rate_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_rate As Double
 
 Public Sub Calculate()
     m_rate = Rate(m_nper, m_pmt, m_pv)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -865,11 +865,11 @@ End Sub
 
     #[test]
     fn rate_with_statement() {
-        let source = r#"
+        let source = r"
 With loanCalc
     .InterestRate = Rate(.NumPayments, .Payment, .Principal)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -878,13 +878,13 @@ End With
 
     #[test]
     fn rate_elseif() {
-        let source = r#"
+        let source = r"
 If amount > 100000 Then
     r = 0.05
 ElseIf Rate(60, -pmt, loan) > 0.08 Then
     r = 0.06
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -893,12 +893,12 @@ End If
 
     #[test]
     fn rate_for_loop() {
-        let source = r#"
+        let source = r"
 For payment = 100 To 500 Step 50
     r = Rate(60, -payment, 10000)
     Debug.Print payment, r * 12
 Next payment
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -907,11 +907,11 @@ Next payment
 
     #[test]
     fn rate_do_while() {
-        let source = r#"
+        let source = r"
 Do While Rate(nper, -pmt, pv) < targetRate
     pmt = pmt + 10
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -920,11 +920,11 @@ Loop
 
     #[test]
     fn rate_do_until() {
-        let source = r#"
+        let source = r"
 Do Until Rate(n, -p, amount) >= minRate
     amount = amount - 100
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -933,11 +933,11 @@ Loop
 
     #[test]
     fn rate_while_wend() {
-        let source = r#"
+        let source = r"
 While Rate(periods, payment, principal) > 0
     principal = principal + 1000
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -946,10 +946,10 @@ Wend
 
     #[test]
     fn rate_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = (Rate(nper, pmt, pv))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -958,10 +958,10 @@ result = (Rate(nper, pmt, pv))
 
     #[test]
     fn rate_iif() {
-        let source = r#"
+        let source = r"
 Dim annualRate As Double
 annualRate = IIf(useGuess, Rate(n, p, pv, fv, t, g), Rate(n, p, pv))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -983,10 +983,10 @@ End If
 
     #[test]
     fn rate_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim rates(10) As Double
 rates(i) = Rate(periods(i), payments(i), principals(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -995,10 +995,10 @@ rates(i) = Rate(periods(i), payments(i), principals(i))
 
     #[test]
     fn rate_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New LoanAnalyzer
 obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -1007,9 +1007,9 @@ obj.InterestRate = Rate(obj.Term, obj.Payment, obj.Principal)
 
     #[test]
     fn rate_function_argument() {
-        let source = r#"
+        let source = r"
 Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));
@@ -1018,10 +1018,10 @@ Call AnalyzeLoan(Rate(60, -payment, principal) * 12, loanAmount)
 
     #[test]
     fn rate_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim apr As Double
 apr = Rate(months, -pmt, pv) * 12 * 100
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Rate"));

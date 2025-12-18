@@ -539,13 +539,13 @@ End Function
 
     #[test]
     fn switch_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Switch(status = 1, True, status = 2, True, True, False) Then
         ProcessItem
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));
@@ -618,13 +618,13 @@ End Sub
 
     #[test]
     fn switch_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Switch(x > 10, True, y > 10, True, True, False) Then
         ProcessData
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));
@@ -644,13 +644,13 @@ End Sub
 
     #[test]
     fn switch_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Switch(counter < 10, True, True, False)
         counter = counter + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));
@@ -672,13 +672,13 @@ End Sub
 
     #[test]
     fn switch_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Switch(i < max, True, True, False)
         i = i + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));
@@ -712,11 +712,11 @@ End Sub
 
     #[test]
     fn switch_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (Switch(a > b, a, True, b))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));
@@ -764,11 +764,11 @@ End Sub
 
     #[test]
     fn switch_numeric_result() {
-        let source = r#"
+        let source = r"
 Sub Test()
     discount = Switch(qty >= 100, 0.2, qty >= 50, 0.1, qty >= 10, 0.05, True, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Switch"));

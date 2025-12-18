@@ -707,10 +707,10 @@ End Function
 
     #[test]
     fn replace_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim cleaned As String
 cleaned = Replace(dirtyText, badChar, goodChar)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
@@ -759,13 +759,13 @@ End Select
 
     #[test]
     fn replace_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_text As String
 
 Public Sub CleanText()
     m_text = Replace(m_text, vbCrLf, vbLf)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
@@ -774,11 +774,11 @@ End Sub
 
     #[test]
     fn replace_with_statement() {
-        let source = r#"
+        let source = r"
 With document
     .Content = Replace(.Content, oldText, newText)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
@@ -866,10 +866,10 @@ result = (Replace(text, "a", "b"))
 
     #[test]
     fn replace_iif() {
-        let source = r#"
+        let source = r"
 Dim output As String
 output = IIf(caseSensitive, Replace(s, f, r), Replace(s, f, r, 1, -1, vbTextCompare))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
@@ -914,9 +914,9 @@ obj.ProcessedText = Replace(obj.RawText, Chr(0), "")
 
     #[test]
     fn replace_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessData(Replace(rawData, vbCrLf, vbLf), delimiter)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));
@@ -973,14 +973,14 @@ result = Trim(Replace(input, vbTab, " "))
 
     #[test]
     fn replace_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 result = Replace(source, find, replaceWith)
 If Err.Number <> 0 Then
     result = source
 End If
 On Error GoTo 0
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Replace"));

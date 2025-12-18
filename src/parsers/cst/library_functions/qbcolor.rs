@@ -735,10 +735,10 @@ mod tests {
 
     #[test]
     fn qbcolor_basic() {
-        let source = r#"
+        let source = r"
 Dim color As Long
 color = QBColor(12)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -747,9 +747,9 @@ color = QBColor(12)
 
     #[test]
     fn qbcolor_form_background() {
-        let source = r#"
+        let source = r"
 Form1.BackColor = QBColor(9)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -758,13 +758,13 @@ Form1.BackColor = QBColor(9)
 
     #[test]
     fn qbcolor_if_statement() {
-        let source = r#"
+        let source = r"
 If value > 0 Then
     Label1.ForeColor = QBColor(10)
 Else
     Label1.ForeColor = QBColor(12)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -790,10 +790,10 @@ End Function
 
     #[test]
     fn qbcolor_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim bgColor As Long
 bgColor = QBColor(colorNumber)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -824,14 +824,14 @@ Debug.Print "RGB Value: " & QBColor(14)
 
     #[test]
     fn qbcolor_select_case() {
-        let source = r#"
+        let source = r"
 Select Case colorIndex
     Case 0 To 7
         result = QBColor(colorIndex)
     Case 8 To 15
         result = QBColor(colorIndex)
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -840,13 +840,13 @@ End Select
 
     #[test]
     fn qbcolor_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_color As Long
 
 Public Sub SetColor(colorNum As Integer)
     m_color = QBColor(colorNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -855,12 +855,12 @@ End Sub
 
     #[test]
     fn qbcolor_with_statement() {
-        let source = r#"
+        let source = r"
 With Label1
     .BackColor = QBColor(0)
     .ForeColor = QBColor(15)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -869,7 +869,7 @@ End With
 
     #[test]
     fn qbcolor_elseif() {
-        let source = r#"
+        let source = r"
 If level < 5 Then
     color = QBColor(2)
 ElseIf level < 10 Then
@@ -877,7 +877,7 @@ ElseIf level < 10 Then
 Else
     color = QBColor(14)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -886,11 +886,11 @@ End If
 
     #[test]
     fn qbcolor_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To 15
     Picture1.Line (i * 20, 0)-(i * 20 + 19, 100), QBColor(i), BF
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -899,12 +899,12 @@ Next i
 
     #[test]
     fn qbcolor_do_while() {
-        let source = r#"
+        let source = r"
 Do While colorNum <= 15
     colors(colorNum) = QBColor(colorNum)
     colorNum = colorNum + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -913,12 +913,12 @@ Loop
 
     #[test]
     fn qbcolor_do_until() {
-        let source = r#"
+        let source = r"
 Do Until i > 15
     palette(i) = QBColor(i)
     i = i + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -927,12 +927,12 @@ Loop
 
     #[test]
     fn qbcolor_while_wend() {
-        let source = r#"
+        let source = r"
 While index < 16
     colorArray(index) = QBColor(index)
     index = index + 1
 Wend
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -941,10 +941,10 @@ Wend
 
     #[test]
     fn qbcolor_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As Long
 result = (QBColor(7))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -953,10 +953,10 @@ result = (QBColor(7))
 
     #[test]
     fn qbcolor_iif() {
-        let source = r#"
+        let source = r"
 Dim textColor As Long
 textColor = IIf(isError, QBColor(12), QBColor(10))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -978,10 +978,10 @@ End If
 
     #[test]
     fn qbcolor_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim colors(15) As Long
 colors(i) = QBColor(i)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -990,11 +990,11 @@ colors(i) = QBColor(i)
 
     #[test]
     fn qbcolor_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New ColorManager
 obj.BackgroundColor = QBColor(0)
 obj.TextColor = QBColor(15)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -1003,9 +1003,9 @@ obj.TextColor = QBColor(15)
 
     #[test]
     fn qbcolor_function_argument() {
-        let source = r#"
+        let source = r"
 Call SetFormColors(QBColor(0), QBColor(15))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -1014,9 +1014,9 @@ Call SetFormColors(QBColor(0), QBColor(15))
 
     #[test]
     fn qbcolor_line_method() {
-        let source = r#"
+        let source = r"
 Picture1.Line (0, 0)-(100, 100), QBColor(12), BF
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -1037,10 +1037,10 @@ msg = "Color code: " & QBColor(idx)
 
     #[test]
     fn qbcolor_hex_conversion() {
-        let source = r#"
+        let source = r"
 Dim hexValue As String
 hexValue = Hex(QBColor(15))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -1049,12 +1049,12 @@ hexValue = Hex(QBColor(15))
 
     #[test]
     fn qbcolor_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim colorValue As Long
 Dim brightness As Long
 colorValue = QBColor(index)
 brightness = colorValue And &HFF
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));
@@ -1063,14 +1063,14 @@ brightness = colorValue And &HFF
 
     #[test]
     fn qbcolor_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 Form1.BackColor = QBColor(colorNum)
 If Err.Number <> 0 Then
     Form1.BackColor = QBColor(7)
 End If
 On Error GoTo 0
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("QBColor"));

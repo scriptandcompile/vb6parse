@@ -870,10 +870,10 @@ mod tests {
 
     #[test]
     fn partition_basic() {
-        let source = r#"
+        let source = r"
 Dim range As String
 range = Partition(15, 0, 100, 10)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -882,12 +882,12 @@ range = Partition(15, 0, 100, 10)
 
     #[test]
     fn partition_with_variables() {
-        let source = r#"
+        let source = r"
 Dim value As Integer
 Dim rangeStr As String
 value = 42
 rangeStr = Partition(value, 0, 100, 10)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -909,11 +909,11 @@ End If
 
     #[test]
     fn partition_function_return() {
-        let source = r#"
+        let source = r"
 Function GetAgeRange(age As Integer) As String
     GetAgeRange = Partition(age, 0, 100, 10)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -922,10 +922,10 @@ End Function
 
     #[test]
     fn partition_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim bucket As String
 bucket = Partition(salesAmount, 0, 1000, 100)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -974,13 +974,13 @@ End Select
 
     #[test]
     fn partition_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_range As String
 
 Public Sub CategorizeValue(num As Long)
     m_range = Partition(num, 0, 1000, 100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -989,11 +989,11 @@ End Sub
 
     #[test]
     fn partition_with_statement() {
-        let source = r#"
+        let source = r"
 With analyzer
     .RangeLabel = Partition(.Value, .MinVal, .MaxVal, .Interval)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1017,12 +1017,12 @@ End If
 
     #[test]
     fn partition_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To 100
     rangeStr = Partition(i, 0, 100, 10)
     Debug.Print i, rangeStr
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1070,10 +1070,10 @@ Wend
 
     #[test]
     fn partition_parentheses() {
-        let source = r#"
+        let source = r"
 Dim result As String
 result = (Partition(value, 0, 100, 25))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1082,10 +1082,10 @@ result = (Partition(value, 0, 100, 25))
 
     #[test]
     fn partition_iif() {
-        let source = r#"
+        let source = r"
 Dim label As String
 label = IIf(usePartition, Partition(val, 0, 100, 10), CStr(val))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1107,10 +1107,10 @@ End If
 
     #[test]
     fn partition_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim ranges(100) As String
 ranges(i) = Partition(values(i), 0, 1000, 50)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1119,10 +1119,10 @@ ranges(i) = Partition(values(i), 0, 1000, 50)
 
     #[test]
     fn partition_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New DataAnalyzer
 obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1131,9 +1131,9 @@ obj.RangeBucket = Partition(obj.DataValue, 0, 500, 50)
 
     #[test]
     fn partition_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessRange(Partition(score, 0, 100, 10), studentName)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1142,10 +1142,10 @@ Call ProcessRange(Partition(score, 0, 100, 10), studentName)
 
     #[test]
     fn partition_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim rangeCount As Integer
 rangeCount = Len(Partition(value, 0, 100, 10))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));
@@ -1178,10 +1178,10 @@ pos = InStr(Partition(num, 0, 100, 10), ":")
 
     #[test]
     fn partition_trim() {
-        let source = r#"
+        let source = r"
 Dim cleaned As String
 cleaned = Trim(Partition(value, 0, 1000, 100))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Partition"));

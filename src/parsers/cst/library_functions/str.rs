@@ -572,11 +572,11 @@ mod tests {
 
     #[test]
     fn str_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Str(123)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -585,12 +585,12 @@ End Sub
 
     #[test]
     fn str_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As String
     s = Str(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -599,11 +599,11 @@ End Sub
 
     #[test]
     fn str_negative_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Str(-456)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -611,11 +611,11 @@ End Sub
 
     #[test]
     fn str_decimal() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Str(3.14159)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -623,11 +623,11 @@ End Sub
 
     #[test]
     fn str_with_ltrim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = LTrim$(Str(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -649,11 +649,11 @@ End Sub
 
     #[test]
     fn str_in_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, Str(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -661,11 +661,11 @@ End Sub
 
     #[test]
     fn str_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Str(x)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -687,13 +687,13 @@ End Sub
 
     #[test]
     fn str_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         result = result & Str(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -701,11 +701,11 @@ End Sub
 
     #[test]
     fn str_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     arr(i) = Str(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -713,11 +713,11 @@ End Sub
 
     #[test]
     fn str_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessString(Str(number))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -725,11 +725,11 @@ End Sub
 
     #[test]
     fn str_function_return() {
-        let source = r#"
+        let source = r"
 Function GetNumberString() As String
     GetNumberString = Str(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -768,13 +768,13 @@ End Sub
 
     #[test]
     fn str_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj
         .Text = Str(.Value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -782,13 +782,13 @@ End Sub
 
     #[test]
     fn str_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Len(Str(counter)) < 10
         counter = counter + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -810,14 +810,14 @@ End Sub
 
     #[test]
     fn str_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While i < 10
         output = output & Str(i)
         i = i + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -825,11 +825,11 @@ End Sub
 
     #[test]
     fn str_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IIf(flag, Str(value1), Str(value2))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -837,11 +837,11 @@ End Sub
 
     #[test]
     fn str_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Str((x + y) * z)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -861,11 +861,11 @@ End Sub
 
     #[test]
     fn str_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Caption = Str(count)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -889,12 +889,12 @@ End Sub
 
     #[test]
     fn str_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set obj = New MyClass
     obj.SetValue Str(counter)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));
@@ -902,13 +902,13 @@ End Sub
 
     #[test]
     fn str_currency_conversion() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim amount As Currency
     amount = 123.45
     result = Str(amount)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Str"));

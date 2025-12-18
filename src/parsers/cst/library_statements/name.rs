@@ -108,11 +108,11 @@ End Sub
 
     #[test]
     fn name_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Name oldName As newName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -166,11 +166,11 @@ End Sub
 
     #[test]
     fn name_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsRename Then Name oldFile As newFile
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

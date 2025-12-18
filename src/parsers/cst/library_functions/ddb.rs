@@ -592,9 +592,9 @@ mod tests {
 
     #[test]
     fn ddb_basic() {
-        let source = r#"
+        let source = r"
 depreciation = DDB(10000, 1000, 5, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -603,9 +603,9 @@ depreciation = DDB(10000, 1000, 5, 1)
 
     #[test]
     fn ddb_with_factor() {
-        let source = r#"
+        let source = r"
 depreciation = DDB(10000, 1000, 5, 1, 1.5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -614,9 +614,9 @@ depreciation = DDB(10000, 1000, 5, 1, 1.5)
 
     #[test]
     fn ddb_with_variables() {
-        let source = r#"
+        let source = r"
 depr = DDB(cost, salvage, life, period)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -625,11 +625,11 @@ depr = DDB(cost, salvage, life, period)
 
     #[test]
     fn ddb_in_function() {
-        let source = r#"
+        let source = r"
 Function CalculateDepreciation(cost As Double, years As Integer) As Double
     CalculateDepreciation = DDB(cost, 0, years, 1)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -638,12 +638,12 @@ End Function
 
     #[test]
     fn ddb_in_loop() {
-        let source = r#"
+        let source = r"
 For period = 1 To life
     depreciation = DDB(cost, salvage, life, period)
     total = total + depreciation
 Next period
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -652,9 +652,9 @@ Next period
 
     #[test]
     fn ddb_book_value_calculation() {
-        let source = r#"
+        let source = r"
 bookValue = cost - DDB(cost, salvage, life, period)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -676,9 +676,9 @@ End If
 
     #[test]
     fn ddb_in_array() {
-        let source = r#"
+        let source = r"
 schedule(i, 2) = DDB(cost, salvage, life, i)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -698,9 +698,9 @@ formatted = Format(DDB(cost, salvage, life, period), "Currency")
 
     #[test]
     fn ddb_monthly() {
-        let source = r#"
+        let source = r"
 monthlyDepr = DDB(cost, salvage, lifeYears * 12, month)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -709,11 +709,11 @@ monthlyDepr = DDB(cost, salvage, lifeYears * 12, month)
 
     #[test]
     fn ddb_accumulated() {
-        let source = r#"
+        let source = r"
 For i = 1 To currentPeriod
     accumulated = accumulated + DDB(cost, salvage, life, i)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -722,13 +722,13 @@ Next i
 
     #[test]
     fn ddb_error_handling() {
-        let source = r#"
+        let source = r"
 On Error Resume Next
 result = DDB(cost, salvage, life, period)
 If Err.Number <> 0 Then
     result = 0
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -764,9 +764,9 @@ Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
 
     #[test]
     fn ddb_150_percent() {
-        let source = r#"
+        let source = r"
 depr150 = DDB(cost, salvage, life, period, 1.5)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -775,9 +775,9 @@ depr150 = DDB(cost, salvage, life, period, 1.5)
 
     #[test]
     fn ddb_multiple_assets() {
-        let source = r#"
+        let source = r"
 totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2Salvage, life, year)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -786,9 +786,9 @@ totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2S
 
     #[test]
     fn ddb_with_expressions() {
-        let source = r#"
+        let source = r"
 depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -797,9 +797,9 @@ depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
 
     #[test]
     fn ddb_tax_calculation() {
-        let source = r#"
+        let source = r"
 taxSavings = DDB(cost, salvage, life, year) * taxRate
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -819,9 +819,9 @@ MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
 
     #[test]
     fn ddb_conditional() {
-        let source = r#"
+        let source = r"
 depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -841,9 +841,9 @@ rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
 
     #[test]
     fn ddb_partial_year() {
-        let source = r#"
+        let source = r"
 partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -852,9 +852,9 @@ partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
 
     #[test]
     fn ddb_nested_calls() {
-        let source = r#"
+        let source = r"
 maxDepr = Application.Max(DDB(cost, salvage, life, year), SLN(cost, salvage, life))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -863,11 +863,11 @@ maxDepr = Application.Max(DDB(cost, salvage, life, year), SLN(cost, salvage, lif
 
     #[test]
     fn ddb_report_generation() {
-        let source = r#"
+        let source = r"
 For yr = 1 To assetLife
     cells(yr, 2) = DDB(assetCost, assetSalvage, assetLife, yr)
 Next yr
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));
@@ -876,11 +876,11 @@ Next yr
 
     #[test]
     fn ddb_validation() {
-        let source = r#"
+        let source = r"
 If cost > salvage And life > 0 Then
     result = DDB(cost, salvage, life, period)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DDB"));

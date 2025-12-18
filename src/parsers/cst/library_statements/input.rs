@@ -45,11 +45,11 @@ mod test {
     // Input statement tests
     #[test]
     fn input_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Input #1, name, age
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -71,11 +71,11 @@ End Sub
 
     #[test]
     fn input_multiple_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Input #1, firstName, lastName, age, address
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -85,11 +85,11 @@ End Sub
 
     #[test]
     fn input_with_file_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Input #fileNum, x, y, z
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -110,11 +110,11 @@ End Sub
 
     #[test]
     fn input_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Input #1, name, age ' Read person data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -124,13 +124,13 @@ End Sub
 
     #[test]
     fn input_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not EOF(1) Then
         Input #1, myData
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -139,11 +139,11 @@ End Sub
 
     #[test]
     fn input_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If hasData Then Input #1, buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -169,13 +169,13 @@ End Sub
 
     #[test]
     fn input_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Not EOF(1)
         Input #1, myRecord
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -184,12 +184,12 @@ End Sub
 
     #[test]
     fn multiple_input_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Input #1, header
     Input #1, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

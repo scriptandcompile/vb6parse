@@ -594,11 +594,11 @@ mod tests {
 
     #[test]
     fn weekday_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dayNum = Weekday(Date)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -606,12 +606,12 @@ End Sub
 
     #[test]
     fn weekday_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim day As Integer
     day = Weekday(checkDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -620,11 +620,11 @@ End Sub
 
     #[test]
     fn weekday_with_firstdayofweek() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dayNum = Weekday(myDate, vbMonday)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -646,7 +646,7 @@ End Sub
 
     #[test]
     fn weekday_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case Weekday(checkDate)
         Case vbMonday
@@ -655,7 +655,7 @@ Sub Test()
             DoFriday
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -663,11 +663,11 @@ End Sub
 
     #[test]
     fn weekday_function_return() {
-        let source = r#"
+        let source = r"
 Function IsWeekend(checkDate As Date) As Boolean
     IsWeekend = (Weekday(checkDate) = vbSaturday Or Weekday(checkDate) = vbSunday)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -675,7 +675,7 @@ End Function
 
     #[test]
     fn weekday_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 31
         If Weekday(DateSerial(2024, 1, i)) = vbMonday Then
@@ -683,7 +683,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -691,13 +691,13 @@ End Sub
 
     #[test]
     fn weekday_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Weekday(date1) = Weekday(date2) Then
         SameDay
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -717,11 +717,11 @@ End Sub
 
     #[test]
     fn weekday_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessDay(Weekday(currentDate))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -741,13 +741,13 @@ End Sub
 
     #[test]
     fn weekday_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Weekday(currentDate) <> vbMonday
         currentDate = currentDate + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -755,13 +755,13 @@ End Sub
 
     #[test]
     fn weekday_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Weekday(testDate) = vbFriday
         testDate = testDate + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -769,13 +769,13 @@ End Sub
 
     #[test]
     fn weekday_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Weekday(dt) >= vbMonday And Weekday(dt) <= vbFriday
         dt = dt + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -795,13 +795,13 @@ End Sub
 
     #[test]
     fn weekday_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With dateInfo
         .DayNumber = Weekday(.TheDate)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -809,11 +809,11 @@ End Sub
 
     #[test]
     fn weekday_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (Weekday(myDate) - 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -821,7 +821,7 @@ End Sub
 
     #[test]
     fn weekday_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     dayNum = Weekday(userDate)
@@ -829,7 +829,7 @@ Sub Test()
         dayNum = 0
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -837,11 +837,11 @@ End Sub
 
     #[test]
     fn weekday_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.WeekdayNumber = Weekday(obj.EventDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -849,11 +849,11 @@ End Sub
 
     #[test]
     fn weekday_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     daysUntilMonday = vbMonday - Weekday(currentDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -861,11 +861,11 @@ End Sub
 
     #[test]
     fn weekday_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     weekdays(i) = Weekday(dates(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -873,11 +873,11 @@ End Sub
 
     #[test]
     fn weekday_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, Weekday(reportDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -885,12 +885,12 @@ End Sub
 
     #[test]
     fn weekday_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set calendar = New CalendarControl
     calendar.StartDay = Weekday(calendar.FirstDate, vbMonday)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -898,7 +898,7 @@ End Sub
 
     #[test]
     fn weekday_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x = 1 Then
         y = 1
@@ -906,7 +906,7 @@ Sub Test()
         y = 2
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -914,13 +914,13 @@ End Sub
 
     #[test]
     fn weekday_range_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Weekday(dt) >= vbMonday And Weekday(dt) <= vbFriday Then
         IsWeekday = True
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));
@@ -928,13 +928,13 @@ End Sub
 
     #[test]
     fn weekday_or_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Weekday(dt) = vbSaturday Or Weekday(dt) = vbSunday Then
         IsWeekend = True
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Weekday"));

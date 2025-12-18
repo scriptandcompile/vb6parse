@@ -815,7 +815,7 @@ mod test {
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let tokens = result.result.unwrap();
 
@@ -839,7 +839,7 @@ mod test {
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let tokens = result.result.unwrap();
 
@@ -861,7 +861,7 @@ mod test {
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let tokens = result.result.unwrap();
 
@@ -879,7 +879,7 @@ mod test {
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let tokens = result.result.unwrap();
 
@@ -918,7 +918,7 @@ Attribute VB_Exposed = False
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let mut tokens = result.result.unwrap().into_iter();
 
@@ -1086,7 +1086,7 @@ Attribute VB_Exposed = False
 
         if result.has_failures() {
             result.failures[0].eprint();
-        };
+        }
 
         let mut tokens = result.result.unwrap().into_iter();
 

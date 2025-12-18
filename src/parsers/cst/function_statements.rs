@@ -186,9 +186,9 @@ mod test {
         for (source, expected_kind) in test_cases {
             let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-            assert_eq!(cst.child_count(), 1, "Code: {}", source);
+            assert_eq!(cst.child_count(), 1, "Code: {source}");
             if let Some(child) = cst.child_at(0) {
-                assert_eq!(child.kind, expected_kind, "Code: {}", source);
+                assert_eq!(child.kind, expected_kind, "Code: {source}");
             }
         }
     }
@@ -290,14 +290,14 @@ End Function
     #[test]
     fn function_with_do_loop_before_end() {
         // Test that "End Function" after a DO loop is recognized correctly
-        let source = r#"
+        let source = r"
 Public Function Test(ByVal x As Long) As String
 Dim i As Long
 Do
     i = i + 1
 Loop
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

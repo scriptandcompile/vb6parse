@@ -622,11 +622,11 @@ mod tests {
 
     #[test]
     fn irr_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     rate = IRR(cashFlows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -635,11 +635,11 @@ End Sub
 
     #[test]
     fn irr_with_guess() {
-        let source = r#"
+        let source = r"
 Sub Test()
     rate = IRR(cashFlows, 0.1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -648,12 +648,12 @@ End Sub
 
     #[test]
     fn irr_array_literal() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim flows(0 To 4) As Double
     rate = IRR(flows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -677,11 +677,11 @@ End Sub
 
     #[test]
     fn irr_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateReturn() As Double
     CalculateReturn = IRR(projectCashFlows)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -690,13 +690,13 @@ End Function
 
     #[test]
     fn irr_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IRR(project1) > IRR(project2) Then
         selectedProject = 1
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -731,12 +731,12 @@ End Sub
 
     #[test]
     fn irr_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim returnRate As Double
     returnRate = IRR(investmentFlows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -745,11 +745,11 @@ End Sub
 
     #[test]
     fn irr_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     investment.ReturnRate = IRR(investment.CashFlows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -758,11 +758,11 @@ End Sub
 
     #[test]
     fn irr_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_irr = IRR(m_cashFlows)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -771,13 +771,13 @@ End Sub
 
     #[test]
     fn irr_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With project
         .IRR = IRR(.CashFlows, .Guess)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -786,11 +786,11 @@ End Sub
 
     #[test]
     fn irr_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call EvaluateInvestment(IRR(cashFlows))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -830,11 +830,11 @@ End Sub
 
     #[test]
     fn irr_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     results.Add IRR(projectFlows(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -843,11 +843,11 @@ End Sub
 
     #[test]
     fn irr_math_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     spread = IRR(project1) - IRR(project2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -869,14 +869,14 @@ End Sub
 
     #[test]
     fn irr_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To projectCount
         projectIRRs(i) = IRR(projectFlows(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -885,13 +885,13 @@ End Sub
 
     #[test]
     fn irr_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IRR(currentFlows) < targetRate
         currentFlows(1) = currentFlows(1) + 1000
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -900,11 +900,11 @@ End Sub
 
     #[test]
     fn irr_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isAcceptable = IRR(cashFlows) > hurdleRate And totalCost < budget
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -913,7 +913,7 @@ End Sub
 
     #[test]
     fn irr_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     rate = IRR(cashFlows, 0.2)
@@ -921,7 +921,7 @@ Sub Test()
         Debug.Print rate
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -930,11 +930,11 @@ End Sub
 
     #[test]
     fn irr_multiplication() {
-        let source = r#"
+        let source = r"
 Sub Test()
     percentageRate = IRR(cashFlows) * 100
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -943,11 +943,11 @@ End Sub
 
     #[test]
     fn irr_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (IRR(cashFlows))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -969,11 +969,11 @@ End Sub
 
     #[test]
     fn irr_array_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     projectRates(index) = IRR(projectCashFlows(index))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));
@@ -982,11 +982,11 @@ End Sub
 
     #[test]
     fn irr_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     percentage = CStr(IRR(cashFlows) * 100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IRR"));

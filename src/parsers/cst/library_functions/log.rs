@@ -582,10 +582,10 @@ mod tests {
 
     #[test]
     fn log_basic() {
-        let source = r#"
+        let source = r"
             Dim result As Double
             result = Log(10)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -594,9 +594,9 @@ mod tests {
 
     #[test]
     fn log_variable() {
-        let source = r#"
+        let source = r"
             naturalLog = Log(x)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -605,9 +605,9 @@ mod tests {
 
     #[test]
     fn log_base_10() {
-        let source = r#"
+        let source = r"
             log10 = Log(x) / Log(10)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -629,11 +629,11 @@ mod tests {
 
     #[test]
     fn log_function_return() {
-        let source = r#"
+        let source = r"
             Function NaturalLog(x As Double) As Double
                 NaturalLog = Log(x)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -657,9 +657,9 @@ mod tests {
 
     #[test]
     fn log_exponential_growth() {
-        let source = r#"
+        let source = r"
             rate = Log(finalValue / initialValue) / time
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -679,11 +679,11 @@ mod tests {
 
     #[test]
     fn log_with_statement() {
-        let source = r#"
+        let source = r"
             With mathCalc
                 .Result = Log(value)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -708,7 +708,7 @@ mod tests {
 
     #[test]
     fn log_elseif() {
-        let source = r#"
+        let source = r"
             If x <= 0 Then
                 result = 0
             ElseIf x = 1 Then
@@ -716,7 +716,7 @@ mod tests {
             Else
                 result = Log(x)
             End If
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -725,9 +725,9 @@ mod tests {
 
     #[test]
     fn log_parentheses() {
-        let source = r#"
+        let source = r"
             result = (Log(x))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -736,9 +736,9 @@ mod tests {
 
     #[test]
     fn log_iif() {
-        let source = r#"
+        let source = r"
             result = IIf(x > 0, Log(x), 0)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -747,11 +747,11 @@ mod tests {
 
     #[test]
     fn log_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Method()
                 m_logValue = Log(m_value)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -760,9 +760,9 @@ mod tests {
 
     #[test]
     fn log_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessLog(Log(value))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -771,9 +771,9 @@ mod tests {
 
     #[test]
     fn log_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.LogValue = Log(x)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -782,9 +782,9 @@ mod tests {
 
     #[test]
     fn log_array_assignment() {
-        let source = r#"
+        let source = r"
             logValues(i) = Log(values(i))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -793,11 +793,11 @@ mod tests {
 
     #[test]
     fn log_while_wend() {
-        let source = r#"
+        let source = r"
             While x > 1
                 x = Exp(Log(x) - 0.1)
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -806,11 +806,11 @@ mod tests {
 
     #[test]
     fn log_do_while() {
-        let source = r#"
+        let source = r"
             Do While value > threshold
                 value = Log(value) + offset
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -819,11 +819,11 @@ mod tests {
 
     #[test]
     fn log_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To 10
                 results(i) = Log(i)
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -843,9 +843,9 @@ mod tests {
 
     #[test]
     fn log_doubling_time() {
-        let source = r#"
+        let source = r"
             doublingTime = Log(2) / Log(1 + growthRate)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -854,9 +854,9 @@ mod tests {
 
     #[test]
     fn log_solve_exponent() {
-        let source = r#"
+        let source = r"
             exponent = Log(result) / Log(base)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -865,9 +865,9 @@ mod tests {
 
     #[test]
     fn log_entropy() {
-        let source = r#"
+        let source = r"
             entropy = entropy - p * (Log(p) / Log(2))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -876,9 +876,9 @@ mod tests {
 
     #[test]
     fn log_decibels() {
-        let source = r#"
+        let source = r"
             decibels = 10 * (Log(power / reference) / Log(10))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -887,9 +887,9 @@ mod tests {
 
     #[test]
     fn log_ph_calculation() {
-        let source = r#"
+        let source = r"
             pH = -(Log(concentration) / Log(10))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));
@@ -898,11 +898,11 @@ mod tests {
 
     #[test]
     fn log_do_until() {
-        let source = r#"
+        let source = r"
             Do Until Abs(Log(x) - target) < tolerance
                 x = x + delta
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Log"));

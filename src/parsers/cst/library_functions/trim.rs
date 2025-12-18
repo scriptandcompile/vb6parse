@@ -739,9 +739,9 @@ mod tests {
 
     #[test]
     fn trim_variable() {
-        let source = r#"
+        let source = r"
             cleaned = Trim(userInput)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -750,9 +750,9 @@ mod tests {
 
     #[test]
     fn trim_textbox() {
-        let source = r#"
+        let source = r"
             txtUsername.Text = Trim(txtUsername.Text)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -774,11 +774,11 @@ mod tests {
 
     #[test]
     fn trim_function_return() {
-        let source = r#"
+        let source = r"
             Function CleanText(s As String) As String
                 CleanText = Trim(s)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -813,9 +813,9 @@ mod tests {
 
     #[test]
     fn trim_debug_print() {
-        let source = r#"
+        let source = r"
             Debug.Print Trim(text)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -824,11 +824,11 @@ mod tests {
 
     #[test]
     fn trim_with_statement() {
-        let source = r#"
+        let source = r"
             With record
                 .Name = Trim(.Name)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -868,9 +868,9 @@ mod tests {
 
     #[test]
     fn trim_parentheses() {
-        let source = r#"
+        let source = r"
             result = (Trim(text))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -890,11 +890,11 @@ mod tests {
 
     #[test]
     fn trim_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Method()
                 m_cleanValue = Trim(m_rawValue)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -903,9 +903,9 @@ mod tests {
 
     #[test]
     fn trim_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessText(Trim(input))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -914,9 +914,9 @@ mod tests {
 
     #[test]
     fn trim_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.CleanText = Trim(dirtyText)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -925,9 +925,9 @@ mod tests {
 
     #[test]
     fn trim_array_assignment() {
-        let source = r#"
+        let source = r"
             cleanValues(i) = Trim(rawValues(i))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -936,11 +936,11 @@ mod tests {
 
     #[test]
     fn trim_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 0 To UBound(items)
                 items(i) = Trim(items(i))
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -949,12 +949,12 @@ mod tests {
 
     #[test]
     fn trim_while_wend() {
-        let source = r#"
+        let source = r"
             While Not EOF(1)
                 Line Input #1, line
                 line = Trim(line)
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -963,12 +963,12 @@ mod tests {
 
     #[test]
     fn trim_do_while() {
-        let source = r#"
+        let source = r"
             Do While i < count
                 text = Trim(dataArray(i))
                 i = i + 1
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -990,9 +990,9 @@ mod tests {
 
     #[test]
     fn trim_msgbox() {
-        let source = r#"
+        let source = r"
             MsgBox Trim(message)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));
@@ -1023,9 +1023,9 @@ mod tests {
 
     #[test]
     fn trim_ucase() {
-        let source = r#"
+        let source = r"
             upperText = UCase(Trim(text))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Trim"));

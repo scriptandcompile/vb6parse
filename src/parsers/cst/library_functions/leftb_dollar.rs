@@ -234,12 +234,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim header As String
     header = LeftB$(binaryData, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -247,12 +247,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     data = GetBinaryData()
     bytes = LeftB$(data, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -274,11 +274,11 @@ End Sub
 
     #[test]
     fn leftb_dollar_file_signature() {
-        let source = r#"
+        let source = r"
 Sub Main()
     signature = LeftB$(fileData, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -286,12 +286,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_protocol_header() {
-        let source = r#"
+        let source = r"
 Sub Main()
     packet = ReceivePacket()
     magic = LeftB$(packet, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -299,13 +299,13 @@ End Sub
 
     #[test]
     fn leftb_dollar_with_lenb() {
-        let source = r#"
+        let source = r"
 Sub Main()
     If LenB(data) > 10 Then
         truncated = LeftB$(data, 10)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -327,12 +327,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_network_data() {
-        let source = r#"
+        let source = r"
 Sub Main()
     netData = Socket.Receive()
     header = LeftB$(netData, 16)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -340,12 +340,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_guid_extraction() {
-        let source = r#"
+        let source = r"
 Sub Main()
     guidStr = GetGUIDBytes()
     data1 = LeftB$(guidStr, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -369,13 +369,13 @@ End Sub
 
     #[test]
     fn leftb_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub Main()
     h1 = LeftB$(buffer1, 4)
     h2 = LeftB$(buffer2, 4)
     combined = h1 & h2
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -383,11 +383,11 @@ End Sub
 
     #[test]
     fn leftb_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetHeader(data As String) As String
     GetHeader = LeftB$(data, 8)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -395,11 +395,11 @@ End Function
 
     #[test]
     fn leftb_dollar_zero_length() {
-        let source = r#"
+        let source = r"
 Sub Main()
     empty = LeftB$(data, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -407,12 +407,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_expression_length() {
-        let source = r#"
+        let source = r"
 Sub Main()
     n = 4
     result = LeftB$(data, n * 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -435,12 +435,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_validation() {
-        let source = r#"
+        let source = r"
 Sub Main()
     magic = LeftB$(data, 3)
     valid = (magic = Chr$(255) & Chr$(254) & Chr$(253))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -448,12 +448,12 @@ End Sub
 
     #[test]
     fn leftb_dollar_binary_record() {
-        let source = r#"
+        let source = r"
 Sub Main()
     record = GetRecord()
     idBytes = LeftB$(record, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));
@@ -461,13 +461,13 @@ End Sub
 
     #[test]
     fn leftb_dollar_with_midb() {
-        let source = r#"
+        let source = r"
 Sub Main()
     header = LeftB$(data, 16)
     field1 = MidB$(header, 1, 4)
     field2 = MidB$(header, 5, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("LeftB$"));

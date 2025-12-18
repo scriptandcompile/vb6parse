@@ -610,11 +610,11 @@ mod tests {
 
     #[test]
     fn join_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Join(myArray)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
@@ -677,11 +677,11 @@ End Sub
 
     #[test]
     fn join_msgbox() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MsgBox Join(names, vbCrLf)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
@@ -704,11 +704,11 @@ End Sub
 
     #[test]
     fn join_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.DisplayText = Join(obj.Lines, vbCrLf)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
@@ -743,13 +743,13 @@ End Sub
 
     #[test]
     fn join_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With builder
         .Output = Join(.Parts, .Delimiter)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
@@ -758,11 +758,11 @@ End Sub
 
     #[test]
     fn join_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessText(Join(lines, vbCrLf))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));
@@ -861,11 +861,11 @@ End Sub
 
     #[test]
     fn join_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     lines.Add Join(row, vbTab)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Join"));

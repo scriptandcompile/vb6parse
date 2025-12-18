@@ -78,30 +78,33 @@ impl Parser<'_> {
             // Some keywords should never be treated as procedure calls
             // These are structural keywords that have special parsing rules
             if let Some(
-                    Token::EndKeyword
-                    | Token::ExitKeyword
-                    | Token::LoopKeyword
-                    | Token::NextKeyword
-                    | Token::WendKeyword
-                    | Token::ElseKeyword
-                    | Token::ElseIfKeyword
-                    | Token::CaseKeyword
-                    | Token::IfKeyword
-                    | Token::ThenKeyword
-                    | Token::SelectKeyword
-                    | Token::DoKeyword
-                    | Token::WhileKeyword
-                    | Token::UntilKeyword
-                    | Token::ForKeyword
-                    | Token::ToKeyword
-                    | Token::StepKeyword
-                    | Token::SubKeyword
-                    | Token::FunctionKeyword
-                    | Token::PropertyKeyword
-                    | Token::WithKeyword
-                    | Token::ReturnKeyword
-                    | Token::ResumeKeyword,
-                ) = self.current_token() { return false }
+                Token::EndKeyword
+                | Token::ExitKeyword
+                | Token::LoopKeyword
+                | Token::NextKeyword
+                | Token::WendKeyword
+                | Token::ElseKeyword
+                | Token::ElseIfKeyword
+                | Token::CaseKeyword
+                | Token::IfKeyword
+                | Token::ThenKeyword
+                | Token::SelectKeyword
+                | Token::DoKeyword
+                | Token::WhileKeyword
+                | Token::UntilKeyword
+                | Token::ForKeyword
+                | Token::ToKeyword
+                | Token::StepKeyword
+                | Token::SubKeyword
+                | Token::FunctionKeyword
+                | Token::PropertyKeyword
+                | Token::WithKeyword
+                | Token::ReturnKeyword
+                | Token::ResumeKeyword,
+            ) = self.current_token()
+            {
+                return false;
+            }
         } else {
             return false;
         }
@@ -497,8 +500,7 @@ mod test {
                 .count();
             assert!(
                 call_count >= 3,
-                "Expected at least 3 CallStatements, found {}",
-                call_count
+                "Expected at least 3 CallStatements, found {call_count}"
             );
         }
     }
@@ -533,11 +535,11 @@ mod test {
     // Set statement tests
     #[test]
     fn set_statement_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set obj = myObject
 End Sub
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -548,11 +550,11 @@ End Sub
 
     #[test]
     fn set_statement_with_new() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set obj = New MyClass
 End Sub
-"#;
+";
 
         let mut source_stream = SourceStream::new("test.bas", source);
         let result = tokenize(&mut source_stream);
@@ -566,11 +568,11 @@ End Sub
 
     #[test]
     fn set_statement_to_nothing() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set obj = Nothing
 End Sub
-"#;
+";
 
         let mut source_stream = SourceStream::new("test.bas", source);
         let result = tokenize(&mut source_stream);
@@ -583,11 +585,11 @@ End Sub
 
     #[test]
     fn set_statement_with_property_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set myObj.Property = otherObj
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -610,11 +612,11 @@ End Sub
 
     #[test]
     fn set_statement_with_collection_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set item = collection.Item(1)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -623,13 +625,13 @@ End Sub
 
     #[test]
     fn multiple_set_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set obj1 = New Class1
     Set obj2 = New Class2
     Set obj3 = Nothing
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -639,11 +641,11 @@ End Sub
 
     #[test]
     fn set_statement_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set   obj   =   New   MyClass
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -653,11 +655,11 @@ End Sub
 
     #[test]
     fn set_statement_in_function() {
-        let source = r#"
+        let source = r"
 Function GetObject() As Object
     Set GetObject = New MyClass
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -667,9 +669,9 @@ End Function
 
     #[test]
     fn set_statement_at_module_level() {
-        let source = r#"
+        let source = r"
 Set globalObj = New MyClass
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -697,13 +699,13 @@ End Sub
 
     #[test]
     fn with_statement_nested_property() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj.SubObject
         .Value = 42
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -730,7 +732,7 @@ End Sub
 
     #[test]
     fn with_statement_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With outer
         .Value1 = 1
@@ -739,7 +741,7 @@ Sub Test()
         End With
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -768,7 +770,7 @@ End Sub
 
     #[test]
     fn with_statement_with_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj
         If .IsValid Then
@@ -776,7 +778,7 @@ Sub Test()
         End If
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -786,7 +788,7 @@ End Sub
 
     #[test]
     fn with_statement_with_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With collection
         For i = 1 To .Count
@@ -794,7 +796,7 @@ Sub Test()
         Next i
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -821,13 +823,13 @@ End Sub
 
     #[test]
     fn with_statement_function_result() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With GetObject()
         .Property = value
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -837,12 +839,12 @@ End Sub
 
     #[test]
     fn with_statement_empty() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -851,7 +853,7 @@ End Sub
 
     #[test]
     fn with_statement_sequential() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj1
         .Value = 1
@@ -860,7 +862,7 @@ Sub Test()
         .Value = 2
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -870,11 +872,11 @@ End Sub
 
     #[test]
     fn with_statement_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 With obj
     .Property = value
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -884,14 +886,14 @@ End With
 
     #[test]
     fn with_statement_new_object() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With New MyClass
         .Initialize
         .Value = 42
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -901,11 +903,11 @@ End Sub
 
     #[test]
     fn with_statement_at_module_level() {
-        let source = r#"
+        let source = r"
 With GlobalObject
     .Config = value
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -916,11 +918,11 @@ End With
     // RaiseEvent statement tests
     #[test]
     fn raiseevent_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent DataReceived
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -931,11 +933,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_single_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent StatusChanged(newStatus)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -946,11 +948,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_multiple_arguments() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent DataChanged(oldValue, newValue, timestamp)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -985,11 +987,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent Updated ' Notify listeners
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -999,13 +1001,13 @@ End Sub
 
     #[test]
     fn raiseevent_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If dataReady Then
         RaiseEvent DataAvailable(data)
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1015,11 +1017,11 @@ End Sub
 
     #[test]
     fn raiseevent_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then RaiseEvent EventFired
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1028,13 +1030,13 @@ End Sub
 
     #[test]
     fn raiseevent_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         RaiseEvent Progress(i)
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1058,11 +1060,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_numeric_arguments() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent PositionChanged(100, 200)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1073,11 +1075,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_object_property() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent ValueChanged(obj.Property)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1088,11 +1090,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent DataProcessed(ProcessData(input))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1102,7 +1104,7 @@ End Sub
 
     #[test]
     fn raiseevent_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case status
         Case 0
@@ -1113,7 +1115,7 @@ Sub Test()
             RaiseEvent StatusError
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1123,13 +1125,13 @@ End Sub
 
     #[test]
     fn raiseevent_multiple_in_sequence() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent BeforeUpdate
     RaiseEvent Update(data)
     RaiseEvent AfterUpdate
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1139,11 +1141,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_byref_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent BeforeClose(Cancel)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1153,14 +1155,14 @@ End Sub
 
     #[test]
     fn raiseevent_in_error_handler() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error GoTo ErrorHandler
     Exit Sub
 ErrorHandler:
     RaiseEvent ErrorOccurred(Err.Number, Err.Description)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1170,11 +1172,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent ItemSelected(items(index))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1184,11 +1186,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent ProgressChanged((current / total) * 100)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1199,13 +1201,13 @@ End Sub
 
     #[test]
     fn raiseevent_in_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While processing
         RaiseEvent Processing
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1215,14 +1217,14 @@ End Sub
 
     #[test]
     fn raiseevent_in_with_block() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With myObject
         .Value = 100
         RaiseEvent ValueUpdated(.Value)
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1232,7 +1234,7 @@ End Sub
 
     #[test]
     fn raiseevent_in_class_module() {
-        let source = r#"VERSION 1.0 CLASS
+        let source = r"VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
@@ -1241,7 +1243,7 @@ Public Event StatusChanged(ByVal newStatus As String)
 Public Sub UpdateStatus(ByVal status As String)
     RaiseEvent StatusChanged(status)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1251,11 +1253,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_boolean_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent ValidationComplete(True)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1265,11 +1267,11 @@ End Sub
 
     #[test]
     fn raiseevent_with_date_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent DateChanged(#1/1/2025#)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1278,7 +1280,7 @@ End Sub
 
     #[test]
     fn raiseevent_conditional_firing() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If shouldNotify Then
         RaiseEvent Notification(message)
@@ -1286,7 +1288,7 @@ Sub Test()
         RaiseEvent SilentUpdate
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -1296,11 +1298,11 @@ End Sub
 
     #[test]
     fn raiseevent_empty_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RaiseEvent Complete()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

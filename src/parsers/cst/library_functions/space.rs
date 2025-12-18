@@ -87,7 +87,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: PadRight
+/// ### Pattern 1: `PadRight`
 /// Pad string to specified width (right padding)
 /// ```vb
 /// Function PadRight(text As String, totalWidth As Integer) As String
@@ -102,7 +102,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: PadLeft
+/// ### Pattern 2: `PadLeft`
 /// Pad string to specified width (left padding)
 /// ```vb
 /// Function PadLeft(text As String, totalWidth As Integer) As String
@@ -139,7 +139,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: CreateIndent
+/// ### Pattern 4: `CreateIndent`
 /// Create indentation for nested structures
 /// ```vb
 /// Function CreateIndent(level As Integer, Optional spacesPerLevel As Integer = 4) As String
@@ -151,7 +151,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: FormatColumn
+/// ### Pattern 5: `FormatColumn`
 /// Format text in fixed-width column
 /// ```vb
 /// Function FormatColumn(text As String, width As Integer, _
@@ -169,7 +169,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: CreateSeparator
+/// ### Pattern 6: `CreateSeparator`
 /// Create separator line with spaces
 /// ```vb
 /// Function CreateSeparator(leftText As String, rightText As String, _
@@ -189,7 +189,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: BuildTableRow
+/// ### Pattern 7: `BuildTableRow`
 /// Build formatted table row
 /// ```vb
 /// Function BuildTableRow(columns() As String, widths() As Integer) As String
@@ -206,7 +206,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: IndentMultiline
+/// ### Pattern 8: `IndentMultiline`
 /// Indent all lines in multiline text
 /// ```vb
 /// Function IndentMultiline(text As String, spaces As Integer) As String
@@ -228,7 +228,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: CreateBlankLine
+/// ### Pattern 9: `CreateBlankLine`
 /// Create blank line with specific spacing
 /// ```vb
 /// Function CreateBlankLine(width As Integer) As String
@@ -236,7 +236,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: AlignNumber
+/// ### Pattern 10: `AlignNumber`
 /// Right-align number in field
 /// ```vb
 /// Function AlignNumber(value As Variant, width As Integer, _
@@ -250,7 +250,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: TableFormatter Class
+/// ### Example 1: `TableFormatter` Class
 /// Format data in ASCII tables
 /// ```vb
 /// ' Class: TableFormatter
@@ -357,7 +357,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: ReportGenerator Module
+/// ### Example 2: `ReportGenerator` Module
 /// Generate formatted text reports
 /// ```vb
 /// ' Module: ReportGenerator
@@ -451,7 +451,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: CodeFormatter Class
+/// ### Example 3: `CodeFormatter` Class
 /// Format source code with indentation
 /// ```vb
 /// ' Class: CodeFormatter
@@ -516,7 +516,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 4: ListBoxFormatter Module
+/// ### Example 4: `ListBoxFormatter` Module
 /// Format items for list box display
 /// ```vb
 /// ' Module: ListBoxFormatter
@@ -650,12 +650,12 @@ mod tests {
 
     #[test]
     fn space_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim spaces As String
     spaces = Space(5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -664,14 +664,14 @@ End Sub
 
     #[test]
     fn space_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim count As Integer
     Dim result As String
     count = 10
     result = Space(count)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -694,11 +694,11 @@ End Sub
 
     #[test]
     fn space_function_return() {
-        let source = r#"
+        let source = r"
 Function CreatePadding(n As Integer) As String
     CreatePadding = Space(n)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -707,12 +707,12 @@ End Function
 
     #[test]
     fn space_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim padding As String
     padding = Space(20)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -764,13 +764,13 @@ End Sub
 
     #[test]
     fn space_class_usage() {
-        let source = r#"
+        let source = r"
 Class Formatter
     Public Function Pad(s As String, width As Integer) As String
         Pad = s & Space(width - Len(s))
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -793,7 +793,7 @@ End Sub
 
     #[test]
     fn space_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As String
     If n = 5 Then
@@ -804,7 +804,7 @@ Sub Test()
         s = Space(20)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -827,7 +827,7 @@ End Sub
 
     #[test]
     fn space_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim indent As String
     Do While level > 0
@@ -835,7 +835,7 @@ Sub Test()
         level = level - 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -844,14 +844,14 @@ End Sub
 
     #[test]
     fn space_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until width >= 50
         padding = padding & Space(10)
         width = width + 10
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -860,14 +860,14 @@ End Sub
 
     #[test]
     fn space_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While count < 100
         line = line & Space(5)
         count = count + 5
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -875,12 +875,12 @@ End Sub
 
     #[test]
     fn space_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim formatted As String
     formatted = (name & Space(20 - Len(name)))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -917,7 +917,7 @@ End Sub
 
     #[test]
     fn space_property_assignment() {
-        let source = r#"
+        let source = r"
 Class TextFormatter
     Public Indent As String
 End Class
@@ -926,7 +926,7 @@ Sub Test()
     Dim fmt As New TextFormatter
     fmt.Indent = Space(4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -934,14 +934,14 @@ End Sub
 
     #[test]
     fn space_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessText(s As String)
 End Sub
 
 Sub Test()
     ProcessText Space(15)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -964,12 +964,12 @@ End Sub
 
     #[test]
     fn space_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isCorrect As Boolean
     isCorrect = (Len(Space(10)) = 10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -978,12 +978,12 @@ End Sub
 
     #[test]
     fn space_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim padding As String
     padding = Space(totalWidth - textWidth)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
@@ -1019,7 +1019,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Space"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]

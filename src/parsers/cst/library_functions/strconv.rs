@@ -628,12 +628,12 @@ End Sub
 
     #[test]
     fn strconv_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As String
     result = StrConv(text, vbUpperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -642,11 +642,11 @@ End Sub
 
     #[test]
     fn strconv_lowercase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(input, vbLowerCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -655,11 +655,11 @@ End Sub
 
     #[test]
     fn strconv_propercase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(name, vbProperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -668,12 +668,12 @@ End Sub
 
     #[test]
     fn strconv_unicode() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim bytes() As Byte
     bytes = StrConv(text, vbUnicode)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -682,11 +682,11 @@ End Sub
 
     #[test]
     fn strconv_from_unicode() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(byteArray, vbFromUnicode)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -709,13 +709,13 @@ End Sub
 
     #[test]
     fn strconv_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
         arr(i) = StrConv(arr(i), vbUpperCase)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -723,11 +723,11 @@ End Sub
 
     #[test]
     fn strconv_function_return() {
-        let source = r#"
+        let source = r"
 Function ToUpper(text As String) As String
     ToUpper = StrConv(text, vbUpperCase)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -749,11 +749,11 @@ End Sub
 
     #[test]
     fn strconv_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(Trim$(input), vbProperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -779,11 +779,11 @@ End Sub
 
     #[test]
     fn strconv_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     normalized(i) = StrConv(original(i), vbUpperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -791,11 +791,11 @@ End Sub
 
     #[test]
     fn strconv_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessText(StrConv(input, vbProperCase))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -857,11 +857,11 @@ End Sub
 
     #[test]
     fn strconv_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IIf(mode = 1, StrConv(text, vbUpperCase), StrConv(text, vbLowerCase))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -869,13 +869,13 @@ End Sub
 
     #[test]
     fn strconv_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj
         .Name = StrConv(.Name, vbProperCase)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -883,11 +883,11 @@ End Sub
 
     #[test]
     fn strconv_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (StrConv(str1, vbUpperCase) = StrConv(str2, vbUpperCase))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -911,11 +911,11 @@ End Sub
 
     #[test]
     fn strconv_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Title = StrConv(rawTitle, vbProperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -935,11 +935,11 @@ End Sub
 
     #[test]
     fn strconv_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print StrConv(output, vbUpperCase)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -947,11 +947,11 @@ End Sub
 
     #[test]
     fn strconv_numeric_constant() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(text, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));
@@ -959,11 +959,11 @@ End Sub
 
     #[test]
     fn strconv_combined_conversion() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrConv(text, vbUpperCase + vbWide)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrConv"));

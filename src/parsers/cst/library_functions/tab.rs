@@ -245,13 +245,13 @@ End Sub
 
     #[test]
     fn tab_data_rows() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Print Tab(1); i; Tab(10); names(i); Tab(30); scores(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Tab"));

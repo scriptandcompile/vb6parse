@@ -325,12 +325,12 @@ End Sub
 
     #[test]
     fn rtrim_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim cleaned As String
     cleaned = RTrim$(userInput)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -367,11 +367,11 @@ End Sub
 
     #[test]
     fn rtrim_dollar_database_field() {
-        let source = r#"
+        let source = r"
 Function GetFieldValue(fieldValue As String) As String
     GetFieldValue = RTrim$(fieldValue)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -393,13 +393,13 @@ End Sub
 
     #[test]
     fn rtrim_dollar_fixed_width() {
-        let source = r#"
+        let source = r"
 Function ParseFixedField(dataLine As String, startPos As Integer, fieldWidth As Integer) As String
     Dim rawField As String
     rawField = Mid$(dataLine, startPos, fieldWidth)
     ParseFixedField = RTrim$(rawField)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -407,11 +407,11 @@ End Function
 
     #[test]
     fn rtrim_dollar_comparison() {
-        let source = r#"
+        let source = r"
 Function CompareValues(value1 As String, value2 As String) As Boolean
     CompareValues = (RTrim$(value1) = RTrim$(value2))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -419,14 +419,14 @@ End Function
 
     #[test]
     fn rtrim_dollar_array_cleanup() {
-        let source = r#"
+        let source = r"
 Sub CleanStringArray(arr() As String)
     Dim i As Integer
     For i = LBound(arr) To UBound(arr)
         arr(i) = RTrim$(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -434,14 +434,14 @@ End Sub
 
     #[test]
     fn rtrim_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub ProcessData()
     Dim firstName As String
     Dim lastName As String
     firstName = RTrim$(rawFirst)
     lastName = RTrim$(rawLast)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -479,12 +479,12 @@ End Sub
 
     #[test]
     fn rtrim_dollar_with_ltrim() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim fullyClean As String
     fullyClean = LTrim$(RTrim$(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -492,13 +492,13 @@ End Sub
 
     #[test]
     fn rtrim_dollar_report_format() {
-        let source = r#"
+        let source = r"
 Function FormatReportLine(textLabel As String, value As String) As String
     Dim paddedLabel As String
     paddedLabel = textLabel & Space(30)
     FormatReportLine = Left$(RTrim$(paddedLabel), 30) & value
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -520,11 +520,11 @@ End Sub
 
     #[test]
     fn rtrim_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function CleanInput(userInput As String) As String
     CleanInput = RTrim$(userInput)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -560,13 +560,13 @@ End Sub
 
     #[test]
     fn rtrim_dollar_file_processing() {
-        let source = r#"
+        let source = r"
 Function ReadCleanLine(fileNum As Integer) As String
     Dim rawLine As String
     Line Input #fileNum, rawLine
     ReadCleanLine = RTrim$(rawLine)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));
@@ -574,7 +574,7 @@ End Function
 
     #[test]
     fn rtrim_dollar_loop_processing() {
-        let source = r#"
+        let source = r"
 Sub ProcessLines()
     Dim i As Integer
     Dim cleanLine As String
@@ -583,7 +583,7 @@ Sub ProcessLines()
         Debug.Print cleanLine
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RTrim$"));

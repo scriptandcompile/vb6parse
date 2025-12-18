@@ -559,11 +559,11 @@ mod tests {
 
     #[test]
     fn left_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Left(myString, 5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -600,11 +600,11 @@ End Sub
 
     #[test]
     fn left_function_return() {
-        let source = r#"
+        let source = r"
 Function GetPrefix(text As String) As String
     GetPrefix = Left(text, 3)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -626,11 +626,11 @@ End Sub
 
     #[test]
     fn left_msgbox() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MsgBox Left(message, 50)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -639,12 +639,12 @@ End Sub
 
     #[test]
     fn left_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim prefix As String
     prefix = Left(code, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -653,11 +653,11 @@ End Sub
 
     #[test]
     fn left_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Prefix = Left(obj.FullText, 10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -679,11 +679,11 @@ End Sub
 
     #[test]
     fn left_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_code = Left(m_identifier, 3)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -692,13 +692,13 @@ End Sub
 
     #[test]
     fn left_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With record
         .Code = Left(.FullCode, 4)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -707,11 +707,11 @@ End Sub
 
     #[test]
     fn left_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessPrefix(Left(identifier, 2))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -738,14 +738,14 @@ End Sub
 
     #[test]
     fn left_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(arr)
         prefixes(i) = Left(arr(i), 3)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -784,11 +784,11 @@ End Sub
 
     #[test]
     fn left_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (Left(text, 10))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -797,11 +797,11 @@ End Sub
 
     #[test]
     fn left_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     codes(i) = Left(fullCodes(i), 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -810,11 +810,11 @@ End Sub
 
     #[test]
     fn left_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     prefixes.Add Left(names(i), 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -823,11 +823,11 @@ End Sub
 
     #[test]
     fn left_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = UCase(Left(name, 1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -896,11 +896,11 @@ End Sub
 
     #[test]
     fn left_with_len() {
-        let source = r#"
+        let source = r"
 Sub Test()
     initial = Left(name, Len(name) - 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));
@@ -926,11 +926,11 @@ End Function
 
     #[test]
     fn left_startswith() {
-        let source = r#"
+        let source = r"
 Function StartsWith(text As String, prefix As String) As Boolean
     StartsWith = (Left(text, Len(prefix)) = prefix)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Left"));

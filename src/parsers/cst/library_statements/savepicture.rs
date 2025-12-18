@@ -173,11 +173,11 @@ End Sub
 
     #[test]
     fn savepicture_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SavePicture Picture1.Picture, fileName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -201,11 +201,11 @@ End Sub
 
     #[test]
     fn savepicture_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SavePicture Picture1.Picture, GetFileName()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -307,11 +307,11 @@ End Sub
 
     #[test]
     fn savepicture_with_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SavePicture Pictures(index).Picture, fileName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -404,12 +404,12 @@ End Sub
 
     #[test]
     fn savepicture_in_function() {
-        let source = r#"
+        let source = r"
 Function ExportImage() As Boolean
     SavePicture Picture1.Picture, outputPath
     ExportImage = True
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -448,13 +448,13 @@ End Sub
 
     #[test]
     fn savepicture_in_class_module() {
-        let source = r#"
+        let source = r"
 Private picData As PictureBox
 
 Public Sub ExportPicture(fileName As String)
     SavePicture picData.Picture, fileName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();

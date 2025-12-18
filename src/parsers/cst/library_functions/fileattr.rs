@@ -778,9 +778,9 @@ mod tests {
 
     #[test]
     fn fileattr_mode() {
-        let source = r#"
+        let source = r"
 fileMode = FileAttr(fileNum, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -789,9 +789,9 @@ fileMode = FileAttr(fileNum, 1)
 
     #[test]
     fn fileattr_handle() {
-        let source = r#"
+        let source = r"
 fileHandle = FileAttr(fileNum, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -800,9 +800,9 @@ fileHandle = FileAttr(fileNum, 2)
 
     #[test]
     fn fileattr_literal_file_number() {
-        let source = r#"
+        let source = r"
 mode = FileAttr(1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -840,11 +840,11 @@ End If
 
     #[test]
     fn fileattr_in_function() {
-        let source = r#"
+        let source = r"
 Function GetFileMode(fnum As Integer) As Long
     GetFileMode = FileAttr(fnum, 1)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -853,9 +853,9 @@ End Function
 
     #[test]
     fn fileattr_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print FileAttr(fileNum, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -864,9 +864,9 @@ Debug.Print FileAttr(fileNum, 1)
 
     #[test]
     fn fileattr_comparison() {
-        let source = r#"
+        let source = r"
 canWrite = (FileAttr(fileNum, 1) = 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -875,9 +875,9 @@ canWrite = (FileAttr(fileNum, 1) = 2)
 
     #[test]
     fn fileattr_or_condition() {
-        let source = r#"
+        let source = r"
 isWritable = (FileAttr(fileNum, 1) = 2 Or FileAttr(fileNum, 1) = 8)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -901,14 +901,14 @@ End If
 
     #[test]
     fn fileattr_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 255
     mode = FileAttr(i, 1)
     If Err.Number = 0 Then
         Debug.Print i, mode
     End If
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -928,10 +928,10 @@ msg = "Mode: " & FileAttr(fileNum, 1)
 
     #[test]
     fn fileattr_udt_assignment() {
-        let source = r#"
+        let source = r"
 info.Mode = FileAttr(fileNum, 1)
 info.Handle = FileAttr(fileNum, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -940,9 +940,9 @@ info.Handle = FileAttr(fileNum, 2)
 
     #[test]
     fn fileattr_validation() {
-        let source = r#"
+        let source = r"
 valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -951,11 +951,11 @@ valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
 
     #[test]
     fn fileattr_nested_if() {
-        let source = r#"
+        let source = r"
 If FileAttr(fileNum, 1) = 1 Or FileAttr(fileNum, 1) = 4 Then
     canRead = True
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -964,9 +964,9 @@ End If
 
     #[test]
     fn fileattr_collection_add() {
-        let source = r#"
+        let source = r"
 handles.Add FileAttr(i, 2), CStr(i)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -1021,9 +1021,9 @@ Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNu
 
     #[test]
     fn fileattr_boolean_expression() {
-        let source = r#"
+        let source = r"
 isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -1032,10 +1032,10 @@ isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
 
     #[test]
     fn fileattr_with_constants() {
-        let source = r#"
+        let source = r"
 Const FILE_ATTR_MODE = 1
 mode = FileAttr(fileNum, FILE_ATTR_MODE)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -1044,10 +1044,10 @@ mode = FileAttr(fileNum, FILE_ATTR_MODE)
 
     #[test]
     fn fileattr_array_assignment() {
-        let source = r#"
+        let source = r"
 modes(i) = FileAttr(i, 1)
 handles(i) = FileAttr(i, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -1056,12 +1056,12 @@ handles(i) = FileAttr(i, 2)
 
     #[test]
     fn fileattr_in_with_block() {
-        let source = r#"
+        let source = r"
 With descriptor
     .Mode = FileAttr(fileNum, 1)
     .Handle = FileAttr(fileNum, 2)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));
@@ -1070,9 +1070,9 @@ End With
 
     #[test]
     fn fileattr_immediate_window() {
-        let source = r#"
+        let source = r"
 ? FileAttr(1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileAttr"));

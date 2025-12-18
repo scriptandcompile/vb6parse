@@ -393,11 +393,11 @@ End Sub
 
     #[test]
     fn timevalue_function_return() {
-        let source = r#"
+        let source = r"
 Function ParseTime(s As String) As Date
     ParseTime = TimeValue(s)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeValue"));
@@ -538,11 +538,11 @@ End Sub
 
     #[test]
     fn timevalue_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     times(i) = TimeValue(timeStrings(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeValue"));
@@ -658,11 +658,11 @@ End Sub
 
     #[test]
     fn timevalue_numeric_input() {
-        let source = r#"
+        let source = r"
 Sub Test()
     t = TimeValue(0.5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeValue"));

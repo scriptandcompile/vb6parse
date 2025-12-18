@@ -833,7 +833,7 @@ mod tests {
 
     #[test]
     fn getobject_both_params() {
-        let source = r#"Set doc = GetObject(filePath, className)"#;
+        let source = r"Set doc = GetObject(filePath, className)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -893,9 +893,9 @@ End If"#;
 
     #[test]
     fn getobject_for_loop() {
-        let source = r#"For i = 1 To fileCount
+        let source = r"For i = 1 To fileCount
     Set doc = GetObject(files(i))
-Next i"#;
+Next i";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -904,7 +904,7 @@ Next i"#;
 
     #[test]
     fn getobject_is_nothing_check() {
-        let source = r#"If GetObject(, progID) Is Nothing Then Exit Sub"#;
+        let source = r"If GetObject(, progID) Is Nothing Then Exit Sub";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -913,7 +913,7 @@ Next i"#;
 
     #[test]
     fn getobject_with_application() {
-        let source = r#"Set xlApp = GetObject(filePath).Application"#;
+        let source = r"Set xlApp = GetObject(filePath).Application";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -945,7 +945,7 @@ Loop"#;
 
     #[test]
     fn getobject_class_member() {
-        let source = r#"Set m_Document = GetObject(m_FilePath)"#;
+        let source = r"Set m_Document = GetObject(m_FilePath)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -954,7 +954,7 @@ Loop"#;
 
     #[test]
     fn getobject_type_field() {
-        let source = r#"Set cached.Document = GetObject(filePath)"#;
+        let source = r"Set cached.Document = GetObject(filePath)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -992,7 +992,7 @@ End With"#;
 
     #[test]
     fn getobject_msgbox() {
-        let source = r#"MsgBox TypeName(GetObject(filePath))"#;
+        let source = r"MsgBox TypeName(GetObject(filePath))";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -1001,9 +1001,9 @@ End With"#;
 
     #[test]
     fn getobject_property() {
-        let source = r#"Property Get CurrentDocument() As Object
+        let source = r"Property Get CurrentDocument() As Object
     Set CurrentDocument = GetObject(m_FilePath)
-End Property"#;
+End Property";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -1022,9 +1022,9 @@ Set doc = GetObject(filePath)"#;
 
     #[test]
     fn getobject_for_each() {
-        let source = r#"For Each file In files
+        let source = r"For Each file In files
     Set doc = GetObject(CStr(file))
-Next file"#;
+Next file";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -1042,7 +1042,7 @@ Next file"#;
 
     #[test]
     fn getobject_method_call() {
-        let source = r#"GetObject(filePath).Save"#;
+        let source = r"GetObject(filePath).Save";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));
@@ -1069,7 +1069,7 @@ Next file"#;
 
     #[test]
     fn getobject_iif() {
-        let source = r#"Set obj = IIf(condition, GetObject(file1), GetObject(file2))"#;
+        let source = r"Set obj = IIf(condition, GetObject(file1), GetObject(file2))";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("GetObject"));

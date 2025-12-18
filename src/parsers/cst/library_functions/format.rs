@@ -685,9 +685,9 @@ Debug.Print Format(value, "General Number")
 
     #[test]
     fn format_concatenation() {
-        let source = r##"
+        let source = r#"
 msg = "Amount: " & Format(total, "$#,##0.00")
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -696,11 +696,11 @@ msg = "Amount: " & Format(total, "$#,##0.00")
 
     #[test]
     fn format_in_function() {
-        let source = r##"
+        let source = r#"
 Function FormatCurrency(amount As Double) As String
     FormatCurrency = Format(amount, "$#,##0.00")
 End Function
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -742,13 +742,13 @@ sci = Format(value, "0.00E+00")
 
     #[test]
     fn format_if_statement() {
-        let source = r##"
+        let source = r#"
 If value > 0 Then
     result = Format(value, "$#,##0.00")
 Else
     result = Format(value, "($#,##0.00)")
 End If
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -773,13 +773,13 @@ End Select
 
     #[test]
     fn format_error_handling() {
-        let source = r#"
+        let source = r"
 On Error GoTo ErrorHandler
 formatted = Format(value, formatStr)
 Exit Function
 ErrorHandler:
     formatted = CStr(value)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -857,9 +857,9 @@ invoiceNum = prefix & "-" & Format(num, "000000")
 
     #[test]
     fn format_conditional() {
-        let source = r##"
+        let source = r#"
 result = Format(value, "$#,##0.00;($#,##0.00);-;N/A")
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -881,9 +881,9 @@ Next i
 
     #[test]
     fn format_assignment() {
-        let source = r##"
+        let source = r#"
 lstBox.AddItem Format(items(i), "$#,##0.00")
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));
@@ -905,11 +905,11 @@ End If
 
     #[test]
     fn format_multiline() {
-        let source = r##"
+        let source = r#"
 report = "Total: " & Format(total, "$#,##0.00") & vbCrLf & _
          "Tax: " & Format(tax, "$#,##0.00") & vbCrLf & _
          "Grand Total: " & Format(total + tax, "$#,##0.00")
-"##;
+"#;
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Format"));

@@ -645,12 +645,12 @@ End Sub
 
     #[test]
     fn strreverse_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim reversed As String
     reversed = StrReverse(text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -673,11 +673,11 @@ End Sub
 
     #[test]
     fn strreverse_function_return() {
-        let source = r#"
+        let source = r"
 Function Reverse(s As String) As String
     Reverse = StrReverse(s)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -697,13 +697,13 @@ End Sub
 
     #[test]
     fn strreverse_with_lcase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If LCase$(text) = StrReverse(LCase$(text)) Then
         isPalindrome = True
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -711,13 +711,13 @@ End Sub
 
     #[test]
     fn strreverse_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(arr) To UBound(arr)
         arr(i) = StrReverse(arr(i))
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -739,11 +739,11 @@ End Sub
 
     #[test]
     fn strreverse_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print StrReverse(message)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -763,11 +763,11 @@ End Sub
 
     #[test]
     fn strreverse_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     reversed(i) = StrReverse(original(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -775,11 +775,11 @@ End Sub
 
     #[test]
     fn strreverse_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessString(StrReverse(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -802,13 +802,13 @@ End Sub
 
     #[test]
     fn strreverse_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While StrReverse(current) <> target
         current = GetNext()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -816,13 +816,13 @@ End Sub
 
     #[test]
     fn strreverse_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until StrReverse(text) = original
         text = Modify(text)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -830,13 +830,13 @@ End Sub
 
     #[test]
     fn strreverse_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Len(StrReverse(str)) > 10
         str = Trim$(str)
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -844,11 +844,11 @@ End Sub
 
     #[test]
     fn strreverse_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IIf(reverse, StrReverse(text), text)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -856,13 +856,13 @@ End Sub
 
     #[test]
     fn strreverse_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With obj
         .Text = StrReverse(.Text)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -870,11 +870,11 @@ End Sub
 
     #[test]
     fn strreverse_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (StrReverse(str1) & StrReverse(str2))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -898,11 +898,11 @@ End Sub
 
     #[test]
     fn strreverse_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.ReversedName = StrReverse(obj.Name)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -910,11 +910,11 @@ End Sub
 
     #[test]
     fn strreverse_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isReverse = (str1 = StrReverse(str2))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -922,11 +922,11 @@ End Sub
 
     #[test]
     fn strreverse_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrReverse(StrReverse(text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -934,11 +934,11 @@ End Sub
 
     #[test]
     fn strreverse_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = StrReverse(Trim$(input))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -946,11 +946,11 @@ End Sub
 
     #[test]
     fn strreverse_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, StrReverse(data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -958,12 +958,12 @@ End Sub
 
     #[test]
     fn strreverse_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set processor = New StringProcessor
     processor.SetText StrReverse(original)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));
@@ -971,7 +971,7 @@ End Sub
 
     #[test]
     fn strreverse_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x = 1 Then
         result = text
@@ -979,7 +979,7 @@ Sub Test()
         result = StrReverse(text)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("StrReverse"));

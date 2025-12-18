@@ -34,11 +34,11 @@ End Sub
 
     #[test]
     fn chdir_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDir myPath
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -48,11 +48,11 @@ End Sub
 
     #[test]
     fn chdir_with_app_path() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDir App.Path
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -76,11 +76,11 @@ End Sub
 
     #[test]
     fn chdir_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If dirExists Then ChDir newPath
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -102,11 +102,11 @@ ChDir "C:\Temp"
 
     #[test]
     fn chdir_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDir basePath ' Change to base directory
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -133,13 +133,13 @@ End Sub
 
     #[test]
     fn chdir_in_multiline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If pathValid Then
         ChDir newPath
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -149,11 +149,11 @@ End Sub
 
     #[test]
     fn chdir_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDir (basePath)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -163,11 +163,11 @@ End Sub
 
     #[test]
     fn chdir_with_parentheses_without_space() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDir(basePath)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

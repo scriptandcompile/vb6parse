@@ -701,10 +701,10 @@ mod tests {
 
     #[test]
     fn month_basic() {
-        let source = r#"
+        let source = r"
 Dim m As Integer
 m = Month(Now)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -713,10 +713,10 @@ m = Month(Now)
 
     #[test]
     fn month_variable_assignment() {
-        let source = r#"
+        let source = r"
 Dim currentMonth As Integer
 currentMonth = Month(Date)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -725,10 +725,10 @@ currentMonth = Month(Date)
 
     #[test]
     fn month_date_literal() {
-        let source = r#"
+        let source = r"
 Dim m As Integer
 m = Month(#3/15/2025#)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -750,11 +750,11 @@ End If
 
     #[test]
     fn month_function_return() {
-        let source = r#"
+        let source = r"
 Function GetCurrentMonth() As Integer
     GetCurrentMonth = Month(Date)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -763,7 +763,7 @@ End Function
 
     #[test]
     fn month_select_case() {
-        let source = r#"
+        let source = r"
 Select Case Month(transactionDate)
     Case 1, 2, 3
         quarter = 1
@@ -774,7 +774,7 @@ Select Case Month(transactionDate)
     Case 10, 11, 12
         quarter = 4
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -783,9 +783,9 @@ End Select
 
     #[test]
     fn month_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print Month(Now)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -794,11 +794,11 @@ Debug.Print Month(Now)
 
     #[test]
     fn month_with_statement() {
-        let source = r#"
+        let source = r"
 With employeeRecord
     .HireMonth = Month(.HireDate)
 End With
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -807,13 +807,13 @@ End With
 
     #[test]
     fn month_elseif() {
-        let source = r#"
+        let source = r"
 If x > 0 Then
     y = 1
 ElseIf Month(startDate) > 6 Then
     y = 2
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -822,10 +822,10 @@ End If
 
     #[test]
     fn month_parentheses() {
-        let source = r#"
+        let source = r"
 Dim m As Integer
 m = (Month(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -846,13 +846,13 @@ result = IIf(Month(Date) = 12, "December", "Other")
 
     #[test]
     fn month_class_usage() {
-        let source = r#"
+        let source = r"
 Private m_month As Integer
 
 Public Sub SetMonth()
     m_month = Month(Now)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -861,9 +861,9 @@ End Sub
 
     #[test]
     fn month_function_argument() {
-        let source = r#"
+        let source = r"
 Call ProcessMonth(Month(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -872,10 +872,10 @@ Call ProcessMonth(Month(Date))
 
     #[test]
     fn month_property_assignment() {
-        let source = r#"
+        let source = r"
 Set obj = New DateInfo
 obj.CurrentMonth = Month(Date)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -884,11 +884,11 @@ obj.CurrentMonth = Month(Date)
 
     #[test]
     fn month_array_assignment() {
-        let source = r#"
+        let source = r"
 Dim months(10) As Integer
 Dim i As Integer
 months(i) = Month(Date)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -897,12 +897,12 @@ months(i) = Month(Date)
 
     #[test]
     fn month_for_loop() {
-        let source = r#"
+        let source = r"
 Dim i As Integer
 For i = 0 To 10
     monthValues(i) = Month(dates(i))
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -998,10 +998,10 @@ formatted = Format(Month(Date), "00")
 
     #[test]
     fn month_arithmetic() {
-        let source = r#"
+        let source = r"
 Dim quarter As Integer
 quarter = ((Month(Date) - 1) \ 3) + 1
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));
@@ -1021,11 +1021,11 @@ lblMonth.Caption = "Month: " & CStr(Month(Date))
 
     #[test]
     fn month_calculation() {
-        let source = r#"
+        let source = r"
 Dim fiscalPeriod As Integer
 fiscalPeriod = Month(Date) - 9
 If fiscalPeriod <= 0 Then fiscalPeriod = fiscalPeriod + 12
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Month"));

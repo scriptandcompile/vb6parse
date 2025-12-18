@@ -530,11 +530,11 @@ End Sub
 
     #[test]
     fn callbyname_in_function() {
-        let source = r#"
+        let source = r"
 Function GetProperty(obj As Object, propName As String) As Variant
     GetProperty = CallByName(obj, propName, VbGet)
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -602,7 +602,7 @@ End Sub
 
     #[test]
     fn callbyname_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case callType
         Case VbMethod
@@ -611,7 +611,7 @@ Sub Test()
             result = CallByName(obj, memberName, VbGet)
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -660,13 +660,13 @@ End Sub
 
     #[test]
     fn callbyname_with_array_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 0 To UBound(objects)
         CallByName objects(i), methodName, VbMethod
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -733,7 +733,7 @@ End Sub
 
     #[test]
     fn callbyname_module_level() {
-        let source = r#"Public result As Variant"#;
+        let source = r"Public result As Variant";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

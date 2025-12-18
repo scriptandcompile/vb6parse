@@ -614,9 +614,9 @@ mod tests {
 
     #[test]
     fn ltrim_variable() {
-        let source = r#"
+        let source = r"
             cleaned = LTrim(userInput)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -625,9 +625,9 @@ mod tests {
 
     #[test]
     fn ltrim_textbox() {
-        let source = r#"
+        let source = r"
             txtUsername.Text = LTrim(txtUsername.Text)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -649,11 +649,11 @@ mod tests {
 
     #[test]
     fn ltrim_function_return() {
-        let source = r#"
+        let source = r"
             Function CleanText(s As String) As String
                 CleanText = LTrim(s)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -662,9 +662,9 @@ mod tests {
 
     #[test]
     fn ltrim_with_rtrim() {
-        let source = r#"
+        let source = r"
             fullTrim = LTrim(RTrim(text))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -673,9 +673,9 @@ mod tests {
 
     #[test]
     fn ltrim_mid_extraction() {
-        let source = r#"
+        let source = r"
             field = LTrim(Mid(line, 1, 20))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -684,9 +684,9 @@ mod tests {
 
     #[test]
     fn ltrim_debug_print() {
-        let source = r#"
+        let source = r"
             Debug.Print LTrim(text)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -695,11 +695,11 @@ mod tests {
 
     #[test]
     fn ltrim_with_statement() {
-        let source = r#"
+        let source = r"
             With record
                 .Name = LTrim(.Name)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -739,9 +739,9 @@ mod tests {
 
     #[test]
     fn ltrim_parentheses() {
-        let source = r#"
+        let source = r"
             result = (LTrim(text))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -761,11 +761,11 @@ mod tests {
 
     #[test]
     fn ltrim_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Method()
                 m_cleanValue = LTrim(m_rawValue)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -774,9 +774,9 @@ mod tests {
 
     #[test]
     fn ltrim_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessText(LTrim(input))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -785,9 +785,9 @@ mod tests {
 
     #[test]
     fn ltrim_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.CleanText = LTrim(dirtyText)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -796,9 +796,9 @@ mod tests {
 
     #[test]
     fn ltrim_array_assignment() {
-        let source = r#"
+        let source = r"
             cleanValues(i) = LTrim(rawValues(i))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -807,11 +807,11 @@ mod tests {
 
     #[test]
     fn ltrim_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To 10
                 fields(i) = LTrim(fields(i))
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -820,12 +820,12 @@ mod tests {
 
     #[test]
     fn ltrim_while_wend() {
-        let source = r#"
+        let source = r"
             While Not EOF(1)
                 Line Input #1, line
                 line = LTrim(line)
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -834,12 +834,12 @@ mod tests {
 
     #[test]
     fn ltrim_do_while() {
-        let source = r#"
+        let source = r"
             Do While i < count
                 text = LTrim(dataArray(i))
                 i = i + 1
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));
@@ -861,9 +861,9 @@ mod tests {
 
     #[test]
     fn ltrim_msgbox() {
-        let source = r#"
+        let source = r"
             MsgBox LTrim(message)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LTrim"));

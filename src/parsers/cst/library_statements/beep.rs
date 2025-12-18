@@ -20,11 +20,11 @@ mod test {
 
     #[test]
     fn beep_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Beep
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -34,13 +34,13 @@ End Sub
 
     #[test]
     fn beep_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then
         Beep
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -50,11 +50,11 @@ End Sub
 
     #[test]
     fn beep_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If error Then Beep
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -63,13 +63,13 @@ End Sub
 
     #[test]
     fn multiple_beep_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Beep
     Beep
     Beep
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -79,11 +79,11 @@ End Sub
 
     #[test]
     fn beep_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Beep ' Alert user
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -93,13 +93,13 @@ End Sub
 
     #[test]
     fn beep_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 3
         Beep
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -109,7 +109,7 @@ End Sub
 
     #[test]
     fn beep_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case value
         Case 1
@@ -118,7 +118,7 @@ Sub Test()
             Beep
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -128,11 +128,11 @@ End Sub
 
     #[test]
     fn beep_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Beep    ' Extra spaces
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -142,9 +142,9 @@ End Sub
 
     #[test]
     fn beep_at_module_level() {
-        let source = r#"
+        let source = r"
 Beep
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

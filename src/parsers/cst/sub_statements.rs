@@ -143,9 +143,9 @@ mod test {
         for (source, expected_kind) in test_cases {
             let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-            assert_eq!(cst.child_count(), 1, "Code: {}", source);
+            assert_eq!(cst.child_count(), 1, "Code: {source}");
             if let Some(child) = cst.child_at(0) {
-                assert_eq!(child.kind, expected_kind, "Code: {}", source);
+                assert_eq!(child.kind, expected_kind, "Code: {source}");
             }
         }
     }
@@ -282,9 +282,9 @@ mod test {
 
     #[test]
     fn sub_with_keyword_as_name() {
-        let source = r#"Sub Text()
+        let source = r"Sub Text()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

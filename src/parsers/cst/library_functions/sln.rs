@@ -129,7 +129,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: CalculateBookValue
+/// ### Pattern 1: `CalculateBookValue`
 /// Calculate asset book value after specified periods
 /// ```vb
 /// Function CalculateBookValue(cost As Double, salvage As Double, _
@@ -149,7 +149,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: GenerateDepreciationSchedule
+/// ### Pattern 2: `GenerateDepreciationSchedule`
 /// Create complete depreciation schedule
 /// ```vb
 /// Sub GenerateDepreciationSchedule(cost As Double, salvage As Double, _
@@ -171,7 +171,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 3: CompareDepreciationMethods
+/// ### Pattern 3: `CompareDepreciationMethods`
 /// Compare straight-line with other methods
 /// ```vb
 /// Sub CompareDepreciationMethods(cost As Double, salvage As Double, _
@@ -188,7 +188,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 4: CalculateTotalDepreciation
+/// ### Pattern 4: `CalculateTotalDepreciation`
 /// Calculate total depreciation over asset life
 /// ```vb
 /// Function CalculateTotalDepreciation(cost As Double, salvage As Double) As Double
@@ -196,7 +196,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: ValidateDepreciationInputs
+/// ### Pattern 5: `ValidateDepreciationInputs`
 /// Validate inputs before calculating depreciation
 /// ```vb
 /// Function ValidateDepreciationInputs(cost As Double, salvage As Double, _
@@ -227,7 +227,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 6: CalculateMonthlyDepreciation
+/// ### Pattern 6: `CalculateMonthlyDepreciation`
 /// Convert annual to monthly depreciation
 /// ```vb
 /// Function CalculateMonthlyDepreciation(cost As Double, salvage As Double, _
@@ -239,7 +239,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: CalculateDepreciationRate
+/// ### Pattern 7: `CalculateDepreciationRate`
 /// Calculate depreciation rate as percentage
 /// ```vb
 /// Function CalculateDepreciationRate(cost As Double, salvage As Double, _
@@ -251,7 +251,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: CalculateReplacementYear
+/// ### Pattern 8: `CalculateReplacementYear`
 /// Determine when asset should be replaced
 /// ```vb
 /// Function CalculateReplacementYear(cost As Double, salvage As Double, _
@@ -276,7 +276,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: CalculateAccumulatedDepreciation
+/// ### Pattern 9: `CalculateAccumulatedDepreciation`
 /// Calculate accumulated depreciation at specific period
 /// ```vb
 /// Function CalculateAccumulatedDepreciation(cost As Double, salvage As Double, _
@@ -294,7 +294,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: FormatDepreciationReport
+/// ### Pattern 10: `FormatDepreciationReport`
 /// Format depreciation information for display
 /// ```vb
 /// Function FormatDepreciationReport(cost As Double, salvage As Double, _
@@ -320,7 +320,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: AssetDepreciationTracker Class
+/// ### Example 1: `AssetDepreciationTracker` Class
 /// Track depreciation for multiple assets
 /// ```vb
 /// ' Class: AssetDepreciationTracker
@@ -418,7 +418,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: DepreciationScheduleGenerator Module
+/// ### Example 2: `DepreciationScheduleGenerator` Module
 /// Generate detailed depreciation schedules
 /// ```vb
 /// ' Module: DepreciationScheduleGenerator
@@ -502,7 +502,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: DepreciationComparison Class
+/// ### Example 3: `DepreciationComparison` Class
 /// Compare different depreciation methods
 /// ```vb
 /// ' Class: DepreciationComparison
@@ -567,7 +567,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 4: FinancialPlanner Module
+/// ### Example 4: `FinancialPlanner` Module
 /// Financial planning with depreciation
 /// ```vb
 /// ' Module: FinancialPlanner
@@ -699,12 +699,12 @@ mod tests {
 
     #[test]
     fn sln_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim depreciation As Double
     depreciation = SLN(50000, 5000, 5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -713,7 +713,7 @@ End Sub
 
     #[test]
     fn sln_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim cost As Double
     Dim salvage As Double
@@ -721,7 +721,7 @@ Sub Test()
     Dim result As Double
     result = SLN(cost, salvage, life)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -744,11 +744,11 @@ End Sub
 
     #[test]
     fn sln_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateDepreciation(c As Double, s As Double, l As Double) As Double
     CalculateDepreciation = SLN(c, s, l)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -757,12 +757,12 @@ End Function
 
     #[test]
     fn sln_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim annualDepreciation As Double
     annualDepreciation = SLN(100000, 10000, 10)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -784,11 +784,11 @@ End Sub
 
     #[test]
     fn sln_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print SLN(30000, 3000, 5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -816,13 +816,13 @@ End Sub
 
     #[test]
     fn sln_class_usage() {
-        let source = r#"
+        let source = r"
 Class AssetManager
     Public Function GetDepreciation(c As Double, s As Double, l As Double) As Double
         GetDepreciation = SLN(c, s, l)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -831,14 +831,14 @@ End Class
 
     #[test]
     fn sln_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With Asset
         Dim dep As Double
         dep = SLN(.Cost, .Salvage, .Life)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -867,7 +867,7 @@ End Sub
 
     #[test]
     fn sln_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     Dim dep As Double
@@ -876,7 +876,7 @@ Sub Test()
         Debug.Print dep
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -884,13 +884,13 @@ End Sub
 
     #[test]
     fn sln_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While bookValue > salvage
         bookValue = bookValue - SLN(cost, salvage, life)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -898,13 +898,13 @@ End Sub
 
     #[test]
     fn sln_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until accumulated >= totalDepreciable
         accumulated = accumulated + SLN(cost, salvage, life)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -912,14 +912,14 @@ End Sub
 
     #[test]
     fn sln_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While year <= life
         total = total + SLN(cost, salvage, life)
         year = year + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -927,12 +927,12 @@ End Sub
 
     #[test]
     fn sln_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim total As Double
     total = (SLN(cost1, salvage1, life1) + SLN(cost2, salvage2, life2))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -955,12 +955,12 @@ End Sub
 
     #[test]
     fn sln_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim schedule(10) As Double
     schedule(0) = SLN(cost, salvage, life)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -969,7 +969,7 @@ End Sub
 
     #[test]
     fn sln_property_assignment() {
-        let source = r#"
+        let source = r"
 Class Asset
     Public AnnualDepreciation As Double
 End Class
@@ -978,7 +978,7 @@ Sub Test()
     Dim a As New Asset
     a.AnnualDepreciation = SLN(cost, salvage, life)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -986,14 +986,14 @@ End Sub
 
     #[test]
     fn sln_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessDepreciation(value As Double)
 End Sub
 
 Sub Test()
     ProcessDepreciation SLN(cost, salvage, life)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -1016,12 +1016,12 @@ End Sub
 
     #[test]
     fn sln_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim needsAttention As Boolean
     needsAttention = (SLN(cost, salvage, life) > budget)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -1030,12 +1030,12 @@ End Sub
 
     #[test]
     fn sln_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim bookValue As Double
     bookValue = initialCost - (SLN(cost, salvage, life) * years)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -1044,12 +1044,12 @@ End Sub
 
     #[test]
     fn sln_monthly_calculation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim monthlyDep As Double
     monthlyDep = SLN(cost, salvage, life) / 12
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
@@ -1071,7 +1071,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("SLN"));
-        assert!(debug.contains("d"));
+        assert!(debug.contains('d'));
     }
 
     #[test]

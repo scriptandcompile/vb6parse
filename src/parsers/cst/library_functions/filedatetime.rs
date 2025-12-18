@@ -858,9 +858,9 @@ fileDate = FileDateTime("C:\data.txt")
 
     #[test]
     fn filedatetime_variable() {
-        let source = r#"
+        let source = r"
 fileDate = FileDateTime(filePath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -869,9 +869,9 @@ fileDate = FileDateTime(filePath)
 
     #[test]
     fn filedatetime_comparison() {
-        let source = r#"
+        let source = r"
 isNewer = (FileDateTime(file1) > FileDateTime(file2))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -915,11 +915,11 @@ formatted = Format(FileDateTime(filePath), "yyyy-mm-dd hh:nn:ss")
 
     #[test]
     fn filedatetime_if_statement() {
-        let source = r#"
+        let source = r"
 If FileDateTime(sourceFile) > FileDateTime(backupFile) Then
     needsBackup = True
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -979,9 +979,9 @@ Loop
 
     #[test]
     fn filedatetime_udt_field() {
-        let source = r#"
+        let source = r"
 info.ModifiedDate = FileDateTime(filePath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -990,9 +990,9 @@ info.ModifiedDate = FileDateTime(filePath)
 
     #[test]
     fn filedatetime_array() {
-        let source = r#"
+        let source = r"
 dates(i) = FileDateTime(files(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1028,12 +1028,12 @@ MsgBox "Last modified: " & FileDateTime(filePath)
 
     #[test]
     fn filedatetime_max_comparison() {
-        let source = r#"
+        let source = r"
 If FileDateTime(fullPath) > newestDate Then
     newestDate = FileDateTime(fullPath)
     newestFile = fileName
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1042,11 +1042,11 @@ End If
 
     #[test]
     fn filedatetime_date_range() {
-        let source = r#"
+        let source = r"
 If FileDateTime(fullPath) >= startDate And FileDateTime(fullPath) <= endDate Then
     files.Add fullPath
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1055,9 +1055,9 @@ End If
 
     #[test]
     fn filedatetime_print_statement() {
-        let source = r#"
+        let source = r"
 Print #reportNum, fileName, FileDateTime(fullPath)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1077,9 +1077,9 @@ configDate = FileDateTime(App.Path & "\config.ini")
 
     #[test]
     fn filedatetime_int_function() {
-        let source = r#"
+        let source = r"
 isToday = (Int(FileDateTime(filePath)) = Int(Date))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1088,12 +1088,12 @@ isToday = (Int(FileDateTime(filePath)) = Int(Date))
 
     #[test]
     fn filedatetime_sort_comparison() {
-        let source = r#"
+        let source = r"
 If files(j).ModifiedDate > files(i).ModifiedDate Then
     temp = files(i)
     files(i) = files(j)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("ModifiedDate"));
@@ -1101,12 +1101,12 @@ End If
 
     #[test]
     fn filedatetime_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 0 To fileCount - 1
     dt = FileDateTime(fileList(i))
     Debug.Print fileList(i), dt
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1128,11 +1128,11 @@ info = "File: " & filePath & vbCrLf & _
 
     #[test]
     fn filedatetime_cache_check() {
-        let source = r#"
+        let source = r"
 If cache(i).CachedDate = FileDateTime(filePath) Then
     isValid = True
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));
@@ -1141,9 +1141,9 @@ End If
 
     #[test]
     fn filedatetime_backup_check() {
-        let source = r#"
+        let source = r"
 needsCopy = (FileDateTime(sourceFile) > FileDateTime(destFile))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FileDateTime"));

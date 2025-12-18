@@ -36,7 +36,7 @@
 /// - Seek function: Returns current position (read-only operation)
 /// - Seek statement: Sets the position for next read/write (write operation)
 ///
-/// The file must be open before calling Seek. Use FreeFile to get an available file number.
+/// The file must be open before calling Seek. Use `FreeFile` to get an available file number.
 /// Always close files when done using Close statement.
 ///
 /// ## Typical Uses
@@ -100,7 +100,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: GetCurrentPosition
+/// ### Pattern 1: `GetCurrentPosition`
 /// Get current file position with error handling
 /// ```vb
 /// Function GetCurrentPosition(FileNum As Integer) As Long
@@ -112,7 +112,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: GetProgressPercentage
+/// ### Pattern 2: `GetProgressPercentage`
 /// Calculate how much of file has been processed
 /// ```vb
 /// Function GetProgressPercentage(FileNum As Integer) As Double
@@ -130,7 +130,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: IsAtEndOfFile
+/// ### Pattern 3: `IsAtEndOfFile`
 /// Check if at end of file using position
 /// ```vb
 /// Function IsAtEndOfFile(FileNum As Integer) As Boolean
@@ -138,7 +138,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: GetRemainingBytes
+/// ### Pattern 4: `GetRemainingBytes`
 /// Calculate bytes remaining in file
 /// ```vb
 /// Function GetRemainingBytes(FileNum As Integer) As Long
@@ -146,7 +146,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: SaveAndRestorePosition
+/// ### Pattern 5: `SaveAndRestorePosition`
 /// Save position, perform operation, restore
 /// ```vb
 /// Sub SaveAndRestorePosition(FileNum As Integer)
@@ -161,7 +161,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 6: GetCurrentRecordNumber
+/// ### Pattern 6: `GetCurrentRecordNumber`
 /// Get current record in Random access file
 /// ```vb
 /// Function GetCurrentRecordNumber(FileNum As Integer) As Long
@@ -170,7 +170,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: CalculateBytesProcessed
+/// ### Pattern 7: `CalculateBytesProcessed`
 /// Track bytes processed since start
 /// ```vb
 /// Function CalculateBytesProcessed(FileNum As Integer, StartPos As Long) As Long
@@ -178,7 +178,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: ValidateFilePosition
+/// ### Pattern 8: `ValidateFilePosition`
 /// Verify position is within file bounds
 /// ```vb
 /// Function ValidateFilePosition(FileNum As Integer) As Boolean
@@ -192,7 +192,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: GetPositionInfo
+/// ### Pattern 9: `GetPositionInfo`
 /// Get detailed position information
 /// ```vb
 /// Sub GetPositionInfo(FileNum As Integer, ByRef Position As Long, _
@@ -203,7 +203,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 10: SeekToPercentage
+/// ### Pattern 10: `SeekToPercentage`
 /// Jump to percentage of file
 /// ```vb
 /// Sub SeekToPercentage(FileNum As Integer, Percentage As Double)
@@ -217,7 +217,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: FilePositionTracker Class
+/// ### Example 1: `FilePositionTracker` Class
 /// Track and manage file positions with bookmarks
 /// ```vb
 /// ' Class: FilePositionTracker
@@ -282,7 +282,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 2: BinaryFileParser Module
+/// ### Example 2: `BinaryFileParser` Module
 /// Parse structured binary files with position tracking
 /// ```vb
 /// ' Module: BinaryFileParser
@@ -355,7 +355,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 3: RandomAccessNavigator Class
+/// ### Example 3: `RandomAccessNavigator` Class
 /// Navigate through Random access file records
 /// ```vb
 /// ' Class: RandomAccessNavigator
@@ -433,7 +433,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Example 4: FileProgressMonitor Class
+/// ### Example 4: `FileProgressMonitor` Class
 /// Monitor file processing progress with time estimates
 /// ```vb
 /// ' Class: FileProgressMonitor
@@ -547,7 +547,7 @@
 /// 5. **Save Position**: Store position before operations that change it
 /// 6. **1-Based Position**: Remember positions start at 1, not 0
 /// 7. **Mode Awareness**: Know whether function returns record# or byte position
-/// 8. **FreeFile Usage**: Use FreeFile to get available file numbers
+/// 8. **`FreeFile` Usage**: Use `FreeFile` to get available file numbers
 /// 9. **Progress Updates**: Update UI periodically, not on every byte
 /// 10. **Position Validation**: Verify position is within expected range
 ///
@@ -560,7 +560,7 @@
 /// | LOF | Get file size | Long (bytes) | Total file size |
 /// | EOF | Check end of file | Boolean | True if past end |
 /// | Loc | Get current position | Long | Similar to Seek |
-/// | FileLen | Get file length | Long (bytes) | File must be closed |
+/// | `FileLen` | Get file length | Long (bytes) | File must be closed |
 ///
 /// ## Platform Considerations
 ///
@@ -598,12 +598,12 @@ mod tests {
 
     #[test]
     fn seek_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim pos As Long
     pos = Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -612,14 +612,14 @@ End Sub
 
     #[test]
     fn seek_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fileNum As Integer
     Dim position As Long
     fileNum = 1
     position = Seek(fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -642,11 +642,11 @@ End Sub
 
     #[test]
     fn seek_function_return() {
-        let source = r#"
+        let source = r"
 Function GetPosition() As Long
     GetPosition = Seek(1)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -655,12 +655,12 @@ End Function
 
     #[test]
     fn seek_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim currentPos As Long
     currentPos = Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -682,11 +682,11 @@ End Sub
 
     #[test]
     fn seek_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -712,13 +712,13 @@ End Sub
 
     #[test]
     fn seek_class_usage() {
-        let source = r#"
+        let source = r"
 Class FileManager
     Public Function GetCurrentPosition(fileNum As Integer) As Long
         GetCurrentPosition = Seek(fileNum)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -727,14 +727,14 @@ End Class
 
     #[test]
     fn seek_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With FileManager
         Dim pos As Long
         pos = Seek(1)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -759,14 +759,14 @@ End Sub
 
     #[test]
     fn seek_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = 1 To 10
         Debug.Print Seek(1)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -774,13 +774,13 @@ End Sub
 
     #[test]
     fn seek_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Seek(1) < 1000
         ' Read data
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -788,13 +788,13 @@ End Sub
 
     #[test]
     fn seek_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Seek(1) > LOF(1)
         ' Read data
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -802,13 +802,13 @@ End Sub
 
     #[test]
     fn seek_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Seek(1) < 1000
         ' Read data
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -816,12 +816,12 @@ End Sub
 
     #[test]
     fn seek_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As Long
     result = (Seek(1) + 100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -844,12 +844,12 @@ End Sub
 
     #[test]
     fn seek_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim positions(10) As Long
     positions(0) = Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -858,7 +858,7 @@ End Sub
 
     #[test]
     fn seek_property_assignment() {
-        let source = r#"
+        let source = r"
 Class FileInfo
     Public Position As Long
 End Class
@@ -867,7 +867,7 @@ Sub Test()
     Dim info As New FileInfo
     info.Position = Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -875,14 +875,14 @@ End Sub
 
     #[test]
     fn seek_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessPosition(pos As Long)
 End Sub
 
 Sub Test()
     ProcessPosition Seek(1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -905,12 +905,12 @@ End Sub
 
     #[test]
     fn seek_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim atEnd As Boolean
     atEnd = (Seek(1) > LOF(1))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -919,12 +919,12 @@ End Sub
 
     #[test]
     fn seek_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim remaining As Long
     remaining = LOF(1) - Seek(1) + 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("LOF"));
@@ -933,12 +933,12 @@ End Sub
 
     #[test]
     fn seek_with_lof() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim progress As Double
     progress = (Seek(1) / LOF(1)) * 100
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));
@@ -947,14 +947,14 @@ End Sub
 
     #[test]
     fn seek_freefile() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fileNum As Integer
     Dim pos As Long
     fileNum = FreeFile
     pos = Seek(fileNum)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Seek"));

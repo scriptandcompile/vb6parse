@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{ClassFile, FormFile, ModuleFile, ProjectFile, SourceFile};
 
 use criterion::{criterion_group, criterion_main, Criterion};
 use std::hint::black_box;
@@ -88,23 +88,23 @@ fn project_benchmark(criterion: &mut Criterion) {
 
         criterion.bench_function("load multiple projects", |bench| {
             bench.iter(|| {
-                black_box({
-                    let _proj = ProjectFile::parse(&project_source_file);
-                });
-            })
+                {
+                    black_box(ProjectFile::parse(black_box(&project_source_file)));
+                };
+            });
         });
     }
 }
 
 fn class_benchmark(criterion: &mut Criterion) {
-    let class_names = vec![
+    let class_names = [
         "FastDrawing.cls".to_owned(),
         "pdOpenSaveDialog.cls".to_owned(),
         "cCommonDialog.cls".to_owned(),
         "cSystemColorDialog.cls".to_owned(),
     ];
 
-    let classes = vec![
+    let classes = [
         include_bytes!("../tests/data/vb6-code/Levels-effect/FastDrawing.cls").to_vec(),
         include_bytes!("../tests/data/vb6-code/Levels-effect/pdOpenSaveDialog.cls").to_vec(),
         include_bytes!("../tests/data/vb6-code/Randomize-effects/cCommonDialog.cls").to_vec(),
@@ -129,16 +129,16 @@ fn class_benchmark(criterion: &mut Criterion) {
 
         criterion.bench_function("load multiple classes", |bench| {
             bench.iter(|| {
-                black_box({
-                    let _class = ClassFile::parse(&module_source_file);
-                });
-            })
+                {
+                    black_box(ClassFile::parse(black_box(&module_source_file)));
+                };
+            });
         });
     }
 }
 
 fn bas_module_benchmark(c: &mut Criterion) {
-    let bas_module_names = vec![
+    let bas_module_names = [
         "Physics_Logic.bas".to_owned(),
         "mod_PublicVars.bas".to_owned(),
         "mod_PublicVars.bas".to_owned(),
@@ -148,7 +148,7 @@ fn bas_module_benchmark(c: &mut Criterion) {
         "Declarations.bas".to_owned(),
     ];
 
-    let bas_modules = vec![
+    let bas_modules = [
         include_bytes!("../tests/data/vb6-code/Game-physics-basic/Physics_Logic.bas").to_vec(),
         include_bytes!("../tests/data/vb6-code/Levels-effect/mod_PublicVars.bas").to_vec(),
         include_bytes!("../tests/data/vb6-code/Histograms-advanced/mod_PublicVars.bas").to_vec(),
@@ -174,10 +174,10 @@ fn bas_module_benchmark(c: &mut Criterion) {
 
         c.bench_function("load multiple bas modules", |b| {
             b.iter(|| {
-                black_box({
-                    let _module = ModuleFile::parse(&module_source_file);
-                });
-            })
+                {
+                    black_box(ModuleFile::parse(black_box(&module_source_file)));
+                };
+            });
         });
     }
 }
@@ -276,11 +276,11 @@ fn form_benchmark(criterion: &mut Criterion) {
                         panic!("failed to decode form source code.");
                     }
                 };
-                black_box({
-                    let _class = FormFile::parse(&sourcefile);
-                });
+                {
+                    black_box(FormFile::parse(black_box(&sourcefile)));
+                };
             }
-        })
+        });
     });
 }
 

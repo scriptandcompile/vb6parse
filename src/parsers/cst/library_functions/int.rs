@@ -445,11 +445,11 @@ mod tests {
 
     #[test]
     fn int_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Int(8.7)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -458,11 +458,11 @@ End Sub
 
     #[test]
     fn int_negative() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Int(-8.7)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -471,11 +471,11 @@ End Sub
 
     #[test]
     fn int_random() {
-        let source = r#"
+        let source = r"
 Sub Test()
     randomNum = Int(Rnd * 100) + 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -499,11 +499,11 @@ End Sub
 
     #[test]
     fn int_function_return() {
-        let source = r#"
+        let source = r"
 Function GetWhole(value As Double) As Long
     GetWhole = Int(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -512,11 +512,11 @@ End Function
 
     #[test]
     fn int_division() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pages = Int(totalItems / itemsPerPage) + 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -558,14 +558,14 @@ End Sub
 
     #[test]
     fn int_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = 1 To Int(maxValue)
         Debug.Print i
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -587,11 +587,11 @@ End Sub
 
     #[test]
     fn int_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     wholeNumbers(i) = Int(decimals(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -600,11 +600,11 @@ End Sub
 
     #[test]
     fn int_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.WholeValue = Int(obj.DecimalValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -613,11 +613,11 @@ End Sub
 
     #[test]
     fn int_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_wholePart = Int(m_value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -626,13 +626,13 @@ End Sub
 
     #[test]
     fn int_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With calculator
         .WholeResult = Int(.DecimalResult)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -641,11 +641,11 @@ End Sub
 
     #[test]
     fn int_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessInteger(Int(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -667,11 +667,11 @@ End Sub
 
     #[test]
     fn int_math_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     gridX = Int(pixelX / gridSize)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -706,11 +706,11 @@ End Sub
 
     #[test]
     fn int_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     numbers.Add Int(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -719,11 +719,11 @@ End Sub
 
     #[test]
     fn int_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isValid = Int(value) >= minValue And Int(value) <= maxValue
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -732,11 +732,11 @@ End Sub
 
     #[test]
     fn int_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(Int(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -745,13 +745,13 @@ End Sub
 
     #[test]
     fn int_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Int(counter) < limit
         counter = counter + 0.5
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -760,11 +760,11 @@ End Sub
 
     #[test]
     fn int_abs() {
-        let source = r#"
+        let source = r"
 Sub Test()
     wholePart = Int(Abs(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -773,12 +773,12 @@ End Sub
 
     #[test]
     fn int_array_index() {
-        let source = r#"
+        let source = r"
 Sub Test()
     index = Int(Rnd * arraySize)
     item = items(index)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -787,12 +787,12 @@ End Sub
 
     #[test]
     fn int_multiple_operations() {
-        let source = r#"
+        let source = r"
 Sub Test()
     quotient = Int(dividend / divisor)
     remainder = dividend - (quotient * divisor)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));
@@ -801,11 +801,11 @@ End Sub
 
     #[test]
     fn int_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (Int(number))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Int"));

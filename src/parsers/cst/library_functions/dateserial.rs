@@ -548,9 +548,9 @@ mod tests {
 
     #[test]
     fn dateserial_basic() {
-        let source = r#"
+        let source = r"
 birthday = DateSerial(1990, 5, 15)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -559,9 +559,9 @@ birthday = DateSerial(1990, 5, 15)
 
     #[test]
     fn dateserial_with_variables() {
-        let source = r#"
+        let source = r"
 result = DateSerial(y, m, d)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -570,9 +570,9 @@ result = DateSerial(y, m, d)
 
     #[test]
     fn dateserial_last_day_of_month() {
-        let source = r#"
+        let source = r"
 lastDay = DateSerial(2025, 2, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -581,9 +581,9 @@ lastDay = DateSerial(2025, 2, 0)
 
     #[test]
     fn dateserial_with_year_function() {
-        let source = r#"
+        let source = r"
 newYear = DateSerial(Year(Date), 1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -592,9 +592,9 @@ newYear = DateSerial(Year(Date), 1, 1)
 
     #[test]
     fn dateserial_month_overflow() {
-        let source = r#"
+        let source = r"
 result = DateSerial(2025, 13, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -603,9 +603,9 @@ result = DateSerial(2025, 13, 1)
 
     #[test]
     fn dateserial_day_overflow() {
-        let source = r#"
+        let source = r"
 result = DateSerial(2025, 1, 32)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -614,9 +614,9 @@ result = DateSerial(2025, 1, 32)
 
     #[test]
     fn dateserial_negative_month() {
-        let source = r#"
+        let source = r"
 result = DateSerial(2025, -1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -625,11 +625,11 @@ result = DateSerial(2025, -1, 1)
 
     #[test]
     fn dateserial_in_function() {
-        let source = r#"
+        let source = r"
 Function GetLastDay(y As Integer, m As Integer) As Date
     GetLastDay = DateSerial(y, m + 1, 0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -638,9 +638,9 @@ End Function
 
     #[test]
     fn dateserial_with_expressions() {
-        let source = r#"
+        let source = r"
 result = DateSerial(Year(Date), Month(Date) + 1, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -649,11 +649,11 @@ result = DateSerial(Year(Date), Month(Date) + 1, 0)
 
     #[test]
     fn dateserial_in_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To 12
     dates(i) = DateSerial(2025, i, 1)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -662,9 +662,9 @@ Next i
 
     #[test]
     fn dateserial_quarter_start() {
-        let source = r#"
+        let source = r"
 quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -673,9 +673,9 @@ quarterStart = DateSerial(year, (quarter - 1) * 3 + 1, 1)
 
     #[test]
     fn dateserial_with_day_function() {
-        let source = r#"
+        let source = r"
 result = DateSerial(y, m, Day(someDate))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -697,9 +697,9 @@ End If
 
     #[test]
     fn dateserial_arithmetic() {
-        let source = r#"
+        let source = r"
 offset = DateSerial(y, m, d) - Date
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -708,10 +708,10 @@ offset = DateSerial(y, m, d) - Date
 
     #[test]
     fn dateserial_with_constants() {
-        let source = r#"
+        let source = r"
 Const YEAR As Integer = 2025
 result = DateSerial(YEAR, 1, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -745,10 +745,10 @@ End Select
 
     #[test]
     fn dateserial_multiple_calls() {
-        let source = r#"
+        let source = r"
 startDate = DateSerial(2025, 1, 1)
 endDate = DateSerial(2025, 12, 31)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -768,10 +768,10 @@ result = DateSerial(DatePart("yyyy", Date), 1, 1)
 
     #[test]
     fn dateserial_in_array() {
-        let source = r#"
+        let source = r"
 dates(0) = DateSerial(2025, 1, 1)
 dates(1) = DateSerial(2025, 2, 1)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -780,9 +780,9 @@ dates(1) = DateSerial(2025, 2, 1)
 
     #[test]
     fn dateserial_week_start() {
-        let source = r#"
+        let source = r"
 weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -791,9 +791,9 @@ weekStart = DateSerial(Year(Date), Month(Date), Day(Date) - offset)
 
     #[test]
     fn dateserial_with_addition() {
-        let source = r#"
+        let source = r"
 anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -802,9 +802,9 @@ anniversary = DateSerial(Year(original) + years, Month(original), Day(original))
 
     #[test]
     fn dateserial_zero_day() {
-        let source = r#"
+        let source = r"
 lastMonth = DateSerial(2025, 2, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));
@@ -824,9 +824,9 @@ MsgBox "Date: " & DateSerial(2025, 12, 25)
 
     #[test]
     fn dateserial_relative_calculation() {
-        let source = r#"
+        let source = r"
 result = DateSerial(Year(base) + yOffset, Month(base) + mOffset, Day(base) + dOffset)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("DateSerial"));

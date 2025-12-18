@@ -682,7 +682,7 @@ mod tests {
 
     #[test]
     fn fv_basic() {
-        let source = r#"result = Fv(0.06 / 12, 120, -100)"#;
+        let source = r"result = Fv(0.06 / 12, 120, -100)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -691,7 +691,7 @@ mod tests {
 
     #[test]
     fn fv_with_pv() {
-        let source = r#"futureValue = Fv(rate / 12, years * 12, monthlyDeposit, initialDeposit)"#;
+        let source = r"futureValue = Fv(rate / 12, years * 12, monthlyDeposit, initialDeposit)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -701,7 +701,7 @@ mod tests {
     #[test]
     fn fv_all_parameters() {
         let source =
-            r#"futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit, initialDeposit, 1)"#;
+            r"futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit, initialDeposit, 1)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -710,7 +710,7 @@ mod tests {
 
     #[test]
     fn fv_no_payment() {
-        let source = r#"futureValue = Fv(0.08 / 12, 5 * 12, 0, lumpSum)"#;
+        let source = r"futureValue = Fv(0.08 / 12, 5 * 12, 0, lumpSum)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -719,9 +719,9 @@ mod tests {
 
     #[test]
     fn fv_in_function() {
-        let source = r#"Function CalculateSavings() As Double
+        let source = r"Function CalculateSavings() As Double
     CalculateSavings = Fv(monthlyRate, periods, -monthlyAmount)
-End Function"#;
+End Function";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -731,7 +731,7 @@ End Function"#;
     #[test]
     fn fv_retirement() {
         let source =
-            r#"retirementValue = Fv(monthlyRate, periods, -monthlyContribution, -currentBalance)"#;
+            r"retirementValue = Fv(monthlyRate, periods, -monthlyContribution, -currentBalance)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -759,8 +759,8 @@ End Function"#;
 
     #[test]
     fn fv_assignment() {
-        let source = r#"Dim fv As Double
-fv = Fv(rate, periods, payment)"#;
+        let source = r"Dim fv As Double
+fv = Fv(rate, periods, payment)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -769,9 +769,9 @@ fv = Fv(rate, periods, payment)"#;
 
     #[test]
     fn fv_in_loop() {
-        let source = r#"For i = 1 To maxYears
+        let source = r"For i = 1 To maxYears
     projections(i).FutureValue = Fv(monthlyRate, i * 12, -monthlyDeposit, -startingBalance)
-Next i"#;
+Next i";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -780,7 +780,7 @@ Next i"#;
 
     #[test]
     fn fv_negative_result() {
-        let source = r#"balance = Fv(rate / 12, years * 12, payment, -principal)"#;
+        let source = r"balance = Fv(rate / 12, years * 12, payment, -principal)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -798,7 +798,7 @@ Next i"#;
 
     #[test]
     fn fv_array_assignment() {
-        let source = r#"results(i) = Fv(simulatedRate / 12, years * 12, -deposit)"#;
+        let source = r"results(i) = Fv(simulatedRate / 12, years * 12, -deposit)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -807,8 +807,8 @@ Next i"#;
 
     #[test]
     fn fv_error_handling() {
-        let source = r#"On Error GoTo ErrorHandler
-fv = Fv(rate, nper, pmt, pv, pType)"#;
+        let source = r"On Error GoTo ErrorHandler
+fv = Fv(rate, nper, pmt, pv, pType)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -817,9 +817,9 @@ fv = Fv(rate, nper, pmt, pv, pType)"#;
 
     #[test]
     fn fv_do_while() {
-        let source = r#"Do While Fv(monthlyRate, periods, -testPayment, -startingBalance) < targetAmount
+        let source = r"Do While Fv(monthlyRate, periods, -testPayment, -startingBalance) < targetAmount
     testPayment = testPayment + 10
-Loop"#;
+Loop";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -828,10 +828,10 @@ Loop"#;
 
     #[test]
     fn fv_select_case() {
-        let source = r#"Select Case investment
+        let source = r"Select Case investment
     Case 1
         result = Fv(0.06 / 12, years * 12, -100)
-End Select"#;
+End Select";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -840,7 +840,7 @@ End Select"#;
 
     #[test]
     fn fv_iif() {
-        let source = r#"fv = IIf(useHighRate, Fv(0.08 / 12, periods, -deposit), Fv(0.05 / 12, periods, -deposit))"#;
+        let source = r"fv = IIf(useHighRate, Fv(0.08 / 12, periods, -deposit), Fv(0.05 / 12, periods, -deposit))";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -859,7 +859,7 @@ End Select"#;
 
     #[test]
     fn fv_calculation() {
-        let source = r#"totalValue = Fv(rate, periods, payment) + bonus"#;
+        let source = r"totalValue = Fv(rate, periods, payment) + bonus";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -868,7 +868,7 @@ End Select"#;
 
     #[test]
     fn fv_type_member() {
-        let source = r#"investment.FutureValue = Fv(rate, periods, payment, principal)"#;
+        let source = r"investment.FutureValue = Fv(rate, periods, payment, principal)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -877,7 +877,7 @@ End Select"#;
 
     #[test]
     fn fv_subtraction() {
-        let source = r#"interestEarned = Fv(rate, periods, payment) - totalContributions"#;
+        let source = r"interestEarned = Fv(rate, periods, payment) - totalContributions";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -886,7 +886,7 @@ End Select"#;
 
     #[test]
     fn fv_division() {
-        let source = r#"monthlyEquivalent = Fv(rate / 12, periods * 12, payment / 12)"#;
+        let source = r"monthlyEquivalent = Fv(rate / 12, periods * 12, payment / 12)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -895,7 +895,7 @@ End Select"#;
 
     #[test]
     fn fv_with_cdbl() {
-        let source = r#"result = Fv(CDbl(txtRate.Text) / 100 / 12, CInt(txtYears.Text) * 12, -CDbl(txtDeposit.Text))"#;
+        let source = r"result = Fv(CDbl(txtRate.Text) / 100 / 12, CInt(txtYears.Text) * 12, -CDbl(txtDeposit.Text))";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -904,7 +904,7 @@ End Select"#;
 
     #[test]
     fn fv_quarterly() {
-        let source = r#"maturityValue = Fv(rate, quarters, -deposit)"#;
+        let source = r"maturityValue = Fv(rate, quarters, -deposit)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -913,7 +913,7 @@ End Select"#;
 
     #[test]
     fn fv_annual() {
-        let source = r#"fvOrdinary = Fv(rate, periods, -payment, 0, paymentTiming)"#;
+        let source = r"fvOrdinary = Fv(rate, periods, -payment, 0, paymentTiming)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));
@@ -922,7 +922,7 @@ End Select"#;
 
     #[test]
     fn fv_compound_interest() {
-        let source = r#"finalAmount = Fv(periodRate, periods, 0, -principal)"#;
+        let source = r"finalAmount = Fv(periodRate, periods, 0, -principal)";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Fv"));

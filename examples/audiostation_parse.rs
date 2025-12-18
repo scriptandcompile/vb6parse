@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let project_directory = current_directory.join("tests/data/audiostation/Audiostation");
     let project_path = project_directory.join("Audiostation.vbp");
 
-    print!("Reading project file from: {:?}\n", project_path);
+    println!("Reading project file from: {project_path:?}");
 
     // Load the audiostation project file from the test/data directory
     let project_content =
@@ -42,11 +42,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // For demonstration, parse the last module into a CST
     if let Some(last_module) = project.modules.last() {
         let module_path = project_directory
-            .join(last_module.path.replace("\\", "/"))
+            .join(last_module.path.replace('\\', "/"))
             .to_str()
             .unwrap()
             .to_string();
-        print!("Reading module file from: {:?}\n", module_path);
+        println!("Reading module file from: {module_path:?}");
 
         let module_source =
             SourceFile::decode_with_replacement(&module_path, &std::fs::read(&module_path)?)
@@ -61,7 +61,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let module_file = module_parse_result.unwrap();
         let cst = &module_file.cst;
 
-        println!("\nCST for module '{}':", module_path);
+        println!("\nCST for module '{module_path}':");
         println!("CST Root Kind: {:?}", cst.root_kind());
         println!("Number of children: {}", cst.child_count());
         println!("\nFull text of the CST:");

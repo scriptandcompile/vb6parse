@@ -251,11 +251,11 @@ mod tests {
 
     #[test]
     fn oct_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     result = Oct$(64)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -263,12 +263,12 @@ End Sub
 
     #[test]
     fn oct_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim octStr As String
     octStr = Oct$(511)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -276,14 +276,14 @@ End Sub
 
     #[test]
     fn oct_dollar_variable() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim num As Integer
     Dim octStr As String
     num = 255
     octStr = Oct$(num)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -291,12 +291,12 @@ End Sub
 
     #[test]
     fn oct_dollar_negative() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Oct$(-1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -304,11 +304,11 @@ End Sub
 
     #[test]
     fn oct_dollar_permissions() {
-        let source = r#"
+        let source = r"
 Function FormatPermissions(permissions As Integer) As String
     FormatPermissions = Oct$(permissions)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -360,11 +360,11 @@ End Sub
 
     #[test]
     fn oct_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetOctalString(value As Long) As String
     GetOctalString = Oct$(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -372,13 +372,13 @@ End Function
 
     #[test]
     fn oct_dollar_multiple_calls() {
-        let source = r#"
+        let source = r"
 Sub ShowConversions()
     Debug.Print Oct$(8)
     Debug.Print Oct$(64)
     Debug.Print Oct$(511)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -403,7 +403,7 @@ End Sub
 
     #[test]
     fn oct_dollar_color_component() {
-        let source = r#"
+        let source = r"
 Sub ExtractComponent()
     Dim colorValue As Long
     Dim component As Integer
@@ -411,7 +411,7 @@ Sub ExtractComponent()
     component = (colorValue And &HFF)
     Debug.Print Oct$(component)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -419,12 +419,12 @@ End Sub
 
     #[test]
     fn oct_dollar_expression_arg() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Oct$(value * 8 + offset)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -484,12 +484,12 @@ End Function
 
     #[test]
     fn oct_dollar_floating_point() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Oct$(8.6)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));
@@ -497,14 +497,14 @@ End Sub
 
     #[test]
     fn oct_dollar_octal_literal() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim octValue As Integer
     Dim result As String
     octValue = &O777
     result = Oct$(octValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Oct$"));

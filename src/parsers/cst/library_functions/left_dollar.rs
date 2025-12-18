@@ -214,12 +214,12 @@ End Sub
 
     #[test]
     fn left_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim prefix As String
     prefix = Left$(filename, 5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Left$"));
@@ -349,13 +349,13 @@ End Sub
 
     #[test]
     fn left_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub Main()
     first = Left$(name, 1)
     last = Left$(surname, 1)
     initials = first & last
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Left$"));
@@ -363,11 +363,11 @@ End Sub
 
     #[test]
     fn left_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetPrefix(text As String) As String
     GetPrefix = Left$(text, 3)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Left$"));
@@ -375,11 +375,11 @@ End Function
 
     #[test]
     fn left_dollar_zero_length() {
-        let source = r#"
+        let source = r"
 Sub Main()
     empty = Left$(text, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Left$"));
@@ -387,12 +387,12 @@ End Sub
 
     #[test]
     fn left_dollar_expression_length() {
-        let source = r#"
+        let source = r"
 Sub Main()
     n = 5
     result = Left$(text, n * 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Left$"));

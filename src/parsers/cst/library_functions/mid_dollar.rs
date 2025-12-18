@@ -82,7 +82,7 @@ End Sub
 
     #[test]
     fn mid_dollar_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim pos As Long
@@ -90,7 +90,7 @@ Sub Test()
     Dim result As String
     result = Mid$(text, pos, len)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -178,7 +178,7 @@ End Sub
 
     #[test]
     fn mid_dollar_substring_extract() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim data As String
     Dim year As String
@@ -188,7 +188,7 @@ Sub Test()
     month = Mid$(data, 6, 2)
     day = Mid$(data, 9, 2)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -198,13 +198,13 @@ End Sub
 
     #[test]
     fn mid_dollar_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim arr(10) As String
     Dim result As String
     result = Mid$(arr(5), 2, 3)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -214,7 +214,7 @@ End Sub
 
     #[test]
     fn mid_dollar_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     Dim text As String
@@ -223,7 +223,7 @@ Sub Test()
         char = Mid$(text, i, 1)
     Next i
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -233,13 +233,13 @@ End Sub
 
     #[test]
     fn mid_dollar_multiple_calls() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As String
     Dim result As String
     result = Mid$(s, 1, 2) & Mid$(s, 5, 3)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -249,11 +249,11 @@ End Sub
 
     #[test]
     fn mid_dollar_function_parameter() {
-        let source = r#"
+        let source = r"
 Function ProcessString(text As String) As String
     ProcessString = Mid$(text, 1, 10)
 End Function
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -263,13 +263,13 @@ End Function
 
     #[test]
     fn mid_dollar_trim_combination() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim result As String
     result = LTrim$(RTrim$(Mid$(text, 5, 10)))
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -301,14 +301,14 @@ End Sub
 
     #[test]
     fn mid_dollar_with_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim offset As Long
     Dim result As String
     result = Mid$(text, offset + 1, 5)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -318,7 +318,7 @@ End Sub
 
     #[test]
     fn mid_dollar_tokenizer() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim line As String
     Dim tokens() As String
@@ -328,7 +328,7 @@ Sub Test()
         token = Mid$(line, i, 10)
     Next i
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -356,7 +356,7 @@ End Sub
 
     #[test]
     fn mid_dollar_type_field() {
-        let source = r#"
+        let source = r"
 Type Person
     Name As String
     ID As String
@@ -367,7 +367,7 @@ Sub Test()
     Dim shortID As String
     shortID = Mid$(p.ID, 1, 5)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -377,11 +377,11 @@ End Sub
 
     #[test]
     fn mid_dollar_return_value() {
-        let source = r#"
+        let source = r"
 Function GetSubstring(s As String, pos As Long) As String
     GetSubstring = Mid$(s, pos, 3)
 End Function
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();

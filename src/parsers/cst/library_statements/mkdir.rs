@@ -103,11 +103,11 @@ End Sub
 
     #[test]
     fn mkdir_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     MkDir folderPath
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

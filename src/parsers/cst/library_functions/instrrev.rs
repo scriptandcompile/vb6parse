@@ -697,11 +697,11 @@ End Sub
 
     #[test]
     fn instrrev_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.LastDelimiterPos = InStrRev(obj.Text, obj.Delimiter)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
@@ -738,11 +738,11 @@ End Sub
 
     #[test]
     fn instrrev_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessLastPosition(InStrRev(data, marker))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));
@@ -886,11 +886,11 @@ End Sub
 
     #[test]
     fn instrrev_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pos = (InStrRev(text, searchText))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("InStrRev"));

@@ -226,11 +226,11 @@ End Sub
 
     #[test]
     fn write_no_data() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -239,11 +239,11 @@ End Sub
 
     #[test]
     fn write_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, name, age, city
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -255,11 +255,11 @@ End Sub
 
     #[test]
     fn write_with_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, x + y, total * 2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -268,11 +268,11 @@ End Sub
 
     #[test]
     fn write_with_file_number_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #fileNum, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -282,11 +282,11 @@ End Sub
 
     #[test]
     fn write_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, data ' Write data to file
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -296,13 +296,13 @@ End Sub
 
     #[test]
     fn write_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Write #1, i, i * i
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -326,11 +326,11 @@ End Sub
 
     #[test]
     fn write_with_numeric_literals() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, 42, 3.14, -100
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -339,11 +339,11 @@ End Sub
 
     #[test]
     fn write_with_boolean() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, True, False
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -354,11 +354,11 @@ End Sub
 
     #[test]
     fn write_with_date() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, #1/1/2025#
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -367,11 +367,11 @@ End Sub
 
     #[test]
     fn write_with_null() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, Null, Empty
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -380,11 +380,11 @@ End Sub
 
     #[test]
     fn write_with_object_property() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, obj.Name, obj.Value
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -394,11 +394,11 @@ End Sub
 
     #[test]
     fn write_with_array_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, arr(i), arr(j)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -408,11 +408,11 @@ End Sub
 
     #[test]
     fn write_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, GetValue(), ProcessData()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -438,13 +438,13 @@ End Sub
 
     #[test]
     fn write_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If condition Then
         Write #1, data
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -454,13 +454,13 @@ End Sub
 
     #[test]
     fn write_in_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until EOF(1)
         Write #2, currentRecord
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -470,11 +470,11 @@ End Sub
 
     #[test]
     fn write_with_recordset() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, rs!Name, rs!Age
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -483,11 +483,11 @@ End Sub
 
     #[test]
     fn write_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write  #1 ,  data1 ,  data2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -497,13 +497,13 @@ End Sub
 
     #[test]
     fn write_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, _
         field1, _
         field2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -531,11 +531,11 @@ End Sub
 
     #[test]
     fn write_with_now_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Write #1, Now(), data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -545,13 +545,13 @@ End Sub
 
     #[test]
     fn write_in_with_block() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With record
         Write #1, .Name, .Value
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -561,11 +561,11 @@ End Sub
 
     #[test]
     fn write_case_insensitive() {
-        let source = r#"
+        let source = r"
 Sub Test()
     WRITE #1, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -574,12 +574,12 @@ End Sub
 
     #[test]
     fn write_in_error_handler() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     Write #1, errorData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -589,13 +589,13 @@ End Sub
 
     #[test]
     fn write_with_freefile() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fn As Integer
     fn = FreeFile
     Write #fn, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -605,13 +605,13 @@ End Sub
 
     #[test]
     fn write_sequential_values() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 100
         Write #1, i, i * 2, i ^ 2
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

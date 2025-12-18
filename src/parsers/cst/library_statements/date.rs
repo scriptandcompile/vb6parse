@@ -25,11 +25,11 @@ mod test {
 
     #[test]
     fn date_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date = #1/1/2024#
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -39,11 +39,11 @@ End Sub
 
     #[test]
     fn date_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date = newDate
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -53,11 +53,11 @@ End Sub
 
     #[test]
     fn date_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date = DateSerial(2024, 1, 1)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -81,11 +81,11 @@ End Sub
 
     #[test]
     fn date_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date = Now() + 7
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -95,11 +95,11 @@ End Sub
 
     #[test]
     fn date_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date   =   #1/1/2024#
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -109,13 +109,13 @@ End Sub
 
     #[test]
     fn multiple_date_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Date = #1/1/2024#
     Date = #2/1/2024#
     Date = #3/1/2024#
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -125,13 +125,13 @@ End Sub
 
     #[test]
     fn date_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If resetDate Then
         Date = #1/1/2024#
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -141,11 +141,11 @@ End Sub
 
     #[test]
     fn date_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If resetDate Then Date = #1/1/2024#
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -170,9 +170,9 @@ End Sub
     #[test]
 
     fn date_at_module_level() {
-        let source = r#"
+        let source = r"
 Date = #1/1/2024#
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

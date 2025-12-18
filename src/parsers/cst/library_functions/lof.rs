@@ -693,10 +693,10 @@ mod tests {
 
     #[test]
     fn lof_basic() {
-        let source = r#"
+        let source = r"
             Dim size As Long
             size = LOF(1)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -705,9 +705,9 @@ mod tests {
 
     #[test]
     fn lof_file_variable() {
-        let source = r#"
+        let source = r"
             fileSize = LOF(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -729,9 +729,9 @@ mod tests {
 
     #[test]
     fn lof_record_count() {
-        let source = r#"
+        let source = r"
             totalRecords = LOF(fileNum) / Len(record)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -740,11 +740,11 @@ mod tests {
 
     #[test]
     fn lof_do_while() {
-        let source = r#"
+        let source = r"
             Do While Loc(1) < LOF(1)
                 Get #1, , data
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -753,11 +753,11 @@ mod tests {
 
     #[test]
     fn lof_function_return() {
-        let source = r#"
+        let source = r"
             Function GetFileSize() As Long
                 GetFileSize = LOF(fileNum)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -766,9 +766,9 @@ mod tests {
 
     #[test]
     fn lof_string_allocation() {
-        let source = r#"
+        let source = r"
             buffer = String(LOF(fileNum), 0)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -792,9 +792,9 @@ mod tests {
 
     #[test]
     fn lof_progress_calculation() {
-        let source = r#"
+        let source = r"
             percent = (Loc(fileNum) / LOF(fileNum)) * 100
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -814,11 +814,11 @@ mod tests {
 
     #[test]
     fn lof_with_statement() {
-        let source = r#"
+        let source = r"
             With fileInfo
                 .Size = LOF(fileNum)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -858,9 +858,9 @@ mod tests {
 
     #[test]
     fn lof_parentheses() {
-        let source = r#"
+        let source = r"
             size = (LOF(fileNum))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -880,11 +880,11 @@ mod tests {
 
     #[test]
     fn lof_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Method()
                 m_fileSize = LOF(m_fileNum)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -893,9 +893,9 @@ mod tests {
 
     #[test]
     fn lof_function_argument() {
-        let source = r#"
+        let source = r"
             Call ProcessFileSize(LOF(fileNum))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -904,9 +904,9 @@ mod tests {
 
     #[test]
     fn lof_property_assignment() {
-        let source = r#"
+        let source = r"
             MyObject.FileSize = LOF(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -915,9 +915,9 @@ mod tests {
 
     #[test]
     fn lof_array_assignment() {
-        let source = r#"
+        let source = r"
             fileSizes(i) = LOF(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -926,11 +926,11 @@ mod tests {
 
     #[test]
     fn lof_while_wend() {
-        let source = r#"
+        let source = r"
             While Loc(fileNum) < LOF(fileNum)
                 Get #fileNum, , record
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -939,11 +939,11 @@ mod tests {
 
     #[test]
     fn lof_do_until() {
-        let source = r#"
+        let source = r"
             Do Until Loc(fileNum) >= LOF(fileNum)
                 Get #fileNum, , buffer
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -952,9 +952,9 @@ mod tests {
 
     #[test]
     fn lof_redim() {
-        let source = r#"
+        let source = r"
             ReDim fileData(1 To LOF(fileNum)) As Byte
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -963,9 +963,9 @@ mod tests {
 
     #[test]
     fn lof_integer_division() {
-        let source = r#"
+        let source = r"
             recordCount = LOF(fileNum) \ recordSize
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));
@@ -996,9 +996,9 @@ mod tests {
 
     #[test]
     fn lof_progressbar() {
-        let source = r#"
+        let source = r"
             ProgressBar1.Max = LOF(fileNum)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LOF"));

@@ -80,11 +80,11 @@ End Sub
 
     #[test]
     fn lset_fixed_length_string() {
-        let source = r#"
+        let source = r"
 Sub Test()
     LSet FixedString = userName
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -95,11 +95,11 @@ End Sub
 
     #[test]
     fn lset_user_defined_type() {
-        let source = r#"
+        let source = r"
 Sub Test()
     LSet myRecord = sourceRecord
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -110,11 +110,11 @@ End Sub
 
     #[test]
     fn lset_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     LSet buffer = Left(data, 10)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -149,13 +149,13 @@ End Sub
 
     #[test]
     fn lset_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsPadding Then
         LSet outputStr = inputStr
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -164,11 +164,11 @@ End Sub
 
     #[test]
     fn lset_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If leftAlign Then LSet myStr = value
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

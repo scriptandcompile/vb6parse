@@ -647,11 +647,11 @@ mod tests {
 
     #[test]
     fn isnumeric_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IsNumeric(myVariable)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -660,13 +660,13 @@ End Sub
 
     #[test]
     fn isnumeric_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNumeric(value) Then
         numValue = CDbl(value)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -690,11 +690,11 @@ End Sub
 
     #[test]
     fn isnumeric_function_return() {
-        let source = r#"
+        let source = r"
 Function IsValidNumber(v As Variant) As Boolean
     IsValidNumber = IsNumeric(v)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -703,13 +703,13 @@ End Function
 
     #[test]
     fn isnumeric_boolean_and() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNumeric(value1) And IsNumeric(value2) Then
         total = CDbl(value1) + CDbl(value2)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -718,13 +718,13 @@ End Sub
 
     #[test]
     fn isnumeric_boolean_or() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNumeric(field) Or IsDate(field) Then
         ProcessValue field
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -733,11 +733,11 @@ End Sub
 
     #[test]
     fn isnumeric_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     displayValue = IIf(IsNumeric(value), CDbl(value), 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -787,13 +787,13 @@ End Sub
 
     #[test]
     fn isnumeric_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until IsNumeric(result)
         result = GetNextValue()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -802,12 +802,12 @@ End Sub
 
     #[test]
     fn isnumeric_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isValid As Boolean
     isValid = IsNumeric(dataValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -816,11 +816,11 @@ End Sub
 
     #[test]
     fn isnumeric_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.IsNumericValue = IsNumeric(obj.Data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -829,11 +829,11 @@ End Sub
 
     #[test]
     fn isnumeric_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_isNumeric = IsNumeric(m_value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -842,13 +842,13 @@ End Sub
 
     #[test]
     fn isnumeric_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With validation
         .IsValid = IsNumeric(.Value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -857,11 +857,11 @@ End Sub
 
     #[test]
     fn isnumeric_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ValidateInput(IsNumeric(txtAmount.Text))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -870,7 +870,7 @@ End Sub
 
     #[test]
     fn isnumeric_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case True
         Case IsNumeric(value)
@@ -879,7 +879,7 @@ Sub Test()
             ProcessText value
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -888,7 +888,7 @@ End Sub
 
     #[test]
     fn isnumeric_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(arr)
@@ -897,7 +897,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -906,7 +906,7 @@ End Sub
 
     #[test]
     fn isnumeric_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsDate(data) Then
         ProcessDate data
@@ -914,7 +914,7 @@ Sub Test()
         ProcessNumber data
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -936,11 +936,11 @@ End Sub
 
     #[test]
     fn isnumeric_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IsNumeric(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -949,11 +949,11 @@ End Sub
 
     #[test]
     fn isnumeric_array_filter() {
-        let source = r#"
+        let source = r"
 Sub Test()
     checks(i) = IsNumeric(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -962,11 +962,11 @@ End Sub
 
     #[test]
     fn isnumeric_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     numericFlags.Add IsNumeric(data(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -990,11 +990,11 @@ End Sub
 
     #[test]
     fn isnumeric_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IsNumeric(myVar))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));
@@ -1003,13 +1003,13 @@ End Sub
 
     #[test]
     fn isnumeric_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Not IsNumeric(buffer)
         buffer = GetValidInput()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsNumeric"));

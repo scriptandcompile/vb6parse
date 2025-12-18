@@ -690,9 +690,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_basic() {
-        let source = r#"
+        let source = r"
             Set Picture1.Picture = LoadResPicture(101, vbResBitmap)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -701,9 +701,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_icon() {
-        let source = r#"
+        let source = r"
             Image1.Picture = LoadResPicture(102, vbResIcon)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -712,11 +712,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_if_statement() {
-        let source = r#"
+        let source = r"
             If hasResource Then
                 Picture1.Picture = LoadResPicture(resID, vbResBitmap)
             End If
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -736,11 +736,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_form_load() {
-        let source = r#"
+        let source = r"
             Private Sub Form_Load()
                 Me.Picture = LoadResPicture(101, vbResBitmap)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -749,9 +749,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_array_assignment() {
-        let source = r#"
+        let source = r"
             Set images(i) = LoadResPicture(100 + i, vbResBitmap)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -760,11 +760,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_for_loop() {
-        let source = r#"
+        let source = r"
             For i = 1 To 5
                 Set imgArray(i).Picture = LoadResPicture(100 + i, vbResBitmap)
             Next i
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -773,11 +773,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_function_return() {
-        let source = r#"
+        let source = r"
             Function GetResPicture() As StdPicture
                 Set GetResPicture = LoadResPicture(101, vbResBitmap)
             End Function
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -801,11 +801,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_with_statement() {
-        let source = r#"
+        let source = r"
             With Picture1
                 .Picture = LoadResPicture(101, vbResBitmap)
             End With
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -814,14 +814,14 @@ mod tests {
 
     #[test]
     fn loadrespicture_select_case() {
-        let source = r#"
+        let source = r"
             Select Case imageType
                 Case 1
                     Picture1.Picture = LoadResPicture(101, vbResBitmap)
                 Case 2
                     Picture1.Picture = LoadResPicture(102, vbResIcon)
             End Select
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -845,9 +845,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_parentheses() {
-        let source = r#"
+        let source = r"
             Set pic = (LoadResPicture(101, vbResBitmap))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -856,9 +856,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_iif() {
-        let source = r#"
+        let source = r"
             Picture1.Picture = IIf(enabled, LoadResPicture(101, vbResIcon), LoadResPicture(102, vbResIcon))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -867,11 +867,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_in_class() {
-        let source = r#"
+        let source = r"
             Private Sub Class_Initialize()
                 Set m_defaultPic = LoadResPicture(101, vbResBitmap)
             End Sub
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -880,9 +880,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_function_argument() {
-        let source = r#"
+        let source = r"
             Call SetPicture(LoadResPicture(101, vbResBitmap))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -891,9 +891,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_property_assignment() {
-        let source = r#"
+        let source = r"
             Set MyForm.Picture = LoadResPicture(101, vbResBitmap)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -916,12 +916,12 @@ mod tests {
 
     #[test]
     fn loadrespicture_while_wend() {
-        let source = r#"
+        let source = r"
             While index < maxImages
                 Set images(index) = LoadResPicture(100 + index, vbResBitmap)
                 index = index + 1
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -930,11 +930,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_do_while() {
-        let source = r#"
+        let source = r"
             Do While hasMore
                 Set currentPic = LoadResPicture(GetNextID(), vbResBitmap)
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -943,13 +943,13 @@ mod tests {
 
     #[test]
     fn loadrespicture_do_until() {
-        let source = r#"
+        let source = r"
             Do Until loaded
                 On Error Resume Next
                 Set pic = LoadResPicture(resID, vbResBitmap)
                 loaded = (Err.Number = 0)
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -958,10 +958,10 @@ mod tests {
 
     #[test]
     fn loadrespicture_cursor() {
-        let source = r#"
+        let source = r"
             Me.MousePointer = vbCustom
             Me.MouseIcon = LoadResPicture(103, vbResCursor)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -970,10 +970,10 @@ mod tests {
 
     #[test]
     fn loadrespicture_constants() {
-        let source = r#"
+        let source = r"
             Const RES_LOGO = 101
             Picture1.Picture = LoadResPicture(RES_LOGO, vbResBitmap)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -982,11 +982,11 @@ mod tests {
 
     #[test]
     fn loadrespicture_addition() {
-        let source = r#"
+        let source = r"
             Dim imageID As Integer
             imageID = 100 + selectedIndex
             Picture1.Picture = LoadResPicture(imageID, vbResBitmap)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));
@@ -995,9 +995,9 @@ mod tests {
 
     #[test]
     fn loadrespicture_toolbar_button() {
-        let source = r#"
+        let source = r"
             cmdSave.Picture = LoadResPicture(203, vbResIcon)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadResPicture"));

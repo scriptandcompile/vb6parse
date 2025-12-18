@@ -407,11 +407,11 @@ mod tests {
 
     #[test]
     fn time_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     result = Time$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeKeyword") && debug.contains("DollarSign"));
@@ -419,12 +419,12 @@ End Sub
 
     #[test]
     fn time_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim currentTime As String
     currentTime = Time$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeKeyword") && debug.contains("DollarSign"));
@@ -486,11 +486,11 @@ End Sub
 
     #[test]
     fn time_dollar_timer_update() {
-        let source = r#"
+        let source = r"
 Sub Timer1_Timer()
     lblTime.Caption = Time$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeKeyword") && debug.contains("DollarSign"));
@@ -525,14 +525,14 @@ End Sub
 
     #[test]
     fn time_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub RecordActivity()
     Dim time1 As String
     Dim time2 As String
     time1 = Time$
     time2 = Time$
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeKeyword") && debug.contains("DollarSign"));
@@ -595,11 +595,11 @@ End Sub
 
     #[test]
     fn time_dollar_in_function() {
-        let source = r#"
+        let source = r"
 Function GetCurrentTime() As String
     GetCurrentTime = Time$
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TimeKeyword") && debug.contains("DollarSign"));

@@ -204,11 +204,11 @@ End Sub
 
     #[test]
     fn rmdir_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If shouldDelete Then RmDir tempPath
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -342,11 +342,11 @@ End Sub
 
     #[test]
     fn rmdir_with_function_result() {
-        let source = r#"
+        let source = r"
 Sub Test()
     RmDir GetTempPath()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -377,7 +377,7 @@ End Sub
 
     #[test]
     fn rmdir_with_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim dirExists As Boolean
     dirExists = True
@@ -387,7 +387,7 @@ Sub Test()
         dirExists = (Err.Number = 0)
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -441,12 +441,12 @@ End Sub
 
     #[test]
     fn rmdir_in_class_module() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Terminate()
     On Error Resume Next
     RmDir m_tempDirectory
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -515,7 +515,7 @@ End Sub
 
     #[test]
     fn rmdir_with_explicit_error_check() {
-        let source = r#"
+        let source = r"
 Function RemoveDirectory(path As String) As Boolean
     On Error GoTo ErrorHandler
     RmDir path
@@ -524,7 +524,7 @@ Function RemoveDirectory(path As String) As Boolean
 ErrorHandler:
     RemoveDirectory = False
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

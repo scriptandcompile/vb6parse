@@ -237,12 +237,12 @@ mod tests {
 
     #[test]
     fn vartype_integer() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim x As Integer
     Debug.Print VarType(x)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -250,12 +250,12 @@ End Sub
 
     #[test]
     fn vartype_string() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As String
     Debug.Print VarType(s)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -263,12 +263,12 @@ End Sub
 
     #[test]
     fn vartype_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim arr(1 To 5) As Double
     Debug.Print VarType(arr)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -276,13 +276,13 @@ End Sub
 
     #[test]
     fn vartype_variant() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim v As Variant
     v = 123
     Debug.Print VarType(v)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -304,13 +304,13 @@ End Sub
 
     #[test]
     fn vartype_check_string() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If VarType(x) = vbString Then
         ' Handle string
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -318,13 +318,13 @@ End Sub
 
     #[test]
     fn vartype_handle_variant() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If VarType(v) = vbInteger Then
         ' Handle integer
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -344,11 +344,11 @@ End Sub
 
     #[test]
     fn vartype_validate_argument() {
-        let source = r#"
+        let source = r"
 Sub Foo(arg As Variant)
     If VarType(arg) <> vbString Then Err.Raise 5
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -356,7 +356,7 @@ End Sub
 
     #[test]
     fn vartype_reflection() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim t As Integer
     t = VarType(obj)
@@ -364,7 +364,7 @@ Sub Test()
         ' Do something
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -372,7 +372,7 @@ End Sub
 
     #[test]
     fn vartype_null_and_empty() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If VarType(v) = vbNull Then
         ' Handle Null
@@ -380,7 +380,7 @@ Sub Test()
         ' Handle Empty
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -402,7 +402,7 @@ End Sub
 
     #[test]
     fn vartype_user_defined_type() {
-        let source = r#"
+        let source = r"
 Type MyType
     x As Integer
 End Type
@@ -410,7 +410,7 @@ Sub Test()
     Dim t As MyType
     Debug.Print VarType(t)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -418,13 +418,13 @@ End Sub
 
     #[test]
     fn vartype_class_type_detection() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If VarType(obj) = vbObject Then
         ' Handle object
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -432,11 +432,11 @@ End Sub
 
     #[test]
     fn vartype_isstring_function() {
-        let source = r#"
+        let source = r"
 Function IsString(val As Variant) As Boolean
     IsString = (VarType(val) = vbString)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));
@@ -459,13 +459,13 @@ End Sub
 
     #[test]
     fn vartype_reflection_class_methods() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If VarType(obj) = vbObject Then
         obj.SpecialMethod
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("VarType"));

@@ -378,12 +378,12 @@ End Sub
 
     #[test]
     fn rightb_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim suffix As String
     suffix = RightB$(binaryData, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -406,11 +406,11 @@ End Sub
 
     #[test]
     fn rightb_dollar_binary_suffix() {
-        let source = r#"
+        let source = r"
 Function GetBinarySuffix(data As String, numBytes As Integer) As String
     GetBinarySuffix = RightB$(data, numBytes)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -418,11 +418,11 @@ End Function
 
     #[test]
     fn rightb_dollar_file_trailer() {
-        let source = r#"
+        let source = r"
 Function ReadFileTrailer(fileData As String) As String
     ReadFileTrailer = RightB$(fileData, 8)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -430,11 +430,11 @@ End Function
 
     #[test]
     fn rightb_dollar_protocol_footer() {
-        let source = r#"
+        let source = r"
 Function GetProtocolFooter(packet As String) As String
     GetProtocolFooter = RightB$(packet, 2)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -456,11 +456,11 @@ End Sub
 
     #[test]
     fn rightb_dollar_checksum() {
-        let source = r#"
+        let source = r"
 Function ExtractChecksum(packet As String) As String
     ExtractChecksum = RightB$(packet, 4)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -468,11 +468,11 @@ End Function
 
     #[test]
     fn rightb_dollar_guid_suffix() {
-        let source = r#"
+        let source = r"
 Function GetGuidSuffix(guidData As String) As String
     GetGuidSuffix = RightB$(guidData, 6)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -480,14 +480,14 @@ End Function
 
     #[test]
     fn rightb_dollar_with_lenb() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim totalBytes As Long
     Dim footer As String
     totalBytes = LenB(binaryData)
     footer = RightB$(binaryData, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -495,14 +495,14 @@ End Sub
 
     #[test]
     fn rightb_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub ProcessBinary()
     Dim checksum As String
     Dim version As String
     checksum = RightB$(structData, 4)
     version = RightB$(headerData, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -527,12 +527,12 @@ End Sub
 
     #[test]
     fn rightb_dollar_expression_arg() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = RightB$(data, LenB(data) - 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -553,11 +553,11 @@ End Sub
 
     #[test]
     fn rightb_dollar_record_suffix() {
-        let source = r#"
+        let source = r"
 Function GetRecordSuffix(record As String) As String
     GetRecordSuffix = RightB$(record, 4)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -565,11 +565,11 @@ End Function
 
     #[test]
     fn rightb_dollar_image_footer() {
-        let source = r#"
+        let source = r"
 Function GetImageFooter(imageData As String) As String
     GetImageFooter = RightB$(imageData, 2)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -603,13 +603,13 @@ End Sub
 
     #[test]
     fn rightb_dollar_with_ascb() {
-        let source = r#"
+        let source = r"
 Function GetLastByte(data As String) As Byte
     Dim lastByte As String
     lastByte = RightB$(data, 1)
     GetLastByte = AscB(lastByte)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));
@@ -617,7 +617,7 @@ End Function
 
     #[test]
     fn rightb_dollar_loop_processing() {
-        let source = r#"
+        let source = r"
 Sub ProcessRecords()
     Dim i As Integer
     Dim suffix As String
@@ -626,7 +626,7 @@ Sub ProcessRecords()
         Debug.Print suffix
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("RightB$"));

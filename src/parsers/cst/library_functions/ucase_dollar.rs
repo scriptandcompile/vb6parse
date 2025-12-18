@@ -394,11 +394,11 @@ End Function
 
     #[test]
     fn ucase_dollar_acronym() {
-        let source = r#"
+        let source = r"
 Function FormatAcronym(text As String) As String
     FormatAcronym = UCase$(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -406,11 +406,11 @@ End Function
 
     #[test]
     fn ucase_dollar_header() {
-        let source = r#"
+        let source = r"
 Function CreateHeader(title As String) As String
     CreateHeader = UCase$(title)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -449,11 +449,11 @@ End Function
 
     #[test]
     fn ucase_dollar_environment_var() {
-        let source = r#"
+        let source = r"
 Function GetEnvironmentVar(varName As String) As String
     GetEnvironmentVar = Environ$(UCase$(varName))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -461,11 +461,11 @@ End Function
 
     #[test]
     fn ucase_dollar_registry_key() {
-        let source = r#"
+        let source = r"
 Function NormalizeRegistryKey(keyName As String) As String
     NormalizeRegistryKey = UCase$(Trim$(keyName))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -473,11 +473,11 @@ End Function
 
     #[test]
     fn ucase_dollar_display_name() {
-        let source = r#"
+        let source = r"
 Function FormatDisplayName(lastName As String) As String
     FormatDisplayName = UCase$(lastName)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -485,11 +485,11 @@ End Function
 
     #[test]
     fn ucase_dollar_enum_member() {
-        let source = r#"
+        let source = r"
 Function GenerateEnumMember(memberName As String) As String
     GenerateEnumMember = UCase$(memberName)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -510,11 +510,11 @@ End Function
 
     #[test]
     fn ucase_dollar_config_writer() {
-        let source = r#"
+        let source = r"
 Sub WriteConfigSection(sectionName As String)
     section = UCase$(sectionName)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -522,11 +522,11 @@ End Sub
 
     #[test]
     fn ucase_dollar_report_header() {
-        let source = r#"
+        let source = r"
 Function GenerateReportHeader(reportTitle As String) As String
     GenerateReportHeader = UCase$(reportTitle)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -534,11 +534,11 @@ End Function
 
     #[test]
     fn ucase_dollar_macro_validator() {
-        let source = r#"
+        let source = r"
 Function ValidateMacroName(macroName As String) As String
     ValidateMacroName = UCase$(macroName)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));
@@ -546,11 +546,11 @@ End Function
 
     #[test]
     fn ucase_dollar_safe_wrapper() {
-        let source = r#"
+        let source = r"
 Function SafeUCase(text As String) As String
     SafeUCase = UCase$(text)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("UCase$"));

@@ -362,11 +362,11 @@ mod tests {
 
     #[test]
     fn command_dollar_simple() {
-        let source = r#"
+        let source = r"
 Sub Main()
     args = Command$()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -374,12 +374,12 @@ End Sub
 
     #[test]
     fn command_dollar_assignment() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim cmdLine As String
     cmdLine = Command$()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -401,11 +401,11 @@ End Sub
 
     #[test]
     fn command_dollar_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Main()
     filename = Trim$(Command$())
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -499,12 +499,12 @@ End Sub
 
     #[test]
     fn command_dollar_ucase() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim args As String
     args = UCase$(Command$())
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -512,11 +512,11 @@ End Sub
 
     #[test]
     fn command_dollar_lcase() {
-        let source = r#"
+        let source = r"
 Sub Main()
     args = LCase$(Trim$(Command$()))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -562,13 +562,13 @@ End Sub
 
     #[test]
     fn command_dollar_function_call() {
-        let source = r#"
+        let source = r"
 Function HasSwitch(switchName As String) As Boolean
     Dim args As String
     args = UCase$(Command$())
     HasSwitch = (InStr(args, switchName) > 0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));
@@ -590,11 +590,11 @@ End Sub
 
     #[test]
     fn command_dollar_direct_print() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Debug.Print Command$()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Command$"));

@@ -51,11 +51,11 @@ mod test {
     // Get statement tests
     #[test]
     fn get_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get #1, , myRecord
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -77,11 +77,11 @@ End Sub
 
     #[test]
     fn get_with_record_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get #1, recordNumber, customerData
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -91,11 +91,11 @@ End Sub
 
     #[test]
     fn get_with_file_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get fileNum, , buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -105,11 +105,11 @@ End Sub
 
     #[test]
     fn get_with_hash_symbol() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get #fileNumber, position, data
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -129,11 +129,11 @@ End Sub
 
     #[test]
     fn get_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get #1, , myRecord ' Read next record
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -143,13 +143,13 @@ End Sub
 
     #[test]
     fn get_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not EOF(1) Then
         Get #1, , myData
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -158,11 +158,11 @@ End Sub
 
     #[test]
     fn get_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If hasData Then Get #1, , buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -188,13 +188,13 @@ End Sub
 
     #[test]
     fn get_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Not EOF(1)
         Get #1, , myRecord
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -203,12 +203,12 @@ End Sub
 
     #[test]
     fn multiple_get_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Get #1, , record1
     Get #1, , record2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -218,12 +218,12 @@ End Sub
 
     #[test]
     fn get_binary_mode() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim buffer As String * 512
     Get #1, , buffer
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

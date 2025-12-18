@@ -338,11 +338,11 @@ mod tests {
 
     #[test]
     fn fix_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Fix(8.7)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -351,11 +351,11 @@ End Sub
 
     #[test]
     fn fix_negative() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Fix(-8.7)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -364,11 +364,11 @@ End Sub
 
     #[test]
     fn fix_currency() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dollars = Fix(price)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -392,11 +392,11 @@ End Sub
 
     #[test]
     fn fix_function_return() {
-        let source = r#"
+        let source = r"
 Function Truncate(value As Double) As Long
     Truncate = Fix(value)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -438,14 +438,14 @@ End Sub
 
     #[test]
     fn fix_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = 1 To Fix(maxValue)
         Debug.Print i
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -467,11 +467,11 @@ End Sub
 
     #[test]
     fn fix_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     wholeNumbers(i) = Fix(decimals(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -480,11 +480,11 @@ End Sub
 
     #[test]
     fn fix_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.WholePart = Fix(obj.DecimalValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -493,11 +493,11 @@ End Sub
 
     #[test]
     fn fix_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_wholePart = Fix(m_value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -506,13 +506,13 @@ End Sub
 
     #[test]
     fn fix_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With splitter
         .WholePart = Fix(.Value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -521,11 +521,11 @@ End Sub
 
     #[test]
     fn fix_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessInteger(Fix(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -547,12 +547,12 @@ End Sub
 
     #[test]
     fn fix_math_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     wholePart = Fix(value)
     fractionalPart = value - wholePart
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -587,11 +587,11 @@ End Sub
 
     #[test]
     fn fix_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     wholeNumbers.Add Fix(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -600,11 +600,11 @@ End Sub
 
     #[test]
     fn fix_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isValid = Fix(value) >= minValue And Fix(value) <= maxValue
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -613,11 +613,11 @@ End Sub
 
     #[test]
     fn fix_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(Fix(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -626,13 +626,13 @@ End Sub
 
     #[test]
     fn fix_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Fix(counter) < limit
         counter = counter + 0.5
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -641,11 +641,11 @@ End Sub
 
     #[test]
     fn fix_abs() {
-        let source = r#"
+        let source = r"
 Sub Test()
     cents = Fix(Abs((amount - dollars) * 100))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -654,12 +654,12 @@ End Sub
 
     #[test]
     fn fix_currency_split() {
-        let source = r#"
+        let source = r"
 Sub Test()
     dollars = Fix(amount)
     cents = Fix((amount - dollars) * 100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -668,12 +668,12 @@ End Sub
 
     #[test]
     fn fix_coordinate() {
-        let source = r#"
+        let source = r"
 Sub Test()
     pixelX = Fix(coordinateX)
     pixelY = Fix(coordinateY)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -682,12 +682,12 @@ End Sub
 
     #[test]
     fn fix_array_index() {
-        let source = r#"
+        let source = r"
 Sub Test()
     index = Fix(ratio * arraySize)
     value = items(index)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));
@@ -696,11 +696,11 @@ End Sub
 
     #[test]
     fn fix_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = (Fix(number))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("Fix"));

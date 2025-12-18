@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{ObjectReference, ProjectFile, ProjectReference, SourceFile};
 
 /// Example showing how to parse a VB6 project file from raw bytes.
 /// This example uses a hardcoded string, but in a real application,
@@ -112,20 +112,20 @@ AutoRefresh=1
         println!("Class: {} (Path: {})", class.name, class.path);
     }
     for related_document_path in project.related_documents {
-        println!("Related Document - Path: {}", related_document_path);
+        println!("Related Document - Path: {related_document_path}");
     }
     for user_document_path in project.user_documents {
-        println!("User Document - Path: {}", user_document_path);
+        println!("User Document - Path: {user_document_path}");
     }
     for form_path in project.forms {
-        println!("Form - Path: {}", form_path);
+        println!("Form - Path: {form_path}");
     }
     for user_control_path in project.user_controls {
-        println!("User Control - Path: {}", user_control_path);
+        println!("User Control - Path: {user_control_path}");
     }
-    for property_group in project.other_properties.iter() {
+    for property_group in &project.other_properties {
         println!("Property Group: {}", property_group.0);
-        for property in property_group.1.iter() {
+        for property in property_group.1 {
             println!("  {} = {}", property.0, property.1);
         }
     }

@@ -410,11 +410,11 @@ End Function
 
     #[test]
     fn right_dollar_account_suffix() {
-        let source = r#"
+        let source = r"
 Function GetAccountSuffix(accountNum As String) As String
     GetAccountSuffix = Right$(accountNum, 4)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -436,13 +436,13 @@ End Sub
 
     #[test]
     fn right_dollar_pad_left() {
-        let source = r#"
+        let source = r"
 Function PadLeft(text As String, width As Integer) As String
     Dim padded As String
     padded = Space(width) & text
     PadLeft = Right$(padded, width)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -450,11 +450,11 @@ End Function
 
     #[test]
     fn right_dollar_time_extraction() {
-        let source = r#"
+        let source = r"
 Function GetSeconds(timeStr As String) As String
     GetSeconds = Right$(timeStr, 2)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -478,14 +478,14 @@ End Function
 
     #[test]
     fn right_dollar_multiple_uses() {
-        let source = r#"
+        let source = r"
 Sub ProcessText()
     Dim ext As String
     Dim suffix As String
     ext = Right$(fileName, 3)
     suffix = Right$(accountNum, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -510,12 +510,12 @@ End Sub
 
     #[test]
     fn right_dollar_expression_args() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim result As String
     result = Right$(text, Len(text) - 5)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -552,13 +552,13 @@ End Function
 
     #[test]
     fn right_dollar_validation() {
-        let source = r#"
+        let source = r"
 Function HasExtension(fileName As String, ext As String) As Boolean
     Dim fileExt As String
     fileExt = Right$(fileName, Len(ext))
     HasExtension = (UCase$(fileExt) = UCase$(ext))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -592,13 +592,13 @@ End Sub
 
     #[test]
     fn right_dollar_format_amount() {
-        let source = r#"
+        let source = r"
 Function FormatAmount(amount As String) As String
     Dim formatted As String
     formatted = Space(15) & amount
     FormatAmount = Right$(formatted, 15)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -606,12 +606,12 @@ End Function
 
     #[test]
     fn right_dollar_with_trim() {
-        let source = r#"
+        let source = r"
 Sub Main()
     Dim cleaned As String
     cleaned = RTrim$(Right$(dataField, 10))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));
@@ -619,7 +619,7 @@ End Sub
 
     #[test]
     fn right_dollar_loop_processing() {
-        let source = r#"
+        let source = r"
 Sub ProcessLines()
     Dim i As Integer
     Dim suffix As String
@@ -628,7 +628,7 @@ Sub ProcessLines()
         Debug.Print suffix
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("Right$"));

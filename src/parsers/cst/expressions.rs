@@ -941,7 +941,7 @@ mod tests {
         let debug = parse_expression_test(source);
         assert!(debug.contains("NumericLiteralExpression"));
         assert!(debug.contains("42"));
-        assert!(debug.contains("%"));
+        assert!(debug.contains('%'));
     }
 
     #[test]
@@ -980,9 +980,9 @@ mod tests {
         let source = "x = 2 + 3\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("2"));
-        assert!(debug.contains("+"));
-        assert!(debug.contains("3"));
+        assert!(debug.contains('2'));
+        assert!(debug.contains('+'));
+        assert!(debug.contains('3'));
     }
 
     #[test]
@@ -991,8 +991,8 @@ mod tests {
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
         assert!(debug.contains("10"));
-        assert!(debug.contains("-"));
-        assert!(debug.contains("5"));
+        assert!(debug.contains('-'));
+        assert!(debug.contains('5'));
     }
 
     #[test]
@@ -1000,9 +1000,9 @@ mod tests {
         let source = "x = 4 * 5\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("4"));
-        assert!(debug.contains("*"));
-        assert!(debug.contains("5"));
+        assert!(debug.contains('4'));
+        assert!(debug.contains('*'));
+        assert!(debug.contains('5'));
     }
 
     #[test]
@@ -1011,8 +1011,8 @@ mod tests {
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
         assert!(debug.contains("20"));
-        assert!(debug.contains("/"));
-        assert!(debug.contains("4"));
+        assert!(debug.contains('/'));
+        assert!(debug.contains('4'));
     }
 
     #[test]
@@ -1036,8 +1036,8 @@ mod tests {
         let source = "x = -5\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("UnaryExpression"));
-        assert!(debug.contains("-"));
-        assert!(debug.contains("5"));
+        assert!(debug.contains('-'));
+        assert!(debug.contains('5'));
     }
 
     #[test]
@@ -1076,7 +1076,7 @@ mod tests {
         let source = "x = a < b\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("<"));
+        assert!(debug.contains('<'));
     }
 
     #[test]
@@ -1084,7 +1084,7 @@ mod tests {
         let source = "x = a > b\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains(">"));
+        assert!(debug.contains('>'));
     }
 
     #[test]
@@ -1173,7 +1173,7 @@ mod tests {
         let source = "x = \"Hello\" & \" \" & \"World\"\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("&"));
+        assert!(debug.contains('&'));
     }
 
     #[test]
@@ -1189,7 +1189,7 @@ mod tests {
         let source = "x = 10 \\ 3\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("\\"));
+        assert!(debug.contains('\\'));
     }
 
     #[test]
@@ -1197,7 +1197,7 @@ mod tests {
         let source = "x = 2 ^ 8\n";
         let debug = parse_expression_test(source);
         assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("^"));
+        assert!(debug.contains('^'));
     }
 
     #[test]

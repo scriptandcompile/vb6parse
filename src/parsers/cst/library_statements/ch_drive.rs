@@ -34,11 +34,11 @@ End Sub
 
     #[test]
     fn chdrive_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive myDrive
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -48,11 +48,11 @@ End Sub
 
     #[test]
     fn chdrive_with_app_path() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive App.Path
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -62,11 +62,11 @@ End Sub
 
     #[test]
     fn chdrive_with_left_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive Left(sInitDir, 1)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -76,11 +76,11 @@ End Sub
 
     #[test]
     fn chdrive_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If driveValid Then ChDrive newDrive
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -102,11 +102,11 @@ ChDrive "D:"
 
     #[test]
     fn chdrive_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive driveLetter ' Change to specified drive
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -133,13 +133,13 @@ End Sub
 
     #[test]
     fn chdrive_in_multiline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If driveExists Then
         ChDrive targetDrive
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -149,11 +149,11 @@ End Sub
 
     #[test]
     fn chdrive_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive (Left$(sInitDir, 1))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -163,11 +163,11 @@ End Sub
 
     #[test]
     fn chdrive_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     ChDrive Left(theZtmPath, 1)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

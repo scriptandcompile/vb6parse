@@ -97,7 +97,7 @@
 ///
 /// ## Common Patterns
 ///
-/// ### Pattern 1: CalculateDistance2D
+/// ### Pattern 1: `CalculateDistance2D`
 /// Calculate distance between two 2D points
 /// ```vb
 /// Function CalculateDistance2D(x1 As Double, y1 As Double, _
@@ -112,7 +112,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 2: CalculateDistance3D
+/// ### Pattern 2: `CalculateDistance3D`
 /// Calculate distance between two 3D points
 /// ```vb
 /// Function CalculateDistance3D(x1 As Double, y1 As Double, z1 As Double, _
@@ -127,7 +127,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 3: CalculateHypotenuse
+/// ### Pattern 3: `CalculateHypotenuse`
 /// Calculate hypotenuse of right triangle
 /// ```vb
 /// Function CalculateHypotenuse(sideA As Double, sideB As Double) As Double
@@ -135,7 +135,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 4: CalculateStandardDeviation
+/// ### Pattern 4: `CalculateStandardDeviation`
 /// Calculate standard deviation of values
 /// ```vb
 /// Function CalculateStandardDeviation(values() As Double) As Double
@@ -164,7 +164,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 5: NormalizeVector
+/// ### Pattern 5: `NormalizeVector`
 /// Normalize a 2D vector
 /// ```vb
 /// Sub NormalizeVector(x As Double, y As Double)
@@ -179,7 +179,7 @@
 /// End Sub
 /// ```
 ///
-/// ### Pattern 6: CalculateRMS
+/// ### Pattern 6: `CalculateRMS`
 /// Calculate root mean square
 /// ```vb
 /// Function CalculateRMS(values() As Double) As Double
@@ -198,7 +198,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 7: SolveQuadratic
+/// ### Pattern 7: `SolveQuadratic`
 /// Solve quadratic equation ax² + bx + c = 0
 /// ```vb
 /// Function SolveQuadratic(a As Double, b As Double, c As Double, _
@@ -218,7 +218,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 8: CalculateCircleRadius
+/// ### Pattern 8: `CalculateCircleRadius`
 /// Calculate radius from area
 /// ```vb
 /// Function CalculateCircleRadius(area As Double) As Double
@@ -227,7 +227,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 9: CalculateVelocity
+/// ### Pattern 9: `CalculateVelocity`
 /// Calculate velocity from kinetic energy
 /// ```vb
 /// Function CalculateVelocity(kineticEnergy As Double, mass As Double) As Double
@@ -241,7 +241,7 @@
 /// End Function
 /// ```
 ///
-/// ### Pattern 10: IsPerfectSquare
+/// ### Pattern 10: `IsPerfectSquare`
 /// Check if number is a perfect square
 /// ```vb
 /// Function IsPerfectSquare(n As Long) As Boolean
@@ -261,7 +261,7 @@
 ///
 /// ## Advanced Usage
 ///
-/// ### Example 1: GeometryHelper Class
+/// ### Example 1: `GeometryHelper` Class
 /// Geometric calculations using Sqr
 /// ```vb
 /// ' Class: GeometryHelper
@@ -333,7 +333,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 2: StatisticsCalculator Class
+/// ### Example 2: `StatisticsCalculator` Class
 /// Statistical calculations with Sqr
 /// ```vb
 /// ' Class: StatisticsCalculator
@@ -422,7 +422,7 @@
 /// End Property
 /// ```
 ///
-/// ### Example 3: PhysicsEngine Module
+/// ### Example 3: `PhysicsEngine` Module
 /// Physics calculations using Sqr
 /// ```vb
 /// ' Module: PhysicsEngine
@@ -469,7 +469,7 @@
 /// End Function
 /// ```
 ///
-/// ### Example 4: VectorMath Module
+/// ### Example 4: `VectorMath` Module
 /// Vector operations using Sqr
 /// ```vb
 /// ' Module: VectorMath
@@ -611,12 +611,12 @@ mod tests {
 
     #[test]
     fn sqr_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim result As Double
     result = Sqr(25)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -625,14 +625,14 @@ End Sub
 
     #[test]
     fn sqr_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim value As Double
     Dim sqrtValue As Double
     value = 16
     sqrtValue = Sqr(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -655,11 +655,11 @@ End Sub
 
     #[test]
     fn sqr_function_return() {
-        let source = r#"
+        let source = r"
 Function CalculateDistance(dx As Double, dy As Double) As Double
     CalculateDistance = Sqr(dx * dx + dy * dy)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -668,12 +668,12 @@ End Function
 
     #[test]
     fn sqr_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim hypotenuse As Double
     hypotenuse = Sqr(3 ^ 2 + 4 ^ 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -695,11 +695,11 @@ End Sub
 
     #[test]
     fn sqr_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Sqr(144)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -727,13 +727,13 @@ End Sub
 
     #[test]
     fn sqr_class_usage() {
-        let source = r#"
+        let source = r"
 Class MathHelper
     Public Function GetSquareRoot(n As Double) As Double
         GetSquareRoot = Sqr(n)
     End Function
 End Class
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -742,14 +742,14 @@ End Class
 
     #[test]
     fn sqr_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With calculator
         Dim root As Double
         root = Sqr(.Value)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -758,7 +758,7 @@ End Sub
 
     #[test]
     fn sqr_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As Double
     If value < 0 Then
@@ -769,7 +769,7 @@ Sub Test()
         s = Sqr(value)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -777,14 +777,14 @@ End Sub
 
     #[test]
     fn sqr_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         Debug.Print Sqr(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -792,13 +792,13 @@ End Sub
 
     #[test]
     fn sqr_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While value > 1
         value = Sqr(value)
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -806,13 +806,13 @@ End Sub
 
     #[test]
     fn sqr_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Sqr(total) < threshold
         total = total - 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -820,14 +820,14 @@ End Sub
 
     #[test]
     fn sqr_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While x >= 0
         result = Sqr(x)
         x = x - 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -835,12 +835,12 @@ End Sub
 
     #[test]
     fn sqr_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim distance As Double
     distance = (Sqr(dx * dx + dy * dy))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -849,12 +849,12 @@ End Sub
 
     #[test]
     fn sqr_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim safe As Double
     safe = IIf(value >= 0, Sqr(value), 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -863,12 +863,12 @@ End Sub
 
     #[test]
     fn sqr_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim roots(10) As Double
     roots(0) = Sqr(25)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -877,7 +877,7 @@ End Sub
 
     #[test]
     fn sqr_property_assignment() {
-        let source = r#"
+        let source = r"
 Class Calculator
     Public SquareRoot As Double
 End Class
@@ -886,7 +886,7 @@ Sub Test()
     Dim calc As New Calculator
     calc.SquareRoot = Sqr(value)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -894,14 +894,14 @@ End Sub
 
     #[test]
     fn sqr_function_argument() {
-        let source = r#"
+        let source = r"
 Sub ProcessValue(v As Double)
 End Sub
 
 Sub Test()
     ProcessValue Sqr(100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -924,12 +924,12 @@ End Sub
 
     #[test]
     fn sqr_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isLarge As Boolean
     isLarge = (Sqr(area) > 100)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -938,12 +938,12 @@ End Sub
 
     #[test]
     fn sqr_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim magnitude As Double
     magnitude = Sqr(x * x + y * y + z * z)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -952,14 +952,14 @@ End Sub
 
     #[test]
     fn sqr_quadratic_formula() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim discriminant As Double
     Dim root1 As Double
     discriminant = b * b - 4 * a * c
     root1 = (-b + Sqr(discriminant)) / (2 * a)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
@@ -981,7 +981,7 @@ End Sub
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));
-        assert!(debug.contains("s"));
+        assert!(debug.contains('s'));
     }
 
     #[test]
@@ -1004,14 +1004,14 @@ End Sub
 
     #[test]
     fn sqr_standard_deviation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim variance As Double
     Dim stdDev As Double
     variance = 25
     stdDev = Sqr(variance)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Sqr"));

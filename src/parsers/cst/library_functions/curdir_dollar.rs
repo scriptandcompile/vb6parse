@@ -349,11 +349,11 @@ mod tests {
 
     #[test]
     fn curdir_dollar_no_args() {
-        let source = r#"
+        let source = r"
 Sub Main()
     currentDir = CurDir$()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("CurDir$"));
@@ -514,13 +514,13 @@ End Function
 
     #[test]
     fn curdir_dollar_depth_calc() {
-        let source = r#"
+        let source = r"
 Function GetDepth() As Integer
     Dim path As String
     path = CurDir$()
     GetDepth = Len(path)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("CurDir$"));
@@ -540,13 +540,13 @@ End Function
 
     #[test]
     fn curdir_dollar_validation() {
-        let source = r#"
+        let source = r"
 Sub EnsureDirectory(expectedDir As String)
     If CurDir$() <> expectedDir Then
         ChDir expectedDir
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Identifier") && debug.contains("CurDir$"));

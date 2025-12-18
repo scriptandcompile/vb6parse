@@ -738,9 +738,9 @@ fileName = Dir("*.*", vbDirectory)
 
     #[test]
     fn dir_no_arguments() {
-        let source = r#"
+        let source = r"
 fileName = Dir
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
@@ -788,11 +788,11 @@ volumeLabel = Dir("C:\", vbVolume)
 
     #[test]
     fn dir_in_function() {
-        let source = r#"
+        let source = r"
 Function FileExists(filePath As String) As Boolean
     FileExists = (Len(Dir(filePath)) > 0)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));
@@ -966,9 +966,9 @@ MsgBox "First file: " & Dir("*.txt")
 
     #[test]
     fn dir_parentheses_optional() {
-        let source = r#"
+        let source = r"
 fileName = Dir()
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Dir"));

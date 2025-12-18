@@ -265,11 +265,11 @@ End Sub
 
     #[test]
     fn asc_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = Asc(userInput)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -279,13 +279,13 @@ End Sub
 
     #[test]
     fn asc_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Asc(ch) >= 65 And Asc(ch) <= 90 Then
         valid = True
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -295,7 +295,7 @@ End Sub
 
     #[test]
     fn asc_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case Asc(key)
         Case 13
@@ -304,7 +304,7 @@ Sub Test()
             ProcessEscape
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -329,13 +329,13 @@ End Sub
 
     #[test]
     fn asc_in_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Asc(buffer) <> 0
         ProcessChar buffer
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -344,13 +344,13 @@ End Sub
 
     #[test]
     fn asc_in_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Asc(ch) <> 13
         ReadNext
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -360,11 +360,11 @@ End Sub
 
     #[test]
     fn asc_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     code = Asc(GetFirstChar())
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -374,11 +374,11 @@ End Sub
 
     #[test]
     fn asc_with_mid_function() {
-        let source = r#"
+        let source = r"
 Sub Test()
     charCode = Asc(Mid(text, pos, 1))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -388,11 +388,11 @@ End Sub
 
     #[test]
     fn asc_with_property_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = Asc(Me.TextBox.Text)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -456,13 +456,13 @@ End Sub
 
     #[test]
     fn asc_in_with_block() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With textData
         code = Asc(.Value)
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -472,11 +472,11 @@ End Sub
 
     #[test]
     fn asc_in_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     charCodes(i) = Asc(chars(i))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -485,11 +485,11 @@ End Sub
 
     #[test]
     fn asc_in_comparison_chain() {
-        let source = r#"
+        let source = r"
 Sub Test()
     valid = Asc(ch) >= 48 And Asc(ch) <= 57
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -511,13 +511,13 @@ End Sub
 
     #[test]
     fn asc_special_characters() {
-        let source = r#"
+        let source = r"
 Sub Test()
     tab = Asc(vbTab)
     cr = Asc(vbCr)
     lf = Asc(vbLf)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -526,11 +526,11 @@ End Sub
 
     #[test]
     fn asc_in_function() {
-        let source = r#"
+        let source = r"
 Function IsDigit(ch As String) As Boolean
     IsDigit = (Asc(ch) >= 48 And Asc(ch) <= 57)
 End Function
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -539,11 +539,11 @@ End Function
 
     #[test]
     fn asc_in_sub() {
-        let source = r#"
+        let source = r"
 Sub ProcessKey(key As String)
     If Asc(key) = 13 Then Exit Sub
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -565,11 +565,11 @@ End Sub
 
     #[test]
     fn asc_with_ucase() {
-        let source = r#"
+        let source = r"
 Sub Test()
     code = Asc(UCase(letter))
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

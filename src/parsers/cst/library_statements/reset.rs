@@ -27,11 +27,11 @@ mod test {
     // Reset statement tests
     #[test]
     fn reset_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Reset
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -53,13 +53,13 @@ End Sub
 
     #[test]
     fn reset_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub CleanupFiles()
     If CloseAllFiles Then
         Reset
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -79,11 +79,11 @@ End Sub
 
     #[test]
     fn reset_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Reset ' Close all open files
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -93,11 +93,11 @@ End Sub
 
     #[test]
     fn reset_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If shouldClose Then Reset
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -106,13 +106,13 @@ End Sub
 
     #[test]
     fn reset_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Reset
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -138,13 +138,13 @@ End Sub
 
     #[test]
     fn multiple_reset_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Reset
     DoSomething
     Reset
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

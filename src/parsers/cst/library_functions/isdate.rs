@@ -547,11 +547,11 @@ mod tests {
 
     #[test]
     fn isdate_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IsDate(myVariable)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -560,13 +560,13 @@ End Sub
 
     #[test]
     fn isdate_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsDate(userInput) Then
         dateValue = CDate(userInput)
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -590,11 +590,11 @@ End Sub
 
     #[test]
     fn isdate_function_return() {
-        let source = r#"
+        let source = r"
 Function ValidateDate(v As Variant) As Boolean
     ValidateDate = IsDate(v)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -603,13 +603,13 @@ End Function
 
     #[test]
     fn isdate_boolean_and() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsDate(startDate) And IsDate(endDate) Then
         ProcessDateRange
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -618,13 +618,13 @@ End Sub
 
     #[test]
     fn isdate_boolean_or() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsDate(field1) Or IsDate(field2) Then
         ProcessData
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -687,13 +687,13 @@ End Sub
 
     #[test]
     fn isdate_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until IsDate(currentValue)
         currentValue = GetNextValue()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -702,12 +702,12 @@ End Sub
 
     #[test]
     fn isdate_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isValid As Boolean
     isValid = IsDate(dateString)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -716,11 +716,11 @@ End Sub
 
     #[test]
     fn isdate_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     record.IsValidDate = IsDate(record.DateField)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -729,11 +729,11 @@ End Sub
 
     #[test]
     fn isdate_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_isValidDate = IsDate(m_dateValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -757,11 +757,11 @@ End Sub
 
     #[test]
     fn isdate_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessIfDate(IsDate(myValue))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -770,7 +770,7 @@ End Sub
 
     #[test]
     fn isdate_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case True
         Case IsDate(value)
@@ -779,7 +779,7 @@ Sub Test()
             ShowError
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -788,7 +788,7 @@ End Sub
 
     #[test]
     fn isdate_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To UBound(dates)
@@ -797,7 +797,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -806,7 +806,7 @@ End Sub
 
     #[test]
     fn isdate_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNumeric(data) Then
         ProcessNumber
@@ -814,7 +814,7 @@ Sub Test()
         ProcessDate
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -836,11 +836,11 @@ End Sub
 
     #[test]
     fn isdate_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IsDate(value))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -849,11 +849,11 @@ End Sub
 
     #[test]
     fn isdate_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     validFlags(i) = IsDate(dateValues(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -862,11 +862,11 @@ End Sub
 
     #[test]
     fn isdate_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     validations.Add IsDate(fields(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -890,11 +890,11 @@ End Sub
 
     #[test]
     fn isdate_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IsDate(myVar))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));
@@ -903,13 +903,13 @@ End Sub
 
     #[test]
     fn isdate_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Not IsDate(input)
         input = GetInput()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsDate"));

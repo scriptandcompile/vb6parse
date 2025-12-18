@@ -145,11 +145,11 @@ mod test {
 
     #[test]
     fn width_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -159,9 +159,9 @@ End Sub
 
     #[test]
     fn width_at_module_level() {
-        let source = r#"
+        let source = r"
 Width #1, 80
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -170,11 +170,11 @@ Width #1, 80
 
     #[test]
     fn width_with_zero() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 0
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -184,11 +184,11 @@ End Sub
 
     #[test]
     fn width_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, lineWidth
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -198,11 +198,11 @@ End Sub
 
     #[test]
     fn width_with_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, maxWidth * 2
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -211,11 +211,11 @@ End Sub
 
     #[test]
     fn width_with_file_number_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #fileNum, 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -224,11 +224,11 @@ End Sub
 
     #[test]
     fn width_max_value() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 255
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -238,11 +238,11 @@ End Sub
 
     #[test]
     fn width_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 80 ' Set standard console width
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -252,13 +252,13 @@ End Sub
 
     #[test]
     fn width_multiple_files() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 80
     Width #2, 120
     Width #3, 0
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -268,11 +268,11 @@ End Sub
 
     #[test]
     fn width_with_spaces() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width  #1 ,  80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -282,13 +282,13 @@ End Sub
 
     #[test]
     fn width_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If openSuccess Then
         Width #1, 80
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -298,13 +298,13 @@ End Sub
 
     #[test]
     fn width_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = 1 To 10
         Width #i, 80
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -344,11 +344,11 @@ End Sub
 
     #[test]
     fn width_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, GetLineWidth()
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -357,11 +357,11 @@ End Sub
 
     #[test]
     fn width_with_constant() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, MAX_WIDTH
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -370,13 +370,13 @@ End Sub
 
     #[test]
     fn width_in_with_block() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With FileConfig
         Width #1, .LineWidth
     End With
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -403,11 +403,11 @@ End Sub
 
     #[test]
     fn width_with_parenthesized_file_number() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #(fileNum), 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -416,11 +416,11 @@ End Sub
 
     #[test]
     fn width_with_calculated_width() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, screenWidth - marginLeft - marginRight
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -429,12 +429,12 @@ End Sub
 
     #[test]
     fn width_in_error_handler() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     Width #1, 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -444,11 +444,11 @@ End Sub
 
     #[test]
     fn width_with_type_suffix() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 80%
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -457,12 +457,12 @@ End Sub
 
     #[test]
     fn width_with_line_continuation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, _
         80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -471,11 +471,11 @@ End Sub
 
     #[test]
     fn width_case_insensitive() {
-        let source = r#"
+        let source = r"
 Sub Test()
     WIDTH #1, 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -484,13 +484,13 @@ End Sub
 
     #[test]
     fn width_standard_values() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width #1, 40
     Width #2, 80
     Width #3, 132
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -500,13 +500,13 @@ End Sub
 
     #[test]
     fn width_with_file_freefile() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fn As Integer
     fn = FreeFile
     Width #fn, 80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -516,7 +516,7 @@ End Sub
 
     #[test]
     fn width_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case outputType
         Case 1
@@ -525,7 +525,7 @@ Sub Test()
             Width #1, 132
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -535,11 +535,11 @@ End Sub
 
     #[test]
     fn width_preserves_formatting() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Width    #1   ,    80
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -549,7 +549,7 @@ End Sub
 
     #[test]
     fn width_in_nested_control_structures() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If fileOpen Then
         For i = 1 To 10
@@ -557,7 +557,7 @@ Sub Test()
         Next i
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

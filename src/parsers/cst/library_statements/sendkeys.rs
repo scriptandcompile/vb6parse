@@ -285,11 +285,11 @@ End Sub
 
     #[test]
     fn sendkeys_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     SendKeys keyString
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -470,11 +470,11 @@ End Sub
 
     #[test]
     fn sendkeys_in_with_block() {
-        let source = r#"
+        let source = r"
 With automation
     SendKeys .keySequence
 End With
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -525,13 +525,13 @@ End Sub
 
     #[test]
     fn sendkeys_in_class_module() {
-        let source = r#"
+        let source = r"
 Private keyData As String
 
 Public Sub SendData()
     SendKeys keyData, True
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();

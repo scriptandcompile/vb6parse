@@ -176,11 +176,11 @@ mod test {
 
     #[test]
     fn unload_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload Form1
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -203,11 +203,11 @@ End Sub
 
     #[test]
     fn unload_me() {
-        let source = r#"
+        let source = r"
 Private Sub cmdClose_Click()
     Unload Me
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -217,11 +217,11 @@ End Sub
 
     #[test]
     fn unload_form() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload frmDialog
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -231,11 +231,11 @@ End Sub
 
     #[test]
     fn unload_control_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload txtControl(5)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -256,11 +256,11 @@ End Sub
 
     #[test]
     fn unload_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload frmAbout ' Close about dialog
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -270,13 +270,13 @@ End Sub
 
     #[test]
     fn unload_in_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If needsClose Then
         Unload frmSettings
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -285,11 +285,11 @@ End Sub
 
     #[test]
     fn unload_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If closeDialog Then Unload frmInput
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -298,13 +298,13 @@ End Sub
 
     #[test]
     fn multiple_unload_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload Form1
     Unload Form2
     Unload Form3
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -314,12 +314,12 @@ End Sub
 
     #[test]
     fn unload_then_end() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload frmSplash
     End
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -346,14 +346,14 @@ End Sub
 
     #[test]
     fn unload_dynamic_control() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To 10
         Unload lblLabel(i)
     Next i
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -363,7 +363,7 @@ End Sub
 
     #[test]
     fn unload_in_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case formType
         Case 1
@@ -372,7 +372,7 @@ Sub Test()
             Unload frmB
     End Select
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -381,13 +381,13 @@ End Sub
 
     #[test]
     fn unload_with_object_reference() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim frm As Form1
     Set frm = New Form1
     Unload frm
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -396,12 +396,12 @@ End Sub
 
     #[test]
     fn unload_mdi_child() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload frmChild
     frmMain.Arrange vbCascade
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -410,14 +410,14 @@ End Sub
 
     #[test]
     fn unload_in_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim frm As Form
     For Each frm In Forms
         Unload frm
     Next
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -426,7 +426,7 @@ End Sub
 
     #[test]
     fn unload_conditional() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If UserConfirmed Then
         Unload frmWarning
@@ -434,7 +434,7 @@ Sub Test()
         frmWarning.Show
     End If
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -443,13 +443,13 @@ End Sub
 
     #[test]
     fn unload_after_hide() {
-        let source = r#"
+        let source = r"
 Sub Test()
     frmSettings.Hide
     SaveSettings
     Unload frmSettings
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -458,12 +458,12 @@ End Sub
 
     #[test]
     fn unload_with_doevents() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload frmProgress
     DoEvents
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -472,13 +472,13 @@ End Sub
 
     #[test]
     fn unload_array_index_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim idx As Integer
     idx = 5
     Unload picImage(idx * 2)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -488,11 +488,11 @@ End Sub
 
     #[test]
     fn unload_qualified_name() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload MyProject.frmCustom
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -501,11 +501,11 @@ End Sub
 
     #[test]
     fn unload_button_click() {
-        let source = r#"
+        let source = r"
 Private Sub Button_Cancel_Click()
     Unload Me
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -515,11 +515,11 @@ End Sub
 
     #[test]
     fn unload_form_queryunload() {
-        let source = r#"
+        let source = r"
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     Unload frmChild
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -546,13 +546,13 @@ End Sub
 
     #[test]
     fn unload_with_cleanup() {
-        let source = r#"
+        let source = r"
 Private Sub Form_Unload(Cancel As Integer)
     SaveSettings
     CloseDatabase
     Unload frmHelper
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -561,7 +561,7 @@ End Sub
 
     #[test]
     fn unload_splash_screen() {
-        let source = r#"
+        let source = r"
 Sub Main()
     frmSplash.Show
     DoEvents
@@ -569,7 +569,7 @@ Sub Main()
     Unload frmSplash
     frmMain.Show
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -579,13 +579,13 @@ End Sub
 
     #[test]
     fn unload_multiple_instances() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload Form1(0)
     Unload Form1(1)
     Unload Form1(2)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -595,12 +595,12 @@ End Sub
 
     #[test]
     fn unload_before_end() {
-        let source = r#"
+        let source = r"
 Private Sub cmdExit_Click()
     Unload Me
     End
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -609,11 +609,11 @@ End Sub
 
     #[test]
     fn unload_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Unload (frmDialog)
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();

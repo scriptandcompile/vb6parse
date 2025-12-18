@@ -326,11 +326,11 @@ End Sub
 
     #[test]
     fn iif_numeric() {
-        let source = r#"
+        let source = r"
 Sub Test()
     value = IIf(a > b, a, b)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -392,11 +392,11 @@ End Sub
 
     #[test]
     fn iif_boolean_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isEnabled = IIf(value > 0 And value < 100, True, False)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -420,14 +420,14 @@ End Sub
 
     #[test]
     fn iif_in_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 1 To IIf(useMax, 100, 10)
         Debug.Print i
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -454,13 +454,13 @@ End Sub
 
     #[test]
     fn iif_in_do_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IIf(count > 0, True, False)
         count = count - 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -469,11 +469,11 @@ End Sub
 
     #[test]
     fn iif_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     arr(0) = IIf(flag, 1, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -482,11 +482,11 @@ End Sub
 
     #[test]
     fn iif_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Value = IIf(enabled, 100, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -495,11 +495,11 @@ End Sub
 
     #[test]
     fn iif_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IIf(x > 0, x, -x))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -521,11 +521,11 @@ End Sub
 
     #[test]
     fn iif_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessValue(IIf(isActive, currentValue, 0))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -534,11 +534,11 @@ End Sub
 
     #[test]
     fn iif_return_value() {
-        let source = r#"
+        let source = r"
 Function GetMax(a As Integer, b As Integer) As Integer
     GetMax = IIf(a > b, a, b)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -560,11 +560,11 @@ End Sub
 
     #[test]
     fn iif_multiple_in_expression() {
-        let source = r#"
+        let source = r"
 Sub Test()
     total = IIf(a > 0, a, 0) + IIf(b > 0, b, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -573,11 +573,11 @@ End Sub
 
     #[test]
     fn iif_class_member() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_value = IIf(IsNull(initialValue), 0, initialValue)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -612,11 +612,11 @@ End Sub
 
     #[test]
     fn iif_with_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isValid = (IIf(value <> 0, value, 1) > threshold)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -625,11 +625,11 @@ End Sub
 
     #[test]
     fn iif_ternary_style() {
-        let source = r#"
+        let source = r"
 Function Sign(n As Double) As Integer
     Sign = IIf(n > 0, 1, IIf(n < 0, -1, 0))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));
@@ -638,13 +638,13 @@ End Function
 
     #[test]
     fn iif_with_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     value = IIf(Err.Number = 0, result, defaultValue)
     On Error GoTo 0
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IIf"));

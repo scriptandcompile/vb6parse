@@ -186,13 +186,13 @@ mod test {
     // While...Wend statement tests
     #[test]
     fn while_simple() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While x < 10
         x = x + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -203,11 +203,11 @@ End Sub
 
     #[test]
     fn while_at_module_level() {
-        let source = r#"
+        let source = r"
 While x < 5
     x = x + 1
 Wend
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -231,13 +231,13 @@ End Sub
 
     #[test]
     fn while_with_not_eof() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Not EOF(1)
         Line Input #1, textLine
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -246,7 +246,7 @@ End Sub
 
     #[test]
     fn while_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While i < 10
         While j < 5
@@ -255,7 +255,7 @@ Sub Test()
         i = i + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -265,14 +265,14 @@ End Sub
 
     #[test]
     fn while_with_exit() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While True
         If x > 100 Then Exit Do
         x = x + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -281,13 +281,13 @@ End Sub
 
     #[test]
     fn while_with_comment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While count < limit ' Loop until limit
         count = count + 1
     Wend ' End of loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -297,13 +297,13 @@ End Sub
 
     #[test]
     fn while_with_complex_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While (x < 10 And y > 0) Or z = 5
         Process
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -312,13 +312,13 @@ End Sub
 
     #[test]
     fn while_with_function_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While IsValid(data)
         ProcessData data
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -327,13 +327,13 @@ End Sub
 
     #[test]
     fn while_with_property_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While rs.EOF = False
         rs.MoveNext
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -342,12 +342,12 @@ End Sub
 
     #[test]
     fn while_empty_body() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While condition
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -356,14 +356,14 @@ End Sub
 
     #[test]
     fn while_with_doevents() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While processing
         DoEvents
         CheckStatus
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -372,13 +372,13 @@ End Sub
 
     #[test]
     fn while_string_length_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Len(text) > 0
         text = Mid(text, 2)
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -387,13 +387,13 @@ End Sub
 
     #[test]
     fn while_with_array_access() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While arr(index) <> 0
         index = index + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -402,7 +402,7 @@ End Sub
 
     #[test]
     fn while_with_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While active
         If condition Then
@@ -410,7 +410,7 @@ Sub Test()
         End If
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -420,7 +420,7 @@ End Sub
 
     #[test]
     fn while_with_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While running
         Select Case action
@@ -431,7 +431,7 @@ Sub Test()
         End Select
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -440,7 +440,7 @@ End Sub
 
     #[test]
     fn while_with_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While outerCondition
         For i = 1 To 10
@@ -448,7 +448,7 @@ Sub Test()
         Next i
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -458,7 +458,7 @@ End Sub
 
     #[test]
     fn while_triple_nested() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While a < 10
         While b < 5
@@ -470,7 +470,7 @@ Sub Test()
         a = a + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -480,13 +480,13 @@ End Sub
 
     #[test]
     fn while_with_comparison_operators() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While value <= maxValue
         value = value * 2
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -495,13 +495,13 @@ End Sub
 
     #[test]
     fn while_with_boolean_literal() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While True
         If userQuit Then Exit Sub
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -510,7 +510,7 @@ End Sub
 
     #[test]
     fn while_with_multiple_statements() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While counter < 100
         counter = counter + 1
@@ -519,7 +519,7 @@ Sub Test()
         Display average
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -546,13 +546,13 @@ End Sub
 
     #[test]
     fn while_with_parenthesized_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While (counter < limit)
         counter = counter + 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -579,14 +579,14 @@ End Sub
 
     #[test]
     fn while_timer_based() {
-        let source = r#"
+        let source = r"
 Sub Test()
     startTime = Timer
     While Timer - startTime < 5
         DoEvents
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -611,13 +611,13 @@ End Sub
 
     #[test]
     fn while_collection_count() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While col.Count > 0
         col.Remove 1
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -643,7 +643,7 @@ End Sub
 
     #[test]
     fn while_instr_search() {
-        let source = r#"
+        let source = r"
 Sub Test()
     position = InStr(text, searchTerm)
     While position > 0
@@ -651,7 +651,7 @@ Sub Test()
         position = InStr(position + 1, text, searchTerm)
     Wend
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -671,13 +671,13 @@ End Sub
     // Do...Loop statement tests
     #[test]
     fn do_while_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While x < 10
         x = x + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -688,13 +688,13 @@ End Sub
 
     #[test]
     fn do_until_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until x >= 10
         x = x + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -705,13 +705,13 @@ End Sub
 
     #[test]
     fn do_loop_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do
         x = x + 1
     Loop While x < 10
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -722,13 +722,13 @@ End Sub
 
     #[test]
     fn do_loop_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do
         x = x + 1
     Loop Until x >= 10
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -739,14 +739,14 @@ End Sub
 
     #[test]
     fn do_loop_infinite() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do
         If x > 10 Then Exit Do
         x = x + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -756,7 +756,7 @@ End Sub
 
     #[test]
     fn nested_do_loops() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While i < 10
         Do While j < 5
@@ -765,7 +765,7 @@ Sub Test()
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -776,14 +776,14 @@ End Sub
 
     #[test]
     fn do_while_with_complex_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While x < 10 And y > 0
         x = x + 1
         y = y - 1
     Loop
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -794,13 +794,13 @@ End Sub
 
     #[test]
     fn do_loop_preserves_whitespace() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do  While  x < 10
         x = x + 1
     Loop  While  y > 0
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -811,11 +811,11 @@ End Sub
 
     #[test]
     fn function_with_do_loop_ending_at_end_function() {
-        let source = r#"Function Test()
+        let source = r"Function Test()
 Do
 Loop
 End Function
-"#;
+";
 
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
@@ -823,8 +823,7 @@ End Function
         let tree_str = cst.debug_tree();
         assert!(
             !tree_str.contains("Unknown"),
-            "Should not have any Unknown tokens\n{}",
-            tree_str
+            "Should not have any Unknown tokens\n{tree_str}"
         );
     }
 
@@ -843,8 +842,7 @@ End Function
         let tree_str = cst.debug_tree();
         assert!(
             !tree_str.contains("Unknown"),
-            "Should not have any Unknown tokens\n{}",
-            tree_str
+            "Should not have any Unknown tokens\n{tree_str}"
         );
     }
 }

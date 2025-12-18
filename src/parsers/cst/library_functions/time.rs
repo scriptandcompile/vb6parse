@@ -540,11 +540,11 @@ mod tests {
 
     #[test]
     fn time_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentTime = Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -552,11 +552,11 @@ End Sub
 
     #[test]
     fn time_with_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentTime = Time()
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -564,12 +564,12 @@ End Sub
 
     #[test]
     fn time_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim t As Date
     t = Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -589,11 +589,11 @@ End Sub
 
     #[test]
     fn time_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -601,11 +601,11 @@ End Sub
 
     #[test]
     fn time_function_return() {
-        let source = r#"
+        let source = r"
 Function GetCurrentTime() As Date
     GetCurrentTime = Time
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -613,11 +613,11 @@ End Function
 
     #[test]
     fn time_with_hour() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentHour = Hour(Time)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -625,13 +625,13 @@ End Sub
 
     #[test]
     fn time_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Time > startTime Then
         DoSomething
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -675,13 +675,13 @@ End Sub
 
     #[test]
     fn time_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Hour(Time) >= 9 And Hour(Time) < 17 Then
         BusinessHours
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -689,7 +689,7 @@ End Sub
 
     #[test]
     fn time_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case Hour(Time)
         Case 0 To 11
@@ -700,7 +700,7 @@ Sub Test()
             Evening
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -708,11 +708,11 @@ End Sub
 
     #[test]
     fn time_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call LogTime(Time)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -720,11 +720,11 @@ End Sub
 
     #[test]
     fn time_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.CurrentTime = Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -732,13 +732,13 @@ End Sub
 
     #[test]
     fn time_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With tracker
         .StartTime = Time
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -758,11 +758,11 @@ End Sub
 
     #[test]
     fn time_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     timestamps(i) = Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -770,11 +770,11 @@ End Sub
 
     #[test]
     fn time_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -782,7 +782,7 @@ End Sub
 
     #[test]
     fn time_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x = 1 Then
         y = 1
@@ -790,7 +790,7 @@ Sub Test()
         y = 2
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -798,13 +798,13 @@ End Sub
 
     #[test]
     fn time_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While Time < endTime
         Process
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -812,13 +812,13 @@ End Sub
 
     #[test]
     fn time_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until Time >= targetTime
         Wait
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -826,13 +826,13 @@ End Sub
 
     #[test]
     fn time_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While Time < stopTime
         Continue
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -852,11 +852,11 @@ End Sub
 
     #[test]
     fn time_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     futureTime = Time + TimeSerial(1, 0, 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -864,11 +864,11 @@ End Sub
 
     #[test]
     fn time_cdate() {
-        let source = r#"
+        let source = r"
 Sub Test()
     timeValue = CDate(Time)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -876,12 +876,12 @@ End Sub
 
     #[test]
     fn time_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set logger = New TimeLogger
     logger.LogTime Time
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));
@@ -889,11 +889,11 @@ End Sub
 
     #[test]
     fn time_minute() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentMinute = Minute(Time)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Time"));

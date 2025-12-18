@@ -528,11 +528,11 @@ mod tests {
 
     #[test]
     fn year_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     currentYear = Year(Date)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -540,12 +540,12 @@ End Sub
 
     #[test]
     fn year_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim yr As Integer
     yr = Year(someDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -554,11 +554,11 @@ End Sub
 
     #[test]
     fn year_function_return() {
-        let source = r#"
+        let source = r"
 Function GetYear(dt As Date) As Integer
     GetYear = Year(dt)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -566,13 +566,13 @@ End Function
 
     #[test]
     fn year_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Year(dt) = 2023 Then
         Process
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -580,13 +580,13 @@ End Sub
 
     #[test]
     fn year_comparison() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Year(date1) > Year(date2) Then
         Later
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -594,11 +594,11 @@ End Sub
 
     #[test]
     fn year_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     age = Year(Date) - Year(birthDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -618,11 +618,11 @@ End Sub
 
     #[test]
     fn year_debug_print() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Debug.Print Year(targetDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -630,13 +630,13 @@ End Sub
 
     #[test]
     fn year_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = Year(startDate) To Year(endDate)
         ProcessYear i
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -644,7 +644,7 @@ End Sub
 
     #[test]
     fn year_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case Year(dt)
         Case 2020
@@ -653,7 +653,7 @@ Sub Test()
             DoNormal
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -661,11 +661,11 @@ End Sub
 
     #[test]
     fn year_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessYear(Year(recordDate))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -673,11 +673,11 @@ End Sub
 
     #[test]
     fn year_dateserial() {
-        let source = r#"
+        let source = r"
 Sub Test()
     firstDay = DateSerial(Year(dt), 1, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -685,11 +685,11 @@ End Sub
 
     #[test]
     fn year_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.Year = Year(obj.Date)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -697,13 +697,13 @@ End Sub
 
     #[test]
     fn year_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With dateInfo
         .Year = Year(.DateValue)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -711,11 +711,11 @@ End Sub
 
     #[test]
     fn year_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     years(i) = Year(dates(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -735,11 +735,11 @@ End Sub
 
     #[test]
     fn year_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (Year(dt))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -747,7 +747,7 @@ End Sub
 
     #[test]
     fn year_error_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     On Error Resume Next
     yr = Year(userInput)
@@ -755,7 +755,7 @@ Sub Test()
         yr = 0
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -763,11 +763,11 @@ End Sub
 
     #[test]
     fn year_print_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Print #1, Year(recordDate)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -775,12 +775,12 @@ End Sub
 
     #[test]
     fn year_class_usage() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Set analyzer = New YearAnalyzer
     analyzer.CurrentYear = Year(Date)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -788,7 +788,7 @@ End Sub
 
     #[test]
     fn year_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If x = 1 Then
         y = 1
@@ -796,7 +796,7 @@ Sub Test()
         y = 2
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -859,11 +859,11 @@ End Sub
 
     #[test]
     fn year_mod_operation() {
-        let source = r#"
+        let source = r"
 Sub Test()
     isLeap = (Year(dt) Mod 4 = 0)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));
@@ -883,11 +883,11 @@ End Sub
 
     #[test]
     fn year_cstr() {
-        let source = r#"
+        let source = r"
 Sub Test()
     yearString = CStr(Year(dt))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Year"));

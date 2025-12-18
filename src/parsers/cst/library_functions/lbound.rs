@@ -613,11 +613,11 @@ mod tests {
 
     #[test]
     fn lbound_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = LBound(myArray)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -626,11 +626,11 @@ End Sub
 
     #[test]
     fn lbound_with_dimension() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = LBound(matrix, 2)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -639,14 +639,14 @@ End Sub
 
     #[test]
     fn lbound_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     For i = LBound(arr) To UBound(arr)
         Debug.Print arr(i)
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -655,11 +655,11 @@ End Sub
 
     #[test]
     fn lbound_function_return() {
-        let source = r#"
+        let source = r"
 Function GetLowerBound(arr As Variant) As Long
     GetLowerBound = LBound(arr)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -668,13 +668,13 @@ End Function
 
     #[test]
     fn lbound_if_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If LBound(data) = 0 Then
         ProcessZeroBased
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -709,12 +709,12 @@ End Sub
 
     #[test]
     fn lbound_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim lb As Long
     lb = LBound(myArray)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -723,11 +723,11 @@ End Sub
 
     #[test]
     fn lbound_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.LowerBound = LBound(obj.Data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -736,11 +736,11 @@ End Sub
 
     #[test]
     fn lbound_arithmetic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     size = UBound(arr) - LBound(arr) + 1
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -749,11 +749,11 @@ End Sub
 
     #[test]
     fn lbound_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_lowerBound = LBound(m_data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -762,13 +762,13 @@ End Sub
 
     #[test]
     fn lbound_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With container
         .Start = LBound(.Items)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -777,11 +777,11 @@ End Sub
 
     #[test]
     fn lbound_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ProcessBound(LBound(data))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -790,7 +790,7 @@ End Sub
 
     #[test]
     fn lbound_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case LBound(arr)
         Case 0
@@ -799,7 +799,7 @@ Sub Test()
             OneBasedProcessing
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -808,7 +808,7 @@ End Sub
 
     #[test]
     fn lbound_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If LBound(arr) = 0 Then
         HandleZero
@@ -816,7 +816,7 @@ Sub Test()
         HandleOne
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -838,11 +838,11 @@ End Sub
 
     #[test]
     fn lbound_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (LBound(values))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -851,11 +851,11 @@ End Sub
 
     #[test]
     fn lbound_array_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     bounds(0) = LBound(data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -864,11 +864,11 @@ End Sub
 
     #[test]
     fn lbound_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     bounds.Add LBound(arrays(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -892,11 +892,11 @@ End Sub
 
     #[test]
     fn lbound_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(LBound(data))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -905,14 +905,14 @@ End Sub
 
     #[test]
     fn lbound_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     i = LBound(arr)
     While i <= UBound(arr)
         i = i + 1
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -921,14 +921,14 @@ End Sub
 
     #[test]
     fn lbound_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     i = LBound(values)
     Do While i <= UBound(values)
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -937,14 +937,14 @@ End Sub
 
     #[test]
     fn lbound_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     i = LBound(items)
     Do Until i > UBound(items)
         i = i + 1
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -953,13 +953,13 @@ End Sub
 
     #[test]
     fn lbound_redim() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim lb As Long
     lb = LBound(arr)
     ReDim Preserve arr(lb To lb + 20)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));
@@ -968,7 +968,7 @@ End Sub
 
     #[test]
     fn lbound_multi_dimensional() {
-        let source = r#"
+        let source = r"
 Sub Test()
     For i = LBound(grid, 1) To UBound(grid, 1)
         For j = LBound(grid, 2) To UBound(grid, 2)
@@ -976,7 +976,7 @@ Sub Test()
         Next j
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LBound"));

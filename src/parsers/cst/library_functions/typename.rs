@@ -239,12 +239,12 @@ mod tests {
 
     #[test]
     fn typename_integer() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim x As Integer
     MsgBox TypeName(x)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TypeName"));
@@ -252,13 +252,13 @@ End Sub
 
     #[test]
     fn typename_object() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim c As Collection
     Set c = New Collection
     MsgBox TypeName(c)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TypeName"));
@@ -266,12 +266,12 @@ End Sub
 
     #[test]
     fn typename_array() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim arr(1 To 5) As String
     MsgBox TypeName(arr)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TypeName"));
@@ -279,13 +279,13 @@ End Sub
 
     #[test]
     fn typename_variant() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim v As Variant
     v = 123
     MsgBox TypeName(v)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TypeName"));
@@ -405,7 +405,7 @@ End Sub
 
     #[test]
     fn typename_user_defined_type() {
-        let source = r#"
+        let source = r"
 Type MyType
     x As Integer
 End Type
@@ -413,7 +413,7 @@ Sub Test()
     Dim t As MyType
     MsgBox TypeName(t)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("TypeName"));

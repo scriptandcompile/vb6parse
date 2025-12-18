@@ -580,9 +580,9 @@ mod tests {
 
     #[test]
     fn formatnumber_basic() {
-        let source = r#"
+        let source = r"
 result = FormatNumber(value)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -591,9 +591,9 @@ result = FormatNumber(value)
 
     #[test]
     fn formatnumber_decimals() {
-        let source = r#"
+        let source = r"
 formatted = FormatNumber(value, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -602,9 +602,9 @@ formatted = FormatNumber(value, 2)
 
     #[test]
     fn formatnumber_no_decimals() {
-        let source = r#"
+        let source = r"
 formatted = FormatNumber(value, 0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -613,9 +613,9 @@ formatted = FormatNumber(value, 0)
 
     #[test]
     fn formatnumber_parens() {
-        let source = r#"
+        let source = r"
 result = FormatNumber(negative, 2, , vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -624,9 +624,9 @@ result = FormatNumber(negative, 2, , vbTrue)
 
     #[test]
     fn formatnumber_all_params() {
-        let source = r#"
+        let source = r"
 formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -635,9 +635,9 @@ formatted = FormatNumber(value, 2, vbTrue, vbTrue, vbTrue)
 
     #[test]
     fn formatnumber_debug_print() {
-        let source = r#"
+        let source = r"
 Debug.Print FormatNumber(total, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -657,11 +657,11 @@ msg = "Total: " & FormatNumber(total, 2)
 
     #[test]
     fn formatnumber_in_function() {
-        let source = r#"
+        let source = r"
 Function FormatPopulation(population As Long) As String
     FormatPopulation = FormatNumber(population, 0, , , vbTrue)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -670,10 +670,10 @@ End Function
 
     #[test]
     fn formatnumber_grid() {
-        let source = r#"
+        let source = r"
 grid.TextMatrix(i + 1, 0) = FormatNumber(i, 0)
 grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -682,9 +682,9 @@ grid.TextMatrix(i + 1, 1) = FormatNumber(values(i), 2)
 
     #[test]
     fn formatnumber_multiplication() {
-        let source = r#"
+        let source = r"
 result = FormatNumber(value * 100, 2)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -704,9 +704,9 @@ formatted = FormatNumber(value / Billion, 2) & "B"
 
     #[test]
     fn formatnumber_listbox() {
-        let source = r#"
+        let source = r"
 lst.AddItem FormatNumber(values(i), decimals)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -728,13 +728,13 @@ summary = "Actual: " & FormatNumber(actual, 2) & vbCrLf & _
 
     #[test]
     fn formatnumber_if_statement() {
-        let source = r#"
+        let source = r"
 If Abs(value) >= 1000 Then
     result = FormatNumber(value, 0)
 Else
     result = FormatNumber(value, 2)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -743,11 +743,11 @@ End If
 
     #[test]
     fn formatnumber_isnull_check() {
-        let source = r#"
+        let source = r"
 If Not IsNull(value) Then
     formatted = FormatNumber(value, 2)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -756,11 +756,11 @@ End If
 
     #[test]
     fn formatnumber_isnumeric_check() {
-        let source = r#"
+        let source = r"
 If IsNumeric(value) Then
     result = FormatNumber(CDbl(value), decimals)
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -784,11 +784,11 @@ ErrorHandler:
 
     #[test]
     fn formatnumber_for_loop() {
-        let source = r#"
+        let source = r"
 For i = LBound(values) To UBound(values)
     Debug.Print FormatNumber(values(i), 2)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -797,14 +797,14 @@ Next i
 
     #[test]
     fn formatnumber_select_case() {
-        let source = r#"
+        let source = r"
 Select Case Abs(value)
     Case Is >= 1000
         result = FormatNumber(value, 0)
     Case Else
         result = FormatNumber(value, 2)
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -824,9 +824,9 @@ comparison = FormatNumber(value1, 2) & " vs " & FormatNumber(value2, 2)
 
     #[test]
     fn formatnumber_vbfalse() {
-        let source = r#"
+        let source = r"
 result = FormatNumber(fraction, 2, vbFalse)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -835,9 +835,9 @@ result = FormatNumber(fraction, 2, vbFalse)
 
     #[test]
     fn formatnumber_grouping() {
-        let source = r#"
+        let source = r"
 formatted = FormatNumber(largeNumber, 2, , , vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -846,9 +846,9 @@ formatted = FormatNumber(largeNumber, 2, , , vbTrue)
 
     #[test]
     fn formatnumber_recordset() {
-        let source = r#"
+        let source = r"
 formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -857,10 +857,10 @@ formatted = FormatNumber(rs.Fields(fieldName).Value, decimals)
 
     #[test]
     fn formatnumber_iif() {
-        let source = r#"
+        let source = r"
 parens = IIf(useParens, vbTrue, vbFalse)
 result = FormatNumber(value, decimals, vbTrue, parens, vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));
@@ -880,9 +880,9 @@ result = FormatNumber(value, decimals) & " " & unit
 
     #[test]
     fn formatnumber_subtraction() {
-        let source = r#"
+        let source = r"
 difference = FormatNumber(actual - expected, 2, , vbTrue)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("FormatNumber"));

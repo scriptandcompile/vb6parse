@@ -773,11 +773,11 @@ mod tests {
 
     #[test]
     fn eof_basic() {
-        let source = r#"
+        let source = r"
 Do Until EOF(1)
     Line Input #1, line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -786,11 +786,11 @@ Loop
 
     #[test]
     fn eof_with_variable() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -799,11 +799,11 @@ Loop
 
     #[test]
     fn eof_in_if_statement() {
-        let source = r#"
+        let source = r"
 If Not EOF(1) Then
     Line Input #1, line
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -812,11 +812,11 @@ End If
 
     #[test]
     fn eof_while_loop() {
-        let source = r#"
+        let source = r"
 Do While Not EOF(fileNum)
     Get #fileNum, , record
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -825,13 +825,13 @@ Loop
 
     #[test]
     fn eof_in_function() {
-        let source = r#"
+        let source = r"
 Function ReadAllLines(path As String) As Variant
     Do Until EOF(fnum)
         Line Input #fnum, line
     Loop
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -840,12 +840,12 @@ End Function
 
     #[test]
     fn eof_with_or_condition() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum) Or count >= maxLines
     Line Input #fileNum, line
     count = count + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -854,13 +854,13 @@ Loop
 
     #[test]
     fn eof_count_lines() {
-        let source = r#"
+        let source = r"
 count = 0
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     count = count + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -883,12 +883,12 @@ Loop
 
     #[test]
     fn eof_multiple_files() {
-        let source = r#"
+        let source = r"
 Do Until EOF(inNum)
     Line Input #inNum, line
     Print #outNum, line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -897,13 +897,13 @@ Loop
 
     #[test]
     fn eof_for_loop() {
-        let source = r#"
+        let source = r"
 For i = 1 To headerLines
     If Not EOF(fileNum) Then
         Line Input #fileNum, line
     End If
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -912,14 +912,14 @@ Next i
 
     #[test]
     fn eof_with_freefile() {
-        let source = r#"
+        let source = r"
 fileNum = FreeFile
 Open path For Input As #fileNum
 Do Until EOF(fileNum)
     Line Input #fileNum, line
 Loop
 Close #fileNum
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -928,7 +928,7 @@ Close #fileNum
 
     #[test]
     fn eof_search_file() {
-        let source = r#"
+        let source = r"
 found = False
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -937,7 +937,7 @@ Do Until EOF(fileNum)
         Exit Do
     End If
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -946,12 +946,12 @@ Loop
 
     #[test]
     fn eof_with_get() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Get #fileNum, , customer
     Debug.Print customer.Name
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -975,13 +975,13 @@ Loop
 
     #[test]
     fn eof_with_doevents() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     ProcessLine line
     If lineCount Mod 100 = 0 Then DoEvents
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -990,7 +990,7 @@ Loop
 
     #[test]
     fn eof_error_handling() {
-        let source = r#"
+        let source = r"
 On Error GoTo ErrorHandler
 Do Until EOF(fileNum)
     Line Input #fileNum, line
@@ -999,7 +999,7 @@ Close #fileNum
 Exit Sub
 ErrorHandler:
 If fileNum > 0 Then Close #fileNum
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1008,9 +1008,9 @@ If fileNum > 0 Then Close #fileNum
 
     #[test]
     fn eof_assignment() {
-        let source = r#"
+        let source = r"
 isAtEnd = EOF(fileNum)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1039,13 +1039,13 @@ Loop
 
     #[test]
     fn eof_with_trim() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     line = Trim(line)
     If Len(line) > 0 Then ProcessLine line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1054,12 +1054,12 @@ Loop
 
     #[test]
     fn eof_debug_print() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     Debug.Print line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1068,14 +1068,14 @@ Loop
 
     #[test]
     fn eof_with_array() {
-        let source = r#"
+        let source = r"
 count = 0
 Do Until EOF(fileNum)
     Line Input #fileNum, line
     lines(count) = line
     count = count + 1
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1117,12 +1117,12 @@ Loop
 
     #[test]
     fn eof_chunk_reading() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     chunk = ReadFileChunk(fileNum, 1000)
     ProcessChunk chunk
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));
@@ -1131,13 +1131,13 @@ Loop
 
     #[test]
     fn eof_with_seek() {
-        let source = r#"
+        let source = r"
 Do Until EOF(fileNum)
     position = Seek(fileNum)
     Line Input #fileNum, line
     Debug.Print position, line
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("EOF"));

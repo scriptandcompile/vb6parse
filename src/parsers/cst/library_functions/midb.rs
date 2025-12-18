@@ -85,7 +85,7 @@ End Sub
 
     #[test]
     fn midb_with_variables() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim pos As Long
@@ -93,7 +93,7 @@ Sub Test()
     Dim result As String
     result = MidB(text, pos, len)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -165,13 +165,13 @@ End Sub
 
     #[test]
     fn midb_byte_array_processing() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim data As String
     Dim chunk As String
     chunk = MidB(data, 1, 256)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -181,7 +181,7 @@ End Sub
 
     #[test]
     fn midb_binary_data() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim buffer As String
     Dim header As String
@@ -189,7 +189,7 @@ Sub Test()
     header = MidB(buffer, 1, 16)
     payload = MidB(buffer, 17)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -199,13 +199,13 @@ End Sub
 
     #[test]
     fn midb_array_element() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim arr(10) As String
     Dim result As String
     result = MidB(arr(5), 2, 3)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -215,7 +215,7 @@ End Sub
 
     #[test]
     fn midb_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Long
     Dim text As String
@@ -224,7 +224,7 @@ Sub Test()
         bytes = MidB(text, i, 10)
     Next i
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -234,13 +234,13 @@ End Sub
 
     #[test]
     fn midb_multiple_calls() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim s As String
     Dim result As String
     result = MidB(s, 1, 2) & MidB(s, 5, 3)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -250,11 +250,11 @@ End Sub
 
     #[test]
     fn midb_function_parameter() {
-        let source = r#"
+        let source = r"
 Function ProcessBytes(text As String) As String
     ProcessBytes = MidB(text, 1, 10)
 End Function
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -264,13 +264,13 @@ End Function
 
     #[test]
     fn midb_conversion_combination() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim result As String
     result = CStr(MidB(text, 5, 10))
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -302,14 +302,14 @@ End Sub
 
     #[test]
     fn midb_with_expressions() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim text As String
     Dim offset As Long
     Dim result As String
     result = MidB(text, offset * 2 + 1, 5)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -319,7 +319,7 @@ End Sub
 
     #[test]
     fn midb_file_header() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim fileData As String
     Dim signature As String
@@ -327,7 +327,7 @@ Sub Test()
     signature = MidB(fileData, 1, 8)
     version = MidB(fileData, 9, 4)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -355,7 +355,7 @@ End Sub
 
     #[test]
     fn midb_type_field() {
-        let source = r#"
+        let source = r"
 Type BinaryRecord
     Data As String
     ID As String
@@ -366,7 +366,7 @@ Sub Test()
     Dim bytes As String
     bytes = MidB(rec.Data, 1, 5)
 End Sub
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
@@ -376,11 +376,11 @@ End Sub
 
     #[test]
     fn midb_return_value() {
-        let source = r#"
+        let source = r"
 Function GetBytes(s As String, pos As Long) As String
     GetBytes = MidB(s, pos, 3)
 End Function
-"#;
+";
 
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();

@@ -1,6 +1,6 @@
-//! Example demonstrating how to use the CST parser with a TokenStream
+//! Example demonstrating how to use the CST parser with a `TokenStream`
 //!
-//! This example shows how to create a TokenStream and parse it into a
+//! This example shows how to create a `TokenStream` and parse it into a
 //! Concrete Syntax Tree (CST) that represents VB6 code structure.
 
 use vb6parse::language::Token;

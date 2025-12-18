@@ -399,9 +399,9 @@ mod tests {
 
     #[test]
     fn cos_basic() {
-        let source = r#"
+        let source = r"
 result = Cos(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -410,9 +410,9 @@ result = Cos(angle)
 
     #[test]
     fn cos_with_zero() {
-        let source = r#"
+        let source = r"
 value = Cos(0)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -421,10 +421,10 @@ value = Cos(0)
 
     #[test]
     fn cos_with_pi() {
-        let source = r#"
+        let source = r"
 Const Pi As Double = 3.14159265358979
 result = Cos(Pi)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -433,11 +433,11 @@ result = Cos(Pi)
 
     #[test]
     fn cos_degrees_to_radians() {
-        let source = r#"
+        let source = r"
 Const Pi As Double = 3.14159265358979
 radians = degrees * (Pi / 180)
 result = Cos(radians)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -446,12 +446,12 @@ result = Cos(radians)
 
     #[test]
     fn cos_in_function() {
-        let source = r#"
+        let source = r"
 Function CosDegrees(degrees As Double) As Double
     Const Pi As Double = 3.14159265358979
     CosDegrees = Cos(degrees * (Pi / 180))
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -460,9 +460,9 @@ End Function
 
     #[test]
     fn cos_circle_calculation() {
-        let source = r#"
+        let source = r"
 x = centerX + radius * Cos(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -471,9 +471,9 @@ x = centerX + radius * Cos(angle)
 
     #[test]
     fn cos_rotation() {
-        let source = r#"
+        let source = r"
 newX = x * Cos(angle) - y * Sin(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -482,11 +482,11 @@ newX = x * Cos(angle) - y * Sin(angle)
 
     #[test]
     fn cos_wave_generation() {
-        let source = r#"
+        let source = r"
 For i = 0 To samples - 1
     wave(i) = amplitude * Cos(angle)
 Next i
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -495,10 +495,10 @@ Next i
 
     #[test]
     fn cos_harmonic_motion() {
-        let source = r#"
+        let source = r"
 Const Pi As Double = 3.14159265358979
 position = amplitude * Cos(2 * Pi * frequency * time)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -507,10 +507,10 @@ position = amplitude * Cos(2 * Pi * frequency * time)
 
     #[test]
     fn cos_in_assignment() {
-        let source = r#"
+        let source = r"
 Dim result As Double
 result = Cos(1.5708)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -519,10 +519,10 @@ result = Cos(1.5708)
 
     #[test]
     fn cos_polar_to_cartesian() {
-        let source = r#"
+        let source = r"
 x = radius * Cos(angle)
 y = radius * Sin(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -531,9 +531,9 @@ y = radius * Sin(angle)
 
     #[test]
     fn cos_with_expression() {
-        let source = r#"
+        let source = r"
 result = Cos(Pi / 4)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -542,9 +542,9 @@ result = Cos(Pi / 4)
 
     #[test]
     fn cos_multiple_operations() {
-        let source = r#"
+        let source = r"
 value = amplitude * Cos(2 * Pi * frequency * time + phase)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -553,11 +553,11 @@ value = amplitude * Cos(2 * Pi * frequency * time + phase)
 
     #[test]
     fn cos_in_if_statement() {
-        let source = r#"
+        let source = r"
 If Cos(angle) > 0 Then
     ProcessPositive
 End If
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -566,9 +566,9 @@ End If
 
     #[test]
     fn cos_pythagorean_identity() {
-        let source = r#"
+        let source = r"
 sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -577,9 +577,9 @@ sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
 
     #[test]
     fn cos_in_array() {
-        let source = r#"
+        let source = r"
 values(i) = Cos(angles(i))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -588,10 +588,10 @@ values(i) = Cos(angles(i))
 
     #[test]
     fn cos_ellipse() {
-        let source = r#"
+        let source = r"
 ptX = centerX + radiusX * Cos(angle)
 ptY = centerY + radiusY * Sin(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -600,10 +600,10 @@ ptY = centerY + radiusY * Sin(angle)
 
     #[test]
     fn cos_3d_rotation() {
-        let source = r#"
+        let source = r"
 newX = x * Cos(angle) - z * Sin(angle)
 newZ = x * Sin(angle) + z * Cos(angle)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -612,14 +612,14 @@ newZ = x * Sin(angle) + z * Cos(angle)
 
     #[test]
     fn cos_in_select_case() {
-        let source = r#"
+        let source = r"
 Select Case Cos(angle)
     Case Is > 0.5
         HandleLarge
     Case Else
         HandleSmall
 End Select
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -628,9 +628,9 @@ End Select
 
     #[test]
     fn cos_nested_call() {
-        let source = r#"
+        let source = r"
 result = Cos(Cos(x))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -639,11 +639,11 @@ result = Cos(Cos(x))
 
     #[test]
     fn cos_in_do_loop() {
-        let source = r#"
+        let source = r"
 Do While Cos(angle) > threshold
     angle = angle + step
 Loop
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -652,9 +652,9 @@ Loop
 
     #[test]
     fn cos_angle_addition() {
-        let source = r#"
+        let source = r"
 result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -663,9 +663,9 @@ result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
 
     #[test]
     fn cos_with_abs() {
-        let source = r#"
+        let source = r"
 magnitude = Abs(Cos(angle))
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));
@@ -685,9 +685,9 @@ Print "Cosine: "; Cos(angle)
 
     #[test]
     fn cos_with_whitespace() {
-        let source = r#"
+        let source = r"
 result = Cos( angle )
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let debug = tree.debug_tree();
         assert!(debug.contains("Cos"));

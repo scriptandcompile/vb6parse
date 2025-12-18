@@ -660,9 +660,9 @@ mod tests {
 
     #[test]
     fn loadpicture_basic() {
-        let source = r#"
+        let source = r"
             Set Picture1.Picture = LoadPicture(filename)
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -682,11 +682,11 @@ mod tests {
 
     #[test]
     fn loadpicture_if_statement() {
-        let source = r#"
+        let source = r"
             If fileExists Then
                 Picture1.Picture = LoadPicture(imagePath)
             End If
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -741,9 +741,9 @@ mod tests {
 
     #[test]
     fn loadpicture_array_assignment() {
-        let source = r#"
+        let source = r"
             Set images(i) = LoadPicture(files(i))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -837,9 +837,9 @@ mod tests {
 
     #[test]
     fn loadpicture_parentheses() {
-        let source = r#"
+        let source = r"
             Set pic = (LoadPicture(filename))
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -908,12 +908,12 @@ mod tests {
 
     #[test]
     fn loadpicture_while_wend() {
-        let source = r#"
+        let source = r"
             While index < maxImages
                 Set images(index) = LoadPicture(files(index))
                 index = index + 1
             Wend
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -922,12 +922,12 @@ mod tests {
 
     #[test]
     fn loadpicture_do_while() {
-        let source = r#"
+        let source = r"
             Do While hasMore
                 Set currentPic = LoadPicture(GetNextFile())
                 ProcessPicture currentPic
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -936,13 +936,13 @@ mod tests {
 
     #[test]
     fn loadpicture_do_until() {
-        let source = r#"
+        let source = r"
             Do Until loaded
                 On Error Resume Next
                 Set pic = LoadPicture(filename)
                 loaded = (Err.Number = 0)
             Loop
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));
@@ -964,9 +964,9 @@ mod tests {
 
     #[test]
     fn loadpicture_no_arguments() {
-        let source = r#"
+        let source = r"
             Set Picture1.Picture = LoadPicture()
-        "#;
+        ";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LoadPicture"));

@@ -569,11 +569,11 @@ mod tests {
 
     #[test]
     fn isarray_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = IsArray(myVariable)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -597,13 +597,13 @@ End Sub
 
     #[test]
     fn isarray_not_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not IsArray(value) Then
         Exit Sub
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -612,11 +612,11 @@ End Sub
 
     #[test]
     fn isarray_function_return() {
-        let source = r#"
+        let source = r"
 Function CheckArray(v As Variant) As Boolean
     CheckArray = IsArray(v)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -625,13 +625,13 @@ End Function
 
     #[test]
     fn isarray_boolean_and() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsArray(data) And UBound(data) > 0 Then
         ProcessArray data
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -640,13 +640,13 @@ End Sub
 
     #[test]
     fn isarray_boolean_or() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsArray(data) Or IsNull(data) Then
         handleSpecialCase
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -655,7 +655,7 @@ End Sub
 
     #[test]
     fn isarray_select_case() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Select Case True
         Case IsArray(value)
@@ -664,7 +664,7 @@ Sub Test()
             HandleSingle
     End Select
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -673,11 +673,11 @@ End Sub
 
     #[test]
     fn isarray_iif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     count = IIf(IsArray(data), UBound(data) + 1, 1)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -712,13 +712,13 @@ End Sub
 
     #[test]
     fn isarray_do_while() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do While IsArray(currentData)
         currentData = GetNextData()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -727,13 +727,13 @@ End Sub
 
     #[test]
     fn isarray_do_until() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Do Until IsArray(result)
         result = ProcessNext()
     Loop
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -742,12 +742,12 @@ End Sub
 
     #[test]
     fn isarray_variable_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim isArr As Boolean
     isArr = IsArray(myData)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -756,11 +756,11 @@ End Sub
 
     #[test]
     fn isarray_property_assignment() {
-        let source = r#"
+        let source = r"
 Sub Test()
     obj.IsArrayData = IsArray(obj.Data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -769,11 +769,11 @@ End Sub
 
     #[test]
     fn isarray_in_class() {
-        let source = r#"
+        let source = r"
 Private Sub Class_Initialize()
     m_isArray = IsArray(m_data)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -782,13 +782,13 @@ End Sub
 
     #[test]
     fn isarray_with_statement() {
-        let source = r#"
+        let source = r"
 Sub Test()
     With dataObject
         .IsValid = IsArray(.Values)
     End With
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -797,11 +797,11 @@ End Sub
 
     #[test]
     fn isarray_function_argument() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Call ValidateData(IsArray(myVariable))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -825,7 +825,7 @@ End Sub
 
     #[test]
     fn isarray_for_loop() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim i As Integer
     For i = 0 To 10
@@ -834,7 +834,7 @@ Sub Test()
         End If
     Next i
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -843,7 +843,7 @@ End Sub
 
     #[test]
     fn isarray_elseif() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If IsNumeric(data) Then
         ProcessNumber data
@@ -851,7 +851,7 @@ Sub Test()
         ProcessArray data
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -873,11 +873,11 @@ End Sub
 
     #[test]
     fn isarray_parentheses() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = (IsArray(data))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -886,11 +886,11 @@ End Sub
 
     #[test]
     fn isarray_array_index() {
-        let source = r#"
+        let source = r"
 Sub Test()
     checks(i) = IsArray(values(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -899,11 +899,11 @@ End Sub
 
     #[test]
     fn isarray_collection_add() {
-        let source = r#"
+        let source = r"
 Sub Test()
     results.Add IsArray(data(i))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -912,11 +912,11 @@ End Sub
 
     #[test]
     fn isarray_nested_call() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = CStr(IsArray(myVar))
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -925,13 +925,13 @@ End Sub
 
     #[test]
     fn isarray_error_check() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If Not IsArray(param) Then
         Err.Raise 5
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));
@@ -940,13 +940,13 @@ End Sub
 
     #[test]
     fn isarray_while_wend() {
-        let source = r#"
+        let source = r"
 Sub Test()
     While IsArray(current)
         current = GetNext()
     Wend
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("IsArray"));

@@ -34,11 +34,11 @@ End Sub
 
     #[test]
     fn appactivate_with_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     AppActivate lstTopWin.Text
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -60,11 +60,11 @@ End Sub
 
     #[test]
     fn appactivate_with_title_variable() {
-        let source = r#"
+        let source = r"
 Sub Test()
     AppActivate sTitle
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
@@ -119,11 +119,11 @@ End Sub
 
     #[test]
     fn appactivate_inline_if() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If windowExists Then AppActivate windowTitle
 End Sub
-"#;
+";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let debug = cst.debug_tree();
