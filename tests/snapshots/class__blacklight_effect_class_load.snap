@@ -16,7 +16,7 @@ header:
     name: FastDrawing
     global_name_space: Local
     creatable: "True"
-    pre_declared_id: "False"
+    predeclared_id: "False"
     exposed: "False"
     description: ~
     ext_key: {}

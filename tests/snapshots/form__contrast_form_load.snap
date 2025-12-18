@@ -338,7 +338,7 @@ attributes:
   name: frmContrast
   global_name_space: Local
   creatable: "False"
-  pre_declared_id: "True"
+  predeclared_id: "True"
   exposed: "False"
   description: ~
   ext_key: {}
