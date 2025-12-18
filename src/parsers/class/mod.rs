@@ -160,7 +160,7 @@ impl ClassFile {
     }
 }
 
-/// Extract VB6FileAttributes from AttributeStatement nodes in the CST
+/// Extract FileAttributes from AttributeStatement nodes in the CST
 fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> FileAttributes {
     let mut name = String::new();
     let mut global_name_space = NameSpace::Local;

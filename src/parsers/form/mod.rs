@@ -139,7 +139,7 @@ fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
     objects
 }
 
-/// Extracts VB6FileAttributes from the CST.
+/// Extracts FileAttributes from the CST.
 ///
 /// Parses Attribute statements to extract file metadata like VB_Name, VB_GlobalNameSpace, etc.
 fn extract_attributes(cst: &ConcreteSyntaxTree) -> FileAttributes {
