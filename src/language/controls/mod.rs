@@ -75,7 +75,9 @@ use crate::language::controls::{
 /// moved in front of it or if it is redrawn manually.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245029(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum AutoRedraw {
     /// Disables automatic repainting of an object and writes graphics or text
@@ -95,7 +97,9 @@ pub enum AutoRedraw {
 /// `TextDirection` determines the direction in which text is displayed in the control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa442921(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum TextDirection {
     /// The text is ordered from left to right.
@@ -115,7 +119,19 @@ pub enum TextDirection {
 /// will be scaled or clipped depending on other properties like `SizeMode`.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245034(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum AutoSize {
     /// Keeps the size of the control constant. Contents are clipped when they
@@ -131,7 +147,19 @@ pub enum AutoSize {
 /// Determines if a control or form can respond to user-generated events.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267301(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum Activation {
     /// The control is disabled and will not respond to user-generated events.
@@ -155,7 +183,19 @@ pub enum Activation {
 /// However, it can still receive focus programmatically or through other user interactions.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445721(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum TabStop {
     /// Bypasses the object when the user is tabbing, although the object still
@@ -172,7 +212,9 @@ pub enum TabStop {
 /// Determines if the control is visible or hidden.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445768(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Visibility {
     /// The control is not visible.
@@ -192,7 +234,9 @@ pub enum Visibility {
 /// as a display or printer.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245860(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum HasDeviceContext {
     /// The control does not have a device context.
@@ -209,7 +253,9 @@ pub enum HasDeviceContext {
 /// That is, if it is used to create transparent regions.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445753(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum UseMaskColor {
     /// The control does not use the mask color.
@@ -233,7 +279,19 @@ pub enum UseMaskColor {
 /// to move focus from the control to another control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245065(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum CausesValidation {
     /// The control does not cause validation.
@@ -255,7 +313,19 @@ pub enum CausesValidation {
 /// bar or by using the arrow keys.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235194(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum Movability {
     /// The form is not moveable.
@@ -271,7 +341,19 @@ pub enum Movability {
 /// control are displayed in the spaces around characters.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267490(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FontTransparency {
     /// Masks existing background graphics and text around the characters of a
@@ -290,7 +372,19 @@ pub enum FontTransparency {
 /// window.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445772(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WhatsThisHelp {
     /// The application uses the F1 key to start Windows Help and load the topic
@@ -313,7 +407,19 @@ pub enum WhatsThisHelp {
 /// `application**|topic!**item` expression.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FormLinkMode {
     /// No DDE interaction. No destination application can initiate a conversation
@@ -336,7 +442,19 @@ pub enum FormLinkMode {
 /// This is used with the `Form` and `MDIForm` controls.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445778(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WindowState {
     /// The form is in its normal state.
@@ -354,7 +472,7 @@ pub enum WindowState {
 /// the initial position of the form when it first appears.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445708(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, Copy, Hash, PartialOrd, Ord)]
 pub enum StartUpPosition {
     /// The form is positioned based on the `client_height`, `client_width`,
     /// `client_top`, and `client_left` properties.
@@ -571,7 +689,9 @@ impl ControlKind {
 /// automatically sized to fit the form's width.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267259(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Align {
     /// The control is not docked to any side of the parent control.
@@ -602,7 +722,9 @@ pub enum Align {
 /// `OptionButton` controls only.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum JustifyAlignment {
     /// The text is left-aligned. The control is right-aligned.
@@ -620,7 +742,9 @@ pub enum JustifyAlignment {
 /// right-aligned, or centered.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Alignment {
     /// The text is left-aligned within the control.
@@ -638,7 +762,9 @@ pub enum Alignment {
 /// is transparent or opaque.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245038(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BackStyle {
     /// The transparent background color and any graphics are visible behind the
@@ -673,7 +799,9 @@ pub enum BackStyle {
 /// `ThreeD` (1).
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244932(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Appearance {
     /// The control is painted with a flat style.
@@ -688,7 +816,9 @@ pub enum Appearance {
 /// The `BorderStyle` determines the appearance of the border of a control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245047(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BorderStyle {
     /// The control has no border.
@@ -704,7 +834,9 @@ pub enum BorderStyle {
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DragMode {
     /// The control does not support drag and drop operations until
@@ -720,7 +852,9 @@ pub enum DragMode {
 
 /// Specifies how the pen (the color used in drawing) interacts with the
 /// background.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DrawMode {
     /// Black pen color is applied over the background.
@@ -761,7 +895,9 @@ pub enum DrawMode {
 }
 
 /// Determines the line style of any drawing from any graphic method applied by the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DrawStyle {
     /// A solid line.
@@ -784,7 +920,9 @@ pub enum DrawStyle {
 }
 
 /// Determines the appearance of the mouse pointer when it is over the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum MousePointer {
     /// Standard pointer. The image is determined by the hovered over object.
@@ -835,7 +973,9 @@ pub enum MousePointer {
 }
 
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OLEDragMode {
     /// The programmer handles all OLE drag/drop events manually.
@@ -848,7 +988,9 @@ pub enum OLEDragMode {
 }
 
 /// Determines the style of drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OLEDropMode {
     /// The control does not accept any OLE drop operations.
@@ -862,7 +1004,9 @@ pub enum OLEDropMode {
 
 /// Determines if the control is clipped to the bounds of the parent control.
 /// This is used with the `Form` and `MDIForm` controls.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ClipControls {
     /// The controls are not clipped to the bounds of the parent control.
@@ -876,7 +1020,9 @@ pub enum ClipControls {
 
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Style {
     /// The control uses standard styling.
@@ -890,7 +1036,9 @@ pub enum Style {
 
 /// Determines the fill style of the control for drawing purposes.
 /// This is used with the `Form` and `PictureBox` controls.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum FillStyle {
     /// The background is filled with a solid color.
@@ -920,7 +1068,9 @@ pub enum FillStyle {
 /// This is used with the `Form` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum LinkMode {
     /// No DDE interaction. No destination application can initiate a conversation
@@ -954,7 +1104,9 @@ pub enum LinkMode {
 /// Determines the multi-select behavior of a `ListBox` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235198(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum MultiSelect {
     /// The user cannot select more than one item in the list box.
@@ -972,7 +1124,9 @@ pub enum MultiSelect {
 /// This is used with the `Form` and `PictureBox` controls.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445668(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ScaleMode {
     /// Indicates that one or more of the `ScaleHeight`, `ScaleWidth`, `ScaleLeft`, and `ScaleTop` properties are set to custom values.
@@ -1004,7 +1158,9 @@ pub enum ScaleMode {
 /// This is used with the `Image` and `PictureBox` controls.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445695(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum SizeMode {
     /// The picture is displayed in its original size. If the picture is larger than
