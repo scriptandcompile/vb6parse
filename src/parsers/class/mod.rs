@@ -78,14 +78,12 @@ impl ClassFile {
     /// Attribute VB_Exposed = False
     /// ";
     ///
-    ///
     /// let result = SourceFile::decode_with_replacement("class_parse.cls", input);
     ///
     /// let source_file = match result {
     ///     Ok(source_file) => source_file,
     ///     Err(e) => panic!("Failed to decode source file 'class_parse.cls': {e:?}"),
     /// };
-    ///
     ///
     /// let result = ClassFile::parse(&source_file);
     ///
