@@ -56,6 +56,10 @@ Attribute VB_Exposed = False
         class.header.attributes.predeclared_id
     );
     println!("\tExposed: {:?}", class.header.attributes.exposed);
+    println!("Ext Attributes:");
+    for ext in &class.header.attributes.ext_key {
+        println!("\t{} = {}", ext.0, ext.1);
+    }
 
     println!("CST:");
     println!("{}", class.cst.debug_tree());
