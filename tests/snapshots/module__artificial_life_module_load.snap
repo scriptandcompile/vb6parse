@@ -6,45 +6,9 @@ name: Declarations
 cst:
   root:
     kind: Root
-    text: "Attribute VB_Name = \"Declarations\"\r\n\r\n'API calls\r\n'Standard image blitting; faster than VB's internal PaintPicture method\r\nPublic Declare Function BitBlt Lib \"gdi32\" (ByVal hDstDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long\r\n'Standard pixel setting; much faster than VB's internal PSet and Point methods\r\nPublic Declare Function GetPixel Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long) As Long\r\nPublic Declare Function SetPixelV Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long) As Byte\r\n\r\n\r\n'Size of the map; these dimensions can theoretically be changed, but you'll need\r\n' to manually resize the various picture boxes to match\r\nPublic Const WORLDWIDTH As Long = 499\r\nPublic Const WORLDHEIGHT As Long = 499\r\n\r\n'Amount of food to generate every round\r\nPublic foodGen As Long\r\n'How much energy the food grants\r\nPublic foodWorth As Long\r\n'Default starting energy for each creature\r\nPublic startEnergy As Long\r\n'Regenerate food every (foodRegen) number of turns\r\nPublic foodRegen As Long\r\n\r\n'Mutation values\r\n'Whether or not to allow reproduction (a.k.a. the \"celibacy\" variable)\r\nPublic toMultiply As Boolean\r\n'How many turns must pass before creatures are allowed to reproduce\r\nPublic mutateTurns As Long\r\n'How many potential mutations to cause at reproduction time\r\nPublic numOfMutations As Long\r\n\r\n'Amount of creatures to start with\r\nPublic InitialCreatures As Long\r\n\r\n'The food array\r\nPublic Food() As Long\r\n\r\n'Whether or not to draw deceased creatures\r\nPublic drawDeadCreatures As Boolean\r\n\r\n'Loop variables\r\nPublic i As Long, j As Long\r\nPublic x As Long, y As Long\r\n"
+    text: "\r\n'API calls\r\n'Standard image blitting; faster than VB's internal PaintPicture method\r\nPublic Declare Function BitBlt Lib \"gdi32\" (ByVal hDstDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long\r\n'Standard pixel setting; much faster than VB's internal PSet and Point methods\r\nPublic Declare Function GetPixel Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long) As Long\r\nPublic Declare Function SetPixelV Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal crColor As Long) As Byte\r\n\r\n\r\n'Size of the map; these dimensions can theoretically be changed, but you'll need\r\n' to manually resize the various picture boxes to match\r\nPublic Const WORLDWIDTH As Long = 499\r\nPublic Const WORLDHEIGHT As Long = 499\r\n\r\n'Amount of food to generate every round\r\nPublic foodGen As Long\r\n'How much energy the food grants\r\nPublic foodWorth As Long\r\n'Default starting energy for each creature\r\nPublic startEnergy As Long\r\n'Regenerate food every (foodRegen) number of turns\r\nPublic foodRegen As Long\r\n\r\n'Mutation values\r\n'Whether or not to allow reproduction (a.k.a. the \"celibacy\" variable)\r\nPublic toMultiply As Boolean\r\n'How many turns must pass before creatures are allowed to reproduce\r\nPublic mutateTurns As Long\r\n'How many potential mutations to cause at reproduction time\r\nPublic numOfMutations As Long\r\n\r\n'Amount of creatures to start with\r\nPublic InitialCreatures As Long\r\n\r\n'The food array\r\nPublic Food() As Long\r\n\r\n'Whether or not to draw deceased creatures\r\nPublic drawDeadCreatures As Boolean\r\n\r\n'Loop variables\r\nPublic i As Long, j As Long\r\nPublic x As Long, y As Long\r\n"
     is_token: false
     children:
-      - kind: AttributeStatement
-        text: "Attribute VB_Name = \"Declarations\"\r\n"
-        is_token: false
-        children:
-          - kind: AttributeKeyword
-            text: Attribute
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: Identifier
-            text: VB_Name
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: EqualityOperator
-            text: "="
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: StringLiteral
-            text: "\"Declarations\""
-            is_token: true
-            children: []
-          - kind: Newline
-            text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
         is_token: true

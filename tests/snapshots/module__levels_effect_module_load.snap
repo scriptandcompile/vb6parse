@@ -6,45 +6,9 @@ name: modPublicVars
 cst:
   root:
     kind: Root
-    text: "Attribute VB_Name = \"modPublicVars\"\r\n'A couple constants to simplify tracking various variables\r\nPublic Const DRAWMETHOD_LUMINANCE As Long = 3\r\nPublic Const DRAWMETHOD_BARS As Long = 0\r\n\r\n'Used to track the last options we used on the histogram form\r\nPublic lastHistSource As Long, lastHistMethod As Long\r\n\r\n\r\n'We'll use this routine only to draw the gradient below the histogram window\r\n'(like Photoshop does).  This code is old, but it works ;)\r\nPublic Sub DrawGradient(ByRef DstObject As PictureBox, ByVal Color1 As Long, ByVal Color2 As Long)\r\n    'RGB() variables for each color\r\n    Dim R As Long, G As Long, B As Long\r\n    Dim R2 As Long, G2 As Long, B2 As Long\r\n    \r\n    'Extract the r,g,b values from the colors passed by the user\r\n    R = Color1 Mod 256\r\n    G = (Color1 \\ 256) And 255\r\n    B = (Color1 \\ 65536) And 255\r\n    R2 = Color2 Mod 256\r\n    G2 = (Color2 \\ 256) And 255\r\n    B2 = (Color2 \\ 65536) And 255\r\n    \r\n    'Calculation variables for the gradiency\r\n    Dim VR As Single, VG As Single, VB As Single\r\n    \r\n    'Size of the picture box we'll be drawing to\r\n    Dim iWidth As Long, iHeight As Long\r\n    iWidth = DstObject.ScaleWidth\r\n    iHeight = DstObject.ScaleHeight\r\n    \r\n    'Here, create a calculation variable for determining the step between\r\n    'each level of the gradient\r\n    VR = Abs(R - R2) / iWidth\r\n    VG = Abs(G - G2) / iWidth\r\n    VB = Abs(B - B2) / iWidth\r\n    'If the second value is lower then the first value, make the step negative\r\n    If R2 < R Then VR = -VR\r\n    If G2 < G Then VG = -VG\r\n    If B2 < B Then VB = -VB\r\n    'Last, run a loop through the width of the picture box, incrementing the color as\r\n    'we go (thus creating a gradient effect)\r\n    Dim x As Long\r\n    For x = 0 To iWidth\r\n        R2 = R + VR * x\r\n        G2 = G + VG * x\r\n        B2 = B + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    Next x\r\nEnd Sub\r\n"
+    text: "'A couple constants to simplify tracking various variables\r\nPublic Const DRAWMETHOD_LUMINANCE As Long = 3\r\nPublic Const DRAWMETHOD_BARS As Long = 0\r\n\r\n'Used to track the last options we used on the histogram form\r\nPublic lastHistSource As Long, lastHistMethod As Long\r\n\r\n\r\n'We'll use this routine only to draw the gradient below the histogram window\r\n'(like Photoshop does).  This code is old, but it works ;)\r\nPublic Sub DrawGradient(ByRef DstObject As PictureBox, ByVal Color1 As Long, ByVal Color2 As Long)\r\n    'RGB() variables for each color\r\n    Dim R As Long, G As Long, B As Long\r\n    Dim R2 As Long, G2 As Long, B2 As Long\r\n    \r\n    'Extract the r,g,b values from the colors passed by the user\r\n    R = Color1 Mod 256\r\n    G = (Color1 \\ 256) And 255\r\n    B = (Color1 \\ 65536) And 255\r\n    R2 = Color2 Mod 256\r\n    G2 = (Color2 \\ 256) And 255\r\n    B2 = (Color2 \\ 65536) And 255\r\n    \r\n    'Calculation variables for the gradiency\r\n    Dim VR As Single, VG As Single, VB As Single\r\n    \r\n    'Size of the picture box we'll be drawing to\r\n    Dim iWidth As Long, iHeight As Long\r\n    iWidth = DstObject.ScaleWidth\r\n    iHeight = DstObject.ScaleHeight\r\n    \r\n    'Here, create a calculation variable for determining the step between\r\n    'each level of the gradient\r\n    VR = Abs(R - R2) / iWidth\r\n    VG = Abs(G - G2) / iWidth\r\n    VB = Abs(B - B2) / iWidth\r\n    'If the second value is lower then the first value, make the step negative\r\n    If R2 < R Then VR = -VR\r\n    If G2 < G Then VG = -VG\r\n    If B2 < B Then VB = -VB\r\n    'Last, run a loop through the width of the picture box, incrementing the color as\r\n    'we go (thus creating a gradient effect)\r\n    Dim x As Long\r\n    For x = 0 To iWidth\r\n        R2 = R + VR * x\r\n        G2 = G + VG * x\r\n        B2 = B + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    Next x\r\nEnd Sub\r\n"
     is_token: false
     children:
-      - kind: AttributeStatement
-        text: "Attribute VB_Name = \"modPublicVars\"\r\n"
-        is_token: false
-        children:
-          - kind: AttributeKeyword
-            text: Attribute
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: Identifier
-            text: VB_Name
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: EqualityOperator
-            text: "="
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: StringLiteral
-            text: "\"modPublicVars\""
-            is_token: true
-            children: []
-          - kind: Newline
-            text: "\r\n"
-            is_token: true
-            children: []
       - kind: EndOfLineComment
         text: "'A couple constants to simplify tracking various variables"
         is_token: true
