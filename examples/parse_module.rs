@@ -6,7 +6,7 @@ use vb6parse::SourceFile;
 /// you would typically read the bytes from a `.bas` file on disk.
 fn main() {
     // Hardcoded example of a VB6 module file content in bytes.
-    let input = b"Attribute VB_Name = \"Module1\"
+    let input = "Attribute VB_Name = \"Module1\"
 
 ' Some comment
 
@@ -14,17 +14,8 @@ Sub HelloWorld()
     MsgBox \"Hello, World!\"
 End Sub";
 
-    // Decode the source file from the byte array.
-    // The filename is provided for reference in error messages.
-    // In a real application, use the actual filename.
-    // Decode with replacement to handle any invalid characters gracefully.
-    let result = SourceFile::decode_with_replacement("module_parse.bas", input);
-
-    // Handle potential decoding errors.
-    let source_file = match result {
-        Ok(source_file) => source_file,
-        Err(e) => panic!("Failed to decode source file 'module_parse.bas': {e:?}"),
-    };
+    // Create a SourceFile from the input string.
+    let source_file = SourceFile::from_string("module_parse.bas", input);
 
     // Parse the module file from the decoded source file.
     let module = ModuleFile::parse(&source_file).unwrap_or_fail();
