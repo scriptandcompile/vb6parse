@@ -13,7 +13,7 @@ Bytes/String/File → SourceFile → SourceStream → TokenStream → CST → Ob
 2. **SourceStream**: Low-level character stream with offset tracking and line/column info
 3. **TokenStream**: Tokenized via `tokenize()` using keyword lookup tables (see [src/tokenize.rs](src/tokenize.rs#L8))
 4. **CST (Concrete Syntax Tree)**: Full syntax tree including whitespace/comments, wraps rowan library (see [src/parsers/cst/mod.rs](src/parsers/cst/mod.rs))
-5. **Object Layer**: High-level structs like `Project`, `ClassFile`, `ModuleFile`, `FormFile`
+5. **Object Layer**: High-level structs like `ProjectFile`, `ClassFile`, `ModuleFile`, `FormFile`
 
 ## Error Handling Pattern
 
@@ -23,7 +23,7 @@ All parsers return `ParseResult<'a, T, E>` which contains both:
 
 Always check `has_failures()` and print errors with `failure.print()` even when result is Some. Example:
 ```rust
-let result = Project::parse(&source_file);
+let result = ProjectFile::parse(&source_file);
 if result.has_failures() {
     for failure in result.failures {
         failure.print();
@@ -41,7 +41,7 @@ let project = result.unwrap();
 
 ## Key File Types & Entry Points
 
-- **Projects** (`*.vbp`): `Project::parse(&source_file)` - Lists references, modules, forms, etc. without loading them
+- **Projects** (`*.vbp`): `ProjectFile::parse(&source_file)` - Lists references, modules, forms, etc. without loading them
 - **Classes** (`*.cls`): `ClassFile::parse(&source_file)` - Returns header + CST of code
 - **Modules** (`*.bas`): `ModuleFile::parse(&source_file)` - Returns header + CST of code  
 - **Forms** (`*.frm`): `FormFile::parse(&source_file)` - Special: UI controls in header, code in body. Forms have resource files (`.frx`)
