@@ -129,7 +129,7 @@ pub struct FileAttributes {
     /// The creatable status of the file.
     pub creatable: Creatable, // (True/False) Attribute VB_Creatable = True
     /// The pre-declared ID status of the file.
-    pub pre_declared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
+    pub predeclared_id: PreDeclaredID, // (True/False) Attribute VB_PredeclaredId = False
     /// The exposed status of the file.
     pub exposed: Exposed, // (True/False) Attribute VB_Exposed = False
     /// The description of the file.
@@ -156,7 +156,7 @@ impl Default for FileAttributes {
             name: String::new(),
             global_name_space: NameSpace::Local,
             creatable: Creatable::True,
-            pre_declared_id: PreDeclaredID::False,
+            predeclared_id: PreDeclaredID::False,
             exposed: Exposed::False,
             description: None,
             ext_key: HashMap::new(),

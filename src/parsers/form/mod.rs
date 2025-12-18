@@ -148,7 +148,7 @@ fn extract_attributes(cst: &ConcreteSyntaxTree) -> FileAttributes {
     let mut name = String::new();
     let mut global_name_space = NameSpace::Local;
     let mut creatable = Creatable::True;
-    let mut pre_declared_id = PreDeclaredID::False;
+    let mut predeclared_id = PreDeclaredID::False;
     let mut exposed = Exposed::False;
     let mut description: Option<String> = None;
     let mut ext_key: HashMap<String, String> = HashMap::new();
@@ -238,7 +238,7 @@ fn extract_attributes(cst: &ConcreteSyntaxTree) -> FileAttributes {
                     };
                 }
                 "VB_PredeclaredId" => {
-                    pre_declared_id = if value == "True" || value == "-1" {
+                    predeclared_id = if value == "True" || value == "-1" {
                         PreDeclaredID::True
                     } else {
                         PreDeclaredID::False
@@ -266,7 +266,7 @@ fn extract_attributes(cst: &ConcreteSyntaxTree) -> FileAttributes {
         name,
         global_name_space,
         creatable,
-        pre_declared_id,
+        predeclared_id,
         exposed,
         description,
         ext_key,
