@@ -8,7 +8,7 @@
 
 use crate::{
     errors::ModuleErrorKind,
-    parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult},
+    parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult, SyntaxKind},
     sourcefile::SourceFile,
     sourcestream::Comparator,
     tokenize::tokenize,
@@ -163,10 +163,14 @@ impl ModuleFile {
                 match token_result.result {
                     Some(tokens) => {
                         let cst = crate::parsers::cst::parse(tokens);
+
+                        // Filter out nodes that are already extracted to avoid duplication
+                        let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
+
                         ParseResult {
                             result: Some(ModuleFile {
                                 name: vb_name_value.to_string(),
-                                cst,
+                                cst: filtered_cst,
                             }),
                             failures,
                         }
@@ -198,10 +202,14 @@ impl ModuleFile {
                 match token_result.result {
                     Some(tokens) => {
                         let cst = crate::parsers::cst::parse(tokens);
+
+                        // Filter out nodes that are already extracted to avoid duplication
+                        let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
+
                         ParseResult {
                             result: Some(ModuleFile {
                                 name: vb_name_value.to_string(),
-                                cst,
+                                cst: filtered_cst,
                             }),
                             failures,
                         }
