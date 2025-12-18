@@ -2,10 +2,6 @@
 //!
 //! The major components of this module are:
 //!
-//! `VB6Stream` - The main parsing structure for VB6 files. It holds the
-//! bytes for a file and provides basic method for iterating over the bytes as
-//! well as tracking the line, column, and character position of the current byte.
-//!
 //! `ProjectFile` - a structure for holding the parsed information from a VB6
 //! project file.
 //!
