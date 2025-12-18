@@ -8,14 +8,14 @@ use vb6parse::SourceFile;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let current_directory = env::current_dir()?;
 
-    // Load the audiostation project file from the test/data directory
     let project_directory = current_directory.join("tests/data/audiostation/Audiostation");
     let project_path = project_directory.join("Audiostation.vbp");
 
     print!("Reading project file from: {:?}\n", project_path);
 
+    // Load the audiostation project file from the test/data directory
     let project_content =
-        std::fs::read(project_path).expect("Failed to read audiostation project file.");
+        std::fs::read(project_path).expect("Failed to read audiostation project file. This example requires the test data to be present. run `git submodule update --init --recursive` in the terminal from the repository root to fetch the test data.");
 
     // Create a SourceFile for the project file.
     let project_source = SourceFile::decode_with_replacement("audiostation.vbp", &project_content)
@@ -40,7 +40,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!();
 
     // For demonstration, parse the last module into a CST
-    // let last_module = project.modules[3] {
     if let Some(last_module) = project.modules.last() {
         let module_path = project_directory
             .join(last_module.path.replace("\\", "/"))
