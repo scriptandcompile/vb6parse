@@ -23,47 +23,47 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct DirListBoxProperties {
-    /// The appearance of the DirListBox.
+    /// The appearance of the `DirListBox`.
     pub appearance: Appearance,
-    /// The background color of the DirListBox.
+    /// The background color of the `DirListBox`.
     pub back_color: Color,
-    /// Whether the DirListBox causes validation.
+    /// Whether the `DirListBox` causes validation.
     pub causes_validation: CausesValidation,
-    /// The drag icon of the DirListBox.
+    /// The drag icon of the `DirListBox`.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// The drag mode of the DirListBox.
+    /// The drag mode of the `DirListBox`.
     pub drag_mode: DragMode,
-    /// Whether the DirListBox is enabled.
+    /// Whether the `DirListBox` is enabled.
     pub enabled: Activation,
-    /// The foreground color of the DirListBox.
+    /// The foreground color of the `DirListBox`.
     pub fore_color: Color,
-    /// The height of the DirListBox.
+    /// The height of the `DirListBox`.
     pub height: i32,
-    /// The help context ID of the DirListBox.
+    /// The help context ID of the `DirListBox`.
     pub help_context_id: i32,
-    /// The left position of the DirListBox.
+    /// The left position of the `DirListBox`.
     pub left: i32,
-    /// The mouse icon of the DirListBox.
+    /// The mouse icon of the `DirListBox`.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// The mouse pointer of the DirListBox.
+    /// The mouse pointer of the `DirListBox`.
     pub mouse_pointer: MousePointer,
-    /// The OLE drag mode of the DirListBox.
+    /// The OLE drag mode of the `DirListBox`.
     pub ole_drag_mode: OLEDragMode,
-    /// The OLE drop mode of the DirListBox.
+    /// The OLE drop mode of the `DirListBox`.
     pub ole_drop_mode: OLEDropMode,
-    /// The tab index of the DirListBox.
+    /// The tab index of the `DirListBox`.
     pub tab_index: i32,
-    /// The tab stop of the DirListBox.
+    /// The tab stop of the `DirListBox`.
     pub tab_stop: TabStop,
-    /// The tool tip text of the DirListBox.
+    /// The tool tip text of the `DirListBox`.
     pub tool_tip_text: String,
-    /// The top position of the DirListBox.
+    /// The top position of the `DirListBox`.
     pub top: i32,
-    /// Whether the DirListBox is visible.
+    /// Whether the `DirListBox` is visible.
     pub visible: Visibility,
-    /// The "What's This" help ID of the DirListBox.
+    /// The "What's This" help ID of the `DirListBox`.
     pub whats_this_help_id: i32,
-    /// The width of the DirListBox.
+    /// The width of the `DirListBox`.
     pub width: i32,
 }
 
@@ -86,7 +86,7 @@ impl Default for DirListBoxProperties {
             ole_drop_mode: OLEDropMode::default(),
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 720,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -163,9 +163,9 @@ impl From<Properties> for DirListBoxProperties {
             prop.get_property("OLEDropMode", dir_list_box_prop.ole_drop_mode);
         dir_list_box_prop.tab_index = prop.get_i32("TabIndex", dir_list_box_prop.tab_index);
         dir_list_box_prop.tab_stop = prop.get_property("TabStop", dir_list_box_prop.tab_stop);
-        dir_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        dir_list_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         dir_list_box_prop.top = prop.get_i32("Top", dir_list_box_prop.top);
         dir_list_box_prop.visible = prop.get_property("Visible", dir_list_box_prop.visible);

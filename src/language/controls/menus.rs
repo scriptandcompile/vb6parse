@@ -5,7 +5,7 @@
 //! tag, name, and index are not included in this struct, but instead are part
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
-//! This should only be used as a child of a Form / MDIForm.
+//! This should only be used as a child of a Form / `MDIForm`.
 
 use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
@@ -15,7 +15,7 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Represents a VB6 menu control.
-/// This should only be used as a child of a Form / MDIForm.
+/// This should only be used as a child of a Form / `MDIForm`.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuControl {
     /// The name of the menu control.
@@ -66,7 +66,7 @@ pub struct MenuProperties {
 impl Default for MenuProperties {
     fn default() -> Self {
         MenuProperties {
-            caption: String::from(""),
+            caption: String::new(),
             checked: false,
             enabled: Activation::Enabled,
             help_context_id: 0,

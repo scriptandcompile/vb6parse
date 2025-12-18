@@ -109,7 +109,7 @@ pub struct SerializableTree {
     pub root: CstNode,
 }
 
-/// Helper function to serialize ConcreteSyntaxTree as SerializableTree
+/// Helper function to serialize `ConcreteSyntaxTree` as `SerializableTree`
 pub(crate) fn serialize_cst<S>(cst: &ConcreteSyntaxTree, serializer: S) -> Result<S::Ok, S::Error>
 where
     S: serde::Serializer,
@@ -158,6 +158,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// A result containing the parsed CST or an error.
+    #[must_use] 
     pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
         Self::from_text(
             source_file.file_name.clone(),
@@ -676,7 +677,7 @@ impl<'a> Parser<'a> {
     /// or
     /// `Object = *\G{GUID}#version#flags; "filename"`
     ///
-    /// This checks if the pattern matches before committing to parse as ObjectStatement.
+    /// This checks if the pattern matches before committing to parse as `ObjectStatement`.
     fn is_object_statement(&self) -> bool {
         // Must start with Object keyword
         if !self.at_token(Token::ObjectKeyword) {

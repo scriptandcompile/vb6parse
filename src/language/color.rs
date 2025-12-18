@@ -40,10 +40,10 @@ impl Color {
     pub fn to_vb_string(&self) -> String {
         match self {
             Color::RGB { red, green, blue } => {
-                format!("&H00{:02X}{:02X}{:02X}&", blue, green, red)
+                format!("&H00{blue:02X}{green:02X}{red:02X}&")
             }
             Color::System { index } => {
-                format!("&H80{:06X}&", index)
+                format!("&H80{index:06X}&")
             }
         }
     }

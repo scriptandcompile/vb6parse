@@ -1,4 +1,4 @@
-//! Defines the ObjectReference enum representing references to compiled objects or project files.
+//! Defines the `ObjectReference` enum representing references to compiled objects or project files.
 //!
 
 use serde::Serialize;

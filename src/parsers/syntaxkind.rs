@@ -38,11 +38,11 @@ pub enum SyntaxKind {
     EventStatement,
     /// Implements statement
     ImplementsStatement,
-    /// DefType statement
+    /// `DefType` statement
     DefTypeStatement,
     /// Dim statement
     DimStatement,
-    /// ReDim statement
+    /// `ReDim` statement
     ReDimStatement,
     /// Erase statement
     EraseStatement,
@@ -54,7 +54,7 @@ pub enum SyntaxKind {
     EnumStatement,
     /// If statement
     IfStatement,
-    /// ElseIf clause of an If statement
+    /// `ElseIf` clause of an If statement
     ElseIfClause,
     /// Else clause of an If statement
     ElseClause,
@@ -76,7 +76,7 @@ pub enum SyntaxKind {
     WithStatement,
     /// Call statement
     CallStatement,
-    /// RaiseEvent statement
+    /// `RaiseEvent` statement
     RaiseEventStatement,
     /// Set statement
     SetStatement,
@@ -86,7 +86,7 @@ pub enum SyntaxKind {
     AssignmentStatement,
     /// Goto statement
     GotoStatement,
-    /// GoSub statement
+    /// `GoSub` statement
     GoSubStatement,
     /// Return statement
     ReturnStatement,
@@ -96,35 +96,35 @@ pub enum SyntaxKind {
     ExitStatement,
     /// On Error statement
     OnErrorStatement,
-    /// On GoTo statement
+    /// On `GoTo` statement
     OnGoToStatement,
-    /// On GoSub statement
+    /// On `GoSub` statement
     OnGoSubStatement,
-    /// AppActivate statement
+    /// `AppActivate` statement
     AppActivateStatement,
     /// Beep statement
     BeepStatement,
-    /// ChDir statement
+    /// `ChDir` statement
     ChDirStatement,
-    /// ChDrive statement
+    /// `ChDrive` statement
     ChDriveStatement,
     /// Close statement
     CloseStatement,
     /// Date statement
     DateStatement,
-    /// DeleteSetting statement
+    /// `DeleteSetting` statement
     DeleteSettingStatement,
     /// Reset statement
     ResetStatement,
-    /// SavePicture statement
+    /// `SavePicture` statement
     SavePictureStatement,
-    /// SaveSetting statement
+    /// `SaveSetting` statement
     SaveSettingStatement,
     /// Seek statement
     SeekStatement,
-    /// SendKeys statement
+    /// `SendKeys` statement
     SendKeysStatement,
-    /// SetAttr statement
+    /// `SetAttr` statement
     SetAttrStatement,
     /// Stop statement
     StopStatement,
@@ -134,7 +134,7 @@ pub enum SyntaxKind {
     RandomizeStatement,
     /// Error statement
     ErrorStatement,
-    /// FileCopy statement
+    /// `FileCopy` statement
     FileCopyStatement,
     /// Get statement
     GetStatement,
@@ -142,7 +142,7 @@ pub enum SyntaxKind {
     PutStatement,
     /// Input statement
     InputStatement,
-    /// LineInput statement
+    /// `LineInput` statement
     LineInputStatement,
     /// Kill statement
     KillStatement,
@@ -154,17 +154,17 @@ pub enum SyntaxKind {
     LockStatement,
     /// Unlock statement
     UnlockStatement,
-    /// LSet statement
+    /// `LSet` statement
     LSetStatement,
-    /// RSet statement
+    /// `RSet` statement
     RSetStatement,
     /// Mid statement
     MidStatement,
-    /// MidB statement
+    /// `MidB` statement
     MidBStatement,
-    /// MkDir statement
+    /// `MkDir` statement
     MkDirStatement,
-    /// RmDir statement
+    /// `RmDir` statement
     RmDirStatement,
     /// Name statement
     NameStatement,
@@ -226,9 +226,9 @@ pub enum SyntaxKind {
     StringLiteralExpression,
     /// Boolean literal expression
     BooleanLiteralExpression,
-    /// AddressOf expression
+    /// `AddressOf` expression
     AddressOfExpression,
-    /// TypeOf expression
+    /// `TypeOf` expression
     TypeOfExpression,
     /// New expression
     NewExpression,
@@ -259,7 +259,7 @@ pub enum SyntaxKind {
     // Keywords
     /// Class keyword
     ClassKeyword,
-    /// ReDim keyword
+    /// `ReDim` keyword
     ReDimKeyword,
     /// Preserve keyword
     PreserveKeyword,
@@ -277,7 +277,7 @@ pub enum SyntaxKind {
     LibKeyword,
     /// With keyword
     WithKeyword,
-    /// WithEvents keyword
+    /// `WithEvents` keyword
     WithEventsKeyword,
     /// Base keyword
     BaseKeyword,
@@ -295,9 +295,9 @@ pub enum SyntaxKind {
     ConstKeyword,
     /// As keyword
     AsKeyword,
-    /// ByVal keyword
+    /// `ByVal` keyword
     ByValKeyword,
-    /// ByRef keyword
+    /// `ByRef` keyword
     ByRefKeyword,
     /// Optional keyword
     OptionalKeyword,
@@ -345,7 +345,7 @@ pub enum SyntaxKind {
     IfKeyword,
     /// Else keyword
     ElseKeyword,
-    /// ElseIf keyword
+    /// `ElseIf` keyword
     ElseIfKeyword,
     /// And keyword
     AndKeyword,
@@ -357,7 +357,7 @@ pub enum SyntaxKind {
     ModKeyword,
     /// Eqv keyword
     EqvKeyword,
-    /// AddressOf keyword
+    /// `AddressOf` keyword
     AddressOfKeyword,
     /// Imp keyword
     ImpKeyword,
@@ -371,7 +371,7 @@ pub enum SyntaxKind {
     ThenKeyword,
     /// Goto keyword
     GotoKeyword,
-    /// GoSub keyword
+    /// `GoSub` keyword
     GoSubKeyword,
     /// Return keyword
     ReturnKeyword,
@@ -403,11 +403,11 @@ pub enum SyntaxKind {
     WriteKeyword,
     /// Time keyword
     TimeKeyword,
-    /// SetAttr keyword
+    /// `SetAttr` keyword
     SetAttrKeyword,
     /// Set keyword
     SetKeyword,
-    /// SendKeys keyword
+    /// `SendKeys` keyword
     SendKeysKeyword,
     /// Select keyword
     SelectKeyword,
@@ -415,13 +415,13 @@ pub enum SyntaxKind {
     CaseKeyword,
     /// Seek keyword
     SeekKeyword,
-    /// SaveSetting keyword
+    /// `SaveSetting` keyword
     SaveSettingKeyword,
-    /// SavePicture keyword
+    /// `SavePicture` keyword
     SavePictureKeyword,
-    /// RSet keyword
+    /// `RSet` keyword
     RSetKeyword,
-    /// RmDir keyword
+    /// `RmDir` keyword
     RmDirKeyword,
     /// Resume keyword
     ResumeKeyword,
@@ -429,7 +429,7 @@ pub enum SyntaxKind {
     ResetKeyword,
     /// Randomize keyword
     RandomizeKeyword,
-    /// RaiseEvent keyword
+    /// `RaiseEvent` keyword
     RaiseEventKeyword,
     /// Put keyword
     PutKeyword,
@@ -445,13 +445,13 @@ pub enum SyntaxKind {
     OffKeyword,
     /// Name keyword
     NameKeyword,
-    /// MkDir keyword
+    /// `MkDir` keyword
     MkDirKeyword,
     /// Mid keyword
     MidKeyword,
-    /// MidB keyword
+    /// `MidB` keyword
     MidBKeyword,
-    /// LSet keyword
+    /// `LSet` keyword
     LSetKeyword,
     /// Load keyword
     LoadKeyword,
@@ -469,7 +469,7 @@ pub enum SyntaxKind {
     ImplementsKeyword,
     /// Get keyword
     GetKeyword,
-    /// FileCopy keyword
+    /// `FileCopy` keyword
     FileCopyKeyword,
     /// Event keyword
     EventKeyword,
@@ -481,43 +481,43 @@ pub enum SyntaxKind {
     DoKeyword,
     /// Until keyword
     UntilKeyword,
-    /// DeleteSetting keyword
+    /// `DeleteSetting` keyword
     DeleteSettingKeyword,
-    /// DefBool keyword
+    /// `DefBool` keyword
     DefBoolKeyword,
-    /// DefByte keyword
+    /// `DefByte` keyword
     DefByteKeyword,
-    /// DefInt keyword
+    /// `DefInt` keyword
     DefIntKeyword,
-    /// DefLng keyword
+    /// `DefLng` keyword
     DefLngKeyword,
-    /// DefCur keyword
+    /// `DefCur` keyword
     DefCurKeyword,
-    /// DefSng keyword
+    /// `DefSng` keyword
     DefSngKeyword,
-    /// DefDbl keyword
+    /// `DefDbl` keyword
     DefDblKeyword,
-    /// DefDec keyword
+    /// `DefDec` keyword
     DefDecKeyword,
-    /// DefDate keyword
+    /// `DefDate` keyword
     DefDateKeyword,
-    /// DefStr keyword
+    /// `DefStr` keyword
     DefStrKeyword,
-    /// DefObj keyword
+    /// `DefObj` keyword
     DefObjKeyword,
-    /// DefVar keyword
+    /// `DefVar` keyword
     DefVarKeyword,
     /// Close keyword
     CloseKeyword,
-    /// ChDrive keyword
+    /// `ChDrive` keyword
     ChDriveKeyword,
-    /// ChDir keyword
+    /// `ChDir` keyword
     ChDirKeyword,
     /// Call keyword
     CallKeyword,
     /// Beep keyword
     BeepKeyword,
-    /// AppActivate keyword
+    /// `AppActivate` keyword
     AppActivateKeyword,
     /// Friend keyword
     FriendKeyword,
@@ -551,7 +551,7 @@ pub enum SyntaxKind {
     MeKeyword,
     /// Null keyword
     NullKeyword,
-    /// ParamArray keyword
+    /// `ParamArray` keyword
     ParamArrayKeyword,
     /// Version keyword
     VersionKeyword,

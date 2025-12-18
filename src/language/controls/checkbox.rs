@@ -1,7 +1,7 @@
-//! Defines the properties and value enumeration for a CheckBox control in a VB6 form.
+//! Defines the properties and value enumeration for a `CheckBox` control in a VB6 form.
 //! This includes the `CheckBoxProperties` struct which holds all configurable
-//! properties of the CheckBox, as well as the `CheckBoxValue` enum which
-//! represents the state of the CheckBox (Unchecked, Checked, Grayed).
+//! properties of the `CheckBox`, as well as the `CheckBoxValue` enum which
+//! represents the state of the `CheckBox` (Unchecked, Checked, Grayed).
 //! These are used in the context of parsing and representing VB6 form controls.
 //!
 //! The properties covered include appearance, colors, captions, data binding,
@@ -133,12 +133,12 @@ impl Default for CheckBoxProperties {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
             back_color: VB_BUTTON_FACE,
-            caption: "".into(),
+            caption: String::new(),
             causes_validation: CausesValidation::Yes,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             disabled_picture: None,
             down_picture: None,
             drag_icon: None,
@@ -157,7 +157,7 @@ impl Default for CheckBoxProperties {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 30,
             use_mask_color: UseMaskColor::DoNotUseMaskColor,
             value: CheckBoxValue::Unchecked,
@@ -237,7 +237,7 @@ impl From<Properties> for CheckBoxProperties {
         checkbox_prop.alignment = prop.get_property("Alignment", checkbox_prop.alignment);
         checkbox_prop.appearance = prop.get_property("Appearance", checkbox_prop.appearance);
         checkbox_prop.back_color = prop.get_color("BackColor", checkbox_prop.back_color);
-        checkbox_prop.caption = match prop.get("Caption".into()) {
+        checkbox_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => checkbox_prop.caption,
         };
@@ -247,15 +247,15 @@ impl From<Properties> for CheckBoxProperties {
             Some(data_field) => data_field.into(),
             None => checkbox_prop.data_field,
         };
-        checkbox_prop.data_format = match prop.get("DataFormat".into()) {
+        checkbox_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => checkbox_prop.data_format,
         };
-        checkbox_prop.data_member = match prop.get("DataMember".into()) {
+        checkbox_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => checkbox_prop.data_member,
         };
-        checkbox_prop.data_source = match prop.get("DataSource".into()) {
+        checkbox_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => checkbox_prop.data_source,
         };
@@ -284,7 +284,7 @@ impl From<Properties> for CheckBoxProperties {
         checkbox_prop.style = prop.get_property("Style", checkbox_prop.style);
         checkbox_prop.tab_index = prop.get_i32("TabIndex", checkbox_prop.tab_index);
         checkbox_prop.tab_stop = prop.get_property("TabStop", checkbox_prop.tab_stop);
-        checkbox_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        checkbox_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => checkbox_prop.tool_tip_text,
         };

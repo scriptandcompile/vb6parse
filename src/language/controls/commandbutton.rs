@@ -1,7 +1,7 @@
-//! Properties for a CommandButton control.
+//! Properties for a `CommandButton` control.
 //!
 //! This module defines the `CommandButtonProperties` struct, which encapsulates
-//! the various properties associated with a CommandButton control in a GUI
+//! the various properties associated with a `CommandButton` control in a GUI
 //! application. It includes default values, serialization logic, and conversion
 //! from a generic `Properties` struct.
 //!
@@ -102,7 +102,7 @@ impl Default for CommandButtonProperties {
             appearance: Appearance::ThreeD,
             back_color: VB_BUTTON_FACE,
             cancel: false,
-            caption: "".into(),
+            caption: String::new(),
             causes_validation: CausesValidation::Yes,
             default: false,
             disabled_picture: None,
@@ -122,7 +122,7 @@ impl Default for CommandButtonProperties {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 30,
             use_mask_color: UseMaskColor::DoNotUseMaskColor,
             whats_this_help_id: 0,
@@ -197,7 +197,7 @@ impl From<Properties> for CommandButtonProperties {
             prop.get_color("BackColor", command_button_prop.back_color);
         command_button_prop.cancel = prop.get_bool("Cancel", command_button_prop.cancel);
 
-        command_button_prop.caption = match prop.get("Caption".into()) {
+        command_button_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => command_button_prop.caption,
         };
@@ -233,9 +233,9 @@ impl From<Properties> for CommandButtonProperties {
         command_button_prop.style = prop.get_property("Style", command_button_prop.style);
         command_button_prop.tab_index = prop.get_i32("TabIndex", command_button_prop.tab_index);
         command_button_prop.tab_stop = prop.get_property("TabStop", command_button_prop.tab_stop);
-        command_button_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        command_button_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         command_button_prop.top = prop.get_i32("Top", command_button_prop.top);
         command_button_prop.use_mask_color =

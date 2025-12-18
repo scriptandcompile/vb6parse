@@ -141,18 +141,18 @@ pub struct FileAttributes {
 }
 
 impl Default for FileAttributes {
-    /// Creates a default instance of FileAttributes with default values.
+    /// Creates a default instance of `FileAttributes` with default values.
     ///
     /// The default values are:
     /// - name: empty string
-    /// - global_name_space: Local
+    /// - `global_name_space`: Local
     /// - creatable: True
-    /// - pre_declared_id: False
+    /// - `pre_declared_id`: False
     /// - exposed: False
     /// - description: None
-    /// - ext_key: empty HashMap
+    /// - `ext_key`: empty `HashMap`
     ///
-    /// Returns: A FileAttributes instance with default values.
+    /// Returns: A `FileAttributes` instance with default values.
     fn default() -> Self {
         FileAttributes {
             name: String::new(),
@@ -168,14 +168,14 @@ impl Default for FileAttributes {
 
 /// Extracts the file format version from a CST.
 ///
-/// Searches for a VersionStatement node in the CST and parses the version number.
+/// Searches for a `VersionStatement` node in the CST and parses the version number.
 /// Returns None if no version statement is found or if parsing fails.
 ///
 /// # Arguments
-/// * `cst` - A reference to the ConcreteSyntaxTree to extract the version from.
+/// * `cst` - A reference to the `ConcreteSyntaxTree` to extract the version from.
 ///
 /// # Returns
-/// An Option containing the FileFormatVersion if found, or None if not found or parsing fails.
+/// An Option containing the `FileFormatVersion` if found, or None if not found or parsing fails.
 pub(crate) fn extract_version(
     cst: &crate::parsers::ConcreteSyntaxTree,
 ) -> Option<FileFormatVersion> {
@@ -222,9 +222,9 @@ pub(crate) fn extract_version(
     None
 }
 
-/// Extracts FileAttributes from the CST.
+/// Extracts `FileAttributes` from the CST.
 ///
-/// Parses Attribute statements to extract file metadata like VB_Name, VB_GlobalNameSpace, etc.
+/// Parses Attribute statements to extract file metadata like `VB_Name`, `VB_GlobalNameSpace`, etc.
 pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> FileAttributes {
     use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
 

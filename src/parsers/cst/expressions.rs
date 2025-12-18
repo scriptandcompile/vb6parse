@@ -315,7 +315,7 @@ impl Parser<'_> {
     /// - Unary operators: `-x`, `Not flag`, `AddressOf proc`
     /// - Object creation: `New ClassName`
     /// - Type checking: `TypeOf obj Is type`
-    /// Returns true if it parsed a bare identifier (one that needs wrapping in IdentifierExpression
+    /// Returns true if it parsed a bare identifier (one that needs wrapping in `IdentifierExpression`
     /// if not used in a binary expression).
     fn parse_prefix_expression(&mut self) -> bool {
         // Skip any leading whitespace
@@ -582,7 +582,7 @@ impl Parser<'_> {
     ///
     /// Syntax: `#1/1/2024#`, `#12:30:45 PM#`, `#1/1/2024 3:45 PM#`
     ///
-    /// Note: VB6 has DateLiteral as a token, so it's already parsed as a single token
+    /// Note: VB6 has `DateLiteral` as a token, so it's already parsed as a single token
     fn parse_date_literal(&mut self) {
         self.builder
             .start_node(SyntaxKind::LiteralExpression.to_raw());

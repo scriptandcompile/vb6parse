@@ -261,13 +261,13 @@ impl Parser<'_> {
     /// - Object = "{UUID}#version#flags"; "filename"
     /// - Object = *\G{UUID}#version#flags; "filename"
     ///
-    /// Declares external ActiveX controls and libraries that a form or user control depends on.
+    /// Declares external `ActiveX` controls and libraries that a form or user control depends on.
     ///
     /// The Object statement syntax has these parts:
     ///
     /// | Part     | Description |
     /// |----------|-------------|
-    /// | UUID     | Required. The class ID (CLSID) of the ActiveX control, enclosed in braces. |
+    /// | UUID     | Required. The class ID (CLSID) of the `ActiveX` control, enclosed in braces. |
     /// | version  | Required. The version number of the control (e.g., "2.0"). |
     /// | flags    | Required. Additional flags (typically "0"). |
     /// | filename | Required. The filename of the OCX or DLL containing the control. |

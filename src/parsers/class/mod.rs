@@ -133,8 +133,8 @@ impl ClassFile {
 
         let header = ClassHeader {
             version,
-            attributes,
             properties,
+            attributes,
         };
 
         // Filter out nodes that are already extracted to avoid duplication
@@ -158,7 +158,7 @@ impl ClassFile {
     }
 }
 
-/// Extract VB6ClassProperties from PropertiesBlock nodes in the CST
+/// Extract `VB6ClassProperties` from `PropertiesBlock` nodes in the CST
 fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperties {
     use crate::parsers::class::properties::{
         DataBindingBehavior, DataSourceBehavior, FileUsage, MtsStatus, Persistence,

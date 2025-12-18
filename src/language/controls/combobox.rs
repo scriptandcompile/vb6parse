@@ -1,10 +1,10 @@
-//! Properties for ComboBox controls.
+//! Properties for `ComboBox` controls.
 //!
-//! A ComboBox is a drop-down list that allows the user to select an item
+//! A `ComboBox` is a drop-down list that allows the user to select an item
 //! from a list or enter a new value.
 //!
 //! This module defines the `ComboBoxProperties` struct which holds all
-//! configurable properties of the ComboBox control in a GUI application.
+//! configurable properties of the `ComboBox` control in a GUI application.
 //! It includes default values, serialization logic, and conversion
 //! from a generic `Properties` struct.
 //!
@@ -135,10 +135,10 @@ impl Default for ComboBoxProperties {
             appearance: Appearance::ThreeD,
             back_color: VB_WINDOW_BACKGROUND,
             causes_validation: CausesValidation::Yes,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -159,8 +159,8 @@ impl Default for ComboBoxProperties {
             style: ComboBoxStyle::DropDownCombo,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            text: "".into(),
-            tool_tip_text: "".into(),
+            text: String::new(),
+            tool_tip_text: String::new(),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -234,19 +234,19 @@ impl From<Properties> for ComboBoxProperties {
             prop.get_property("CausesValidation", combobox_prop.causes_validation);
         combobox_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
-            None => "".into(),
+            None => String::new(),
         };
         combobox_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
-            None => "".into(),
+            None => String::new(),
         };
         combobox_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
-            None => "".into(),
+            None => String::new(),
         };
         combobox_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
         // TODO: Handle ReferenceOrValue for drag_icon

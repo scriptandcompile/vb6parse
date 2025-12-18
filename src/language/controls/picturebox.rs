@@ -1,4 +1,4 @@
-//! Properties for PictureBox controls.
+//! Properties for `PictureBox` controls.
 //!
 //! This is used as an enum variant of
 //! [`ControlKind::PictureBox`](crate::language::controls::ControlKind::PictureBox).
@@ -28,103 +28,103 @@ use serde::Serialize;
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct PictureBoxProperties {
-    /// Alignment of the PictureBox.
+    /// Alignment of the `PictureBox`.
     pub align: Align,
-    /// Appearance of the PictureBox.
+    /// Appearance of the `PictureBox`.
     pub appearance: Appearance,
-    /// AutoRedraw setting of the PictureBox.
+    /// `AutoRedraw` setting of the `PictureBox`.
     pub auto_redraw: AutoRedraw,
-    /// AutoSize setting of the PictureBox.
+    /// `AutoSize` setting of the `PictureBox`.
     pub auto_size: AutoSize,
-    /// Background color of the PictureBox.
+    /// Background color of the `PictureBox`.
     pub back_color: Color,
-    /// Border style of the PictureBox.
+    /// Border style of the `PictureBox`.
     pub border_style: BorderStyle,
-    /// Indicates whether the PictureBox causes validation.
+    /// Indicates whether the `PictureBox` causes validation.
     pub causes_validation: CausesValidation,
-    /// The ClipControls setting of the PictureBox.
+    /// The `ClipControls` setting of the `PictureBox`.
     pub clip_controls: ClipControls,
-    /// Data field associated with the PictureBox.
+    /// Data field associated with the `PictureBox`.
     pub data_field: String,
-    /// Data format associated with the PictureBox.
+    /// Data format associated with the `PictureBox`.
     pub data_format: String,
-    /// Data member associated with the PictureBox.
+    /// Data member associated with the `PictureBox`.
     pub data_member: String,
-    /// Data source associated with the PictureBox.
+    /// Data source associated with the `PictureBox`.
     pub data_source: String,
-    /// Drag icon for the PictureBox.
+    /// Drag icon for the `PictureBox`.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// Drag mode of the PictureBox.
+    /// Drag mode of the `PictureBox`.
     pub drag_mode: DragMode,
-    /// Draw mode of the PictureBox.
+    /// Draw mode of the `PictureBox`.
     pub draw_mode: DrawMode,
-    /// Draw style of the PictureBox.
+    /// Draw style of the `PictureBox`.
     pub draw_style: DrawStyle,
     /// Width of the drawing pen.
     pub draw_width: i32,
-    /// Indicates whether the PictureBox is enabled.
+    /// Indicates whether the `PictureBox` is enabled.
     pub enabled: Activation,
-    /// Fill color of the PictureBox.
+    /// Fill color of the `PictureBox`.
     pub fill_color: Color,
-    /// Fill style of the PictureBox.
+    /// Fill style of the `PictureBox`.
     pub fill_style: FillStyle,
-    /// Font transparency setting of the PictureBox.
+    /// Font transparency setting of the `PictureBox`.
     pub font_transparent: FontTransparency,
-    /// Foreground color of the PictureBox.
+    /// Foreground color of the `PictureBox`.
     pub fore_color: Color,
-    /// Indicates whether the PictureBox has a device context.
+    /// Indicates whether the `PictureBox` has a device context.
     pub has_dc: HasDeviceContext,
-    /// Height of the PictureBox.
+    /// Height of the `PictureBox`.
     pub height: i32,
-    /// Help context ID of the PictureBox.
+    /// Help context ID of the `PictureBox`.
     pub help_context_id: i32,
-    /// Left position of the PictureBox.
+    /// Left position of the `PictureBox`.
     pub left: i32,
-    /// Link item associated with the PictureBox.
+    /// Link item associated with the `PictureBox`.
     pub link_item: String,
-    /// Link mode of the PictureBox.
+    /// Link mode of the `PictureBox`.
     pub link_mode: LinkMode,
-    /// Link timeout of the PictureBox.
+    /// Link timeout of the `PictureBox`.
     pub link_timeout: i32,
-    /// Link topic associated with the PictureBox.
+    /// Link topic associated with the `PictureBox`.
     pub link_topic: String,
-    /// Mouse icon for the PictureBox.
+    /// Mouse icon for the `PictureBox`.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// Mouse pointer style of the PictureBox.
+    /// Mouse pointer style of the `PictureBox`.
     pub mouse_pointer: MousePointer,
-    /// Indicates whether the PictureBox negotiates OLE drag-and-drop operations.
+    /// Indicates whether the `PictureBox` negotiates OLE drag-and-drop operations.
     pub negotiate: bool,
-    /// OLE drag mode of the PictureBox.
+    /// OLE drag mode of the `PictureBox`.
     pub ole_drag_mode: OLEDragMode,
-    /// OLE drop mode of the PictureBox.
+    /// OLE drop mode of the `PictureBox`.
     pub ole_drop_mode: OLEDropMode,
-    /// Picture displayed in the PictureBox.
+    /// Picture displayed in the `PictureBox`.
     pub picture: Option<ReferenceOrValue<DynamicImage>>,
-    /// Text direction of the PictureBox.
+    /// Text direction of the `PictureBox`.
     pub right_to_left: TextDirection,
-    /// Scale height of the PictureBox.
+    /// Scale height of the `PictureBox`.
     pub scale_height: i32,
-    /// Scale left position of the PictureBox.
+    /// Scale left position of the `PictureBox`.
     pub scale_left: i32,
-    /// Scale mode of the PictureBox.
+    /// Scale mode of the `PictureBox`.
     pub scale_mode: ScaleMode,
-    /// Scale top position of the PictureBox.
+    /// Scale top position of the `PictureBox`.
     pub scale_top: i32,
-    /// Scale width of the PictureBox.
+    /// Scale width of the `PictureBox`.
     pub scale_width: i32,
-    /// Tab index of the PictureBox.
+    /// Tab index of the `PictureBox`.
     pub tab_index: i32,
-    /// Tab stop setting of the PictureBox.
+    /// Tab stop setting of the `PictureBox`.
     pub tab_stop: TabStop,
-    /// Tool tip text of the PictureBox.
+    /// Tool tip text of the `PictureBox`.
     pub tool_tip_text: String,
-    /// Top position of the PictureBox.
+    /// Top position of the `PictureBox`.
     pub top: i32,
-    /// Visibility of the PictureBox.
+    /// Visibility of the `PictureBox`.
     pub visible: Visibility,
-    /// "What's This?" help ID of the PictureBox.
+    /// "What's This?" help ID of the `PictureBox`.
     pub whats_this_help_id: i32,
-    /// Width of the PictureBox.
+    /// Width of the `PictureBox`.
     pub width: i32,
 }
 
@@ -139,10 +139,10 @@ impl Default for PictureBoxProperties {
             border_style: BorderStyle::FixedSingle,
             causes_validation: CausesValidation::Yes,
             clip_controls: ClipControls::default(),
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             draw_mode: DrawMode::CopyPen,
@@ -157,10 +157,10 @@ impl Default for PictureBoxProperties {
             height: 30,
             help_context_id: 0,
             left: 30,
-            link_item: "".into(),
+            link_item: String::new(),
             link_mode: LinkMode::None,
             link_timeout: 50,
-            link_topic: "".into(),
+            link_topic: String::new(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             negotiate: false,
@@ -175,7 +175,7 @@ impl Default for PictureBoxProperties {
             scale_width: 100,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -341,7 +341,7 @@ impl From<Properties> for PictureBoxProperties {
         picture_box_prop.tab_stop = prop.get_property("TabStop", picture_box_prop.tab_stop);
         picture_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         picture_box_prop.top = prop.get_i32("Top", picture_box_prop.top);
         picture_box_prop.visible = prop.get_property("Visible", picture_box_prop.visible);

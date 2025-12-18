@@ -75,10 +75,10 @@ impl Default for ImageProperties {
         ImageProperties {
             appearance: Appearance::ThreeD,
             border_style: BorderStyle::None,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -90,7 +90,7 @@ impl Default for ImageProperties {
             ole_drop_mode: OLEDropMode::default(),
             picture: None,
             stretch: false,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 960,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -182,9 +182,9 @@ impl From<Properties> for ImageProperties {
         // Picture
 
         image_prop.stretch = prop.get_bool("Stretch", image_prop.stretch);
-        image_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        image_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         image_prop.top = prop.get_i32("Top", image_prop.top);
         image_prop.visible = prop.get_property("Visible", image_prop.visible);

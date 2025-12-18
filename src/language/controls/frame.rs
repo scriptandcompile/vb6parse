@@ -95,7 +95,7 @@ impl Default for FrameProperties {
             ole_drop_mode: OLEDropMode::default(),
             right_to_left: TextDirection::LeftToRight,
             tab_index: 0,
-            tool_tip_text: String::from(""),
+            tool_tip_text: String::new(),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -176,7 +176,7 @@ impl From<Properties> for FrameProperties {
         frame_prop.ole_drop_mode = prop.get_property("OLEDropMode", frame_prop.ole_drop_mode);
         frame_prop.right_to_left = prop.get_property("RightToLeft", frame_prop.right_to_left);
         frame_prop.tab_index = prop.get_i32("TabIndex", frame_prop.tab_index);
-        frame_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        frame_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => frame_prop.tool_tip_text,
         };
