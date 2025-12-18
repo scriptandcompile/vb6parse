@@ -112,6 +112,24 @@ impl SourceFile {
         })
     }
 
+    /// Creates a `SourceFile` from a file name and source code string.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_name` - The name of the source file
+    /// * `source_code` - The source code as a string
+    ///
+    /// # Returns
+    ///
+    /// Returns a `SourceFile` instance.
+    #[must_use]
+    pub fn from_string(file_name: impl Into<String>, source_code: impl Into<String>) -> Self {
+        SourceFile {
+            file_name: file_name.into(),
+            file_content: source_code.into(),
+        }
+    }
+
     /// Decodes the source code using Windows-1252 encoding with replacement for invalid characters.
     ///
     /// # Arguments
