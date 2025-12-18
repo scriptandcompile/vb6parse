@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use crate::parsers::SyntaxKind;
+
 use serde::Serialize;
 
 /// Represents a VB6 file format version.
@@ -177,8 +179,6 @@ impl Default for FileAttributes {
 pub(crate) fn extract_version(
     cst: &crate::parsers::ConcreteSyntaxTree,
 ) -> Option<FileFormatVersion> {
-    use crate::parsers::SyntaxKind;
-
     // Find the VersionStatement node
     let version_nodes = cst.find_children_by_kind(SyntaxKind::VersionStatement);
 
@@ -220,4 +220,138 @@ pub(crate) fn extract_version(
     }
 
     None
+}
+
+/// Extracts FileAttributes from the CST.
+///
+/// Parses Attribute statements to extract file metadata like VB_Name, VB_GlobalNameSpace, etc.
+pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> FileAttributes {
+    use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+
+    let mut name = String::new();
+    let mut global_name_space = NameSpace::Local;
+    let mut creatable = Creatable::True;
+    let mut predeclared_id = PreDeclaredID::False;
+    let mut exposed = Exposed::False;
+    let mut description: Option<String> = None;
+    let mut ext_key: HashMap<String, String> = HashMap::new();
+
+    // Find all AttributeStatement nodes
+    let attr_statements: Vec<_> = cst
+        .children()
+        .into_iter()
+        .filter(|c| c.kind == SyntaxKind::AttributeStatement)
+        .collect();
+
+    for attr_stmt in attr_statements {
+        // Navigate through the child tokens of the AttributeStatement
+        // Expected structure: AttributeKeyword, Whitespace, Identifier, Whitespace, EqualityOperator, Whitespace, Value, Newline
+
+        let mut key = String::new();
+        let mut value = String::new();
+        let mut found_equals = false;
+
+        for child in &attr_stmt.children {
+            if !child.is_token {
+                continue; // Skip non-token children
+            }
+
+            match child.kind {
+                SyntaxKind::AttributeKeyword => {
+                    // Skip the "Attribute" keyword
+                    continue;
+                }
+                SyntaxKind::Identifier => {
+                    if !found_equals {
+                        // This is the attribute key (e.g., "VB_Name")
+                        key = child.text.trim().to_string();
+                    }
+                }
+                SyntaxKind::EqualityOperator => {
+                    found_equals = true;
+                }
+                SyntaxKind::StringLiteral => {
+                    if found_equals {
+                        // This is the string value - remove surrounding quotes
+                        value = child.text.trim().trim_matches('"').to_string();
+                    }
+                }
+                SyntaxKind::TrueKeyword => {
+                    if found_equals {
+                        value = "True".to_string();
+                    }
+                }
+                SyntaxKind::FalseKeyword => {
+                    if found_equals {
+                        value = "False".to_string();
+                    }
+                }
+                SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
+                    if found_equals {
+                        value = child.text.trim().to_string();
+                    }
+                }
+                SyntaxKind::SubtractionOperator => {
+                    if found_equals && value.is_empty() {
+                        value.push('-');
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        // Process the extracted key-value pair
+        if !key.is_empty() {
+            match key.as_str() {
+                "VB_Name" => {
+                    name = value;
+                }
+                "VB_GlobalNameSpace" => {
+                    global_name_space = if value == "True" || value == "-1" {
+                        NameSpace::Global
+                    } else {
+                        NameSpace::Local
+                    };
+                }
+                "VB_Creatable" => {
+                    creatable = if value == "True" || value == "-1" {
+                        Creatable::True
+                    } else {
+                        Creatable::False
+                    };
+                }
+                "VB_PredeclaredId" => {
+                    predeclared_id = if value == "True" || value == "-1" {
+                        PreDeclaredID::True
+                    } else {
+                        PreDeclaredID::False
+                    };
+                }
+                "VB_Exposed" => {
+                    exposed = if value == "True" || value == "-1" {
+                        Exposed::True
+                    } else {
+                        Exposed::False
+                    };
+                }
+                "VB_Description" => {
+                    description = Some(value);
+                }
+                _ => {
+                    // Store any other attributes in ext_key
+                    ext_key.insert(key, value);
+                }
+            }
+        }
+    }
+
+    FileAttributes {
+        name,
+        global_name_space,
+        creatable,
+        predeclared_id,
+        exposed,
+        description,
+        ext_key,
+    }
 }
