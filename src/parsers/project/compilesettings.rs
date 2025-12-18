@@ -12,7 +12,19 @@ use strum_macros::{EnumIter, EnumMessage};
 
 /// Represents whether unrounded floating point is allowed.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum UnroundedFloatingPoint {
@@ -39,7 +51,19 @@ impl TryFrom<&str> for UnroundedFloatingPoint {
 
 /// Represents whether to check for the Pentium FDIV bug.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum PentiumFDivBugCheck {
@@ -66,7 +90,19 @@ impl TryFrom<&str> for PentiumFDivBugCheck {
 
 /// Represents whether to perform bounds checking.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum BoundsCheck {
@@ -93,7 +129,19 @@ impl TryFrom<&str> for BoundsCheck {
 
 /// Represents whether to perform overflow checking.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum OverflowCheck {
@@ -120,7 +168,19 @@ impl TryFrom<&str> for OverflowCheck {
 
 /// Represents whether to check for floating point errors.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum FloatingPointErrorCheck {
@@ -147,7 +207,19 @@ impl TryFrom<&str> for FloatingPointErrorCheck {
 
 /// Represents whether to create `CodeView` debug information.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum CodeViewDebugInfo {
@@ -174,7 +246,19 @@ impl TryFrom<&str> for CodeViewDebugInfo {
 
 /// Represents whether to favor Pentium Pro optimizations.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum FavorPentiumPro {
@@ -201,7 +285,19 @@ impl TryFrom<&str> for FavorPentiumPro {
 
 /// Represents whether to assume aliasing.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum Aliasing {
@@ -228,7 +324,19 @@ impl TryFrom<&str> for Aliasing {
 
 /// Represents the optimization type for native code compilation.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum OptimizationType {
@@ -258,7 +366,7 @@ impl TryFrom<&str> for OptimizationType {
 }
 
 /// Settings specific to native code compilation.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, Hash, PartialOrd, Ord)]
 pub struct NativeCodeSettings {
     /// Optimization type setting.
     pub optimization_type: OptimizationType,
@@ -281,7 +389,7 @@ pub struct NativeCodeSettings {
 }
 
 /// Represents the compilation type and its associated settings.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, Hash, PartialOrd, Ord)]
 pub enum CompilationType {
     /// Native code compilation with specific settings.
     /// Contains various optimization and checking settings.

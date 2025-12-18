@@ -49,7 +49,7 @@ use crate::parsers::project::compilesettings::CompilationType;
 /// assert_eq!(project_props.name, "MyProject");
 /// assert_eq!(project_props.start_mode, StartMode::StandAlone);
 /// ```
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, Hash, PartialOrd, Ord)]
 pub struct ProjectProperties<'a> {
     /// Determines whether to retain or remove licensing information for unused `ActiveX` Controls.
     pub unused_control_info: UnusedControlInfo,
@@ -120,7 +120,19 @@ pub struct ProjectProperties<'a> {
 /// Hints to the loading program whether the project DLL should be retained in
 /// memory or unloaded when no longer in use.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum Retained {
@@ -151,7 +163,19 @@ impl TryFrom<&str> for Retained {
 /// Indicates whether to use an existing browser instance.
 ///
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum ExistingBrowser {
@@ -182,7 +206,19 @@ impl TryFrom<&str> for ExistingBrowser {
 /// Indicates whether the project is a stand-alone application or an `ActiveX`
 /// component.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum StartMode {
@@ -217,7 +253,19 @@ impl TryFrom<&str> for StartMode {
 /// Interactive is the default mode, where the program can show dialogs and
 /// interact with the user.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum InteractionMode {
@@ -245,7 +293,19 @@ impl TryFrom<&str> for InteractionMode {
 /// Indicates if the project will produce the server support VBR & TLB files.
 ///
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum ServerSupportFiles {
@@ -276,7 +336,19 @@ impl TryFrom<&str> for ServerSupportFiles {
 /// the project was opened this setting determines if the project should
 /// be updated to use the new control or not.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum UpgradeControls {
@@ -304,7 +376,19 @@ impl TryFrom<&str> for UpgradeControls {
 /// Determines if licensing information for `ActiveX` Controls unused, but
 /// referenced within the project, should be retained or removed.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum UnusedControlInfo {
@@ -333,7 +417,19 @@ impl TryFrom<&str> for UnusedControlInfo {
 
 /// Determines the level of compatibility required for each compile of the project.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum CompatibilityMode {
@@ -378,7 +474,19 @@ impl TryFrom<&str> for CompatibilityMode {
 /// When debugging the VB6 project, this option determines how the
 /// debugging session will start.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum DebugStartupOption {
@@ -428,7 +536,7 @@ impl TryFrom<&str> for DebugStartupOption {
 }
 
 /// Determines the version information of the VB6 project.
-#[derive(Debug, PartialEq, Eq, Default, Copy, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Default, Copy, Clone, Serialize, Hash, PartialOrd, Ord)]
 pub struct VersionInformation<'a> {
     /// The major version number of the project.
     pub major: u16,
@@ -453,7 +561,20 @@ pub struct VersionInformation<'a> {
 }
 
 /// Determines the type of compile target for the VB6 project.
-#[derive(Debug, PartialEq, Eq, Copy, Clone, Serialize, EnumIter, EnumMessage, Default)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    EnumIter,
+    EnumMessage,
+    Default,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 pub enum CompileTargetType {
     /// The project is a standard EXE.
     #[strum(message = "A Standard Exe")]
@@ -486,7 +607,19 @@ impl TryFrom<&str> for CompileTargetType {
 
 /// Determines the threading model for the VB6 project.
 #[derive(
-    Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
+    Debug,
+    PartialEq,
+    Eq,
+    Copy,
+    Clone,
+    Serialize,
+    Default,
+    TryFromPrimitive,
+    EnumIter,
+    EnumMessage,
+    Hash,
+    PartialOrd,
+    Ord,
 )]
 #[repr(i16)]
 pub enum ThreadingModel {
