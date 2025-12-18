@@ -3,7 +3,7 @@
 /// This is a simple enum that represents the different types of tokens that can be parsed from VB6 code.
 /// The text content is now provided separately in a tuple when returned from tokenization.
 ///
-#[derive(Debug, PartialEq, Clone, Copy, Eq, serde::Serialize)]
+#[derive(Debug, PartialEq, Clone, Copy, Eq, serde::Serialize, Hash, PartialOrd, Ord)]
 pub enum Token {
     /// Represents whitespace.
     /// This is a collection of spaces, tabs, and other whitespace characters.
