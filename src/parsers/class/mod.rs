@@ -30,7 +30,7 @@ use serde::Serialize;
 /// The header also contains the attributes of the class file.
 ///
 /// The cst contains the concrete syntax tree of the code of the class file.
-#[derive(Debug, PartialEq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct ClassFile {
     /// The header of the class file.
     pub header: ClassHeader,
