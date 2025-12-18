@@ -6,7 +6,7 @@ use crate::errors::FormErrorKind;
 /// If, instead, the value begins with '&H80' such as in '&H80000000&', then
 /// the color is a system color. and the value is not the elements of the color,
 /// but rather the index of a system color.
-#[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
+#[derive(Debug, PartialEq, Clone, Eq, serde::Serialize, Copy, Hash)]
 pub enum Color {
     /// A color represented by red, green, and blue values.
     /// The values are 8 bits each.
