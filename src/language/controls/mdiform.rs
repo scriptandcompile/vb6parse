@@ -131,7 +131,7 @@ impl Default for MDIFormProperties {
             appearance: Appearance::ThreeD,
             auto_show_children: true,
             back_color: VB_APPLICATION_WORKSPACE,
-            caption: "".into(),
+            caption: String::new(),
             enabled: Activation::Enabled,
             // TODO: process font
             //font
@@ -140,7 +140,7 @@ impl Default for MDIFormProperties {
             icon: None,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: "".into(),
+            link_topic: String::new(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             moveable: Movability::Moveable,

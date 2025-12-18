@@ -1,4 +1,4 @@
-//! Defines the FormFile struct and related parsing functions for VB6 Form files.
+//! Defines the `FormFile` struct and related parsing functions for VB6 Form files.
 //! Handles extraction of version, objects, attributes, and controls from the CST.
 //!
 use std::collections::HashMap;
@@ -20,7 +20,7 @@ use crate::{
     tokenize, Properties, SourceFile,
 };
 
-/// Helper function to serialize ConcreteSyntaxTree as SerializableTree
+/// Helper function to serialize `ConcreteSyntaxTree` as `SerializableTree`
 fn serialize_cst<S>(cst: &ConcreteSyntaxTree, serializer: S) -> Result<S::Ok, S::Error>
 where
     S: serde::Serializer,
@@ -47,13 +47,13 @@ pub struct FormFile {
 
 /// Extract the VB6 file format version from a CST.
 ///
-/// Searches for a VersionStatement node in the CST and traverses its children
-/// to find the SingleLiteral token containing the version number (e.g., "5.00" or "1.0").
+/// Searches for a `VersionStatement` node in the CST and traverses its children
+/// to find the `SingleLiteral` token containing the version number (e.g., "5.00" or "1.0").
 /// The expected structure is:
-/// - VersionKeyword ("VERSION")
+/// - `VersionKeyword` ("VERSION")
 /// - Whitespace
-/// - SingleLiteral (the version number as a float)
-/// - Optional: Whitespace, ClassKeyword, FormKeyword
+/// - `SingleLiteral` (the version number as a float)
+/// - Optional: Whitespace, `ClassKeyword`, `FormKeyword`
 ///
 /// # Arguments
 ///
@@ -141,8 +141,8 @@ fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
 
 /// Extracts the form and its controls from the CST.
 ///
-/// Recursively processes BEGIN...END blocks (PropertiesBlock nodes) to build
-/// a hierarchy of VB6Control structures.
+/// Recursively processes BEGIN...END blocks (`PropertiesBlock` nodes) to build
+/// a hierarchy of `VB6Control` structures.
 fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
     // Find the first PropertiesBlock (should be the form)
     let properties_blocks: Vec<_> = cst
@@ -159,9 +159,9 @@ fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
     extract_properties_block(&properties_blocks[0])
 }
 
-/// Extracts a VB6Control from a PropertiesBlock CST node.
+/// Extracts a `VB6Control` from a `PropertiesBlock` CST node.
 ///
-/// Recursively processes nested PropertiesBlock nodes for child controls.
+/// Recursively processes nested `PropertiesBlock` nodes for child controls.
 fn extract_properties_block(block: &CstNode) -> Option<Control> {
     // Extract the type and name from the PropertiesBlock
     let mut control_type = String::new();
@@ -220,10 +220,8 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
 
         if is_menu {
             menu_blocks.push(child_block);
-        } else {
-            if let Some(child_control) = extract_properties_block(child_block) {
-                child_controls.push(child_control);
-            }
+        } else if let Some(child_control) = extract_properties_block(child_block) {
+            child_controls.push(child_control);
         }
     }
 
@@ -321,15 +319,15 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
 
     Some(Control {
         name: control_name,
-        tag: tag,
-        index: index,
+        tag,
+        index,
         kind,
     })
 }
 
-/// Extracts a MenuControl from a PropertiesBlock CST node.
+/// Extracts a `MenuControl` from a `PropertiesBlock` CST node.
 ///
-/// Recursively processes nested PropertiesBlock nodes for sub-menus.
+/// Recursively processes nested `PropertiesBlock` nodes for sub-menus.
 fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
     // Extract the name and properties from the menu block
     let mut menu_name = String::new();
@@ -387,7 +385,7 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
     })
 }
 
-/// Extracts a PropertyGroup from a PropertyGroup CST node.
+/// Extracts a `PropertyGroup` from a `PropertyGroup` CST node.
 fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
     let mut name = String::new();
     let mut guid: Option<Uuid> = None;
@@ -441,14 +439,14 @@ fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
         }
     }
 
-    if !name.is_empty() {
+    if name.is_empty() {
+        None
+    } else {
         Some(PropertyGroup {
             name,
             guid,
             properties,
         })
-    } else {
-        None
     }
 }
 
@@ -476,22 +474,22 @@ fn extract_property(property_node: &CstNode) -> Option<(String, String)> {
         }
     }
 
-    if !key.is_empty() {
-        Some((key, value))
-    } else {
+    if key.is_empty() {
         None
+    } else {
+        Some((key, value))
     }
 }
 
 impl FormFile {
-    /// Parses a VB6 Form file from a SourceFile.
+    /// Parses a VB6 Form file from a `SourceFile`.
     ///
     /// # Arguments
     ///
     /// * `source_file` - The source file containing the VB6 Form code.
     ///
     /// # Returns
-    /// * `ParseResult<FormFile, FormErrorKind>` - The result of parsing, containing either the FormFile or parsing errors.
+    /// * `ParseResult<FormFile, FormErrorKind>` - The result of parsing, containing either the `FormFile` or parsing errors.
     ///
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, FormErrorKind> {

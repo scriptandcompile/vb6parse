@@ -1,4 +1,4 @@
-//! Defines the ProjectProperties struct and related enums for VB6 project properties.
+//! Defines the `ProjectProperties` struct and related enums for VB6 project properties.
 //! Contains settings such as startup mode, threading model, version information, and more.
 //!
 

@@ -389,7 +389,7 @@ impl Default for FormProperties {
             key_preview: false,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: "".into(),
+            link_topic: String::new(),
             max_button: MaxButton::Included,
             mdi_child: false,
             min_button: MinButton::Included,

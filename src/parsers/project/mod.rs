@@ -1,4 +1,4 @@
-//! Defines the ProjectFile struct and related parsing functions for VB6 Project files.
+//! Defines the `ProjectFile` struct and related parsing functions for VB6 Project files.
 //!
 //! Handles extraction of project type, references, objects, modules, classes, forms,
 //! user controls, user documents, properties, and other related information from the Project file.

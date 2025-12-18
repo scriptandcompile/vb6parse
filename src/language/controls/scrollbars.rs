@@ -1,4 +1,4 @@
-//! Properties for ScrollBar controls.
+//! Properties for `ScrollBar` controls.
 //!
 //! This is used as an enum variant of
 //! [`ControlKind::HScrollBar`](crate::language::controls::ControlKind::HScrollBar)

@@ -1,4 +1,4 @@
-//! Properties for TextBox controls.
+//! Properties for `TextBox` controls.
 //!
 //! This is used as an enum variant of
 //! [`ControlKind::TextBox`](crate::language::controls::ControlKind::TextBox).
@@ -149,10 +149,10 @@ impl Default for TextBoxProperties {
             back_color: VB_WINDOW_BACKGROUND,
             border_style: BorderStyle::FixedSingle,
             causes_validation: CausesValidation::Yes,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -161,10 +161,10 @@ impl Default for TextBoxProperties {
             help_context_id: 0,
             hide_selection: true,
             left: 30,
-            link_item: "".into(),
+            link_item: String::new(),
             link_mode: LinkMode::None,
             link_timeout: 50,
-            link_topic: "".into(),
+            link_topic: String::new(),
             locked: false,
             max_length: 0,
             mouse_icon: None,
@@ -177,8 +177,8 @@ impl Default for TextBoxProperties {
             scroll_bars: ScrollBars::None,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            text: "".into(),
-            tool_tip_text: "".into(),
+            text: String::new(),
+            tool_tip_text: String::new(),
             top: 30,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -327,13 +327,13 @@ impl From<Properties> for TextBoxProperties {
 
         text_box_prop.tab_stop = prop.get_property("TabStop", text_box_prop.tab_stop);
 
-        text_box_prop.text = match prop.get("Text".into()) {
+        text_box_prop.text = match prop.get("Text") {
             Some(text) => text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         text_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         text_box_prop.top = prop.get_i32("Top", text_box_prop.top);
 

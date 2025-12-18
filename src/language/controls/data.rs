@@ -96,9 +96,9 @@ impl Default for DataProperties {
             appearance: Appearance::ThreeD,
             back_color: Color::System { index: 5 },
             bof_action: BOFAction::MoveFirst,
-            caption: "".into(),
+            caption: String::new(),
             connection: Connection::Access,
-            database_name: "".into(),
+            database_name: String::new(),
             default_cursor_type: DefaultCursorType::Default,
             default_type: DefaultType::UseJet,
             drag_icon: None,
@@ -116,9 +116,9 @@ impl Default for DataProperties {
             options: 0,
             read_only: false,
             record_set_type: RecordSetType::Dynaset,
-            record_source: "".into(),
+            record_source: String::new(),
             right_to_left: TextDirection::LeftToRight,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 840,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -195,7 +195,7 @@ impl From<Properties> for DataProperties {
             .unwrap_or(Connection::Access);
         data_prop.database_name = match prop.get("DatabaseName") {
             Some(database_name) => database_name.clone(),
-            None => "".to_string(),
+            None => String::new(),
         };
         data_prop.default_cursor_type =
             prop.get_property("DefaultCursorType", data_prop.default_cursor_type);
@@ -219,13 +219,13 @@ impl From<Properties> for DataProperties {
         data_prop.record_set_type = prop.get_property("RecordsetType", data_prop.record_set_type);
         data_prop.record_source = match prop.get("RecordSource") {
             Some(record_source) => record_source.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
         data_prop.right_to_left = prop.get_property("RightToLeft", data_prop.right_to_left);
         data_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         data_prop.top = prop.get_i32("Top", data_prop.top);
         data_prop.visible = prop.get_property("Visible", data_prop.visible);

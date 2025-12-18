@@ -117,27 +117,27 @@ impl Default for LabelProperties {
             back_color: VB_BUTTON_FACE,
             back_style: BackStyle::Opaque,
             border_style: BorderStyle::None,
-            caption: "".into(),
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            caption: String::new(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
             fore_color: VB_BUTTON_TEXT,
             height: 30,
             left: 30,
-            link_item: "".into(),
+            link_item: String::new(),
             link_mode: LinkMode::None,
             link_timeout: 50,
-            link_topic: "".into(),
+            link_topic: String::new(),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
             right_to_left: TextDirection::LeftToRight,
             tab_index: 0,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 30,
             use_mnemonic: true,
             visible: Visibility::Visible,
@@ -212,23 +212,23 @@ impl From<Properties> for LabelProperties {
         label_prop.border_style = prop.get_property("BorderStyle", label_prop.border_style);
         label_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
         // TODO: process drag_icon
@@ -241,13 +241,13 @@ impl From<Properties> for LabelProperties {
         label_prop.left = prop.get_i32("Left", label_prop.left);
         label_prop.link_item = match prop.get("LinkItem") {
             Some(link_item) => link_item.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.link_mode = prop.get_property("LinkMode", label_prop.link_mode);
         label_prop.link_timeout = prop.get_i32("LinkTimeout", label_prop.link_timeout);
         label_prop.link_topic = match prop.get("LinkTopic") {
             Some(link_topic) => link_topic.into(),
-            None => "".into(),
+            None => String::new(),
         };
 
         // TODO: process mouse_icon
@@ -257,9 +257,9 @@ impl From<Properties> for LabelProperties {
         label_prop.ole_drop_mode = prop.get_property("OLEDropMode", label_prop.ole_drop_mode);
         label_prop.right_to_left = prop.get_property("RightToLeft", label_prop.right_to_left);
         label_prop.tab_index = prop.get_i32("TabIndex", label_prop.tab_index);
-        label_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        label_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
-            None => "".into(),
+            None => String::new(),
         };
         label_prop.top = prop.get_i32("Top", label_prop.top);
         label_prop.use_mnemonic = prop.get_bool("UseMnemonic", label_prop.use_mnemonic);

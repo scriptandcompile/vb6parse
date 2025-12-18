@@ -335,19 +335,19 @@ pub enum ModuleErrorKind {
     #[error("The 'Attribute' keyword is missing from the module file header.")]
     AttributeKeywordMissing,
 
-    /// Indicates that there is missing whitespace between the 'Attribute' keyword and the 'VB_Name' attribute.
+    /// Indicates that there is missing whitespace between the 'Attribute' keyword and the '`VB_Name`' attribute.
     #[error("The 'Attribute' keyword and the 'VB_Name' attribute must be separated by at least one ASCII whitespace character.")]
     MissingWhitespaceInHeader,
 
-    /// Indicates that the 'VB_Name' attribute is missing from the module file header.
+    /// Indicates that the '`VB_Name`' attribute is missing from the module file header.
     #[error("The 'VB_Name' attribute is missing from the module file header.")]
     VBNameAttributeMissing,
 
-    /// Indicates that the 'VB_Name' attribute is missing the equal symbol.
+    /// Indicates that the '`VB_Name`' attribute is missing the equal symbol.
     #[error("The 'VB_Name' attribute is missing the equal symbol from the module file header.")]
     EqualMissing,
 
-    /// Indicates that the 'VB_Name' attribute value is unquoted.
+    /// Indicates that the '`VB_Name`' attribute value is unquoted.
     #[error("The 'VB_Name' attribute is unquoted.")]
     VBNameAttributeValueUnquoted,
 
@@ -526,22 +526,22 @@ pub enum ProjectErrorKind<'a> {
         valid_value_message: String,
     },
 
-    /// Indicates that the 'DllBaseAddress' line is invalid.
+    /// Indicates that the '`DllBaseAddress`' line is invalid.
     #[error("'DllBaseAddress' line is invalid. Expected a hex address after the equal sign '='. Found a newline or the end of the file instead.")]
     DllBaseAddressNotFound,
 
-    /// Indicates that the 'DllBaseAddress' line is invalid.
+    /// Indicates that the '`DllBaseAddress`' line is invalid.
     #[error("'DllBaseAddress' line is invalid. Expected a valid hex address beginning with '&h' after the equal sign '='.")]
     DllBaseAddressMissingHexPrefix,
 
-    /// Indicates that the 'DllBaseAddress' line is invalid.
+    /// Indicates that the '`DllBaseAddress`' line is invalid.
     #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse hex value '{hex_value}'.")]
     DllBaseAddressUnparsable {
         /// The hex value that could not be parsed.
         hex_value: &'a str,
     },
 
-    /// Indicates that the 'DllBaseAddress' line is invalid.
+    /// Indicates that the '`DllBaseAddress`' line is invalid.
     #[error("'DllBaseAddress' line is invalid. Expected a valid hex address after the equal sign '=' beginning with '&h'. Unable to parse empty hex value.")]
     DllBaseAddressUnparsableEmpty,
 
@@ -560,15 +560,15 @@ pub enum PropertyError {
     #[error("Appearance can only be a 0 (Flat) or a 1 (ThreeD)")]
     AppearanceInvalid,
 
-    /// Indicates that the BorderStyle property has an invalid value.
+    /// Indicates that the `BorderStyle` property has an invalid value.
     #[error("BorderStyle can only be a 0 (None) or 1 (FixedSingle)")]
     BorderStyleInvalid,
 
-    /// Indicates that the ClipControls property has an invalid value.
+    /// Indicates that the `ClipControls` property has an invalid value.
     #[error("ClipControls can only be a 0 (false) or a 1 (true)")]
     ClipControlsInvalid,
 
-    /// Indicates that the DragMode property has an invalid value.
+    /// Indicates that the `DragMode` property has an invalid value.
     #[error("DragMode can only be 0 (Manual) or 1 (Automatic)")]
     DragModeInvalid,
 
@@ -576,15 +576,15 @@ pub enum PropertyError {
     #[error("Enabled can only be 0 (false) or a 1 (true)")]
     EnabledInvalid,
 
-    /// Indicates that the MousePointer property has an invalid value.
+    /// Indicates that the `MousePointer` property has an invalid value.
     #[error("MousePointer can only be 0 (Default), 1 (Arrow), 2 (Cross), 3 (IBeam), 6 (SizeNESW), 7 (SizeNS), 8 (SizeNWSE), 9 (SizeWE), 10 (UpArrow), 11 (Hourglass), 12 (NoDrop), 13 (ArrowHourglass), 14 (ArrowQuestion), 15 (SizeAll), or 99 (Custom)")]
     MousePointerInvalid,
 
-    /// Indicates that the OLEDropMode property has an invalid value.
+    /// Indicates that the `OLEDropMode` property has an invalid value.
     #[error("OLEDropMode can only be 0 (None), or 1 (Manual)")]
     OLEDropModeInvalid,
 
-    /// Indicates that the RightToLeft property has an invalid value.
+    /// Indicates that the `RightToLeft` property has an invalid value.
     #[error("RightToLeft can only be 0 (false) or a 1 (true)")]
     RightToLeftInvalid,
 
@@ -731,7 +731,7 @@ pub enum FormErrorKind {
     #[error("Major version is not a number.")]
     MajorVersionUnparsable,
 
-    /// Indicates that the DllBaseAddress could not be parsed.
+    /// Indicates that the `DllBaseAddress` could not be parsed.
     #[error("Unable to parse hex address from DllBaseAddress key")]
     DllBaseAddressUnparsable,
 
@@ -743,11 +743,11 @@ pub enum FormErrorKind {
     #[error("The Name parameter is invalid. Must be a quoted name, \"(None)\", !(None)!, \"\", or \"!!\"")]
     NameUnparsable,
 
-    /// Indicates that the CommandLine parameter could not be parsed.
+    /// Indicates that the `CommandLine` parameter could not be parsed.
     #[error("The CommandLine parameter is invalid. Must be a quoted command line, \"(None)\", !(None)!, \"\", or \"!!\"")]
     CommandLineUnparsable,
 
-    /// Indicates that the HelpContextId parameter could not be parsed.
+    /// Indicates that the `HelpContextId` parameter could not be parsed.
     #[error("The HelpContextId parameter is not a valid parameter line. Must be a quoted help context id, \"(None)\", !(None)!, \"\", or \"!!\"")]
     HelpContextIdUnparsable,
 
@@ -759,35 +759,35 @@ pub enum FormErrorKind {
     #[error("Revision version is not a number.")]
     RevisionVersionUnparsable,
 
-    /// Indicates that the ThreadingModel value could not be parsed.
+    /// Indicates that the `ThreadingModel` value could not be parsed.
     #[error("Unable to parse the value after ThreadingModel key")]
     ThreadingModelUnparsable,
 
-    /// Indicates that the ThreadingModel value is invalid.
+    /// Indicates that the `ThreadingModel` value is invalid.
     #[error("ThreadingModel can only be 0 (Apartment Threaded), or 1 (Single Threaded)")]
     ThreadingModelInvalid,
 
-    /// Indicates that no property name was found after the BeginProperty keyword.
+    /// Indicates that no property name was found after the `BeginProperty` keyword.
     #[error("No property name found after BeginProperty keyword.")]
     NoPropertyName,
 
-    /// Indicates that the RelatedDoc property line could not be parsed.
+    /// Indicates that the `RelatedDoc` property line could not be parsed.
     #[error("Unable to parse the RelatedDoc property line.")]
     RelatedDocLineUnparsable,
 
-    /// Indicates that the AutoIncrement property line could not be parsed.
+    /// Indicates that the `AutoIncrement` property line could not be parsed.
     #[error("AutoIncrement can only be a 0 (false) or a -1 (true)")]
     AutoIncrementUnparsable,
 
-    /// Indicates that the CompatibilityMode property line could not be parsed.
+    /// Indicates that the `CompatibilityMode` property line could not be parsed.
     #[error("CompatibilityMode can only be a 0 (CompatibilityMode::NoCompatibility), 1 (CompatibilityMode::Project), or 2 (CompatibilityMode::CompatibleExe)")]
     CompatibilityModeUnparsable,
 
-    /// Indicates that the NoControlUpgrade property line could not be parsed.
+    /// Indicates that the `NoControlUpgrade` property line could not be parsed.
     #[error("NoControlUpgrade can only be a 0 (UpgradeControls::Upgrade) or a 1 (UpgradeControls::NoUpgrade)")]
     NoControlUpgradeUnparsable,
 
-    /// Indicates that the ServerSupportFiles property line could not be parsed.
+    /// Indicates that the `ServerSupportFiles` property line could not be parsed.
     #[error("ServerSupportFiles can only be a 0 (false) or a -1 (true)")]
     ServerSupportFilesUnparsable,
 
@@ -795,15 +795,15 @@ pub enum FormErrorKind {
     #[error("Comment line was unparsable")]
     CommentUnparsable,
 
-    /// Indicates that the PropertyPage line could not be parsed.
+    /// Indicates that the `PropertyPage` line could not be parsed.
     #[error("PropertyPage line was unparsable")]
     PropertyPageUnparsable,
 
-    /// Indicates that the CompilationType property line could not be parsed.
+    /// Indicates that the `CompilationType` property line could not be parsed.
     #[error("CompilationType can only be a 0 (false) or a -1 (true)")]
     CompilationTypeUnparsable,
 
-    /// Indicates that the OptimizationType property line could not be parsed.
+    /// Indicates that the `OptimizationType` property line could not be parsed.
     #[error("OptimizationType can only be a 0 (FastCode) or 1 (SmallCode), or 2 (NoOptimization)")]
     OptimizationTypeUnparsable,
 
@@ -811,7 +811,7 @@ pub enum FormErrorKind {
     #[error("FavorPentiumPro(tm) can only be a 0 (false) or a -1 (true)")]
     FavorPentiumProUnparsable,
 
-    /// Indicates that the DesignerLine property line could not be parsed.
+    /// Indicates that the `DesignerLine` property line could not be parsed.
     #[error("Designer line is unparsable")]
     DesignerLineUnparsable,
 
@@ -819,11 +819,11 @@ pub enum FormErrorKind {
     #[error("Form line is unparsable")]
     FormLineUnparsable,
 
-    /// Indicates that the UserControl line could not be parsed.
+    /// Indicates that the `UserControl` line could not be parsed.
     #[error("UserControl line is unparsable")]
     UserControlLineUnparsable,
 
-    /// Indicates that the UserDocument line could not be parsed.
+    /// Indicates that the `UserDocument` line could not be parsed.
     #[error("UserDocument line is unparsable")]
     UserDocumentLineUnparsable,
 
@@ -831,39 +831,39 @@ pub enum FormErrorKind {
     #[error("Period expected in version number")]
     PeriodExpectedInVersionNumber,
 
-    /// Indicates that the CodeViewDebugInfo property line could not be parsed.
+    /// Indicates that the `CodeViewDebugInfo` property line could not be parsed.
     #[error("CodeViewDebugInfo can only be a 0 (false) or a -1 (true)")]
     CodeViewDebugInfoUnparsable,
 
-    /// Indicates that the NoAliasing property line could not be parsed.
+    /// Indicates that the `NoAliasing` property line could not be parsed.
     #[error("NoAliasing can only be a 0 (false) or a -1 (true)")]
     NoAliasingUnparsable,
 
-    /// Indicates that the RemoveUnusedControlInfo property line could not be parsed.
+    /// Indicates that the `RemoveUnusedControlInfo` property line could not be parsed.
     #[error("RemoveUnusedControlInfo can only be 0 (UnusedControlInfo::Retain) or -1 (UnusedControlInfo::Remove)")]
     UnusedControlInfoUnparsable,
 
-    /// Indicates that the BoundsCheck property line could not be parsed.
+    /// Indicates that the `BoundsCheck` property line could not be parsed.
     #[error("BoundsCheck can only be a 0 (false) or a -1 (true)")]
     BoundsCheckUnparsable,
 
-    /// Indicates that the OverflowCheck property line could not be parsed.
+    /// Indicates that the `OverflowCheck` property line could not be parsed.
     #[error("OverflowCheck can only be a 0 (false) or a -1 (true)")]
     OverflowCheckUnparsable,
 
-    /// Indicates that the FlPointCheck property line could not be parsed.
+    /// Indicates that the `FlPointCheck` property line could not be parsed.
     #[error("FlPointCheck can only be a 0 (false) or a -1 (true)")]
     FlPointCheckUnparsable,
 
-    /// Indicates that the FDIVCheck property line could not be parsed.
+    /// Indicates that the `FDIVCheck` property line could not be parsed.
     #[error("FDIVCheck can only be a 0 (PentiumFDivBugCheck::CheckPentiumFDivBug) or a -1 (PentiumFDivBugCheck::NoPentiumFDivBugCheck)")]
     FDIVCheckUnparsable,
 
-    /// Indicates that the UnroundedFP property line could not be parsed.
+    /// Indicates that the `UnroundedFP` property line could not be parsed.
     #[error("UnroundedFP can only be a 0 (UnroundedFloatingPoint::DoNotAllow) or a -1 (UnroundedFloatingPoint::Allow)")]
     UnroundedFPUnparsable,
 
-    /// Indicates that the StartMode property line could not be parsed.
+    /// Indicates that the `StartMode` property line could not be parsed.
     #[error("StartMode can only be a 0 (StartMode::StandAlone) or a 1 (StartMode::Automation)")]
     StartModeUnparsable,
 
@@ -877,27 +877,27 @@ pub enum FormErrorKind {
     )]
     RetainedUnparsable,
 
-    /// Indicates that the ShortCut property line could not be parsed.
+    /// Indicates that the `ShortCut` property line could not be parsed.
     #[error("Unable to parse the ShortCut property.")]
     ShortCutUnparsable,
 
-    /// Indicates that the DebugStartup property line could not be parsed.
+    /// Indicates that the `DebugStartup` property line could not be parsed.
     #[error("DebugStartup can only be a 0 (false) or a -1 (true)")]
     DebugStartupOptionUnparsable,
 
-    /// Indicates that the UseExistingBrowser property line could not be parsed.
+    /// Indicates that the `UseExistingBrowser` property line could not be parsed.
     #[error("UseExistingBrowser can only be a 0 (UseExistingBrowser::DoNotUse) or a -1 (UseExistingBrowser::Use)")]
     UseExistingBrowserUnparsable,
 
-    /// Indicates that the AutoRefresh property line could not be parsed.
+    /// Indicates that the `AutoRefresh` property line could not be parsed.
     #[error("AutoRefresh can only be a 0 (false) or a -1 (true)")]
     AutoRefreshUnparsable,
 
-    /// Indicates that the ConnectionType property line could not be parsed.
+    /// Indicates that the `ConnectionType` property line could not be parsed.
     #[error("Data control Connection type is not valid.")]
     ConnectionTypeUnparsable,
 
-    /// Indicates that the ThreadPerObject property line could not be parsed.
+    /// Indicates that the `ThreadPerObject` property line could not be parsed.
     #[error("Thread Per Object is not a number.")]
     ThreadPerObjectUnparsable,
 
@@ -929,11 +929,11 @@ pub enum FormErrorKind {
     #[error("Max Threads is not a number.")]
     MaxThreadsUnparsable,
 
-    /// Indicates that no EndProperty was found after a BeginProperty.
+    /// Indicates that no `EndProperty` was found after a `BeginProperty`.
     #[error("No EndProperty found after BeginProperty")]
     NoEndProperty,
 
-    /// Indicates that there was no line ending after the EndProperty.
+    /// Indicates that there was no line ending after the `EndProperty`.
     #[error("No line ending after EndProperty")]
     NoLineEndingAfterEndProperty,
 

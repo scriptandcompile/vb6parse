@@ -77,8 +77,7 @@ impl Parser<'_> {
         } else if self.at_keyword() {
             // Some keywords should never be treated as procedure calls
             // These are structural keywords that have special parsing rules
-            match self.current_token() {
-                Some(
+            if let Some(
                     Token::EndKeyword
                     | Token::ExitKeyword
                     | Token::LoopKeyword
@@ -102,9 +101,7 @@ impl Parser<'_> {
                     | Token::WithKeyword
                     | Token::ReturnKeyword
                     | Token::ResumeKeyword,
-                ) => return false,
-                _ => {}
-            }
+                ) = self.current_token() { return false }
         } else {
             return false;
         }

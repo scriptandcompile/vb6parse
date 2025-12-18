@@ -145,17 +145,17 @@ impl TryFrom<&str> for FloatingPointErrorCheck {
     }
 }
 
-/// Represents whether to create CodeView debug information.
+/// Represents whether to create `CodeView` debug information.
 #[derive(
     Debug, PartialEq, Eq, Copy, Clone, Serialize, Default, TryFromPrimitive, EnumIter, EnumMessage,
 )]
 #[repr(i16)]
 pub enum CodeViewDebugInfo {
-    /// Do not create CodeView debug information.
+    /// Do not create `CodeView` debug information.
     #[default]
     #[strum(message = "Do not create CodeView debug info")]
     NotCreated = 0,
-    /// Create CodeView debug information.
+    /// Create `CodeView` debug information.
     #[strum(message = "Create CodeView debug info")]
     Created = -1,
 }
@@ -264,7 +264,7 @@ pub struct NativeCodeSettings {
     pub optimization_type: OptimizationType,
     /// Whether to favor Pentium Pro optimizations.
     pub favor_pentium_pro: FavorPentiumPro,
-    /// Whether to create CodeView debug information.
+    /// Whether to create `CodeView` debug information.
     pub code_view_debug_info: CodeViewDebugInfo,
     /// Whether to assume aliasing.
     pub aliasing: Aliasing,
@@ -303,7 +303,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_optimization_type(&mut self, setting: OptimizationType) -> CompilationType {
@@ -327,7 +327,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_favor_pentium_pro(&mut self, setting: FavorPentiumPro) -> CompilationType {
@@ -343,15 +343,15 @@ impl CompilationType {
         }
     }
 
-    /// Updates the CodeView debug info setting.
+    /// Updates the `CodeView` debug info setting.
     ///
     /// # Arguments
     ///
-    /// * `setting` - The new CodeView debug info setting to set.
+    /// * `setting` - The new `CodeView` debug info setting to set.
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_code_view_debug_info(&mut self, setting: CodeViewDebugInfo) -> CompilationType {
@@ -375,7 +375,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    ///  * `CompilationType` - A new CompilationType with the updated setting.
+    ///  * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_aliasing(&mut self, setting: Aliasing) -> CompilationType {
@@ -399,7 +399,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_bounds_check(&mut self, setting: BoundsCheck) -> CompilationType {
@@ -423,7 +423,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_overflow_check(&mut self, setting: OverflowCheck) -> CompilationType {
@@ -447,7 +447,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_floating_point_check(
@@ -474,7 +474,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_pentium_fdiv_bug_check(self, setting: PentiumFDivBugCheck) -> CompilationType {
@@ -498,7 +498,7 @@ impl CompilationType {
     ///
     /// # Returns
     ///
-    /// * `CompilationType` - A new CompilationType with the updated setting.
+    /// * `CompilationType` - A new `CompilationType` with the updated setting.
     ///
     #[must_use]
     pub fn update_unrounded_floating_point(

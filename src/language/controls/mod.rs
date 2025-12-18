@@ -975,7 +975,7 @@ pub enum MultiSelect {
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
 #[repr(i32)]
 pub enum ScaleMode {
-    /// Indicates that one or more of the ScaleHeight, ScaleWidth, ScaleLeft, and ScaleTop properties are set to custom values.
+    /// Indicates that one or more of the `ScaleHeight`, `ScaleWidth`, `ScaleLeft`, and `ScaleTop` properties are set to custom values.
     User = 0,
     /// The control uses twips as the unit of measurement. (1440 twips per logical inch; 567 twips per logical centimeter).
     #[default]
@@ -992,7 +992,7 @@ pub enum ScaleMode {
     Millimeter = 6,
     /// The control uses Centimeters as the unit of measurement.
     Centimeter = 7,
-    /// The control uses HiMetrics as the unit of measurement.
+    /// The control uses `HiMetrics` as the unit of measurement.
     HiMetric = 8,
     /// The control uses the Units used by the control's container to determine the control's position.
     ContainerPosition = 9,

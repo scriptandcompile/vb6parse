@@ -99,61 +99,61 @@ pub enum NormalAttribute {
 /// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FileListBoxProperties {
-    /// The appearance of the FileListBox.
+    /// The appearance of the `FileListBox`.
     pub appearance: Appearance,
-    /// The archive attribute of the FileListBox.
+    /// The archive attribute of the `FileListBox`.
     pub archive: ArchiveAttribute,
-    /// The background color of the FileListBox.
+    /// The background color of the `FileListBox`.
     pub back_color: Color,
-    /// Whether the FileListBox causes validation.
+    /// Whether the `FileListBox` causes validation.
     pub causes_validation: CausesValidation,
-    /// The drag icon of the FileListBox.
+    /// The drag icon of the `FileListBox`.
     pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// The drag mode of the FileListBox.
+    /// The drag mode of the `FileListBox`.
     pub drag_mode: DragMode,
-    /// Whether the FileListBox is enabled.
+    /// Whether the `FileListBox` is enabled.
     pub enabled: Activation,
-    /// The foreground color of the FileListBox.
+    /// The foreground color of the `FileListBox`.
     pub fore_color: Color,
-    /// The height of the FileListBox.
+    /// The height of the `FileListBox`.
     pub height: i32,
-    /// The help context ID of the FileListBox.
+    /// The help context ID of the `FileListBox`.
     pub help_context_id: i32,
-    /// The hidden attribute of the FileListBox.
+    /// The hidden attribute of the `FileListBox`.
     pub hidden: HiddenAttribute,
-    /// The left position of the FileListBox.
+    /// The left position of the `FileListBox`.
     pub left: i32,
-    /// The mouse icon of the FileListBox.
+    /// The mouse icon of the `FileListBox`.
     pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
-    /// The mouse pointer of the FileListBox.
+    /// The mouse pointer of the `FileListBox`.
     pub mouse_pointer: MousePointer,
-    /// The multi-select mode of the FileListBox.
+    /// The multi-select mode of the `FileListBox`.
     pub multi_select: MultiSelect,
-    /// The normal attribute of the FileListBox.
+    /// The normal attribute of the `FileListBox`.
     pub normal: NormalAttribute,
-    /// The OLE drag mode of the FileListBox.
+    /// The OLE drag mode of the `FileListBox`.
     pub ole_drag_mode: OLEDragMode,
-    /// The OLE drop mode of the FileListBox.
+    /// The OLE drop mode of the `FileListBox`.
     pub ole_drop_mode: OLEDropMode,
-    /// The file pattern filter of the FileListBox.
+    /// The file pattern filter of the `FileListBox`.
     pub pattern: String,
-    /// The read-only attribute of the FileListBox.
+    /// The read-only attribute of the `FileListBox`.
     pub read_only: ReadOnlyAttribute,
-    /// The system attribute of the FileListBox.
+    /// The system attribute of the `FileListBox`.
     pub system: SystemAttribute,
-    /// The tab index of the FileListBox.
+    /// The tab index of the `FileListBox`.
     pub tab_index: i32,
-    /// The tab stop of the FileListBox.
+    /// The tab stop of the `FileListBox`.
     pub tab_stop: TabStop,
-    /// The tool tip text of the FileListBox.
+    /// The tool tip text of the `FileListBox`.
     pub tool_tip_text: String,
-    /// The top position of the FileListBox.
+    /// The top position of the `FileListBox`.
     pub top: i32,
-    /// The visibility of the FileListBox.
+    /// The visibility of the `FileListBox`.
     pub visible: Visibility,
-    /// The "What's This?" help ID of the FileListBox.
+    /// The "What's This?" help ID of the `FileListBox`.
     pub whats_this_help_id: i32,
-    /// The width of the FileListBox.
+    /// The width of the `FileListBox`.
     pub width: i32,
 }
 
@@ -183,7 +183,7 @@ impl Default for FileListBoxProperties {
             system: SystemAttribute::Include,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 480,
             visible: Visibility::Visible,
             whats_this_help_id: 0,
@@ -274,7 +274,7 @@ impl From<Properties> for FileListBoxProperties {
         file_list_box_prop.system = prop.get_property("System", file_list_box_prop.system);
         file_list_box_prop.tab_index = prop.get_i32("TabIndex", file_list_box_prop.tab_index);
         file_list_box_prop.tab_stop = prop.get_property("TabStop", file_list_box_prop.tab_stop);
-        file_list_box_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        file_list_box_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => file_list_box_prop.tool_tip_text,
         };
