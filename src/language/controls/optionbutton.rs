@@ -21,7 +21,9 @@ use serde::Serialize;
 ///
 /// This is used as the `Value` property of an `OptionButton` control.
 /// Either, `UnSelected` (0) or `Selected` (1).
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OptionButtonValue {
     /// The option button is not selected.

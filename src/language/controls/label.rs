@@ -20,7 +20,19 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// Determines if a `Label` control will wrap text.
-#[derive(Debug, PartialEq, Clone, Copy, TryFromPrimitive, Default, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Clone,
+    Copy,
+    TryFromPrimitive,
+    Default,
+    serde::Serialize,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WordWrap {
     /// The `Label` control will not wrap text.

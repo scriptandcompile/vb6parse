@@ -113,7 +113,9 @@ impl From<Properties> for MenuProperties {
 /// false, the setting of the `NegotiatePosition` property has no effect.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa278135(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum NegotiatePosition {
     /// The menu is not displayed on the menu bar.
@@ -138,7 +140,7 @@ pub enum NegotiatePosition {
 /// property setting.
 ///
 /// The F10, Ctrl+F10, Shift+F10, and Ctrl+Shift+F10 keys are not valid shortcut keys.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Copy, Hash, PartialOrd, Ord)]
 pub enum ShortCut {
     /// Ctrl + A
     ///

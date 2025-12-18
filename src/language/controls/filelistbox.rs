@@ -20,7 +20,19 @@ use serde::Serialize;
 /// The `ArchiveAttribute` enum represents the archive bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its archive status.
-#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Default,
+    Clone,
+    Copy,
+    serde::Serialize,
+    TryFromPrimitive,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ArchiveAttribute {
     /// The file is excluded in the `FileListBox` if it has the archive attribute bit set.
@@ -35,7 +47,19 @@ pub enum ArchiveAttribute {
 /// The `HiddenAttribute` enum represents the hidden bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its hidden status.
-#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Default,
+    Clone,
+    Copy,
+    serde::Serialize,
+    TryFromPrimitive,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum HiddenAttribute {
     /// The file is excluded in the `FileListBox` if it has the hidden attribute bit set.
@@ -50,7 +74,19 @@ pub enum HiddenAttribute {
 /// The `ReadOnlyAttribute` enum represents the read-only bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its read-only status.
-#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Default,
+    Clone,
+    Copy,
+    serde::Serialize,
+    TryFromPrimitive,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ReadOnlyAttribute {
     /// The file is excluded in the `FileListBox` if it has the read-only attribute bit set.
@@ -65,7 +101,19 @@ pub enum ReadOnlyAttribute {
 /// The `SystemAttribute` enum represents the system bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its system status.
-#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Default,
+    Clone,
+    Copy,
+    serde::Serialize,
+    TryFromPrimitive,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum SystemAttribute {
     /// The file is excluded in the `FileListBox` if it has the system attribute bit set.
@@ -79,7 +127,19 @@ pub enum SystemAttribute {
 
 /// The `NormalAttribute` determines if the `FileListBox` control will include
 /// files that are not hidden, read-only, archive, or system files.
-#[derive(Debug, PartialEq, Default, Clone, Copy, serde::Serialize, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Default,
+    Clone,
+    Copy,
+    serde::Serialize,
+    TryFromPrimitive,
+    Hash,
+    PartialOrd,
+    Eq,
+    Ord,
+)]
 #[repr(i32)]
 pub enum NormalAttribute {
     /// The file is excluded in the `FileListBox` if it has none of the hidden, read-only, archive, or system attributes set.
