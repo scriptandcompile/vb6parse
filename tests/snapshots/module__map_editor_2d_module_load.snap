@@ -6,45 +6,9 @@ name: Declaration_Module
 cst:
   root:
     kind: Root
-    text: "Attribute VB_Name = \"Declaration_Module\"\r\n'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\n\r\n'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)\r\nPublic Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\r\n\r\n'An array, which we'll use to track our map tile values\r\nPublic MapArray() As Byte\r\n\r\n'Loop variables\r\nPublic x As Long, Y As Long\r\n\r\n'The currently selected position\r\nPublic CurX As Long, CurY As Long\r\n\r\n'The viewport position\r\nPublic ViewX As Long, ViewY As Long\r\n\r\n'The size of the map\r\nPublic SizeX As Integer, SizeY As Integer\r\n\r\n'Whether a mouse button is up or down\r\nPublic MouseState As Boolean\r\n\r\n'The currently selected picture\r\nPublic CurPicIndex As Long, CurPicIndex2 As Long\r\n\r\n'The zoom value\r\nPublic Zoom As Integer\r\n\r\n'Whether or not to use StretchBlt in place of PaintPicture\r\nPublic UseStretchBlt As Boolean\r\n\r\n"
+    text: "'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\n\r\n'The StretchBlt declaration (the GDI32 alternative to VB's PaintPicture)\r\nPublic Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\r\n\r\n'An array, which we'll use to track our map tile values\r\nPublic MapArray() As Byte\r\n\r\n'Loop variables\r\nPublic x As Long, Y As Long\r\n\r\n'The currently selected position\r\nPublic CurX As Long, CurY As Long\r\n\r\n'The viewport position\r\nPublic ViewX As Long, ViewY As Long\r\n\r\n'The size of the map\r\nPublic SizeX As Integer, SizeY As Integer\r\n\r\n'Whether a mouse button is up or down\r\nPublic MouseState As Boolean\r\n\r\n'The currently selected picture\r\nPublic CurPicIndex As Long, CurPicIndex2 As Long\r\n\r\n'The zoom value\r\nPublic Zoom As Integer\r\n\r\n'Whether or not to use StretchBlt in place of PaintPicture\r\nPublic UseStretchBlt As Boolean\r\n\r\n"
     is_token: false
     children:
-      - kind: AttributeStatement
-        text: "Attribute VB_Name = \"Declaration_Module\"\r\n"
-        is_token: false
-        children:
-          - kind: AttributeKeyword
-            text: Attribute
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: Identifier
-            text: VB_Name
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: EqualityOperator
-            text: "="
-            is_token: true
-            children: []
-          - kind: Whitespace
-            text: " "
-            is_token: true
-            children: []
-          - kind: StringLiteral
-            text: "\"Declaration_Module\""
-            is_token: true
-            children: []
-          - kind: Newline
-            text: "\r\n"
-            is_token: true
-            children: []
       - kind: EndOfLineComment
         text: "'***************************************************************************"
         is_token: true
