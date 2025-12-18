@@ -103,7 +103,7 @@ pub use navigation::CstNode;
 ///
 /// This struct wraps the tree structure in a way that can be serialized
 /// with serde, making it suitable for use with snapshot testing tools like insta.
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, Hash)]
 pub struct SerializableTree {
     /// The root node of the tree
     pub root: CstNode,
@@ -137,7 +137,7 @@ impl Language for VB6Language {
 ///
 /// This structure wraps the rowan library's `GreenNode` internally but provides
 /// a public API that doesn't expose rowan types.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct ConcreteSyntaxTree {
     /// The root green node (internal implementation detail)
     root: GreenNode,
@@ -158,7 +158,7 @@ impl ConcreteSyntaxTree {
     /// # Returns
     ///
     /// A result containing the parsed CST or an error.
-    #[must_use] 
+    #[must_use]
     pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
         Self::from_text(
             source_file.file_name.clone(),
