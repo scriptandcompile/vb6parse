@@ -1,6 +1,11 @@
 use vb6parse::*;
 
+/// Example showing how to parse a VB6 project file from raw bytes.
+/// This example uses a hardcoded string, but in a real application,
+/// you would typically read the bytes from a `.vbp` file on disk.
 fn main() {
+    // Hardcoded example of a VB6 project file content as a string.
+    // In a real application, you would read this from a file.
     let input = r#"Type=Exe
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
 Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
@@ -55,11 +60,17 @@ Title="Project1"
 AutoRefresh=1
 "#;
 
+    // Decode the source file from the byte array.
+    // The filename is provided for reference in error messages.
+    // In a real application, use the actual filename.
+    // Decode with replacement to handle any invalid characters gracefully.
     let source_file =
         SourceFile::decode_with_replacement("Project1.vbp", input.as_bytes()).unwrap();
 
+    // Parse the project file from the decoded source file.
     let project = ProjectFile::parse(&source_file).unwrap_or_fail();
 
+    // Print out some information about the parsed project file.
     println!("Project Name: {}", project.properties.name);
     println!("Project Type: {:?}", project.project_type);
     println!("Files in Project:");

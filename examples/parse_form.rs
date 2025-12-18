@@ -2,7 +2,13 @@ use vb6parse::language::ControlKind;
 use vb6parse::parsers::FormFile;
 use vb6parse::SourceFile;
 
+/// Example showing how to parse a VB6 form file from raw bytes.
+/// This example uses a hardcoded byte array, but in a real application,
+/// you would typically read the bytes from a `.frm` file on disk.
 fn main() {
+    // Hardcoded example of a VB6 form file content in bytes.
+    // This is a minimal example with just a couple of controls.
+    // In a real application, you would read this from a file.
     let input = b"VERSION 5.00
 Begin VB.Form Form1
     BorderStyle     =   1  'Fixed Single
@@ -50,19 +56,27 @@ Attribute VB_Exposed = False
 
 ' Some comment";
 
+    // Decode the source file from the byte array.
+    // The filename is provided for reference in error messages.
+    // In a real application, use the actual filename.
+    // Decode with replacement to handle any invalid characters gracefully.
     let result = SourceFile::decode_with_replacement("form_parse.frm", input);
 
+    // Handle potential decoding errors.
     let source_file = match result {
         Ok(source_file) => source_file,
         Err(e) => panic!("Failed to decode source file 'form_parse.frm': {e:?}"),
     };
 
+    // Parse the form file from the decoded source file.
     let form_file = FormFile::parse(&source_file).unwrap_or_fail();
 
+    // Print out some information about the parsed form file.
     println!("Form Version Major: {}", form_file.version.major);
     println!("Form Version Minor: {}", form_file.version.minor);
     println!("Form Properties:");
 
+    // Extract the properties, controls, and menus from the form kind.
     let (properties, controls, menus) = match form_file.form.kind {
         ControlKind::Form {
             properties,
@@ -72,6 +86,7 @@ Attribute VB_Exposed = False
         _ => panic!("Unexpected control kind"),
     };
 
+    // Print out the form properties.
     println!("\tCaption: {:?}", properties.caption);
     println!("\tBorder Style: {:?}", properties.border_style);
     println!("\tMax Button: {:?}", properties.max_button);
@@ -99,6 +114,7 @@ Attribute VB_Exposed = False
         println!("\t{} = {}", ext.0, ext.1);
     }
 
+    // Print the concrete syntax tree (CST) of the parsed form file.
     println!("CST:");
     println!("{}", form_file.cst.debug_tree());
 }
