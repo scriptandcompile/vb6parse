@@ -288,8 +288,6 @@ impl Parser<'_> {
                 self.parse_property();
             } else if !self.at_token(Token::Newline) {
                 self.consume_token();
-            } else {
-                self.consume_token();
             }
         }
 

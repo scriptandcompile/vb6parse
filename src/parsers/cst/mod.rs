@@ -560,9 +560,7 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
-                    } else if self.is_identifier() {
-                        self.consume_token();
-                    } else if self.at_keyword() {
+                    } else if self.is_identifier() || self.at_keyword() {
                         self.consume_token();
                     } else {
                         // This is purely being done this way to make it easier during development.
