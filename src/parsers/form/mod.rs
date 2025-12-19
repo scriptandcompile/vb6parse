@@ -310,7 +310,6 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
             properties: properties.into(),
         },
         _ => {
-            eprintln!("{properties:?}");
             // Unknown or custom control
             ControlKind::Custom {
                 properties: properties.into(),
