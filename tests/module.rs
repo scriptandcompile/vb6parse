@@ -18,9 +18,7 @@ fn artificial_life_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = if let Some(module_file) = result.result {
-        module_file
-    } else {
+    let Some(module_file) = result.result else {
         if result.has_failures() && !result.failures.is_empty() {
             for failure in result.failures {
                 failure.eprint();
@@ -50,9 +48,7 @@ fn game_physics_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = if let Some(module_file) = result.result {
-        module_file
-    } else {
+    let Some(module_file) = result.result else {
         if result.has_failures() && !result.failures.is_empty() {
             for failure in result.failures {
                 failure.eprint();
@@ -81,9 +77,7 @@ fn histograms_advanced_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = if let Some(module_file) = result.result {
-        module_file
-    } else {
+    let Some(module_file) = result.result else {
         if result.has_failures() && !result.failures.is_empty() {
             for failure in result.failures {
                 failure.eprint();
@@ -112,9 +106,7 @@ fn histograms_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = if let Some(module_file) = result.result {
-        module_file
-    } else {
+    let Some(module_file) = result.result else {
         if result.has_failures() && !result.failures.is_empty() {
             for failure in result.failures {
                 failure.eprint();
@@ -143,9 +135,7 @@ fn levels_effect_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let module_file = if let Some(module_file) = result.result {
-        module_file
-    } else {
+    let Some(module_file) = result.result else {
         if result.has_failures() && !result.failures.is_empty() {
             for failure in result.failures {
                 failure.eprint();
@@ -177,9 +167,7 @@ fn map_editor_2d_module_load() {
 
     let subs_result = ModuleFile::parse(&subs_module_source_file);
 
-    let subs_module_file = if let Some(module_file) = subs_result.result {
-        module_file
-    } else {
+    let Some(subs_module_file) = subs_result.result else {
         if subs_result.has_failures() && !subs_result.failures.is_empty() {
             for failure in subs_result.failures {
                 failure.eprint();
@@ -206,9 +194,7 @@ fn map_editor_2d_module_load() {
 
     let declaration_result = ModuleFile::parse(&declaration_module_source_file);
 
-    let declaration_module_file = if let Some(module_file) = declaration_result.result {
-        module_file
-    } else {
+    let Some(declaration_module_file) = declaration_result.result else {
         if declaration_result.has_failures() && !declaration_result.failures.is_empty() {
             for failure in declaration_result.failures {
                 failure.eprint();
