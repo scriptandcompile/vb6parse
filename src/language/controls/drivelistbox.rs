@@ -1,9 +1,8 @@
 //! Properties for a `DriveListBox` control.
 //!
 //! This is used as an enum variant of
-//! [`ControlKind::DriveListBox`](`crate::language::controls::ControlKind::Drive`
-//! `ListBox`).
-//! tag, name, and index are not included in this struct, but instead are part
+//! [`ControlKind::DriveListBox`](crate::language::controls::ControlKind::DriveListBox).
+//! Tag, name, and index are not included in this struct, but instead are part
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
