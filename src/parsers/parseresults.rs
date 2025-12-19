@@ -267,6 +267,12 @@ where
     /// * `Ok(T)` if there is a successful result and no failures.
     /// * `Err(Vec<ErrorDetails<'a, E>>)` if there are any failures.
     ///
+    /// # Errors
+    ///
+    /// * Returns a vector of `ErrorDetails` if there are any failures in the parse result.
+    /// * If there are no failures but the result is `None`, it returns an empty vector of failures.
+    ///
+    ///
     /// # Examples
     /// ```rust
     /// use std::borrow::Cow;

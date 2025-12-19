@@ -142,6 +142,15 @@ impl SourceFile {
     /// Returns a `Result` containing either:
     /// - `Ok(SourceFile)` - Successfully decoded source file
     /// - `Err(ErrorDetails)` - Error decoding the source code
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if the source code contains invalid characters
+    /// that cannot be replaced. Any character that is representable within the Windows-1252
+    /// encoding will be decoded successfully and will be replaced with the Unicode equivalent.
+    ///
+    /// A good example of invalid characters would be any chinese characters, as they are not
+    /// representable within the Windows-1252 encoding.
     pub fn decode_with_replacement(
         file_name: impl Into<String>,
         source_code: &[u8],
@@ -239,6 +248,14 @@ Currently, only latin-1 source code is supported."
     /// Returns a `Result` containing either:
     /// - `Ok(SourceFile)` - Successfully decoded source file
     /// - `Err(ErrorDetails)` - Error decoding the source code
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if the source code contains any invalid characters
+    /// that cannot be represented in Windows-1252 encoding. All characters in the source code
+    /// must be valid Windows-1252 characters for successful decoding. A good example of invalid
+    /// characters would be any chinese characters, as they are not representable within the
+    /// Windows-1252 encoding.
     pub fn decode(
         file_name: impl Into<String>,
         source_code: &[u8],
