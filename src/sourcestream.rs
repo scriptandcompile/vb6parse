@@ -672,10 +672,7 @@ impl<'a> SourceStream<'a> {
         offset: usize,
         line_end: usize,
         error_kind: T,
-    ) -> ErrorDetails<'a, T>
-    where
-        T: ToString + Debug,
-    {
+    ) -> ErrorDetails<'a, T> {
         let mut offsets = [line_start, offset, line_end];
         // Used unstable sort for performance since order of usize primitives is identical to stable sort.
         offsets.sort_unstable();
