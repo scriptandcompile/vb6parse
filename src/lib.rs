@@ -111,8 +111,8 @@
 //! assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
 //! ```
 //!
-//! Note that in the example above, the `Project::parse` method is used to parse
-//! the project file. The `Project` struct contains the parsed information
+//! Note that in the example above, the `ProjectFile::parse` method is used to parse
+//! the project file. The `ProjectFile` struct contains the parsed information
 //! about the project, including the project type, references, objects, modules,
 //! classes, forms, user controls, etc. These references are not actually loaded
 //! or parsed. This makes it possible to read a project file in parts or to
@@ -121,11 +121,8 @@
 //! ## Form File Parsing
 //!
 //! To load a VB6 form file, you can use the `FormFile::parse` method. This
-//! method takes a `file_name`, a byte slice as input, and a `resource_resolver`,
-//! and returns a `FormFile` struct that contains the parsed information. This
-//! pattern is very similar to the `Project::parse` method and is repeated
-//! throughout the library. This makes it easier to work with dynamically
-//! created VB6 code or test date without having to load the data from disk.
+//! pattern is very similar to the `ProjectFile::parse` method and is repeated
+//! throughout the library.
 //!
 //! ```rust
 //! use vb6parse::parsers::FormFile;
