@@ -280,7 +280,7 @@ impl<'a> ProjectFile<'a> {
                 // we know the compilation type was selected as PCode and we can
                 // simply ignore any of the NativeCode options since they will
                 // not be used.
-                compilation_type: CompilationType::NativeCode(Default::default()),
+                compilation_type: CompilationType::default(),
                 ..Default::default()
             },
         };

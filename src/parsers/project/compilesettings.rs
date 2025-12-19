@@ -631,7 +631,7 @@ impl FromStr for CompilationType {
 
     fn from_str(value: &str) -> Result<Self, Self::Err> {
         match value {
-            "0" => Ok(CompilationType::NativeCode(Default::default())),
+            "0" => Ok(CompilationType::default()),
             "-1" => Ok(CompilationType::PCode),
             _ => Err(format!("Unknown CompilationType value: '{value}'")),
         }
@@ -643,7 +643,7 @@ impl TryFrom<&str> for CompilationType {
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
-            "0" => Ok(CompilationType::NativeCode(Default::default())),
+            "0" => Ok(CompilationType::default()),
             "-1" => Ok(CompilationType::PCode),
             _ => Err(format!("Unknown CompilationType value: '{value}'")),
         }
