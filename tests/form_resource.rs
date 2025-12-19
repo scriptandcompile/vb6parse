@@ -878,7 +878,7 @@ fn audiostation_main_frx_load() {
 
     let element6_picture_offset = 0x15C_DEB;
     let element6_picture_header_size = 12;
-    let element6_picture_buffer_size = 195486;
+    let element6_picture_buffer_size = 195_486;
     let element6_picture_buffer_start = element6_picture_offset + element6_picture_header_size;
     let element6_picture_buffer_end = element6_picture_buffer_start + element6_picture_buffer_size;
     let element6_picture_buffer =
