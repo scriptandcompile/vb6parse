@@ -121,7 +121,7 @@ fn audiostation_init_frx_load() {
 
     let alpha_img_ctl2_image_offset = 0x0C;
     let alpha_img_ctl2_image_header_size = 4;
-    let alpha_img_ctl2_image_buffer_size = 113643;
+    let alpha_img_ctl2_image_buffer_size = 113_643;
     let alpha_img_ctl2_image_buffer_start =
         alpha_img_ctl2_image_offset + alpha_img_ctl2_image_header_size;
     let alpha_img_ctl2_image_buffer_end =
@@ -384,7 +384,7 @@ fn audiostation_main_frx_load() {
 
     let element2_picture_offset = 0x88245;
     let element2_picture_header_size = 12;
-    let element2_picture_buffer_size = 203150;
+    let element2_picture_buffer_size = 203_150;
     let element2_picture_buffer_start = element2_picture_offset + element2_picture_header_size;
     let element2_picture_buffer_end = element2_picture_buffer_start + element2_picture_buffer_size;
     let element2_picture_buffer =
@@ -564,7 +564,7 @@ fn audiostation_main_frx_load() {
 
     let element3_picture_offset = 0xBD563;
     let element3_picture_header_size = 12;
-    let element3_picture_buffer_size = 193570;
+    let element3_picture_buffer_size = 193_570;
     let element3_picture_buffer_start = element3_picture_offset + element3_picture_header_size;
     let element3_picture_buffer_end = element3_picture_buffer_start + element3_picture_buffer_size;
     let element3_picture_buffer =
@@ -682,13 +682,13 @@ fn audiostation_main_frx_load() {
 
     let element4_picture_offset = 0xF00A5;
     let element4_picture_header_size = 12;
-    let element4_picture_buffer_size = 193570;
+    let element4_picture_buffer_size = 193_570;
     let element4_picture_buffer_start = element4_picture_offset + element4_picture_header_size;
     let element4_picture_buffer_end = element4_picture_buffer_start + element4_picture_buffer_size;
     let element4_picture_buffer =
         resource_file_bytes[element4_picture_buffer_start..element4_picture_buffer_end].to_vec();
 
-    let button_open_stream_picture_offset = 0x11F4D3;
+    let button_open_stream_picture_offset = 0x11_F4D3;
     let button_open_stream_picture_header_size = 12;
     let button_open_stream_picture_buffer_size = 446;
     let button_open_stream_picture_buffer_start =
@@ -699,7 +699,7 @@ fn audiostation_main_frx_load() {
         [button_open_stream_picture_buffer_start..button_open_stream_picture_buffer_end]
         .to_vec();
 
-    let button_stop_stream_picture_offset = 0x11F69D;
+    let button_stop_stream_picture_offset = 0x11_F69D;
     let button_stop_stream_picture_header_size = 12;
     let button_stop_stream_picture_buffer_size = 1406;
     let button_stop_stream_picture_buffer_start =
@@ -710,7 +710,7 @@ fn audiostation_main_frx_load() {
         [button_stop_stream_picture_buffer_start..button_stop_stream_picture_buffer_end]
         .to_vec();
 
-    let button_play_stream_picture_offset = 0x11FC27;
+    let button_play_stream_picture_offset = 0x11_FC27;
     let button_play_stream_picture_header_size = 12;
     let button_play_stream_picture_buffer_size = 1406;
     let button_play_stream_picture_buffer_start =
@@ -721,15 +721,15 @@ fn audiostation_main_frx_load() {
         [button_play_stream_picture_buffer_start..button_play_stream_picture_buffer_end]
         .to_vec();
 
-    let element5_picture_offset = 0x1201B1;
+    let element5_picture_offset = 0x12_01B1;
     let element5_picture_header_size = 12;
-    let element5_picture_buffer_size = 193570;
+    let element5_picture_buffer_size = 193_570;
     let element5_picture_buffer_start = element5_picture_offset + element5_picture_header_size;
     let element5_picture_buffer_end = element5_picture_buffer_start + element5_picture_buffer_size;
     let element5_picture_buffer =
         resource_file_bytes[element5_picture_buffer_start..element5_picture_buffer_end].to_vec();
 
-    let recording_picture_offset = 0x14F5DF;
+    let recording_picture_offset = 0x14_F5DF;
     let recording_picture_header_size = 12;
     let recording_picture_buffer_size = 1406;
     let recording_picture_buffer_start = recording_picture_offset + recording_picture_header_size;
@@ -738,7 +738,7 @@ fn audiostation_main_frx_load() {
     let recording_picture_buffer =
         resource_file_bytes[recording_picture_buffer_start..recording_picture_buffer_end].to_vec();
 
-    let image4_picture_offset = 0x14FB69;
+    let image4_picture_offset = 0x14_FB69;
     let image4_picture_header_size = 12;
     let image4_picture_buffer_size = 1406;
     let image4_picture_buffer_start = image4_picture_offset + image4_picture_header_size;
@@ -746,7 +746,7 @@ fn audiostation_main_frx_load() {
     let image4_picture_buffer =
         resource_file_bytes[image4_picture_buffer_start..image4_picture_buffer_end].to_vec();
 
-    let picture17_picture_offset = 0x1500F3;
+    let picture17_picture_offset = 0x15_00F3;
     let picture17_picture_header_size = 12;
     let picture17_picture_buffer_size = 36942;
     let picture17_picture_buffer_start = picture17_picture_offset + picture17_picture_header_size;
@@ -755,7 +755,7 @@ fn audiostation_main_frx_load() {
     let picture17_picture_buffer =
         resource_file_bytes[picture17_picture_buffer_start..picture17_picture_buffer_end].to_vec();
 
-    let cmd_audioplayer1_picture_offset = 0x15914D;
+    let cmd_audioplayer1_picture_offset = 0x159_14D;
     let cmd_audioplayer1_picture_header_size = 12;
     let cmd_audioplayer1_picture_buffer_size = 1406;
     let cmd_audioplayer1_picture_buffer_start =
@@ -766,7 +766,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer1_picture_buffer_start..cmd_audioplayer1_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer2_picture_offset = 0x1596D7;
+    let cmd_audioplayer2_picture_offset = 0x159_6D7;
     let cmd_audioplayer2_picture_header_size = 12;
     let cmd_audioplayer2_picture_buffer_size = 1470;
     let cmd_audioplayer2_picture_buffer_start =
@@ -777,7 +777,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer2_picture_buffer_start..cmd_audioplayer2_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer3_picture_offset = 0x159CA1;
+    let cmd_audioplayer3_picture_offset = 0x159_CA1;
     let cmd_audioplayer3_picture_header_size = 12;
     let cmd_audioplayer3_picture_buffer_size = 1470;
     let cmd_audioplayer3_picture_buffer_start =
@@ -788,7 +788,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer3_picture_buffer_start..cmd_audioplayer3_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer4_picture_offset = 0x15A26B;
+    let cmd_audioplayer4_picture_offset = 0x15A_26B;
     let cmd_audioplayer4_picture_header_size = 12;
     let cmd_audioplayer4_picture_buffer_size = 1406;
     let cmd_audioplayer4_picture_buffer_start =
@@ -799,7 +799,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer4_picture_buffer_start..cmd_audioplayer4_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer5_picture_offset = 0x15A7F5;
+    let cmd_audioplayer5_picture_offset = 0x15A_7F5;
     let cmd_audioplayer5_picture_header_size = 12;
     let cmd_audioplayer5_picture_buffer_size = 1406;
     let cmd_audioplayer5_picture_buffer_start =
@@ -810,7 +810,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer5_picture_buffer_start..cmd_audioplayer5_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer6_picture_offset = 0x15AD7F;
+    let cmd_audioplayer6_picture_offset = 0x15_AD7F;
     let cmd_audioplayer6_picture_header_size = 12;
     let cmd_audioplayer6_picture_buffer_size = 1406;
     let cmd_audioplayer6_picture_buffer_start =
@@ -821,7 +821,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer6_picture_buffer_start..cmd_audioplayer6_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer7_picture_offset = 0x15B309;
+    let cmd_audioplayer7_picture_offset = 0x15B_309;
     let cmd_audioplayer7_picture_header_size = 12;
     let cmd_audioplayer7_picture_buffer_size = 1470;
     let cmd_audioplayer7_picture_buffer_start =
@@ -832,7 +832,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer7_picture_buffer_start..cmd_audioplayer7_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer8_picture_offset = 0x15B8D3;
+    let cmd_audioplayer8_picture_offset = 0x15B_8D3;
     let cmd_audioplayer8_picture_header_size = 12;
     let cmd_audioplayer8_picture_buffer_size = 1470;
     let cmd_audioplayer8_picture_buffer_start =
@@ -843,7 +843,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer8_picture_buffer_start..cmd_audioplayer8_picture_buffer_end]
         .to_vec();
 
-    let cmd_audioplayer9_picture_offset = 0x15BE9D;
+    let cmd_audioplayer9_picture_offset = 0x15B_E9D;
     let cmd_audioplayer9_picture_header_size = 12;
     let cmd_audioplayer9_picture_buffer_size = 1406;
     let cmd_audioplayer9_picture_buffer_start =
@@ -854,7 +854,7 @@ fn audiostation_main_frx_load() {
         [cmd_audioplayer9_picture_buffer_start..cmd_audioplayer9_picture_buffer_end]
         .to_vec();
 
-    let light_dat_play_on_picture_offset = 0x15C427;
+    let light_dat_play_on_picture_offset = 0x15C_427;
     let light_dat_play_on_picture_header_size = 12;
     let light_dat_play_on_picture_buffer_size = 1230;
     let light_dat_play_on_picture_buffer_start =
@@ -865,7 +865,7 @@ fn audiostation_main_frx_load() {
         [light_dat_play_on_picture_buffer_start..light_dat_play_on_picture_buffer_end]
         .to_vec();
 
-    let light_dat_pause_on_picture_offset = 0x15C901;
+    let light_dat_pause_on_picture_offset = 0x15C_901;
     let light_dat_pause_on_picture_header_size = 12;
     let light_dat_pause_on_picture_buffer_size = 1246;
     let light_dat_pause_on_picture_buffer_start =
@@ -876,7 +876,7 @@ fn audiostation_main_frx_load() {
         [light_dat_pause_on_picture_buffer_start..light_dat_pause_on_picture_buffer_end]
         .to_vec();
 
-    let element6_picture_offset = 0x15CDEB;
+    let element6_picture_offset = 0x15C_DEB;
     let element6_picture_header_size = 12;
     let element6_picture_buffer_size = 195486;
     let element6_picture_buffer_start = element6_picture_offset + element6_picture_header_size;
@@ -884,7 +884,7 @@ fn audiostation_main_frx_load() {
     let element6_picture_buffer =
         resource_file_bytes[element6_picture_buffer_start..element6_picture_buffer_end].to_vec();
 
-    let button_midi_player1_picture_offset = 0x18C995;
+    let button_midi_player1_picture_offset = 0x18C_995;
     let button_midi_player1_picture_header_size = 12;
     let button_midi_player1_picture_buffer_size = 1470;
     let button_midi_player1_picture_buffer_start =
@@ -895,7 +895,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player1_picture_buffer_start..button_midi_player1_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player2_picture_offset = 0x18CF5F;
+    let button_midi_player2_picture_offset = 0x18C_F5F;
     let button_midi_player2_picture_header_size = 12;
     let button_midi_player2_picture_buffer_size = 1406;
     let button_midi_player2_picture_buffer_start =
@@ -906,7 +906,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player2_picture_buffer_start..button_midi_player2_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player3_picture_offset = 0x18D4E9;
+    let button_midi_player3_picture_offset = 0x18D_4E9;
     let button_midi_player3_picture_header_size = 12;
     let button_midi_player3_picture_buffer_size = 1470;
     let button_midi_player3_picture_buffer_start =
@@ -917,7 +917,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player3_picture_buffer_start..button_midi_player3_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player4_picture_offset = 0x18DAB3;
+    let button_midi_player4_picture_offset = 0x18D_AB3;
     let button_midi_player4_picture_header_size = 12;
     let button_midi_player4_picture_buffer_size = 1470;
     let button_midi_player4_picture_buffer_start =
@@ -928,7 +928,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player4_picture_buffer_start..button_midi_player4_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player5_picture_offset = 0x18E07D;
+    let button_midi_player5_picture_offset = 0x18E_07D;
     let button_midi_player5_picture_header_size = 12;
     let button_midi_player5_picture_buffer_size = 1406;
     let button_midi_player5_picture_buffer_start =
@@ -939,7 +939,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player5_picture_buffer_start..button_midi_player5_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player6_picture_offset = 0x18E607;
+    let button_midi_player6_picture_offset = 0x18E_607;
     let button_midi_player6_picture_header_size = 12;
     let button_midi_player6_picture_buffer_size = 1406;
     let button_midi_player6_picture_buffer_start =
@@ -950,7 +950,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player6_picture_buffer_start..button_midi_player6_picture_buffer_end]
         .to_vec();
 
-    let button_midi_player7_picture_offset = 0x18EB91;
+    let button_midi_player7_picture_offset = 0x18E_B91;
     let button_midi_player7_picture_header_size = 12;
     let button_midi_player7_picture_buffer_size = 1470;
     let button_midi_player7_picture_buffer_start =
@@ -961,7 +961,7 @@ fn audiostation_main_frx_load() {
         [button_midi_player7_picture_buffer_start..button_midi_player7_picture_buffer_end]
         .to_vec();
 
-    let light_midi_floppy_drive_picture_offset = 0x18F15B;
+    let light_midi_floppy_drive_picture_offset = 0x18F_15B;
     let light_midi_floppy_drive_picture_header_size = 12;
     let light_midi_floppy_drive_picture_buffer_size = 1654;
     let light_midi_floppy_drive_picture_buffer_start =
@@ -972,7 +972,7 @@ fn audiostation_main_frx_load() {
         [light_midi_floppy_drive_picture_buffer_start..light_midi_floppy_drive_picture_buffer_end]
         .to_vec();
 
-    let image6_picture_offset = 0x18F7DD;
+    let image6_picture_offset = 0x18F_7DD;
     let image6_picture_header_size = 12;
     let image6_picture_buffer_size = 626;
     let image6_picture_buffer_start = image6_picture_offset + image6_picture_header_size;
@@ -980,7 +980,7 @@ fn audiostation_main_frx_load() {
     let image6_picture_buffer =
         resource_file_bytes[image6_picture_buffer_start..image6_picture_buffer_end].to_vec();
 
-    let floppy_in_picture_offset = 0x18FA5B;
+    let floppy_in_picture_offset = 0x18F_A5B;
     let floppy_in_picture_header_size = 12;
     let floppy_in_picture_buffer_size = 11662;
     let floppy_in_picture_buffer_start = floppy_in_picture_offset + floppy_in_picture_header_size;
@@ -989,7 +989,7 @@ fn audiostation_main_frx_load() {
     let floppy_in_picture_buffer =
         resource_file_bytes[floppy_in_picture_buffer_start..floppy_in_picture_buffer_end].to_vec();
 
-    let floppy_out_picture_offset = 0x1927F5;
+    let floppy_out_picture_offset = 0x192_7F5;
     let floppy_out_picture_header_size = 12;
     let floppy_out_picture_buffer_size = 11662;
     let floppy_out_picture_buffer_start =
@@ -1000,7 +1000,7 @@ fn audiostation_main_frx_load() {
         [floppy_out_picture_buffer_start..floppy_out_picture_buffer_end]
         .to_vec();
 
-    let light_midi_play_on_picture_offset = 0x19558F;
+    let light_midi_play_on_picture_offset = 0x195_58F;
     let light_midi_play_on_picture_header_size = 12;
     let light_midi_play_on_picture_buffer_size = 1230;
     let light_midi_play_on_picture_buffer_start =
@@ -1011,7 +1011,7 @@ fn audiostation_main_frx_load() {
         [light_midi_play_on_picture_buffer_start..light_midi_play_on_picture_buffer_end]
         .to_vec();
 
-    let light_midi_pause_on_picture_offset = 0x195A69;
+    let light_midi_pause_on_picture_offset = 0x195_A69;
     let light_midi_pause_on_picture_header_size = 12;
     let light_midi_pause_on_picture_buffer_size = 1246;
     let light_midi_pause_on_picture_buffer_start =
@@ -1022,7 +1022,7 @@ fn audiostation_main_frx_load() {
         [light_midi_pause_on_picture_buffer_start..light_midi_pause_on_picture_buffer_end]
         .to_vec();
 
-    let element7_picture_offset = 0x195F53;
+    let element7_picture_offset = 0x195_F53;
     let element7_picture_header_size = 12;
     let element7_picture_buffer_size = 93938;
     let element7_picture_buffer_start = element7_picture_offset + element7_picture_header_size;
@@ -1030,7 +1030,7 @@ fn audiostation_main_frx_load() {
     let element7_picture_buffer =
         resource_file_bytes[element7_picture_buffer_start..element7_picture_buffer_end].to_vec();
 
-    let options_menu_button_picture_offset = 0x1ACE51;
+    let options_menu_button_picture_offset = 0x1AC_E51;
     let options_menu_button_picture_header_size = 12;
     let options_menu_button_picture_buffer_size = 2106;
     let options_menu_button_picture_buffer_start =
@@ -1041,7 +1041,7 @@ fn audiostation_main_frx_load() {
         [options_menu_button_picture_buffer_start..options_menu_button_picture_buffer_end]
         .to_vec();
 
-    let image5_picture_offset = 0x1AD697;
+    let image5_picture_offset = 0x1AD_697;
     let image5_picture_header_size = 12;
     let image5_picture_buffer_size = 19134;
     let image5_picture_buffer_start = image5_picture_offset + image5_picture_header_size;
@@ -1049,7 +1049,7 @@ fn audiostation_main_frx_load() {
     let image5_picture_buffer =
         resource_file_bytes[image5_picture_buffer_start..image5_picture_buffer_end].to_vec();
 
-    let elements_disabled_image_list_image1_picture_offset = 0x1B2161;
+    let elements_disabled_image_list_image1_picture_offset = 0x1B2_161;
     let elements_disabled_image_list_image1_picture_header_size = 4;
     let elements_disabled_image_list_image1_picture_buffer_size = 92046;
     let elements_disabled_image_list_image1_picture_buffer_start =
@@ -1063,9 +1063,9 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image1_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image2_picture_offset = 0x1C88F3;
+    let elements_disabled_image_list_image2_picture_offset = 0x1C8_8F3;
     let elements_disabled_image_list_image2_picture_header_size = 4;
-    let elements_disabled_image_list_image2_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image2_picture_buffer_size = 191_678;
     let elements_disabled_image_list_image2_picture_buffer_start =
         elements_disabled_image_list_image2_picture_offset
             + elements_disabled_image_list_image2_picture_header_size;
@@ -1077,9 +1077,9 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image2_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image3_picture_offset = 0x1F75B5;
+    let elements_disabled_image_list_image3_picture_offset = 0x1F7_5B5;
     let elements_disabled_image_list_image3_picture_header_size = 4;
-    let elements_disabled_image_list_image3_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image3_picture_buffer_size = 191_678;
     let elements_disabled_image_list_image3_picture_buffer_start =
         elements_disabled_image_list_image3_picture_offset
             + elements_disabled_image_list_image3_picture_header_size;
@@ -1091,9 +1091,9 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image3_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image4_picture_offset = 0x226277;
+    let elements_disabled_image_list_image4_picture_offset = 0x226_277;
     let elements_disabled_image_list_image4_picture_header_size = 4;
-    let elements_disabled_image_list_image4_picture_buffer_size = 191678;
+    let elements_disabled_image_list_image4_picture_buffer_size = 191_678;
     let elements_disabled_image_list_image4_picture_buffer_start =
         elements_disabled_image_list_image4_picture_offset
             + elements_disabled_image_list_image4_picture_header_size;
@@ -1105,9 +1105,9 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image4_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image5_picture_offset = 0x254F39;
+    let elements_disabled_image_list_image5_picture_offset = 0x254_F39;
     let elements_disabled_image_list_image5_picture_header_size = 4;
-    let elements_disabled_image_list_image5_picture_buffer_size = 390942;
+    let elements_disabled_image_list_image5_picture_buffer_size = 390_942;
     let elements_disabled_image_list_image5_picture_buffer_start =
         elements_disabled_image_list_image5_picture_offset
             + elements_disabled_image_list_image5_picture_header_size;
@@ -1119,9 +1119,9 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image5_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image6_picture_offset = 0x2B465B;
+    let elements_disabled_image_list_image6_picture_offset = 0x2B4_65B;
     let elements_disabled_image_list_image6_picture_header_size = 4;
-    let elements_disabled_image_list_image6_picture_buffer_size = 390942;
+    let elements_disabled_image_list_image6_picture_buffer_size = 390_942;
     let elements_disabled_image_list_image6_picture_buffer_start =
         elements_disabled_image_list_image6_picture_offset
             + elements_disabled_image_list_image6_picture_header_size;
@@ -1133,7 +1133,7 @@ fn audiostation_main_frx_load() {
             ..elements_disabled_image_list_image6_picture_buffer_end]
         .to_vec();
 
-    let elements_disabled_image_list_image7_picture_offset = 0x313D7D;
+    let elements_disabled_image_list_image7_picture_offset = 0x313_D7D;
     let elements_disabled_image_list_image7_picture_header_size = 4;
     let elements_disabled_image_list_image7_picture_buffer_size = 92046;
     let elements_disabled_image_list_image7_picture_buffer_start =
