@@ -575,7 +575,7 @@
 /// - `Atn`: Returns the arctangent of a number in radians
 /// - `Sqr`: Returns the square root (used in inverse sine calculations)
 /// - `Abs`: Returns absolute value (useful for angle normalization)
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;

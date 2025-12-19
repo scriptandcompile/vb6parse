@@ -506,7 +506,7 @@
 /// - `Space`: Returns string of spaces (can be used anywhere)
 /// - `Print`: Statement that outputs data
 /// - `Width`: Statement that sets output line width
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;

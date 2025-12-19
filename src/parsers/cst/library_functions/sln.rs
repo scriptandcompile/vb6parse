@@ -692,7 +692,7 @@
 /// - `SYD`: Returns depreciation using sum-of-years digits method
 /// - `FV`: Calculates future value (inverse concept)
 /// - `PV`: Calculates present value
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;

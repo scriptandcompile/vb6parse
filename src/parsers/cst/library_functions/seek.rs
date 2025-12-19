@@ -591,7 +591,7 @@
 /// - `Open`: Open file for I/O operations
 /// - `Close`: Close an open file
 /// - `FreeFile`: Get next available file number
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;

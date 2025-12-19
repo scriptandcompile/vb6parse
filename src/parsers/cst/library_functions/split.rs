@@ -703,7 +703,7 @@
 /// - `Filter`: Returns a subset of array based on filter criteria
 /// - `InStr`: Finds position of substring (useful before Split)
 /// - `Replace`: Replaces occurrences of substring
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;
