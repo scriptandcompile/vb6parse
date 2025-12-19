@@ -604,7 +604,7 @@
 /// - `Exp`: Returns e raised to a power
 /// - `Log`: Returns natural logarithm
 /// - `^` operator: Raises number to a power (x^0.5 = Sqr(x))
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;

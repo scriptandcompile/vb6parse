@@ -668,7 +668,7 @@
 /// - `Int`: Returns the integer portion of a number, rounding down
 /// - `Round`: Rounds a number to specified decimal places
 /// - `IIf`: Conditional function that can implement sign-based logic
-
+///
 #[cfg(test)]
 mod tests {
     use crate::*;
