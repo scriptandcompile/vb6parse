@@ -181,20 +181,20 @@ impl ConcreteSyntaxTree {
         S: Into<String>,
     {
         let mut source_stream = SourceStream::new(file_name.into(), contents);
-        let token_stream = tokenize(&mut source_stream);
+        let token_stream_result = tokenize(&mut source_stream);
 
-        if token_stream.result.is_none() {
+        let Some(token_stream) = token_stream_result.result else {
             return ParseResult {
                 result: None,
-                failures: token_stream.failures,
+                failures: token_stream_result.failures,
             };
-        }
+        };
 
-        let cst = parse(token_stream.result.unwrap());
+        let cst = parse(token_stream);
 
         ParseResult {
             result: Some(cst),
-            failures: token_stream.failures,
+            failures: token_stream_result.failures,
         }
     }
 

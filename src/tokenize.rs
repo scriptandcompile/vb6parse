@@ -412,7 +412,13 @@ pub fn tokenize_without_whitespaces<'a>(
         return parse_result;
     }
 
-    let token_stream = parse_result.result.unwrap();
+    let Some(token_stream) = parse_result.result else {
+        return ParseResult {
+            result: None,
+            failures: parse_result.failures,
+        };
+    };
+
     let tokens_without_whitespaces: Vec<(&str, Token)> = token_stream
         .tokens
         .into_iter()
