@@ -1841,10 +1841,10 @@ mod tests {
 
         let error = result.err().unwrap();
 
-        assert_eq!(
-            matches!(error.kind, ProjectErrorKind::ParameterValueInvalid { .. }),
-            true
-        );
+        assert!(matches!(
+            error.kind,
+            ProjectErrorKind::ParameterValueInvalid { .. }
+        ));
     }
 
     #[test]
@@ -1862,7 +1862,7 @@ mod tests {
 
         assert!(input.is_empty());
         let result = result.unwrap();
-        assert_eq!(matches!(result, ProjectReference::Compiled { .. }), true);
+        assert!(matches!(result, ProjectReference::Compiled { .. }));
 
         match result {
             ProjectReference::Compiled {

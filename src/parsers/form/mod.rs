@@ -715,7 +715,7 @@ End
         assert_eq!(result.version.major, 5);
         assert_eq!(result.version.minor, 0);
         assert_eq!(result.form.name, "Form_Main");
-        assert_eq!(matches!(result.form.kind, ControlKind::Form { .. }), true);
+        assert!(matches!(result.form.kind, ControlKind::Form { .. }));
 
         if let ControlKind::Form {
             controls,
