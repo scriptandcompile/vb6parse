@@ -61,10 +61,13 @@ impl Parser<'_> {
             .start_node(SyntaxKind::DefTypeStatement.to_raw());
 
         // Consume the DefType keyword (DefBool, DefByte, DefInt, etc.)
+        // TODO: Validate that the keyword is one of the valid DefType keywords
         self.consume_token();
 
         // Consume any whitespace after DefType keyword
         self.consume_whitespace();
+
+        // TODO: Validate letter ranges
 
         // Parse letter ranges until newline
         // Letter ranges can be:
@@ -79,18 +82,7 @@ impl Parser<'_> {
 
             // Consume the letter or range
             // This includes identifiers (for letters) and minus signs (for ranges)
-            if self.at_token(Token::Identifier) {
-                self.consume_token();
-            } else if self.at_token(Token::SubtractionOperator) {
-                self.consume_token();
-            } else if self.at_token(Token::Comma) {
-                self.consume_token();
-            } else if self.at_token(Token::Whitespace) {
-                self.consume_token();
-            } else {
-                // Unknown token, consume it and continue
-                self.consume_token();
-            }
+            self.consume_token();
         }
 
         // Consume the newline
