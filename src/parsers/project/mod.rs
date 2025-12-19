@@ -1282,9 +1282,7 @@ fn parse_compiled_reference<'a>(
         return Err(fail);
     };
 
-    let uuid = if let Ok(uuid) = Uuid::parse_str(uuid_text) {
-        uuid
-    } else {
+    let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
         let fail =
             input.generate_error_at(uuid_start, ProjectErrorKind::ReferenceCompiledUuidInvalid);
@@ -1426,9 +1424,7 @@ fn parse_object<'a>(
 
     let _ = input.take("}", Comparator::CaseSensitive);
 
-    let uuid = if let Ok(uuid) = Uuid::parse_str(uuid_text) {
-        uuid
-    } else {
+    let Ok(uuid) = Uuid::parse_str(uuid_text) else {
         // The UUID is not a valid UUID, so we can't parse this line.
         let fail =
             input.generate_error_at(object_start, ProjectErrorKind::ObjectCompiledUuidInvalid);
@@ -1436,6 +1432,7 @@ fn parse_object<'a>(
 
         return Err(fail);
     };
+
     let _ = input.take("#", Comparator::CaseSensitive);
 
     let version_start = input.offset();

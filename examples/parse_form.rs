@@ -77,13 +77,13 @@ Attribute VB_Exposed = False
     println!("Form Properties:");
 
     // Extract the properties, controls, and menus from the form kind.
-    let (properties, controls, menus) = match form_file.form.kind {
-        ControlKind::Form {
-            properties,
-            controls,
-            menus,
-        } => (properties, controls, menus),
-        _ => panic!("Unexpected control kind"),
+    let ControlKind::Form {
+        properties,
+        controls,
+        menus,
+    } = form_file.form.kind
+    else {
+        panic!("Unexpected control kind");
     };
 
     // Print out the form properties.
