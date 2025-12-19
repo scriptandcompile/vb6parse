@@ -50,10 +50,10 @@ pub struct FormFile {
 /// Searches for a `VersionStatement` node in the CST and traverses its children
 /// to find the `SingleLiteral` token containing the version number (e.g., "5.00" or "1.0").
 /// The expected structure is:
-/// - `VersionKeyword` ("VERSION")
-/// - Whitespace
-/// - `SingleLiteral` (the version number as a float)
-/// - Optional: Whitespace, `ClassKeyword`, `FormKeyword`
+///     - `VersionKeyword` ("VERSION")
+///     - Whitespace
+///     - `SingleLiteral` (the version number as a float)
+///     - Optional: Whitespace, `ClassKeyword`, `FormKeyword`
 ///
 /// # Arguments
 ///
@@ -63,11 +63,13 @@ pub struct FormFile {
 ///
 /// * `Some(VB6FileFormatVersion)` - If a valid version statement is found with a parseable version
 /// * `None` - If no version statement is found or the version cannot be parsed
-/// Extracts Object declarations from the CST.
 ///
-/// Object statements have the format:
+/// VB6 object statements have the format:
+///
 /// `Object = "{UUID}#version#flags"; "filename"`
+///
 /// or
+///
 /// `Object = *\G{UUID}#version#flags; "filename"`
 fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
     let mut objects = Vec::new();

@@ -228,10 +228,13 @@ impl Parser<'_> {
     /// Parse a With statement.
     ///
     /// VB6 With statement syntax:
-    /// - With object
+    ///
+    /// ```vb
+    /// With object
     ///     .Property1 = value1
     ///     .Property2 = value2
-    ///   End With
+    /// End With
+    /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/with-statement)
     pub(super) fn parse_with_statement(&mut self) {

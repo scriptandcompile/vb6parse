@@ -93,8 +93,7 @@ impl Parser<'_> {
     ///
     /// Special handling:
     /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the Error$ function)
-    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function)
-    ///    So we exclude those patterns.
+    /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function) so we exclude those patterns.
     pub(super) fn is_library_statement_keyword(&self) -> bool {
         // Special case: keyword/identifier + DollarSign is a function, not a statement
         if self.at_keyword_dollar() {
