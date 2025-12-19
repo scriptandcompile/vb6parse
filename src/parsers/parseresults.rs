@@ -296,10 +296,10 @@ where
     /// }
     /// ```
     pub fn ok_or_errors(self) -> Result<T, Vec<ErrorDetails<'a, E>>> {
-        if self.has_failures() || self.result.is_none() {
+        if self.has_failures() {
             Err(self.failures)
         } else {
-            Ok(self.result.unwrap()) // Safe because we checked is_none above
+            self.result.ok_or(self.failures)
         }
     }
 }
