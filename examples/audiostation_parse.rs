@@ -11,11 +11,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let project_directory = current_directory.join("tests/data/audiostation/Audiostation");
     let project_path = project_directory.join("Audiostation.vbp");
 
-    println!("Reading project file from: {project_path:?}");
+    println!("Reading project file from: {}", project_path.display());
 
     // Load the audiostation project file from the test/data directory
     let project_content =
-        std::fs::read(project_path).expect("Failed to read audiostation project file. This example requires the test data to be present. run `git submodule update --init --recursive` in the terminal from the repository root to fetch the test data.");
+        std::fs::read(&project_path).expect("Failed to read audiostation project file. This example requires the test data to be present. run `git submodule update --init --recursive` in the terminal from the repository root to fetch the test data.");
 
     // Create a SourceFile for the project file.
     let project_source = SourceFile::decode_with_replacement("audiostation.vbp", &project_content)
