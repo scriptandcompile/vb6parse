@@ -309,14 +309,18 @@ impl Parser<'_> {
     /// Parse a prefix expression.
     ///
     /// Prefix expressions are those that start an expression:
-    /// - Literals: `42`, `"hello"`, `True`, `Nothing`
-    /// - Identifiers: `myVar`, `MyClass`
-    /// - Parenthesized: `(expression)`
-    /// - Unary operators: `-x`, `Not flag`, `AddressOf proc`
-    /// - Object creation: `New ClassName`
-    /// - Type checking: `TypeOf obj Is type`
-    /// Returns true if it parsed a bare identifier (one that needs wrapping in `IdentifierExpression`
-    /// if not used in a binary expression).
+    ///     - Literals: `42`, `"hello"`, `True`, `Nothing`
+    ///     - Identifiers: `myVar`, `MyClass`
+    ///     - Parenthesized: `(expression)`
+    ///     - Unary operators: `-x`, `Not flag`, `AddressOf proc`
+    ///     - Object creation: `New ClassName`
+    ///     - Type checking: `TypeOf obj Is type`
+    ///
+    /// # Returns
+    ///
+    /// * `True` if a bare identifier was parsed (needs wrapping in `IdentifierExpression` if not part of binary expression).
+    /// * `False` otherwise.
+    ///
     fn parse_prefix_expression(&mut self) -> bool {
         // Skip any leading whitespace
         self.consume_whitespace();
