@@ -339,7 +339,8 @@ impl<'a> ProjectFile<'a> {
 
             // Looks like we are no longer parsing the standard VB6 property section
             // Now we are parsing some third party properties.
-            if other_property_group.is_some() {
+
+            if let Some(other_property_group) = other_property_group {
                 let property_value = match parse_property_value(&mut input, property_name) {
                     Ok(property_value) => property_value,
                     Err(e) => {
@@ -348,11 +349,9 @@ impl<'a> ProjectFile<'a> {
                     }
                 };
 
-                project
-                    .other_properties
-                    .get_mut(other_property_group.unwrap())
-                    .unwrap()
-                    .insert(property_name, property_value);
+                if let Some(map) = project.other_properties.get_mut(other_property_group) {
+                    map.insert(property_name, property_value);
+                }
 
                 continue;
             }
@@ -1879,7 +1878,7 @@ mod tests {
                 assert_eq!(path, r"..\DBCommon\Libs\VbIntellisenseFix.dll");
                 assert_eq!(description, r"VbIntellisenseFix");
             }
-            _ => panic!("Expected a compiled reference"),
+            ProjectReference::SubProject { .. } => panic!("Expected a compiled reference"),
         }
     }
 
@@ -1981,7 +1980,7 @@ mod tests {
                 assert_eq!(unknown1, "0");
                 assert_eq!(file_name, "stdole2.tlb");
             }
-            _ => panic!("Expected a compiled object"),
+            ObjectReference::Project { .. } => panic!("Expected a compiled object"),
         }
     }
 
