@@ -257,10 +257,6 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
             }
 
             match child.kind {
-                SyntaxKind::AttributeKeyword => {
-                    // Skip the "Attribute" keyword
-                    continue;
-                }
                 SyntaxKind::Identifier => {
                     if !found_equals {
                         // This is the attribute key (e.g., "VB_Name")
@@ -296,6 +292,7 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
                         value.push('-');
                     }
                 }
+                // Skip the "Attribute" keyword and whitespace/newline tokens
                 _ => {}
             }
         }
