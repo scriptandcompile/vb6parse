@@ -676,6 +676,7 @@ impl<'a> Parser<'a> {
     /// `Object = *\G{GUID}#version#flags; "filename"`
     ///
     /// This checks if the pattern matches before committing to parse as `ObjectStatement`.
+    #[allow(clippy::needless_continue)] // continue on whitespace is needed but clippy is incorrectly catching here.
     fn is_object_statement(&self) -> bool {
         // Must start with Object keyword
         if !self.at_token(Token::ObjectKeyword) {
@@ -687,6 +688,7 @@ impl<'a> Parser<'a> {
         let mut found_equals = false;
         for (_text, token) in self.tokens.iter().skip(self.pos + 1) {
             match token {
+                // TODO: Change this parsing to better handle leading whitespace on object statements.
                 Token::Whitespace => continue,
                 Token::EqualityOperator if !found_equals => {
                     found_equals = true;
