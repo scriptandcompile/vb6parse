@@ -253,6 +253,16 @@ static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_
     "@" => Token::AtSign,
 };
 
+/// Type alias for a tuple representing text and its corresponding token.
+///
+/// The first element of the tuple is the text slice, and the second element is the associated `Token`.
+pub type TextTokenTuple<'a> = (&'a str, Token);
+
+/// Type alias for a tuple representing a line comment and an optional newline token.
+/// The first element of the tuple is another tuple containing the comment text and its corresponding token.
+/// The second element is an optional tuple containing the newline text and its corresponding token.
+pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>);
+
 /// Parses VB6 code into a token stream.
 ///
 ///
@@ -453,9 +463,7 @@ pub fn tokenize_without_whitespaces<'a>(
 /// ends at the end of the stream.
 ///
 /// None if there is no line comment at the current position in the stream.
-fn take_line_comment<'a>(
-    input: &mut SourceStream<'a>,
-) -> Option<((&'a str, Token), Option<(&'a str, Token)>)> {
+fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
     input.peek_text("'", super::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
@@ -491,9 +499,7 @@ fn take_line_comment<'a>(
 /// at the of the stream).
 ///
 /// None if there is no REM comment at the current position in the stream.
-fn take_rem_comment<'a>(
-    input: &mut SourceStream<'a>,
-) -> Option<((&'a str, Token), Option<(&'a str, Token)>)> {
+fn take_rem_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
     input.peek_text("REM", super::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
@@ -526,7 +532,7 @@ fn take_rem_comment<'a>(
 ///
 /// `Some()` with a tuple containing the matched numeric literal text and its corresponding VB6 token
 /// if a numeric literal is found at the current position in the stream; otherwise, `None`.
-fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     let start_offset = input.offset;
 
     // Parse the numeric part (digits, optional decimal point, optional exponent)
@@ -605,7 +611,7 @@ fn take_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, To
 ///
 /// `Some()` with a tuple containing the matched date literal text and its corresponding VB6 token
 /// if a date literal is found at the current position in the stream; otherwise, `None`.
-fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     let start_offset = input.offset;
 
     // Must start with #
@@ -653,7 +659,7 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token
 ///
 /// `Some()` with a tuple containing the matched string literal text and its corresponding VB6 token
 /// if a string literal is found at the current position in the stream; otherwise, `None`.
-fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     input.peek_text("\"", super::Comparator::CaseInsensitive)?;
 
     // TODO: Need to handle error reporting of incorrect escape sequences as well
@@ -695,7 +701,7 @@ fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Tok
 ///
 /// `Some()` with a tuple containing the matched keyword text and its corresponding VB6 token
 /// if a keyword is found at the current position in the stream; otherwise, `None`.
-fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     for entry in KEYWORD_TOKEN_LOOKUP_TABLE.entries() {
         if let Some(matching_text) = take_matching_text(input, *entry.0) {
             return Some((matching_text, *entry.1));
@@ -715,7 +721,7 @@ fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
 ///
 /// `Some()` with a tuple containing the matched symbol text and its corresponding VB6 token
 /// if a symbol is found at the current position in the stream; otherwise, `None`.
-fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries() {
         if let Some(matching_text) = input.take(*entry.0, Comparator::CaseSensitive) {
             return Some((matching_text, *entry.1));
@@ -797,7 +803,7 @@ pub fn take_matching_text<'a>(
 ///
 /// `Some()` with a tuple containing the matched identifier text and its corresponding VB6 token
 /// if an identifier is found at the current position in the stream; otherwise, `None`.
-fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<(&'a str, Token)> {
+fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     if input.peek(1)?.chars().next()?.is_ascii_alphabetic() {
         let variable_text = input.take_ascii_underscore_alphanumerics()?;
 
