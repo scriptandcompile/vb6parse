@@ -121,9 +121,6 @@ impl Parser<'_> {
                     // Found = operator - this is an assignment, not a procedure call
                     return false;
                 }
-                Token::Whitespace => {
-                    // Skip whitespace
-                }
                 // Procedure calls can have various tokens before newline
                 Token::Identifier
                 | Token::LeftParenthesis
@@ -141,7 +138,7 @@ impl Parser<'_> {
                 _ if token.is_keyword() => {
                     // Keywords can be used as arguments (e.g., True, False, Nothing)
                 }
-                // Anything else could indicate it's not a simple procedure call
+                // Whitespace or Anything else could indicate it's not a simple procedure call
                 _ => {}
             }
         }
