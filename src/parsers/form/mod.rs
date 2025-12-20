@@ -158,13 +158,13 @@ fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
     }
 
     // Process the first block which should be the form
-    extract_properties_block(&properties_blocks[0])
+    Some(extract_properties_block(&properties_blocks[0]))
 }
 
 /// Extracts a `VB6Control` from a `PropertiesBlock` CST node.
 ///
 /// Recursively processes nested `PropertiesBlock` nodes for child controls.
-fn extract_properties_block(block: &CstNode) -> Option<Control> {
+fn extract_properties_block(block: &CstNode) -> Control {
     // Extract the type and name from the PropertiesBlock
     let mut control_type = String::new();
     let mut control_name = String::new();
@@ -222,17 +222,16 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
 
         if is_menu {
             menu_blocks.push(child_block);
-        } else if let Some(child_control) = extract_properties_block(child_block) {
-            child_controls.push(child_control);
+        } else {
+            child_controls.push(extract_properties_block(child_block));
         }
     }
 
     // Extract menus
     let mut menus: Vec<MenuControl> = Vec::new();
     for menu_block in menu_blocks {
-        if let Some(menu) = extract_menu_control(menu_block) {
-            menus.push(menu);
-        }
+        let menu = extract_menu_control(menu_block);
+        menus.push(menu);
     }
 
     let tag = properties.get("Tag").cloned().unwrap_or_default();
@@ -318,18 +317,18 @@ fn extract_properties_block(block: &CstNode) -> Option<Control> {
         }
     };
 
-    Some(Control {
+    Control {
         name: control_name,
         tag,
         index,
         kind,
-    })
+    }
 }
 
 /// Extracts a `MenuControl` from a `PropertiesBlock` CST node.
 ///
 /// Recursively processes nested `PropertiesBlock` nodes for sub-menus.
-fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
+fn extract_menu_control(block: &CstNode) -> MenuControl {
     // Extract the name and properties from the menu block
     let mut menu_name = String::new();
     let mut properties = Properties::new();
@@ -366,9 +365,8 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
     // Recursively extract sub-menus
     let mut sub_menus: Vec<MenuControl> = Vec::new();
     for child_menu_block in child_menu_blocks {
-        if let Some(sub_menu) = extract_menu_control(child_menu_block) {
-            sub_menus.push(sub_menu);
-        }
+        let sub_menu = extract_menu_control(child_menu_block);
+        sub_menus.push(sub_menu);
     }
 
     let tag = properties.get("Tag").cloned().unwrap_or_default();
@@ -377,13 +375,13 @@ fn extract_menu_control(block: &CstNode) -> Option<MenuControl> {
         .and_then(|s| s.parse().ok())
         .unwrap_or(0);
 
-    Some(MenuControl {
+    MenuControl {
         name: menu_name,
         tag,
         index,
         properties: properties.into(),
         sub_menus,
-    })
+    }
 }
 
 /// Extracts a `PropertyGroup` from a `PropertyGroup` CST node.
