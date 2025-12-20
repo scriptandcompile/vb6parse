@@ -1078,7 +1078,8 @@ Attribute VB_Exposed = False
         use crate::tokenize::tokenize_without_whitespaces;
         use crate::SourceStream;
 
-        let source_code = "VERSION 1.0 CLASS
+        let source_code = Box::new(
+            "VERSION 1.0 CLASS
 BEGIN
     MultiUse = -1  'True
     Persistable = 0  'NotPersistable
@@ -1091,9 +1092,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-";
+",
+        );
 
-        let mut input = SourceStream::new("", source_code);
+        let mut input = SourceStream::new("", &source_code);
         let result = tokenize_without_whitespaces(&mut input);
 
         if result.has_failures() {
