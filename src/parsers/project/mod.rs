@@ -146,19 +146,67 @@ pub struct ProjectClassReference<'a> {
 pub type ProjectResult<'a> = ParseResult<'a, ProjectFile<'a>, ProjectErrorKind<'a>>;
 
 impl<'a> ProjectFile<'a> {
-    /// Parses a VB6 project file.
     ///
-    /// # Arguments
+    /// Creates an empty project file with default values.
     ///
-    /// * `input` - The input to parse.
+    /// This is an internal helper function used by the parser to initialize
+    /// a new `ProjectFile` before populating it with parsed values.
+    fn new_empty() -> Self {
+        ProjectFile {
+            project_type: CompileTargetType::Exe,
+            references: vec![],
+            objects: vec![],
+            modules: vec![],
+            classes: vec![],
+            designers: vec![],
+            forms: vec![],
+            user_controls: vec![],
+            user_documents: vec![],
+            related_documents: vec![],
+            property_pages: vec![],
+            other_properties: HashMap::new(),
+            properties: ProjectProperties {
+                // We default to using NativeCode because all the possible options
+                // sit on this branch of the enum, while the other branch (PCode)
+                // has no other options.
+                //
+                // Hence, if we have a NativeCode value, then we can place the
+                // parsed value within it. If on the other hand it is PCode, then
+                // we know the compilation type was selected as PCode and we can
+                // simply ignore any of the NativeCode options since they will
+                // not be used.
+                compilation_type: CompilationType::default(),
+                ..Default::default()
+            },
+        }
+    }
+
+    /// Parses a VB6 project file using a dispatch-based property handler system.
+    ///
+    /// This method uses a registry of property handlers to parse VB6 project files.
+    /// The dispatch system provides better maintainability compared to the previous
+    /// large match statement approach.
+    ///
+    /// # Architecture
+    ///
+    /// The parsing process follows these steps:
+    /// 1. Initialize an empty project and property handler registry
+    /// 2. Loop through each line of the input
+    /// 3. Skip empty lines and handle section headers for third-party properties
+    /// 4. Parse the property name
+    /// 5. Dispatch to the appropriate handler based on the property name
+    /// 6. Collect any errors without stopping the parse
+    ///
+    /// # Error Handling
+    ///
+    /// This parser uses an error-collecting approach rather than fail-fast. When
+    /// an error occurs, it's added to the failures vector and parsing continues.
+    /// This allows reporting multiple errors in a single pass.
     ///
     /// # Returns
     ///
-    /// A `ProjectResult` containing the parsed project and/or error(s).
-    ///
-    /// # Errors
-    ///
-    /// This function can return a collection of `ErrorDetails` if the input is not a valid VB6 project file.
+    /// A `ProjectResult` containing the parsed project (if successful) and any
+    /// errors encountered during parsing.
     ///
     /// # Panics
     ///
@@ -256,65 +304,23 @@ impl<'a> ProjectFile<'a> {
     #[must_use]
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
         let mut failures = vec![];
-
-        let mut project = ProjectFile {
-            project_type: CompileTargetType::Exe,
-            references: vec![],
-            objects: vec![],
-            modules: vec![],
-            classes: vec![],
-            designers: vec![],
-            forms: vec![],
-            user_controls: vec![],
-            user_documents: vec![],
-            related_documents: vec![],
-            property_pages: vec![],
-            other_properties: HashMap::new(),
-            properties: ProjectProperties {
-                // We default to using NativeCode because all the possible options
-                // sit on this branch of the enum, while the other branch (PCode)
-                // has no other options.
-                //
-                // Hence, if we have a NativeCode value, then we can place the
-                // parsed value within it. If on the other hand it is PCode, then
-                // we know the compilation type was selected as PCode and we can
-                // simply ignore any of the NativeCode options since they will
-                // not be used.
-                compilation_type: CompilationType::default(),
-                ..Default::default()
-            },
-        };
-
+        let mut project = ProjectFile::new_empty();
         let mut input = source_file.get_source_stream();
-
         let mut other_property_group: Option<&str> = None;
+        let handlers = PropertyHandlers::new();
 
         while !input.is_empty() {
-            // We also want to skip any '[MS Transaction Server]' header lines.
-            // There should only be one in the file since it's only used once,
-            // but we want to be flexible in what we accept so we skip any of
-            // these kinds of header lines.
-
-            // skip empty lines.
-            let _ = input.take_ascii_whitespaces();
-            if input.take_newline().is_some() {
+            // Skip empty lines
+            if skip_empty_lines(&mut input) {
                 continue;
             }
 
             let line_start = input.start_of_line();
 
-            // We want to grab any section header lines like '[MS Transaction Server]'.
-            // Which we will use in parsing 'other properties.'
+            // Handle section headers
             match parse_section_header_line(&mut input) {
                 Ok(Some(section_header)) => {
-                    // Looks like we are no longer parsing the standard VB6 property section
-                    // Now we are parsing some third party properties.
-                    if !project.other_properties.contains_key(section_header) {
-                        project
-                            .other_properties
-                            .insert(section_header, HashMap::new());
-                        other_property_group = Some(section_header);
-                    }
+                    handle_section_header(&mut project, section_header, &mut other_property_group);
                     continue;
                 }
                 Ok(None) => {
@@ -322,13 +328,12 @@ impl<'a> ProjectFile<'a> {
                     // VB6 project property line.
                 }
                 Err(e) => {
-                    // If we fail to parse the section header line, we will
-                    // need to handle the error and continue parsing.
                     failures.push(e);
                     continue;
                 }
             }
 
+            // Parse property name
             let property_name = match parse_property_name(&mut input) {
                 Ok(property_name) => property_name,
                 Err(e) => {
@@ -337,377 +342,21 @@ impl<'a> ProjectFile<'a> {
                 }
             };
 
-            // Looks like we are no longer parsing the standard VB6 property section
-            // Now we are parsing some third party properties.
-
-            if let Some(other_property_group) = other_property_group {
-                let property_value = match parse_property_value(&mut input, property_name) {
-                    Ok(property_value) => property_value,
-                    Err(e) => {
-                        failures.push(e);
-                        continue;
-                    }
-                };
-
-                if let Some(map) = project.other_properties.get_mut(other_property_group) {
-                    map.insert(property_name, property_value);
-                }
-
+            // Handle third-party properties
+            if let Some(group) = other_property_group {
+                handle_other_property(
+                    &mut project,
+                    &mut input,
+                    group,
+                    property_name,
+                    &mut failures,
+                );
                 continue;
             }
 
-            match property_name {
-                "Type" => match parse_converted_value(&mut input, property_name) {
-                    Ok(project_type_value) => {
-                        project.project_type = project_type_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "Designer" => match parse_path_line(&mut input, property_name) {
-                    Ok(designer) => project.designers.push(designer),
-                    Err(e) => failures.push(e),
-                },
-                "Reference" => match parse_reference(&mut input) {
-                    Ok(reference) => project.references.push(reference),
-                    Err(e) => failures.push(e),
-                },
-                "Object" => match parse_object(&mut input) {
-                    Ok(object) => project.objects.push(object),
-                    Err(e) => failures.push(e),
-                },
-                "Module" => match parse_module(&mut input) {
-                    Ok(module) => project.modules.push(module),
-                    Err(e) => failures.push(e),
-                },
-                "Class" => match parse_class(&mut input) {
-                    Ok(class) => project.classes.push(class),
-                    Err(e) => failures.push(e),
-                },
-                "RelatedDoc" => match parse_path_line(&mut input, property_name) {
-                    Ok(related_document) => project.related_documents.push(related_document),
-                    Err(e) => failures.push(e),
-                },
-                "PropertyPage" => match parse_path_line(&mut input, property_name) {
-                    Ok(property_page_value) => {
-                        project.property_pages.push(property_page_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "Form" => match parse_path_line(&mut input, property_name) {
-                    Ok(form) => project.forms.push(form),
-                    Err(e) => failures.push(e),
-                },
-                "UserControl" => match parse_path_line(&mut input, property_name) {
-                    Ok(user_control) => project.user_controls.push(user_control),
-                    Err(e) => failures.push(e),
-                },
-                "UserDocument" => match parse_path_line(&mut input, property_name) {
-                    Ok(user_document) => project.user_documents.push(user_document),
-                    Err(e) => failures.push(e),
-                },
-                "ResFile32" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
-                    Err(e) => failures.push(e),
-                },
-                "IconForm" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
-                    Err(e) => failures.push(e),
-                },
-                "Startup" => match parse_optional_quoted_value(&mut input, property_name) {
-                    Ok(startup_value) => project.properties.startup = startup_value,
-                    Err(e) => failures.push(e),
-                },
-                "HelpFile" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(help_file) => project.properties.help_file_path = help_file,
-                    Err(e) => failures.push(e),
-                },
-                "Title" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(title_value) => project.properties.title = title_value,
-                    Err(e) => failures.push(e),
-                },
-                "ExeName32" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(exe_32_file_name_value) => {
-                        project.properties.exe_32_file_name = exe_32_file_name_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "Path32" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(path_32_value) => project.properties.path_32 = path_32_value,
-                    Err(e) => failures.push(e),
-                },
-                "Command32" => match parse_optional_quoted_value(&mut input, property_name) {
-                    Ok(command_line_arguments_value) => {
-                        project.properties.command_line_arguments = command_line_arguments_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "Name" => match parse_optional_quoted_value(&mut input, property_name) {
-                    Ok(name_value) => project.properties.name = name_value,
-                    Err(e) => failures.push(e),
-                },
-                "Description" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(description_value) => project.properties.description = description_value,
-                    Err(e) => failures.push(e),
-                },
-                "HelpContextID" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(help_context_id_value) => {
-                        project.properties.help_context_id = help_context_id_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "CompatibleMode" => match parse_quoted_converted_value(&mut input, property_name) {
-                    Ok(compatibility_mode_value) => {
-                        project.properties.compatibility_mode = compatibility_mode_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionCompatible32" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(version_32_compatibility_value) => {
-                        project.properties.version_32_compatibility =
-                            version_32_compatibility_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "CompatibleEXE32" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(exe_32_compatible_value) => {
-                        project.properties.exe_32_compatible = exe_32_compatible_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "DllBaseAddress" => match parse_dll_base_address(&mut input) {
-                    Ok(dll_base_address_value) => {
-                        project.properties.dll_base_address = dll_base_address_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "RemoveUnusedControlInfo" => {
-                    match parse_converted_value(&mut input, property_name) {
-                        Ok(unused_control_info_value) => {
-                            project.properties.unused_control_info = unused_control_info_value;
-                        }
-                        Err(e) => failures.push(e),
-                    }
-                }
-                "MajorVer" => match parse_numeric(&mut input, property_name) {
-                    Ok(major_value) => project.properties.version_info.major = major_value,
-                    Err(e) => failures.push(e),
-                },
-                "MinorVer" => match parse_numeric(&mut input, property_name) {
-                    Ok(minor_value) => project.properties.version_info.minor = minor_value,
-                    Err(e) => failures.push(e),
-                },
-                "RevisionVer" => match parse_numeric(&mut input, property_name) {
-                    Ok(revision_value) => project.properties.version_info.revision = revision_value,
-                    Err(e) => failures.push(e),
-                },
-                "ThreadingModel" => match parse_converted_value(&mut input, property_name) {
-                    Ok(threading_model_value) => {
-                        project.properties.threading_model = threading_model_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "AutoIncrementVer" => match parse_numeric(&mut input, property_name) {
-                    Ok(auto_increment_revision_value) => {
-                        project.properties.version_info.auto_increment_revision =
-                            auto_increment_revision_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "DebugStartupComponent" => match parse_path_line(&mut input, property_name) {
-                    Ok(debug_startup_component_value) => {
-                        project.properties.debug_startup_component = debug_startup_component_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "NoControlUpgrade" => match parse_converted_value(&mut input, property_name) {
-                    Ok(upgrade_controls_value) => {
-                        project.properties.upgrade_controls = upgrade_controls_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "ServerSupportFiles" => match parse_converted_value(&mut input, property_name) {
-                    Ok(server_support_files_value) => {
-                        project.properties.server_support_files = server_support_files_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionCompanyName" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(company_name_value) => {
-                        project.properties.version_info.company_name = company_name_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionFileDescription" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(file_description_value) => {
-                        project.properties.version_info.file_description = file_description_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionLegalCopyright" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(copyright_value) => {
-                        project.properties.version_info.copyright = copyright_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionLegalTrademarks" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(trademark_value) => {
-                        project.properties.version_info.trademark = trademark_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionProductName" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(product_name_value) => {
-                        project.properties.version_info.product_name = product_name_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "VersionComments" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(comments_value) => project.properties.version_info.comments = comments_value,
-                    Err(e) => failures.push(e),
-                },
-                "CondComp" => match parse_quoted_value(&mut input, property_name) {
-                    Ok(conditional_compile_value) => {
-                        project.properties.conditional_compile = conditional_compile_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "CompilationType" => match parse_numeric(&mut input, property_name) {
-                    Ok(compilation_type) => project.properties.compilation_type = compilation_type,
-                    Err(e) => failures.push(e),
-                },
-                "OptimizationType" => match parse_converted_value(&mut input, property_name) {
-                    Ok(optimization_type_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_optimization_type(optimization_type_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "FavorPentiumPro(tm)" => match parse_converted_value(&mut input, property_name) {
-                    Ok(favor_pentium_pro_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_favor_pentium_pro(favor_pentium_pro_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "CodeViewDebugInfo" => match parse_converted_value(&mut input, property_name) {
-                    Ok(code_view_debug_info_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_code_view_debug_info(code_view_debug_info_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "NoAliasing" => match parse_converted_value(&mut input, property_name) {
-                    Ok(aliasing_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_aliasing(aliasing_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "BoundsCheck" => match parse_converted_value(&mut input, property_name) {
-                    Ok(bounds_check_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_bounds_check(bounds_check_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "OverflowCheck" => match parse_converted_value(&mut input, property_name) {
-                    Ok(overflow_check_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_overflow_check(overflow_check_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "FlPointCheck" => match parse_converted_value(&mut input, property_name) {
-                    Ok(floating_point_check_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_floating_point_check(floating_point_check_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "FDIVCheck" => match parse_converted_value(&mut input, property_name) {
-                    Ok(pentium_fdiv_bug_check_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_pentium_fdiv_bug_check(pentium_fdiv_bug_check_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "UnroundedFP" => match parse_converted_value(&mut input, property_name) {
-                    Ok(unrounded_floating_point_value) => {
-                        project.properties.compilation_type = project
-                            .properties
-                            .compilation_type
-                            .update_unrounded_floating_point(unrounded_floating_point_value);
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "StartMode" => match parse_converted_value(&mut input, property_name) {
-                    Ok(start_mode_value) => project.properties.start_mode = start_mode_value,
-                    Err(e) => failures.push(e),
-                },
-                "Unattended" => match parse_converted_value(&mut input, property_name) {
-                    Ok(unattended_value) => project.properties.unattended = unattended_value,
-                    Err(e) => failures.push(e),
-                },
-                "Retained" => match parse_converted_value(&mut input, property_name) {
-                    Ok(retained_value) => project.properties.retained = retained_value,
-                    Err(e) => failures.push(e),
-                },
-                "ThreadPerObject" => match parse_numeric::<i16>(&mut input, property_name) {
-                    Ok(thread_per_object_value) => {
-                        if thread_per_object_value <= 0 {
-                            project.properties.thread_per_object = 0;
-                        } else {
-                            project.properties.thread_per_object = thread_per_object_value as u16;
-                        }
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "MaxNumberOfThreads" => match parse_numeric(&mut input, property_name) {
-                    Ok(max_number_of_threads_value) => {
-                        project.properties.max_number_of_threads = max_number_of_threads_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "DebugStartupOption" => match parse_converted_value(&mut input, property_name) {
-                    Ok(debug_startup_option_value) => {
-                        project.properties.debug_startup_option = debug_startup_option_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                "UseExistingBrowser" => match parse_converted_value(&mut input, property_name) {
-                    Ok(use_existing_browser_value) => {
-                        project.properties.use_existing_browser = use_existing_browser_value;
-                    }
-                    Err(e) => failures.push(e),
-                },
-                _ => {
-                    // Unknown property, skip it.
-                    input.forward_to_next_line();
-
-                    let e = input.generate_error_at(
-                        line_start,
-                        ProjectErrorKind::ParameterLineUnknown {
-                            parameter_line_name: property_name,
-                        },
-                    );
-                    failures.push(e);
-                }
+            // Dispatch to appropriate handler
+            if !handlers.handle(property_name, &mut project, &mut input, &mut failures) {
+                handle_unknown_property(&mut input, line_start, property_name, &mut failures);
             }
         }
 
@@ -717,14 +366,14 @@ impl<'a> ProjectFile<'a> {
         }
     }
 
-    /// Gets a collection of mutable references to all sub-project references in the project.
+    /// Gets a collection of references to all sub-project references in the project.
     ///
     /// # Returns
     ///
-    /// A vector of mutable references to all sub-project references.
+    /// A vector of references to all sub-project references.
     ///
     #[must_use]
-    pub fn with_subproject_references_mut(&mut self) -> Vec<&ProjectReference<'a>> {
+    pub fn get_subproject_references(&self) -> Vec<&ProjectReference<'a>> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, ProjectReference::SubProject { .. }))
@@ -743,6 +392,1069 @@ impl<'a> ProjectFile<'a> {
             .iter()
             .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
             .collect::<Vec<_>>()
+    }
+
+    /// Gets a collection of mutable references to all sub-project references in the project.
+    ///
+    /// # Returns
+    ///
+    /// A vector of mutable references to all sub-project references.
+    ///
+    #[must_use]
+    pub fn get_subproject_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
+        self.references
+            .iter_mut()
+            .filter(|reference| matches!(reference, ProjectReference::SubProject { .. }))
+            .collect::<Vec<_>>()
+    }
+
+    /// Gets a collection of mutable references to all compiled references in the project.
+    ///
+    /// # Returns
+    ///
+    /// A vector of mutable references to all compiled references.
+    ///
+    #[must_use]
+    pub fn get_compiled_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
+        self.references
+            .iter_mut()
+            .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
+            .collect::<Vec<_>>()
+    }
+}
+
+/// Type alias for property handler functions.
+///
+/// Property handlers take a mutable reference to the project being built,
+/// a mutable reference to the input stream, the property name, and a mutable
+/// reference to the failures vector for error collection.
+type PropertyHandler<'a> = fn(
+    &mut ProjectFile<'a>,
+    &mut SourceStream<'a>,
+    &'a str,
+    &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+);
+
+/// Registry of property handlers for dispatching property parsing.
+///
+/// This structure provides a dispatch mechanism that maps VB6 project property names
+/// to their corresponding handler functions. This design replaces the previous giant
+/// match statement with a more maintainable and extensible system.
+///
+/// # Design
+///
+/// The registry uses a `HashMap` to associate property names with handler functions,
+/// allowing O(1) lookups and making it easy to add new properties without modifying
+/// a large match statement.
+///
+/// # Property Categories
+///
+/// The handlers are organized into the following categories:
+/// - **File references**: `Type`, `Designer`, `Reference`, `Object`, `Module`, `Class`, `Form`, etc.
+/// - **Basic metadata**: `ResFile32`, `IconForm`, `Startup`, `HelpFile`, `Title`, `ExeName32`, etc.
+/// - **Version information**: `MajorVer`, `MinorVer`, `VersionCompanyName`, etc.
+/// - **Compatibility**: `CompatibleMode`, `VersionCompatible32`, etc.
+/// - **Compilation**: `CompilationType`, `OptimizationType`, `BoundsCheck`, etc.
+/// - **Threading**: `StartMode`, `ThreadPerObject`, `MaxNumberOfThreads`, etc.
+/// - **Debug settings**: `DebugStartupComponent`, `DebugStartupOption`, etc.
+struct PropertyHandlers<'a> {
+    handlers: HashMap<&'static str, PropertyHandler<'a>>,
+}
+
+impl<'a> PropertyHandlers<'a> {
+    /// Creates a new property handlers registry with all standard VB6 properties registered.
+    fn new() -> Self {
+        let mut handlers: HashMap<&'static str, PropertyHandler<'a>> = HashMap::new();
+
+        // File references
+        handlers.insert("Type", handle_type);
+        handlers.insert("Designer", handle_designer);
+        handlers.insert("Reference", handle_reference);
+        handlers.insert("Object", handle_object);
+        handlers.insert("Module", handle_module);
+        handlers.insert("Class", handle_class);
+        handlers.insert("Form", handle_form);
+        handlers.insert("UserControl", handle_user_control);
+        handlers.insert("UserDocument", handle_user_document);
+        handlers.insert("RelatedDoc", handle_related_doc);
+        handlers.insert("PropertyPage", handle_property_page);
+
+        // Basic project metadata
+        handlers.insert("ResFile32", handle_res_file_32);
+        handlers.insert("IconForm", handle_icon_form);
+        handlers.insert("Startup", handle_startup);
+        handlers.insert("HelpFile", handle_help_file);
+        handlers.insert("Title", handle_title);
+        handlers.insert("ExeName32", handle_exe_name_32);
+        handlers.insert("Path32", handle_path_32);
+        handlers.insert("Command32", handle_command_32);
+        handlers.insert("Name", handle_name);
+        handlers.insert("Description", handle_description);
+
+        // Version information
+        handlers.insert("MajorVer", handle_major_ver);
+        handlers.insert("MinorVer", handle_minor_ver);
+        handlers.insert("RevisionVer", handle_revision_ver);
+        handlers.insert("AutoIncrementVer", handle_auto_increment_ver);
+        handlers.insert("VersionCompanyName", handle_version_company_name);
+        handlers.insert("VersionFileDescription", handle_version_file_description);
+        handlers.insert("VersionLegalCopyright", handle_version_legal_copyright);
+        handlers.insert("VersionLegalTrademarks", handle_version_legal_trademarks);
+        handlers.insert("VersionProductName", handle_version_product_name);
+        handlers.insert("VersionComments", handle_version_comments);
+
+        // Compatibility settings
+        handlers.insert("HelpContextID", handle_help_context_id);
+        handlers.insert("CompatibleMode", handle_compatible_mode);
+        handlers.insert("VersionCompatible32", handle_version_compatible_32);
+        handlers.insert("CompatibleEXE32", handle_compatible_exe_32);
+
+        // DLL/Component settings
+        handlers.insert("DllBaseAddress", handle_dll_base_address);
+        handlers.insert("RemoveUnusedControlInfo", handle_remove_unused_control_info);
+
+        // Compilation settings
+        handlers.insert("CompilationType", handle_compilation_type);
+        handlers.insert("OptimizationType", handle_optimization_type);
+        handlers.insert("FavorPentiumPro(tm)", handle_favor_pentium_pro);
+        handlers.insert("CodeViewDebugInfo", handle_code_view_debug_info);
+        handlers.insert("NoAliasing", handle_no_aliasing);
+        handlers.insert("BoundsCheck", handle_bounds_check);
+        handlers.insert("OverflowCheck", handle_overflow_check);
+        handlers.insert("FlPointCheck", handle_fl_point_check);
+        handlers.insert("FDIVCheck", handle_fdiv_check);
+        handlers.insert("UnroundedFP", handle_unrounded_fp);
+        handlers.insert("CondComp", handle_cond_comp);
+
+        // Threading & runtime settings
+        handlers.insert("StartMode", handle_start_mode);
+        handlers.insert("Unattended", handle_unattended);
+        handlers.insert("Retained", handle_retained);
+        handlers.insert("ThreadPerObject", handle_thread_per_object);
+        handlers.insert("MaxNumberOfThreads", handle_max_number_of_threads);
+        handlers.insert("ThreadingModel", handle_threading_model);
+
+        // Debug & development
+        handlers.insert("DebugStartupComponent", handle_debug_startup_component);
+        handlers.insert("DebugStartupOption", handle_debug_startup_option);
+        handlers.insert("UseExistingBrowser", handle_use_existing_browser);
+        handlers.insert("NoControlUpgrade", handle_no_control_upgrade);
+        handlers.insert("ServerSupportFiles", handle_server_support_files);
+
+        Self { handlers }
+    }
+
+    /// Handles a property by dispatching to the appropriate handler function.
+    ///
+    /// Returns `true` if the property was handled, `false` if no handler was found.
+    fn handle(
+        &self,
+        property_name: &'a str,
+        project: &mut ProjectFile<'a>,
+        input: &mut SourceStream<'a>,
+        failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+    ) -> bool {
+        if let Some(handler) = self.handlers.get(property_name) {
+            handler(project, input, property_name, failures);
+            true
+        } else {
+            false
+        }
+    }
+}
+
+/// Skips empty lines in the input stream.
+///
+/// This function consumes any ASCII whitespace followed by a newline character.
+/// It's used to skip blank lines in VB6 project files.
+///
+/// # Returns
+///
+/// Returns `true` if an empty line was skipped, `false` otherwise.
+fn skip_empty_lines(input: &mut SourceStream) -> bool {
+    let _ = input.take_ascii_whitespaces();
+    input.take_newline().is_some()
+}
+
+/// Handles a section header by registering it in the project's `other_properties` map.
+///
+/// VB6 project files can contain custom sections for third-party components,
+/// marked with section headers like `[MS Transaction Server]`. This function
+/// creates a new `HashMap` entry for such sections and updates the tracking variable.
+///
+/// # Arguments
+///
+/// * `project` - The project file being constructed
+/// * `section_header` - The name of the section (without brackets)
+/// * `other_property_group` - Mutable reference to track the current section
+fn handle_section_header<'a>(
+    project: &mut ProjectFile<'a>,
+    section_header: &'a str,
+    other_property_group: &mut Option<&'a str>,
+) {
+    if !project.other_properties.contains_key(section_header) {
+        project
+            .other_properties
+            .insert(section_header, HashMap::new());
+        *other_property_group = Some(section_header);
+    }
+}
+
+/// Handles a third-party property by parsing its value and storing it.
+///
+/// When parsing properties within a custom section (e.g., `[MS Transaction Server]`),
+/// this function parses the property value and stores it in the appropriate `HashMap`.
+///
+/// # Arguments
+///
+/// * `project` - The project file being constructed
+/// * `input` - The input stream containing the property value
+/// * `group` - The section name this property belongs to
+/// * `property_name` - The name of the property
+/// * `failures` - Vector to collect any parsing errors
+fn handle_other_property<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    group: &'a str,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    let property_value = match parse_property_value(input, property_name) {
+        Ok(property_value) => property_value,
+        Err(e) => {
+            failures.push(e);
+            return;
+        }
+    };
+
+    if let Some(map) = project.other_properties.get_mut(group) {
+        map.insert(property_name, property_value);
+    }
+}
+
+/// Handles an unknown property by generating an error and skipping to the next line.
+///
+/// When a property name is not recognized as a standard VB6 property, this function
+/// generates an error but allows parsing to continue with the next line.
+///
+/// # Arguments
+///
+/// * `input` - The input stream to skip to the next line
+/// * `line_start` - The offset where the line started (for error reporting)
+/// * `property_name` - The unrecognized property name
+/// * `failures` - Vector to collect the error
+fn handle_unknown_property<'a>(
+    input: &mut SourceStream<'a>,
+    line_start: usize,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    input.forward_to_next_line();
+
+    let e = input.generate_error_at(
+        line_start,
+        ProjectErrorKind::ParameterLineUnknown {
+            parameter_line_name: property_name,
+        },
+    );
+    failures.push(e);
+}
+
+// ============================================================================
+// Property Handler Functions
+// ============================================================================
+//
+// The following functions handle parsing of individual VB6 project properties.
+// Each handler follows a consistent pattern:
+// 1. Call the appropriate parsing function
+// 2. On success, update the project structure
+// 3. On failure, push the error to the failures vector
+//
+// This design allows for error collection without stopping the parse process,
+// enabling the parser to report multiple errors in a single pass.
+
+fn handle_type<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(project_type_value) => project.project_type = project_type_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_designer<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(designer) => project.designers.push(designer),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_reference<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    _property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_reference(input) {
+        Ok(reference) => project.references.push(reference),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_object<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    _property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_object(input) {
+        Ok(object) => project.objects.push(object),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_module<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    _property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_module(input) {
+        Ok(module) => project.modules.push(module),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_class<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    _property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_class(input) {
+        Ok(class) => project.classes.push(class),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_form<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(form) => project.forms.push(form),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_user_control<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(user_control) => project.user_controls.push(user_control),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_user_document<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(user_document) => project.user_documents.push(user_document),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_related_doc<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(related_document) => project.related_documents.push(related_document),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_property_page<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(property_page_value) => project.property_pages.push(property_page_value),
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_res_file_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(res_32_file) => project.properties.res_file_32_path = res_32_file,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_icon_form<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(icon_form_value) => project.properties.icon_form = icon_form_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_startup<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_optional_quoted_value(input, property_name) {
+        Ok(startup_value) => project.properties.startup = startup_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_help_file<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(help_file) => project.properties.help_file_path = help_file,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_title<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(title_value) => project.properties.title = title_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_exe_name_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(exe_32_file_name_value) => project.properties.exe_32_file_name = exe_32_file_name_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_path_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(path_32_value) => project.properties.path_32 = path_32_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_command_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_optional_quoted_value(input, property_name) {
+        Ok(command_line_arguments_value) => {
+            project.properties.command_line_arguments = command_line_arguments_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_name<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_optional_quoted_value(input, property_name) {
+        Ok(name_value) => project.properties.name = name_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_description<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(description_value) => project.properties.description = description_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_major_ver<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(major_value) => project.properties.version_info.major = major_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_minor_ver<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(minor_value) => project.properties.version_info.minor = minor_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_revision_ver<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(revision_value) => project.properties.version_info.revision = revision_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_auto_increment_ver<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(auto_increment_revision_value) => {
+            project.properties.version_info.auto_increment_revision = auto_increment_revision_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_company_name<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(company_name_value) => project.properties.version_info.company_name = company_name_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_file_description<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(file_description_value) => {
+            project.properties.version_info.file_description = file_description_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_legal_copyright<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(copyright_value) => project.properties.version_info.copyright = copyright_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_legal_trademarks<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(trademark_value) => project.properties.version_info.trademark = trademark_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_product_name<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(product_name_value) => project.properties.version_info.product_name = product_name_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_comments<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(comments_value) => project.properties.version_info.comments = comments_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_help_context_id<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(help_context_id_value) => project.properties.help_context_id = help_context_id_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_compatible_mode<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_converted_value(input, property_name) {
+        Ok(compatibility_mode_value) => {
+            project.properties.compatibility_mode = compatibility_mode_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_version_compatible_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(version_32_compatibility_value) => {
+            project.properties.version_32_compatibility = version_32_compatibility_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_compatible_exe_32<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(exe_32_compatible_value) => {
+            project.properties.exe_32_compatible = exe_32_compatible_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_dll_base_address<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    _property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_dll_base_address(input) {
+        Ok(dll_base_address_value) => project.properties.dll_base_address = dll_base_address_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_remove_unused_control_info<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(unused_control_info_value) => {
+            project.properties.unused_control_info = unused_control_info_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_compilation_type<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(compilation_type) => project.properties.compilation_type = compilation_type,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_optimization_type<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(optimization_type_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_optimization_type(optimization_type_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_favor_pentium_pro<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(favor_pentium_pro_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_favor_pentium_pro(favor_pentium_pro_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_code_view_debug_info<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(code_view_debug_info_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_code_view_debug_info(code_view_debug_info_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_no_aliasing<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(aliasing_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_aliasing(aliasing_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_bounds_check<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(bounds_check_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_bounds_check(bounds_check_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_overflow_check<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(overflow_check_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_overflow_check(overflow_check_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_fl_point_check<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(floating_point_check_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_floating_point_check(floating_point_check_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_fdiv_check<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(pentium_fdiv_bug_check_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_pentium_fdiv_bug_check(pentium_fdiv_bug_check_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_unrounded_fp<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(unrounded_floating_point_value) => {
+            project.properties.compilation_type = project
+                .properties
+                .compilation_type
+                .update_unrounded_floating_point(unrounded_floating_point_value);
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_cond_comp<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_quoted_value(input, property_name) {
+        Ok(conditional_compile_value) => {
+            project.properties.conditional_compile = conditional_compile_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_start_mode<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(start_mode_value) => project.properties.start_mode = start_mode_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_unattended<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(unattended_value) => project.properties.unattended = unattended_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_retained<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(retained_value) => project.properties.retained = retained_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_thread_per_object<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric::<i16>(input, property_name) {
+        Ok(thread_per_object_value) => {
+            if thread_per_object_value <= 0 {
+                project.properties.thread_per_object = 0;
+            } else {
+                project.properties.thread_per_object = thread_per_object_value as u16;
+            }
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_max_number_of_threads<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_numeric(input, property_name) {
+        Ok(max_number_of_threads_value) => {
+            project.properties.max_number_of_threads = max_number_of_threads_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_threading_model<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(threading_model_value) => project.properties.threading_model = threading_model_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_debug_startup_component<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_path_line(input, property_name) {
+        Ok(debug_startup_component_value) => {
+            project.properties.debug_startup_component = debug_startup_component_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_debug_startup_option<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(debug_startup_option_value) => {
+            project.properties.debug_startup_option = debug_startup_option_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_use_existing_browser<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(use_existing_browser_value) => {
+            project.properties.use_existing_browser = use_existing_browser_value;
+        }
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_no_control_upgrade<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(upgrade_controls_value) => project.properties.upgrade_controls = upgrade_controls_value,
+        Err(e) => failures.push(e),
+    }
+}
+
+fn handle_server_support_files<'a>(
+    project: &mut ProjectFile<'a>,
+    input: &mut SourceStream<'a>,
+    property_name: &'a str,
+    failures: &mut Vec<ErrorDetails<'a, ProjectErrorKind<'a>>>,
+) {
+    match parse_converted_value(input, property_name) {
+        Ok(server_support_files_value) => {
+            project.properties.server_support_files = server_support_files_value;
+        }
+        Err(e) => failures.push(e),
     }
 }
 
