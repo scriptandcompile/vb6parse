@@ -8,7 +8,7 @@ pub mod properties;
 
 use std::collections::HashMap;
 use std::convert::TryFrom;
-use std::fmt::Debug;
+use std::fmt::{Debug, Display};
 use std::str::FromStr;
 
 use serde::Serialize;
@@ -59,6 +59,23 @@ pub struct ProjectFile<'a> {
     pub other_properties: HashMap<&'a str, HashMap<&'a str, &'a str>>,
     /// The project properties.
     pub properties: ProjectProperties<'a>,
+}
+
+impl Display for ProjectFile<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "VB6 Project File: Type={:?}, References={}, Objects={}, Modules={}, Classes={}, Forms={}, UserControls={}, UserDocuments={}, RelatedDocuments={}, PropertyPages={}", 
+            self.project_type,
+            self.references.len(),
+            self.objects.len(),
+            self.modules.len(),
+            self.classes.len(),
+            self.forms.len(),
+            self.user_controls.len(),
+            self.user_documents.len(),
+            self.related_documents.len(),
+            self.property_pages.len()
+        )
+    }
 }
 
 /// Represents a reference to either a compiled object or a sub-project.
