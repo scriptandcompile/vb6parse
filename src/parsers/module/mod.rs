@@ -6,6 +6,8 @@
 //! such as the module name and its concrete syntax tree (CST).
 //!
 
+use std::fmt::Display;
+
 use crate::{
     errors::ModuleErrorKind,
     parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult, SyntaxKind},
@@ -27,6 +29,12 @@ pub struct ModuleFile {
     /// The concrete syntax tree of the module file.
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
+}
+
+impl Display for ModuleFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "VB6 Module File: {}", self.name)
+    }
 }
 
 impl ModuleFile {
