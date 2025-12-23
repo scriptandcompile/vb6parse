@@ -1,5 +1,7 @@
 use crate::errors::FormErrorKind;
 
+use std::fmt::Display;
+
 /// `Colors` are 24 bits with 8 bits for red, green, and blue.
 ///
 /// `Colors` are stored and used within VB6 as text formatted as '&H00BBGGRR&'.
@@ -29,6 +31,42 @@ pub enum Color {
     },
 }
 
+impl Display for Color {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut predefined = false;
+        let mut vb_color_name = "";
+
+        if let Some((name, _)) = PREDEFINED_COLORS.iter().find(|(_, color)| color == self) {
+            predefined = true;
+            vb_color_name = name;
+        }
+
+        match self {
+            Color::RGB { red, green, blue } if predefined => {
+                write!(
+                    f,
+                    "{vb_color_name} RGB({red}, {green}, {blue}) - {}",
+                    self.to_vb_string()
+                )
+            }
+            Color::System { index } if predefined => {
+                write!(
+                    f,
+                    "{vb_color_name} System({}) - {}",
+                    index,
+                    self.to_vb_string()
+                )
+            }
+            Color::RGB { red, green, blue } => {
+                write!(f, "RGB({red}, {green}, {blue}) = {}", self.to_vb_string())
+            }
+            Color::System { index } => {
+                write!(f, "System({}) = {}", index, self.to_vb_string())
+            }
+        }
+    }
+}
+
 impl Color {
     /// Converts the `Color` to a VB6 formatted string.
     ///
@@ -49,10 +87,39 @@ impl Color {
     }
 }
 
+/// A list of predefined VB6 colors.
+/// Each entry is a tuple of the VB6 color name and the corresponding `Color`.
+/// This includes both RGB colors and system colors.
+pub const PREDEFINED_COLORS: [(&str, Color); 24] = [
+    ("vbBlack", VB_BLACK),
+    ("vbWhite", VB_WHITE),
+    ("vbRed", VB_RED),
+    ("vbGreen", VB_GREEN),
+    ("vbBlue", VB_BLUE),
+    ("vbYellow", VB_YELLOW),
+    ("vbMagenta", VB_MAGENTA),
+    ("vbCyan", VB_CYAN),
+    ("vbScrollBars", VB_SCROLL_BARS),
+    ("vbDesktop", VB_DESKTOP),
+    ("vbActiveTitleBar", VB_ACTIVE_TITLE_BAR),
+    ("vbInactiveTitleBar", VB_INACTIVE_TITLE_BAR),
+    ("vbMenuBar", VB_MENU_BAR),
+    ("vbWindowBackground", VB_WINDOW_BACKGROUND),
+    ("vbWindowFrame", VB_WINDOW_FRAME),
+    ("vbMenuText", VB_MENU_TEXT),
+    ("vbWindowText", VB_WINDOW_TEXT),
+    ("vbTitleBarText", VB_TITLE_BAR_TEXT),
+    ("vbActiveBorder", VB_ACTIVE_BORDER),
+    ("vbInactiveBorder", VB_INACTIVE_BORDER),
+    ("vbApplicationWorkspace", VB_APPLICATION_WORKSPACE),
+    ("vbHighlight", VB_HIGHLIGHT),
+    ("vbHighlightText", VB_HIGHLIGHT_TEXT),
+    ("vbButtonFace", VB_BUTTON_FACE),
+];
+
 /// A `Color` with red, green, and blue values of 0x00.
 /// This is the same as calling `Color::new(0x00, 0x00, 0x00)`.
 /// This corresponds to the VB6 color constant `vbBlack`.
-#[allow(dead_code)]
 pub const VB_BLACK: Color = Color::RGB {
     red: 0x00,
     green: 0x00,
@@ -62,7 +129,6 @@ pub const VB_BLACK: Color = Color::RGB {
 /// A `Color` with red, green, and blue values of 0xFF.
 /// This is the same as calling `Color::new(0xFF, 0xFF, 0xFF)`.
 /// This corresponds to the VB6 color constant `vbWhite`.
-#[allow(dead_code)]
 pub const VB_WHITE: Color = Color::RGB {
     red: 0xFF,
     green: 0xFF,
@@ -72,7 +138,6 @@ pub const VB_WHITE: Color = Color::RGB {
 /// A `Color` with a red value of 0xFF and a green and blue value of 0x00.
 /// This is the same as calling `Color::new(0xFF, 0x00, 0x00)`.
 /// This corresponds to the VB6 color constant `vbRed`.
-#[allow(dead_code)]
 pub const VB_RED: Color = Color::RGB {
     red: 0xFF,
     green: 0x00,
@@ -84,7 +149,6 @@ pub const VB_RED: Color = Color::RGB {
 ///
 /// This is the same as calling `Color::new(0x00, 0xFF, 0x00)`.
 /// This corresponds to the VB6 color constant `vbGreen`.
-#[allow(dead_code)]
 pub const VB_GREEN: Color = Color::RGB {
     red: 0x00,
     green: 0xFF,
@@ -95,7 +159,6 @@ pub const VB_GREEN: Color = Color::RGB {
 ///
 /// This is the same as calling `Color::new(0x00, 0x00, 0xFF)`.
 /// This corresponds to the VB6 color constant `vbBlue`.
-#[allow(dead_code)]
 pub const VB_BLUE: Color = Color::RGB {
     red: 0x00,
     green: 0x00,
@@ -106,7 +169,6 @@ pub const VB_BLUE: Color = Color::RGB {
 ///
 /// This is the same as calling `Color::new(0xFF, 0xFF, 0x00)`.
 /// This corresponds to the VB6 color constant `vbYellow`.
-#[allow(dead_code)]
 pub const VB_YELLOW: Color = Color::RGB {
     red: 0xFF,
     green: 0xFF,
@@ -117,7 +179,6 @@ pub const VB_YELLOW: Color = Color::RGB {
 ///
 /// This is the same as calling `Color::new(0xFF, 0x00, 0xFF)`.
 /// This corresponds to the VB6 color constant `vbMagenta`.
-#[allow(dead_code)]
 pub const VB_MAGENTA: Color = Color::RGB {
     red: 0xFF,
     green: 0x00,
@@ -128,7 +189,6 @@ pub const VB_MAGENTA: Color = Color::RGB {
 ///
 /// This is the same as calling `Color::new(0x00, 0xFF, 0xFF)`.
 /// This corresponds to the VB6 color constant `vbCyan`.
-#[allow(dead_code)]
 pub const VB_CYAN: Color = Color::RGB {
     red: 0x00,
     green: 0xFF,
@@ -136,119 +196,90 @@ pub const VB_CYAN: Color = Color::RGB {
 };
 
 /// Scrollbar color
-#[allow(dead_code)]
 pub const VB_SCROLL_BARS: Color = Color::System { index: 0x00 };
 
 /// Desktop color
-#[allow(dead_code)]
 pub const VB_DESKTOP: Color = Color::System { index: 0x01 };
 
 /// Color of the title bar for the active window
-#[allow(dead_code)]
 pub const VB_ACTIVE_TITLE_BAR: Color = Color::System { index: 0x02 };
 
 /// Color of the title bar for the inactive window
-#[allow(dead_code)]
 pub const VB_INACTIVE_TITLE_BAR: Color = Color::System { index: 0x03 };
 
 /// Menu background color
-#[allow(dead_code)]
 pub const VB_MENU_BAR: Color = Color::System { index: 0x04 };
 
 /// Window background color
-#[allow(dead_code)]
 pub const VB_WINDOW_BACKGROUND: Color = Color::System { index: 0x05 };
 
 /// Window frame color
-#[allow(dead_code)]
 pub const VB_WINDOW_FRAME: Color = Color::System { index: 0x06 };
 
 /// Color of text on menus
-#[allow(dead_code)]
 pub const VB_MENU_TEXT: Color = Color::System { index: 0x07 };
 
 /// Color of text in windows
-#[allow(dead_code)]
 pub const VB_WINDOW_TEXT: Color = Color::System { index: 0x08 };
 
 /// Color of text in caption, size box, and scroll arrow
-#[allow(dead_code)]
 pub const VB_TITLE_BAR_TEXT: Color = Color::System { index: 0x09 };
 
 /// Border color of active window
-#[allow(dead_code)]
 pub const VB_ACTIVE_BORDER: Color = Color::System { index: 0x0A };
 
 /// Border color of inactive window
-#[allow(dead_code)]
 pub const VB_INACTIVE_BORDER: Color = Color::System { index: 0x0B };
 
 /// Background color of multiple document interface (MDI) applications
-#[allow(dead_code)]
 pub const VB_APPLICATION_WORKSPACE: Color = Color::System { index: 0x0C };
 
 /// Background color of items selected in a control
-#[allow(dead_code)]
 pub const VB_HIGHLIGHT: Color = Color::System { index: 0x0D };
 
 /// Text color of items selected in a control
-#[allow(dead_code)]
 pub const VB_HIGHLIGHT_TEXT: Color = Color::System { index: 0x0E };
 
 /// Color of shading on the face of command buttons
-#[allow(dead_code)]
 pub const VB_BUTTON_FACE: Color = Color::System { index: 0x0F };
 
 /// Color of shading on the face of command buttons
-#[allow(dead_code)]
 pub const VB_3D_FACE: Color = Color::System { index: 0x0F };
 
 /// Lightest shadow color for 3-D display elements
-#[allow(dead_code)]
 pub const VB_3D_SHADOW: Color = Color::System { index: 0x10 };
 
 /// Color of shading on the edge of command buttons
-#[allow(dead_code)]
 pub const VB_BUTTON_SHADOW: Color = Color::System { index: 0x10 };
 
 /// Grayed (disabled) text
-#[allow(dead_code)]
 pub const VB_GRAY_TEXT: Color = Color::System { index: 0x11 };
 
 /// Text color on push buttons
-#[allow(dead_code)]
 pub const VB_BUTTON_TEXT: Color = Color::System { index: 0x12 };
 
 /// Color of text in an inactive caption
-#[allow(dead_code)]
 pub const VB_INACTIVE_CAPTION_TEXT: Color = Color::System { index: 0x13 };
 
 /// Highlight color for 3-D display elements
-#[allow(dead_code)]
 pub const VB_3D_HIGHLIGHT: Color = Color::System { index: 0x14 };
 
 /// Darkest shadow color for 3-D display elements.
-#[allow(dead_code)]
 pub const VB_3D_DK_SHADOW: Color = Color::System { index: 0x15 };
 
 /// Second lightest 3-D color after vb3DHighlight
-#[allow(dead_code)]
 pub const VB_3D_LIGHT: Color = Color::System { index: 0x16 };
 
 /// Color of text in tool tips
-#[allow(dead_code)]
 pub const VB_INFO_TEXT: Color = Color::System { index: 0x17 };
 
 /// Color of text in tool tips
-#[allow(dead_code)]
 pub const VB_MSG_BOX: Color = Color::System { index: 0x17 };
 
 /// Background color of tool tips
-#[allow(dead_code)]
 pub const VB_INFO_BACKGROUND: Color = Color::System { index: 0x18 };
 
 /// Background color of tool tips
-#[allow(dead_code)]
 pub const VB_MSG_BOX_TEXT: Color = Color::System { index: 0x18 };
 
 impl Color {
