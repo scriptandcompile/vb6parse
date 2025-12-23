@@ -55,6 +55,15 @@ where
     pub failures: Vec<ErrorDetails<'a, E>>,
 }
 
+impl<'a, T, E> From<ParseResult<'a, T, E>> for (Option<T>, Vec<ErrorDetails<'a, E>>)
+where
+    E: ToString + std::fmt::Debug,
+{
+    fn from(pr: ParseResult<'a, T, E>) -> Self {
+        (pr.result, pr.failures)
+    }
+}
+
 impl<T, E> Display for ParseResult<'_, T, E>
 where
     E: ToString + std::fmt::Debug,
