@@ -17,6 +17,7 @@
 //! - [VB6 CheckBox Control Documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240800(v=vs.60))
 
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::{
     language::{
@@ -27,6 +28,7 @@ use crate::{
         Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
     parsers::Properties,
+    FormErrorKind,
 };
 
 use image::DynamicImage;
@@ -61,6 +63,27 @@ impl Display for CheckBoxValue {
             CheckBoxValue::Grayed => "Grayed",
         };
         write!(f, "{text}")
+    }
+}
+
+impl FromStr for CheckBoxValue {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" | "Unchecked" => Ok(CheckBoxValue::Unchecked),
+            "1" | "Checked" => Ok(CheckBoxValue::Checked),
+            "2" | "Grayed" => Ok(CheckBoxValue::Grayed),
+            _ => Err(FormErrorKind::InvalidCheckBoxValue(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for CheckBoxValue {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        CheckBoxValue::from_str(value)
     }
 }
 
