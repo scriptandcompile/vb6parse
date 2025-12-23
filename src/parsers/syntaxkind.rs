@@ -10,6 +10,8 @@
 //! The `SyntaxKind` enum is used throughout the parser to identify and
 //! categorize different parts of the syntax tree.
 
+use std::fmt::Display;
+
 use crate::language::Token;
 
 /// Syntax kinds for the VB6 CST.
@@ -644,6 +646,12 @@ pub enum SyntaxKind {
 
     /// Unknown syntax kind
     Unknown,
+}
+
+impl Display for SyntaxKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 impl From<Token> for SyntaxKind {
