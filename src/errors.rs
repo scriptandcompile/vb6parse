@@ -7,7 +7,7 @@ use core::convert::From;
 
 use std::borrow::Cow;
 use std::error::Error;
-use std::fmt::Debug;
+use std::fmt::{Debug, Display};
 
 use ariadne::{Label, Report, ReportKind, Source};
 
@@ -51,6 +51,21 @@ where
     pub line_end: usize,
     /// The kind of error that occurred.
     pub kind: T,
+}
+
+impl<T> Display for ErrorDetails<'_, T>
+where
+    T: ToString + Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "ErrorDetails {{ source_name: {}, error_offset: {}, line_start: {}, line_end: {}, kind: {:?} }}",
+            self.source_name,
+            self.error_offset,
+            self.line_start,
+            self.line_end,
+            self.kind,
+        )
+    }
 }
 
 impl<T> ErrorDetails<'_, T>
