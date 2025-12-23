@@ -21,6 +21,7 @@
 //! - [Microsoft Docs: ComboBox Control](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240832(v=vs.60))
 
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::{
     language::controls::{
@@ -28,7 +29,7 @@ use crate::{
         ReferenceOrValue, TabStop, TextDirection, Visibility,
     },
     parsers::Properties,
-    Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
+    Color, FormErrorKind, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
 
 use image::DynamicImage;
@@ -65,6 +66,27 @@ impl Display for ComboBoxStyle {
             ComboBoxStyle::DropDownList => "DropDownList",
         };
         write!(f, "{text}")
+    }
+}
+
+impl FromStr for ComboBoxStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" | "DropDownCombo" => Ok(ComboBoxStyle::DropDownCombo),
+            "1" | "SimpleCombo" => Ok(ComboBoxStyle::SimpleCombo),
+            "2" | "DropDownList" => Ok(ComboBoxStyle::DropDownList),
+            _ => Err(FormErrorKind::InvalidComboBoxStyle(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for ComboBoxStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        ComboBoxStyle::from_str(value)
     }
 }
 
