@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::language::controls::{
     Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
     ReferenceOrValue, SizeMode, TabStop, Visibility,
@@ -36,6 +38,17 @@ pub enum OLETypeAllowed {
     Either = 2,
 }
 
+impl Display for OLETypeAllowed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OLETypeAllowed::Link => "Link",
+            OLETypeAllowed::Embedded => "Embedded",
+            OLETypeAllowed::Either => "Either",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Specifies how an object is updated when linked data is modified.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445752(v=vs.60))
@@ -54,6 +67,17 @@ pub enum UpdateOptions {
     Frozen = 1,
     /// The object is updated only by using the Update method.
     Manual = 2,
+}
+
+impl Display for UpdateOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            UpdateOptions::Automatic => "Automatic",
+            UpdateOptions::Frozen => "Frozen",
+            UpdateOptions::Manual => "Manual",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines how the user can activate an object by double-clicking the OLE
@@ -86,6 +110,18 @@ pub enum AutoActivate {
     Automatic = 3,
 }
 
+impl Display for AutoActivate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            AutoActivate::Manual => "Manual",
+            AutoActivate::GetFocus => "GetFocus",
+            AutoActivate::DoubleClick => "DoubleClick",
+            AutoActivate::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines whether an object displays its contents or an icon.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa234850(v=vs.60))
@@ -103,6 +139,16 @@ pub enum DisplayType {
     /// When the OLE container control contains an object, the object's icon is
     /// displayed in the control.
     Icon = 1,
+}
+
+impl Display for DisplayType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DisplayType::Content => "Content",
+            DisplayType::Icon => "Icon",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `OLE` control.
@@ -290,6 +336,7 @@ impl From<Properties> for OLEProperties {
         ole_prop.causes_validation =
             prop.get_property("CausesValidation", ole_prop.causes_validation);
 
+        // TODO: process Class property
         // Class
 
         ole_prop.data_field = match prop.get("DataField") {
@@ -302,6 +349,7 @@ impl From<Properties> for OLEProperties {
         };
         ole_prop.display_type = prop.get_property("DisplayType", ole_prop.display_type);
 
+        // TODO: process DragIcon property
         // DragIcon
 
         ole_prop.drag_mode = prop.get_property("DragMode", ole_prop.drag_mode);

@@ -20,6 +20,8 @@
 //! # References
 //! - [Microsoft Docs: ComboBox Control](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240832(v=vs.60))
 
+use std::fmt::Display;
+
 use crate::{
     language::controls::{
         Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
@@ -53,6 +55,17 @@ pub enum ComboBoxStyle {
     /// A drop-down list that allows the user to select an item from a list
     /// but does not allow the user to enter a new value.
     DropDownList = 2,
+}
+
+impl Display for ComboBoxStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ComboBoxStyle::DropDownCombo => "DropDownCombo",
+            ComboBoxStyle::SimpleCombo => "SimpleCombo",
+            ComboBoxStyle::DropDownList => "DropDownList",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `ComboBox` control.

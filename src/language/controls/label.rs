@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
@@ -42,6 +44,16 @@ pub enum WordWrap {
     NonWrapping = 0,
     /// The `Label` control will wrap text.
     Wrapping = -1,
+}
+
+impl Display for WordWrap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WordWrap::NonWrapping => "NonWrapping",
+            WordWrap::Wrapping => "Wrapping",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `Label` control.

@@ -7,6 +7,8 @@
 //!
 //! This should only be used as a child of a Form / `MDIForm`.
 
+use std::fmt::Display;
+
 use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
 use crate::parsers::Properties;
@@ -28,6 +30,12 @@ pub struct MenuControl {
     pub properties: MenuProperties,
     /// The sub-menus of the menu control.
     pub sub_menus: Vec<MenuControl>,
+}
+
+impl Display for MenuControl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MenuControl: {}", self.name)
+    }
 }
 
 /// Properties for a `Menu` control.
@@ -129,6 +137,18 @@ pub enum NegotiatePosition {
     Middle = 2,
     /// The menu is displayed at the right end of the menu bar when the object is active.
     Right = 3,
+}
+
+impl Display for NegotiatePosition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            NegotiatePosition::None => "None",
+            NegotiatePosition::Left => "Left",
+            NegotiatePosition::Middle => "Middle",
+            NegotiatePosition::Right => "Right",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Represents a keyboard shortcut for a menu item.
@@ -442,6 +462,89 @@ pub enum ShortCut {
     ///
     /// This is stored in the Form file as "%{BKSP}"
     AltBKsp,
+}
+
+impl Display for ShortCut {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ShortCut::CtrlA => "Ctrl+A",
+            ShortCut::CtrlB => "Ctrl+B",
+            ShortCut::CtrlC => "Ctrl+C",
+            ShortCut::CtrlD => "Ctrl+D",
+            ShortCut::CtrlE => "Ctrl+E",
+            ShortCut::CtrlF => "Ctrl+F",
+            ShortCut::CtrlG => "Ctrl+G",
+            ShortCut::CtrlH => "Ctrl+H",
+            ShortCut::CtrlI => "Ctrl+I",
+            ShortCut::CtrlJ => "Ctrl+J",
+            ShortCut::CtrlK => "Ctrl+K",
+            ShortCut::CtrlL => "Ctrl+L",
+            ShortCut::CtrlM => "Ctrl+M",
+            ShortCut::CtrlN => "Ctrl+N",
+            ShortCut::CtrlO => "Ctrl+O",
+            ShortCut::CtrlP => "Ctrl+P",
+            ShortCut::CtrlQ => "Ctrl+Q",
+            ShortCut::CtrlR => "Ctrl+R",
+            ShortCut::CtrlS => "Ctrl+S",
+            ShortCut::CtrlT => "Ctrl+T",
+            ShortCut::CtrlU => "Ctrl+U",
+            ShortCut::CtrlV => "Ctrl+V",
+            ShortCut::CtrlW => "Ctrl+W",
+            ShortCut::CtrlX => "Ctrl+X",
+            ShortCut::CtrlY => "Ctrl+Y",
+            ShortCut::CtrlZ => "Ctrl+Z",
+            ShortCut::F1 => "F1",
+            ShortCut::F2 => "F2",
+            ShortCut::F3 => "F3",
+            ShortCut::F4 => "F4",
+            ShortCut::F5 => "F5",
+            ShortCut::F6 => "F6",
+            ShortCut::F7 => "F7",
+            ShortCut::F8 => "F8",
+            ShortCut::F9 => "F9",
+            ShortCut::F11 => "F11",
+            ShortCut::F12 => "F12",
+            ShortCut::CtrlF1 => "Ctrl+F1",
+            ShortCut::CtrlF2 => "Ctrl+F2",
+            ShortCut::CtrlF3 => "Ctrl+F3",
+            ShortCut::CtrlF4 => "Ctrl+F4",
+            ShortCut::CtrlF5 => "Ctrl+F5",
+            ShortCut::CtrlF6 => "Ctrl+F6",
+            ShortCut::CtrlF7 => "Ctrl+F7",
+            ShortCut::CtrlF8 => "Ctrl+F8",
+            ShortCut::CtrlF9 => "Ctrl+F9",
+            ShortCut::CtrlF11 => "Ctrl+F11",
+            ShortCut::CtrlF12 => "Ctrl+F12",
+            ShortCut::ShiftF1 => "Shift+F1",
+            ShortCut::ShiftF2 => "Shift+F2",
+            ShortCut::ShiftF3 => "Shift+F3",
+            ShortCut::ShiftF4 => "Shift+F4",
+            ShortCut::ShiftF5 => "Shift+F5",
+            ShortCut::ShiftF6 => "Shift+F6",
+            ShortCut::ShiftF7 => "Shift+F7",
+            ShortCut::ShiftF8 => "Shift+F8",
+            ShortCut::ShiftF9 => "Shift+F9",
+            ShortCut::ShiftF11 => "Shift+F11",
+            ShortCut::ShiftF12 => "Shift+F12",
+            ShortCut::ShiftCtrlF1 => "Shift+Ctrl+F1",
+            ShortCut::ShiftCtrlF2 => "Shift+Ctrl+F2",
+            ShortCut::ShiftCtrlF3 => "Shift+Ctrl+F3",
+            ShortCut::ShiftCtrlF4 => "Shift+Ctrl+F4",
+            ShortCut::ShiftCtrlF5 => "Shift+Ctrl+F5",
+            ShortCut::ShiftCtrlF6 => "Shift+Ctrl+F6",
+            ShortCut::ShiftCtrlF7 => "Shift+Ctrl+F7",
+            ShortCut::ShiftCtrlF8 => "Shift+Ctrl+F8",
+            ShortCut::ShiftCtrlF9 => "Shift+Ctrl+F9",
+            ShortCut::ShiftCtrlF11 => "Shift+Ctrl+F11",
+            ShortCut::ShiftCtrlF12 => "Shift+Ctrl+F12",
+            ShortCut::CtrlIns => "Ctrl+Insert",
+            ShortCut::ShiftIns => "Shift+Insert",
+            ShortCut::Del => "Delete",
+            ShortCut::ShiftDel => "Shift+Delete",
+            ShortCut::AltBKsp => "Alt+Backspace",
+        };
+        write!(f, "{text}")
+    }
 }
 
 impl TryFrom<&str> for ShortCut {

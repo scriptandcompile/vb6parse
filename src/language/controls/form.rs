@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::{
     language::{
         controls::{
@@ -99,6 +101,17 @@ pub enum PaletteMode {
     Custom = 2,
 }
 
+impl Display for PaletteMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            PaletteMode::HalfTone => "HalfTone",
+            PaletteMode::UseZOrder => "UseZOrder",
+            PaletteMode::Custom => "Custom",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The property that determines the appearance of a forms border.
 #[derive(
     Debug,
@@ -132,6 +145,20 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
+impl Display for FormBorderStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FormBorderStyle::None => "None",
+            FormBorderStyle::FixedSingle => "FixedSingle",
+            FormBorderStyle::Sizable => "Sizable",
+            FormBorderStyle::FixedDialog => "FixedDialog",
+            FormBorderStyle::FixedToolWindow => "FixedToolWindow",
+            FormBorderStyle::SizableToolWindow => "SizableToolWindow",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `ControlBox` property of a `Form` control determines whether the
 /// control box is displayed in the form's title bar.
 #[derive(
@@ -154,6 +181,16 @@ pub enum ControlBox {
     /// The control box is displayed.
     #[default]
     Included = -1,
+}
+
+impl Display for ControlBox {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ControlBox::Excluded => "Excluded",
+            ControlBox::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `MaxButton` property of a `Form` control determines whether the
@@ -180,6 +217,16 @@ pub enum MaxButton {
     Included = -1,
 }
 
+impl Display for MaxButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MaxButton::Excluded => "Excluded",
+            MaxButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `MinButton` property of a `Form` control determines whether the
 /// minimize button is displayed in the form's title bar.
 #[derive(
@@ -202,6 +249,16 @@ pub enum MinButton {
     /// The minimize button is displayed.
     #[default]
     Included = -1,
+}
+
+impl Display for MinButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MinButton::Excluded => "Excluded",
+            MinButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `WhatsThisButton` property of a `Form` control determines whether the
@@ -228,6 +285,16 @@ pub enum WhatsThisButton {
     Included = -1,
 }
 
+impl Display for WhatsThisButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WhatsThisButton::Excluded => "Excluded",
+            WhatsThisButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `ShowInTaskbar` property of a `Form` control determines whether the
 /// form is shown in the taskbar.
 #[derive(
@@ -250,6 +317,16 @@ pub enum ShowInTaskbar {
     /// The form is shown in the taskbar.
     #[default]
     Show = -1,
+}
+
+impl Display for ShowInTaskbar {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ShowInTaskbar::Hide => "Hide",
+            ShowInTaskbar::Show => "Show",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `Form` control.
