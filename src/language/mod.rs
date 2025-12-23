@@ -28,7 +28,7 @@ pub use controls::{
     commandbutton::CommandButtonProperties,
     custom::CustomControlProperties,
     data::{
-        BOFAction, Connection, DataProperties, DefaultCursorType, DefaultType, EOFAction,
+        BOFAction, ConnectionType, DataProperties, DefaultCursorType, DefaultType, EOFAction,
         RecordSetType,
     },
     dirlistbox::DirListBoxProperties,

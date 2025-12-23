@@ -7,6 +7,7 @@
 //!
 
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
 use crate::language::controls::{
@@ -38,7 +39,7 @@ pub struct DataProperties {
     /// Caption of the Data control.
     pub caption: String,
     /// Type of connection to the database.
-    pub connection: Connection,
+    pub connection: ConnectionType,
     /// Name of the database to connect to.
     pub database_name: String,
     /// Default cursor type for the Data control.
@@ -99,7 +100,7 @@ impl Default for DataProperties {
             back_color: Color::System { index: 5 },
             bof_action: BOFAction::MoveFirst,
             caption: String::new(),
-            connection: Connection::Access,
+            connection: ConnectionType::Access,
             database_name: String::new(),
             default_cursor_type: DefaultCursorType::Default,
             default_type: DefaultType::UseJet,
@@ -193,8 +194,8 @@ impl From<Properties> for DataProperties {
         };
         data_prop.connection = prop
             .get("Connection")
-            .map_or(Ok(Connection::Access), |v| Connection::try_from(v.as_str()))
-            .unwrap_or(Connection::Access);
+            .map_or(Ok(ConnectionType::Access), |v| v.as_str().try_into())
+            .unwrap_or(ConnectionType::Access);
         data_prop.database_name = match prop.get("DatabaseName") {
             Some(database_name) => database_name.clone(),
             None => String::new(),
@@ -269,9 +270,29 @@ impl Display for BOFAction {
     }
 }
 
+impl FromStr for BOFAction {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "MoveFirst" => Ok(BOFAction::MoveFirst),
+            "BOF" => Ok(BOFAction::Bof),
+            _ => Err(FormErrorKind::InvalidBOFAction(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for BOFAction {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        BOFAction::from_str(value)
+    }
+}
+
 /// Determine the type of connection to the ADODC database.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash, PartialOrd, Ord)]
-pub enum Connection {
+pub enum ConnectionType {
     /// The Data control is connecting to Microsoft Access database.
     ///
     /// This is the default value.
@@ -315,59 +336,67 @@ pub enum Connection {
     Text,
 }
 
-impl Display for Connection {
+impl Display for ConnectionType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            Connection::Access => "Access",
-            Connection::DBaseIII => "dBase III",
-            Connection::DBaseIV => "dBase IV",
-            Connection::DBase5_0 => "dBase 5.0",
-            Connection::Excel3_0 => "Excel 3.0",
-            Connection::Excel4_0 => "Excel 4.0",
-            Connection::Excel5_0 => "Excel 5.0",
-            Connection::Excel8_0 => "Excel 8.0",
-            Connection::FoxPro2_0 => "FoxPro 2.0",
-            Connection::FoxPro2_5 => "FoxPro 2.5",
-            Connection::FoxPro2_6 => "FoxPro 2.6",
-            Connection::FoxPro3_0 => "FoxPro 3.0",
-            Connection::LotusWk1 => "Lotus WK1",
-            Connection::LotusWk3 => "Lotus WK3",
-            Connection::LotusWk4 => "Lotus WK4",
-            Connection::Paradox3X => "Paradox 3.X",
-            Connection::Paradox4X => "Paradox 4.X",
-            Connection::Paradox5X => "Paradox 5.X",
-            Connection::Text => "Text",
+            ConnectionType::Access => "Access",
+            ConnectionType::DBaseIII => "dBase III",
+            ConnectionType::DBaseIV => "dBase IV",
+            ConnectionType::DBase5_0 => "dBase 5.0",
+            ConnectionType::Excel3_0 => "Excel 3.0",
+            ConnectionType::Excel4_0 => "Excel 4.0",
+            ConnectionType::Excel5_0 => "Excel 5.0",
+            ConnectionType::Excel8_0 => "Excel 8.0",
+            ConnectionType::FoxPro2_0 => "FoxPro 2.0",
+            ConnectionType::FoxPro2_5 => "FoxPro 2.5",
+            ConnectionType::FoxPro2_6 => "FoxPro 2.6",
+            ConnectionType::FoxPro3_0 => "FoxPro 3.0",
+            ConnectionType::LotusWk1 => "Lotus WK1",
+            ConnectionType::LotusWk3 => "Lotus WK3",
+            ConnectionType::LotusWk4 => "Lotus WK4",
+            ConnectionType::Paradox3X => "Paradox 3.X",
+            ConnectionType::Paradox4X => "Paradox 4.X",
+            ConnectionType::Paradox5X => "Paradox 5.X",
+            ConnectionType::Text => "Text",
         };
         write!(f, "{text}")
     }
 }
 
-impl TryFrom<&str> for Connection {
+impl FromStr for ConnectionType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "Access" => Ok(ConnectionType::Access),
+            "dBase III" => Ok(ConnectionType::DBaseIII),
+            "dBase IV" => Ok(ConnectionType::DBaseIV),
+            "dBase 5.0" => Ok(ConnectionType::DBase5_0),
+            "Excel 3.0" => Ok(ConnectionType::Excel3_0),
+            "Excel 4.0" => Ok(ConnectionType::Excel4_0),
+            "Excel 5.0" => Ok(ConnectionType::Excel5_0),
+            "Excel 8.0" => Ok(ConnectionType::Excel8_0),
+            "FoxPro 2.0" => Ok(ConnectionType::FoxPro2_0),
+            "FoxPro 2.5" => Ok(ConnectionType::FoxPro2_5),
+            "FoxPro 2.6" => Ok(ConnectionType::FoxPro2_6),
+            "FoxPro 3.0" => Ok(ConnectionType::FoxPro3_0),
+            "Lotus WK1" => Ok(ConnectionType::LotusWk1),
+            "Lotus WK3" => Ok(ConnectionType::LotusWk3),
+            "Lotus WK4" => Ok(ConnectionType::LotusWk4),
+            "Paradox 3.X" => Ok(ConnectionType::Paradox3X),
+            "Paradox 4.X" => Ok(ConnectionType::Paradox4X),
+            "Paradox 5.X" => Ok(ConnectionType::Paradox5X),
+            "Text" => Ok(ConnectionType::Text),
+            _ => Err(FormErrorKind::InvalidConnectionType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for ConnectionType {
     type Error = FormErrorKind;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        match value {
-            "Access" => Ok(Connection::Access),
-            "dBase III" => Ok(Connection::DBaseIII),
-            "dBase IV" => Ok(Connection::DBaseIV),
-            "dBase 5.0" => Ok(Connection::DBase5_0),
-            "Excel 3.0" => Ok(Connection::Excel3_0),
-            "Excel 4.0" => Ok(Connection::Excel4_0),
-            "Excel 5.0" => Ok(Connection::Excel5_0),
-            "Excel 8.0" => Ok(Connection::Excel8_0),
-            "FoxPro 2.0" => Ok(Connection::FoxPro2_0),
-            "FoxPro 2.5" => Ok(Connection::FoxPro2_5),
-            "FoxPro 2.6" => Ok(Connection::FoxPro2_6),
-            "FoxPro 3.0" => Ok(Connection::FoxPro3_0),
-            "Lotus WK1" => Ok(Connection::LotusWk1),
-            "Lotus WK3" => Ok(Connection::LotusWk3),
-            "Lotus WK4" => Ok(Connection::LotusWk4),
-            "Paradox 3.X" => Ok(Connection::Paradox3X),
-            "Paradox 4.X" => Ok(Connection::Paradox4X),
-            "Paradox 5.X" => Ok(Connection::Paradox5X),
-            "Text" => Ok(Connection::Text),
-            _ => Err(FormErrorKind::ConnectionTypeUnparsable),
-        }
+        ConnectionType::from_str(value)
     }
 }
 
