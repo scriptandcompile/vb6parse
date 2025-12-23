@@ -45,7 +45,7 @@ pub struct DataProperties {
     /// Default cursor type for the Data control.
     pub default_cursor_type: DefaultCursorType,
     /// Default type of data source for the Data control.
-    pub default_type: DefaultType,
+    pub default_type: DatabaseDriverType,
     /// Drag icon for the Data control.
     pub drag_icon: Option<DynamicImage>,
     /// Drag mode for the Data control.
@@ -103,7 +103,7 @@ impl Default for DataProperties {
             connection: ConnectionType::Access,
             database_name: String::new(),
             default_cursor_type: DefaultCursorType::Default,
-            default_type: DefaultType::UseJet,
+            default_type: DatabaseDriverType::UseJet,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
@@ -433,6 +433,27 @@ impl Display for DefaultCursorType {
     }
 }
 
+impl FromStr for DefaultCursorType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "Default" => Ok(DefaultCursorType::Default),
+            "Odbc" => Ok(DefaultCursorType::Odbc),
+            "ServerSide" => Ok(DefaultCursorType::ServerSide),
+            _ => Err(FormErrorKind::InvalidDefaultCursorType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for DefaultCursorType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        DefaultCursorType::from_str(value)
+    }
+}
+
 /// Determines the type of data source (`Jet` or `ODBCDirect`) that is used by the
 /// `Data` control.
 ///
@@ -441,7 +462,7 @@ impl Display for DefaultCursorType {
     Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
 )]
 #[repr(i32)]
-pub enum DefaultType {
+pub enum DatabaseDriverType {
     /// Use the `ODBCDirect` driver to access the data source.
     UseODBC = 1,
     /// Use the `Microsoft Jet` database engine to access the data source.
@@ -451,13 +472,33 @@ pub enum DefaultType {
     UseJet = 2,
 }
 
-impl Display for DefaultType {
+impl Display for DatabaseDriverType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            DefaultType::UseODBC => "UseODBC",
-            DefaultType::UseJet => "UseJet",
+            DatabaseDriverType::UseODBC => "UseODBC",
+            DatabaseDriverType::UseJet => "UseJet",
         };
         write!(f, "{text}")
+    }
+}
+
+impl FromStr for DatabaseDriverType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "UseODBC" => Ok(DatabaseDriverType::UseODBC),
+            "UseJet" => Ok(DatabaseDriverType::UseJet),
+            _ => Err(FormErrorKind::InvalidDatabaseDriverType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for DatabaseDriverType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        DatabaseDriverType::from_str(value)
     }
 }
 
@@ -497,6 +538,27 @@ impl Display for EOFAction {
     }
 }
 
+impl FromStr for EOFAction {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "MoveLast" => Ok(EOFAction::MoveLast),
+            "EOF" => Ok(EOFAction::Eof),
+            "AddNew" => Ok(EOFAction::AddNew),
+            _ => Err(FormErrorKind::InvalidEOFAction(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for EOFAction {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        EOFAction::from_str(value)
+    }
+}
+
 /// Determines the type of `Recordset` object you want the `Data` control to
 /// create.
 ///
@@ -525,5 +587,26 @@ impl Display for RecordSetType {
             RecordSetType::Snapshot => "Snapshot",
         };
         write!(f, "{text}")
+    }
+}
+
+impl FromStr for RecordSetType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "Table" => Ok(RecordSetType::Table),
+            "Dynaset" => Ok(RecordSetType::Dynaset),
+            "Snapshot" => Ok(RecordSetType::Snapshot),
+            _ => Err(FormErrorKind::InvalidRecordSetType(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for RecordSetType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        RecordSetType::from_str(value)
     }
 }
