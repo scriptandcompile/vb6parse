@@ -28,8 +28,8 @@ pub use controls::{
     commandbutton::CommandButtonProperties,
     custom::CustomControlProperties,
     data::{
-        BOFAction, ConnectionType, DataProperties, DefaultCursorType, DefaultType, EOFAction,
-        RecordSetType,
+        BOFAction, ConnectionType, DataProperties, DatabaseDriverType, DefaultCursorType,
+        EOFAction, RecordSetType,
     },
     dirlistbox::DirListBoxProperties,
     drivelistbox::DriveListBoxProperties,

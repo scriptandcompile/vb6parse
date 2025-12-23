@@ -635,6 +635,46 @@ pub enum PropertyError {
 /// Errors related to form parsing.
 #[derive(thiserror::Error, Debug)]
 pub enum FormErrorKind {
+    /// Indicates that the `ComboBox` style is invalid.
+    ///
+    /// Only 0 (Dropdown Combo), 1 (Simple Combo), or 2 (Dropdown List) are valid styles.
+    #[error("The `ComboBox` style is invalid: '{0}'. Only 0 (Dropdown Combo), 1 (Simple Combo), or 2 (Dropdown List) are valid styles.")]
+    InvalidComboBoxStyle(String),
+
+    /// Indicates that the `CheckBox` value is invalid.
+    ///
+    /// Only 0 (Unchecked), 1 (Checked), or 2 (Grayed) are valid values.
+    #[error("The `CheckBox` value is invalid: '{0}'. Only 0 (Unchecked), 1 (Checked), or 2 (Grayed) are valid values.")]
+    InvalidCheckBoxValue(String),
+
+    /// Indicates that the `BOFAction` property has an invalid value.
+    #[error(
+        "The `BOFAction` value is invalid: '{0}'. Only 0 (MoveFirst), or 1 (BOF) are valid values."
+    )]
+    InvalidBOFAction(String),
+
+    /// Indicates that the `ConnectionType` property has an invalid value.
+    #[error(
+        "The `ConnectionType` value is invalid: '{0}'. Only 'Access', 'dBase III', 'dBase IV', 'dBase 5.0', 'Excel 3.0', 'Excel 4.0', 'Excel 5.0', 'Excel 8.0', 'FoxPro 2.0', 'FoxPro 2.5', 'FoxPro 2.6', 'FoxPro 3.0', 'Lotus WK1', 'Lotus WK3', 'Lotus WK4', 'Paradox 3.X', 'Paradox 4.X', 'Paradox 5.X', or 'Text' are valid values."
+    )]
+    InvalidConnectionType(String),
+
+    /// Indicates that the `DefaultCursorType` property has an invalid value.
+    #[error("The `DefaultCursorType` value is invalid: '{0}'. Only 0 (Default), 1 (Odbc), or 2 (ServerSide) are valid values.")]
+    InvalidDefaultCursorType(String),
+
+    /// Indicates that the `DatabaseDriverType` property has an invalid value.
+    #[error("The `DatabaseDriverType` value is invalid: '{0}'. Only 1 (ODBC), or 2 (Jet) are valid values.")]
+    InvalidDatabaseDriverType(String),
+
+    // Indicates that the `EOFAction` property has an invalid value.
+    #[error("The `EOFAction` value is invalid: '{0}'. Only 0 (MoveLast), 1 (EOF), or 2 (AddNew) are valid values.")]
+    InvalidEOFAction(String),
+
+    /// Indicates that the record set type is invalid.
+    #[error("The record set type is invalid: '{0}'. Only 0 (Table), 1 (Dynaset), or 2 (Snapshot) are valid types.")]
+    InvalidRecordSetType(String),
+
     /// Indicates that the 'VERSION' keyword is missing from the form file header.
     #[error("The 'VERSION' keyword is missing from the form file header.")]
     VersionKeywordMissing,
@@ -907,10 +947,6 @@ pub enum FormErrorKind {
     /// Indicates that the `AutoRefresh` property line could not be parsed.
     #[error("AutoRefresh can only be a 0 (false) or a -1 (true)")]
     AutoRefreshUnparsable,
-
-    /// Indicates that the `ConnectionType` property line could not be parsed.
-    #[error("Data control Connection type is not valid.")]
-    ConnectionTypeUnparsable,
 
     /// Indicates that the `ThreadPerObject` property line could not be parsed.
     #[error("Thread Per Object is not a number.")]
