@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::{Display, Formatter};
+
 use crate::{
     language::controls::{
         Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
@@ -44,6 +46,18 @@ pub enum ScrollBars {
     Both = 3,
 }
 
+impl Display for ScrollBars {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ScrollBars::None => "None",
+            ScrollBars::Horizontal => "Horizontal",
+            ScrollBars::Vertical => "Vertical",
+            ScrollBars::Both => "Both",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// `TextBox` controls can be either multi-line or single-line.
 #[derive(
     Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
@@ -55,6 +69,16 @@ pub enum MultiLine {
     SingleLine = 0,
     /// The `TextBox` control is a multi-line text box.
     MultiLine = -1,
+}
+
+impl Display for MultiLine {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MultiLine::SingleLine => "SingleLine",
+            MultiLine::MultiLine => "MultiLine",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `TextBox` control.

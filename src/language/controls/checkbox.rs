@@ -16,6 +16,8 @@
 //! # References
 //! - [VB6 CheckBox Control Documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240800(v=vs.60))
 
+use std::fmt::Display;
+
 use crate::{
     language::{
         controls::{
@@ -49,6 +51,17 @@ pub enum CheckBoxValue {
     Checked = 1,
     /// The checkbox is grayed out and cannot be checked or unchecked.
     Grayed = 2,
+}
+
+impl Display for CheckBoxValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            CheckBoxValue::Unchecked => "Unchecked",
+            CheckBoxValue::Checked => "Checked",
+            CheckBoxValue::Grayed => "Grayed",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `CheckBox` control.

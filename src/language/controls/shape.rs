@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::{Display, Formatter};
+
 use crate::language::color::Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
 use crate::parsers::Properties;
@@ -36,6 +38,20 @@ pub enum Shape {
     RoundedRectangle = 4,
     /// A rounded square.
     RoundSquare = 5,
+}
+
+impl Display for Shape {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Shape::Rectangle => "Rectangle",
+            Shape::Square => "Square",
+            Shape::Oval => "Oval",
+            Shape::Circle => "Circle",
+            Shape::RoundedRectangle => "RoundedRectangle",
+            Shape::RoundSquare => "RoundSquare",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `Shape` control.

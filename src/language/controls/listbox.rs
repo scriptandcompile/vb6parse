@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::{
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
@@ -40,6 +42,16 @@ pub enum ListBoxStyle {
     Standard = 0,
     /// List box with a check box next to each item.
     Checkbox = 1,
+}
+
+impl Display for ListBoxStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ListBoxStyle::Standard => "Standard",
+            ListBoxStyle::Checkbox => "Checkbox",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `ListBox` control.

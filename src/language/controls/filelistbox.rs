@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::language::color::Color;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
@@ -44,6 +46,16 @@ pub enum ArchiveAttribute {
     Include = -1,
 }
 
+impl Display for ArchiveAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ArchiveAttribute::Exclude => "Exclude",
+            ArchiveAttribute::Include => "Include",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `HiddenAttribute` enum represents the hidden bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its hidden status.
@@ -69,6 +81,16 @@ pub enum HiddenAttribute {
     Exclude = 0,
     /// The file is included in the `FileListBox` if it has the hidden attribute bit set.
     Include = -1,
+}
+
+impl Display for HiddenAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            HiddenAttribute::Exclude => "Exclude",
+            HiddenAttribute::Include => "Include",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `ReadOnlyAttribute` enum represents the read-only bit of a file.
@@ -98,6 +120,16 @@ pub enum ReadOnlyAttribute {
     Include = -1,
 }
 
+impl Display for ReadOnlyAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ReadOnlyAttribute::Exclude => "Exclude",
+            ReadOnlyAttribute::Include => "Include",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `SystemAttribute` enum represents the system bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its system status.
@@ -125,6 +157,16 @@ pub enum SystemAttribute {
     Include = -1,
 }
 
+impl Display for SystemAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            SystemAttribute::Exclude => "Exclude",
+            SystemAttribute::Include => "Include",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `NormalAttribute` determines if the `FileListBox` control will include
 /// files that are not hidden, read-only, archive, or system files.
 #[derive(
@@ -149,6 +191,16 @@ pub enum NormalAttribute {
     /// This is the default value.
     #[default]
     Include = -1,
+}
+
+impl Display for NormalAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            NormalAttribute::Exclude => "Exclude",
+            NormalAttribute::Include => "Include",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `FileListBox` control.

@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::Display;
+
 use crate::errors::FormErrorKind;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
@@ -257,6 +259,16 @@ pub enum BOFAction {
     Bof = 1,
 }
 
+impl Display for BOFAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BOFAction::MoveFirst => "MoveFirst",
+            BOFAction::Bof => "BOF",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determine the type of connection to the ADODC database.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, Copy, Hash, PartialOrd, Ord)]
 pub enum Connection {
@@ -301,6 +313,33 @@ pub enum Connection {
     Paradox5X,
     /// The Data control is connecting to a `Text` data set.
     Text,
+}
+
+impl Display for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Connection::Access => "Access",
+            Connection::DBaseIII => "dBase III",
+            Connection::DBaseIV => "dBase IV",
+            Connection::DBase5_0 => "dBase 5.0",
+            Connection::Excel3_0 => "Excel 3.0",
+            Connection::Excel4_0 => "Excel 4.0",
+            Connection::Excel5_0 => "Excel 5.0",
+            Connection::Excel8_0 => "Excel 8.0",
+            Connection::FoxPro2_0 => "FoxPro 2.0",
+            Connection::FoxPro2_5 => "FoxPro 2.5",
+            Connection::FoxPro2_6 => "FoxPro 2.6",
+            Connection::FoxPro3_0 => "FoxPro 3.0",
+            Connection::LotusWk1 => "Lotus WK1",
+            Connection::LotusWk3 => "Lotus WK3",
+            Connection::LotusWk4 => "Lotus WK4",
+            Connection::Paradox3X => "Paradox 3.X",
+            Connection::Paradox4X => "Paradox 4.X",
+            Connection::Paradox5X => "Paradox 5.X",
+            Connection::Text => "Text",
+        };
+        write!(f, "{text}")
+    }
 }
 
 impl TryFrom<&str> for Connection {
@@ -354,6 +393,17 @@ pub enum DefaultCursorType {
     ServerSide = 2,
 }
 
+impl Display for DefaultCursorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DefaultCursorType::Default => "Default",
+            DefaultCursorType::Odbc => "Odbc",
+            DefaultCursorType::ServerSide => "ServerSide",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the type of data source (`Jet` or `ODBCDirect`) that is used by the
 /// `Data` control.
 ///
@@ -370,6 +420,16 @@ pub enum DefaultType {
     /// This is the default value.
     #[default]
     UseJet = 2,
+}
+
+impl Display for DefaultType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DefaultType::UseODBC => "UseODBC",
+            DefaultType::UseJet => "UseJet",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines what actions to take within the `Data` control when the EOF
@@ -397,6 +457,17 @@ pub enum EOFAction {
     AddNew = 2,
 }
 
+impl Display for EOFAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            EOFAction::MoveLast => "MoveLast",
+            EOFAction::Eof => "EOF",
+            EOFAction::AddNew => "AddNew",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the type of `Recordset` object you want the `Data` control to
 /// create.
 ///
@@ -415,4 +486,15 @@ pub enum RecordSetType {
     Dynaset = 1,
     /// Use a `Snapshot` type `Recordset` object.
     Snapshot = 2,
+}
+
+impl Display for RecordSetType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            RecordSetType::Table => "Table",
+            RecordSetType::Dynaset => "Dynaset",
+            RecordSetType::Snapshot => "Snapshot",
+        };
+        write!(f, "{text}")
+    }
 }

@@ -96,6 +96,16 @@ pub enum AutoRedraw {
     Automatic = -1,
 }
 
+impl Display for AutoRedraw {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            AutoRedraw::Manual => "Manual",
+            AutoRedraw::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// `TextDirection` determines the direction in which text is displayed in the control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa442921(v=vs.60))
@@ -111,6 +121,16 @@ pub enum TextDirection {
     LeftToRight = 0,
     /// The text is ordered from right to left.
     RightToLeft = -1,
+}
+
+impl Display for TextDirection {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            TextDirection::LeftToRight => "LeftToRight",
+            TextDirection::RightToLeft => "RightToLeft",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// `AutoSize` determines if the control is automatically resized to fit its contents.
@@ -146,6 +166,16 @@ pub enum AutoSize {
     Resize = -1,
 }
 
+impl Display for AutoSize {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            AutoSize::Fixed => "Fixed",
+            AutoSize::Resize => "Resize",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if a control or form can respond to user-generated events.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267301(v=vs.60))
@@ -171,6 +201,16 @@ pub enum Activation {
     /// This is the default setting.
     #[default]
     Enabled = -1,
+}
+
+impl Display for Activation {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Activation::Disabled => "Disabled",
+            Activation::Enabled => "Enabled",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// `TabStop` determines if the control is included in the tab order.
@@ -211,6 +251,16 @@ pub enum TabStop {
     Included = -1,
 }
 
+impl Display for TabStop {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            TabStop::ProgrammaticOnly => "ProgrammaticOnly",
+            TabStop::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control is visible or hidden.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445768(v=vs.60))
@@ -226,6 +276,16 @@ pub enum Visibility {
     /// This is the default setting.
     #[default]
     Visible = -1,
+}
+
+impl Display for Visibility {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Visibility::Hidden => "Hidden",
+            Visibility::Visible => "Visible",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines if the control has a device context.
@@ -250,6 +310,16 @@ pub enum HasDeviceContext {
     Yes = -1,
 }
 
+impl Display for HasDeviceContext {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            HasDeviceContext::No => "No",
+            HasDeviceContext::Yes => "Yes",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines whether the color assigned in the `mask_color` property is used
 /// as a mask.
 /// That is, if it is used to create transparent regions.
@@ -268,6 +338,16 @@ pub enum UseMaskColor {
     /// The color assigned to the `mask_color` property is used as a mask,
     /// creating a transparent region wherever that color is.
     UseMaskColor = -1,
+}
+
+impl Display for UseMaskColor {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            UseMaskColor::DoNotUseMaskColor => "DoNotUseMaskColor",
+            UseMaskColor::UseMaskColor => "UseMaskColor",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines if the control causes validation.
@@ -308,6 +388,16 @@ pub enum CausesValidation {
     Yes = -1,
 }
 
+impl Display for CausesValidation {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            CausesValidation::No => "No",
+            CausesValidation::Yes => "Yes",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `Movability` property of a `Form` control determines whether the
 /// form can be moved by the user. If the form is not moveable, the user cannot
 /// move the form by dragging its title bar or by using the arrow keys.
@@ -337,6 +427,16 @@ pub enum Movability {
     /// This is the default setting.
     #[default]
     Moveable = -1,
+}
+
+impl Display for Movability {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Movability::Fixed => "Fixed",
+            Movability::Moveable => "Moveable",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines whether background text and graphics on a `Form` or a `PictureBox`
@@ -369,6 +469,16 @@ pub enum FontTransparency {
     Transparent = -1,
 }
 
+impl Display for FontTransparency {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FontTransparency::Opaque => "Opaque",
+            FontTransparency::Transparent => "Transparent",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines whether context-sensitive Help uses the What's This pop-up
 /// (provided by Help in 32-bit Windows operating systems) or the main Help
 /// window.
@@ -399,6 +509,16 @@ pub enum WhatsThisHelp {
     /// start Windows Help and load a topic identified by the
     /// `help_context_id` property.
     WhatsThisHelp = -1,
+}
+
+impl Display for WhatsThisHelp {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WhatsThisHelp::F1Help => "F1Help",
+            WhatsThisHelp::WhatsThisHelp => "WhatsThisHelp",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines the type of link used for a DDE conversation and activates the
@@ -440,6 +560,16 @@ pub enum FormLinkMode {
     Source = 1,
 }
 
+impl Display for FormLinkMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FormLinkMode::None => "None",
+            FormLinkMode::Source => "Source",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Controls the display state of a form from normal, minimized, or maximized.
 /// This is used with the `Form` and `MDIForm` controls.
 ///
@@ -468,6 +598,17 @@ pub enum WindowState {
     Minimized = 1,
     /// The form is maximized (enlarged to maximum size).
     Maximized = 2,
+}
+
+impl Display for WindowState {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WindowState::Normal => "Normal",
+            WindowState::Minimized => "Minimized",
+            WindowState::Maximized => "Maximized",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `StartUpPosition` property of a `Form` or `MDIForm` control determines
@@ -507,6 +648,25 @@ pub enum StartUpPosition {
     WindowsDefault,
 }
 
+impl Display for StartUpPosition {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            StartUpPosition::Manual {
+                client_height,
+                client_width,
+                client_top,
+                client_left,
+            } => write!(
+                f,
+                "Manual {{ client height: {client_height}, client width: {client_width}, client top: {client_top}, client left: {client_left} }}"
+            ),
+            StartUpPosition::CenterOwner => write!(f, "CenterOwner"),
+            StartUpPosition::CenterScreen => write!(f, "CenterScreen"),
+            StartUpPosition::WindowsDefault => write!(f, "WindowsDefault"),
+        }
+    }
+}
+
 /// Represents either a reference to an external resource within a *.frx file or an embedded value.
 ///
 /// This is used to represent properties that can either be stored directly within the VB6 form file
@@ -521,6 +681,17 @@ pub enum StartUpPosition {
 pub enum ReferenceOrValue<T> {
     Reference { filename: String, offset: u32 },
     Value(T),
+}
+
+impl<T> Display for ReferenceOrValue<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ReferenceOrValue::Reference { filename, offset } => {
+                write!(f, "Reference {{ filename: {filename}, offset: {offset} }}",)
+            }
+            ReferenceOrValue::Value(_) => write!(f, "Value"),
+        }
+    }
 }
 
 /// Represents a VB6 control.
@@ -755,6 +926,19 @@ pub enum Align {
     Right = 4,
 }
 
+impl Display for Align {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Align::None => "None",
+            Align::Top => "Top",
+            Align::Bottom => "Bottom",
+            Align::Left => "Left",
+            Align::Right => "Right",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the alignment of a `CheckBox` or `OptionButton` control.
 ///
 /// This enum is the 'Alignment' property in VB6 specifically for `CheckBox` and
@@ -773,6 +957,16 @@ pub enum JustifyAlignment {
     LeftJustify = 0,
     /// The text is right-aligned. The control is left-aligned.
     RightJustify = 1,
+}
+
+impl Display for JustifyAlignment {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            JustifyAlignment::LeftJustify => "LeftJustify",
+            JustifyAlignment::RightJustify => "RightJustify",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `Alignment` property of a `Label` and `TextBox` control determines
@@ -797,6 +991,17 @@ pub enum Alignment {
     Center = 2,
 }
 
+impl Display for Alignment {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Alignment::LeftJustify => "LeftJustify",
+            Alignment::RightJustify => "RightJustify",
+            Alignment::Center => "Center",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Indicates whether a `Label` control or the background of a `Shape` control
 /// is transparent or opaque.
 ///
@@ -815,6 +1020,16 @@ pub enum BackStyle {
     /// This is the default setting.
     #[default]
     Opaque = 1,
+}
+
+impl Display for BackStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BackStyle::Transparent => "Transparent",
+            BackStyle::Opaque => "Opaque",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// The `Appearance` determines whether or not a control is painted at run time
@@ -852,6 +1067,16 @@ pub enum Appearance {
     ThreeD = 1,
 }
 
+impl Display for Appearance {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Appearance::Flat => "Flat",
+            Appearance::ThreeD => "ThreeD",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `BorderStyle` determines the appearance of the border of a control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245047(v=vs.60))
@@ -872,6 +1097,16 @@ pub enum BorderStyle {
     FixedSingle = 1,
 }
 
+impl Display for BorderStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BorderStyle::None => "None",
+            BorderStyle::FixedSingle => "FixedSingle",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drag and drop operations.
 #[derive(
     Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
@@ -887,6 +1122,16 @@ pub enum DragMode {
     /// The control automatically initiates a drag operation when the
     /// user presses the mouse button on the control.
     Automatic = 1,
+}
+
+impl Display for DragMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DragMode::Manual => "Manual",
+            DragMode::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Specifies how the pen (the color used in drawing) interacts with the
@@ -933,6 +1178,30 @@ pub enum DrawMode {
     Whiteness = 16,
 }
 
+impl Display for DrawMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DrawMode::Blackness => "Blackness",
+            DrawMode::NotMergePen => "NotMergePen",
+            DrawMode::MaskNotPen => "MaskNotPen",
+            DrawMode::NotCopyPen => "NotCopyPen",
+            DrawMode::MaskPenNot => "MaskPenNot",
+            DrawMode::Invert => "Invert",
+            DrawMode::XorPen => "XorPen",
+            DrawMode::NotMaskPen => "NotMaskPen",
+            DrawMode::MaskPen => "MaskPen",
+            DrawMode::NotXorPen => "NotXorPen",
+            DrawMode::Nop => "Nop",
+            DrawMode::MergeNotPen => "MergeNotPen",
+            DrawMode::CopyPen => "CopyPen",
+            DrawMode::MergePenNot => "MergePenNot",
+            DrawMode::MergePen => "MergePen",
+            DrawMode::Whiteness => "Whiteness",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the line style of any drawing from any graphic method applied by the control.
 #[derive(
     Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
@@ -956,6 +1225,21 @@ pub enum DrawStyle {
     Transparent = 5,
     /// Invisible line, solid interior.
     InsideSolid = 6,
+}
+
+impl Display for DrawStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DrawStyle::Solid => "Solid",
+            DrawStyle::Dash => "Dash",
+            DrawStyle::Dot => "Dot",
+            DrawStyle::DashDot => "DashDot",
+            DrawStyle::DashDotDot => "DashDotDot",
+            DrawStyle::Transparent => "Transparent",
+            DrawStyle::InsideSolid => "InsideSolid",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines the appearance of the mouse pointer when it is over the control.
@@ -1011,6 +1295,31 @@ pub enum MousePointer {
     Custom = 99,
 }
 
+impl Display for MousePointer {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MousePointer::Default => "Default",
+            MousePointer::Arrow => "Arrow",
+            MousePointer::Cross => "Cross",
+            MousePointer::IBeam => "IBeam",
+            MousePointer::Icon => "Icon",
+            MousePointer::Size => "Size",
+            MousePointer::SizeNESW => "SizeNESW",
+            MousePointer::SizeNS => "SizeNS",
+            MousePointer::SizeNWSE => "SizeNWSE",
+            MousePointer::SizeWE => "SizeWE",
+            MousePointer::UpArrow => "UpArrow",
+            MousePointer::Hourglass => "Hourglass",
+            MousePointer::NoDrop => "NoDrop",
+            MousePointer::ArrowHourglass => "ArrowHourglass",
+            MousePointer::ArrowQuestion => "ArrowQuestion",
+            MousePointer::SizeAll => "SizeAll",
+            MousePointer::Custom => "Custom",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drag and drop operations.
 #[derive(
     Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
@@ -1026,6 +1335,16 @@ pub enum OLEDragMode {
     Automatic = 1,
 }
 
+impl Display for OLEDragMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OLEDragMode::Manual => "Manual",
+            OLEDragMode::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drop operations.
 #[derive(
     Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
@@ -1039,6 +1358,16 @@ pub enum OLEDropMode {
     None = 0,
     /// The programmer handles all OLE drop events manually.
     Manual = 1,
+}
+
+impl Display for OLEDropMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OLEDropMode::None => "None",
+            OLEDropMode::Manual => "Manual",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines if the control is clipped to the bounds of the parent control.
@@ -1057,6 +1386,16 @@ pub enum ClipControls {
     Clipped = 1,
 }
 
+impl Display for ClipControls {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ClipControls::Unbounded => "Unbounded",
+            ClipControls::Clipped => "Clipped",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
 #[derive(
@@ -1071,6 +1410,15 @@ pub enum Style {
     Standard = 0,
     /// The control uses graphical styling using its appropriate picture properties.
     Graphical = 1,
+}
+impl Display for Style {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Style::Standard => "Standard",
+            Style::Graphical => "Graphical",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines the fill style of the control for drawing purposes.
@@ -1101,6 +1449,22 @@ pub enum FillStyle {
     /// The background is filled with a diagonal cross-hatch pattern.
     /// This is the same as `Cross` but rotated 45 degrees.
     DiagonalCross = 7,
+}
+
+impl Display for FillStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FillStyle::Solid => "Solid",
+            FillStyle::Transparent => "Transparent",
+            FillStyle::HorizontalLine => "HorizontalLine",
+            FillStyle::VerticalLine => "VerticalLine",
+            FillStyle::UpwardDiagonal => "UpwardDiagonal",
+            FillStyle::DownwardDiagonal => "DownwardDiagonal",
+            FillStyle::Cross => "Cross",
+            FillStyle::DiagonalCross => "DiagonalCross",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines the link mode of a control for DDE conversations.
@@ -1140,6 +1504,18 @@ pub enum LinkMode {
     Notify = 3,
 }
 
+impl Display for LinkMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            LinkMode::None => "None",
+            LinkMode::Automatic => "Automatic",
+            LinkMode::Manual => "Manual",
+            LinkMode::Notify => "Notify",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the multi-select behavior of a `ListBox` control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235198(v=vs.60))
@@ -1157,6 +1533,17 @@ pub enum MultiSelect {
     /// The user can select multiple items in the list box by holding down the
     /// `CTRL` key while clicking items.
     Extended = 2,
+}
+
+impl Display for MultiSelect {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MultiSelect::None => "None",
+            MultiSelect::Simple => "Simple",
+            MultiSelect::Extended => "Extended",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines the scale mode of the control for sizing and positioning.
@@ -1193,6 +1580,25 @@ pub enum ScaleMode {
     ContainerSize = 10,
 }
 
+impl Display for ScaleMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ScaleMode::User => "User",
+            ScaleMode::Twip => "Twip",
+            ScaleMode::Point => "Point",
+            ScaleMode::Pixel => "Pixel",
+            ScaleMode::Character => "Character",
+            ScaleMode::Inches => "Inches",
+            ScaleMode::Millimeter => "Millimeter",
+            ScaleMode::Centimeter => "Centimeter",
+            ScaleMode::HiMetric => "HiMetric",
+            ScaleMode::ContainerPosition => "ContainerPosition",
+            ScaleMode::ContainerSize => "ContainerSize",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines how the control sizes the picture within its bounds.
 /// This is used with the `Image` and `PictureBox` controls.
 ///
@@ -1216,4 +1622,16 @@ pub enum SizeMode {
     AutoSize = 2,
     /// The picture is stretched or shrunk to fit the control's bounds while maintaining its aspect ratio.
     Zoom = 3,
+}
+
+impl Display for SizeMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            SizeMode::Clip => "Clip",
+            SizeMode::Stretch => "Stretch",
+            SizeMode::AutoSize => "AutoSize",
+            SizeMode::Zoom => "Zoom",
+        };
+        write!(f, "{text}")
+    }
 }

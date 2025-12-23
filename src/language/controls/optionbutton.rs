@@ -6,6 +6,8 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::fmt::{Display, Formatter};
+
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
     OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
@@ -31,6 +33,16 @@ pub enum OptionButtonValue {
     UnSelected = 0,
     /// The option button is selected.
     Selected = 1,
+}
+
+impl Display for OptionButtonValue {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OptionButtonValue::UnSelected => "UnSelected",
+            OptionButtonValue::Selected => "Selected",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Properties for a `OptionButton` control.
