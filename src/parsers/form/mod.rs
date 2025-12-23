@@ -2,7 +2,7 @@
 //! Handles extraction of version, objects, attributes, and controls from the CST.
 //!
 use std::collections::HashMap;
-use std::fmt::Debug;
+use std::fmt::{Debug, Display};
 use std::vec::Vec;
 
 use either::Either;
@@ -43,6 +43,17 @@ pub struct FormFile {
     /// Note: This CST excludes nodes that are already extracted into other fields
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
+}
+
+impl Display for FormFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "FormFile {{ form name: {:?}, objects count: {:?} }}",
+            self.form.name,
+            self.objects.len()
+        )
+    }
 }
 
 /// Extract the VB6 file format version from a CST.
