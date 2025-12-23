@@ -7,6 +7,7 @@
 //!
 
 use core::convert::From;
+use std::fmt::Display;
 use std::iter::IntoIterator;
 
 use crate::errors::ErrorDetails;
@@ -52,6 +53,26 @@ where
     pub result: Option<T>,
     /// A list of failures encountered during parsing.
     pub failures: Vec<ErrorDetails<'a, E>>,
+}
+
+impl<T, E> Display for ParseResult<'_, T, E>
+where
+    E: ToString + std::fmt::Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self.result {
+            Some(_) => write!(
+                f,
+                "ParseResult: Has result, Failures = {}",
+                self.failures.len()
+            ),
+            None => write!(
+                f,
+                "ParseResult: No Result, Failures = {}",
+                self.failures.len()
+            ),
+        }
+    }
 }
 
 impl<'a, T, E> ParseResult<'a, T, E>
