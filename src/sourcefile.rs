@@ -29,6 +29,7 @@
 //! - [`ErrorDetails`]: for error handling details
 
 use std::borrow::Cow;
+use std::fmt::Display;
 use std::fs;
 use std::path::Path;
 
@@ -46,6 +47,17 @@ pub struct SourceFile {
     file_content: String,
     /// The name of the source file.
     pub file_name: String,
+}
+
+impl Display for SourceFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "SourceFile {{ file name: '{}', content len: {} }}",
+            self.file_name,
+            self.file_content.len()
+        )
+    }
 }
 
 impl SourceFile {
