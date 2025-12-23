@@ -40,6 +40,8 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
+use std::fmt::{Display, Formatter};
+
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
@@ -534,6 +536,12 @@ pub struct Control {
     pub kind: ControlKind,
 }
 
+impl Display for Control {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Control: {} ({})", self.name, self.kind)
+    }
+}
+
 /// The `ControlKind` determines the specific kind of control that the `Control` represents.
 ///
 /// Each variant contains the properties that are specific to that kind of control.
@@ -673,6 +681,37 @@ pub enum ControlKind {
         /// The property groups of the custom control.
         property_groups: Vec<PropertyGroup>,
     },
+}
+
+impl Display for ControlKind {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ControlKind::CommandButton { .. } => write!(f, "CommandButton"),
+            ControlKind::Data { .. } => write!(f, "Data"),
+            ControlKind::TextBox { .. } => write!(f, "TextBox"),
+            ControlKind::CheckBox { .. } => write!(f, "CheckBox"),
+            ControlKind::Line { .. } => write!(f, "Line"),
+            ControlKind::Shape { .. } => write!(f, "Shape"),
+            ControlKind::ListBox { .. } => write!(f, "ListBox"),
+            ControlKind::Timer { .. } => write!(f, "Timer"),
+            ControlKind::Label { .. } => write!(f, "Label"),
+            ControlKind::Frame { .. } => write!(f, "Frame"),
+            ControlKind::PictureBox { .. } => write!(f, "PictureBox"),
+            ControlKind::FileListBox { .. } => write!(f, "FileListBox"),
+            ControlKind::DriveListBox { .. } => write!(f, "DriveListBox"),
+            ControlKind::DirListBox { .. } => write!(f, "DirListBox"),
+            ControlKind::Ole { .. } => write!(f, "OLE"),
+            ControlKind::OptionButton { .. } => write!(f, "OptionButton"),
+            ControlKind::Image { .. } => write!(f, "Image"),
+            ControlKind::ComboBox { .. } => write!(f, "ComboBox"),
+            ControlKind::HScrollBar { .. } => write!(f, "HScrollBar"),
+            ControlKind::VScrollBar { .. } => write!(f, "VScrollBar"),
+            ControlKind::Menu { .. } => write!(f, "Menu"),
+            ControlKind::Form { .. } => write!(f, "Form"),
+            ControlKind::MDIForm { .. } => write!(f, "MDIForm"),
+            ControlKind::Custom { .. } => write!(f, "Custom"),
+        }
+    }
 }
 
 /// Helper methods for `ControlKind`.
