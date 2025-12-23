@@ -8,6 +8,8 @@
 
 pub mod properties;
 
+use std::fmt::Display;
+
 use crate::{
     errors::ClassErrorKind,
     parsers::{
@@ -38,6 +40,12 @@ pub struct ClassFile {
     /// This excludes nodes that are already represented in the header.
     #[serde(serialize_with = "serialize_cst")]
     pub cst: ConcreteSyntaxTree,
+}
+
+impl Display for ClassFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "VB6 Class File: {}", self.header.attributes.name)
+    }
 }
 
 impl ClassFile {
