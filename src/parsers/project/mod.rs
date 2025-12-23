@@ -101,6 +101,26 @@ pub enum ProjectReference<'a> {
     },
 }
 
+impl Display for ProjectReference<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ProjectReference::Compiled {
+                uuid,
+                unknown1,
+                unknown2,
+                path,
+                description,
+            } => write!(
+                f,
+                "Compiled Reference: UUID={uuid}, Unknown1='{unknown1}', Unknown2='{unknown2}', Path='{path}', Description='{description}'"
+            ),
+            ProjectReference::SubProject { path } => {
+                write!(f, "Sub-Project Reference: Path='{path}'")
+            }
+        }
+    }
+}
+
 impl Serialize for ProjectReference<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -144,6 +164,16 @@ pub struct ProjectModuleReference<'a> {
     pub name: &'a str,
     /// The path to the module file.
     pub path: &'a str,
+}
+
+impl Display for ProjectModuleReference<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "Module Reference: Name='{}', Path='{}'",
+            self.name, self.path
+        )
+    }
 }
 
 /// Represents a reference to a class in a VB6 project.
