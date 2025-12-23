@@ -106,6 +106,74 @@ where
         self.result.is_some()
     }
 
+    /// Returns an iterator over the failures in the parse result.
+    ///
+    /// # Returns
+    ///
+    /// * An iterator over references to `ErrorDetails` instances representing the failures.
+    ///
+    /// # Examples
+    /// ```rust
+    /// use std::borrow::Cow;
+    ///
+    /// use vb6parse::parsers::parseresults::ParseResult;
+    /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
+    ///
+    /// let failure = ErrorDetails {
+    ///     source_name: "test.bas".to_string(),
+    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     error_offset: 5,
+    ///     line_start: 0,
+    ///     line_end: 10,
+    ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
+    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
+    ///     result: None,
+    ///     failures: vec![failure],
+    /// };
+    /// for error in parse_result.failures() {
+    ///     error.print();
+    /// }
+    /// ```
+    #[inline]
+    pub fn failures(&self) -> impl Iterator<Item = &ErrorDetails<'a, E>> {
+        self.failures.iter()
+    }
+
+    /// Consumes the parse result and returns an iterator over the failures.
+    ///
+    /// # Returns
+    ///
+    /// * An iterator over `ErrorDetails` instances representing the failures.
+    ///
+    /// # Examples
+    /// ```rust
+    /// use std::borrow::Cow;
+    ///
+    /// use vb6parse::parsers::parseresults::ParseResult;
+    /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
+    ///
+    /// let failure = ErrorDetails {
+    ///     source_name: "test.bas".to_string(),
+    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     error_offset: 5,
+    ///     line_start: 0,
+    ///     line_end: 10,
+    ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
+    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
+    ///     result: None,
+    ///     failures: vec![failure],
+    /// };
+    /// for error in parse_result.into_failures() {
+    ///     error.print();
+    /// }
+    /// ```
+    #[inline]
+    pub fn into_failures(self) -> impl Iterator<Item = ErrorDetails<'a, E>> {
+        self.failures.into_iter()
+    }
+
     /// Checks if the parse result contains any failures.
     ///
     /// # Returns
