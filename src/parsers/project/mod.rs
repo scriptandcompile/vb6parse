@@ -185,6 +185,16 @@ pub struct ProjectClassReference<'a> {
     pub path: &'a str,
 }
 
+impl Display for ProjectClassReference<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "Class Reference: Name='{}', Path='{}'",
+            self.name, self.path
+        )
+    }
+}
+
 /// The result type for parsing a VB6 project file.
 ///
 /// Contains the parsed `ProjectFile` and any `ProjectErrorKind` errors encountered during parsing.
@@ -226,6 +236,116 @@ impl<'a> ProjectFile<'a> {
                 ..Default::default()
             },
         }
+    }
+
+    /// Returns an iterator over the project references.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to `ProjectReference` items.
+    ///
+    pub fn references(&self) -> impl Iterator<Item = &ProjectReference<'a>> {
+        self.references.iter()
+    }
+
+    /// Returns an iterator over the project modules.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to `ProjectModuleReference` items.
+    ///
+    pub fn modules(&self) -> impl Iterator<Item = &ProjectModuleReference<'a>> {
+        self.modules.iter()
+    }
+
+    /// Returns an iterator over the project classes.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to `ProjectClassReference` items.
+    ///
+    pub fn classes(&self) -> impl Iterator<Item = &ProjectClassReference<'a>> {
+        self.classes.iter()
+    }
+
+    /// Returns an iterator over the project object references.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to `ObjectReference` items.
+    ///
+    pub fn objects(&self) -> impl Iterator<Item = &ObjectReference> {
+        self.objects.iter()
+    }
+
+    /// Returns an iterator over the project forms.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to form file names.
+    ///
+    pub fn forms(&self) -> impl Iterator<Item = &&'a str> {
+        self.forms.iter()
+    }
+
+    /// Returns an iterator over the project user controls.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to user control file names.
+    ///
+    pub fn user_controls(&self) -> impl Iterator<Item = &&'a str> {
+        self.user_controls.iter()
+    }
+
+    /// Returns an iterator over the project user documents.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to user document file names.
+    ///
+    pub fn user_documents(&self) -> impl Iterator<Item = &&'a str> {
+        self.user_documents.iter()
+    }
+
+    /// Returns an iterator over the project designers.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to designer file names.
+    ///
+    pub fn designers(&self) -> impl Iterator<Item = &&'a str> {
+        self.designers.iter()
+    }
+
+    /// Returns an iterator over the project related documents.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to related document file names.
+    ///
+    pub fn related_documents(&self) -> impl Iterator<Item = &&'a str> {
+        self.related_documents.iter()
+    }
+
+    /// Returns an iterator over the project property pages.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over references to property page file names.
+    ///
+    pub fn property_pages(&self) -> impl Iterator<Item = &&'a str> {
+        self.property_pages.iter()
+    }
+
+    /// Returns a reference to the other properties map.
+    ///
+    /// # Returns
+    ///
+    /// A reference to the `other_properties` map.
+    ///
+    pub fn other_properties(&self) -> &HashMap<&'a str, HashMap<&'a str, &'a str>> {
+        &self.other_properties
     }
 
     /// Parses a VB6 project file using a dispatch-based property handler system.
