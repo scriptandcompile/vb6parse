@@ -74,7 +74,7 @@ AutoRefresh=1
     println!("Project Name: {}", project.properties.name);
     println!("Project Type: {:?}", project.project_type);
     println!("Files in Project:");
-    for reference in project.references {
+    for reference in project.references() {
         match reference {
             ProjectReference::Compiled {
                 uuid,
@@ -90,7 +90,7 @@ AutoRefresh=1
             }
         }
     }
-    for object in project.objects {
+    for object in project.objects() {
         match object {
             ObjectReference::Compiled {
                 uuid,
@@ -105,22 +105,22 @@ AutoRefresh=1
             }
         }
     }
-    for module in project.modules {
+    for module in project.modules() {
         println!("Module: {} (Path: {})", module.name, module.path);
     }
-    for class in project.classes {
+    for class in project.classes() {
         println!("Class: {} (Path: {})", class.name, class.path);
     }
-    for related_document_path in project.related_documents {
+    for related_document_path in project.related_documents() {
         println!("Related Document - Path: {related_document_path}");
     }
-    for user_document_path in project.user_documents {
+    for user_document_path in project.user_documents() {
         println!("User Document - Path: {user_document_path}");
     }
-    for form_path in project.forms {
+    for form_path in project.forms() {
         println!("Form - Path: {form_path}");
     }
-    for user_control_path in project.user_controls {
+    for user_control_path in project.user_controls() {
         println!("User Control - Path: {user_control_path}");
     }
     for property_group in &project.other_properties {
