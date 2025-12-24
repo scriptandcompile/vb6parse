@@ -19,7 +19,7 @@ fn main() {
     if let Some(token_stream) = token_stream_opt {
         println!("Source file: {}", token_stream.source_file);
         println!("Total tokens: {}", token_stream.len());
-        println!("Current offset: {}", token_stream.offset);
+        println!("Current offset: {}", token_stream.offset());
         println!();
 
         // Iterate through tokens
@@ -39,11 +39,11 @@ fn main() {
             }
         }
 
-        println!("Current offset after reading 3 tokens: {}", stream.offset);
+        println!("Current offset after reading 3 tokens: {}", stream.offset());
 
         // Reset and use indexing
         stream.reset();
-        println!("\nAfter reset, offset: {}", stream.offset);
+        println!("\nAfter reset, offset: {}", stream.offset());
         println!("First token by index: {:?}", stream[0]);
         println!(
             "Current token by current(): {:?}",
