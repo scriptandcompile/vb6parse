@@ -6,7 +6,9 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::{Display, Formatter};
+use std::str::FromStr;
 
 use crate::language::color::Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
@@ -38,6 +40,32 @@ pub enum Shape {
     RoundedRectangle = 4,
     /// A rounded square.
     RoundSquare = 5,
+}
+
+impl TryFrom<&str> for Shape {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Shape::Rectangle),
+            "1" => Ok(Shape::Square),
+            "2" => Ok(Shape::Oval),
+            "3" => Ok(Shape::Circle),
+            "4" => Ok(Shape::RoundedRectangle),
+            "5" => Ok(Shape::RoundSquare),
+            _ => Err(crate::errors::FormErrorKind::InvalidShape(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for Shape {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Shape::try_from(s)
+    }
 }
 
 impl Display for Shape {

@@ -6,7 +6,9 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::{
     language::{
@@ -101,6 +103,29 @@ pub enum PaletteMode {
     Custom = 2,
 }
 
+impl TryFrom<&str> for PaletteMode {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(PaletteMode::HalfTone),
+            "1" => Ok(PaletteMode::UseZOrder),
+            "2" => Ok(PaletteMode::Custom),
+            _ => Err(crate::errors::FormErrorKind::InvalidPaletteMode(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for PaletteMode {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        PaletteMode::try_from(s)
+    }
+}
+
 impl Display for PaletteMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -145,6 +170,32 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
+impl TryFrom<&str> for FormBorderStyle {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FormBorderStyle::None),
+            "1" => Ok(FormBorderStyle::FixedSingle),
+            "2" => Ok(FormBorderStyle::Sizable),
+            "3" => Ok(FormBorderStyle::FixedDialog),
+            "4" => Ok(FormBorderStyle::FixedToolWindow),
+            "5" => Ok(FormBorderStyle::SizableToolWindow),
+            _ => Err(crate::errors::FormErrorKind::InvalidFormBorderStyle(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for FormBorderStyle {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FormBorderStyle::try_from(s)
+    }
+}
+
 impl Display for FormBorderStyle {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -183,6 +234,40 @@ pub enum ControlBox {
     Included = -1,
 }
 
+impl TryFrom<&str> for ControlBox {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ControlBox::Excluded),
+            "-1" => Ok(ControlBox::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidControlBox(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for ControlBox {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ControlBox::Included)
+        } else {
+            Ok(ControlBox::Excluded)
+        }
+    }
+}
+
+impl FromStr for ControlBox {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ControlBox::try_from(s)
+    }
+}
+
 impl Display for ControlBox {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -215,6 +300,40 @@ pub enum MaxButton {
     /// The maximize button is displayed.
     #[default]
     Included = -1,
+}
+
+impl TryFrom<&str> for MaxButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MaxButton::Excluded),
+            "-1" => Ok(MaxButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMaxButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for MaxButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(MaxButton::Included)
+        } else {
+            Ok(MaxButton::Excluded)
+        }
+    }
+}
+
+impl FromStr for MaxButton {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MaxButton::try_from(s)
+    }
 }
 
 impl Display for MaxButton {
@@ -251,6 +370,46 @@ pub enum MinButton {
     Included = -1,
 }
 
+impl FromStr for MinButton {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(MinButton::Excluded),
+            "-1" => Ok(MinButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
+                s.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for MinButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(MinButton::Included)
+        } else {
+            Ok(MinButton::Excluded)
+        }
+    }
+}
+
+impl TryFrom<&str> for MinButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MinButton::Excluded),
+            "-1" => Ok(MinButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
 impl Display for MinButton {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -285,6 +444,32 @@ pub enum WhatsThisButton {
     Included = -1,
 }
 
+impl TryFrom<&str> for WhatsThisButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WhatsThisButton::Excluded),
+            "-1" => Ok(WhatsThisButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidWhatsThisButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for WhatsThisButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(WhatsThisButton::Included)
+        } else {
+            Ok(WhatsThisButton::Excluded)
+        }
+    }
+}
+
 impl Display for WhatsThisButton {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -317,6 +502,40 @@ pub enum ShowInTaskbar {
     /// The form is shown in the taskbar.
     #[default]
     Show = -1,
+}
+
+impl TryFrom<&str> for ShowInTaskbar {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ShowInTaskbar::Hide),
+            "-1" => Ok(ShowInTaskbar::Show),
+            _ => Err(crate::errors::FormErrorKind::InvalidShowInTaskbar(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for ShowInTaskbar {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ShowInTaskbar::try_from(s)
+    }
+}
+
+impl TryFrom<bool> for ShowInTaskbar {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ShowInTaskbar::Show)
+        } else {
+            Ok(ShowInTaskbar::Hide)
+        }
+    }
 }
 
 impl Display for ShowInTaskbar {
@@ -543,7 +762,7 @@ impl Default for FormProperties {
             fill_style: FillStyle::Transparent,
             font_transparent: FontTransparency::Transparent,
             fore_color: VB_BUTTON_TEXT,
-            has_dc: HasDeviceContext::Yes,
+            has_dc: HasDeviceContext::HasContext,
             height: 240,
             help_context_id: 0,
             icon: None,

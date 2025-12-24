@@ -6,9 +6,12 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::{
+    errors::FormErrorKind,
     language::controls::{
         Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
         MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
@@ -44,6 +47,38 @@ pub enum WordWrap {
     NonWrapping = 0,
     /// The `Label` control will wrap text.
     Wrapping = -1,
+}
+
+impl FromStr for WordWrap {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        WordWrap::try_from(s)
+    }
+}
+
+impl TryFrom<&str> for WordWrap {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" | "NonWrapping" => Ok(WordWrap::NonWrapping),
+            "-1" | "Wrapping" => Ok(WordWrap::Wrapping),
+            _ => Err(FormErrorKind::InvalidWordWrap(value.to_string())),
+        }
+    }
+}
+
+impl TryFrom<bool> for WordWrap {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(WordWrap::Wrapping)
+        } else {
+            Ok(WordWrap::NonWrapping)
+        }
+    }
 }
 
 impl Display for WordWrap {

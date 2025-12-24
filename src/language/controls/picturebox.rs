@@ -153,7 +153,7 @@ impl Default for PictureBoxProperties {
             fill_style: FillStyle::Transparent,
             font_transparent: FontTransparency::Transparent,
             fore_color: VB_BUTTON_TEXT,
-            has_dc: HasDeviceContext::Yes,
+            has_dc: HasDeviceContext::HasContext,
             height: 30,
             help_context_id: 0,
             left: 30,

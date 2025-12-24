@@ -40,11 +40,14 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
+use std::convert::{From, TryFrom};
 use std::fmt::{Display, Formatter};
+use std::str::FromStr;
 
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
+use crate::errors::FormErrorKind;
 use crate::PropertyGroup;
 
 use crate::language::controls::{
@@ -96,6 +99,36 @@ pub enum AutoRedraw {
     Automatic = -1,
 }
 
+impl TryFrom<&str> for AutoRedraw {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(AutoRedraw::Manual),
+            "-1" => Ok(AutoRedraw::Automatic),
+            _ => Err(FormErrorKind::InvalidAutoRedraw(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for AutoRedraw {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        AutoRedraw::try_from(s)
+    }
+}
+
+impl From<bool> for AutoRedraw {
+    fn from(value: bool) -> Self {
+        if value {
+            AutoRedraw::Automatic
+        } else {
+            AutoRedraw::Manual
+        }
+    }
+}
+
 impl Display for AutoRedraw {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -123,11 +156,41 @@ pub enum TextDirection {
     RightToLeft = -1,
 }
 
+impl TryFrom<&str> for TextDirection {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(TextDirection::LeftToRight),
+            "-1" => Ok(TextDirection::RightToLeft),
+            _ => Err(FormErrorKind::InvalidTextDirection(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for TextDirection {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, FormErrorKind> {
+        TextDirection::try_from(s)
+    }
+}
+
+impl From<bool> for TextDirection {
+    fn from(value: bool) -> Self {
+        if value {
+            TextDirection::RightToLeft
+        } else {
+            TextDirection::LeftToRight
+        }
+    }
+}
+
 impl Display for TextDirection {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            TextDirection::LeftToRight => "LeftToRight",
-            TextDirection::RightToLeft => "RightToLeft",
+            TextDirection::LeftToRight => "Left to Right",
+            TextDirection::RightToLeft => "Right to Left",
         };
         write!(f, "{text}")
     }
@@ -166,6 +229,36 @@ pub enum AutoSize {
     Resize = -1,
 }
 
+impl TryFrom<&str> for AutoSize {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, FormErrorKind> {
+        match value {
+            "0" => Ok(AutoSize::Fixed),
+            "-1" => Ok(AutoSize::Resize),
+            _ => Err(FormErrorKind::InvalidAutoSize(value.to_string())),
+        }
+    }
+}
+
+impl From<bool> for AutoSize {
+    fn from(value: bool) -> Self {
+        if value {
+            AutoSize::Resize
+        } else {
+            AutoSize::Fixed
+        }
+    }
+}
+
+impl FromStr for AutoSize {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, FormErrorKind> {
+        AutoSize::try_from(s)
+    }
+}
+
 impl Display for AutoSize {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -201,6 +294,28 @@ pub enum Activation {
     /// This is the default setting.
     #[default]
     Enabled = -1,
+}
+
+impl From<bool> for Activation {
+    fn from(value: bool) -> Self {
+        if value {
+            Activation::Enabled
+        } else {
+            Activation::Disabled
+        }
+    }
+}
+
+impl TryFrom<&str> for Activation {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Activation::Disabled),
+            "-1" => Ok(Activation::Enabled),
+            _ => Err(FormErrorKind::InvalidActivation(value.to_string())),
+        }
+    }
 }
 
 impl Display for Activation {
@@ -251,10 +366,32 @@ pub enum TabStop {
     Included = -1,
 }
 
+impl From<bool> for TabStop {
+    fn from(value: bool) -> Self {
+        if value {
+            TabStop::Included
+        } else {
+            TabStop::ProgrammaticOnly
+        }
+    }
+}
+
+impl TryFrom<&str> for TabStop {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(TabStop::ProgrammaticOnly),
+            "-1" => Ok(TabStop::Included),
+            _ => Err(FormErrorKind::InvalidTabStop(value.to_string())),
+        }
+    }
+}
+
 impl Display for TabStop {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            TabStop::ProgrammaticOnly => "ProgrammaticOnly",
+            TabStop::ProgrammaticOnly => "Programmatic Only",
             TabStop::Included => "Included",
         };
         write!(f, "{text}")
@@ -276,6 +413,36 @@ pub enum Visibility {
     /// This is the default setting.
     #[default]
     Visible = -1,
+}
+
+impl TryFrom<&str> for Visibility {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Visibility::Hidden),
+            "-1" => Ok(Visibility::Visible),
+            _ => Err(FormErrorKind::InvalidVisibility(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Visibility {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Visibility::try_from(s)
+    }
+}
+
+impl From<bool> for Visibility {
+    fn from(value: bool) -> Self {
+        if value {
+            Visibility::Visible
+        } else {
+            Visibility::Hidden
+        }
+    }
 }
 
 impl Display for Visibility {
@@ -302,19 +469,49 @@ impl Display for Visibility {
 #[repr(i32)]
 pub enum HasDeviceContext {
     /// The control does not have a device context.
-    No = 0,
+    NoContext = 0,
     /// The control has a device context.
     ///
     /// This is the default setting.
     #[default]
-    Yes = -1,
+    HasContext = -1,
+}
+
+impl TryFrom<&str> for HasDeviceContext {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(HasDeviceContext::NoContext),
+            "-1" => Ok(HasDeviceContext::HasContext),
+            _ => Err(FormErrorKind::InvalidHasDeviceContext(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for HasDeviceContext {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        HasDeviceContext::try_from(s)
+    }
+}
+
+impl From<bool> for HasDeviceContext {
+    fn from(value: bool) -> Self {
+        if value {
+            HasDeviceContext::HasContext
+        } else {
+            HasDeviceContext::NoContext
+        }
+    }
 }
 
 impl Display for HasDeviceContext {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            HasDeviceContext::No => "No",
-            HasDeviceContext::Yes => "Yes",
+            HasDeviceContext::NoContext => "No Context",
+            HasDeviceContext::HasContext => "Has Context",
         };
         write!(f, "{text}")
     }
@@ -343,8 +540,8 @@ pub enum UseMaskColor {
 impl Display for UseMaskColor {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            UseMaskColor::DoNotUseMaskColor => "DoNotUseMaskColor",
-            UseMaskColor::UseMaskColor => "UseMaskColor",
+            UseMaskColor::DoNotUseMaskColor => "Do not use Mask Color",
+            UseMaskColor::UseMaskColor => "Use Mask Color",
         };
         write!(f, "{text}")
     }
@@ -388,6 +585,36 @@ pub enum CausesValidation {
     Yes = -1,
 }
 
+impl TryFrom<&str> for CausesValidation {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(CausesValidation::No),
+            "-1" => Ok(CausesValidation::Yes),
+            _ => Err(FormErrorKind::InvalidCausesValidation(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for CausesValidation {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        CausesValidation::try_from(s)
+    }
+}
+
+impl From<bool> for CausesValidation {
+    fn from(value: bool) -> Self {
+        if value {
+            CausesValidation::Yes
+        } else {
+            CausesValidation::No
+        }
+    }
+}
+
 impl Display for CausesValidation {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -427,6 +654,36 @@ pub enum Movability {
     /// This is the default setting.
     #[default]
     Moveable = -1,
+}
+
+impl TryFrom<&str> for Movability {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Movability::Fixed),
+            "-1" => Ok(Movability::Moveable),
+            _ => Err(FormErrorKind::InvalidMovability(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Movability {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Movability::try_from(s)
+    }
+}
+
+impl From<bool> for Movability {
+    fn from(value: bool) -> Self {
+        if value {
+            Movability::Moveable
+        } else {
+            Movability::Fixed
+        }
+    }
 }
 
 impl Display for Movability {
@@ -469,6 +726,36 @@ pub enum FontTransparency {
     Transparent = -1,
 }
 
+impl TryFrom<&str> for FontTransparency {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FontTransparency::Opaque),
+            "-1" => Ok(FontTransparency::Transparent),
+            _ => Err(FormErrorKind::InvalidFontTransparency(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FontTransparency {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FontTransparency::try_from(s)
+    }
+}
+
+impl From<bool> for FontTransparency {
+    fn from(value: bool) -> Self {
+        if value {
+            FontTransparency::Transparent
+        } else {
+            FontTransparency::Opaque
+        }
+    }
+}
+
 impl Display for FontTransparency {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -509,6 +796,36 @@ pub enum WhatsThisHelp {
     /// start Windows Help and load a topic identified by the
     /// `help_context_id` property.
     WhatsThisHelp = -1,
+}
+
+impl TryFrom<&str> for WhatsThisHelp {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WhatsThisHelp::F1Help),
+            "-1" => Ok(WhatsThisHelp::WhatsThisHelp),
+            _ => Err(FormErrorKind::InvalidWhatsThisHelp(value.to_string())),
+        }
+    }
+}
+
+impl From<bool> for WhatsThisHelp {
+    fn from(value: bool) -> Self {
+        if value {
+            WhatsThisHelp::WhatsThisHelp
+        } else {
+            WhatsThisHelp::F1Help
+        }
+    }
+}
+
+impl FromStr for WhatsThisHelp {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        WhatsThisHelp::try_from(s)
+    }
 }
 
 impl Display for WhatsThisHelp {
@@ -560,6 +877,36 @@ pub enum FormLinkMode {
     Source = 1,
 }
 
+impl TryFrom<&str> for FormLinkMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FormLinkMode::None),
+            "1" => Ok(FormLinkMode::Source),
+            _ => Err(FormErrorKind::InvalidFormLinkMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FormLinkMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FormLinkMode::try_from(s)
+    }
+}
+
+impl From<bool> for FormLinkMode {
+    fn from(value: bool) -> Self {
+        if value {
+            FormLinkMode::Source
+        } else {
+            FormLinkMode::None
+        }
+    }
+}
+
 impl Display for FormLinkMode {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -598,6 +945,27 @@ pub enum WindowState {
     Minimized = 1,
     /// The form is maximized (enlarged to maximum size).
     Maximized = 2,
+}
+
+impl TryFrom<&str> for WindowState {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WindowState::Normal),
+            "1" => Ok(WindowState::Minimized),
+            "2" => Ok(WindowState::Maximized),
+            _ => Err(FormErrorKind::InvalidWindowState(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for WindowState {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        WindowState::try_from(s)
+    }
 }
 
 impl Display for WindowState {
@@ -926,6 +1294,29 @@ pub enum Align {
     Right = 4,
 }
 
+impl TryFrom<&str> for Align {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Align::None),
+            "1" => Ok(Align::Top),
+            "2" => Ok(Align::Bottom),
+            "3" => Ok(Align::Left),
+            "4" => Ok(Align::Right),
+            _ => Err(FormErrorKind::InvalidAlign(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Align {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Align::try_from(s)
+    }
+}
+
 impl Display for Align {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -959,11 +1350,31 @@ pub enum JustifyAlignment {
     RightJustify = 1,
 }
 
+impl TryFrom<&str> for JustifyAlignment {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(JustifyAlignment::LeftJustify),
+            "1" => Ok(JustifyAlignment::RightJustify),
+            _ => Err(FormErrorKind::InvalidJustifyAlignment(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for JustifyAlignment {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        JustifyAlignment::try_from(s)
+    }
+}
+
 impl Display for JustifyAlignment {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
-            JustifyAlignment::LeftJustify => "LeftJustify",
-            JustifyAlignment::RightJustify => "RightJustify",
+            JustifyAlignment::LeftJustify => "Left Justify",
+            JustifyAlignment::RightJustify => "Right Justify",
         };
         write!(f, "{text}")
     }
@@ -989,6 +1400,27 @@ pub enum Alignment {
     RightJustify = 1,
     /// The text is centered within the control.
     Center = 2,
+}
+
+impl TryFrom<&str> for Alignment {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Alignment::LeftJustify),
+            "1" => Ok(Alignment::RightJustify),
+            "2" => Ok(Alignment::Center),
+            _ => Err(FormErrorKind::InvalidAlignment(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Alignment {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Alignment::try_from(s)
+    }
 }
 
 impl Display for Alignment {
@@ -1020,6 +1452,26 @@ pub enum BackStyle {
     /// This is the default setting.
     #[default]
     Opaque = 1,
+}
+
+impl TryFrom<&str> for BackStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(BackStyle::Transparent),
+            "1" => Ok(BackStyle::Opaque),
+            _ => Err(FormErrorKind::InvalidBackStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for BackStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        BackStyle::try_from(s)
+    }
 }
 
 impl Display for BackStyle {
@@ -1067,6 +1519,26 @@ pub enum Appearance {
     ThreeD = 1,
 }
 
+impl TryFrom<&str> for Appearance {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Appearance::Flat),
+            "1" => Ok(Appearance::ThreeD),
+            _ => Err(FormErrorKind::InvalidAppearance(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Appearance {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Appearance::try_from(s)
+    }
+}
+
 impl Display for Appearance {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1097,6 +1569,26 @@ pub enum BorderStyle {
     FixedSingle = 1,
 }
 
+impl TryFrom<&str> for BorderStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(BorderStyle::None),
+            "1" => Ok(BorderStyle::FixedSingle),
+            _ => Err(FormErrorKind::InvalidBorderStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for BorderStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        BorderStyle::try_from(s)
+    }
+}
+
 impl Display for BorderStyle {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1122,6 +1614,26 @@ pub enum DragMode {
     /// The control automatically initiates a drag operation when the
     /// user presses the mouse button on the control.
     Automatic = 1,
+}
+
+impl TryFrom<&str> for DragMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(DragMode::Manual),
+            "1" => Ok(DragMode::Automatic),
+            _ => Err(FormErrorKind::InvalidDragMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DragMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DragMode::try_from(s)
+    }
 }
 
 impl Display for DragMode {
@@ -1178,24 +1690,58 @@ pub enum DrawMode {
     Whiteness = 16,
 }
 
+impl TryFrom<&str> for DrawMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "1" => Ok(DrawMode::Blackness),
+            "2" => Ok(DrawMode::NotMergePen),
+            "3" => Ok(DrawMode::MaskNotPen),
+            "4" => Ok(DrawMode::NotCopyPen),
+            "5" => Ok(DrawMode::MaskPenNot),
+            "6" => Ok(DrawMode::Invert),
+            "7" => Ok(DrawMode::XorPen),
+            "8" => Ok(DrawMode::NotMaskPen),
+            "9" => Ok(DrawMode::MaskPen),
+            "10" => Ok(DrawMode::NotXorPen),
+            "11" => Ok(DrawMode::Nop),
+            "12" => Ok(DrawMode::MergeNotPen),
+            "13" => Ok(DrawMode::CopyPen),
+            "14" => Ok(DrawMode::MergePenNot),
+            "15" => Ok(DrawMode::MergePen),
+            "16" => Ok(DrawMode::Whiteness),
+            _ => Err(FormErrorKind::InvalidDrawMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DrawMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DrawMode::try_from(s)
+    }
+}
+
 impl Display for DrawMode {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
             DrawMode::Blackness => "Blackness",
-            DrawMode::NotMergePen => "NotMergePen",
-            DrawMode::MaskNotPen => "MaskNotPen",
-            DrawMode::NotCopyPen => "NotCopyPen",
-            DrawMode::MaskPenNot => "MaskPenNot",
+            DrawMode::NotMergePen => "Not Merge Pen",
+            DrawMode::MaskNotPen => "Mask Not Pen",
+            DrawMode::NotCopyPen => "Not Copy Pen",
+            DrawMode::MaskPenNot => "Mask Pen Not",
             DrawMode::Invert => "Invert",
-            DrawMode::XorPen => "XorPen",
-            DrawMode::NotMaskPen => "NotMaskPen",
-            DrawMode::MaskPen => "MaskPen",
-            DrawMode::NotXorPen => "NotXorPen",
+            DrawMode::XorPen => "Xor Pen",
+            DrawMode::NotMaskPen => "Not Mask Pen",
+            DrawMode::MaskPen => "Mask Pen",
+            DrawMode::NotXorPen => "Not Xor Pen",
             DrawMode::Nop => "Nop",
-            DrawMode::MergeNotPen => "MergeNotPen",
-            DrawMode::CopyPen => "CopyPen",
-            DrawMode::MergePenNot => "MergePenNot",
-            DrawMode::MergePen => "MergePen",
+            DrawMode::MergeNotPen => "Merge Not Pen",
+            DrawMode::CopyPen => "Copy Pen",
+            DrawMode::MergePenNot => "Merge Pen Not",
+            DrawMode::MergePen => "Merge Pen",
             DrawMode::Whiteness => "Whiteness",
         };
         write!(f, "{text}")
@@ -1225,6 +1771,31 @@ pub enum DrawStyle {
     Transparent = 5,
     /// Invisible line, solid interior.
     InsideSolid = 6,
+}
+
+impl TryFrom<&str> for DrawStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(DrawStyle::Solid),
+            "1" => Ok(DrawStyle::Dash),
+            "2" => Ok(DrawStyle::Dot),
+            "3" => Ok(DrawStyle::DashDot),
+            "4" => Ok(DrawStyle::DashDotDot),
+            "5" => Ok(DrawStyle::Transparent),
+            "6" => Ok(DrawStyle::InsideSolid),
+            _ => Err(FormErrorKind::InvalidDrawStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DrawStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DrawStyle::try_from(s)
+    }
 }
 
 impl Display for DrawStyle {
@@ -1295,6 +1866,41 @@ pub enum MousePointer {
     Custom = 99,
 }
 
+impl TryFrom<&str> for MousePointer {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MousePointer::Default),
+            "1" => Ok(MousePointer::Arrow),
+            "2" => Ok(MousePointer::Cross),
+            "3" => Ok(MousePointer::IBeam),
+            "4" => Ok(MousePointer::Icon),
+            "5" => Ok(MousePointer::Size),
+            "6" => Ok(MousePointer::SizeNESW),
+            "7" => Ok(MousePointer::SizeNS),
+            "8" => Ok(MousePointer::SizeNWSE),
+            "9" => Ok(MousePointer::SizeWE),
+            "10" => Ok(MousePointer::UpArrow),
+            "11" => Ok(MousePointer::Hourglass),
+            "12" => Ok(MousePointer::NoDrop),
+            "13" => Ok(MousePointer::ArrowHourglass),
+            "14" => Ok(MousePointer::ArrowQuestion),
+            "15" => Ok(MousePointer::SizeAll),
+            "99" => Ok(MousePointer::Custom),
+            _ => Err(FormErrorKind::InvalidMousePointer(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for MousePointer {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MousePointer::try_from(s)
+    }
+}
+
 impl Display for MousePointer {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1335,6 +1941,26 @@ pub enum OLEDragMode {
     Automatic = 1,
 }
 
+impl TryFrom<&str> for OLEDragMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(OLEDragMode::Manual),
+            "1" => Ok(OLEDragMode::Automatic),
+            _ => Err(FormErrorKind::InvalidOLEDragMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OLEDragMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OLEDragMode::try_from(s)
+    }
+}
+
 impl Display for OLEDragMode {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1358,6 +1984,26 @@ pub enum OLEDropMode {
     None = 0,
     /// The programmer handles all OLE drop events manually.
     Manual = 1,
+}
+
+impl TryFrom<&str> for OLEDropMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(OLEDropMode::None),
+            "1" => Ok(OLEDropMode::Manual),
+            _ => Err(FormErrorKind::InvalidOLEDropMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OLEDropMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OLEDropMode::try_from(s)
+    }
 }
 
 impl Display for OLEDropMode {
@@ -1386,6 +2032,26 @@ pub enum ClipControls {
     Clipped = 1,
 }
 
+impl TryFrom<&str> for ClipControls {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ClipControls::Unbounded),
+            "1" => Ok(ClipControls::Clipped),
+            _ => Err(FormErrorKind::InvalidClipControls(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for ClipControls {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ClipControls::try_from(s)
+    }
+}
+
 impl Display for ClipControls {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1411,6 +2077,27 @@ pub enum Style {
     /// The control uses graphical styling using its appropriate picture properties.
     Graphical = 1,
 }
+
+impl TryFrom<&str> for Style {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Style::Standard),
+            "1" => Ok(Style::Graphical),
+            _ => Err(FormErrorKind::InvalidStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Style {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Style::try_from(s)
+    }
+}
+
 impl Display for Style {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1449,6 +2136,32 @@ pub enum FillStyle {
     /// The background is filled with a diagonal cross-hatch pattern.
     /// This is the same as `Cross` but rotated 45 degrees.
     DiagonalCross = 7,
+}
+
+impl TryFrom<&str> for FillStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FillStyle::Solid),
+            "1" => Ok(FillStyle::Transparent),
+            "2" => Ok(FillStyle::HorizontalLine),
+            "3" => Ok(FillStyle::VerticalLine),
+            "4" => Ok(FillStyle::UpwardDiagonal),
+            "5" => Ok(FillStyle::DownwardDiagonal),
+            "6" => Ok(FillStyle::Cross),
+            "7" => Ok(FillStyle::DiagonalCross),
+            _ => Err(FormErrorKind::InvalidFillStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FillStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FillStyle::try_from(s)
+    }
 }
 
 impl Display for FillStyle {
@@ -1504,6 +2217,28 @@ pub enum LinkMode {
     Notify = 3,
 }
 
+impl TryFrom<&str> for LinkMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(LinkMode::None),
+            "1" => Ok(LinkMode::Automatic),
+            "2" => Ok(LinkMode::Manual),
+            "3" => Ok(LinkMode::Notify),
+            _ => Err(FormErrorKind::InvalidLinkMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for LinkMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        LinkMode::try_from(s)
+    }
+}
+
 impl Display for LinkMode {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1533,6 +2268,27 @@ pub enum MultiSelect {
     /// The user can select multiple items in the list box by holding down the
     /// `CTRL` key while clicking items.
     Extended = 2,
+}
+
+impl TryFrom<&str> for MultiSelect {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MultiSelect::None),
+            "1" => Ok(MultiSelect::Simple),
+            "2" => Ok(MultiSelect::Extended),
+            _ => Err(FormErrorKind::InvalidMultiSelect(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for MultiSelect {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MultiSelect::try_from(s)
+    }
 }
 
 impl Display for MultiSelect {
@@ -1580,6 +2336,35 @@ pub enum ScaleMode {
     ContainerSize = 10,
 }
 
+impl FromStr for ScaleMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ScaleMode::try_from(s)
+    }
+}
+
+impl TryFrom<&str> for ScaleMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ScaleMode::User),
+            "1" => Ok(ScaleMode::Twip),
+            "2" => Ok(ScaleMode::Point),
+            "3" => Ok(ScaleMode::Pixel),
+            "4" => Ok(ScaleMode::Character),
+            "5" => Ok(ScaleMode::Inches),
+            "6" => Ok(ScaleMode::Millimeter),
+            "7" => Ok(ScaleMode::Centimeter),
+            "8" => Ok(ScaleMode::HiMetric),
+            "9" => Ok(ScaleMode::ContainerPosition),
+            "10" => Ok(ScaleMode::ContainerSize),
+            _ => Err(FormErrorKind::InvalidScaleMode(value.to_string())),
+        }
+    }
+}
+
 impl Display for ScaleMode {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -1622,6 +2407,28 @@ pub enum SizeMode {
     AutoSize = 2,
     /// The picture is stretched or shrunk to fit the control's bounds while maintaining its aspect ratio.
     Zoom = 3,
+}
+
+impl TryFrom<&str> for SizeMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(SizeMode::Clip),
+            "1" => Ok(SizeMode::Stretch),
+            "2" => Ok(SizeMode::AutoSize),
+            "3" => Ok(SizeMode::Zoom),
+            _ => Err(FormErrorKind::InvalidSizeMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for SizeMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        SizeMode::try_from(s)
+    }
 }
 
 impl Display for SizeMode {

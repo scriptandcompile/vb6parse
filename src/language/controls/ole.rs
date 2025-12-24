@@ -7,7 +7,9 @@
 //!
 
 use std::fmt::Display;
+use std::str::FromStr;
 
+use crate::errors::FormErrorKind;
 use crate::language::controls::{
     Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
     ReferenceOrValue, SizeMode, TabStop, Visibility,
@@ -36,6 +38,27 @@ pub enum OLETypeAllowed {
     /// This is the default value.
     #[default]
     Either = 2,
+}
+
+impl TryFrom<&str> for OLETypeAllowed {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(OLETypeAllowed::Link),
+            "1" => Ok(OLETypeAllowed::Embedded),
+            "2" => Ok(OLETypeAllowed::Either),
+            _ => Err(FormErrorKind::InvalidOLETypeAllowed(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OLETypeAllowed {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OLETypeAllowed::try_from(s)
+    }
 }
 
 impl Display for OLETypeAllowed {
@@ -67,6 +90,27 @@ pub enum UpdateOptions {
     Frozen = 1,
     /// The object is updated only by using the Update method.
     Manual = 2,
+}
+
+impl TryFrom<&str> for UpdateOptions {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(UpdateOptions::Automatic),
+            "1" => Ok(UpdateOptions::Frozen),
+            "2" => Ok(UpdateOptions::Manual),
+            _ => Err(FormErrorKind::InvalidUpdateOptions(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for UpdateOptions {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        UpdateOptions::try_from(s)
+    }
 }
 
 impl Display for UpdateOptions {
@@ -110,6 +154,28 @@ pub enum AutoActivate {
     Automatic = 3,
 }
 
+impl TryFrom<&str> for AutoActivate {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(AutoActivate::Manual),
+            "1" => Ok(AutoActivate::GetFocus),
+            "2" => Ok(AutoActivate::DoubleClick),
+            "3" => Ok(AutoActivate::Automatic),
+            _ => Err(FormErrorKind::InvalidAutoActivate(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for AutoActivate {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        AutoActivate::try_from(s)
+    }
+}
+
 impl Display for AutoActivate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -139,6 +205,26 @@ pub enum DisplayType {
     /// When the OLE container control contains an object, the object's icon is
     /// displayed in the control.
     Icon = 1,
+}
+
+impl TryFrom<&str> for DisplayType {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(DisplayType::Content),
+            "1" => Ok(DisplayType::Icon),
+            _ => Err(FormErrorKind::InvalidDisplayType(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DisplayType {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DisplayType::try_from(s)
+    }
 }
 
 impl Display for DisplayType {

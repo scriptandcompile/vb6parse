@@ -6,7 +6,9 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::{
     language::{
@@ -42,6 +44,28 @@ pub enum ListBoxStyle {
     Standard = 0,
     /// List box with a check box next to each item.
     Checkbox = 1,
+}
+
+impl TryFrom<&str> for ListBoxStyle {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ListBoxStyle::Standard),
+            "1" => Ok(ListBoxStyle::Checkbox),
+            _ => Err(crate::errors::FormErrorKind::InvalidListBoxStyle(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for ListBoxStyle {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ListBoxStyle::try_from(s)
+    }
 }
 
 impl Display for ListBoxStyle {

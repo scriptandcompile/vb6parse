@@ -667,13 +667,261 @@ pub enum FormErrorKind {
     #[error("The `DatabaseDriverType` value is invalid: '{0}'. Only 1 (ODBC), or 2 (Jet) are valid values.")]
     InvalidDatabaseDriverType(String),
 
-    // Indicates that the `EOFAction` property has an invalid value.
+    /// Indicates that the `EOFAction` property has an invalid value.
     #[error("The `EOFAction` value is invalid: '{0}'. Only 0 (MoveLast), 1 (EOF), or 2 (AddNew) are valid values.")]
     InvalidEOFAction(String),
 
     /// Indicates that the record set type is invalid.
-    #[error("The record set type is invalid: '{0}'. Only 0 (Table), 1 (Dynaset), or 2 (Snapshot) are valid types.")]
+    #[error("The `RecordSetType` value is invalid: '{0}'. Only 0 (Table), 1 (Dynaset), or 2 (Snapshot) are valid values.")]
     InvalidRecordSetType(String),
+
+    /// Indicates that an archive attribute is invalid.
+    #[error("The `ArchiveAttribute` value is invalid: '{0}'. Only 0 (Exclude) or -1 (Include) are valid values.")]
+    InvalidArchiveAttribute(String),
+
+    /// Indicates that the hidden attribute is invalid.
+    #[error(
+        "The `Hidden` valud is invalid: '{0}'. Only 0 (Exclude) or -1 (Include) are valid values."
+    )]
+    InvalidHiddenAttribute(String),
+
+    /// Indicates that the `ReadOnly` attribute is invalid.
+    #[error("The `ReadOnly` value is invalid: '{0}'. Only 0 (Exclude) or -1 (Include) are valid values.")]
+    InvalidReadOnlyAttribute(String),
+
+    /// Indicates that the `System` attribute is invalid.
+    #[error(
+        "The `System` value is invalid: '{0}'. Only 0 (Exclude) or -1 (Include) are valid values."
+    )]
+    InvalidSystemAttribute(String),
+
+    /// Indicates that the `Normal` attribute is invalid.
+    #[error(
+        "The `Normal` value is invalid: '{0}'. Only 0 (Exclude) or -1 (Include) are valid values."
+    )]
+    InvalidNormalAttribute(String),
+
+    /// Indicates that the `FormBorderStyle` property has an invalid value.
+    #[error("The `FormBorderStyle` value is invalid: '{0}'. Only 0 (None), 1 (FixedSingle), 2 (Sizable), 3 (FixedDialog), 4 (FixedToolWindow), or 5 (SizableToolWindow) are valid values.")]
+    InvalidFormBorderStyle(String),
+
+    /// Indicates that the `ControlBox` property has an invalid value.
+    #[error("The `ControlBox` value is invalid: '{0}'. Only 0 (Excluded) or -1 (Included) are valid values.")]
+    InvalidControlBox(String),
+
+    /// Indicates that the `MaxButton` property has an invalid value.
+    #[error("The `MaxButton` value is invalid: '{0}'. Only 0 (Excluded) or -1 (Included) are valid values.")]
+    InvalidMaxButton(String),
+
+    /// Indicates that the `MinButton` property has an invalid value.
+    #[error("The `MinButton` value is invalid: '{0}'. Only 0 (Excluded) or -1 (Included) are valid values.")]
+    InvalidMinButton(String),
+
+    /// Indicates that the `PaletteMode` property has an invalid value.
+    #[error("The `PaletteMode` value is invalid: '{0}'. Only 0 (HalfTone), 1 (UseZOrder), or 2 (Custom) are valid values.")]
+    InvalidPaletteMode(String),
+
+    /// Indicates that the `WordWrap` property has an invalid value.
+    #[error(
+        "The `WordWrap` value is invalid: '{0}'. Only 0 (False) or -1 (True) are valid values."
+    )]
+    InvalidWordWrap(String),
+
+    /// Indicates that the `WhatsThisButton` property has an invalid value.
+    #[error("The `WhatsThisButton` value is invalid: '{0}'. Only 0 (Excluded) or -1 (Included) are valid values.")]
+    InvalidWhatsThisButton(String),
+
+    /// Indicates that the `ShowInTaskbar` property has an invalid value.
+    #[error(
+        "The `ShowInTaskbar` value is invalid: '{0}'. Only 0 (Hide) or -1 (Show) are valid values."
+    )]
+    InvalidShowInTaskbar(String),
+
+    /// Indicates that the `NegotiatePosition` property has an invalid value.
+    #[error("The `NegotiatePosition` value is invalid: '{0}'. Only 0 (None), 1 (Left), 2 (Middle), or 3 (Right) are valid values.")]
+    InvalidNegotiatePosition(String),
+
+    /// Indicates that the `ListBoxStyle` property has an invalid value.
+    #[error("The `ListBoxStyle` value is invalid: '{0}'. Only 0 (Standard) or 1 (Checkbox) are valid values.")]
+    InvalidListBoxStyle(String),
+
+    /// Indicates that the `AutoSize` property has an invalid value.
+    #[error(
+        "The `AutoSize` value is invalid: '{0}'. Only 0 (Fixed) or -1 (Resize) are valid values."
+    )]
+    InvalidAutoSize(String),
+
+    /// Indicates that the `AutoRedraw` property has an invalid value.
+    #[error(
+        "The `AutoRedraw` value is invalid: '{0}'. Only 0 (Manual) or -1 (Automatic) are valid values."
+    )]
+    InvalidAutoRedraw(String),
+
+    /// Indicates that the `TextAlign` property has an invalid value.
+    #[error("The `TextAlign` value is invalid: '{0}'. Only 0 (LeftToRight) or -1 (RightToLeft) are valid values.")]
+    InvalidTextDirection(String),
+
+    /// Indicates that the `TabStop` property has an invalid value.
+    #[error("The `TabStop` value is invalid: '{0}'. Only 0 (ProgrammaticOnly) or -1 (Included) are valid values.")]
+    InvalidTabStop(String),
+
+    /// Indicates that the `Visibility` property has an invalid value.
+    #[error("The `Visibility` value is invalid: '{0}'. Only 0 (Hidden) or -1 (Visible) are valid values.")]
+    InvalidVisibility(String),
+
+    /// Indicates that the `HasDeviceContext` property has an invalid value.
+    #[error(
+        "The `HasDeviceContext` value is invalid: '{0}'. Only 0 (No) or -1 (Yes) are valid values."
+    )]
+    InvalidHasDeviceContext(String),
+
+    /// Indicates that the `CausesValidation` property has an invalid value.
+    #[error(
+        "The `CausesValidation` value is invalid: '{0}'. Only 0 (No) or -1 (Yes) are valid values."
+    )]
+    InvalidCausesValidation(String),
+
+    /// Indicates that the `Movability` property has an invalid value.
+    #[error("The `Movability` value is invalid: '{0}'. Only 0 (Fixed) or -1 (Movable) are valid values.")]
+    InvalidMovability(String),
+
+    /// Indicates that the `FontTransparency` property has an invalid value.
+    #[error("The `FontTransparency` value is invalid: '{0}'. Only 0 (Opaque) or -1 (Transparent) are valid values.")]
+    InvalidFontTransparency(String),
+
+    /// Indicates that the `WhatsThisHelp` property has an invalid value.
+    #[error("The `WhatsThisHelp` value is invalid: '{0}'. Only 0 (F1Help) or -1 (WhatsThisHelp) are valid values.")]
+    InvalidWhatsThisHelp(String),
+
+    /// Indicates that the `Activation` property has an invalid value.
+    #[error("The `Activation` value is invalid: '{0}'. Only 0 (Disabled) or -1 (Enabled) are valid values.")]
+    InvalidActivation(String),
+
+    /// Indicates that the `LinkMode` property has an invalid value.
+    #[error("The `LinkMode` value is invalid: '{0}'. Only 0 (None) or 1 (Source).")]
+    InvalidFormLinkMode(String),
+
+    /// Indicates that the `WindowState` property has an invalid value.
+    #[error("The `WindowState` value is invalid: '{0}'. Only 0 (Normal), 1 (Minimized), or 2 (Maximized) are valid values.")]
+    InvalidWindowState(String),
+
+    /// Indicates that the `Align` property has an invalid value.
+    #[error("The `Align` value is invalid: '{0}'. Only 0 (None), 1 (Top), 2 (Bottom), 3 (Left), or 4 (Right) are valid values.")]
+    InvalidAlign(String),
+
+    /// Indicates that the `Appearance` property has an invalid value.
+    #[error(
+        "The `Appearance` value is invalid: '{0}'. Only 0 (Flat) or 1 (ThreeD) are valid values."
+    )]
+    InvalidAppearance(String),
+
+    /// Indicates that the `JustifyAlignment` property has an invalid value.
+    #[error("The `JustifyAlignment` value is invalid: '{0}'. Only 0 (Left), 1 (Right) are valid values.")]
+    InvalidJustifyAlignment(String),
+
+    /// Indicates that the `Alignment` property has an invalid value.
+    #[error("The `Alignment` value is invalid: '{0}'. Only 0 (Left), 1 (Center), or 2 (Right) are valid values.")]
+    InvalidAlignment(String),
+
+    /// Indicates that the `BackStyle` property has an invalid value.
+    #[error("The `BackStyle` value is invalid: '{0}'. Only 0 (Transparent) or 1 (Opaque) are valid values.")]
+    InvalidBackStyle(String),
+
+    /// Indicates that the `BorderStyle` property has an invalid value.
+    #[error("The `BorderStyle` value is invalid: '{0}'. Only 0 (None) or 1 (FixedSingle) are valid values.")]
+    InvalidBorderStyle(String),
+
+    /// Indicates that the `DragMode` property has an invalid value.
+    #[error("The `DragMode` value is invalid: '{0}'. Only 0 (Manual) or 1 (Automatic) are valid values.")]
+    InvalidDragMode(String),
+
+    /// Indicates that the `DrawMode` property has an invalid value.
+    #[error("The `DrawMode` value is invalid: '{0}'. Only 1 (Blackness), 2 (NotMergePen), 3 (MaskNotPen), 4 (NotCopyPen), 5 (MaskPenNot), 6 (Invert), 7 (XorPen), 8 (NotMaskPen), 9 (MaskPen), 10 (NotXorPen), 11 (Nop), 12 (MergeNotPen), 13 (CopyPen), 14 (MergePenNot), 15 (Merge Pen), or 16 (Whiteness) are valid values.")]
+    InvalidDrawMode(String),
+
+    /// Indicates that the `DrawStyle` property has an invalid value.
+    #[error("The `DrawStyle` value is invalid: '{0}'. Only 0 (Solid), 1 (Dash), 2 (Dot), 3 (DashDot), 4 (DashDotDot), 5 (Transparent), or 6 (InsideSolid) are valid values.")]
+    InvalidDrawStyle(String),
+
+    /// Indicates that the `MousePointer` property has an invalid value.
+    #[error("The `MousePointer` value is invalid: '{0}'. Only 0 (Default), 1 (Arrow), 2 (Cross), 3 (IBeam), 4 (Icon), 5 (Size), 6 (SizeNESW), 7 (SizeNS), 8 (SizeNWSE), 9 (SizeWE), 10 (UpArrow), 11 (Hourglass), 12 (NoDrop), 13 (ArrowHourglass), 14 (ArrowQuestion), 15 (SizeAll), or 99 (Custom) are valid values.")]
+    InvalidMousePointer(String),
+
+    /// Indicates that the `OLEDragMode` property has an invalid value.
+    #[error(
+        "The `OLEDragMode` value is invalid: '{0}'. Only 0 (Manual), or 1 (Automatic) are valid values."
+    )]
+    InvalidOLEDragMode(String),
+
+    /// Indicates that the `OLEDropMode` property has an invalid value.
+    #[error(
+        "The `OLEDropMode` value is invalid: '{0}'. Only 0 (None), or 1 (Manual) are valid values."
+    )]
+    InvalidOLEDropMode(String),
+
+    /// Indicates that the `ClipControls` property has an invalid value.
+    #[error("The `ClipControls` value is invalid: '{0}'. Only 0 (Unbounded) or 1 (Clipped) are valid values.")]
+    InvalidClipControls(String),
+
+    /// Indicates that the `Style` property has an invalid value.
+    #[error(
+        "The `Style` value is invalid: '{0}'. Only 0 (Standard) or 1 (Graphical) are valid values."
+    )]
+    InvalidStyle(String),
+
+    /// Indicates that the `FillStyle` property has an invalid value.
+    #[error("The `FillStyle` value is invalid: '{0}'. Only 0 (Solid), 1 (Transparent), 2 (HorizontalLine), 3 (VerticalLine), 4 (UpwardDiagonal), 5 (DownwardDiagonal), 6 (Cross), or 7 (DiagonalCross) are valid values.")]
+    InvalidFillStyle(String),
+
+    /// Indicates that the `LinkMode` property has an invalid value.
+    #[error("The `LinkMode` value is invalid: '{0}'. Only 0 (None), 1 (Automatic), 2 (Manual), or 3 (Notify) are valid values.")]
+    InvalidLinkMode(String),
+
+    /// Indicates that the `MultiSelect` property has an invalid value.
+    #[error("The `MultiSelect` value is invalid: '{0}'. Only 0 (None), 1 (Simple), or 2 (Extended) are valid values.")]
+    InvalidMultiSelect(String),
+
+    /// Indicates that the `OLETypeAllowed` property has an invalid value.
+    #[error("The `OLETypeAllowed` value is invalid: '{0}'. Only 0 (Link), 1 (Embedded), or 2 (Either) are valid values.")]
+    InvalidOLETypeAllowed(String),
+
+    /// Indicates that the `ScaleMode` property has an invalid value.
+    #[error("The `ScaleMode` value is invalid: '{0}'. Only 0 (User), 1 (Twips), 2 (Points), 3 (Pixels), 4 (Characters), 5 (Inches), 6 (Millimeters), 7 (Centimeters), 8 (HiMetric), 9 (ContainerPosition), 10 (ContainerSize) are valid values.")]
+    InvalidScaleMode(String),
+
+    /// Indicates that the `SizeMode` property has an invalid value.
+    #[error("The `SizeMode` value is invalid: '{0}'. Only 0 (Clip), 1 (Stretch), 2 (AutoSize), or 3 (Zoom) are valid values.")]
+    InvalidSizeMode(String),
+
+    /// Indicates that the `OptionButtonValue` property has an invalid value.
+    #[error("The `OptionButtonValue` value is invalid: '{0}'. Only 0 (UnSelected), or 1 (Selected) are valid values.")]
+    InvalidOptionButtonValue(String),
+
+    /// Indicates that the `UpdateOptions` property has an invalid value.
+    #[error("The `UpdateOptions` value is invalid: '{0}'. Only 0 (Automatic), 1 (Frozen), or 2 (Manual) are valid values.")]
+    InvalidUpdateOptions(String),
+
+    /// Indicates that the `AutoActivate` property has an invalid value.
+    #[error("The `AutoActivate` value is invalid: '{0}'. Only 0 (Manual), 1 (GetFocus), 2 (DoubleClick), or 3 (Automatic) are valid values.")]
+    InvalidAutoActivate(String),
+
+    /// Indicates that the `DisplayType` property has an invalid value.
+    #[error(
+        "The `DisplayType` value is invalid: '{0}'. Only 0 (Content) or 1 (Icon) are valid values."
+    )]
+    InvalidDisplayType(String),
+
+    /// Indicates that the `ScrollBars` property has an invalid value.
+    #[error("The `ScrollBars` value is invalid: '{0}'. Only 0 (None), 1 (Horizontal), 2 (Vertical), or 3 (Both) are valid values.")]
+    InvalidScrollBars(String),
+
+    /// Indicates that the `MultiLine` property has an invalid value.
+    #[error("The `MultiLine` value is invalid: '{0}'. Only 0 (SingleLine) or -1 (MultiLine) are valid values.")]
+    InvalidMultiLine(String),
+
+    /// Indicates that the `Shape` property has an invalid value.
+    #[error("The `Shape` value is invalid: '{0}'. Only 0 (Rectangle), 1 (Square), 2 (Oval), 3 (Circle), 4 (RoundedRectangle), or 5 (RoundSquare) are valid values.")]
+    InvalidShape(String),
 
     /// Indicates that the 'VERSION' keyword is missing from the form file header.
     #[error("The 'VERSION' keyword is missing from the form file header.")]
