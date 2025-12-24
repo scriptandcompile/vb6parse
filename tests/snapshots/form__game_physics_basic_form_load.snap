@@ -34,7 +34,7 @@ form:
         fore_color:
           System:
             index: 18
-        has_dc: "Yes"
+        has_dc: HasContext
         height: 240
         help_context_id: 0
         icon: ~
@@ -192,7 +192,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 8940
                 help_context_id: 0
                 left: 120
@@ -253,7 +253,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 90
                 help_context_id: 0
                 left: 9840
@@ -314,7 +314,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 90
                 help_context_id: 0
                 left: 9840
@@ -375,7 +375,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 6600
@@ -436,7 +436,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 5520
@@ -497,7 +497,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 4440
@@ -558,7 +558,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 3360
@@ -619,7 +619,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 2280
@@ -680,7 +680,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 1200
@@ -741,7 +741,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 8760
@@ -802,7 +802,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 990
                 help_context_id: 0
                 left: 7680
@@ -865,7 +865,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 8940
                 help_context_id: 0
                 left: 120

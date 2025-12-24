@@ -36,7 +36,7 @@ form:
             red: 0
             green: 0
             blue: 0
-        has_dc: "Yes"
+        has_dc: HasContext
         height: 240
         help_context_id: 0
         icon: ~
@@ -104,7 +104,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 6015
                 help_context_id: 0
                 left: 120

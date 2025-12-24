@@ -6,8 +6,11 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::{From, TryFrom};
 use std::fmt::{Display, Formatter};
+use std::str::FromStr;
 
+use crate::errors::FormErrorKind;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
     OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
@@ -33,6 +36,36 @@ pub enum OptionButtonValue {
     UnSelected = 0,
     /// The option button is selected.
     Selected = 1,
+}
+
+impl From<bool> for OptionButtonValue {
+    fn from(value: bool) -> Self {
+        if value {
+            OptionButtonValue::Selected
+        } else {
+            OptionButtonValue::UnSelected
+        }
+    }
+}
+
+impl TryFrom<&str> for OptionButtonValue {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, FormErrorKind> {
+        match value {
+            "0" => Ok(OptionButtonValue::UnSelected),
+            "1" => Ok(OptionButtonValue::Selected),
+            _ => Err(FormErrorKind::InvalidOptionButtonValue(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OptionButtonValue {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OptionButtonValue::try_from(s)
+    }
 }
 
 impl Display for OptionButtonValue {

@@ -275,8 +275,8 @@ impl FromStr for BOFAction {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "MoveFirst" => Ok(BOFAction::MoveFirst),
-            "BOF" => Ok(BOFAction::Bof),
+            "0" => Ok(BOFAction::MoveFirst),
+            "1" => Ok(BOFAction::Bof),
             _ => Err(FormErrorKind::InvalidBOFAction(s.to_string())),
         }
     }
@@ -438,9 +438,9 @@ impl FromStr for DefaultCursorType {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "Default" => Ok(DefaultCursorType::Default),
-            "Odbc" => Ok(DefaultCursorType::Odbc),
-            "ServerSide" => Ok(DefaultCursorType::ServerSide),
+            "0" => Ok(DefaultCursorType::Default),
+            "1" => Ok(DefaultCursorType::Odbc),
+            "2" => Ok(DefaultCursorType::ServerSide),
             _ => Err(FormErrorKind::InvalidDefaultCursorType(s.to_string())),
         }
     }
@@ -487,8 +487,8 @@ impl FromStr for DatabaseDriverType {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "UseODBC" => Ok(DatabaseDriverType::UseODBC),
-            "UseJet" => Ok(DatabaseDriverType::UseJet),
+            "1" => Ok(DatabaseDriverType::UseODBC),
+            "2" => Ok(DatabaseDriverType::UseJet),
             _ => Err(FormErrorKind::InvalidDatabaseDriverType(s.to_string())),
         }
     }
@@ -543,9 +543,9 @@ impl FromStr for EOFAction {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "MoveLast" => Ok(EOFAction::MoveLast),
-            "EOF" => Ok(EOFAction::Eof),
-            "AddNew" => Ok(EOFAction::AddNew),
+            "0" => Ok(EOFAction::MoveLast),
+            "1" => Ok(EOFAction::Eof),
+            "2" => Ok(EOFAction::AddNew),
             _ => Err(FormErrorKind::InvalidEOFAction(s.to_string())),
         }
     }
@@ -595,9 +595,9 @@ impl FromStr for RecordSetType {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "Table" => Ok(RecordSetType::Table),
-            "Dynaset" => Ok(RecordSetType::Dynaset),
-            "Snapshot" => Ok(RecordSetType::Snapshot),
+            "0" => Ok(RecordSetType::Table),
+            "1" => Ok(RecordSetType::Dynaset),
+            "2" => Ok(RecordSetType::Snapshot),
             _ => Err(FormErrorKind::InvalidRecordSetType(s.to_string())),
         }
     }

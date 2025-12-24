@@ -34,7 +34,7 @@ form:
         fore_color:
           System:
             index: 18
-        has_dc: "Yes"
+        has_dc: HasContext
         height: 240
         help_context_id: 0
         icon: ~
@@ -952,7 +952,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 4530
                 help_context_id: 0
                 left: 6240
@@ -1013,7 +1013,7 @@ form:
                 fore_color:
                   System:
                     index: 8
-                has_dc: "Yes"
+                has_dc: HasContext
                 height: 4530
                 help_context_id: 0
                 left: 6240

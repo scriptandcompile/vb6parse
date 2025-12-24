@@ -6,7 +6,9 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::{Display, Formatter};
+use std::str::FromStr;
 
 use crate::{
     language::controls::{
@@ -46,6 +48,38 @@ pub enum ScrollBars {
     Both = 3,
 }
 
+impl TryFrom<&str> for ScrollBars {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ScrollBars::None),
+            "1" => Ok(ScrollBars::Horizontal),
+            "2" => Ok(ScrollBars::Vertical),
+            "3" => Ok(ScrollBars::Both),
+            _ => Err(crate::errors::FormErrorKind::InvalidScrollBars(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for ScrollBars {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(ScrollBars::None),
+            "1" => Ok(ScrollBars::Horizontal),
+            "2" => Ok(ScrollBars::Vertical),
+            "3" => Ok(ScrollBars::Both),
+            _ => Err(crate::errors::FormErrorKind::InvalidScrollBars(
+                s.to_string(),
+            )),
+        }
+    }
+}
+
 impl Display for ScrollBars {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -69,6 +103,40 @@ pub enum MultiLine {
     SingleLine = 0,
     /// The `TextBox` control is a multi-line text box.
     MultiLine = -1,
+}
+
+impl TryFrom<bool> for MultiLine {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(MultiLine::MultiLine)
+        } else {
+            Ok(MultiLine::SingleLine)
+        }
+    }
+}
+
+impl TryFrom<&str> for MultiLine {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MultiLine::SingleLine),
+            "-1" => Ok(MultiLine::MultiLine),
+            _ => Err(crate::errors::FormErrorKind::InvalidMultiLine(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for MultiLine {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MultiLine::try_from(s)
+    }
 }
 
 impl Display for MultiLine {

@@ -6,8 +6,11 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use std::convert::TryFrom;
 use std::fmt::Display;
+use std::str::FromStr;
 
+use crate::errors::FormErrorKind;
 use crate::language::color::Color;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
@@ -56,6 +59,38 @@ impl Display for ArchiveAttribute {
     }
 }
 
+impl TryFrom<&str> for ArchiveAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ArchiveAttribute::Exclude),
+            "-1" => Ok(ArchiveAttribute::Include),
+            _ => Err(FormErrorKind::InvalidArchiveAttribute(value.to_string())),
+        }
+    }
+}
+
+impl TryFrom<bool> for ArchiveAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ArchiveAttribute::Include)
+        } else {
+            Ok(ArchiveAttribute::Exclude)
+        }
+    }
+}
+
+impl FromStr for ArchiveAttribute {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ArchiveAttribute::try_from(s)
+    }
+}
+
 /// The `HiddenAttribute` enum represents the hidden bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its hidden status.
@@ -93,6 +128,26 @@ impl Display for HiddenAttribute {
     }
 }
 
+impl TryFrom<&str> for HiddenAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(HiddenAttribute::Exclude),
+            "-1" => Ok(HiddenAttribute::Include),
+            _ => Err(FormErrorKind::InvalidHiddenAttribute(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for HiddenAttribute {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        HiddenAttribute::try_from(s)
+    }
+}
+
 /// The `ReadOnlyAttribute` enum represents the read-only bit of a file.
 /// It is used to indicate whether a file should be included or excluded from being
 /// shown in the `FileListBox` control based on its read-only status.
@@ -118,6 +173,38 @@ pub enum ReadOnlyAttribute {
     /// This is the default value.
     #[default]
     Include = -1,
+}
+
+impl TryFrom<&str> for ReadOnlyAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ReadOnlyAttribute::Exclude),
+            "-1" => Ok(ReadOnlyAttribute::Include),
+            _ => Err(FormErrorKind::InvalidReadOnlyAttribute(value.to_string())),
+        }
+    }
+}
+
+impl TryFrom<bool> for ReadOnlyAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ReadOnlyAttribute::Include)
+        } else {
+            Ok(ReadOnlyAttribute::Exclude)
+        }
+    }
+}
+
+impl FromStr for ReadOnlyAttribute {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ReadOnlyAttribute::try_from(s)
+    }
 }
 
 impl Display for ReadOnlyAttribute {
@@ -157,6 +244,38 @@ pub enum SystemAttribute {
     Include = -1,
 }
 
+impl TryFrom<&str> for SystemAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(SystemAttribute::Exclude),
+            "-1" => Ok(SystemAttribute::Include),
+            _ => Err(FormErrorKind::InvalidSystemAttribute(value.to_string())),
+        }
+    }
+}
+
+impl TryFrom<bool> for SystemAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(SystemAttribute::Include)
+        } else {
+            Ok(SystemAttribute::Exclude)
+        }
+    }
+}
+
+impl FromStr for SystemAttribute {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        SystemAttribute::try_from(s)
+    }
+}
+
 impl Display for SystemAttribute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let text = match self {
@@ -191,6 +310,38 @@ pub enum NormalAttribute {
     /// This is the default value.
     #[default]
     Include = -1,
+}
+
+impl TryFrom<&str> for NormalAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(NormalAttribute::Exclude),
+            "-1" => Ok(NormalAttribute::Include),
+            _ => Err(FormErrorKind::InvalidNormalAttribute(value.to_string())),
+        }
+    }
+}
+
+impl TryFrom<bool> for NormalAttribute {
+    type Error = FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(NormalAttribute::Include)
+        } else {
+            Ok(NormalAttribute::Exclude)
+        }
+    }
+}
+
+impl FromStr for NormalAttribute {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        NormalAttribute::try_from(s)
+    }
 }
 
 impl Display for NormalAttribute {

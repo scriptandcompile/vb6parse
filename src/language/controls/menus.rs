@@ -7,7 +7,9 @@
 //!
 //! This should only be used as a child of a Form / `MDIForm`.
 
+use std::convert::TryFrom;
 use std::fmt::Display;
+use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
@@ -137,6 +139,28 @@ pub enum NegotiatePosition {
     Middle = 2,
     /// The menu is displayed at the right end of the menu bar when the object is active.
     Right = 3,
+}
+
+impl FromStr for NegotiatePosition {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(NegotiatePosition::None),
+            "1" => Ok(NegotiatePosition::Left),
+            "2" => Ok(NegotiatePosition::Middle),
+            "3" => Ok(NegotiatePosition::Right),
+            _ => Err(FormErrorKind::InvalidNegotiatePosition(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for NegotiatePosition {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        NegotiatePosition::from_str(value)
+    }
 }
 
 impl Display for NegotiatePosition {
@@ -544,6 +568,14 @@ impl Display for ShortCut {
             ShortCut::AltBKsp => "Alt+Backspace",
         };
         write!(f, "{text}")
+    }
+}
+
+impl FromStr for ShortCut {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ShortCut::try_from(s)
     }
 }
 
