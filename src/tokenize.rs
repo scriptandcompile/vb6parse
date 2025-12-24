@@ -289,14 +289,17 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 /// let mut input = SourceStream::new("test.bas", "Dim x As Integer");
 /// let result = tokenize(&mut input);
 ///
-/// if result.has_failures() {
-///     for failure in result.failures() {
+/// let (Some(tokens), failures) = result.unpack() else {
+///    panic!("Failed to read VB6 code.");
+/// };
+///
+/// if !failures.is_empty() {
+///     for failure in failures {
 ///         failure.print();
 ///     }
+///
 ///     panic!("Failed to parse vb6 code.");
 /// }
-///
-/// let tokens = result.unwrap();
 ///
 /// assert_eq!(tokens.len(), 7);
 /// assert_eq!(tokens[0], ("Dim", Token::DimKeyword));

@@ -7,17 +7,23 @@ use uuid::Uuid;
 /// Represents a reference to either a compiled object or a project file.
 /// # Examples
 /// ```rust
-/// use vb6parse::parsers::objectreference::ObjectReference;
-/// use uuid::Uuid;
-/// let compiled_ref = ObjectReference::Compiled {
-///     uuid: Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").unwrap(),
-///     version: "1.0".to_string(),
-///     unknown1: "SomeValue".to_string(),
-///     file_name: "MyLibrary.dll".to_string(),
-/// };
-/// let project_ref = ObjectReference::Project {
-///     path: "MyProject.vbp".to_string(),
-/// };
+/// # use uuid::Error;
+///
+/// # fn main() -> Result<(), uuid::Error> {
+///     use vb6parse::parsers::objectreference::ObjectReference;
+///     use uuid::Uuid;
+///
+///     let compiled_ref = ObjectReference::Compiled {
+///         uuid: Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000")?,
+///         version: "1.0".to_string(),
+///         unknown1: "SomeValue".to_string(),
+///         file_name: "MyLibrary.dll".to_string(),
+///     };
+///     let project_ref = ObjectReference::Project {
+///         path: "MyProject.vbp".to_string(),
+///     };
+///     # Ok(())
+/// # }
 /// ```
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum ObjectReference {

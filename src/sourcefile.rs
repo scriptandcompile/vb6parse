@@ -93,7 +93,13 @@ impl SourceFile {
     /// ```no_run
     /// use vb6parse::SourceFile;
     ///
-    /// let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
+    /// let source_file = SourceFile::from_file("path/to/module.bas");
+    ///
+    /// match source_file {
+    ///    Ok(file) => println!("Successfully read source file: {}", file.file_name()),
+    ///    Err(e) => e.print(),
+    /// }
+    ///
     /// ```
     pub fn from_file<P: AsRef<Path>>(
         path: P,

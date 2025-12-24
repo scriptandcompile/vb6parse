@@ -326,8 +326,12 @@ where
     ///     Some("Parsed Successfully"),
     ///     vec![],
     /// );
-    /// let result = parse_result.unwrap();
-    /// assert_eq!(result, "Parsed Successfully");
+    ///
+    /// let (result, failures) = parse_result.unpack();
+    ///
+    ///
+    /// assert_eq!(result, Some("Parsed Successfully"));
+    /// assert_eq!(failures.len(), 0);
     /// ```
     #[inline]
     pub fn unwrap(self) -> T {

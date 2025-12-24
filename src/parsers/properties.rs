@@ -43,22 +43,29 @@ use crate::language::StartUpPosition;
 /// # Examples
 ///
 /// ```rust
-/// use vb6parse::parsers::properties::PropertyGroup;
-/// use vb6parse::language::Color;
-/// use vb6parse::VB_RED;
-/// use std::collections::HashMap;
-/// use either::Either;
-/// use uuid::Uuid;
-/// let mut properties = HashMap::new();
-/// properties.insert("BackColor".to_string(), Either::Left(VB_RED.to_vb_string()));
-/// let group = PropertyGroup {
-///     name: "FormProperties".to_string(),
-///     guid: Some(Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000").unwrap()),
-///     properties,
-/// };
-/// assert_eq!(group.name, "FormProperties");
-/// assert_eq!(group.guid.unwrap().to_string(), "123e4567-e89b-12d3-a456-426614174000");
-/// assert_eq!(group.properties.get("BackColor").unwrap(), &Either::Left(VB_RED.to_vb_string()));
+/// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
+///     use vb6parse::parsers::properties::PropertyGroup;
+///     use vb6parse::language::Color;
+///     use vb6parse::VB_RED;
+///     use std::collections::HashMap;
+///     use either::Either;
+///     use uuid::Uuid;
+///
+///     let mut properties = HashMap::new();
+///
+///     properties.insert("BackColor".to_string(), Either::Left(VB_RED.to_vb_string()));
+///
+///     let group = PropertyGroup {
+///         name: "FormProperties".to_string(),
+///         guid: Some(Uuid::parse_str("123e4567-e89b-12d3-a456-426614174000")?),
+///         properties,
+///     };
+///
+///     assert_eq!(group.name, "FormProperties");
+///     assert_eq!(group.guid.expect("Expected GUID").to_string(), "123e4567-e89b-12d3-a456-426614174000");
+///     assert_eq!(group.properties.get("BackColor").expect("Expected 'BackColor'property"), &Either::Left(VB_RED.to_vb_string()));
+///     # Ok(())
+/// # }
 /// ```
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct PropertyGroup {
@@ -422,18 +429,21 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
-    /// use vb6parse::VB_WHITE;
-    /// use vb6parse::language::Color;
+    /// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
+    ///     use vb6parse::parsers::properties::Properties;
+    ///     use vb6parse::VB_WHITE;
+    ///     use vb6parse::language::Color;
     ///
-    /// let mut props = Properties::new();
-    /// props.insert("BackgroundColor", "&H00FFFFFF&");
+    ///     let mut props = Properties::new();
+    ///     props.insert("BackgroundColor", "&H00FFFFFF&");
     ///
-    /// let color = props.get_color("BackgroundColor", VB_WHITE);
-    /// assert_eq!(color, Color::from_hex("&H00FFFFFF&").unwrap());
+    ///     let color = props.get_color("BackgroundColor", VB_WHITE);
+    ///     assert_eq!(color, Color::from_hex("&H00FFFFFF&")?);
     ///
-    /// let default_color = props.get_color("ForegroundColor", VB_WHITE);
-    /// assert_eq!(default_color, VB_WHITE); // default used
+    ///     let default_color = props.get_color("ForegroundColor", VB_WHITE);
+    ///     assert_eq!(default_color, VB_WHITE); // default used
+    ///     # Ok(())
+    /// # }
     /// ```
     #[must_use]
     pub fn get_color(&self, property_key: &str, default: Color) -> Color {

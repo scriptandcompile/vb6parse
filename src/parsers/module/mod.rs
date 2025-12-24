@@ -78,14 +78,16 @@ impl ModuleFile {
     ///
     /// let result = ModuleFile::parse(&source_file);
     ///
-    /// if result.has_failures() {
-    ///     for failure in result.failures() {
+    /// let (module_opt, failures) = result.unpack();
+    ///
+    /// let module_file = module_opt.expect("Failed to parse module file");
+    ///
+    /// if !failures.is_empty() {
+    ///     for failure in failures.iter() {
     ///         failure.print();
     ///     }
     ///     panic!("Module parse had failures");
     /// }
-    ///
-    /// let module_file = result.unwrap();
     ///
     /// assert_eq!(module_file.name, "Module1");
     /// assert!(module_file.cst.child_count() > 0);
