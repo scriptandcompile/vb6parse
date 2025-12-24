@@ -97,7 +97,7 @@ impl ClassFile {
     /// ```
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, ClassErrorKind<'_>> {
-        let mut input = source_file.get_source_stream();
+        let mut input = source_file.source_stream();
 
         let mut failures = vec![];
 
@@ -123,7 +123,7 @@ impl ClassFile {
         // Extract version from CST
         let Some(version) = extract_version(&cst) else {
             let error = source_file
-                .get_source_stream()
+                .source_stream()
                 .generate_error(ClassErrorKind::VersionKeywordMissing);
             failures.push(error);
 
@@ -410,7 +410,7 @@ Option Explicit
             Err(e) => panic!("Failed to decode source file 'test.cls': {e:?}"),
         };
 
-        let mut source_stream = source_file.get_source_stream();
+        let mut source_stream = source_file.source_stream();
         let token_stream = tokenize(&mut source_stream).unwrap();
         let cst = parse(token_stream);
 
@@ -434,7 +434,7 @@ Option Explicit
             Err(e) => panic!("Failed to decode source file 'test.cls': {e:?}"),
         };
 
-        let mut source_stream = source_file.get_source_stream();
+        let mut source_stream = source_file.source_stream();
         let token_stream = tokenize(&mut source_stream).unwrap();
         let cst = parse(token_stream);
 

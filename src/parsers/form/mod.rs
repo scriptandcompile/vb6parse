@@ -509,7 +509,7 @@ impl FormFile {
     ///
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, Self, FormErrorKind> {
-        let mut source_stream = source_file.get_source_stream();
+        let mut source_stream = source_file.source_stream();
 
         // TODO: Handle errors from tokenization.
         let token_stream = tokenize(&mut source_stream).unwrap();

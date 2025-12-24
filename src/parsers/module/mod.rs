@@ -93,7 +93,7 @@ impl ModuleFile {
     #[must_use]
     pub fn parse(source_file: &SourceFile) -> ParseResult<'_, ModuleFile, ModuleErrorKind> {
         let mut failures = vec![];
-        let mut input = source_file.get_source_stream();
+        let mut input = source_file.source_stream();
 
         // Eat however many spaces starts the files. It doesn't matter how many
         // whitespaces it has, zero or many.
@@ -159,7 +159,7 @@ impl ModuleFile {
                 };
 
                 // Parse the entire source file as CST
-                let mut stream = source_file.get_source_stream();
+                let mut stream = source_file.source_stream();
                 let token_result = tokenize(&mut stream);
 
                 if token_result.has_failures() {

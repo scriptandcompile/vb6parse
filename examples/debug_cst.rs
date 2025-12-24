@@ -11,7 +11,7 @@ Attribute VB_GlobalNameSpace = False
 ";
 
     let source_file = SourceFile::decode_with_replacement("test.frm", source).unwrap();
-    let mut stream = source_file.get_source_stream();
+    let mut stream = source_file.source_stream();
     let tokens = tokenize(&mut stream).unwrap();
     let cst = parse(tokens);
 
