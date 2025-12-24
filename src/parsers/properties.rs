@@ -301,13 +301,13 @@ impl Properties {
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// props.insert("Key2", "Value2");
-    /// let keys = props.get_keys();
+    /// let keys = props.keys();
     /// assert_eq!(keys.len(), 2);
     /// assert!(keys.contains(&&"Key1".to_string()));
     /// assert!(keys.contains(&&"Key2".to_string()));
     /// ```
     #[must_use]
-    pub fn get_keys(&self) -> Vec<&String> {
+    pub fn keys(&self) -> Vec<&String> {
         self.key_value_store.keys().collect()
     }
 
