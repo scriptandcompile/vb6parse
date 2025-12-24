@@ -582,7 +582,7 @@ impl<'a> ProjectFile<'a> {
     /// A vector of mutable references to all compiled references.
     ///
     #[must_use]
-    pub fn get_compiled_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
+    pub fn compiled_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
         self.references
             .iter_mut()
             .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
