@@ -115,6 +115,12 @@ pub struct Properties {
     key_value_store: HashMap<String, String>,
 }
 
+impl AsRef<HashMap<String, String>> for Properties {
+    fn as_ref(&self) -> &HashMap<String, String> {
+        &self.key_value_store
+    }
+}
+
 /// An iterator over the key-value pairs in a `Properties` collection.
 ///
 /// # Examples
