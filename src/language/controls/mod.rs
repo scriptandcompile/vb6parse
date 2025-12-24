@@ -1530,6 +1530,31 @@ impl Control {
     }
 
     /// Returns an iterator over child controls, if this control type supports children.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over child controls if the control supports children, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let control = Control {
+    ///     name: "MyFrame".to_string(),
+    ///     tag: "".to_string(),
+    ///     index: 0,
+    ///     kind: ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///     },
+    /// };
+    ///
+    /// if let Some(children) = control.children() {
+    ///     for child in children {
+    ///         println!("Child control: {}", child.name);
+    ///     }
+    /// };
+    /// ```
     #[must_use]
     pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
         self.kind.children()
