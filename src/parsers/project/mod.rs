@@ -568,7 +568,7 @@ impl<'a> ProjectFile<'a> {
     /// A vector of mutable references to all sub-project references.
     ///
     #[must_use]
-    pub fn get_subproject_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
+    pub fn subproject_references_mut(&mut self) -> Vec<&mut ProjectReference<'a>> {
         self.references
             .iter_mut()
             .filter(|reference| matches!(reference, ProjectReference::SubProject { .. }))
