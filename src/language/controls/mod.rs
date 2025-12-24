@@ -1396,6 +1396,7 @@ impl Control {
     }
 
     /// Returns true if this control type can contain child controls.
+    #[must_use]
     pub fn has_children(&self) -> bool {
         matches!(
             self.kind,
