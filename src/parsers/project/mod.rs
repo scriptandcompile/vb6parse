@@ -554,6 +554,42 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to designer file names.
     ///
+    /// # Example
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let input = r#"Type=Exe
+    /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
+    /// Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
+    /// Module=Module1; Module1.bas
+    /// Form=Form2.frm
+    /// Designer=Designer1.des
+    /// UserDocument=UserDocument1.udd
+    /// "#;
+    ///
+    /// let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+    ///     Ok(source_file) => source_file,
+    ///     Err(e) => {
+    ///         e.print();
+    ///         panic!("failed to decode project source code.");
+    ///     }
+    /// };
+    ///
+    /// let result = ProjectFile::parse(&project_source_file);
+    ///
+    /// let (project_opt, failures) = result.unpack();
+    ///
+    /// if !failures.is_empty() {
+    ///     for failure in failures.iter() {
+    ///         failure.print();
+    ///     }
+    /// }
+    ///
+    /// let project = project_opt.expect("Expected project to be parsed successfully.");
+    ///
+    /// assert_eq!(project.project_type, CompileTargetType::Exe);
+    /// assert_eq!(project.designers().collect::<Vec<_>>().len(), 1);
+    /// ```
     pub fn designers(&self) -> impl Iterator<Item = &&'a str> {
         self.designers.iter()
     }
