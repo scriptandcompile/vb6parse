@@ -38,7 +38,7 @@ pub struct TokenStream<'a> {
     /// The vector of tokens with their text content
     tokens: Vec<(&'a str, Token)>,
     /// Current position/offset in the token stream
-    pub offset: usize,
+    offset: usize,
 }
 
 impl<'a> TokenStream<'a> {
@@ -50,6 +50,12 @@ impl<'a> TokenStream<'a> {
             tokens,
             offset: 0,
         }
+    }
+
+    /// Returns the current offset in the token stream
+    #[must_use]
+    pub fn offset(&self) -> usize {
+        self.offset
     }
 
     /// Returns the current token without advancing the position
