@@ -1401,8 +1401,9 @@ impl ControlKind {
     #[must_use]
     pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
         match self {
-            ControlKind::Form { menus, .. } => Some(menus.iter()),
-            ControlKind::MDIForm { menus, .. } => Some(menus.iter()),
+            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
+                Some(menus.iter())
+            }
             _ => None,
         }
     }
