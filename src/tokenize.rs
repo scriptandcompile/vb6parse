@@ -435,7 +435,10 @@ pub fn tokenize_without_whitespaces<'a>(
         .copied()
         .collect();
 
-    let filtered_stream = TokenStream::new(token_stream.source_file, tokens_without_whitespaces);
+    let filtered_stream = TokenStream::new(
+        token_stream.file_name().to_string(),
+        tokens_without_whitespaces,
+    );
     ParseResult::new(Some(filtered_stream), vec![])
 }
 

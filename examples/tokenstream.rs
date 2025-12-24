@@ -17,7 +17,7 @@ fn main() {
 
     let (token_stream_opt, _failures) = result.unpack();
     if let Some(token_stream) = token_stream_opt {
-        println!("Source file: {}", token_stream.source_file);
+        println!("File name: {}", token_stream.file_name());
         println!("Total tokens: {}", token_stream.len());
         println!("Current offset: {}", token_stream.offset());
         println!();
