@@ -1,5 +1,8 @@
 [package]
+authors = ["ScriptAndCompile"]
 name = "vb6parse"
+homepage = "https://github.com/scriptandcompile/vb6parse"
+documentation = "https://docs.rs/vb6parse"
 version = "0.5.1"
 edition = "2021"
 license-file = "LICENSE"
