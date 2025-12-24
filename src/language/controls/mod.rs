@@ -1353,10 +1353,10 @@ impl ControlKind {
     #[must_use]
     pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
         match self {
-            ControlKind::Frame { controls, .. } => Some(controls.iter()),
-            ControlKind::PictureBox { controls, .. } => Some(controls.iter()),
-            ControlKind::Form { controls, .. } => Some(controls.iter()),
-            ControlKind::MDIForm { controls, .. } => Some(controls.iter()),
+            ControlKind::Frame { controls, .. }
+            | ControlKind::PictureBox { controls, .. }
+            | ControlKind::Form { controls, .. }
+            | ControlKind::MDIForm { controls, .. } => Some(controls.iter()),
             _ => None,
         }
     }
