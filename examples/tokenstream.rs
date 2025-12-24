@@ -23,7 +23,7 @@ fn main() {
 
         // Iterate through tokens
         println!("Tokens:");
-        for (i, &(text, token_type)) in token_stream.tokens.iter().enumerate() {
+        for (i, &(text, token_type)) in token_stream.tokens().iter().enumerate() {
             println!("  {i}: {token_type:?} = '{text}'");
         }
 
