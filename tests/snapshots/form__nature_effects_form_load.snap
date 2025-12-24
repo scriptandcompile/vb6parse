@@ -212,6 +212,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 10110
+              controls: []
         - name: picBack
           tag: ""
           index: 0
@@ -273,6 +274,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 10110
+              controls: []
       menus:
         - name: mnuFile
           tag: ""

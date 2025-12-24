@@ -250,6 +250,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 615
+              controls: []
         - name: picScan
           tag: ""
           index: 0
@@ -311,6 +312,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 6975
+              controls: []
         - name: cmdScanImage
           tag: ""
           index: 0

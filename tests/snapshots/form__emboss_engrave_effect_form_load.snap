@@ -175,6 +175,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 975
+              controls: []
         - name: chkColor
           tag: ""
           index: 0
@@ -412,6 +413,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1335
+              controls: []
         - name: picBack
           tag: ""
           index: 0
@@ -473,6 +475,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 9330
+              controls: []
       menus:
         - name: mnuFile
           tag: ""

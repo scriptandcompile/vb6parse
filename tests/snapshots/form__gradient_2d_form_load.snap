@@ -172,6 +172,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 735
+              controls: []
         - name: picColor1
           tag: ""
           index: 0
@@ -235,6 +236,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 735
+              controls: []
         - name: lblExplanation
           tag: ""
           index: 0

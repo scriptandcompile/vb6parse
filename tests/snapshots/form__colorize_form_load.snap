@@ -227,6 +227,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 6990
+              controls: []
         - name: cmdReset
           tag: ""
           index: 0
@@ -328,6 +329,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 1335
+              controls: []
         - name: picBack
           tag: ""
           index: 0
@@ -389,6 +391,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 10830
+              controls: []
         - name: optForceSaturation
           tag: ""
           index: 0

@@ -255,6 +255,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 12540
+              controls: []
         - name: PicTilesBuffer
           tag: ""
           index: 0
@@ -316,6 +317,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 15390
+              controls: []
         - name: Pic1
           tag: ""
           index: 0
@@ -377,6 +379,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 990
+              controls: []
         - name: MainPic
           tag: ""
           index: 0
@@ -440,6 +443,69 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 12135
+              controls:
+                - name: Pic2
+                  tag: ""
+                  index: 0
+                  kind:
+                    PictureBox:
+                      properties:
+                        align: None
+                        appearance: ThreeD
+                        auto_redraw: Manual
+                        auto_size: Fixed
+                        back_color:
+                          System:
+                            index: 5
+                        border_style: FixedSingle
+                        causes_validation: "Yes"
+                        clip_controls: Clipped
+                        data_field: ""
+                        data_format: ""
+                        data_member: ""
+                        data_source: ""
+                        drag_icon: ~
+                        drag_mode: Manual
+                        draw_mode: CopyPen
+                        draw_style: Solid
+                        draw_width: 1
+                        enabled: Enabled
+                        fill_color:
+                          System:
+                            index: 0
+                        fill_style: Transparent
+                        font_transparent: Transparent
+                        fore_color:
+                          System:
+                            index: 8
+                        has_dc: HasContext
+                        height: 990
+                        help_context_id: 0
+                        left: 360
+                        link_item: ""
+                        link_mode: None
+                        link_timeout: 50
+                        link_topic: ""
+                        mouse_icon: ~
+                        mouse_pointer: Default
+                        negotiate: false
+                        ole_drag_mode: Manual
+                        ole_drop_mode: None
+                        picture: ~
+                        right_to_left: LeftToRight
+                        scale_height: 64
+                        scale_left: 0
+                        scale_mode: Twip
+                        scale_top: 0
+                        scale_width: 64
+                        tab_index: 7
+                        tab_stop: Included
+                        tool_tip_text: ""
+                        top: 3360
+                        visible: Visible
+                        whats_this_help_id: 0
+                        width: 990
+                      controls: []
       menus:
         - name: MnuFile
           tag: ""

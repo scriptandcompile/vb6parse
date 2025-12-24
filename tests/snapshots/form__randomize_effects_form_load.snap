@@ -347,6 +347,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 9570
+              controls: []
         - name: picBack
           tag: ""
           index: 0
@@ -408,6 +409,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 9570
+              controls: []
         - name: Label4
           tag: ""
           index: 0

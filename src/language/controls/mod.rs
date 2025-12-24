@@ -1142,6 +1142,8 @@ pub enum ControlKind {
     PictureBox {
         /// The properties of the picture box control.
         properties: PictureBoxProperties,
+        /// The child controls of the picture box control.
+        controls: Vec<Control>,
     },
     /// A file list box control.
     FileListBox {
@@ -1255,10 +1257,156 @@ impl Display for ControlKind {
 
 /// Helper methods for `ControlKind`.
 impl ControlKind {
-    /// Returns `true` if the control kind is a `Menu`.
+    /// Indicates if the control kind is a `Menu`.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind is a `Menu`, otherwise `false`.
     #[must_use]
     pub fn is_menu(&self) -> bool {
         matches!(self, ControlKind::Menu { .. })
+    }
+
+    /// Indicates if the control kind can contain child controls.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind can contain child controls, otherwise `false`.
+    #[must_use]
+    pub fn can_contain_children(&self) -> bool {
+        matches!(
+            self,
+            ControlKind::Frame { .. }
+                | ControlKind::PictureBox { .. }
+                | ControlKind::Form { .. }
+                | ControlKind::MDIForm { .. }
+        )
+    }
+
+    /// Indicates if the control kind can contain menus.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind can contain menus, otherwise `false`.
+    #[must_use]
+    pub fn can_contain_menus(&self) -> bool {
+        matches!(self, ControlKind::Form { .. } | ControlKind::MDIForm { .. })
+    }
+
+    /// Indicates if the control kind currently has menus.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind has menus, otherwise `false`.
+    #[must_use]
+    pub fn has_menu(&self) -> bool {
+        match self {
+            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
+                !menus.is_empty()
+            }
+            _ => false,
+        }
+    }
+
+    /// Indicates if the control kind currently has child controls.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind has child controls, otherwise `false`.
+    #[must_use]
+    pub fn has_children(&self) -> bool {
+        matches!(
+            self,
+            ControlKind::Frame { controls, .. } |
+            ControlKind::PictureBox { controls, .. } |
+            ControlKind::Form { controls, .. } |
+            ControlKind::MDIForm { controls, .. } if !controls.is_empty()
+        )
+    }
+
+    /// Returns an iterator over child controls, if this control type supports children.
+    #[must_use]
+    pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
+        match self {
+            ControlKind::Frame { controls, .. } => Some(controls.iter()),
+            ControlKind::PictureBox { controls, .. } => Some(controls.iter()),
+            ControlKind::Form { controls, .. } => Some(controls.iter()),
+            ControlKind::MDIForm { controls, .. } => Some(controls.iter()),
+            _ => None,
+        }
+    }
+
+    /// Returns an iterator over menus, if this control type supports menus.
+    #[must_use]
+    pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
+        match self {
+            ControlKind::Form { menus, .. } => Some(menus.iter()),
+            ControlKind::MDIForm { menus, .. } => Some(menus.iter()),
+            _ => None,
+        }
+    }
+
+    /// Recursively iterates over all descendant controls, if this control type supports children.
+    #[must_use]
+    pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
+        Box::new(
+            self.children()
+                .into_iter()
+                .flatten()
+                .flat_map(|child| child.descendants()),
+        )
+    }
+}
+
+impl Control {
+    /// Returns `true` if the control is a `Menu`.
+    #[must_use]
+    pub fn is_menu(&self) -> bool {
+        self.kind.is_menu()
+    }
+
+    /// Returns `true` if the control has a menu.
+    #[must_use]
+    pub fn has_menu(&self) -> bool {
+        self.kind.has_menu()
+    }
+
+    /// Returns an iterator over menus, if this control type supports menus.
+    #[must_use]
+    pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
+        self.kind.menus()
+    }
+
+    /// Returns true if this control type can contain menus.
+    #[must_use]
+    pub fn can_contain_menus(&self) -> bool {
+        self.kind.can_contain_menus()
+    }
+
+    /// Returns true if this control type can contain child controls.
+    #[must_use]
+    pub fn can_contain_children(&self) -> bool {
+        self.kind.can_contain_children()
+    }
+
+    /// Returns an iterator over child controls, if this control type supports children.
+    #[must_use]
+    pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
+        self.kind.children()
+    }
+
+    /// Returns true if this control type can contain child controls.
+    pub fn has_children(&self) -> bool {
+        matches!(
+            self.kind,
+            ControlKind::Frame { .. } | ControlKind::PictureBox { .. } | ControlKind::Form { .. }
+        )
+    }
+
+    /// Recursively iterates over this control and all descendants.
+    #[must_use]
+    pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
+        Box::new(std::iter::once(self).chain(self.kind.descendants()))
     }
 }
 
