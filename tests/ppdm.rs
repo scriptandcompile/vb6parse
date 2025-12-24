@@ -9,7 +9,7 @@ fn ppdm_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 

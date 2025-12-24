@@ -15,7 +15,7 @@ fn artificial_life_organism_class_load() {
     let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -42,7 +42,7 @@ fn blacklight_effect_class_load() {
     let result1 = ClassFile::parse(&source_file1);
 
     if result1.has_failures() {
-        for failure in result1.failures {
+        for failure in result1.failures() {
             failure.print();
         }
 
@@ -66,7 +66,7 @@ fn blacklight_effect_class_load() {
     let result2 = ClassFile::parse(&source_file2);
 
     if result2.has_failures() {
-        for failure in result2.failures {
+        for failure in result2.failures() {
             failure.print();
         }
 
@@ -93,7 +93,7 @@ fn gradient_2d_class_load() {
     let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -120,7 +120,7 @@ fn hidden_markov_model_class_load() {
     let result = ClassFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 

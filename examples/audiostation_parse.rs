@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let project_parse_result = ProjectFile::parse(&project_source);
 
     if project_parse_result.has_failures() {
-        for failure in &project_parse_result.failures {
+        for failure in project_parse_result.failures() {
             failure.print();
         }
     }
@@ -63,7 +63,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let module_parse_result = vb6parse::parsers::module::ModuleFile::parse(&module_source);
         if module_parse_result.has_failures() {
-            for failure in &module_parse_result.failures {
+            for failure in module_parse_result.failures() {
                 failure.print();
             }
         }

@@ -89,7 +89,7 @@
 //! let result = ProjectFile::parse(&project_source_file);
 //!
 //! if result.has_failures() {
-//!     for failure in result.failures {
+//!     for failure in result.failures() {
 //!         failure.print();
 //!     }
 //!     panic!("Project parse had failures");
@@ -160,11 +160,11 @@
 //! Attribute VB_Name = \"frmExampleForm\"\r
 //! ";
 //!
-//! let source = vb6parse::SourceFile::decode("frmExampleForm.frm", input).unwrap();
+//! let source = vb6parse::SourceFile::decode("frmExampleForm.frm", input).expect("Failed to decode source file");
 //! let result = FormFile::parse(&source);
 //!
 //! assert!(result.has_result());
-//! assert_eq!(result.result.unwrap().attributes.name, "frmExampleForm");
+//! assert_eq!(result.unwrap().attributes.name, "frmExampleForm");
 //! ```
 
 pub mod errors;

@@ -33,15 +33,15 @@ use crate::tokenstream::TokenStream;
 /// use vb6parse::parsers::parseresults::ParseResult;
 /// use vb6parse::errors::ErrorDetails;
 ///
-/// let success_result: ParseResult<&str, &str> = ParseResult {
-///     result: Some("Parsed Successfully"),
-///     failures: vec![],
-/// };
+/// let success_result: ParseResult<&str, &str> = ParseResult::new(
+///     Some("Parsed Successfully"),
+///     vec![],
+/// );
 /// assert!(success_result.has_result());
-/// let failure_result: ParseResult<&str, &str> = ParseResult {
-///     result: None,
-///     failures: vec![],
-/// };
+/// let failure_result: ParseResult<&str, &str> = ParseResult::new(
+///     None,
+///     vec![],
+/// );
 /// assert!(!failure_result.has_result());
 /// ```
 #[derive(Debug, Clone)]
@@ -50,9 +50,9 @@ where
     E: ToString + std::fmt::Debug,
 {
     /// The successful parse result, if any.
-    pub result: Option<T>,
+    result: Option<T>,
     /// A list of failures encountered during parsing.
-    pub failures: Vec<ErrorDetails<'a, E>>,
+    failures: Vec<ErrorDetails<'a, E>>,
 }
 
 impl<'a, T, E> From<ParseResult<'a, T, E>> for (Option<T>, Vec<ErrorDetails<'a, E>>)
@@ -98,21 +98,36 @@ where
     /// ```rust
     /// use vb6parse::parsers::parseresults::ParseResult;
     ///
-    /// let success_result: ParseResult<&str, &str> = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let success_result: ParseResult<&str, &str> = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// assert!(success_result.has_result());
     ///
-    /// let failure_result: ParseResult<&str, &str> = ParseResult {
-    ///     result: None,
-    ///     failures: vec![],
-    /// };
+    /// let failure_result: ParseResult<&str, &str> = ParseResult::new(
+    ///     None,
+    ///     vec![],
+    /// );
     /// assert!(!failure_result.has_result());
     /// ```
     #[inline]
     pub const fn has_result(&self) -> bool {
         self.result.is_some()
+    }
+
+    /// Creates a new `ParseResult` instance.
+    ///
+    /// # Arguments
+    ///
+    /// * `result`: An optional successful parse result of type `T`.
+    /// * `failures`: A vector of `ErrorDetails` representing failures encountered during parsing.
+    ///
+    /// # Returns
+    ///
+    /// * A new `ParseResult` instance containing the provided result and failures.
+    ///
+    pub fn new(result: Option<T>, failures: Vec<ErrorDetails<'a, E>>) -> Self {
+        Self { result, failures }
     }
 
     /// Returns an iterator over the failures in the parse result.
@@ -136,10 +151,10 @@ where
     ///     line_end: 10,
     ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     /// };
-    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
-    ///     result: None,
-    ///     failures: vec![failure],
-    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult::new(
+    ///     None,
+    ///     vec![failure],
+    /// );
     /// for error in parse_result.failures() {
     ///     error.print();
     /// }
@@ -170,10 +185,10 @@ where
     ///     line_end: 10,
     ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     /// };
-    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
-    ///     result: None,
-    ///     failures: vec![failure],
-    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult::new(
+    ///     None,
+    ///     vec![failure],
+    /// );
     /// for error in parse_result.into_failures() {
     ///     error.print();
     /// }
@@ -204,16 +219,16 @@ where
     ///     line_end: 10,
     ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     /// };
-    /// let failure_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
-    ///     result: None,
-    ///     failures: vec![failure],
-    /// };
+    /// let failure_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult::new(
+    ///     None,
+    ///     vec![failure],
+    /// );
     /// assert!(failure_result.has_failures());
     ///
-    /// let success_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let success_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// assert!(!success_result.has_failures());
     /// ```
     #[inline]
@@ -233,10 +248,10 @@ where
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
-    /// let mut parse_result = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let mut parse_result = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// let failure = ErrorDetails {
     ///     source_name: "test.bas".to_string(),
     ///     source_content: Cow::Borrowed("Some source code"),
@@ -265,10 +280,10 @@ where
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
-    /// let mut parse_result = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let mut parse_result = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// let mut failures = vec![
     ///     ErrorDetails {
     ///         source_name: "test.bas".to_string(),
@@ -307,10 +322,10 @@ where
     /// ```rust
     /// use vb6parse::parsers::parseresults::ParseResult;
     ///
-    /// let parse_result: ParseResult<&str, &str> = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let parse_result: ParseResult<&str, &str> = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// let result = parse_result.unwrap();
     /// assert_eq!(result, "Parsed Successfully");
     /// ```
@@ -318,6 +333,19 @@ where
     pub fn unwrap(self) -> T {
         self.result
             .expect("Attempted to unwrap a ParseResult that did not have a result.")
+    }
+
+    /// Unpacks the parse result into its components.
+    ///
+    /// # Returns
+    ///
+    /// * A tuple containing:
+    ///
+    ///  - An `Option<T>` representing the successful parse result, if any.
+    ///  - A `Vec<ErrorDetails<'a, E>>` containing the failures encountered during parsing.
+    ///
+    pub fn unpack(self) -> (Option<T>, Vec<ErrorDetails<'a, E>>) {
+        (self.result, self.failures)
     }
 
     /// Unwraps the parse result, returning the successful result if it exists.
@@ -334,10 +362,10 @@ where
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::CodeErrorKind;
     ///
-    /// let parse_result: ParseResult<&str, &CodeErrorKind> = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![],
-    /// };
+    /// let parse_result: ParseResult<&str, &CodeErrorKind> = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![],
+    /// );
     /// let result = parse_result.unwrap_or_fail();
     /// assert_eq!(result, "Parsed Successfully");
     /// ```
@@ -386,10 +414,10 @@ where
     ///     line_end: 10,
     ///     kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     /// };
-    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult {
-    ///     result: Some("Parsed Successfully"),
-    ///     failures: vec![failure],
-    /// };
+    /// let parse_result: ParseResult<'_, &str, CodeErrorKind> = ParseResult::new(
+    ///     Some("Parsed Successfully"),
+    ///     vec![failure],
+    /// );
     /// match parse_result.ok_or_errors() {
     ///     Ok(result) => println!("Parsed result: {}", result),
     ///     Err(errors) => {

@@ -182,20 +182,15 @@ impl ConcreteSyntaxTree {
     {
         let mut source_stream = SourceStream::new(file_name.into(), contents);
         let token_stream_result = tokenize(&mut source_stream);
+        let (token_stream_opt, failures) = token_stream_result.unpack();
 
-        let Some(token_stream) = token_stream_result.result else {
-            return ParseResult {
-                result: None,
-                failures: token_stream_result.failures,
-            };
+        let Some(token_stream) = token_stream_opt else {
+            return ParseResult::new(None, failures);
         };
 
         let cst = parse(token_stream);
 
-        ParseResult {
-            result: Some(cst),
-            failures: token_stream_result.failures,
-        }
+        ParseResult::new(Some(cst), failures)
     }
 
     /// Get the kind of the root node
@@ -828,7 +823,9 @@ mod test {
 
         let mut source_stream = SourceStream::new("test.bas", code);
         let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
+        let (token_stream_opt, _failures) = result.unpack();
+
+        let token_stream = token_stream_opt.expect("Tokenization failed");
         let cst = parse(token_stream);
 
         assert_eq!(cst.root_kind(), SyntaxKind::Root);

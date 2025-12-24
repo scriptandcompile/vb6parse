@@ -10,7 +10,7 @@
 //! let mut input = SourceStream::new("test.bas", "Dim x As Integer");
 //! let result = tokenize(&mut input);
 //! if result.has_failures() {
-//!    for failure in result.failures {
+//!    for failure in result.failures() {
 //!       failure.print();
 //!   }
 //!   panic!("Failed to parse vb6 code.");
@@ -290,7 +290,7 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 /// let result = tokenize(&mut input);
 ///
 /// if result.has_failures() {
-///     for failure in result.failures {
+///     for failure in result.failures() {
 ///         failure.print();
 ///     }
 ///     panic!("Failed to parse vb6 code.");
@@ -422,11 +422,10 @@ pub fn tokenize_without_whitespaces<'a>(
         return parse_result;
     }
 
-    let Some(token_stream) = parse_result.result else {
-        return ParseResult {
-            result: None,
-            failures: parse_result.failures,
-        };
+    let (token_stream_opt, failures) = parse_result.unpack();
+
+    let Some(token_stream) = token_stream_opt else {
+        return ParseResult::new(None, failures);
     };
 
     let tokens_without_whitespaces: Vec<(&str, Token)> = token_stream
@@ -437,10 +436,7 @@ pub fn tokenize_without_whitespaces<'a>(
         .collect();
 
     let filtered_stream = TokenStream::new(token_stream.source_file, tokens_without_whitespaces);
-    ParseResult {
-        result: Some(filtered_stream),
-        failures: vec![],
-    }
+    ParseResult::new(Some(filtered_stream), vec![])
 }
 
 /// Parses a VB6 to-end-of-the-line comment.
@@ -826,11 +822,15 @@ mod test {
         let mut input = SourceStream::new("", "Dim x As Integer");
         let result = tokenize(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let tokens = result.result.unwrap();
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("Dim", Token::DimKeyword));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -850,11 +850,15 @@ mod test {
         let mut input = SourceStream::new("", r#"x = "Test""#);
         let result = tokenize(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let tokens = result.result.unwrap();
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens.len(), 5);
         assert_eq!(tokens[0], ("x", Token::Identifier));
@@ -872,11 +876,15 @@ mod test {
         let mut input = SourceStream::new("", r#""Text""#);
         let result = tokenize(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let tokens = result.result.unwrap();
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens.len(), 1);
         assert_eq!(tokens[0], ("\"Text\"", Token::StringLiteral));
@@ -890,11 +898,15 @@ mod test {
         let mut input = SourceStream::new("", r#"x = "Test" 'This is a comment."#);
         let result = tokenize(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let tokens = result.result.unwrap();
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens.len(), 7);
         assert_eq!(tokens[0], ("x", Token::Identifier));
@@ -929,11 +941,15 @@ Attribute VB_Exposed = False
         let mut input = SourceStream::new("", source_code);
         let result = tokenize(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let mut tokens = result.result.unwrap().into_iter();
+        let mut tokens = tokens_opt.expect("Expected tokens").into_iter();
 
         assert_eq!(tokens.len(), 96);
         assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
@@ -1099,11 +1115,15 @@ Attribute VB_Exposed = False
         let mut input = SourceStream::new("", &source_code);
         let result = tokenize_without_whitespaces(&mut input);
 
-        if result.has_failures() {
-            result.failures[0].eprint();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
         }
 
-        let mut tokens = result.result.unwrap().into_iter();
+        let mut tokens = tokens_opt.expect("Expected tokens").into_iter();
 
         assert_eq!(tokens.len(), 59);
         assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
@@ -1216,7 +1236,15 @@ Attribute VB_Exposed = False
         let result = tokenize(&mut input);
 
         assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1233,9 +1261,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 123456&");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1252,9 +1286,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 3.14!");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1271,9 +1311,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 3.14159265#");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1290,9 +1336,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "price = 12.50@");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("price", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1309,9 +1361,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "d = #1/1/2000#");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("d", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1328,9 +1386,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "d = #12/31/1999 11:59:59 PM#");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("d", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1347,9 +1411,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 42");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1366,9 +1436,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 3.14");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
@@ -1385,9 +1461,15 @@ Attribute VB_Exposed = False
 
         let mut input = SourceStream::new("", "x = 1.5E+10");
         let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
 
-        assert!(!result.has_failures());
-        let tokens = result.result.unwrap();
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens[0], ("x", Token::Identifier));
         assert_eq!(tokens[1], (" ", Token::Whitespace));
