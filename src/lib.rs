@@ -88,14 +88,17 @@
 //!
 //! let result = ProjectFile::parse(&project_source_file);
 //!
-//! if result.has_failures() {
-//!     for failure in result.failures() {
+//! let (Some(project), failures) = result.unpack() else {
+//!    panic!("Project parse had no result");
+//! };
+//!
+//! if !failures.is_empty() {
+//!     for failure in failures {
 //!         failure.print();
 //!     }
 //!     panic!("Project parse had failures");
 //! }
 //!
-//! let project = result.unwrap();;
 //!
 //! assert_eq!(project.project_type, CompileTargetType::Exe);
 //! assert_eq!(project.references().collect::<Vec<_>>().len(), 1);
@@ -163,8 +166,18 @@
 //! let source = vb6parse::SourceFile::decode("frmExampleForm.frm", input).expect("Failed to decode source file");
 //! let result = FormFile::parse(&source);
 //!
-//! assert!(result.has_result());
-//! assert_eq!(result.unwrap().attributes.name, "frmExampleForm");
+//! let (Some(project), failures) = result.unpack() else {
+//!    panic!("Project parse had no result");
+//! };
+//!
+//! if !failures.is_empty() {
+//!     for failure in failures {
+//!         failure.print();
+//!     }
+//!     panic!("Project parse had failures");
+//! }
+//!
+//! assert_eq!(project.attributes.name, "frmExampleForm");
 //! ```
 
 pub mod errors;

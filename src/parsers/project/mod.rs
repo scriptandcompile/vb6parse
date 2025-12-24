@@ -447,14 +447,16 @@ impl<'a> ProjectFile<'a> {
     ///
     /// let result = ProjectFile::parse(&project_source_file);
     ///
-    /// if result.has_failures() {
-    ///     for failure in result.failures() {
+    /// let (project_opt, failures) = result.unpack();
+    ///
+    /// if !failures.is_empty() {
+    ///     for failure in failures.iter() {
     ///         failure.print();
     ///     }
-    ///     panic!("Project parse produced warnings/errors");
+    ///     panic!("Failed to parse project with {} errors.", failures.len());
     /// }
     ///
-    /// let project = result.unwrap();
+    /// let project = project_opt.expect("Expected project to be parsed successfully.");
     ///
     /// assert_eq!(project.project_type, CompileTargetType::Exe);
     /// assert_eq!(project.references().collect::<Vec<_>>().len(), 1);

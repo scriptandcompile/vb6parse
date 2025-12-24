@@ -211,7 +211,19 @@ impl ConcreteSyntaxTree {
     /// use vb6parse::ConcreteSyntaxTree;
     ///
     /// let source = "Sub Test()\nEnd Sub\n";
-    /// let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+    /// let result = ConcreteSyntaxTree::from_text("test.bas", source);
+    ///
+    /// let (cst_opt, failures) = result.unpack();
+    ///
+    /// let cst = cst_opt.expect("Failed to parse source");
+    ///
+    /// if !failures.is_empty() {
+    ///     for failure in failures.iter() {
+    ///         failure.print();
+    ///     }
+    ///     panic!("Failed to parse source with {} errors.", failures.len());
+    /// };
+    ///
     /// let serializable = cst.to_serializable();
     ///
     /// // Can now be used with insta::assert_yaml_snapshot!
@@ -254,10 +266,14 @@ impl ConcreteSyntaxTree {
     /// use vb6parse::parsers::SyntaxKind;
     ///
     /// let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
-    /// let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+    /// let result = ConcreteSyntaxTree::from_text("test.bas", source);
+    /// let (cst_opt, failures) = result.unpack();
+    /// let cst = cst_opt.expect("Failed to parse source");
     ///
     /// // Remove version statement since it's already parsed
     /// let filtered = cst.without_kinds(&[SyntaxKind::VersionStatement]);
+    ///
+    /// assert!(!filtered.contains_kind(SyntaxKind::VersionStatement));
     /// ```
     #[must_use]
     pub fn without_kinds(&self, kinds_to_remove: &[SyntaxKind]) -> Self {

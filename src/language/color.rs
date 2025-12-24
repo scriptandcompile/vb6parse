@@ -372,16 +372,19 @@ impl Color {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::language::Color;
+    /// # fn main() -> Result<(), vb6parse::errors::FormErrorKind> {
+    ///     use vb6parse::language::Color;
     ///
-    /// // Of course, VB6 being as it is...
-    /// // the color is stored in a 'special' order.
-    /// // blue, green, red
-    /// let mut input = "&H00BBCCFF&";
-    /// let color = Color::from_hex(&input).unwrap();
+    ///     // Of course, VB6 being as it is...
+    ///     // the color is stored in a 'special' order.
+    ///     // blue, green, red
+    ///     let mut input = "&H00BBCCFF&";
+    ///     let color = Color::from_hex(&input)?;
     ///
-    /// assert!(matches!(color, Color::RGB { .. } ));
-    /// assert_eq!(color, Color::RGB { red: 0xFF, green: 0xCC, blue: 0xBB });
+    ///     assert!(matches!(color, Color::RGB { .. } ));
+    ///     assert_eq!(color, Color::RGB { red: 0xFF, green: 0xCC, blue: 0xBB });
+    ///     # Ok(())
+    /// # }
     /// ```
     pub fn from_hex(input: &str) -> Result<Color, FormErrorKind> {
         let kind_ascii = &input[2..4];
