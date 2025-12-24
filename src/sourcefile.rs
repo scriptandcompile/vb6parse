@@ -49,6 +49,12 @@ pub struct SourceFile {
     pub file_name: String,
 }
 
+impl AsRef<str> for SourceFile {
+    fn as_ref(&self) -> &str {
+        &self.file_content
+    }
+}
+
 impl Display for SourceFile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
