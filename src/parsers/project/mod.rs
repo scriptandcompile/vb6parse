@@ -540,7 +540,7 @@ impl<'a> ProjectFile<'a> {
     /// A vector of references to all sub-project references.
     ///
     #[must_use]
-    pub fn get_subproject_references(&self) -> Vec<&ProjectReference<'a>> {
+    pub fn subproject_references(&self) -> Vec<&ProjectReference<'a>> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, ProjectReference::SubProject { .. }))
