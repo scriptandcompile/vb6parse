@@ -135,6 +135,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 7530
+              controls: []
         - name: cmdSaveData
           tag: ""
           index: 0
@@ -1344,6 +1345,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 7530
+              controls: []
         - name: picFood
           tag: ""
           index: 0
@@ -1411,6 +1413,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 7530
+              controls: []
         - name: lblTitle
           tag: ""
           index: 0

@@ -258,6 +258,11 @@ fn extract_properties_block(block: &CstNode) -> Control {
             controls: child_controls,
             menus,
         },
+        "VB.MDIForm" => ControlKind::MDIForm {
+            properties: properties.into(),
+            controls: child_controls,
+            menus,
+        },
         "VB.CommandButton" => ControlKind::CommandButton {
             properties: properties.into(),
         },
@@ -269,6 +274,7 @@ fn extract_properties_block(block: &CstNode) -> Control {
         },
         "VB.PictureBox" => ControlKind::PictureBox {
             properties: properties.into(),
+            controls: child_controls,
         },
         "VB.Frame" => ControlKind::Frame {
             properties: properties.into(),

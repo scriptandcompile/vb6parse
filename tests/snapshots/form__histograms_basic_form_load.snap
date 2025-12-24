@@ -484,6 +484,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 3870
+              controls: []
         - name: cmbHistSource
           tag: ""
           index: 0
@@ -627,6 +628,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 3870
+              controls: []
         - name: Label2
           tag: ""
           index: 0

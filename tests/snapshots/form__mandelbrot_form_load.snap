@@ -432,6 +432,7 @@ form:
                 visible: Visible
                 whats_this_help_id: 0
                 width: 9015
+              controls: []
         - name: Label7
           tag: ""
           index: 0

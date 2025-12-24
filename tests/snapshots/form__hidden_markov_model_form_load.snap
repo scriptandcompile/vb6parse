@@ -166,6 +166,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 13335
+                      controls: []
                 - name: picResults
                   tag: ""
                   index: 0
@@ -227,6 +228,7 @@ form:
                         visible: Visible
                         whats_this_help_id: 0
                         width: 13335
+                      controls: []
                 - name: txtWindowSize
                   tag: ""
                   index: 0
