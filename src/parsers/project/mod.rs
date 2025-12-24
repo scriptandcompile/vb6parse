@@ -244,7 +244,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to `ProjectReference` items.
     ///
-    #[must_use]
     pub fn references(&self) -> impl Iterator<Item = &ProjectReference<'a>> {
         self.references.iter()
     }
@@ -255,7 +254,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to `ProjectModuleReference` items.
     ///
-    #[must_use]
     pub fn modules(&self) -> impl Iterator<Item = &ProjectModuleReference<'a>> {
         self.modules.iter()
     }
@@ -266,7 +264,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to `ProjectClassReference` items.
     ///
-    #[must_use]
     pub fn classes(&self) -> impl Iterator<Item = &ProjectClassReference<'a>> {
         self.classes.iter()
     }
@@ -277,7 +274,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to `ObjectReference` items.
     ///
-    #[must_use]
     pub fn objects(&self) -> impl Iterator<Item = &ObjectReference> {
         self.objects.iter()
     }
@@ -288,7 +284,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to form file names.
     ///
-    #[must_use]
     pub fn forms(&self) -> impl Iterator<Item = &&'a str> {
         self.forms.iter()
     }
@@ -299,7 +294,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to user control file names.
     ///
-    #[must_use]
     pub fn user_controls(&self) -> impl Iterator<Item = &&'a str> {
         self.user_controls.iter()
     }
@@ -310,7 +304,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to user document file names.
     ///
-    #[must_use]
     pub fn user_documents(&self) -> impl Iterator<Item = &&'a str> {
         self.user_documents.iter()
     }
@@ -321,7 +314,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to designer file names.
     ///
-    #[must_use]
     pub fn designers(&self) -> impl Iterator<Item = &&'a str> {
         self.designers.iter()
     }
@@ -332,7 +324,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to related document file names.
     ///
-    #[must_use]
     pub fn related_documents(&self) -> impl Iterator<Item = &&'a str> {
         self.related_documents.iter()
     }
@@ -343,7 +334,6 @@ impl<'a> ProjectFile<'a> {
     ///
     /// An iterator over references to property page file names.
     ///
-    #[must_use]
     pub fn property_pages(&self) -> impl Iterator<Item = &&'a str> {
         self.property_pages.iter()
     }
