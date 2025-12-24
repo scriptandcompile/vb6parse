@@ -46,7 +46,7 @@ pub struct SourceFile {
     /// The content of the source file as a `String`.
     file_content: String,
     /// The name of the source file.
-    pub file_name: String,
+    file_name: String,
 }
 
 impl AsRef<str> for SourceFile {
@@ -128,6 +128,12 @@ impl SourceFile {
             line_start: err.line_start,
             line_end: err.line_end,
         })
+    }
+
+    /// Returns the source file name
+    #[must_use]
+    pub fn file_name(&self) -> &str {
+        &self.file_name
     }
 
     /// Creates a `SourceFile` from a file name and source code string.

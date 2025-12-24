@@ -161,7 +161,7 @@ impl ConcreteSyntaxTree {
     #[must_use]
     pub fn from_source(source_file: &SourceFile) -> ParseResult<'_, Self, CodeErrorKind> {
         Self::from_text(
-            source_file.file_name.clone(),
+            source_file.file_name().to_string(),
             source_file.source_stream().contents,
         )
     }
