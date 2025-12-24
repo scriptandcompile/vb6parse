@@ -290,7 +290,7 @@ Currently, only latin-1 source code is supported."
     ///
     /// Returns a `SourceStream` instance.
     #[must_use]
-    pub fn get_source_stream(&'_ self) -> SourceStream<'_> {
+    pub fn source_stream(&'_ self) -> SourceStream<'_> {
         let source_stream = SourceStream::new(self.file_name.clone(), self.file_content.as_str());
 
         source_stream

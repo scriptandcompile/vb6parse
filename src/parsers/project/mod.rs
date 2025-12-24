@@ -472,7 +472,7 @@ impl<'a> ProjectFile<'a> {
     pub fn parse(source_file: &'a SourceFile) -> ProjectResult<'a> {
         let mut failures = vec![];
         let mut project = ProjectFile::new_empty();
-        let mut input = source_file.get_source_stream();
+        let mut input = source_file.source_stream();
         let mut other_property_group: Option<&str> = None;
         let handlers = PropertyHandlers::new();
 
