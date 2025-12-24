@@ -1372,6 +1372,48 @@ impl ControlKind {
     }
 
     /// Recursively iterates over all descendant controls, if this control type supports children.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over all descendant controls.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let control = Control {
+    ///     name: "MyFrame".to_string(),
+    ///     tag: "".to_string(),
+    ///     index: 0,
+    ///     kind: ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![
+    ///             Control {
+    ///                 name: "Child1".to_string(),
+    ///                 tag: "".to_string(),
+    ///                 index: 0,
+    ///                 kind: ControlKind::Label {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             },
+    ///             Control {
+    ///                 name: "Child2".to_string(),
+    ///                 tag: "".to_string(),
+    ///                 index: 1,
+    ///                 kind: ControlKind::TextBox {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             },
+    ///         ],
+    ///     },
+    /// };
+    ///
+    /// if let children = control.kind.descendants() {
+    ///     for child in children {
+    ///         println!("Child control: {}", child.name);
+    ///     }
+    /// };
+    /// ```
     #[must_use]
     pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
         Box::new(
