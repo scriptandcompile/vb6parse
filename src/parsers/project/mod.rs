@@ -547,6 +547,16 @@ impl<'a> ProjectFile<'a> {
             .collect::<Vec<_>>()
     }
 
+    /// Gets a collection of all project references.
+    ///
+    /// # Returns
+    ///
+    /// A vector of all project references.
+    ///
+    pub fn project_references(&self) -> &Vec<ProjectReference<'a>> {
+        &self.references
+    }
+
     /// Gets a collection of references to all compiled references in the project.
     ///
     /// # Returns
@@ -587,6 +597,17 @@ impl<'a> ProjectFile<'a> {
             .iter_mut()
             .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
             .collect::<Vec<_>>()
+    }
+
+    /// Gets a mutable reference to the collection of all project references.
+    ///
+    /// # Returns
+    ///
+    /// A mutable reference to the vector of all project references.
+    ///
+    #[must_use]
+    pub fn project_references_mut(&mut self) -> &mut Vec<ProjectReference<'a>> {
+        &mut self.references
     }
 }
 
