@@ -554,7 +554,7 @@ impl<'a> ProjectFile<'a> {
     /// A vector of references to all compiled references.
     ///
     #[must_use]
-    pub fn get_compiled_references(&self) -> Vec<&ProjectReference<'a>> {
+    pub fn compiled_references(&self) -> Vec<&ProjectReference<'a>> {
         self.references
             .iter()
             .filter(|reference| matches!(reference, ProjectReference::Compiled { .. }))
