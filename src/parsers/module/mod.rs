@@ -79,7 +79,7 @@ impl ModuleFile {
     /// let result = ModuleFile::parse(&source_file);
     ///
     /// if result.has_failures() {
-    ///     for failure in result.failures {
+    ///     for failure in result.failures() {
     ///         failure.print();
     ///     }
     ///     panic!("Module parse had failures");
@@ -152,41 +152,32 @@ impl ModuleFile {
                     let error = input.generate_error(ModuleErrorKind::VBNameAttributeValueUnquoted);
                     failures.push(error);
 
-                    return ParseResult {
-                        result: None,
-                        failures,
-                    };
+                    return ParseResult::new(None, failures);
                 };
 
                 // Parse the entire source file as CST
                 let mut stream = source_file.source_stream();
                 let token_result = tokenize(&mut stream);
+                let (token_stream_opt, token_failures) = token_result.unpack();
 
-                if token_result.has_failures() {
-                    for failure in token_result.failures {
-                        failures.push(failure.into());
-                    }
-                }
+                failures.extend(token_failures.into_iter().map(Into::into));
 
-                match token_result.result {
+                match token_stream_opt {
                     Some(tokens) => {
                         let cst = crate::parsers::cst::parse(tokens);
 
                         // Filter out nodes that are already extracted to avoid duplication
                         let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                        ParseResult {
-                            result: Some(ModuleFile {
+                        ParseResult::new(
+                            Some(ModuleFile {
                                 name: vb_name_value.to_string(),
                                 cst: filtered_cst,
                             }),
                             failures,
-                        }
+                        )
                     }
-                    None => ParseResult {
-                        result: None,
-                        failures,
-                    },
+                    None => ParseResult::new(None, failures),
                 }
             }
             Some((vb_name_value, _)) => {
@@ -200,32 +191,26 @@ impl ModuleFile {
                 // Looks like we have a fully quoted value.
                 // Parse the remaining source file as CST
                 let token_result = tokenize(&mut input);
+                let (token_stream_opt, token_failures) = token_result.unpack();
 
-                if token_result.has_failures() {
-                    for failure in token_result.failures {
-                        failures.push(failure.into());
-                    }
-                }
+                failures.extend(token_failures.into_iter().map(Into::into));
 
-                match token_result.result {
+                match token_stream_opt {
                     Some(tokens) => {
                         let cst = crate::parsers::cst::parse(tokens);
 
                         // Filter out nodes that are already extracted to avoid duplication
                         let filtered_cst = cst.without_kinds(&[SyntaxKind::AttributeStatement]);
 
-                        ParseResult {
-                            result: Some(ModuleFile {
+                        ParseResult::new(
+                            Some(ModuleFile {
                                 name: vb_name_value.to_string(),
                                 cst: filtered_cst,
                             }),
                             failures,
-                        }
+                        )
                     }
-                    None => ParseResult {
-                        result: None,
-                        failures,
-                    },
+                    None => ParseResult::new(None, failures),
                 }
             }
         }

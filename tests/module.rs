@@ -18,13 +18,11 @@ fn artificial_life_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let Some(module_file) = result.result else {
-        if result.has_failures() && !result.failures.is_empty() {
-            for failure in result.failures {
-                failure.eprint();
-            }
+    let (module_file_opt, failures) = result.unpack();
+    let Some(module_file) = module_file_opt else {
+        for failure in &failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{file_path}' module file");
     };
 
@@ -48,13 +46,11 @@ fn game_physics_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let Some(module_file) = result.result else {
-        if result.has_failures() && !result.failures.is_empty() {
-            for failure in result.failures {
-                failure.eprint();
-            }
+    let (module_file_opt, failures) = result.unpack();
+    let Some(module_file) = module_file_opt else {
+        for failure in &failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{file_path}' module file");
     };
 
@@ -77,13 +73,11 @@ fn histograms_advanced_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let Some(module_file) = result.result else {
-        if result.has_failures() && !result.failures.is_empty() {
-            for failure in result.failures {
-                failure.eprint();
-            }
+    let (module_file_opt, failures) = result.unpack();
+    let Some(module_file) = module_file_opt else {
+        for failure in &failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{file_path}' module file");
     };
 
@@ -106,13 +100,11 @@ fn histograms_basic_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let Some(module_file) = result.result else {
-        if result.has_failures() && !result.failures.is_empty() {
-            for failure in result.failures {
-                failure.eprint();
-            }
+    let (module_file_opt, failures) = result.unpack();
+    let Some(module_file) = module_file_opt else {
+        for failure in &failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{file_path}' module file");
     };
 
@@ -135,13 +127,11 @@ fn levels_effect_module_load() {
 
     let result = ModuleFile::parse(&module_source_file);
 
-    let Some(module_file) = result.result else {
-        if result.has_failures() && !result.failures.is_empty() {
-            for failure in result.failures {
-                failure.eprint();
-            }
+    let (module_file_opt, failures) = result.unpack();
+    let Some(module_file) = module_file_opt else {
+        for failure in &failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{file_path}' module file");
     };
 
@@ -167,13 +157,11 @@ fn map_editor_2d_module_load() {
 
     let subs_result = ModuleFile::parse(&subs_module_source_file);
 
-    let Some(subs_module_file) = subs_result.result else {
-        if subs_result.has_failures() && !subs_result.failures.is_empty() {
-            for failure in subs_result.failures {
-                failure.eprint();
-            }
+    let (subs_module_file_opt, subs_failures) = subs_result.unpack();
+    let Some(subs_module_file) = subs_module_file_opt else {
+        for failure in &subs_failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{subs_file_path}' module file");
     };
 
@@ -194,13 +182,11 @@ fn map_editor_2d_module_load() {
 
     let declaration_result = ModuleFile::parse(&declaration_module_source_file);
 
-    let Some(declaration_module_file) = declaration_result.result else {
-        if declaration_result.has_failures() && !declaration_result.failures.is_empty() {
-            for failure in declaration_result.failures {
-                failure.eprint();
-            }
+    let (declaration_module_file_opt, declaration_failures) = declaration_result.unpack();
+    let Some(declaration_module_file) = declaration_module_file_opt else {
+        for failure in &declaration_failures {
+            failure.eprint();
         }
-
         panic!("Failed to parse '{declaration_file_path}' module file");
     };
 

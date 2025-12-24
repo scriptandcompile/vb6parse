@@ -18,7 +18,10 @@ fn artificial_life_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
+
         panic!("Failed to parse 'frmMain.frm' form file");
     }
 
@@ -44,7 +47,9 @@ fn blacklight_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Blacklight.frm' form file");
     }
 
@@ -71,7 +76,9 @@ fn brightness_effect_part_1_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Brightness.frm' form file");
     }
 
@@ -99,7 +106,9 @@ fn brightness_effect_part_2_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Brightness2.frm' form file");
     }
 
@@ -126,7 +135,9 @@ fn brightness_effect_part_3_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Brightness3.frm' form file");
     }
 
@@ -154,7 +165,9 @@ fn brightness_effect_part_4_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Brightness.frm' form file");
     }
 
@@ -180,7 +193,9 @@ fn color_shift_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'ShiftColors.frm' form file");
     }
 
@@ -206,7 +221,9 @@ fn colorize_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Colorize.frm' form file");
     }
 
@@ -232,7 +249,9 @@ fn contrast_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Contrast.frm' form file");
     }
 
@@ -258,7 +277,9 @@ fn curves_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Curves.frm' form file");
     }
 
@@ -283,7 +304,9 @@ fn custom_image_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'CustomFilters.frm' form file");
     }
 
@@ -309,7 +332,9 @@ fn diffuse_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Diffuse.frm' form file");
     }
 
@@ -335,7 +360,9 @@ fn edge_detection_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'EdgeDetection.frm' form file");
     }
 
@@ -361,7 +388,9 @@ fn emboss_engrave_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'EmbossEngrave.frm' form file");
     }
 
@@ -387,7 +416,9 @@ fn fill_image_region_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'frmFill.frm' form file");
     }
 
@@ -413,7 +444,9 @@ fn fire_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'frmFire.frm' form file");
     }
 
@@ -439,7 +472,9 @@ fn game_physics_basic_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'formPhysics.frm' form file");
     }
 
@@ -465,7 +500,9 @@ fn gradient_2d_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Gradient.frm' form file");
     }
 
@@ -491,7 +528,9 @@ fn grayscale_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Grayscale.frm' form file");
     }
 
@@ -517,7 +556,9 @@ fn hidden_markov_model_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'frmHMM.frm' form file");
     }
 
@@ -543,7 +584,9 @@ fn histograms_advanced_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Histogram.frm' form file");
     }
 
@@ -569,7 +612,9 @@ fn histograms_basic_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Histogram.frm' form file");
     }
 
@@ -595,7 +640,9 @@ fn levels_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Main.frm' form file");
     }
 
@@ -621,7 +668,9 @@ fn mandelbrot_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Mandelbrot.frm' form file");
     }
 
@@ -647,7 +696,9 @@ fn map_editor_2d_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Main Editor.frm' form file");
     }
 
@@ -673,7 +724,9 @@ fn nature_effects_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'NatureFilters.frm' form file");
     }
 
@@ -699,7 +752,9 @@ fn randomize_effects_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'RandomizationFX.frm' form file");
     }
 
@@ -725,7 +780,9 @@ fn scanner_twain_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'frmScanner.frm' form file");
     }
 
@@ -751,7 +808,9 @@ fn screen_capture_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'FormScreenCapture.frm' form file");
     }
 
@@ -777,7 +836,9 @@ fn sepia_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Sepia.frm' form file");
     }
 
@@ -803,7 +864,9 @@ fn threshold_effect_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'Threshold.frm' form file");
     }
 
@@ -829,7 +892,9 @@ fn transparency_2d_form_load() {
     let form_result = FormFile::parse(&source_file);
 
     if form_result.has_failures() {
-        eprintln!("{:?}", form_result.failures);
+        for failure in form_result.failures() {
+            failure.eprint();
+        }
         panic!("Failed to parse 'frmTransparency.frm' form file");
     }
 

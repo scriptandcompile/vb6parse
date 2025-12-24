@@ -557,8 +557,8 @@ End Sub
 ";
 
         let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
         let cst = parse(token_stream);
 
         let debug = cst.debug_tree();
@@ -575,8 +575,8 @@ End Sub
 ";
 
         let mut source_stream = SourceStream::new("test.bas", source);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization should succeed");
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
         let cst = parse(token_stream);
 
         let debug = cst.debug_tree();

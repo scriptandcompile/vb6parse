@@ -458,7 +458,7 @@ impl<'a> ProjectFile<'a> {
     /// let result = ProjectFile::parse(&project_source_file);
     ///
     /// if result.has_failures() {
-    ///     for failure in result.failures {
+    ///     for failure in result.failures() {
     ///         failure.print();
     ///     }
     ///     panic!("Project parse produced warnings/errors");
@@ -538,10 +538,7 @@ impl<'a> ProjectFile<'a> {
             }
         }
 
-        ParseResult {
-            result: Some(project),
-            failures,
-        }
+        ParseResult::new(Some(project), failures)
     }
 
     /// Gets a collection of references to all sub-project references in the project.
@@ -2953,7 +2950,7 @@ mod tests {
         let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
-            for failure in result.failures {
+            for failure in result.failures() {
                 failure.print();
             }
 
@@ -3140,7 +3137,7 @@ mod tests {
         let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
-            for failure in result.failures {
+            for failure in result.failures() {
                 failure.print();
             }
 
@@ -3300,7 +3297,7 @@ mod tests {
         let result = ProjectFile::parse(&project_source_file);
 
         if result.has_failures() {
-            for failure in result.failures {
+            for failure in result.failures() {
                 failure.print();
             }
 

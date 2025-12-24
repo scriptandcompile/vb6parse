@@ -332,8 +332,8 @@ End Sub
 "#;
 
         let mut source_stream = SourceStream::new("Class1.cls", input);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization failed");
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
 
         let cst = parse(token_stream);
 
@@ -391,8 +391,8 @@ End Sub
 "#;
 
         let mut source_stream = SourceStream::new("Form1.frm", input);
-        let result = tokenize(&mut source_stream);
-        let token_stream = result.result.expect("Tokenization failed");
+        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
 
         let cst = parse(token_stream);
 

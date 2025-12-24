@@ -10,12 +10,13 @@ fn main() {
     // Show error handling first
     if result.has_failures() {
         println!("Parsing failures:");
-        for failure in &result.failures {
+        for failure in result.failures() {
             println!("  {failure:?}");
         }
     }
 
-    if let Some(token_stream) = result.result {
+    let (token_stream_opt, _failures) = result.unpack();
+    if let Some(token_stream) = token_stream_opt {
         println!("Source file: {}", token_stream.source_file);
         println!("Total tokens: {}", token_stream.len());
         println!("Current offset: {}", token_stream.offset);

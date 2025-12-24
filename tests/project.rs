@@ -15,7 +15,7 @@ fn artificial_life_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -42,7 +42,7 @@ fn blacklight_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -69,7 +69,7 @@ fn brightness_effect_part_1_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -97,7 +97,7 @@ fn brightness_effect_part_2_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -124,7 +124,7 @@ fn brightness_effect_part_3_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -151,7 +151,7 @@ fn color_shift_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -179,7 +179,7 @@ fn colorize_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -206,7 +206,7 @@ fn contrast_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -234,7 +234,7 @@ fn curves_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -262,7 +262,7 @@ fn custom_image_filters_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -290,7 +290,7 @@ fn diffuse_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -317,7 +317,7 @@ fn edge_detection_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -344,7 +344,7 @@ fn emboss_engrave_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -371,7 +371,7 @@ fn fill_image_region_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -398,7 +398,7 @@ fn fire_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -425,7 +425,7 @@ fn game_physics_basic_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -452,7 +452,7 @@ fn gradient_2d_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -479,7 +479,7 @@ fn grayscale_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -506,7 +506,7 @@ fn hidden_markov_model_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -533,7 +533,7 @@ fn histograms_advanced_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -560,7 +560,7 @@ fn histogram_basic_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -587,7 +587,7 @@ fn levels_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -614,7 +614,7 @@ fn mandelbrot_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -641,7 +641,7 @@ fn map_editor_2d_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -668,7 +668,7 @@ fn nature_effects_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -695,7 +695,7 @@ fn randomize_effects_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -722,7 +722,7 @@ fn scanner_twain_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -749,7 +749,7 @@ fn screen_capture_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -776,7 +776,7 @@ fn sepia_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -803,7 +803,7 @@ fn threshold_effect_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 
@@ -830,7 +830,7 @@ fn transparency_2d_project_load() {
     let result = ProjectFile::parse(&source_file);
 
     if result.has_failures() {
-        for failure in result.failures {
+        for failure in result.failures() {
             failure.print();
         }
 

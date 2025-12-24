@@ -103,18 +103,12 @@ impl ClassFile {
 
         // Parse tokens and create CST
         let token_stream_result = tokenize(&mut input);
+        let (token_stream_opt, token_failures) = token_stream_result.unpack();
 
-        if token_stream_result.has_failures() {
-            for failure in token_stream_result.failures {
-                failures.push(failure.into());
-            }
-        }
+        failures.extend(token_failures.into_iter().map(Into::into));
 
-        let Some(token_stream) = token_stream_result.result else {
-            return ParseResult {
-                result: None,
-                failures,
-            };
+        let Some(token_stream) = token_stream_opt else {
+            return ParseResult::new(None, failures);
         };
 
         // Parse CST
@@ -127,10 +121,7 @@ impl ClassFile {
                 .generate_error(ClassErrorKind::VersionKeywordMissing);
             failures.push(error);
 
-            return ParseResult {
-                result: None,
-                failures,
-            };
+            return ParseResult::new(None, failures);
         };
 
         // Extract properties from CST
@@ -156,13 +147,13 @@ impl ClassFile {
             SyntaxKind::AttributeStatement,
         ]);
 
-        ParseResult {
-            result: Some(ClassFile {
+        ParseResult::new(
+            Some(ClassFile {
                 header,
                 cst: filtered_cst,
             }),
             failures,
-        }
+        )
     }
 }
 
@@ -332,7 +323,7 @@ Option Explicit
         let result = ClassFile::parse(&source_file);
 
         if result.has_failures() {
-            for failure in result.failures {
+            for failure in result.failures() {
                 failure.print();
             }
 

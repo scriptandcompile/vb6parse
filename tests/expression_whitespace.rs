@@ -9,14 +9,22 @@ fn expression_whitespace_conservation() {
     let result = ConcreteSyntaxTree::from_text("test.bas", input);
 
     // Check for errors
-    if !result.failures.is_empty() {
-        for failure in &result.failures {
+    if result.has_failures() {
+        for failure in result.failures() {
             println!("Error: {failure:?}");
         }
         panic!("Parsing failed with errors");
     }
 
-    let cst = result.result.expect("Failed to get CST");
+    let (cst_opt, failures) = result.unpack();
+
+    if !failures.is_empty() {
+        for failure in failures {
+            failure.eprint();
+        }
+    }
+
+    let cst = cst_opt.expect("Expected CST");
 
     // Convert to serializable tree to inspect the structure
     let tree = cst.to_serializable();

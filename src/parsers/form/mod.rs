@@ -556,16 +556,16 @@ impl FormFile {
             SyntaxKind::PropertiesBlock, // Form and all controls (already in form field)
         ]);
 
-        ParseResult {
-            result: Some(FormFile {
+        ParseResult::new(
+            Some(FormFile {
                 form,
                 objects,
                 version: format_version.unwrap_or(FileFormatVersion { major: 5, minor: 0 }),
                 attributes,
                 cst: filtered_cst,
             }),
-            failures: Vec::new(),
-        }
+            Vec::new(),
+        )
     }
 }
 
@@ -721,11 +721,11 @@ End
     ";
 
         let source_file = SourceFile::decode_with_replacement("form_parse.frm", input).unwrap();
-        let parse_result = FormFile::parse(&source_file);
+        let (parse_result_opt, _failures) = FormFile::parse(&source_file).unpack();
 
-        assert!(parse_result.result.is_some());
+        assert!(parse_result_opt.is_some());
 
-        let result = parse_result.result.unwrap();
+        let result = parse_result_opt.expect("Expected parse result");
 
         assert_eq!(result.objects.len(), 1);
         assert_eq!(result.version.major, 5);
@@ -825,13 +825,14 @@ End
         Attribute VB_Name = \"frmExampleForm\"\r
         ";
 
-        let source_file =
-            SourceFile::decode_with_replacement("form_parse.frm", input.as_ref()).unwrap();
-        let parse_result = FormFile::parse(&source_file);
+        let source_file = SourceFile::decode_with_replacement("form_parse.frm", input.as_ref());
+        let source_file = source_file.expect("Expected source file");
 
-        assert!(parse_result.result.is_some());
+        let (parse_result_opt, _failures) = FormFile::parse(&source_file).unpack();
 
-        let result = parse_result.result.unwrap();
+        assert!(parse_result_opt.is_some());
+
+        let result = parse_result_opt.expect("Expected parse result");
 
         assert_eq!(result.version.major, 5);
         assert_eq!(result.version.minor, 0);
@@ -851,8 +852,8 @@ End
             assert_eq!(properties.caption, "example form");
             assert_eq!(properties.back_color, VB_WINDOW_BACKGROUND);
             assert_eq!(
-                menus,
-                &vec![MenuControl {
+                *menus,
+                vec![MenuControl {
                     name: "mnuFile".into(),
                     tag: String::new(),
                     index: 0,
@@ -903,10 +904,10 @@ End
 
         let source_file =
             SourceFile::decode_with_replacement("test.frm", input.as_bytes()).unwrap();
-        let result = FormFile::parse(&source_file);
+        let (result_opt, _failures) = FormFile::parse(&source_file).unpack();
 
-        assert!(result.result.is_some());
-        let form_file = result.result.unwrap();
+        assert!(result_opt.is_some());
+        let form_file = result_opt.expect("Expected parse result");
 
         assert_eq!(form_file.form.name, "Form1");
 
