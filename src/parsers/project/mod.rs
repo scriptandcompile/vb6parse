@@ -691,6 +691,52 @@ impl<'a> ProjectFile<'a> {
     ///
     /// A reference to the `other_properties` map.
     ///
+    /// # Example
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let input = r#"Type=Exe
+    /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
+    /// Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
+    /// Module=Module1; Module1.bas
+    /// Form=Form2.frm
+    /// PropertyPage=PropertyPage1.ppg
+    /// UserDocument=UserDocument1.udd
+    ///
+    /// [ThirdPartySection]
+    /// CustomProperty1=Value1
+    /// "#;
+    ///
+    /// let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+    ///     Ok(source_file) => source_file,
+    ///     Err(e) => {
+    ///         e.print();
+    ///         panic!("failed to decode project source code.");
+    ///     }
+    /// };
+    ///
+    /// let result = ProjectFile::parse(&project_source_file);
+    ///
+    /// let (project_opt, failures) = result.unpack();
+    ///
+    /// if !failures.is_empty() {
+    ///     for failure in failures.iter() {
+    ///         failure.print();
+    ///     }
+    /// }
+    ///
+    /// let project = project_opt.expect("Expected project to be parsed successfully.");
+    ///
+    /// assert_eq!(project.project_type, CompileTargetType::Exe);
+    ///
+    /// let other_props = project.other_properties();
+    /// assert_eq!(other_props.len(), 1);
+    /// assert!(other_props.contains_key("ThirdPartySection"));
+    ///
+    /// let third_party_props = other_props.get("ThirdPartySection").unwrap();
+    /// assert_eq!(third_party_props.len(), 1);
+    /// assert_eq!(third_party_props.get("CustomProperty1").unwrap(), &"Value1");
+    /// ```
     #[must_use]
     pub fn other_properties(&self) -> &HashMap<&'a str, HashMap<&'a str, &'a str>> {
         &self.other_properties
