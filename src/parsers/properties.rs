@@ -211,6 +211,32 @@ impl<'a> Iterator for PropertiesIter<'a> {
     }
 }
 
+impl<K, V> FromIterator<(K, V)> for Properties
+where
+    K: Into<String>,
+    V: Into<String>,
+{
+    fn from_iter<T: IntoIterator<Item = (K, V)>>(iter: T) -> Self {
+        let mut props = Properties::new();
+        for (k, v) in iter {
+            props.insert(k, v);
+        }
+        props
+    }
+}
+
+impl<K, V> Extend<(K, V)> for Properties
+where
+    K: Into<String>,
+    V: Into<String>,
+{
+    fn extend<T: IntoIterator<Item = (K, V)>>(&mut self, iter: T) {
+        for (k, v) in iter {
+            self.insert(k, v);
+        }
+    }
+}
+
 impl Properties {
     /// Creates a new, empty `Properties` collection.
     ///
