@@ -33,14 +33,23 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Project Title: {}", project.properties.title);
     println!("Startup Object: {}", project.properties.startup);
-    println!("Number of Modules: {}", project.modules.len());
-    println!("Number of Forms: {}", project.forms.len());
-    println!("Number of Classes: {}", project.classes.len());
+    println!(
+        "Number of Modules: {}",
+        project.modules().collect::<Vec<_>>().len()
+    );
+    println!(
+        "Number of Forms: {}",
+        project.forms().collect::<Vec<_>>().len()
+    );
+    println!(
+        "Number of Classes: {}",
+        project.classes().collect::<Vec<_>>().len()
+    );
 
     println!();
 
     // For demonstration, parse the last module into a CST
-    if let Some(last_module) = project.modules.last() {
+    if let Some(last_module) = project.modules().last() {
         let module_path = project_directory
             .join(last_module.path.replace('\\', "/"))
             .to_str()

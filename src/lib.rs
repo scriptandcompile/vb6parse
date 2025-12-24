@@ -98,14 +98,14 @@
 //! let project = result.unwrap();;
 //!
 //! assert_eq!(project.project_type, CompileTargetType::Exe);
-//! assert_eq!(project.references.len(), 1);
-//! assert_eq!(project.objects.len(), 1);
-//! assert_eq!(project.modules.len(), 1);
-//! assert_eq!(project.classes.len(), 1);
-//! assert_eq!(project.designers.len(), 0);
-//! assert_eq!(project.forms.len(), 2);
-//! assert_eq!(project.user_controls.len(), 1);
-//! assert_eq!(project.user_documents.len(), 1);
+//! assert_eq!(project.references().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.objects().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.modules().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.classes().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.designers().collect::<Vec<_>>().len(), 0);
+//! assert_eq!(project.forms().collect::<Vec<_>>().len(), 2);
+//! assert_eq!(project.user_controls().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.user_documents().collect::<Vec<_>>().len(), 1);
 //! assert_eq!(project.properties.startup, "Form1");
 //! assert_eq!(project.properties.title, "Project1");
 //! assert_eq!(project.properties.exe_32_file_name, "Project1.exe");

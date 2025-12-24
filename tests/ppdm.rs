@@ -19,14 +19,14 @@ fn ppdm_project_load() {
     let project = result.unwrap();
 
     assert_eq!(project.project_type, CompileTargetType::Exe);
-    assert_eq!(project.references.len(), 15);
-    assert_eq!(project.objects.len(), 11);
-    assert_eq!(project.modules.len(), 34);
-    assert_eq!(project.classes.len(), 76);
-    assert_eq!(project.designers.len(), 54);
-    assert_eq!(project.forms.len(), 156);
-    assert_eq!(project.user_controls.len(), 13);
-    assert_eq!(project.user_documents.len(), 0);
+    assert_eq!(project.references().collect::<Vec<_>>().len(), 15);
+    assert_eq!(project.objects().collect::<Vec<_>>().len(), 11);
+    assert_eq!(project.modules().collect::<Vec<_>>().len(), 34);
+    assert_eq!(project.classes().collect::<Vec<_>>().len(), 76);
+    assert_eq!(project.designers().collect::<Vec<_>>().len(), 54);
+    assert_eq!(project.forms().collect::<Vec<_>>().len(), 156);
+    assert_eq!(project.user_controls().collect::<Vec<_>>().len(), 13);
+    assert_eq!(project.user_documents().collect::<Vec<_>>().len(), 0);
 
     assert_eq!(
         project.properties.res_file_32_path,
