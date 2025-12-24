@@ -1475,6 +1475,43 @@ impl Control {
     }
 
     /// Returns an iterator over menus, if this control type supports menus.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over menus if the control supports menus, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let control = Control {
+    ///     name: "MyForm".to_string(),
+    ///     tag: "".to_string(),
+    ///     index: 0,
+    ///     kind: ControlKind::Form {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///         menus: vec![
+    ///             MenuControl {
+    ///                 properties: MenuProperties {
+    ///                     caption: "File".to_string(),
+    ///                     ..Default::default()
+    ///                 },
+    ///                 index: 0,
+    ///                 name: "File".to_string(),
+    ///                 tag: "".to_string(),
+    ///                 sub_menus: vec![],
+    ///             },
+    ///        ],
+    ///     },
+    /// };
+    ///
+    /// if let Some(menus) = control.menus() {
+    ///     for menu in menus {
+    ///         println!("Menu: {}", menu.properties.caption);
+    ///     }
+    /// };
+    /// ```
     #[must_use]
     pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
         self.kind.menus()
