@@ -355,7 +355,7 @@ struct Parser<'a> {
 impl<'a> Parser<'a> {
     fn new(token_stream: TokenStream<'a>) -> Self {
         Parser {
-            tokens: token_stream.tokens,
+            tokens: token_stream.into_iter().collect(),
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,

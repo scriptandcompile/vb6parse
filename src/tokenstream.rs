@@ -36,7 +36,7 @@ pub struct TokenStream<'a> {
     /// The name of the source file these tokens came from
     pub source_file: String,
     /// The vector of tokens with their text content
-    pub tokens: Vec<(&'a str, Token)>,
+    tokens: Vec<(&'a str, Token)>,
     /// Current position/offset in the token stream
     pub offset: usize,
 }
@@ -99,6 +99,12 @@ impl<'a> TokenStream<'a> {
     #[must_use]
     pub fn is_empty(&self) -> bool {
         self.tokens.is_empty()
+    }
+
+    /// Returns a reference to the tokens vector
+    #[must_use]
+    pub fn tokens(&self) -> &Vec<(&'a str, Token)> {
+        &self.tokens
     }
 
     /// Resets the offset to the beginning of the stream

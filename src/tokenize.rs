@@ -430,9 +430,10 @@ pub fn tokenize_without_whitespaces<'a>(
     };
 
     let tokens_without_whitespaces: Vec<(&str, Token)> = token_stream
-        .tokens
-        .into_iter()
-        .filter(|(_, token)| !matches!(token, Token::Whitespace))
+        .tokens()
+        .iter()
+        .filter(|&&(_, token)| token != Token::Whitespace)
+        .copied()
         .collect();
 
     let filtered_stream = TokenStream::new(token_stream.source_file, tokens_without_whitespaces);
