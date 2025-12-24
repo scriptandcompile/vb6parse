@@ -1570,6 +1570,47 @@ impl Control {
     }
 
     /// Recursively iterates over this control and all descendants.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over this control and all descendant controls.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    ///
+    /// let control = Control {
+    ///     name: "MyFrame".to_string(),
+    ///     tag: "".to_string(),
+    ///     index: 0,
+    ///     kind: ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![
+    ///             Control {
+    ///                 name: "Child1".to_string(),
+    ///                 tag: "".to_string(),
+    ///                 index: 0,
+    ///                 kind: ControlKind::Label {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             },
+    ///             Control {
+    ///                 name: "Child2".to_string(),
+    ///                 tag: "".to_string(),
+    ///                 index: 1,
+    ///                 kind: ControlKind::TextBox {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             },
+    ///         ],
+    ///     },
+    /// };
+    ///
+    /// let mut descendants = control.descendants();
+    /// while let Some(descendant) = descendants.next() {
+    ///     println!("Descendant control: {}", descendant.name);
+    /// }
+    /// ```
     #[must_use]
     pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
         Box::new(std::iter::once(self).chain(self.kind.descendants()))
