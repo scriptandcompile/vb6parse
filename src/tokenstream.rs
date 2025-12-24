@@ -34,7 +34,7 @@ use crate::language::Token;
 #[derive(Debug, PartialEq, Clone, Eq, serde::Serialize)]
 pub struct TokenStream<'a> {
     /// The name of the source file these tokens came from
-    pub source_file: String,
+    file_name: String,
     /// The vector of tokens with their text content
     tokens: Vec<(&'a str, Token)>,
     /// Current position/offset in the token stream
@@ -44,12 +44,18 @@ pub struct TokenStream<'a> {
 impl<'a> TokenStream<'a> {
     /// Creates a new `TokenStream` with the given source file name and tokens
     #[must_use]
-    pub fn new(source_file: String, tokens: Vec<(&'a str, Token)>) -> Self {
+    pub fn new(file_name: String, tokens: Vec<(&'a str, Token)>) -> Self {
         Self {
-            source_file,
+            file_name,
             tokens,
             offset: 0,
         }
+    }
+
+    /// Returns the source file name
+    #[must_use]
+    pub fn file_name(&self) -> &str {
+        &self.file_name
     }
 
     /// Returns the current offset in the token stream
