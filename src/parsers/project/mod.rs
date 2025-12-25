@@ -1939,7 +1939,7 @@ fn handle_thread_per_object<'a>(
             if thread_per_object_value <= 0 {
                 project.properties.thread_per_object = 0;
             } else {
-                project.properties.thread_per_object = thread_per_object_value as u16;
+                project.properties.thread_per_object = thread_per_object_value.cast_unsigned();
             }
         }
         Err(e) => failures.push(e),
