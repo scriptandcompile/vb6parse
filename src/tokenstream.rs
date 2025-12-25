@@ -108,6 +108,12 @@ impl<'a> TokenStream<'a> {
         &self.tokens
     }
 
+    /// Consumes the `TokenStream` and returns the tokens vector
+    #[must_use]
+    pub fn into_tokens(self) -> Vec<(&'a str, Token)> {
+        self.tokens
+    }
+
     /// Resets the offset to the beginning of the stream
     pub fn reset(&mut self) {
         self.offset = 0;
