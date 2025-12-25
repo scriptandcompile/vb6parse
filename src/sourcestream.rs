@@ -17,7 +17,6 @@
 //! - [`SourceFile`](crate::sourcefile::SourceFile): for reading and decoding source files
 //! - [`ErrorDetails`]: for error handling details
 
-use std::borrow::Cow;
 use std::fmt::Debug;
 
 use crate::errors::ErrorDetails;
@@ -632,11 +631,13 @@ impl<'a> SourceStream<'a> {
     #[must_use]
     pub fn generate_error<T: ToString + Debug>(&self, error_kind: T) -> ErrorDetails<'a, T> {
         ErrorDetails {
-            error_offset: self.offset(),
-            source_name: self.file_name.clone(),
-            source_content: Cow::Borrowed(self.contents),
-            line_end: self.end_of_line(),
-            line_start: self.start_of_line(),
+            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
+            // Therefore, we safely cast to u32 here.
+            error_offset: u32::try_from(self.offset()).unwrap_or(0),
+            source_name: self.file_name.clone().into_boxed_str(),
+            source_content: self.contents,
+            line_end: u32::try_from(self.end_of_line()).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line()).unwrap_or(0),
             kind: error_kind,
         }
     }
@@ -650,11 +651,13 @@ impl<'a> SourceStream<'a> {
         error_kind: T,
     ) -> ErrorDetails<'a, T> {
         ErrorDetails {
-            error_offset: offset,
-            source_name: self.file_name.clone(),
-            source_content: Cow::Borrowed(self.contents),
-            line_end: self.end_of_line_from(offset),
-            line_start: self.start_of_line_from(offset),
+            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
+            // Therefore, we safely cast to u32 here.
+            error_offset: u32::try_from(offset).unwrap_or(0),
+            source_name: self.file_name.clone().into_boxed_str(),
+            source_content: self.contents,
+            line_end: u32::try_from(self.end_of_line_from(offset)).unwrap_or(0),
+            line_start: u32::try_from(self.start_of_line_from(offset)).unwrap_or(0),
             kind: error_kind,
         }
     }
@@ -682,11 +685,13 @@ impl<'a> SourceStream<'a> {
         }
 
         ErrorDetails {
-            source_name: self.file_name.clone(),
-            source_content: Cow::Borrowed(self.contents),
-            line_start: offsets[0],
-            error_offset: offsets[1],
-            line_end: offsets[2],
+            source_name: self.file_name.clone().into_boxed_str(),
+            source_content: self.contents,
+            // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
+            // Therefore, we safely cast to u32 here.
+            line_start: u32::try_from(offsets[0]).unwrap_or(0),
+            error_offset: u32::try_from(offsets[1]).unwrap_or(0),
+            line_end: u32::try_from(offsets[2]).unwrap_or(0),
             kind: error_kind,
         }
     }

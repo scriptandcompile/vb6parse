@@ -5,7 +5,6 @@
 //! source offset, column, line number, and the kind of error.
 use core::convert::From;
 
-use std::borrow::Cow;
 use std::error::Error;
 use std::fmt::{Debug, Display};
 
@@ -22,11 +21,10 @@ use ariadne::{Label, Report, ReportKind, Source};
 /// ```rust
 /// use vb6parse::errors::ErrorDetails;
 /// use vb6parse::errors::CodeErrorKind;
-/// use std::borrow::Cow;
 ///
 /// let error_details = ErrorDetails {
-///     source_name: "example.cls".to_string(),
-///     source_content: Cow::Borrowed("Some VB6 code here..."),
+///     source_name: "example.cls".to_string().into_boxed_str(),
+///     source_content: "Some VB6 code here...",
 ///     error_offset: 10,
 ///     line_start: 1,
 ///     line_end: 1,
@@ -40,15 +38,21 @@ where
     T: ToString + Debug,
 {
     /// The name of the source file where the error occurred.
-    pub source_name: String,
+    pub source_name: Box<str>,
     /// The content of the source file where the error occurred.
-    pub source_content: Cow<'a, str>,
+    pub source_content: &'a str,
     /// The offset in the source content where the error occurred.
-    pub error_offset: usize,
+    ///
+    /// Note: This is a u32 to reflect VB6's 32-bit addressing limitations.
+    pub error_offset: u32,
     /// The starting line number of the error.
-    pub line_start: usize,
+    ///
+    /// Note: This is a u32 to reflect VB6's 32-bit addressing limitations.
+    pub line_start: u32,
     /// The ending line number of the error.
-    pub line_end: usize,
+    ///
+    /// Note: This is a u32 to reflect VB6's 32-bit addressing limitations.
+    pub line_end: u32,
     /// The kind of error that occurred.
     pub kind: T,
 }
@@ -78,11 +82,10 @@ where
     /// ```rust
     /// use vb6parse::errors::ErrorDetails;
     /// use vb6parse::errors::CodeErrorKind;
-    /// use std::borrow::Cow;
     ///
     /// let error_details = ErrorDetails {
-    /// source_name: "example.cls".to_string(),
-    ///   source_content: Cow::Borrowed("Some VB6 code here..."),
+    /// source_name: "example.cls".to_string().into_boxed_str(),
+    ///   source_content: "Some VB6 code here...",
     ///   error_offset: 10,
     ///   line_start: 1,
     ///   line_end: 1,
@@ -92,19 +95,22 @@ where
     /// ```
     pub fn print(&self) {
         let cache = (
-            self.source_name.clone(),
-            Source::from(self.source_content.to_string()),
+            self.source_name.to_string(),
+            Source::from(self.source_content),
         );
 
         let report = Report::build(
             ReportKind::Error,
-            (self.source_name.clone(), self.line_start..=self.line_end),
+            (
+                self.source_name.to_string(),
+                self.line_start as usize..=self.line_end as usize,
+            ),
         )
         .with_message(self.kind.to_string())
         .with_label(
             Label::new((
-                self.source_name.clone(),
-                self.error_offset..=self.error_offset,
+                self.source_name.to_string(),
+                self.error_offset as usize..=self.error_offset as usize,
             ))
             .with_message("error here"),
         )
@@ -122,10 +128,9 @@ where
     /// ```rust
     /// use vb6parse::errors::ErrorDetails;
     /// use vb6parse::errors::CodeErrorKind;
-    /// use std::borrow::Cow;
     /// let error_details = ErrorDetails {
-    ///     source_name: "example.cls".to_string(),
-    ///     source_content: Cow::Borrowed("Some VB6 code here..."),
+    ///     source_name: "example.cls".to_string().into_boxed_str(),
+    ///     source_content: "Some VB6 code here...",
     ///     error_offset: 10,
     ///     line_start: 1,
     ///     line_end: 1,
@@ -137,19 +142,22 @@ where
     /// ```
     pub fn eprint(&self) {
         let cache = (
-            self.source_name.clone(),
-            Source::from(self.source_content.to_string()),
+            self.source_name.to_string(),
+            Source::from(self.source_content),
         );
 
         let report = Report::build(
             ReportKind::Error,
-            (self.source_name.clone(), self.line_start..=self.line_end),
+            (
+                self.source_name.to_string(),
+                self.line_start as usize..=self.line_end as usize,
+            ),
         )
         .with_message(format!("{:?}", self.kind))
         .with_label(
             Label::new((
-                self.source_name.clone(),
-                self.error_offset..=self.error_offset,
+                self.source_name.to_string(),
+                self.error_offset as usize..=self.error_offset as usize,
             ))
             .with_message("error here"),
         )
@@ -168,21 +176,24 @@ where
     /// formatted report into a UTF-8 string.
     pub fn print_to_string(&self) -> Result<String, Box<dyn Error>> {
         let cache = (
-            self.source_name.clone(),
-            Source::from(self.source_content.to_string()),
+            self.source_name.to_string(),
+            Source::from(self.source_content),
         );
 
         let mut buf = Vec::new();
 
         let _ = Report::build(
             ReportKind::Error,
-            (self.source_name.clone(), self.line_start..=self.line_end),
+            (
+                self.source_name.to_string(),
+                self.line_start as usize..=self.line_end as usize,
+            ),
         )
         .with_message(self.kind.to_string())
         .with_label(
             Label::new((
-                self.source_name.clone(),
-                self.error_offset..=self.error_offset,
+                self.source_name.to_string(),
+                self.error_offset as usize..=self.error_offset as usize,
             ))
             .with_message("error here"),
         )

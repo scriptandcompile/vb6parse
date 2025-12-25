@@ -28,7 +28,6 @@
 //! - [`SourceStream`]: for low-level character stream
 //! - [`ErrorDetails`]: for error handling details
 
-use std::borrow::Cow;
 use std::fmt::Display;
 use std::fs;
 use std::path::Path;
@@ -112,8 +111,8 @@ impl SourceFile {
                 message: format!("Failed to read file: {io_err}"),
             },
             error_offset: 0,
-            source_content: Cow::Borrowed(""),
-            source_name: path.display().to_string(),
+            source_content: "",
+            source_name: path.display().to_string().into_boxed_str(),
             line_start: 0,
             line_end: 0,
         })?;
@@ -129,7 +128,7 @@ impl SourceFile {
         Self::decode_with_replacement(file_name, &bytes).map_err(|err| ErrorDetails {
             kind: err.kind,
             error_offset: err.error_offset,
-            source_content: Cow::Owned(err.source_content.into_owned()),
+            source_content: "",
             source_name: err.source_name,
             line_start: err.line_start,
             line_end: err.line_end,
@@ -201,8 +200,8 @@ impl SourceFile {
                     message: "Failed to decode the source code. '{file_name}' was empty.".into(),
                 },
                 error_offset: 0,
-                source_content: "".into(),
-                source_name: file_name.into().clone(),
+                source_content: "",
+                source_name: file_name.into().into_boxed_str(),
                 line_start: 0,
                 line_end: 0,
             });
@@ -253,11 +252,13 @@ impl SourceFile {
 Currently, only latin-1 source code is supported."
                     ),
                 },
-                source_content: Cow::Owned(text_up_to_error),
-                source_name: file_name,
-                error_offset,
+                source_content: Box::leak(text_up_to_error.into_boxed_str()),
+                source_name: file_name.into_boxed_str(),
+                // Normally we would use usize for offsets, but VB6 was limited to 32-bit addressing.
+                // Therefore, we safely cast to u32 here.
+                error_offset: u32::try_from(error_offset).unwrap_or(0),
                 line_start: 0,
-                line_end: decoded_len,
+                line_end: u32::try_from(decoded_len).unwrap_or(0),
             };
 
             return Err(details);

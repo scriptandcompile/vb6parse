@@ -138,14 +138,13 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -172,14 +171,13 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -206,14 +204,13 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -243,7 +240,6 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
@@ -253,8 +249,8 @@ where
     ///     vec![],
     /// );
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -275,7 +271,6 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
@@ -286,16 +281,16 @@ where
     /// );
     /// let mut failures = vec![
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some source code",
     ///         error_offset: 5,
     ///         line_start: 0,
     ///         line_end: 10,
     ///         kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     ///     },
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some more source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some more source code",
     ///         error_offset: 15,
     ///         line_start: 1,
     ///         line_end: 11,
@@ -405,14 +400,13 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -454,14 +448,13 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind };
     ///
     /// let failure = ErrorDetails {
-    ///     source_name: "test.bas".to_string(),
-    ///     source_content: Cow::Borrowed("Some source code"),
+    ///     source_name: "test.bas".to_string().into_boxed_str(),
+    ///     source_content: "Some source code",
     ///     error_offset: 5,
     ///     line_start: 0,
     ///     line_end: 10,
@@ -498,23 +491,22 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
     ///
     /// let failures = vec![
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some source code",
     ///         error_offset: 5,
     ///         line_start: 0,
     ///         line_end: 10,
     ///         kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     ///     },
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some source code",
     ///         error_offset: 15,
     ///         line_start: 0,
     ///         line_end: 10,
@@ -559,7 +551,6 @@ where
     ///
     /// # Examples
     /// ```rust
-    /// use std::borrow::Cow;
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
@@ -567,16 +558,16 @@ where
     ///
     /// let failures = vec![
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some source code",
     ///         error_offset: 5,
     ///         line_start: 0,
     ///         line_end: 10,
     ///         kind: CodeErrorKind::UnknownToken { token: "???".to_string() },
     ///     },
     ///     ErrorDetails {
-    ///         source_name: "test.bas".to_string(),
-    ///         source_content: Cow::Borrowed("Some source code"),
+    ///         source_name: "test.bas".to_string().into_boxed_str(),
+    ///         source_content: "Some source code",
     ///         error_offset: 15,
     ///         line_start: 0,
     ///         line_end: 10,
