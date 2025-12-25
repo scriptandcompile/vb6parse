@@ -544,7 +544,7 @@ impl FormFile {
         // The form's name comes from the VB_Name attribute if present,
         // otherwise from the PropertiesName in the Begin statement
         if !attributes.name.is_empty() {
-            form.name = attributes.name.clone();
+            form.name.clone_from(&attributes.name);
         }
         // If attributes.name is empty, form.name already has the name from the Begin statement
 
