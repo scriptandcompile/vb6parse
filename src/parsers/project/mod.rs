@@ -2276,9 +2276,11 @@ fn parse_optional_quoted_value<'a>(
     // quote, then obviously the string both starts and ends with a quote (even
     // if that is the same character!) which means we still need to report this
     // failure case.
-    if (start_quote_found && !end_quote_found)
-        || (start_quote_found && end_quote_found && parameter_value.len() == 1)
-    {
+    let start_without_end = start_quote_found && !end_quote_found;
+    let start_with_end_length_one =
+        start_quote_found && end_quote_found && parameter_value.len() == 1;
+
+    if start_without_end || start_with_end_length_one {
         // The value starts with a quote but does not end with one.
         // This is an error, so we return an error.
         let fail = input.generate_error_at(
