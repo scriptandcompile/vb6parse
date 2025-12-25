@@ -124,8 +124,8 @@
 //! ## Form File Parsing
 //!
 //! To load a VB6 form file, you can use the `FormFile::parse` method. This
-//! pattern is very similar to the `ProjectFile::parse` method and is repeated
-//! throughout the library.
+//! pattern is very similar to the `ProjectFile::parse` method and this pattern is
+//! repeated throughout the library.
 //!
 //! ```rust
 //! use vb6parse::parsers::FormFile;
