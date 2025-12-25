@@ -946,6 +946,7 @@ impl<'a> ProjectFile<'a> {
     ///
     /// A vector of all project references.
     ///
+    #[must_use]
     pub fn project_references(&self) -> &Vec<ProjectReference<'a>> {
         &self.references
     }
