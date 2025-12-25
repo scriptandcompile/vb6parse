@@ -70,17 +70,6 @@ impl<'a> TokenStream<'a> {
         self.tokens.get(self.offset)
     }
 
-    /// Returns the current token and advances the position
-    pub fn next(&mut self) -> Option<(&'a str, Token)> {
-        if self.offset < self.tokens.len() {
-            let token = self.tokens[self.offset];
-            self.offset += 1;
-            Some(token)
-        } else {
-            None
-        }
-    }
-
     /// Advances the position by one without returning the token
     pub fn advance(&mut self) {
         if self.offset < self.tokens.len() {
@@ -133,11 +122,16 @@ impl<'a> std::ops::Index<usize> for TokenStream<'a> {
     }
 }
 
-impl<'a> IntoIterator for TokenStream<'a> {
+impl<'a> Iterator for TokenStream<'a> {
     type Item = (&'a str, Token);
-    type IntoIter = std::vec::IntoIter<(&'a str, Token)>;
 
-    fn into_iter(self) -> Self::IntoIter {
-        self.tokens.into_iter()
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.offset < self.tokens.len() {
+            let token = self.tokens[self.offset];
+            self.offset += 1;
+            Some(token)
+        } else {
+            None
+        }
     }
 }

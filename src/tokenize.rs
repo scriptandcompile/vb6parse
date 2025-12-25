@@ -955,7 +955,7 @@ Attribute VB_Exposed = False
             }
         }
 
-        let mut tokens = tokens_opt.expect("Expected tokens").into_iter();
+        let mut tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens.len(), 96);
         assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
@@ -1097,6 +1097,7 @@ Attribute VB_Exposed = False
     }
 
     #[test]
+    #[allow(clippy::large_stack_arrays)]
     fn class_file_tokenize_without_whitespace() {
         use crate::tokenize::tokenize_without_whitespaces;
         use crate::SourceStream;
@@ -1129,7 +1130,7 @@ Attribute VB_Exposed = False
             }
         }
 
-        let mut tokens = tokens_opt.expect("Expected tokens").into_iter();
+        let mut tokens = tokens_opt.expect("Expected tokens");
 
         assert_eq!(tokens.len(), 59);
         assert_eq!(tokens.next().unwrap(), ("VERSION", Token::VersionKeyword));
