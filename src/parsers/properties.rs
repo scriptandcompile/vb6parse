@@ -182,6 +182,15 @@ impl Properties {
     }
 }
 
+impl<'a> IntoIterator for &'a Properties {
+    type Item = (&'a String, &'a String);
+    type IntoIter = PropertiesIter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
 /// Iterator implementation for `PropertiesIter`.
 ///
 /// # Examples
