@@ -250,26 +250,26 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
                 }
                 "DataBindingBehavior" => {
                     data_binding_behavior = match value.as_str() {
-                        "0" => DataBindingBehavior::None,
                         "1" => DataBindingBehavior::Simple,
                         "2" => DataBindingBehavior::Complex,
+                        // When in doubt, default to None (0) which is the default VB6 behavior.
                         _ => DataBindingBehavior::None,
                     };
                 }
                 "DataSourceBehavior" => {
                     data_source_behavior = match value.as_str() {
-                        "0" => DataSourceBehavior::None,
                         "1" => DataSourceBehavior::DataSource,
+                        // When in doubt, default to None (0) which is the default VB6 behavior.
                         _ => DataSourceBehavior::None,
                     };
                 }
                 "MTSTransactionMode" => {
                     mts_transaction_mode = match value.as_str() {
-                        "0" => MtsStatus::NotAnMTSObject,
                         "1" => MtsStatus::NoTransactions,
                         "2" => MtsStatus::RequiresTransaction,
                         "3" => MtsStatus::UsesTransaction,
                         "4" => MtsStatus::RequiresNewTransaction,
+                        // When in doubt, default to NotAnMTSObject (0) which is the default VB6 behavior.
                         _ => MtsStatus::NotAnMTSObject,
                     };
                 }
