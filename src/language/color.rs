@@ -357,7 +357,7 @@ impl Color {
     /// # Errors
     ///
     /// If the input is not a valid hex color of either a
-    /// '&H00BBGGRR&' or '&H800000II&' format, an error is returned.
+    /// '&H00BBGGRR&' or '&H800000II&' format, then a `FormErrorKind::HexColorParseError` is returned.
     ///
     /// The '&H00BBGGRR&' format is a 24-bit RGB color in the order of blue, green, red.
     /// where each element is in hex format.
