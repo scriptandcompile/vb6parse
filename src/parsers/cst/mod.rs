@@ -705,11 +705,9 @@ impl<'a> Parser<'a> {
                     found_equals = true;
                 }
                 // After =, we expect either a quoted string starting with { or * for type library refs
-                Token::StringLiteral if found_equals => {
+                Token::StringLiteral | Token::MultiplicationOperator if found_equals => {
                     // Valid Object statement - string literal after =
-                    return true;
-                }
-                Token::MultiplicationOperator if found_equals => {
+                    // or
                     // Could be *\G{ pattern for type libraries
                     return true;
                 }
