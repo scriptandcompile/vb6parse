@@ -41,7 +41,7 @@ impl From<Properties> for CustomControlProperties {
     fn from(prop: Properties) -> Self {
         let mut custom_prop = CustomControlProperties::default();
 
-        for (key, value) in prop.iter() {
+        for (key, value) in &prop {
             custom_prop
                 .property_store
                 .insert(key.clone(), value.clone());
