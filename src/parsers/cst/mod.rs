@@ -71,11 +71,9 @@ use serde::Serialize;
 // Submodules for organized CST parsing
 mod assignment;
 mod attribute_statements;
-mod controlflow;
 mod declarations;
 mod deftype_statements;
 mod enum_statements;
-mod expressions;
 mod for_statements;
 mod function_statements;
 mod helpers;
@@ -84,7 +82,6 @@ mod library_functions;
 mod library_statements;
 mod loop_statements;
 mod navigation;
-mod object_statements;
 mod option_statements;
 mod parameters;
 mod properties;
@@ -92,7 +89,6 @@ mod property_statements;
 mod select_statements;
 mod sub_statements;
 mod type_statements;
-mod variable_declarations;
 
 // Re-export navigation types
 pub use navigation::CstNode;
@@ -357,8 +353,8 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
 pub(crate) struct Parser<'a> {
     pub(crate) tokens: Vec<(&'a str, Token)>,
     pub(crate) pos: usize,
-    builder: GreenNodeBuilder<'static>,
-    parsing_header: bool,
+    pub(crate) builder: GreenNodeBuilder<'static>,
+    pub(crate) parsing_header: bool,
 }
 
 impl<'a> Parser<'a> {
@@ -1640,7 +1636,7 @@ impl<'a> Parser<'a> {
     ///
     /// # Arguments
     /// * `stop_conditions` - A closure that returns true when the block should stop parsing
-    fn parse_code_block<F>(&mut self, stop_conditions: F)
+    pub(crate) fn parse_code_block<F>(&mut self, stop_conditions: F)
     where
         F: Fn(&Parser) -> bool,
     {

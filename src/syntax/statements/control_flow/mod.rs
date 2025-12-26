@@ -9,9 +9,8 @@
 //! Note: `Do`/`Loop` statements are in the `loop_statements` module.
 
 use crate::language::Token;
+use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
-
-use super::Parser;
 
 impl Parser<'_> {
     /// Parse a `GoSub` statement.
@@ -45,7 +44,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
-    pub(super) fn parse_gosub_statement(&mut self) {
+    pub(crate) fn parse_gosub_statement(&mut self) {
         // if we are now parsing a gosub statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -85,7 +84,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/gosubreturn-statement)
-    pub(super) fn parse_return_statement(&mut self) {
+    pub(crate) fn parse_return_statement(&mut self) {
         // if we are now parsing a return statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -109,7 +108,7 @@ impl Parser<'_> {
     ///   `GoTo` label
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
-    pub(super) fn parse_goto_statement(&mut self) {
+    pub(crate) fn parse_goto_statement(&mut self) {
         // if we are now parsing a `GoTo` statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -185,7 +184,7 @@ impl Parser<'_> {
     /// # References
     ///
     /// [Microsoft VBA Language Reference - Resume Statement](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/resume-statement)
-    pub(super) fn parse_resume_statement(&mut self) {
+    pub(crate) fn parse_resume_statement(&mut self) {
         // if we are now parsing a resume statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -211,7 +210,7 @@ impl Parser<'_> {
     /// - Exit Sub
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement)
-    pub(super) fn parse_exit_statement(&mut self) {
+    pub(crate) fn parse_exit_statement(&mut self) {
         // if we are now parsing an exit statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -249,7 +248,7 @@ impl Parser<'_> {
     /// `Labels` are used as targets for `GoTo` and `GoSub` statements.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/goto-statement)
-    pub(super) fn parse_label_statement(&mut self) {
+    pub(crate) fn parse_label_statement(&mut self) {
         // if we are now parsing a label statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -276,7 +275,7 @@ impl Parser<'_> {
 
     /// Check if the current position is at a label.
     /// A label is an identifier or number followed by a colon.
-    pub(super) fn is_at_label(&self) -> bool {
+    pub(crate) fn is_at_label(&self) -> bool {
         let next_token_is_colon = matches!(self.peek_next_token(), Some(Token::ColonOperator));
 
         if !next_token_is_colon {
@@ -342,7 +341,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/on-error-statement)
-    pub(super) fn parse_on_error_statement(&mut self) {
+    pub(crate) fn parse_on_error_statement(&mut self) {
         // if we are now parsing an on error statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -404,7 +403,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ongoto-and-ongosub-statements)
-    pub(super) fn parse_on_goto_statement(&mut self) {
+    pub(crate) fn parse_on_goto_statement(&mut self) {
         // if we are now parsing an on goto statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -463,7 +462,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ongoto-and-ongosub-statements)
-    pub(super) fn parse_on_gosub_statement(&mut self) {
+    pub(crate) fn parse_on_gosub_statement(&mut self) {
         // if we are now parsing an on gosub statement, we are no longer in the header.
         self.parsing_header = false;
 

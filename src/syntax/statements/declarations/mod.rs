@@ -37,9 +37,8 @@
 //! [WithEvents Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
 
 use crate::language::Token;
+use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
-
-use super::Parser;
 
 impl Parser<'_> {
     /// Parse a `ReDim` statement.
@@ -50,7 +49,7 @@ impl Parser<'_> {
     /// Used at procedure level to reallocate storage space for dynamic array variables.
     ///
     /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa266231(v=vs.60))
-    pub(super) fn parse_redim_statement(&mut self) {
+    pub(crate) fn parse_redim_statement(&mut self) {
         // if we are now parsing a ReDim statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -177,7 +176,7 @@ impl Parser<'_> {
     ///
     /// [Dim Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/dim-statement)
     /// [WithEvents Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa243352(v=vs.60))
-    pub(super) fn parse_dim(&mut self) {
+    pub(crate) fn parse_dim(&mut self) {
         // if we are now parsing a dim statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -310,7 +309,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/erase-statement)
-    pub(super) fn parse_erase_statement(&mut self) {
+    pub(crate) fn parse_erase_statement(&mut self) {
         // if we are now parsing an erase statement, we are no longer in the header.
         self.parsing_header = false;
 
