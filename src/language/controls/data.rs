@@ -13,7 +13,7 @@ use crate::errors::FormErrorKind;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
 };
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 use crate::Color;
 
 use image::DynamicImage;

@@ -1,4 +1,4 @@
-use vb6parse::parsers::resource::{FormResourceFile, ResourceEntry};
+use vb6parse::files::resource::{FormResourceFile, ResourceEntry};
 
 #[test]
 fn audiostation_about_frx() {

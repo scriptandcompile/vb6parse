@@ -12,7 +12,7 @@ use crate::language::controls::{
     Activation, CausesValidation, DragMode, MousePointer, ReferenceOrValue, TabStop, TextDirection,
     Visibility,
 };
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use serde::Serialize;

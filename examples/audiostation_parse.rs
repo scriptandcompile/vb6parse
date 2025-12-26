@@ -2,7 +2,7 @@
 //! and parse it into a Concrete Syntax Tree (CST).
 
 use std::env;
-use vb6parse::parsers::project::ProjectFile;
+use vb6parse::files::ProjectFile;
 use vb6parse::io::SourceFile;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -61,7 +61,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             SourceFile::decode_with_replacement(&module_path, &std::fs::read(&module_path)?)
                 .expect("Failed to decode module source file.");
 
-        let module_parse_result = vb6parse::parsers::module::ModuleFile::parse(&module_source);
+        let module_parse_result = vb6parse::ModuleFile::parse(&module_source);
         if module_parse_result.has_failures() {
             for failure in module_parse_result.failures() {
                 failure.print();

@@ -16,7 +16,7 @@ use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, MultiSelect, OLEDragMode,
     OLEDropMode, ReferenceOrValue, TabStop, Visibility,
 };
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;

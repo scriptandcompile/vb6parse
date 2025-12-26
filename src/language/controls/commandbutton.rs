@@ -23,7 +23,7 @@ use crate::{
         Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
         ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor,
     },
-    parsers::Properties,
+    files::common::Properties,
     Color, VB_BUTTON_FACE,
 };
 

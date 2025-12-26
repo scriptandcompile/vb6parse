@@ -17,7 +17,7 @@
 //! [`Control`](crate::language::controls::Control) struct.
 //!
 
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use std::collections::HashMap;
 

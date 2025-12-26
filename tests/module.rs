@@ -1,5 +1,5 @@
 use image::EncodableLayout;
-use vb6parse::parsers::ModuleFile;
+use vb6parse::files::ModuleFile;
 use vb6parse::io::SourceFile;
 
 #[test]

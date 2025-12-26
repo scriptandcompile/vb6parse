@@ -1,4 +1,4 @@
-use vb6parse::parsers::ModuleFile;
+use vb6parse::files::ModuleFile;
 use vb6parse::io::SourceFile;
 
 /// Example showing how to parse a VB6 module file from raw bytes.

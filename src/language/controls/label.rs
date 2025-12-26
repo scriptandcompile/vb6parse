@@ -16,7 +16,7 @@ use crate::{
         Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
         MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
     },
-    parsers::Properties,
+    files::common::Properties,
     Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
 };
 

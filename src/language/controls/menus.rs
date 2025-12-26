@@ -13,7 +13,7 @@ use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
 use crate::language::controls::{Activation, Visibility};
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use num_enum::TryFromPrimitive;
 use serde::Serialize;

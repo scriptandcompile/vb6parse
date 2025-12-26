@@ -13,7 +13,7 @@ use crate::{
         LinkMode, MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, ScaleMode, TabStop,
         TextDirection, Visibility,
     },
-    parsers::Properties,
+    files::common::Properties,
     Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
 };
 

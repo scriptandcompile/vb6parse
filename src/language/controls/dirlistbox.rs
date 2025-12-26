@@ -9,7 +9,7 @@ use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
 };
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 use crate::Color;
 
 use image::DynamicImage;

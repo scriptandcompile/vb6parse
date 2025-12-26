@@ -15,7 +15,7 @@ use crate::{
         },
         VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    parsers::Properties,
+    files::common::Properties,
 };
 
 use image::DynamicImage;

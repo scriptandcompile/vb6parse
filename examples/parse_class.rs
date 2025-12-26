@@ -1,4 +1,4 @@
-use vb6parse::parsers::ClassFile;
+use vb6parse::files::ClassFile;
 use vb6parse::io::SourceFile;
 
 /// Example showing how to parse a VB6 class file from raw bytes.

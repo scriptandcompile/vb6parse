@@ -432,9 +432,9 @@ impl<'a> Parser<'a> {
     /// - `failures`: Empty vec (no errors generated for missing VERSION)
     pub(crate) fn parse_version_direct(
         &mut self,
-    ) -> crate::ParseResult<'a, crate::parsers::FileFormatVersion, crate::errors::FormErrorKind>
+    ) -> crate::ParseResult<'a, crate::files::common::FileFormatVersion, crate::errors::FormErrorKind>
     {
-        use crate::parsers::FileFormatVersion;
+        use crate::files::common::FileFormatVersion;
 
         self.skip_whitespace();
 
@@ -755,7 +755,7 @@ impl<'a> Parser<'a> {
 
     /// Parse Object statements directly (without CST)
     /// Phase 5: Direct extraction of Object references
-    pub(crate) fn parse_objects_direct(&mut self) -> Vec<crate::parsers::ObjectReference> {
+    pub(crate) fn parse_objects_direct(&mut self) -> Vec<crate::files::common::ObjectReference> {
         let mut objects = Vec::new();
 
         self.skip_whitespace_and_newlines();
@@ -774,8 +774,8 @@ impl<'a> Parser<'a> {
     /// Parse a single Object statement line
     /// Format: Object = "{UUID}#version#flags"; "filename"
     /// Or:     Object = *\G{UUID}#version#flags; "filename"
-    fn parse_single_object_direct(&mut self) -> Option<crate::parsers::ObjectReference> {
-        use crate::parsers::ObjectReference;
+    fn parse_single_object_direct(&mut self) -> Option<crate::files::common::ObjectReference> {
+        use crate::files::common::ObjectReference;
 
         // Expect "Object" keyword
         if !self.at_token(Token::ObjectKeyword) {
@@ -891,10 +891,8 @@ impl<'a> Parser<'a> {
 
     /// Parse Attribute statements directly (without CST)
     /// Phase 6: Direct extraction of file attributes
-    pub(crate) fn parse_attributes_direct(&mut self) -> crate::parsers::FileAttributes {
-        use crate::parsers::header::{
-            Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID,
-        };
+    pub(crate) fn parse_attributes_direct(&mut self) -> crate::files::common::FileAttributes {
+        use crate::files::common::{Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID};
         use std::collections::HashMap;
 
         let mut name = String::new();
@@ -1061,7 +1059,7 @@ impl<'a> Parser<'a> {
     /// Build `ControlKind` from control type string and properties
     fn build_control_kind(
         control_type: &str,
-        properties: crate::Properties,
+        properties: crate::files::common::Properties,
         child_controls: Vec<crate::language::Control>,
         menus: Vec<crate::language::MenuControl>,
         property_groups: Vec<crate::language::PropertyGroup>,
@@ -1157,8 +1155,8 @@ impl<'a> Parser<'a> {
     pub(crate) fn parse_properties_block_to_control(
         &mut self,
     ) -> crate::ParseResult<'a, crate::language::Control, crate::errors::FormErrorKind> {
+        use crate::files::common::Properties;
         use crate::language::Control;
-        use crate::Properties;
 
         self.skip_whitespace();
 
@@ -2386,7 +2384,7 @@ End
 
         assert_eq!(objects.len(), 1);
         match &objects[0] {
-            crate::parsers::ObjectReference::Compiled {
+            crate::files::common::ObjectReference::Compiled {
                 uuid,
                 version,
                 unknown1,
@@ -2400,7 +2398,9 @@ End
                 assert_eq!(unknown1, "0");
                 assert_eq!(file_name, "MyLib.dll");
             }
-            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
+            crate::files::common::ObjectReference::Project { .. } => {
+                panic!("Expected Compiled object reference")
+            }
         }
     }
 
@@ -2420,17 +2420,21 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
         assert_eq!(objects.len(), 2);
 
         match &objects[0] {
-            crate::parsers::ObjectReference::Compiled { file_name, .. } => {
+            crate::files::common::ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib1.dll");
             }
-            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
+            crate::files::common::ObjectReference::Project { .. } => {
+                panic!("Expected Compiled object reference")
+            }
         }
 
         match &objects[1] {
-            crate::parsers::ObjectReference::Compiled { file_name, .. } => {
+            crate::files::common::ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib2.ocx");
             }
-            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
+            crate::files::common::ObjectReference::Project { .. } => {
+                panic!("Expected Compiled object reference")
+            }
         }
     }
 
@@ -2447,7 +2451,7 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
 
         assert_eq!(objects.len(), 1);
         match &objects[0] {
-            crate::parsers::ObjectReference::Compiled {
+            crate::files::common::ObjectReference::Compiled {
                 uuid,
                 version,
                 file_name,
@@ -2460,7 +2464,9 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
                 assert_eq!(version, "3.0");
                 assert_eq!(file_name, "Embedded.ocx");
             }
-            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
+            crate::files::common::ObjectReference::Project { .. } => {
+                panic!("Expected Compiled object reference")
+            }
         }
     }
 
@@ -2556,7 +2562,7 @@ End
     // Phase 6 Tests: Direct Attribute Parsing
     #[test]
     fn parse_simple_string_attribute() {
-        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
         let source = r#"Attribute VB_Name = "Form1"
 "#;
@@ -2578,7 +2584,7 @@ End
 
     #[test]
     fn parse_boolean_attributes() {
-        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
         let source = r"Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
@@ -2601,7 +2607,7 @@ Attribute VB_Exposed = False
 
     #[test]
     fn parse_numeric_attribute() {
-        use crate::parsers::header::PreDeclaredID;
+        use crate::files::common::PreDeclaredID;
 
         let source = r"Attribute VB_PredeclaredId = -1
 ";
@@ -2619,7 +2625,7 @@ Attribute VB_Exposed = False
 
     #[test]
     fn parse_multiple_attributes() {
-        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
         let source = r#"Attribute VB_Name = "MyForm"
 Attribute VB_GlobalNameSpace = False
@@ -2666,7 +2672,7 @@ Attribute VB_Description = "Test"
 
     #[test]
     fn parse_empty_attributes() {
-        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+        use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
         let source = r"";
         let mut stream = SourceStream::new("test.frm".to_string(), source);

@@ -12,12 +12,14 @@ use std::fmt::Display;
 
 use crate::{
     errors::ClassErrorKind,
+    files::{
+        class::properties::{ClassHeader, ClassProperties},
+        common::{extract_attributes, extract_version},
+    },
     io::SourceFile,
     lexer::tokenize,
     parsers::{
-        class::properties::{ClassHeader, ClassProperties},
         cst::{parse, serialize_cst},
-        header::{extract_attributes, extract_version},
         SyntaxKind,
     },
     ConcreteSyntaxTree, ParseResult,
@@ -67,7 +69,7 @@ impl ClassFile {
     /// # Example
     ///
     /// ```rust
-    /// use vb6parse::parsers::ClassFile;
+    /// use vb6parse::ClassFile;
     /// use vb6parse::io::SourceFile;
     ///
     /// let input = b"VERSION 1.0 CLASS
@@ -160,7 +162,7 @@ impl ClassFile {
 
 /// Extract `VB6ClassProperties` from `PropertiesBlock` nodes in the CST
 fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperties {
-    use crate::parsers::class::properties::{
+    use crate::files::class::properties::{
         DataBindingBehavior, DataSourceBehavior, FileUsage, MtsStatus, Persistence,
     };
 

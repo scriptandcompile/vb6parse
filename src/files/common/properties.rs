@@ -7,7 +7,7 @@
 //!
 //! # Examples
 //! ```rust
-//! use vb6parse::parsers::properties::{PropertyGroup, Properties};
+//! use vb6parse::files::common::{PropertyGroup, Properties};
 //! use vb6parse::language::Color;
 //! use vb6parse::VB_RED;
 //! use std::collections::HashMap;
@@ -44,7 +44,7 @@ use crate::language::StartUpPosition;
 ///
 /// ```rust
 /// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     use vb6parse::parsers::properties::PropertyGroup;
+///     use vb6parse::files::common::PropertyGroup;
 ///     use vb6parse::language::Color;
 ///     use vb6parse::VB_RED;
 ///     use std::collections::HashMap;
@@ -111,7 +111,7 @@ impl Serialize for PropertyGroup {
 /// # Examples
 ///
 /// ```rust
-/// use vb6parse::parsers::properties::Properties;
+/// use vb6parse::files::common::Properties;
 /// let mut props = Properties::new();
 /// props.insert("ClientWidth", "800");
 /// let width = props.get_i32("ClientWidth", 600);
@@ -133,7 +133,7 @@ impl AsRef<HashMap<String, String>> for Properties {
 /// # Examples
 ///
 /// ```rust
-/// use vb6parse::parsers::properties::Properties;
+/// use vb6parse::files::common::Properties;
 /// let mut props = Properties::new();
 /// props.insert("Key1", "Value1");
 /// props.insert("Key2", "Value2");
@@ -150,7 +150,7 @@ pub struct PropertiesIter<'a> {
 /// # Examples
 ///
 /// ```rust
-/// use vb6parse::parsers::properties::Properties;
+/// use vb6parse::files::common::Properties;
 /// let mut props = Properties::new();
 /// props.insert("Key1", "Value1");
 /// props.insert("Key2", "Value2");
@@ -165,7 +165,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// props.insert("Key2", "Value2");
@@ -196,7 +196,7 @@ impl<'a> IntoIterator for &'a Properties {
 /// # Examples
 ///
 /// ```rust
-/// use vb6parse::parsers::properties::Properties;
+/// use vb6parse::files::common::Properties;
 /// let mut props = Properties::new();
 /// props.insert("Key1", "Value1");
 /// props.insert("Key2", "Value2");
@@ -213,7 +213,7 @@ impl<'a> Iterator for PropertiesIter<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// let mut iter = props.iter();
@@ -259,7 +259,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let props = Properties::new();
     /// assert!(props.is_empty());
     /// ```
@@ -276,7 +276,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// assert_eq!(props.get("Key1"), Some(&"Value1".to_string()));
@@ -291,7 +291,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// assert_eq!(props.len(), 0);
     /// props.insert("Key1", "Value1");
@@ -307,7 +307,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// assert!(props.is_empty());
     /// props.insert("Key1", "Value1");
@@ -323,7 +323,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// assert!(props.contains_key("Key1"));
@@ -339,7 +339,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// props.insert("Key2", "Value2");
@@ -359,7 +359,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// let removed = props.remove("Key1");
@@ -375,7 +375,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// props.clear();
@@ -391,7 +391,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("Key1", "Value1");
     /// let value = props.get("Key1");
@@ -411,7 +411,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("IsEnabled", "1");
     /// let is_enabled = props.get_bool("IsEnabled", false);
@@ -439,7 +439,7 @@ impl Properties {
     ///
     /// ```rust
     /// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     use vb6parse::parsers::properties::Properties;
+    ///     use vb6parse::files::common::Properties;
     ///     use vb6parse::VB_WHITE;
     ///     use vb6parse::language::Color;
     ///
@@ -468,7 +468,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("ClientWidth", "800");
     ///
@@ -494,7 +494,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// use num_enum::TryFromPrimitive;
     ///
     /// #[derive(Debug, PartialEq, TryFromPrimitive)]
@@ -538,7 +538,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// use vb6parse::language::StartUpPosition;
     /// let mut props = Properties::new();
     /// props.insert("StartUpPosition", "1");
@@ -595,7 +595,7 @@ impl Properties {
     /// # Examples
     ///
     /// ```rust
-    /// use vb6parse::parsers::properties::Properties;
+    /// use vb6parse::files::common::Properties;
     /// let mut props = Properties::new();
     /// props.insert("SomeKey", "SomeValue");
     ///

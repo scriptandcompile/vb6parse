@@ -18,7 +18,7 @@ use crate::{
             OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
         },
     },
-    parsers::Properties,
+    files::common::Properties,
 };
 
 use image::DynamicImage;

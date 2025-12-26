@@ -13,7 +13,7 @@ use crate::language::{
     },
     Color, VB_APPLICATION_WORKSPACE,
 };
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use serde::Serialize;
