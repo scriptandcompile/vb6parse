@@ -4,380 +4,888 @@
 //! This module provides functions to read and extract resource data from these files.
 //!
 
-// TODO: Add the ResourceFile struct to represent a parsed resource file.
-// TODO: Implement additional parsing functions for specific resource types (e.g., images, icons, etc.).
+use serde::Serialize;
+use std::collections::HashMap;
+use std::fmt::Display;
+use std::path::Path;
 
-/// Resolves a resource file from the given file path and offset.
-///
-/// # Arguments
-///
-/// * `file_path` - The path to the resource file.
-/// * `offset` - The offset of the resource in the file.
-///
-/// # Returns
-///
-/// A result containing the resource data as a vector of bytes or an error.
-///
-/// # Errors
-///
-/// An error will be returned if the resource file cannot be read or if the offset is out of bounds.
-///
-pub fn resource_file_resolver(file_path: &str, offset: usize) -> Result<Vec<u8>, std::io::Error> {
-    // VB6 FRX files are resource files that contain binary data for controls, forms, and other UI elements.
-    // They are typically used in conjunction with VB6 FRM files.
-    // The overall format of a VB6 FRX file is not well documented, but it generally consists of a
-    // header per record, followed by the binary data for the control or form. There
-    // is no overall header for the FRX file itself, and the records are not necessarily in any
-    // particular order.
-    //
-    // The records can be of variable length, so we cannot just read a fixed number of bytes
-    // from the file. Instead, we need to parse the file record by record, looking for the specific
-    // records that we are interested in from the frm offset.
+use crate::errors::{ErrorDetails, ResourceErrorKind};
+use crate::ParseResult;
 
-    // load the bytes from the frx file.
-    let buffer = match std::fs::read(file_path) {
-        Ok(bytes) => bytes,
-        Err(err) => {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::NotFound,
-                format!("Failed to read resource file {file_path}: {err}"),
-            ));
-        }
-    };
+/// Represents a parsed VB6 Form Resource file (.frx).
+///
+/// FRX files contain binary data for controls, forms, and other UI elements.
+/// They are structured as a sequence of variable-length records without an
+/// overall file header. Records are referenced from the associated .frm file
+/// by byte offset.
+///
+/// # Example
+///
+/// ```no_run
+/// use vb6parse::parsers::FormResourceFile;
+///
+/// let bytes = std::fs::read("path/to/form.frx")?;
+/// let result = FormResourceFile::parse("form.frx", bytes);
+/// let resource_file = result.unwrap_or_fail();
+///
+/// // Or use from_file for convenience
+/// let result = FormResourceFile::from_file("path/to/form.frx")?;
+/// let resource_file = result.unwrap_or_fail();
+///
+/// // Access a binary blob (e.g., icon) at offset 0x00
+/// if let Some(data) = resource_file.get_binary_blob(0x00) {
+///     println!("Icon size: {} bytes", data.len());
+/// }
+///
+/// // Access list items (e.g., combo box contents) at offset 0x100
+/// if let Some(items) = resource_file.get_list_items(0x100) {
+///     for item in items {
+///         println!("List item: {}", item);
+///     }
+/// }
+/// # Ok::<(), std::io::Error>(())
+/// ```
+#[derive(Debug, Clone, Serialize)]
+pub struct FormResourceFile {
+    /// Complete buffer of the resource file contents
+    ///
+    /// Stored for reference and to avoid re-reading the file.
+    /// Individual entries reference slices of this buffer.
+    #[serde(skip)]
+    buffer: Vec<u8>,
 
-    // Check if the offset is within the bounds of the file.
-    if offset >= buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            format!("Offset is out of bounds for resource file {file_path}: {offset}"),
-        ));
+    /// File name of the resource file
+    file_name: Box<str>,
+
+    /// Parsed resource entries indexed by their byte offset in the file
+    ///
+    /// Keys are the byte offsets where each resource entry begins.
+    /// This allows O(1) lookup when the FRM file references a resource.
+    entries: HashMap<usize, ResourceEntry>,
+}
+
+impl Display for FormResourceFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "FormResourceFile {{ file_name: {:?}, size: {} bytes, entries: {} }}",
+            self.file_name,
+            self.buffer.len(),
+            self.entries.len()
+        )
+    }
+}
+
+/// Represents a single resource entry in a VB6 FRX file.
+///
+/// Each entry type corresponds to a different binary format used by VB6
+/// for storing various kinds of data.
+#[derive(Debug, Clone, Serialize, PartialEq)]
+pub enum ResourceEntry {
+    /// Binary blob with 12-byte header (signature: "lt\0\0")
+    ///
+    /// Used for: Images, icons, cursor files, OLE objects
+    ///
+    /// Header format:
+    /// - Bytes 0-3: Size from end of signature (u32 LE)
+    /// - Bytes 4-7: Magic signature "lt\0\0"
+    /// - Bytes 8-11: Size from start of data (u32 LE, should be bytes 0-3 minus 8)
+    /// - Bytes 12+: Binary data
+    Record12ByteHeader {
+        /// The binary data (excluding header)
+        data: Vec<u8>,
+    },
+
+    /// 16-bit record with 0xFF header
+    ///
+    /// Used for: Small to medium text/string data
+    ///
+    /// Header format:
+    /// - Byte 0: 0xFF (marker)
+    /// - Bytes 1-2: Size of data (u16 LE)
+    /// - Bytes 3+: Data
+    ///
+    /// Note: VB6 IDE has an off-by-one bug where some records
+    /// are marked as N bytes but are actually N-1 bytes.
+    Record3ByteHeader {
+        /// The record data (excluding header)
+        data: Vec<u8>,
+    },
+
+    /// List items record with magic signature [0x03, 0x00] or [0x07, 0x00]
+    ///
+    /// Used for: ComboBox/ListBox list items
+    ///
+    /// Format:
+    /// - Bytes 0-1: Number of items (u16 LE)
+    /// - Bytes 2-3: Magic signature [0x03, 0x00] or [0x07, 0x00]
+    /// - For each item:
+    ///   - 2 bytes: Item length (u16 LE)
+    ///   - N bytes: Item data (no null terminator)
+    ListItems {
+        /// Parsed list of strings
+        items: Vec<String>,
+    },
+
+    /// 4-byte header record
+    ///
+    /// Used for: Large text/binary data blocks
+    ///
+    /// Header format:
+    /// - Bytes 0-3: Size of data including header (u32 LE)
+    /// - Bytes 4+: Raw binary data
+    ///
+    /// Note: This data may be text (Windows-1252), images (PNG/BMP), or other binary data.
+    /// Use helper methods to extract as needed format.
+    Record4ByteHeader {
+        /// The raw binary data (excluding header)
+        data: Vec<u8>,
+    },
+
+    /// 8-bit record with single-byte header
+    ///
+    /// Used for: Small data (< 256 bytes)
+    ///
+    /// Header format:
+    /// - Byte 0: Size of data (u8)
+    /// - Bytes 1+: Data
+    Record1ByteHeader {
+        /// The record data (excluding header)
+        data: Vec<u8>,
+    },
+
+    /// Empty record (special case)
+    ///
+    /// Occurs when someone adds an icon/image to a form then removes it.
+    /// The IDE leaves behind an empty 12-byte header with:
+    /// - Bytes 0-3: 0x00000008
+    /// - Bytes 4-7: "lt\0\0"
+    /// - Bytes 8-11: 0x00000000
+    Empty {
+        /// Offset where this empty record was found
+        offset: usize,
+    },
+}
+
+impl ResourceEntry {
+    /// Attempts to decode the entry data as Windows-1252 text.
+    ///
+    /// Works for `Record12ByteHeader` and `Record4ByteHeader` entries.
+    ///
+    /// # Returns
+    ///
+    /// `Some(String)` if the data can be decoded as valid Windows-1252,
+    /// `None` otherwise.
+    #[must_use]
+    pub fn as_text(&self) -> Option<String> {
+        let bytes = match self {
+            ResourceEntry::Record12ByteHeader { data }
+            | ResourceEntry::Record4ByteHeader { data } => data.as_slice(),
+            _ => return None,
+        };
+
+        encoding_rs::WINDOWS_1252
+            .decode_without_bom_handling_and_without_replacement(bytes)
+            .map(|s| s.to_string())
     }
 
-    let binary_blob_signature = buffer[offset + 4..offset + 8].to_vec();
-    if buffer.len() >= 12 && binary_blob_signature.as_slice() == b"lt\0\0" {
-        // this is almost certainly a 12 byte header (0-12) where the first 4 bytes
-        // is the offset of the record from the end of the signature (exclusive).
-        // the next 4 bytes is the magic signature b"lt\0\0".
-        // The next four bytes after the 12 byte record heading should be
-        // the size of the record from the start of the record buffer.
-        // which should be 8 less than the record size from the start of the header.
+    /// Returns the raw bytes of the entry data.
+    ///
+    /// Works for `Record12ByteHeader`, `Record4ByteHeader`, `Record3ByteHeader`, and `Record1ByteHeader` entries.
+    ///
+    /// # Returns
+    ///
+    /// `Some(&[u8])` containing the raw data, `None` for `ListItems` or `Empty`.
+    #[must_use]
+    pub fn as_bytes(&self) -> Option<&[u8]> {
+        match self {
+            ResourceEntry::Record12ByteHeader { data }
+            | ResourceEntry::Record4ByteHeader { data }
+            | ResourceEntry::Record3ByteHeader { data }
+            | ResourceEntry::Record1ByteHeader { data } => Some(data.as_slice()),
+            ResourceEntry::ListItems { .. } | ResourceEntry::Empty { .. } => None,
+        }
+    }
+}
 
-        let Ok(size_buffer) = buffer[offset..(offset + 4)].try_into() else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Failed to read size buffer for resource file {file_path}"),
-            ));
-        };
-        let buffer_size_1 = u32::from_le_bytes(size_buffer) as usize;
+/// Metadata about a resource entry location and type.
+///
+/// Used internally during parsing to track entry boundaries.
+#[derive(Debug, Clone)]
+struct ResourceEntryMetadata {
+    /// Byte offset where the entry starts
+    offset: usize,
+    /// Total size including header
+    total_size: usize,
+    /// Type of entry
+    entry_type: ResourceEntryType,
+}
 
-        // the next 4 bytes after the 12 byte record heading should be
-        // the size of the record from the start of the record buffer.
-        // which should be 8 less than the record size from the start of the header.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum ResourceEntryType {
+    Record12ByteHeader,
+    Record3ByteHeader,
+    ListItems,
+    Record4ByteHeader,
+    Record1ByteHeader,
+    Empty,
+}
+impl FormResourceFile {
+    /// Parses a VB6 Form Resource file from an owned byte vector.
+    ///
+    /// This method takes ownership of the buffer, avoiding an extra copy.
+    ///
+    /// # Arguments
+    ///
+    /// * `buffer` - Byte vector containing the .frx file contents (consumed)
+    ///
+    /// # Returns
+    ///
+    /// A `ParseResult` containing the parsed resource file and any non-fatal errors.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use vb6parse::parsers::FormResourceFile;
+    ///
+    /// let bytes = std::fs::read("tests/data/form.frx")?;
+    /// let result = FormResourceFile::parse("form.frx", bytes);
+    ///
+    /// if result.has_failures() {
+    ///     for failure in result.failures() {
+    ///         failure.print();
+    ///     }
+    /// }
+    ///
+    /// let resource_file = result.unwrap_or_fail();
+    /// println!("Parsed {} entries", resource_file.entry_count());
+    /// # Ok::<(), std::io::Error>(())
+    /// ```
+    #[must_use]
+    pub fn parse(
+        file_name: &str,
+        buffer: Vec<u8>,
+    ) -> ParseResult<'static, Self, ResourceErrorKind> {
+        let mut failures = Vec::new();
+        let mut entries = HashMap::new();
+        let file_name_box = file_name.to_string().into_boxed_str();
 
-        let Ok(secondary_buffer_size) = buffer[(offset + 8)..(offset + 12)].try_into() else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Failed to read secondary buffer size for resource file {file_path}"),
-            ));
-        };
-        let buffer_size_2 = u32::from_le_bytes(secondary_buffer_size) as usize;
+        // 1. Scan through and identify all resource entries
+        let entry_offsets = Self::scan_entries(&buffer, &mut failures, &file_name_box);
 
+        // 2. Parse each entry into ResourceEntry enum
+        for metadata in entry_offsets {
+            match Self::parse_entry(&buffer, &metadata) {
+                Ok(entry) => {
+                    entries.insert(metadata.offset, entry);
+                }
+                Err(err) => {
+                    // Create ErrorDetails manually - resource files have no source_content
+                    // so we use an empty string
+                    failures.push(ErrorDetails {
+                        source_name: file_name_box.clone(),
+                        source_content: "",
+                        // The offset should fit in u32 as FRX files are legacy 32-bit format
+                        // and limited to 4GB in size.
+                        error_offset: u32::try_from(metadata.offset).unwrap_or(0),
+                        line_start: 0,
+                        line_end: 0,
+                        kind: err,
+                    });
+                }
+            }
+        }
+
+        // 3. Return FormResourceFile with HashMap of entries
+        ParseResult::new(
+            Some(FormResourceFile {
+                file_name: file_name_box,
+                buffer, // Move the Vec, no clone needed
+                entries,
+            }),
+            failures,
+        )
+    }
+
+    /// Loads and parses a VB6 Form Resource file from a file path.
+    ///
+    /// This is a convenience method that reads the file and calls `parse()`.
+    /// Use `parse()` directly if you already have the file contents in memory.
+    ///
+    /// # Arguments
+    ///
+    /// * `file_path` - Path to the .frx file to load and parse
+    ///
+    /// # Returns
+    ///
+    /// A `Result` containing the `ParseResult` or an I/O error.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the file cannot be read.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use vb6parse::parsers::FormResourceFile;
+    ///
+    /// let result = FormResourceFile::from_file("tests/data/form.frx")?;
+    /// let resource_file = result.unwrap_or_fail();
+    /// # Ok::<(), std::io::Error>(())
+    /// ```
+    pub fn from_file<P: AsRef<Path>>(
+        file_path: P,
+    ) -> std::io::Result<ParseResult<'static, Self, ResourceErrorKind>> {
+        let path = file_path.as_ref();
+        let bytes = std::fs::read(path)?;
+        let file_name = path
+            .file_name()
+            .and_then(|n| n.to_str())
+            .unwrap_or("unknown.frx");
+        Ok(Self::parse(file_name, bytes))
+    }
+
+    /// Scans through the buffer to identify all resource entry locations.
+    ///
+    /// # Arguments
+    ///
+    /// * `buffer` - The complete .frx file buffer
+    /// * `failures` - Collection for non-fatal parse errors
+    /// * `file_name_box` - The name of the resource file for error reporting
+    ///
+    /// # Returns
+    ///
+    /// A vector of metadata for each discovered entry
+    fn scan_entries(
+        buffer: &[u8],
+        failures: &mut Vec<ErrorDetails<'static, ResourceErrorKind>>,
+        file_name: &str,
+    ) -> Vec<ResourceEntryMetadata> {
+        let mut entries = Vec::new();
+        let mut offset = 0;
+
+        while offset < buffer.len() {
+            match Self::identify_entry(buffer, offset) {
+                Ok(metadata) => {
+                    offset = metadata.offset + metadata.total_size;
+                    entries.push(metadata);
+                }
+                Err(err) => {
+                    // Create ErrorDetails manually for scan errors
+                    failures.push(ErrorDetails {
+                        source_name: file_name.into(),
+                        source_content: "",
+                        // The offset should fit in u32 as FRX files are legacy 32-bit format
+                        // and limited to 4GB in size.
+                        error_offset: u32::try_from(offset).unwrap_or(0),
+                        line_start: 0,
+                        line_end: 0,
+                        kind: err,
+                    });
+                    // Skip to next byte and try again
+                    offset += 1;
+                }
+            }
+        }
+
+        entries
+    }
+
+    /// Identifies the type and size of an entry at the given offset.
+    ///
+    /// Detects the entry type based on header signatures and calculates
+    /// the total size including header. Does not parse the entry data.
+    fn identify_entry(
+        buffer: &[u8],
+        offset: usize,
+    ) -> Result<ResourceEntryMetadata, ResourceErrorKind> {
+        if offset >= buffer.len() {
+            return Err(ResourceErrorKind::OffsetOutOfBounds {
+                offset,
+                file_length: buffer.len(),
+            });
+        }
+
+        // Check for Record12ByteHeader (12-byte header with "lt\0\0" signature)
+        if offset + 12 <= buffer.len() && &buffer[offset + 4..offset + 8] == b"lt\0\0" {
+            let size_buffer_1 = buffer[offset..offset + 4]
+                .try_into()
+                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
+
+            let size_buffer_2 = buffer[offset + 8..offset + 12]
+                .try_into()
+                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
+
+            // Check for empty record special case
+            if buffer_size_1 == 8 && buffer_size_2 == 0 {
+                return Ok(ResourceEntryMetadata {
+                    offset,
+                    total_size: 12,
+                    entry_type: ResourceEntryType::Empty,
+                });
+            }
+
+            // Regular binary blob
+            let total_size = 12 + buffer_size_2;
+            return Ok(ResourceEntryMetadata {
+                offset,
+                total_size,
+                entry_type: ResourceEntryType::Record12ByteHeader,
+            });
+        }
+
+        // Check for Record3ByteHeader (0xFF header)
+        if buffer[offset] == 0xFF && offset + 3 <= buffer.len() {
+            let size_buffer = buffer[offset + 1..offset + 3]
+                .try_into()
+                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let mut record_size = u16::from_le_bytes(size_buffer) as usize;
+
+            // Handle VB6 IDE off-by-one bug
+            if offset + 3 + record_size > buffer.len() {
+                record_size -= 1;
+            }
+
+            let total_size = 3 + record_size;
+            return Ok(ResourceEntryMetadata {
+                offset,
+                total_size,
+                entry_type: ResourceEntryType::Record3ByteHeader,
+            });
+        }
+
+        // Check for ListItems (signature [0x03, 0x00] or [0x07, 0x00] at offset+2)
+        if offset + 4 <= buffer.len() {
+            let signature = &buffer[offset + 2..offset + 4];
+            if signature == [0x03, 0x00] || signature == [0x07, 0x00] {
+                // Calculate total size by scanning list items
+                let count_buffer = buffer[offset..offset + 2]
+                    .try_into()
+                    .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+                let item_count = u16::from_le_bytes(count_buffer) as usize;
+
+                let mut current_offset = offset + 4;
+                for _ in 0..item_count {
+                    if current_offset + 2 > buffer.len() {
+                        return Err(ResourceErrorKind::CorruptedListItems {
+                            offset,
+                            details: "Item header out of bounds".to_string(),
+                        });
+                    }
+
+                    let item_size_buffer = buffer[current_offset..current_offset + 2]
+                        .try_into()
+                        .map_err(|_| ResourceErrorKind::BufferConversionError {
+                            offset: current_offset,
+                        })?;
+                    let item_size = u16::from_le_bytes(item_size_buffer) as usize;
+
+                    current_offset += 2 + item_size;
+
+                    if current_offset > buffer.len() {
+                        return Err(ResourceErrorKind::CorruptedListItems {
+                            offset,
+                            details: "Item data out of bounds".to_string(),
+                        });
+                    }
+                }
+
+                let total_size = current_offset - offset;
+                return Ok(ResourceEntryMetadata {
+                    offset,
+                    total_size,
+                    entry_type: ResourceEntryType::ListItems,
+                });
+            }
+        }
+
+        // Check for Record4ByteHeader (4-byte header with null bytes)
+        if offset + 4 <= buffer.len() && buffer[offset..offset + 4].contains(&0u8) {
+            let size_buffer = buffer[offset..offset + 4]
+                .try_into()
+                .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+            let record_size = u32::from_le_bytes(size_buffer) as usize;
+
+            let total_size = 4 + record_size;
+            return Ok(ResourceEntryMetadata {
+                offset,
+                total_size,
+                entry_type: ResourceEntryType::Record4ByteHeader,
+            });
+        }
+
+        // Default: Record1ByteHeader (single-byte header)
+        let mut record_size = buffer[offset] as usize;
+
+        // Handle VB6 IDE off-by-one bug
+        if offset + 1 + record_size > buffer.len() {
+            record_size = record_size.saturating_sub(1);
+        }
+
+        let total_size = 1 + record_size;
+        Ok(ResourceEntryMetadata {
+            offset,
+            total_size,
+            entry_type: ResourceEntryType::Record1ByteHeader,
+        })
+    }
+
+    /// Parses a single entry based on its metadata.
+    fn parse_entry(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        match metadata.entry_type {
+            ResourceEntryType::Record12ByteHeader => Self::parse_binary_blob(buffer, metadata),
+            ResourceEntryType::Record3ByteHeader => Self::parse_16bit_record(buffer, metadata),
+            ResourceEntryType::ListItems => Self::parse_list_items(buffer, metadata),
+            ResourceEntryType::Record4ByteHeader => Self::parse_text_data(buffer, metadata),
+            ResourceEntryType::Record1ByteHeader => Self::parse_8bit_record(buffer, metadata),
+            ResourceEntryType::Empty => Ok(ResourceEntry::Empty {
+                offset: metadata.offset,
+            }),
+        }
+    }
+
+    /// Parses a binary blob entry (12-byte header with "lt\0\0" signature).
+    fn parse_binary_blob(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        let offset = metadata.offset;
+
+        // Verify we have enough bytes for the header
+        if offset + 12 > buffer.len() {
+            return Err(ResourceErrorKind::HeaderReadError {
+                offset,
+                reason: "Not enough bytes for 12-byte header".to_string(),
+            });
+        }
+
+        // Verify signature
+        let signature = &buffer[offset + 4..offset + 8];
+        if signature != b"lt\0\0" {
+            return Err(ResourceErrorKind::InvalidData {
+                offset,
+                details: format!("Invalid signature: {signature:?}"),
+            });
+        }
+
+        // Extract sizes
+        let size_buffer_1 = buffer[offset..offset + 4]
+            .try_into()
+            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+        let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
+
+        let size_buffer_2 = buffer[offset + 8..offset + 12]
+            .try_into()
+            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+        let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
+
+        // Check for empty record special case
         if buffer_size_1 == 8 && buffer_size_2 == 0 {
-            // This is a special case where the record is empty.
-            // We can just return an empty vector.
-            // This usually is the case when someone adds an icon to the form
-            // then later removes it.
-
-            return Ok(vec![]);
+            return Ok(ResourceEntry::Empty { offset });
         }
 
-        // we subtract 8 since the offset is zero index based.
+        // Verify size consistency
         if buffer_size_2 != buffer_size_1 - 8 {
-            return Err(std::io::Error::new(
-                    std::io::ErrorKind::InvalidData,
-                    format!(
-                        "Record size from start of record buffer does not match record size from header: {} != {}. This likely indicates a corrupted resource file.",
-                        // We subtract 8 since the record header is 8 bytes (4 for initial size, 4 for magic signature).
-                        // the next four bytes is the confirmation buffer size (which brings the total header size to 12).
-                        buffer_size_2, buffer_size_1 - 8
-                    ),
-                ));
+            return Err(ResourceErrorKind::SizeMismatch {
+                offset,
+                expected: buffer_size_1 - 8,
+                actual: buffer_size_2,
+            });
         }
 
-        let header_size = 12;
-        // The record start is the header size element offset + the header size element length.
-        let record_start = offset + header_size;
-        let record_end = record_start + buffer_size_2;
+        let data_start = offset + 12;
+        let data_end = data_start + buffer_size_2;
 
-        if record_end > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
-            ));
+        if data_end > buffer.len() {
+            return Err(ResourceErrorKind::OffsetOutOfBounds {
+                offset: data_end,
+                file_length: buffer.len(),
+            });
         }
 
-        // Read the record data.
-        let record_data = &buffer[record_start..record_end];
-
-        // Return the record data as a vector of bytes.
-        return Ok(record_data.to_vec());
+        Ok(ResourceEntry::Record12ByteHeader {
+            data: buffer[data_start..data_end].to_vec(),
+        })
     }
 
-    if buffer[offset] == 0xFF {
-        // If the first byte of the record is 0xFF, then the record is a 16-bit record.
+    /// Parses a 16-bit record entry (0xFF header).
+    fn parse_16bit_record(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        let offset = metadata.offset;
 
-        // it's a bit excessive to lay out the record size offset/length/end, but it makes it easier to read.
-        let header_size_element_offset = offset + 1;
-        let header_size_element_length = 2usize;
-        let header_size_element_end = header_size_element_offset + header_size_element_length;
-
-        if header_size_element_end > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!(
-                    "Header size element end is out of bounds for resource file {file_path}: {header_size_element_end}"
-                ),
-            ));
+        if offset + 3 > buffer.len() {
+            return Err(ResourceErrorKind::HeaderReadError {
+                offset,
+                reason: "Not enough bytes for 16-bit header".to_string(),
+            });
         }
 
-        let Ok(header_size_element_bytes) =
-            buffer[header_size_element_offset..header_size_element_end].try_into()
-        else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Failed to read header size element bytes for resource file {file_path}"),
-            ));
-        };
+        // Verify 0xFF marker
+        if buffer[offset] != 0xFF {
+            return Err(ResourceErrorKind::InvalidData {
+                offset,
+                details: format!("Expected 0xFF marker, got 0x{:02X}", buffer[offset]),
+            });
+        }
 
-        let mut record_size = u16::from_le_bytes(header_size_element_bytes) as usize;
+        let size_buffer = buffer[offset + 1..offset + 3]
+            .try_into()
+            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+        let mut record_size = u16::from_le_bytes(size_buffer) as usize;
 
-        // Unfortunately, vb6 has this goofy way of handling small resource files where if you
-        // only have a single short record, it will not include the last byte in the record.
-        // This almost only ever happens with string resources.
-        // It will indicate that the record is, say, 56 bytes long, when in fact, it's only
-        // 55. This usually means that instead of ending on a \r\n, it will end on a \r.
-        // This is a bit of a hack, but we need to check if the record size is greater than the
-        // buffer length, and if so, we need to subtract 1 from the record size.
-        //
-        // This is an off by one error in the IDE and almost always results in a string resource
-        // that is missing the last byte.
-        if header_size_element_offset + record_size > buffer.len() {
+        // Handle VB6 IDE off-by-one bug
+        if offset + 3 + record_size > buffer.len() {
             record_size -= 1;
         }
 
-        let record_offset = header_size_element_offset + header_size_element_length;
+        let data_start = offset + 3;
+        let data_end = data_start + record_size;
 
-        let (record_start, record_end) = (record_offset, record_offset + record_size);
-
-        if record_start > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!(
-                    "Record start is out of bounds for resource file {file_path}: {record_start}"
-                ),
-            ));
+        if data_end > buffer.len() {
+            return Err(ResourceErrorKind::OffsetOutOfBounds {
+                offset: data_end,
+                file_length: buffer.len(),
+            });
         }
 
-        if record_end > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
-            ));
-        }
-
-        let record_data = &buffer[record_start..record_end];
-
-        return Ok(record_data.to_vec());
+        Ok(ResourceEntry::Record3ByteHeader {
+            data: buffer[data_start..data_end].to_vec(),
+        })
     }
 
-    // List items are a bit special since we need to know how many items there are in the list.
-    // This means we can't just remove the header and return the rest of the buffer like we do with
-    // the other records.
-    let list_signature = buffer[offset + 2..offset + 4].to_vec();
-    if buffer.len() >= 12 && (list_signature == [0x03, 0x00] || list_signature == [0x07, 0x00]) {
-        // looks like we have a list items record.
+    /// Parses list items entry (signature [0x03, 0x00] or [0x07, 0x00]).
+    fn parse_list_items(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        let offset = metadata.offset;
 
-        // index 0, 1 = number of list items.
-        // index 2, 3 = [0x03, 0x00] || [0x07, 0x00] = list magic indicator.
-        //
-        // repeats for each list item:
-        //      16 bit size of the next list item.
-        //      list item without null terminator.
+        if offset + 4 > buffer.len() {
+            return Err(ResourceErrorKind::HeaderReadError {
+                offset,
+                reason: "Not enough bytes for list header".to_string(),
+            });
+        }
 
-        let Ok(list_item_buffer) = buffer[offset..(offset + 2)].try_into() else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Failed to read list item buffer for resource file {file_path}"),
-            ));
-        };
+        let count_buffer = buffer[offset..offset + 2]
+            .try_into()
+            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+        let item_count = u16::from_le_bytes(count_buffer) as usize;
 
-        let list_item_count = u16::from_le_bytes(list_item_buffer) as usize;
+        // Verify signature
+        let signature = &buffer[offset + 2..offset + 4];
+        if signature != [0x03, 0x00] && signature != [0x07, 0x00] {
+            return Err(ResourceErrorKind::InvalidData {
+                offset,
+                details: format!("Invalid list signature: {signature:?}"),
+            });
+        }
 
-        // we are going to read the header and the list items into a single vector.
-        let header_size = 4;
-        let mut record_offset = offset + header_size;
-        let list_item_header_size = 2;
-        for _ in 0..list_item_count {
-            if record_offset > buffer.len() {
-                return Err(std::io::Error::new(
-                    std::io::ErrorKind::InvalidData,
-                    format!(
-                        "Record offset of list is out of bounds for resource file {file_path}: {record_offset}"
-                    ),
-                ));
+        let mut items = Vec::with_capacity(item_count);
+        let mut current_offset = offset + 4;
+
+        for item_idx in 0..item_count {
+            if current_offset + 2 > buffer.len() {
+                return Err(ResourceErrorKind::CorruptedListItems {
+                    offset,
+                    details: format!("Item {item_idx} header out of bounds"),
+                });
             }
 
-            let record_end = record_offset + list_item_header_size;
+            let item_size_buffer = buffer[current_offset..current_offset + 2]
+                .try_into()
+                .map_err(|_| ResourceErrorKind::BufferConversionError {
+                    offset: current_offset,
+                })?;
+            let item_size = u16::from_le_bytes(item_size_buffer) as usize;
 
-            if record_end > buffer.len() {
-                return Err(std::io::Error::new(
-                    std::io::ErrorKind::InvalidData,
-                    format!(
-                        "Record end of list is out of bounds for resource file {file_path}: {record_end}"
-                    ),
-                ));
+            let item_start = current_offset + 2;
+            let item_end = item_start + item_size;
+
+            if item_end > buffer.len() {
+                return Err(ResourceErrorKind::CorruptedListItems {
+                    offset,
+                    details: format!("Item {item_idx} data out of bounds"),
+                });
             }
 
-            let Ok(list_item_size_buffer) = buffer[record_offset..record_end].try_into() else {
-                return Err(std::io::Error::new(
-                    std::io::ErrorKind::InvalidData,
-                    format!("Failed to read list item size buffer for resource file {file_path}"),
-                ));
-            };
+            let item_bytes = &buffer[item_start..item_end];
+            let item_string = String::from_utf8_lossy(item_bytes).to_string();
+            items.push(item_string);
 
-            let list_item_size = u16::from_le_bytes(list_item_size_buffer) as usize;
-
-            // If we were trying to pull out a list from this, this is where we would do it.
-            //
-            // let record_item_start = record_offset + list_item_header_size;
-            // let list_item = &buffer[record_item_start..record_item_start + list_item_size];
-
-            record_offset += list_item_header_size + list_item_size;
+            current_offset = item_end;
         }
 
-        if record_offset > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!(
-                    "Record end of list is out of bounds for resource file {file_path}: {record_offset}"
-                ),
-            ));
+        Ok(ResourceEntry::ListItems { items })
+    }
+
+    /// Parses 4-byte header record (large text data).
+    fn parse_text_data(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        let offset = metadata.offset;
+
+        if offset + 4 > buffer.len() {
+            return Err(ResourceErrorKind::HeaderReadError {
+                offset,
+                reason: "Not enough bytes for 4-byte header".to_string(),
+            });
         }
 
-        return Ok(buffer[offset..record_offset].to_vec());
-    }
+        let size_buffer = buffer[offset..offset + 4]
+            .try_into()
+            .map_err(|_| ResourceErrorKind::BufferConversionError { offset })?;
+        let record_size = u32::from_le_bytes(size_buffer) as usize;
 
-    // If the first byte of the record is not 0xFF, then the record is likely a 4 byte header record.
-    // check if we have any null bytes in the first 4 bytes of the record.
-    // this probably indicates that the record is a 4 byte header record.
-    if buffer.len() >= 12 && buffer[(offset)..(offset + 4)].contains(&0u8) {
-        // this looks like a 4 byte header (0-4) where the 4 bytes
-        // is the size of the record from the start of the record + header.
-        // often, this is what is used when we have a larger chunk of text data.
-        let Ok(record_size_buffer) = buffer[offset..(offset + 4)].try_into() else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Failed to read record size buffer for resource file {file_path}"),
-            ));
-        };
-        let record_size = u32::from_le_bytes(record_size_buffer) as usize;
-        let header_size = 4;
-        let record_start = offset + header_size;
-        let record_end = record_start + record_size;
+        let data_start = offset + 4;
+        let data_end = data_start + record_size;
 
-        if record_end > buffer.len() {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::InvalidData,
-                format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
-            ));
+        if data_end > buffer.len() {
+            return Err(ResourceErrorKind::OffsetOutOfBounds {
+                offset: data_end,
+                file_length: buffer.len(),
+            });
         }
 
-        let record_data = &buffer[record_start..record_end];
+        // Store raw bytes - caller can decode as needed
+        let data = buffer[data_start..data_end].to_vec();
 
-        return Ok(record_data.to_vec());
+        Ok(ResourceEntry::Record4ByteHeader { data })
     }
 
-    // If the first byte of the record is not 0xFF, then the record is likely an 8-bit record.
-    // It's a bit excessive to lay out the record size offset/ length/end, but it makes it easier to read.
-    let header_size = 1; // 1 byte header size element.
-    let record_size = buffer[offset] as usize;
-    let record_start = offset + header_size;
+    /// Parses 8-bit record entry (single-byte header).
+    fn parse_8bit_record(
+        buffer: &[u8],
+        metadata: &ResourceEntryMetadata,
+    ) -> Result<ResourceEntry, ResourceErrorKind> {
+        let offset = metadata.offset;
 
-    if record_start > buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidData,
-            format!("Record start is out of bounds for resource file {file_path}: {record_start}"),
-        ));
-    }
-
-    let record_end = match buffer.len() {
-        // If the record size is greater than the buffer length, then we need to subtract 1 from the record size.
-        // This is a bit of a hack, but we need to check if the record size is greater than the buffer length,
-        // and if so, we need to subtract 1 from the record size.
-        // This is an off by one error in the IDE and almost always results in a string resource
-        // that is missing the last byte.
-        _ if record_size >= buffer.len() => record_start + record_size - 1,
-        _ => record_start + record_size,
-    };
-
-    if record_end > buffer.len() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidData,
-            format!("Record end is out of bounds for resource file {file_path}: {record_end}"),
-        ));
-    }
-
-    // Read the record data.
-    let record_data = &buffer[record_start..record_end];
-
-    // Return the record data as a vector of bytes.
-    Ok(record_data.to_vec())
-}
-
-/// Resolves a list of strings from the given buffer.
-#[must_use]
-pub fn list_resolver(buffer: &[u8]) -> Vec<String> {
-    let mut list_items = vec![];
-
-    if buffer.len() < 2 {
-        return list_items;
-    }
-
-    let item_count_buffer: [u8; 2] = match buffer[0..2].try_into() {
-        Ok(bytes) => bytes,
-        Err(_) => return list_items,
-    };
-
-    let list_item_count = u16::from_le_bytes(item_count_buffer) as usize;
-
-    // we are going to read the header and the list items into a single vector.
-    let header_size = 4;
-    let mut record_offset = header_size;
-    let list_item_header_size = 2;
-    for _ in 0..list_item_count {
-        if record_offset > buffer.len() {
-            return list_items;
+        if offset >= buffer.len() {
+            return Err(ResourceErrorKind::HeaderReadError {
+                offset,
+                reason: "Offset at end of file".to_string(),
+            });
         }
 
-        let record_end = record_offset + list_item_header_size;
+        let mut record_size = buffer[offset] as usize;
 
-        if record_end > buffer.len() {
-            return list_items;
+        // Handle VB6 IDE off-by-one bug
+        if offset + 1 + record_size > buffer.len() {
+            record_size -= 1;
         }
 
-        let Ok(list_item_buffer) = buffer[record_offset..record_end].try_into() else {
-            return list_items;
-        };
+        let data_start = offset + 1;
+        let data_end = data_start + record_size;
 
-        let list_item_size = u16::from_le_bytes(list_item_buffer) as usize;
+        if data_end > buffer.len() {
+            return Err(ResourceErrorKind::OffsetOutOfBounds {
+                offset: data_end,
+                file_length: buffer.len(),
+            });
+        }
 
-        let record_item_start = record_offset + list_item_header_size;
-        let list_item = &buffer[record_item_start..record_item_start + list_item_size];
-
-        list_items.push(String::from_utf8_lossy(list_item).to_string());
-
-        record_offset += list_item_header_size + list_item_size;
+        Ok(ResourceEntry::Record1ByteHeader {
+            data: buffer[data_start..data_end].to_vec(),
+        })
     }
 
-    list_items
+    /// Gets a reference to a resource entry at the specified offset.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - Byte offset where the resource entry begins
+    ///
+    /// # Returns
+    ///
+    /// `Some(&ResourceEntry)` if an entry exists at that offset, `None` otherwise.
+    #[must_use]
+    pub fn get_entry(&self, offset: usize) -> Option<&ResourceEntry> {
+        self.entries.get(&offset)
+    }
+
+    /// Gets binary data from a resource entry, if it contains binary data.
+    ///
+    /// Works with `Record12ByteHeader`, `Record3ByteHeader`, `Record4ByteHeader`, and `Record1ByteHeader` entries.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - Byte offset where the resource entry begins
+    ///
+    /// # Returns
+    ///
+    /// `Some(&[u8])` containing the data, or `None` if no entry exists at that
+    /// offset or the entry is not a binary data type.
+    #[must_use]
+    pub fn get_binary_blob(&self, offset: usize) -> Option<&[u8]> {
+        self.entries.get(&offset).and_then(|entry| match entry {
+            ResourceEntry::Record12ByteHeader { data }
+            | ResourceEntry::Record3ByteHeader { data }
+            | ResourceEntry::Record4ByteHeader { data }
+            | ResourceEntry::Record1ByteHeader { data } => Some(data.as_slice()),
+            _ => None,
+        })
+    }
+
+    /// Gets list items from a resource entry, if it contains a list.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - Byte offset where the list resource entry begins
+    ///
+    /// # Returns
+    ///
+    /// `Some(&[String])` containing the list items, or `None` if no entry exists
+    /// at that offset or the entry is not a `ListItems` type.
+    #[must_use]
+    pub fn get_list_items(&self, offset: usize) -> Option<&[String]> {
+        self.entries.get(&offset).and_then(|entry| match entry {
+            ResourceEntry::ListItems { items } => Some(items.as_slice()),
+            _ => None,
+        })
+    }
+
+    /// Gets raw data from a `Record4ByteHeader` resource entry.
+    ///
+    /// # Arguments
+    ///
+    /// * `offset` - Byte offset where the text resource entry begins
+    ///
+    /// # Returns
+    ///
+    /// `Some(&[u8])` containing the raw data, or `None` if no entry exists
+    /// at that offset or the entry is not a `Record4ByteHeader` type.
+    #[must_use]
+    pub fn get_text_data(&self, offset: usize) -> Option<&[u8]> {
+        self.entries.get(&offset).and_then(|entry| match entry {
+            ResourceEntry::Record4ByteHeader { data } => Some(data.as_slice()),
+            _ => None,
+        })
+    }
+
+    /// Returns an iterator over all entries in the resource file.
+    ///
+    /// Entries are yielded in arbitrary order (`HashMap` iteration order).
+    pub fn iter_entries(&self) -> impl Iterator<Item = (usize, &ResourceEntry)> {
+        self.entries.iter().map(|(&offset, entry)| (offset, entry))
+    }
+
+    /// Returns the total number of resource entries in the file.
+    #[must_use]
+    pub fn entry_count(&self) -> usize {
+        self.entries.len()
+    }
+
+    /// Returns the total size of the resource file in bytes.
+    #[must_use]
+    pub fn file_size(&self) -> usize {
+        self.buffer.len()
+    }
 }

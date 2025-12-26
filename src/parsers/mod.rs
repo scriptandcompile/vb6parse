@@ -34,7 +34,7 @@ pub use header::{FileAttributes, FileFormatVersion};
 pub use module::ModuleFile;
 pub use objectreference::ObjectReference;
 pub use properties::Properties;
-pub use resource::{list_resolver, resource_file_resolver};
+pub use resource::FormResourceFile;
 
 pub use project::{
     compilesettings::*, properties::*, ProjectClassReference, ProjectFile, ProjectModuleReference,

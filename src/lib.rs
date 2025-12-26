@@ -129,7 +129,6 @@
 //!
 //! ```rust
 //! use vb6parse::parsers::FormFile;
-//! use vb6parse::parsers::resource_file_resolver;
 //!
 //! let input = b"VERSION 5.00\r
 //! Begin VB.Form frmExampleForm\r
