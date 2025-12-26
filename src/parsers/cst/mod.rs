@@ -514,6 +514,53 @@ impl<'a> Parser<'a> {
 
     // ==================== Core Control Extraction Methods ====================
 
+    /// Check if current token is `BeginProperty` identifier
+    fn is_begin_property(&self) -> bool {
+        if let Some((text, token)) = self.tokens.get(self.pos) {
+            *token == Token::Identifier && text.eq_ignore_ascii_case("BeginProperty")
+        } else {
+            false
+        }
+    }
+
+    /// Check if current token is an identifier matching the target text (case-insensitive)
+    fn is_identifier_text(&self, target: &str) -> bool {
+        if let Some((text, token)) = self.tokens.get(self.pos) {
+            *token == Token::Identifier && text.eq_ignore_ascii_case(target)
+        } else {
+            false
+        }
+    }
+
+    /// Convert a Menu-typed Control into `MenuControl`
+    fn control_to_menu(control: crate::language::Control) -> crate::language::MenuControl {
+        use crate::language::MenuProperties;
+        use crate::language::{ControlKind, MenuControl};
+
+        if let ControlKind::Menu {
+            properties,
+            sub_menus,
+        } = control.kind
+        {
+            MenuControl {
+                name: control.name,
+                tag: control.tag,
+                index: control.index,
+                properties,
+                sub_menus,
+            }
+        } else {
+            // Fallback: create empty menu control
+            MenuControl {
+                name: control.name,
+                tag: control.tag,
+                index: control.index,
+                properties: MenuProperties::default(),
+                sub_menus: Vec::new(),
+            }
+        }
+    }
+
     /// Parse control type directly from tokens (e.g., "VB.Form", "VB.CommandButton")
     fn parse_control_type_direct(&mut self) -> String {
         let mut parts = Vec::new();
@@ -599,12 +646,111 @@ impl<'a> Parser<'a> {
         Some((key, value))
     }
 
+    /// Parse property group directly (BeginProperty...EndProperty)
+    fn parse_property_group_direct(&mut self) -> Option<crate::language::PropertyGroup> {
+        use either::Either;
+        use std::collections::HashMap;
+
+        // Expect BeginProperty identifier
+        if !self.is_identifier_text("BeginProperty") {
+            return None;
+        }
+
+        self.consume_advance(); // BeginProperty
+        self.skip_whitespace();
+
+        // Parse property group name and optional GUID
+        let (name, guid) = self.parse_property_group_name_direct();
+        self.skip_whitespace_and_newlines();
+
+        // Parse nested properties and property groups
+        let mut properties = HashMap::new();
+
+        while !self.is_at_end() && !self.is_identifier_text("EndProperty") {
+            self.skip_whitespace();
+
+            if self.is_identifier_text("EndProperty") {
+                break;
+            }
+
+            if self.is_identifier_text("BeginProperty") {
+                // Nested property group
+                if let Some(nested_group) = self.parse_property_group_direct() {
+                    properties.insert(nested_group.name.clone(), Either::Right(nested_group));
+                }
+            } else if self.is_identifier() || self.at_keyword() {
+                // Regular property
+                if let Some((key, value)) = self.parse_property_direct() {
+                    properties.insert(key, Either::Left(value));
+                }
+            } else {
+                self.consume_advance();
+            }
+        }
+
+        // Parse EndProperty
+        if self.is_identifier_text("EndProperty") {
+            self.consume_advance();
+            self.skip_whitespace_and_newlines();
+        }
+
+        Some(crate::language::PropertyGroup {
+            name,
+            guid,
+            properties,
+        })
+    }
+
+    /// Parse property group name and extract optional GUID
+    /// Format: "Name {GUID}" or just "Name"
+    fn parse_property_group_name_direct(&mut self) -> (String, Option<uuid::Uuid>) {
+        let mut parts = Vec::new();
+
+        // Read all tokens until newline
+        while !self.is_at_end() && !self.at_token(Token::Newline) {
+            if let Some((text, _)) = self.tokens.get(self.pos) {
+                parts.push(text.to_string());
+            }
+            self.consume_advance();
+        }
+
+        // Join all parts and search for GUID pattern in the resulting string
+        let full_text = parts.join("").trim().to_string();
+
+        // Look for GUID pattern: 8-4-4-4-12 format (with or without braces)
+        // Split on whitespace to separate name from GUID
+        let parts_iter = full_text.split_whitespace();
+        let mut name_parts = Vec::new();
+        let mut guid_candidate = None;
+
+        for part in parts_iter {
+            // Check if this part looks like a GUID (contains hyphens in UUID pattern)
+            if part.contains('-')
+                && (part.len() == 36 || (part.starts_with('{') && part.ends_with('}')))
+            {
+                // Try to parse as UUID
+                let cleaned = part.trim_start_matches('{').trim_end_matches('}');
+                if let Ok(parsed_guid) = uuid::Uuid::parse_str(cleaned) {
+                    guid_candidate = Some(parsed_guid);
+                    break; // Stop collecting name parts after finding GUID
+                }
+            }
+            name_parts.push(part);
+        }
+
+        let name = name_parts.join(" ");
+        let guid = guid_candidate;
+
+        (name, guid)
+    }
+
     /// Build `ControlKind` from control type string and properties
     fn build_control_kind(
         control_type: &str,
         properties: crate::Properties,
         child_controls: Vec<crate::language::Control>,
         menus: Vec<crate::language::MenuControl>,
+        property_groups: Vec<crate::language::PropertyGroup>,
     ) -> crate::language::ControlKind {
         use crate::language::ControlKind;
 
@@ -647,13 +793,13 @@ impl<'a> Parser<'a> {
             },
             _ => ControlKind::Custom {
                 properties: properties.into(),
-                property_groups: Vec::new(),
+                property_groups,
             },
         }
     }
 
     /// Parse properties block directly to Control without building CST
-    /// Phase 3: Simple implementation without nesting support
+    /// Phase 4: Full implementation with nested controls and property groups
     pub(crate) fn parse_properties_block_to_control(
         &mut self,
     ) -> crate::ParseResult<'a, crate::language::Control, crate::errors::FormErrorKind> {
@@ -678,8 +824,12 @@ impl<'a> Parser<'a> {
         let control_name = self.parse_control_name_direct();
         self.skip_whitespace_and_newlines();
 
-        // Parse properties until END
+        // Parse properties, child controls, and property groups
         let mut properties = Properties::new();
+        let mut child_controls = Vec::new();
+        let mut menus = Vec::new();
+        let mut property_groups = Vec::new();
+        let mut failures = Vec::new();
 
         while !self.is_at_end() && !self.at_token(Token::EndKeyword) {
             self.skip_whitespace();
@@ -688,8 +838,27 @@ impl<'a> Parser<'a> {
                 break;
             }
 
-            // Parse property (Key = Value)
-            if self.is_identifier() || self.at_keyword() {
+            if self.at_token(Token::BeginKeyword) {
+                // Nested control (Begin VB.xxx)
+                let child_result = self.parse_properties_block_to_control();
+                let (child_opt, child_failures) = child_result.unpack();
+                failures.extend(child_failures);
+
+                if let Some(child) = child_opt {
+                    // Check if it's a menu control
+                    if matches!(child.kind, crate::language::ControlKind::Menu { .. }) {
+                        menus.push(Self::control_to_menu(child));
+                    } else {
+                        child_controls.push(child);
+                    }
+                }
+            } else if self.is_begin_property() {
+                // Parse property group (BeginProperty)
+                if let Some(group) = self.parse_property_group_direct() {
+                    property_groups.push(group);
+                }
+            } else if self.is_identifier() || self.at_keyword() {
+                // Parse property (Key = Value)
                 if let Some((key, value)) = self.parse_property_direct() {
                     properties.insert(&key, &value);
                 }
@@ -712,8 +881,14 @@ impl<'a> Parser<'a> {
             .and_then(|s| s.parse().ok())
             .unwrap_or(0);
 
-        // Build control kind (Phase 3: no child controls yet)
-        let kind = Self::build_control_kind(&control_type, properties, Vec::new(), Vec::new());
+        // Build control kind with all components
+        let kind = Self::build_control_kind(
+            &control_type,
+            properties,
+            child_controls,
+            menus,
+            property_groups,
+        );
 
         let control = Control {
             name: control_name,
@@ -722,7 +897,7 @@ impl<'a> Parser<'a> {
             kind,
         };
 
-        crate::ParseResult::new(Some(control), Vec::new())
+        crate::ParseResult::new(Some(control), failures)
     }
 
     /// Parse a complete module/class/form (the top-level structure)
@@ -1695,5 +1870,235 @@ End
 
         // Should return None when BEGIN is missing
         assert!(control_opt.is_none());
+    }
+
+    // Phase 4 Tests: Nested Controls and Property Groups
+
+    #[test]
+    fn parse_form_with_nested_control() {
+        let source = r#"Begin VB.Form Form1
+   Caption = "Main Form"
+   Begin VB.CommandButton Command1
+      Caption = "Click Me"
+      Height = 400
+   End
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty(), "Should have no failures");
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Form1");
+
+        // Check form has child controls
+        if let crate::language::ControlKind::Form { controls, .. } = control.kind {
+            assert_eq!(controls.len(), 1);
+            assert_eq!(controls[0].name, "Command1");
+            assert!(matches!(
+                controls[0].kind,
+                crate::language::ControlKind::CommandButton { .. }
+            ));
+        } else {
+            panic!("Expected Form control kind");
+        }
+    }
+
+    #[test]
+    fn parse_frame_with_multiple_nested_controls() {
+        let source = r#"Begin VB.Frame Frame1
+   Caption = "Options"
+   Begin VB.CheckBox Check1
+      Caption = "Option 1"
+   End
+   Begin VB.CheckBox Check2
+      Caption = "Option 2"
+   End
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Frame1");
+
+        // Check frame has 2 child checkboxes
+        if let crate::language::ControlKind::Frame { controls, .. } = control.kind {
+            assert_eq!(controls.len(), 2);
+            assert_eq!(controls[0].name, "Check1");
+            assert_eq!(controls[1].name, "Check2");
+        } else {
+            panic!("Expected Frame control kind");
+        }
+    }
+
+    #[test]
+    fn parse_control_with_property_group() {
+        let source = r#"Begin VB.CommandButton Command1
+   Caption = "Button"
+   BeginProperty Font
+      Name = "Arial"
+      Size = 12
+   EndProperty
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Command1");
+
+        // Check for property - CommandButton should have parsed successfully
+        // Property groups are stored in Custom control kind, not specific control types
+        assert!(matches!(
+            control.kind,
+            crate::language::ControlKind::CommandButton { .. }
+        ));
+    }
+
+    #[test]
+    fn parse_custom_control_with_property_group() {
+        let source = r#"Begin MSComctlLib.TreeView TreeView1
+   BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      Name = "MS Sans Serif"
+      Size = 8.25
+      Charset = 0
+   EndProperty
+   Caption = "Tree"
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "TreeView1");
+
+        // Check for Custom control with property groups
+        if let crate::language::ControlKind::Custom {
+            property_groups, ..
+        } = control.kind
+        {
+            assert_eq!(property_groups.len(), 1);
+            assert_eq!(property_groups[0].name, "Font");
+            assert!(property_groups[0].guid.is_some());
+        } else {
+            panic!("Expected Custom control kind");
+        }
+    }
+
+    #[test]
+    fn parse_nested_property_groups() {
+        use either::Either;
+
+        let source = r#"Begin Custom.Control Ctrl1
+   BeginProperty Outer
+      Value1 = "Test"
+      BeginProperty Inner
+         Value2 = "Nested"
+      EndProperty
+   EndProperty
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+
+        // Check for nested property groups
+        if let crate::language::ControlKind::Custom {
+            property_groups, ..
+        } = control.kind
+        {
+            assert_eq!(property_groups.len(), 1);
+            assert_eq!(property_groups[0].name, "Outer");
+
+            // Check for nested group
+
+            if let Some(Either::Right(inner)) = property_groups[0].properties.get("Inner") {
+                assert_eq!(inner.name, "Inner");
+            } else {
+                panic!("Expected nested Inner property group");
+            }
+        } else {
+            panic!("Expected Custom control kind");
+        }
+    }
+
+    #[test]
+    fn parse_deeply_nested_controls() {
+        let source = r#"Begin VB.Form Form1
+   Caption = "Outer"
+   Begin VB.PictureBox Picture1
+      Begin VB.Frame Frame1
+         Begin VB.Label Label1
+            Caption = "Deep"
+         End
+      End
+   End
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+
+        // Verify deep nesting: Form > PictureBox > Frame > Label
+        if let crate::language::ControlKind::Form { controls, .. } = control.kind {
+            assert_eq!(controls.len(), 1);
+            if let crate::language::ControlKind::PictureBox { controls, .. } = &controls[0].kind {
+                assert_eq!(controls.len(), 1);
+                if let crate::language::ControlKind::Frame { controls, .. } = &controls[0].kind {
+                    assert_eq!(controls.len(), 1);
+                    assert_eq!(controls[0].name, "Label1");
+                } else {
+                    panic!("Expected Frame");
+                }
+            } else {
+                panic!("Expected PictureBox");
+            }
+        } else {
+            panic!("Expected Form");
+        }
     }
 }
