@@ -632,9 +632,9 @@ impl FormFile {
     /// }
     /// ```
     #[must_use]
-    pub fn parse_control_only<'a>(
-        token_stream: TokenStream<'a>,
-    ) -> ParseResult<'a, control_only::ControlOnlyResult<'a>, FormErrorKind> {
+    pub fn parse_control_only(
+        token_stream: TokenStream<'_>,
+    ) -> ParseResult<'_, control_only::ControlOnlyResult<'_>, FormErrorKind> {
         control_only::parse_control_from_tokens(token_stream)
     }
 }

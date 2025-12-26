@@ -47,32 +47,32 @@ use crate::{
 /// Result of control-only parsing containing:
 /// - Optional VERSION (5.00, etc.) - may be absent in older files
 /// - Optional Control (Form/MDIForm/UserControl) - None if parsing failed
-/// - Remaining TokenStream positioned after control block
+/// - Remaining `TokenStream` positioned after control block
 ///
 /// Both fields are optional to support partial success:
 /// - VERSION may be missing in older .frm files
 /// - Control may fail to parse while VERSION succeeds
-/// - Failures are collected in the ParseResult wrapper
+/// - Failures are collected in the `ParseResult` wrapper
 pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<Control>, TokenStream<'a>);
 
-/// Parses only the VERSION header and root control from a TokenStream.
+/// Parses only the VERSION header and root control from a `TokenStream`.
 ///
-/// This function consumes the TokenStream and parses:
+/// This function consumes the `TokenStream` and parses:
 /// 1. VERSION statement (if present at current position)
 /// 2. The root control's BEGIN...END block
 ///
-/// It returns a new TokenStream positioned after the control block,
+/// It returns a new `TokenStream` positioned after the control block,
 /// allowing the caller to continue parsing attributes, objects, or code
 /// sections if needed.
 ///
-/// This is faster than full FormFile parsing because it:
+/// This is faster than full `FormFile` parsing because it:
 /// - Skips CST construction for VERSION/control (direct extraction)
 /// - Stops parsing after control block (doesn't parse code sections)
-/// - Zero-copy design (moves TokenStream ownership)
+/// - Zero-copy design (moves `TokenStream` ownership)
 ///
 /// # Arguments
 ///
-/// * `token_stream` - TokenStream to parse from (consumed)
+/// * `token_stream` - `TokenStream` to parse from (consumed)
 ///
 /// # Returns
 ///
@@ -109,9 +109,10 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<Control>, To
 ///     }
 /// }
 /// ```
-pub fn parse_control_from_tokens<'a>(
-    token_stream: TokenStream<'a>,
-) -> ParseResult<'a, ControlOnlyResult<'a>, FormErrorKind> {
+#[must_use]
+pub fn parse_control_from_tokens(
+    token_stream: TokenStream<'_>,
+) -> ParseResult<'_, ControlOnlyResult<'_>, FormErrorKind> {
     // Convert TokenStream to tokens vector
     let tokens = token_stream.into_tokens();
 

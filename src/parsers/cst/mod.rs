@@ -1221,8 +1221,8 @@ impl<'a> Parser<'a> {
                     let is_resource_reference = value.contains(':')
                         && value
                             .split(':')
-                            .last()
-                            .map_or(false, |part| part.chars().all(|c| c.is_ascii_digit()));
+                            .next_back()
+                            .is_some_and(|part| part.chars().all(|c| c.is_ascii_digit()));
 
                     let cleaned_value = if !is_resource_reference
                         && value.starts_with('"')
@@ -2402,7 +2402,7 @@ End
                 assert_eq!(unknown1, "0");
                 assert_eq!(file_name, "MyLib.dll");
             }
-            _ => panic!("Expected Compiled object reference"),
+            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
         }
     }
 
@@ -2425,14 +2425,14 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
             crate::parsers::ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib1.dll");
             }
-            _ => panic!("Expected Compiled object reference"),
+            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
         }
 
         match &objects[1] {
             crate::parsers::ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib2.ocx");
             }
-            _ => panic!("Expected Compiled object reference"),
+            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
         }
     }
 
@@ -2462,7 +2462,7 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
                 assert_eq!(version, "3.0");
                 assert_eq!(file_name, "Embedded.ocx");
             }
-            _ => panic!("Expected Compiled object reference"),
+            crate::parsers::ObjectReference::Project { .. } => panic!("Expected Compiled object reference"),
         }
     }
 
@@ -2582,11 +2582,11 @@ End
     fn parse_boolean_attributes() {
         use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
-        let source = r#"Attribute VB_GlobalNameSpace = False
+        let source = r"Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-"#;
+";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
         let (token_stream_opt, _) = tokenize(&mut stream).unpack();
         let token_stream = token_stream_opt.expect("Tokenization failed");
@@ -2605,8 +2605,8 @@ Attribute VB_Exposed = False
     fn parse_numeric_attribute() {
         use crate::parsers::header::PreDeclaredID;
 
-        let source = r#"Attribute VB_PredeclaredId = -1
-"#;
+        let source = r"Attribute VB_PredeclaredId = -1
+";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
         let (token_stream_opt, _) = tokenize(&mut stream).unpack();
         let token_stream = token_stream_opt.expect("Tokenization failed");
@@ -2670,7 +2670,7 @@ Attribute VB_Description = "Test"
     fn parse_empty_attributes() {
         use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
-        let source = r#""#;
+        let source = r"";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
         let (token_stream_opt, _) = tokenize(&mut stream).unpack();
         let token_stream = token_stream_opt.expect("Tokenization failed");
