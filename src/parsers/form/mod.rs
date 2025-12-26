@@ -14,11 +14,13 @@ use crate::{
     errors::FormErrorKind,
     language::{Control, ControlKind, MenuControl, PropertyGroup},
     parsers::{
-        header::{extract_attributes, extract_version, FileAttributes, FileFormatVersion},
+        header::{FileAttributes, FileFormatVersion},
         CstNode, ObjectReference, ParseResult, SyntaxKind,
     },
-    tokenize, Properties, SourceFile,
+    tokenize, Properties, SourceFile, TokenStream,
 };
+
+pub mod control_only;
 
 /// Helper function to serialize `ConcreteSyntaxTree` as `SerializableTree`
 fn serialize_cst<S>(cst: &ConcreteSyntaxTree, serializer: S) -> Result<S::Ok, S::Error>
@@ -520,16 +522,26 @@ impl FormFile {
         // TODO: Handle errors from tokenization.
         let token_stream = tokenize(&mut source_stream).unwrap();
 
-        let cst = parse(token_stream);
+        // Phase 7: Use direct extraction instead of building full CST first
+        let tokens = token_stream.into_tokens();
+        let mut parser = crate::parsers::cst::Parser::new_direct_extraction(tokens, 0);
 
-        // Extract version from CST
-        let format_version = extract_version(&cst);
+        // Collect all parsing failures
+        let mut all_failures = Vec::new();
 
-        // Phase 5: Extract objects from CST (note: can be optimized later with direct parsing)
-        let objects = extract_objects(&cst);
+        // Parse VERSION directly (no CST overhead)
+        let (version_opt, version_failures) = parser.parse_version_direct().unpack();
+        all_failures.extend(version_failures);
+        let version = version_opt.unwrap_or(FileFormatVersion { major: 5, minor: 0 });
 
-        // Extract form and controls from CST
-        let mut form = extract_control(&cst).unwrap_or_else(|| {
+        // Parse Objects directly (no CST overhead)
+        let objects = parser.parse_objects_direct();
+
+        // Parse form control directly (no CST overhead)
+        let (control_opt, control_failures) = parser.parse_properties_block_to_control().unpack();
+        all_failures.extend(control_failures);
+
+        let mut form = control_opt.unwrap_or_else(|| {
             use crate::language::FormProperties;
 
             Control {
@@ -544,8 +556,8 @@ impl FormFile {
             }
         });
 
-        // Extract attributes from CST
-        let attributes = extract_attributes(&cst);
+        // Parse Attributes directly (no CST overhead)
+        let attributes = parser.parse_attributes_direct();
 
         // The form's name comes from the VB_Name attribute if present,
         // otherwise from the PropertiesName in the Begin statement
@@ -554,24 +566,76 @@ impl FormFile {
         }
         // If attributes.name is empty, form.name already has the name from the Begin statement
 
-        // Filter out nodes that are already extracted to avoid duplication
-        let filtered_cst = cst.without_kinds(&[
-            SyntaxKind::VersionStatement,
-            SyntaxKind::ObjectStatement,
-            SyntaxKind::AttributeStatement,
-            SyntaxKind::PropertiesBlock, // Form and all controls (already in form field)
-        ]);
+        // Get remaining tokens and build CST only for the code section
+        let remaining_tokens = parser.into_tokens();
+        let remaining_stream = TokenStream::from_tokens(remaining_tokens);
+        let cst = parse(remaining_stream);
 
         ParseResult::new(
             Some(FormFile {
                 form,
                 objects,
-                version: format_version.unwrap_or(FileFormatVersion { major: 5, minor: 0 }),
+                version,
                 attributes,
-                cst: filtered_cst,
+                cst,
             }),
-            Vec::new(),
+            all_failures,
         )
+    }
+
+    /// Parse only the VERSION statement and the first control (Form) from a token stream.
+    ///
+    /// This is a fast-path parsing method that stops after parsing the control definition,
+    /// without parsing the code section or creating a full CST. It's useful for scenarios
+    /// that only need UI information (control hierarchy, properties) and don't need the
+    /// code implementation.
+    ///
+    /// # Arguments
+    ///
+    /// * `token_stream` - The token stream to parse.
+    ///
+    /// # Returns
+    ///
+    /// * `ParseResult<ControlOnlyResult, FormErrorKind>` - A tuple containing:
+    ///   - `Option<FileFormatVersion>` - The parsed version
+    ///   - `Option<Control>` - The parsed form control (with nested controls)
+    ///   - `TokenStream` - The remaining token stream positioned after the control
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use vb6parse::{SourceFile, tokenize, FormFile};
+    ///
+    /// let source = b"VERSION 5.00
+    /// Begin VB.Form Form1
+    ///    Caption = \"Test Form\"
+    ///    Begin VB.CommandButton Command1
+    ///       Caption = \"Click Me\"
+    ///    End
+    /// End
+    /// ";
+    ///
+    /// let source_file = SourceFile::decode_with_replacement("test.frm", source).expect("Failed to decode source file");
+    /// let mut source_stream = source_file.source_stream();
+    /// let result = tokenize(&mut source_stream);
+    /// let (token_stream, _tok_failures) = result.unpack();
+    ///
+    /// if let Some(ts) = token_stream {
+    ///     let result = FormFile::parse_control_only(ts);
+    ///     let (parse_result, failures) = result.unpack();
+    ///
+    ///     if let Some((version, form, _remaining)) = parse_result {
+    ///         if let Some(f) = form {
+    ///             println!("Form: {}", f.name);
+    ///         }
+    ///     }
+    /// }
+    /// ```
+    #[must_use]
+    pub fn parse_control_only<'a>(
+        token_stream: TokenStream<'a>,
+    ) -> ParseResult<'a, control_only::ControlOnlyResult<'a>, FormErrorKind> {
+        control_only::parse_control_from_tokens(token_stream)
     }
 }
 
@@ -579,6 +643,7 @@ impl FormFile {
 mod tests {
 
     use super::*;
+    use crate::parsers::header::extract_version;
     use crate::SourceFile;
 
     #[test]
