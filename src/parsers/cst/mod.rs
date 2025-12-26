@@ -78,8 +78,6 @@ mod for_statements;
 mod function_statements;
 mod helpers;
 mod if_statements;
-mod library_functions;
-mod library_statements;
 mod loop_statements;
 mod navigation;
 mod option_statements;

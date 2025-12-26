@@ -1,0 +1,52 @@
+//! VB6 string functions.
+
+pub mod ascb;
+pub mod asc;
+pub mod ascw;
+pub mod chrb_dollar;
+pub mod chrb;
+pub mod chr_dollar;
+pub mod chr;
+pub mod chrw_dollar;
+pub mod chrw;
+pub mod formatcurrency;
+pub mod formatdatetime;
+pub mod format_dollar;
+pub mod formatnumber;
+pub mod formatpercent;
+pub mod format;
+pub mod instrrev;
+pub mod instr;
+pub mod lcase_dollar;
+pub mod lcase;
+pub mod leftb_dollar;
+pub mod left_dollar;
+pub mod left;
+pub mod lenb;
+pub mod len;
+pub mod ltrim_dollar;
+pub mod ltrim;
+pub mod midb_dollar;
+pub mod midb;
+pub mod mid_dollar;
+pub mod mid;
+pub mod replace;
+pub mod rightb_dollar;
+pub mod right_dollar;
+pub mod right;
+pub mod rtrim_dollar;
+pub mod rtrim;
+pub mod space_dollar;
+/// VB6 `Space` function - returns a string of spaces.
+pub mod space;
+pub mod strcomp;
+pub mod strconv;
+pub mod str_dollar;
+/// VB6 `String` function - returns a repeating character string.
+pub mod string_function;
+pub mod strreverse;
+pub mod str;
+pub mod trim_dollar;
+pub mod trim;
+pub mod ucase_dollar;
+pub mod ucase;
