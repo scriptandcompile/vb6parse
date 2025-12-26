@@ -355,12 +355,24 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     parser.parse_root()
 }
 
+/// Parser mode determines whether to build a full CST or extract structures directly
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum ParserMode {
+    /// Build full CST including VERSION, control, attributes, and code
+    FullCst,
+    /// Extract structures directly without CST building
+    DirectExtraction,
+    /// Extract VERSION/control/attributes, then build CST for code only
+    Hybrid,
+}
+
 /// Internal parser state for building the CST
-struct Parser<'a> {
-    tokens: Vec<(&'a str, Token)>,
-    pos: usize,
+pub(crate) struct Parser<'a> {
+    pub(crate) tokens: Vec<(&'a str, Token)>,
+    pub(crate) pos: usize,
     builder: GreenNodeBuilder<'static>,
     parsing_header: bool,
+    mode: ParserMode,
 }
 
 impl<'a> Parser<'a> {
@@ -370,6 +382,29 @@ impl<'a> Parser<'a> {
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
+            mode: ParserMode::FullCst,
+        }
+    }
+
+    /// Create parser for direct extraction mode (control-only parsing)
+    pub(crate) fn new_direct_extraction(tokens: Vec<(&'a str, Token)>, pos: usize) -> Self {
+        Parser {
+            tokens,
+            pos,
+            builder: GreenNodeBuilder::new(),
+            parsing_header: true,
+            mode: ParserMode::DirectExtraction,
+        }
+    }
+
+    /// Create parser for hybrid mode (`FormFile` optimization)
+    pub(crate) fn new_hybrid(token_stream: TokenStream<'a>) -> Self {
+        Parser {
+            tokens: token_stream.into_tokens(),
+            pos: 0,
+            builder: GreenNodeBuilder::new(),
+            parsing_header: true,
+            mode: ParserMode::Hybrid,
         }
     }
 
@@ -829,6 +864,7 @@ impl<'a> Parser<'a> {
 
 #[cfg(test)]
 mod test {
+    use super::{Parser, ParserMode};
     use crate::*;
 
     #[test]
@@ -994,5 +1030,71 @@ mod test {
 
         // Verify it's serializable by checking structure
         assert!(!serializable.root.children.is_empty());
+    }
+
+    // Phase 1 Tests: Parser Modes and Constructors
+
+    #[test]
+    fn parser_mode_full_cst_default() {
+        let source = "Sub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.bas".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+
+        let parser = Parser::new(token_stream);
+        assert_eq!(parser.mode, ParserMode::FullCst);
+    }
+
+    #[test]
+    fn parser_mode_direct_extraction() {
+        let source = "Sub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.bas".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let parser = Parser::new_direct_extraction(tokens, 0);
+        assert_eq!(parser.mode, ParserMode::DirectExtraction);
+        assert_eq!(parser.pos, 0);
+    }
+
+    #[test]
+    fn parser_mode_hybrid() {
+        let source = "VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+
+        let parser = Parser::new_hybrid(token_stream);
+        assert_eq!(parser.mode, ParserMode::Hybrid);
+    }
+
+    #[test]
+    fn parser_constructors_preserve_tokens() {
+        let source = "VERSION 5.00\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+
+        let tokens_vec = token_stream.into_tokens();
+        let token_count = tokens_vec.len();
+
+        let parser = Parser::new_direct_extraction(tokens_vec, 0);
+        assert_eq!(parser.tokens.len(), token_count);
+        assert!(parser.tokens[0].1 == Token::VersionKeyword);
+    }
+
+    #[test]
+    fn parser_new_with_position() {
+        let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.bas".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        // Create parser starting at position 3 (after VERSION keyword, whitespace, and version number)
+        let parser = Parser::new_direct_extraction(tokens, 3);
+        assert_eq!(parser.pos, 3);
+        assert_eq!(parser.mode, ParserMode::DirectExtraction);
     }
 }
