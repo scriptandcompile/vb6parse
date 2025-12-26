@@ -362,8 +362,6 @@ pub(crate) enum ParserMode {
     FullCst,
     /// Extract structures directly without CST building
     DirectExtraction,
-    /// Extract VERSION/control/attributes, then build CST for code only
-    Hybrid,
 }
 
 /// Internal parser state for building the CST
@@ -397,17 +395,7 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Create parser for hybrid mode (`FormFile` optimization)
-    pub(crate) fn new_hybrid(token_stream: TokenStream<'a>) -> Self {
-        Parser {
-            tokens: token_stream.into_tokens(),
-            pos: 0,
-            builder: GreenNodeBuilder::new(),
-            parsing_header: true,
-            mode: ParserMode::Hybrid,
-        }
-    }
-
+    // Create parser for hybrid mode (`FormFile` optimization)
     // ==================== Direct Extraction Helpers ====================
     // These methods support direct extraction without CST building
 
@@ -623,14 +611,55 @@ impl<'a> Parser<'a> {
         self.skip_whitespace();
 
         // Parse value (everything until newline/colon)
+        // Special case: Resource references like "file.frx":0000 or $"file.frx":0000
+        // should include the colon and offset. The quotes should be preserved.
         let mut value_parts = Vec::new();
-        while !self.is_at_end()
-            && !self.at_token(Token::Newline)
-            && !self.at_token(Token::ColonOperator)
-        {
-            if let Some((text, _)) = self.tokens.get(self.pos) {
-                value_parts.push(*text);
-                self.consume_advance();
+        let mut in_resource_reference = false;
+
+        while !self.is_at_end() && !self.at_token(Token::Newline) {
+            if let Some((text, token)) = self.tokens.get(self.pos) {
+                let text_copy = *text;
+                let token_copy = *token;
+
+                // Check if we see a dollar sign
+                if token_copy == Token::DollarSign {
+                    value_parts.push(text_copy);
+                    self.consume_advance();
+                }
+                // If we see a string literal (with or without $), check if resource reference follows
+                else if token_copy == Token::StringLiteral {
+                    value_parts.push(text_copy);
+                    self.consume_advance();
+
+                    // Peek ahead - if next token is colon, this is a resource reference
+                    if let Some((_, next_token)) = self.tokens.get(self.pos) {
+                        if *next_token == Token::ColonOperator {
+                            in_resource_reference = true;
+                        }
+                    }
+                }
+                // If in resource reference, capture colon
+                else if in_resource_reference && token_copy == Token::ColonOperator {
+                    value_parts.push(text_copy);
+                    self.consume_advance();
+                }
+                // If in resource reference and we see the offset number, capture it and stop
+                else if in_resource_reference
+                    && (token_copy == Token::IntegerLiteral || token_copy == Token::LongLiteral)
+                {
+                    value_parts.push(text_copy);
+                    self.consume_advance();
+                    break; // Done with resource reference
+                }
+                // If we hit a colon and not in resource reference, stop
+                else if token_copy == Token::ColonOperator {
+                    break;
+                }
+                // Otherwise, capture the token
+                else {
+                    value_parts.push(text_copy);
+                    self.consume_advance();
+                }
             } else {
                 break;
             }
@@ -780,7 +809,7 @@ impl<'a> Parser<'a> {
         let mut _is_embedded = false;
         if self.at_token(Token::MultiplicationOperator) {
             self.consume_advance(); // *
-            // Expect \G (backslash followed by identifier "G")
+                                    // Expect \G (backslash followed by identifier "G")
             if let Some((_text, token)) = self.tokens.get(self.pos) {
                 if *token == Token::BackwardSlashOperator {
                     self.consume_advance(); // \
@@ -874,6 +903,175 @@ impl<'a> Parser<'a> {
         None
     }
 
+    /// Parse Attribute statements directly (without CST)
+    /// Phase 6: Direct extraction of file attributes
+    pub(crate) fn parse_attributes_direct(&mut self) -> crate::parsers::FileAttributes {
+        use crate::parsers::header::{
+            Creatable, Exposed, FileAttributes, NameSpace, PreDeclaredID,
+        };
+        use std::collections::HashMap;
+
+        let mut name = String::new();
+        let mut global_name_space = NameSpace::Local;
+        let mut creatable = Creatable::True;
+        let mut predeclared_id = PreDeclaredID::False;
+        let mut exposed = Exposed::False;
+        let mut description: Option<String> = None;
+        let mut ext_key: HashMap<String, String> = HashMap::new();
+
+        self.skip_whitespace_and_newlines();
+
+        // Continue parsing Attribute statements until we hit something else
+        while self.at_token(Token::AttributeKeyword) {
+            if let Some((key, value)) = self.parse_single_attribute_direct() {
+                // Process the extracted key-value pair
+                match key.as_str() {
+                    "VB_Name" => {
+                        name = value;
+                    }
+                    "VB_GlobalNameSpace" => {
+                        global_name_space = if value == "True" || value == "-1" {
+                            NameSpace::Global
+                        } else {
+                            NameSpace::Local
+                        };
+                    }
+                    "VB_Creatable" => {
+                        creatable = if value == "True" || value == "-1" {
+                            Creatable::True
+                        } else {
+                            Creatable::False
+                        };
+                    }
+                    "VB_PredeclaredId" => {
+                        predeclared_id = if value == "True" || value == "-1" {
+                            PreDeclaredID::True
+                        } else {
+                            PreDeclaredID::False
+                        };
+                    }
+                    "VB_Exposed" => {
+                        exposed = if value == "True" || value == "-1" {
+                            Exposed::True
+                        } else {
+                            Exposed::False
+                        };
+                    }
+                    "VB_Description" => {
+                        description = Some(value);
+                    }
+                    _ => {
+                        // Store any other attributes in ext_key
+                        ext_key.insert(key, value);
+                    }
+                }
+            }
+            self.skip_whitespace_and_newlines();
+        }
+
+        FileAttributes {
+            name,
+            global_name_space,
+            creatable,
+            predeclared_id,
+            exposed,
+            description,
+            ext_key,
+        }
+    }
+
+    /// Parse a single Attribute statement line
+    /// ```Attribute VB_Name = "Value"```
+    /// Or
+    /// ```Attribute VB_GlobalNameSpace = True```
+    fn parse_single_attribute_direct(&mut self) -> Option<(String, String)> {
+        // Expect "Attribute" keyword
+        if !self.at_token(Token::AttributeKeyword) {
+            return None;
+        }
+        self.consume_advance(); // Attribute
+        self.skip_whitespace();
+
+        // Parse attribute key (e.g., "VB_Name")
+        let key = if let Some((text, token)) = self.tokens.get(self.pos) {
+            if *token == Token::Identifier {
+                let k = text.to_string();
+                self.consume_advance();
+                k
+            } else {
+                return None;
+            }
+        } else {
+            return None;
+        };
+
+        self.skip_whitespace();
+
+        // Expect "="
+        if !self.at_token(Token::EqualityOperator) {
+            return None;
+        }
+        self.consume_advance(); // =
+        self.skip_whitespace();
+
+        // Parse value (can be string, True/False, or number)
+        let mut value = String::new();
+        let mut found_value = false;
+
+        // Check for negative sign first (for values like "-1")
+        if self.at_token(Token::SubtractionOperator) {
+            value.push('-');
+            self.consume_advance();
+            self.skip_whitespace();
+        }
+
+        if let Some((text, token)) = self.tokens.get(self.pos) {
+            match token {
+                Token::StringLiteral => {
+                    // Remove surrounding quotes
+                    value.push_str(text.trim().trim_matches('"'));
+                    self.consume_advance();
+                    found_value = true;
+                }
+                Token::TrueKeyword => {
+                    value.push_str("True");
+                    self.consume_advance();
+                    found_value = true;
+                }
+                Token::FalseKeyword => {
+                    value.push_str("False");
+                    self.consume_advance();
+                    found_value = true;
+                }
+                Token::IntegerLiteral | Token::LongLiteral => {
+                    value.push_str(text.trim());
+                    self.consume_advance();
+                    found_value = true;
+                }
+                _ => {}
+            }
+        }
+
+        // Consume the rest of the line (for complex attributes like VB_Ext_KEY)
+        // Skip until we hit a newline or end of tokens
+        while self.pos < self.tokens.len() {
+            if let Some((_, token)) = self.tokens.get(self.pos) {
+                if *token == Token::Newline {
+                    break;
+                }
+                self.consume_advance();
+            } else {
+                break;
+            }
+        }
+
+        if found_value {
+            Some((key, value))
+        } else {
+            None
+        }
+    }
+
     /// Build `ControlKind` from control type string and properties
     fn build_control_kind(
         control_type: &str,
@@ -898,6 +1096,9 @@ impl<'a> Parser<'a> {
             "VB.CommandButton" => ControlKind::CommandButton {
                 properties: properties.into(),
             },
+            "VB.Data" => ControlKind::Data {
+                properties: properties.into(),
+            },
             "VB.TextBox" => ControlKind::TextBox {
                 properties: properties.into(),
             },
@@ -907,10 +1108,25 @@ impl<'a> Parser<'a> {
             "VB.CheckBox" => ControlKind::CheckBox {
                 properties: properties.into(),
             },
+            "VB.Line" => ControlKind::Line {
+                properties: properties.into(),
+            },
+            "VB.Shape" => ControlKind::Shape {
+                properties: properties.into(),
+            },
             "VB.ListBox" => ControlKind::ListBox {
                 properties: properties.into(),
             },
+            "VB.ComboBox" => ControlKind::ComboBox {
+                properties: properties.into(),
+            },
             "VB.Timer" => ControlKind::Timer {
+                properties: properties.into(),
+            },
+            "VB.HScrollBar" => ControlKind::HScrollBar {
+                properties: properties.into(),
+            },
+            "VB.VScrollBar" => ControlKind::VScrollBar {
                 properties: properties.into(),
             },
             "VB.Frame" => ControlKind::Frame {
@@ -920,6 +1136,28 @@ impl<'a> Parser<'a> {
             "VB.PictureBox" => ControlKind::PictureBox {
                 properties: properties.into(),
                 controls: child_controls,
+            },
+            "VB.FileListBox" => ControlKind::FileListBox {
+                properties: properties.into(),
+            },
+            "VB.DirListBox" => ControlKind::DirListBox {
+                properties: properties.into(),
+            },
+            "VB.DriveListBox" => ControlKind::DriveListBox {
+                properties: properties.into(),
+            },
+            "VB.Image" => ControlKind::Image {
+                properties: properties.into(),
+            },
+            "VB.OptionButton" => ControlKind::OptionButton {
+                properties: properties.into(),
+            },
+            "VB.OLE" => ControlKind::Ole {
+                properties: properties.into(),
+            },
+            "VB.Menu" => ControlKind::Menu {
+                properties: properties.into(),
+                sub_menus: menus,
             },
             _ => ControlKind::Custom {
                 properties: properties.into(),
@@ -990,7 +1228,23 @@ impl<'a> Parser<'a> {
             } else if self.is_identifier() || self.at_keyword() {
                 // Parse property (Key = Value)
                 if let Some((key, value)) = self.parse_property_direct() {
-                    properties.insert(&key, &value);
+                    // Remove surrounding quotes if this is a simple string literal
+                    // BUT NOT if it's a resource reference (contains ":digit" pattern)
+                    let is_resource_reference = value.contains(':')
+                        && value
+                            .split(':')
+                            .map_or(false, |part| part.chars().all(|c| c.is_ascii_digit()));
+
+                    let cleaned_value = if !is_resource_reference
+                        && value.starts_with('"')
+                        && value.ends_with('"')
+                        && value.len() >= 2
+                    {
+                        &value[1..value.len() - 1]
+                    } else {
+                        &value
+                    };
+                    properties.insert(&key, cleaned_value);
                 }
             } else {
                 // Skip unknown token
@@ -1681,17 +1935,6 @@ mod test {
     }
 
     #[test]
-    fn parser_mode_hybrid() {
-        let source = "VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
-        let mut stream = SourceStream::new("test.frm".to_string(), source);
-        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
-        let token_stream = token_stream_opt.expect("Tokenization failed");
-
-        let parser = Parser::new_hybrid(token_stream);
-        assert_eq!(parser.mode, ParserMode::Hybrid);
-    }
-
-    #[test]
     fn parser_constructors_preserve_tokens() {
         let source = "VERSION 5.00\n";
         let mut stream = SourceStream::new("test.frm".to_string(), source);
@@ -2189,7 +2432,7 @@ Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
         let objects = parser.parse_objects_direct();
 
         assert_eq!(objects.len(), 2);
-        
+
         match &objects[0] {
             crate::parsers::ObjectReference::Compiled { file_name, .. } => {
                 assert_eq!(file_name, "Lib1.dll");
@@ -2322,5 +2565,156 @@ End
         } else {
             panic!("Expected Form");
         }
+    }
+
+    // Phase 6 Tests: Direct Attribute Parsing
+    #[test]
+    fn parse_simple_string_attribute() {
+        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+
+        let source = r#"Attribute VB_Name = "Form1"
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        assert_eq!(attrs.name, "Form1");
+        assert_eq!(attrs.global_name_space, NameSpace::Local);
+        assert_eq!(attrs.creatable, Creatable::True);
+        assert_eq!(attrs.predeclared_id, PreDeclaredID::False);
+        assert_eq!(attrs.exposed, Exposed::False);
+        assert_eq!(attrs.description, None);
+    }
+
+    #[test]
+    fn parse_boolean_attributes() {
+        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+
+        let source = r#"Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        assert_eq!(attrs.global_name_space, NameSpace::Local);
+        assert_eq!(attrs.creatable, Creatable::True);
+        assert_eq!(attrs.predeclared_id, PreDeclaredID::True);
+        assert_eq!(attrs.exposed, Exposed::False);
+    }
+
+    #[test]
+    fn parse_numeric_attribute() {
+        use crate::parsers::header::PreDeclaredID;
+
+        let source = r#"Attribute VB_PredeclaredId = -1
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        // -1 is truthy in VB6, so should be parsed as true
+        assert_eq!(attrs.predeclared_id, PreDeclaredID::True);
+    }
+
+    #[test]
+    fn parse_multiple_attributes() {
+        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+
+        let source = r#"Attribute VB_Name = "MyForm"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Attribute VB_Description = "This is a test form"
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        assert_eq!(attrs.name, "MyForm");
+        assert_eq!(attrs.global_name_space, NameSpace::Local);
+        assert_eq!(attrs.creatable, Creatable::False);
+        assert_eq!(attrs.predeclared_id, PreDeclaredID::True);
+        assert_eq!(attrs.exposed, Exposed::False);
+        assert_eq!(attrs.description, Some("This is a test form".to_string()));
+    }
+
+    #[test]
+    fn parse_ext_key_attributes() {
+        let source = r#"Attribute VB_Name = "Form1"
+Attribute VB_Ext_KEY = "CustomKey" ,"CustomValue"
+Attribute VB_Description = "Test"
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        assert_eq!(attrs.name, "Form1");
+        assert_eq!(attrs.description, Some("Test".to_string()));
+        assert_eq!(attrs.ext_key.len(), 1);
+        assert!(attrs.ext_key.contains_key("VB_Ext_KEY"));
+    }
+
+    #[test]
+    fn parse_empty_attributes() {
+        use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+
+        let source = r#""#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let attrs = parser.parse_attributes_direct();
+
+        assert_eq!(attrs.name, "");
+        assert_eq!(attrs.global_name_space, NameSpace::Local);
+        assert_eq!(attrs.creatable, Creatable::True);
+        assert_eq!(attrs.predeclared_id, PreDeclaredID::False);
+        assert_eq!(attrs.exposed, Exposed::False);
+        assert_eq!(attrs.description, None);
+        assert!(attrs.ext_key.is_empty());
+    }
+
+    #[test]
+    fn parse_resource_reference_property() {
+        let source = r#"Caption = $"Gradient.frx":0000
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let property = parser.parse_property_direct();
+
+        assert!(property.is_some());
+        let (key, value) = property.unwrap();
+        assert_eq!(key, "Caption");
+        assert_eq!(value, r#"$"Gradient.frx":0000"#);
     }
 }
