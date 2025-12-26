@@ -680,12 +680,12 @@
 //!
 //! | Function | Purpose | Parameters | Use Case |
 //! |----------|---------|------------|----------|
-//! | **Right** | Extract from right | (string, length) | Get last N characters, file extensions |
-//! | **Left** | Extract from left | (string, length) | Get first N characters, prefixes |
-//! | **Mid** | Extract from middle | (string, start, [length]) | Get substring from any position |
-//! | **`InStrRev`** | Find from right | (string, substring) | Find position searching from right |
-//! | **Len** | String length | (string) | Get total length |
-//! | **`RTrim`** | Remove right spaces | (string) | Remove trailing whitespace |
+//! | **Right** | Extract from right | ```(string, length)``` | Get last N characters, file extensions |
+//! | **Left** | Extract from left | ```(string, length)``` | Get first N characters, prefixes |
+//! | **Mid** | Extract from middle | ```(string, start, [length])``` | Get substring from any position |
+//! | **`InStrRev`** | Find from right | ```(string, substring)``` | Find position searching from right |
+//! | **Len** | String length | ```(string)``` | Get total length |
+//! | **`RTrim`** | Remove right spaces | ```(string)``` | Remove trailing whitespace |
 //!
 //! ## Platform and Version Notes
 //!

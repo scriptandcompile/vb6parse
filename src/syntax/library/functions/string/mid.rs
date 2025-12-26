@@ -687,10 +687,10 @@
 //!
 //! | Function | Extracts From | Parameters | Use Case |
 //! |----------|--------------|------------|----------|
-//! | **Mid** | Any position | start, [length] | General substring extraction |
-//! | **Left** | Beginning | length | Get first N characters |
-//! | **Right** | End | length | Get last N characters |
-//! | **`InStr`** | N/A (finds) | [start,] string1, string2 | Find position of substring |
+//! | **Mid** | Any position | ```(string, start, [length])``` | General substring extraction |
+//! | **Left** | Beginning | ```(string, length)``` | Get first N characters |
+//! | **Right** | End | ```(string, length)``` | Get last N characters |
+//! | **`InStr`** | N/A (finds) | ```[start,] string1, string2``` | Find position of substring |
 //!
 //! ## Mid vs Left vs Right
 //!

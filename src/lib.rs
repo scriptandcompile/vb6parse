@@ -188,7 +188,11 @@ pub mod lexer;
 pub mod parsers;
 pub mod syntax;
 
-pub use crate::errors::*;
+// Re-export error types (not modules to avoid conflicts)
+pub use crate::errors::{
+    ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
+    PropertyError, ResourceErrorKind, SourceFileErrorKind,
+};
 pub use crate::files::*;
 pub use crate::io::{SourceFile, SourceStream};
 pub use crate::language::*;
