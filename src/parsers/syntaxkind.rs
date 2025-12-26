@@ -599,6 +599,10 @@ pub enum SyntaxKind {
     LeftParenthesis,
     /// Right parenthesis ')' token
     RightParenthesis,
+    /// Left curly brace '{' token
+    LeftCurlyBrace,
+    /// Right curly brace '}' token
+    RightCurlyBrace,
     /// Left square bracket '[' token
     LeftSquareBracket,
     /// Right square bracket ']' token
@@ -824,6 +828,8 @@ impl From<Token> for SyntaxKind {
             Token::Octothorpe => SyntaxKind::Octothorpe,
             Token::LeftParenthesis => SyntaxKind::LeftParenthesis,
             Token::RightParenthesis => SyntaxKind::RightParenthesis,
+            Token::LeftCurlyBrace => SyntaxKind::LeftCurlyBrace,
+            Token::RightCurlyBrace => SyntaxKind::RightCurlyBrace,
             Token::LeftSquareBracket => SyntaxKind::LeftSquareBracket,
             Token::RightSquareBracket => SyntaxKind::RightSquareBracket,
             Token::Comma => SyntaxKind::Comma,

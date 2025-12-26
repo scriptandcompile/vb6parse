@@ -449,16 +449,6 @@ impl<'a> Parser<'a> {
     /// A `ParseResult` containing:
     /// - `result`: `Some(FileFormatVersion)` if found and valid, `None` if not present or invalid
     /// - `failures`: Empty vec (no errors generated for missing VERSION)
-    ///
-    /// # Example
-    ///
-    /// ```ignore
-    /// let mut parser = Parser::new_direct_extraction(tokens, 0);
-    /// let result = parser.parse_version_direct();
-    /// if let Some(version) = result.result {
-    ///     println!(\"Version: {}.{}\", version.major, version.minor);
-    /// }
-    /// ```
     pub(crate) fn parse_version_direct(
         &mut self,
     ) -> crate::ParseResult<'a, crate::parsers::FileFormatVersion, crate::errors::FormErrorKind>
@@ -632,7 +622,7 @@ impl<'a> Parser<'a> {
             && !self.at_token(Token::ColonOperator)
         {
             if let Some((text, _)) = self.tokens.get(self.pos) {
-                value_parts.push(text.to_string());
+                value_parts.push(*text);
                 self.consume_advance();
             } else {
                 break;
@@ -642,7 +632,8 @@ impl<'a> Parser<'a> {
         // Skip newline
         self.skip_whitespace_and_newlines();
 
-        let value = value_parts.join("").trim().to_string();
+        // Join tokens directly without intermediate conversion
+        let value = value_parts.concat().trim().to_string();
         Some((key, value))
     }
 
@@ -704,42 +695,38 @@ impl<'a> Parser<'a> {
     /// Parse property group name and extract optional GUID
     /// Format: "Name {GUID}" or just "Name"
     fn parse_property_group_name_direct(&mut self) -> (String, Option<uuid::Uuid>) {
-        let mut parts = Vec::new();
+        let mut name_parts: Vec<&str> = Vec::new();
+        let mut guid_parts: Vec<&str> = Vec::new();
+        let mut in_guid = false;
 
-        // Read all tokens until newline
+        // Collect tokens until newline
         while !self.is_at_end() && !self.at_token(Token::Newline) {
-            if let Some((text, _)) = self.tokens.get(self.pos) {
-                parts.push(text.to_string());
+            if let Some((text, token)) = self.tokens.get(self.pos) {
+                if *token == Token::LeftCurlyBrace {
+                    // Start of GUID
+                    in_guid = true;
+                } else if *token == Token::RightCurlyBrace {
+                    // End of GUID
+                    in_guid = false;
+                } else if *token != Token::Whitespace && *token != Token::EndOfLineComment {
+                    // Collect non-whitespace tokens
+                    if in_guid {
+                        guid_parts.push(*text);
+                    } else {
+                        name_parts.push(*text);
+                    }
+                }
             }
             self.consume_advance();
         }
 
-        // Join all parts and search for GUID pattern in the resulting string
-        let full_text = parts.join("").trim().to_string();
-
-        // Look for GUID pattern: 8-4-4-4-12 format (with or without braces)
-        // Split on whitespace to separate name from GUID
-        let parts_iter = full_text.split_whitespace();
-        let mut name_parts = Vec::new();
-        let mut guid_candidate = None;
-
-        for part in parts_iter {
-            // Check if this part looks like a GUID (contains hyphens in UUID pattern)
-            if part.contains('-')
-                && (part.len() == 36 || (part.starts_with('{') && part.ends_with('}')))
-            {
-                // Try to parse as UUID
-                let cleaned = part.trim_start_matches('{').trim_end_matches('}');
-                if let Ok(parsed_guid) = uuid::Uuid::parse_str(cleaned) {
-                    guid_candidate = Some(parsed_guid);
-                    break; // Stop collecting name parts after finding GUID
-                }
-            }
-            name_parts.push(part);
-        }
-
-        let name = name_parts.join(" ");
-        let guid = guid_candidate;
+        let name = name_parts.concat();
+        let guid = if guid_parts.is_empty() {
+            None
+        } else {
+            let guid_str = guid_parts.concat();
+            uuid::Uuid::parse_str(&guid_str).ok()
+        };
 
         (name, guid)
     }

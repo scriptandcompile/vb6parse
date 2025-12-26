@@ -1096,6 +1096,10 @@ pub enum Token {
     LeftParenthesis,
     /// Represents a right parenthesis `)`.
     RightParenthesis,
+    /// Represents a left curly brace `{`.
+    LeftCurlyBrace,
+    /// Represents a right curly brace `}`.
+    RightCurlyBrace,
     /// Represents a left square bracket `[`.
     LeftSquareBracket,
     /// Represents a right square bracket `]`.
