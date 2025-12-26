@@ -6,10 +6,12 @@
 //! The syntax layer is organized into:
 //! - **statements** - Statement parsing (control flow, declarations, object operations)
 //! - **expressions** - Expression parsing (literals, operators, function calls, etc.)
+//! - **library** - Built-in VB6 functions and statements
 //!
 //! For the CST data structure itself, see the `parsers::cst` module.
 
 pub mod expressions;
+pub mod library;
 pub mod statements;
 
 // Re-export commonly used types from the CST module for convenience
