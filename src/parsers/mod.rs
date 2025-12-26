@@ -41,9 +41,8 @@ pub use project::{
     ProjectReference,
 };
 
+pub use crate::io::{Comparator, SourceFile, SourceStream};
 pub use crate::parsers::cst::{parse, ConcreteSyntaxTree, CstNode, SerializableTree};
 pub use crate::parsers::syntaxkind::SyntaxKind;
-pub use crate::sourcestream::*;
-pub use crate::SourceFile;
 pub use parseresults::ParseResult;
 pub use uuid::Uuid;

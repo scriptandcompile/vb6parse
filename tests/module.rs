@@ -1,6 +1,6 @@
 use image::EncodableLayout;
 use vb6parse::parsers::ModuleFile;
-use vb6parse::SourceFile;
+use vb6parse::io::SourceFile;
 
 #[test]
 fn artificial_life_module_load() {

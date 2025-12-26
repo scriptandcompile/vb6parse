@@ -10,10 +10,9 @@ use std::fmt::Display;
 
 use crate::{
     errors::ModuleErrorKind,
+    io::{Comparator, SourceFile},
+    lexer::tokenize,
     parsers::{cst::serialize_cst, cst::ConcreteSyntaxTree, ParseResult, SyntaxKind},
-    sourcefile::SourceFile,
-    sourcestream::Comparator,
-    tokenize::tokenize,
 };
 
 use serde::Serialize;

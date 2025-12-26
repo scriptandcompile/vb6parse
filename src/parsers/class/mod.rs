@@ -12,14 +12,15 @@ use std::fmt::Display;
 
 use crate::{
     errors::ClassErrorKind,
+    io::SourceFile,
+    lexer::tokenize,
     parsers::{
         class::properties::{ClassHeader, ClassProperties},
         cst::{parse, serialize_cst},
         header::{extract_attributes, extract_version},
         SyntaxKind,
     },
-    tokenize::tokenize,
-    ConcreteSyntaxTree, ParseResult, SourceFile,
+    ConcreteSyntaxTree, ParseResult,
 };
 
 use serde::Serialize;
@@ -67,7 +68,7 @@ impl ClassFile {
     ///
     /// ```rust
     /// use vb6parse::parsers::ClassFile;
-    /// use vb6parse::SourceFile;
+    /// use vb6parse::io::SourceFile;
     ///
     /// let input = b"VERSION 1.0 CLASS
     /// BEGIN
@@ -290,7 +291,7 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::sourcefile;
+    use crate::io::SourceFile;
 
     #[test]
     fn class_file_valid() {
@@ -383,7 +384,7 @@ Option Explicit
     Attribute VB_Exposed = False";
 
         let sourcefile =
-            sourcefile::SourceFile::decode_with_replacement("test.cls", input).unwrap();
+            SourceFile::decode_with_replacement("test.cls", input).unwrap();
 
         let result = ClassFile::parse(&sourcefile);
 

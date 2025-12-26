@@ -9,7 +9,7 @@
 //!
 //! # Example
 //! ```no_run
-//! use vb6parse::SourceFile;
+//! use vb6parse::io::SourceFile;
 //!
 //! let source_file = SourceFile::from_file("path/to/module.bas").unwrap();
 //! ```
@@ -33,7 +33,7 @@ use std::fs;
 use std::path::Path;
 
 use crate::errors::{ErrorDetails, SourceFileErrorKind};
-use crate::parsers::SourceStream;
+use crate::io::SourceStream;
 
 use encoding_rs::{mem::utf8_latin1_up_to, CoderResult, WINDOWS_1252};
 
@@ -90,7 +90,7 @@ impl SourceFile {
     /// # Example
     ///
     /// ```no_run
-    /// use vb6parse::SourceFile;
+    /// use vb6parse::io::SourceFile;
     ///
     /// let source_file = SourceFile::from_file("path/to/module.bas");
     ///

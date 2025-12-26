@@ -643,8 +643,8 @@ impl FormFile {
 mod tests {
 
     use super::*;
+    use crate::io::SourceFile;
     use crate::parsers::header::extract_version;
-    use crate::SourceFile;
 
     #[test]
     fn extract_version_from_cst() {

@@ -1,4 +1,4 @@
-use vb6parse::sourcestream::{Comparator, SourceStream};
+use vb6parse::io::{Comparator, SourceStream};
 
 fn main() {
     // Sample VB6 code content

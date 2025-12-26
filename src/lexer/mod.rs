@@ -5,8 +5,8 @@
 //! # Example
 //! ```rust
 //! use vb6parse::language::Token;
-//! use vb6parse::tokenize::tokenize;
-//! use vb6parse::SourceStream;
+//! use vb6parse::lexer::tokenize;
+//! use vb6parse::io::SourceStream;
 //! let mut input = SourceStream::new("test.bas", "Dim x As Integer");
 //! let result = tokenize(&mut input);
 //! if result.has_failures() {
@@ -51,12 +51,16 @@
 //! - [`ErrorDetails`](crate::errors::ErrorDetails): Detailed error information for parsing operations
 //!
 
+pub mod token_stream;
+
+pub use token_stream::TokenStream;
+
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
+    io::SourceStream,
     language::Token,
-    parsers::{Comparator, ParseResult, SourceStream},
-    tokenstream::TokenStream,
+    parsers::{Comparator, ParseResult},
     CodeErrorKind,
 };
 
@@ -284,8 +288,8 @@ pub type LineCommentTuple<'a> = (TextTokenTuple<'a>, Option<TextTokenTuple<'a>>)
 ///
 /// ```rust
 /// use vb6parse::language::Token;
-/// use vb6parse::tokenize::tokenize;
-/// use vb6parse::SourceStream;
+/// use vb6parse::lexer::tokenize;
+/// use vb6parse::io::SourceStream;
 ///
 ///
 /// let mut input = SourceStream::new("test.bas", "Dim x As Integer");
@@ -824,8 +828,8 @@ mod test {
 
     #[test]
     fn vb6_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "Dim x As Integer");
         let result = tokenize(&mut input);
@@ -852,8 +856,8 @@ mod test {
 
     #[test]
     fn vb6_string_as_end_of_stream_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test""#);
         let result = tokenize(&mut input);
@@ -878,8 +882,8 @@ mod test {
 
     #[test]
     fn vb6_string_at_start_of_stream_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", r#""Text""#);
         let result = tokenize(&mut input);
@@ -900,8 +904,8 @@ mod test {
 
     #[test]
     fn vb6_string_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", r#"x = "Test" 'This is a comment."#);
         let result = tokenize(&mut input);
@@ -928,8 +932,8 @@ mod test {
 
     #[test]
     fn class_file_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
 BEGIN
@@ -1101,8 +1105,8 @@ Attribute VB_Exposed = False
     #[test]
 
     fn class_file_tokenize_without_whitespace() {
-        use crate::tokenize::tokenize_without_whitespaces;
-        use crate::SourceStream;
+        use super::tokenize_without_whitespaces;
+        use crate::io::SourceStream;
 
         let source_code = "VERSION 1.0 CLASS
 BEGIN
@@ -1236,8 +1240,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn integer_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 42%");
         let result = tokenize(&mut input);
@@ -1263,8 +1267,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn long_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 123456&");
         let result = tokenize(&mut input);
@@ -1288,8 +1292,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn single_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 3.14!");
         let result = tokenize(&mut input);
@@ -1313,8 +1317,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn double_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 3.14159265#");
         let result = tokenize(&mut input);
@@ -1338,8 +1342,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn decimal_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "price = 12.50@");
         let result = tokenize(&mut input);
@@ -1363,8 +1367,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn date_literal_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "d = #1/1/2000#");
         let result = tokenize(&mut input);
@@ -1388,8 +1392,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn date_literal_with_time_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "d = #12/31/1999 11:59:59 PM#");
         let result = tokenize(&mut input);
@@ -1413,8 +1417,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn plain_number_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 42");
         let result = tokenize(&mut input);
@@ -1438,8 +1442,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn decimal_number_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 3.14");
         let result = tokenize(&mut input);
@@ -1463,8 +1467,8 @@ Attribute VB_Exposed = False
 
     #[test]
     fn exponent_number_tokenize() {
-        use crate::tokenize::tokenize;
-        use crate::SourceStream;
+        use super::tokenize;
+        use crate::io::SourceStream;
 
         let mut input = SourceStream::new("", "x = 1.5E+10");
         let result = tokenize(&mut input);

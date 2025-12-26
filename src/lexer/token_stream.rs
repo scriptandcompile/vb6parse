@@ -9,7 +9,7 @@
 //! # Example
 //! ```rust
 //! use vb6parse::language::Token;
-//! use vb6parse::tokenstream::TokenStream;
+//! use vb6parse::lexer::TokenStream;
 //!
 //! let tokens = vec![("Dim", Token::DimKeyword), (" ", Token::Whitespace), ("x", Token::Identifier)];
 //! let mut stream = TokenStream::new("test.bas".to_string(), tokens);
@@ -21,8 +21,8 @@
 //! assert_eq!(stream.current(), Some(&("Dim", Token::DimKeyword)));
 //! ```
 //! # See Also
-//! - [`tokenize`](crate::tokenize::tokenize) for tokenizing source code into tokens.
-//! - [`SourceStream`](crate::sourcestream::SourceStream) for low-level character stream handling.
+//! - [`tokenize`](crate::lexer::tokenize) for tokenizing source code into tokens.
+//! - [`SourceStream`](crate::io::SourceStream) for low-level character stream handling.
 //! - [`Token`] for the definition of tokens used in the stream.
 
 use crate::language::Token;

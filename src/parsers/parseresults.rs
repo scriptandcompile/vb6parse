@@ -11,7 +11,7 @@ use std::fmt::Display;
 use std::iter::IntoIterator;
 
 use crate::errors::ErrorDetails;
-use crate::tokenstream::TokenStream;
+use crate::lexer::TokenStream;
 
 /// Result of a parsing operation, containing an optional result and a list of failures encountered during parsing.
 /// The result is `Some` if parsing was successful, and `None` if it failed completely.
@@ -554,7 +554,7 @@ where
     ///
     /// use vb6parse::parsers::parseresults::ParseResult;
     /// use vb6parse::errors::{ErrorDetails, CodeErrorKind};
-    /// use vb6parse::tokenstream::TokenStream;
+    /// use vb6parse::lexer::TokenStream;
     ///
     /// let failures = vec![
     ///     ErrorDetails {

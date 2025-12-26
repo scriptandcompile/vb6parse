@@ -17,14 +17,13 @@ use uuid::Uuid;
 
 use crate::{
     errors::{ErrorDetails, ProjectErrorKind},
+    io::{Comparator, SourceFile, SourceStream},
     objectreference::ObjectReference,
     parseresults::ParseResult,
     parsers::project::{
         compilesettings::CompilationType,
         properties::{CompileTargetType, ProjectProperties},
     },
-    sourcefile::SourceFile,
-    sourcestream::{Comparator, SourceStream},
 };
 
 /// Represents a VB6 Project file.

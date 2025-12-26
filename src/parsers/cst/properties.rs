@@ -303,10 +303,10 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::io::SourceStream;
+    use crate::lexer::tokenize;
     use crate::parsers::cst::parse;
     use crate::parsers::SyntaxKind;
-    use crate::tokenize::tokenize;
-    use crate::SourceStream;
 
     #[test]
     fn class_parsing() {
