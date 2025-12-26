@@ -20,7 +20,7 @@ use crate::{
         },
         Color, FormLinkMode, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
     },
-    parsers::Properties,
+    files::common::Properties,
 };
 
 use image::DynamicImage;

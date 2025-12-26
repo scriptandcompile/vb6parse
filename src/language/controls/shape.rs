@@ -12,7 +12,7 @@ use std::str::FromStr;
 
 use crate::language::color::Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use num_enum::TryFromPrimitive;
 use serde::Serialize;

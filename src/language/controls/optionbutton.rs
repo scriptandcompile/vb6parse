@@ -16,7 +16,7 @@ use crate::language::controls::{
     OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
 };
 use crate::language::{Color, VB_3D_FACE, VB_BUTTON_TEXT};
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;

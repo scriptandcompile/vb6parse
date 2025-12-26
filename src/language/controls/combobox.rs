@@ -28,7 +28,7 @@ use crate::{
         Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
         ReferenceOrValue, TabStop, TextDirection, Visibility,
     },
-    parsers::Properties,
+    files::common::Properties,
     Color, FormErrorKind, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
 

@@ -39,9 +39,10 @@
 
 use crate::{
     errors::FormErrorKind,
+    files::common::FileFormatVersion,
     language::Control,
-    parsers::{header::FileFormatVersion, ParseResult},
-    TokenStream,
+    lexer::TokenStream,
+    parsers::ParseResult,
 };
 
 /// Result of control-only parsing containing:
@@ -86,7 +87,7 @@ pub type ControlOnlyResult<'a> = (Option<FileFormatVersion>, Option<Control>, To
 ///
 /// ```rust
 /// use vb6parse::{SourceFile, tokenize};
-/// use vb6parse::parsers::form::control_only::parse_control_from_tokens;
+/// use vb6parse::files::form::control_only::parse_control_from_tokens;
 ///
 /// let source_bytes = b"VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
 /// let source = SourceFile::decode_with_replacement("test.frm", source_bytes).unwrap();

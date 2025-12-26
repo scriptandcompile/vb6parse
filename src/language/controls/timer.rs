@@ -8,7 +8,7 @@
 
 use crate::language::controls::Activation;
 
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 /// Properties for a `Timer` control.
 ///

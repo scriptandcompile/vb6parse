@@ -10,7 +10,7 @@
 
 use serde::Serialize;
 
-use crate::parsers::header::{FileAttributes, FileFormatVersion};
+use crate::files::common::{FileAttributes, FileFormatVersion};
 
 /// Represents the COM usage of a class file.
 /// Only available when the class is part of an `ActiveX` DLL project that is both

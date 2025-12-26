@@ -16,7 +16,7 @@ use crate::{
         MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection,
         Visibility,
     },
-    parsers::Properties,
+    files::common::Properties,
     Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
 };
 

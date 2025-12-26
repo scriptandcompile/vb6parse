@@ -1,4 +1,4 @@
-use vb6parse::parsers::FormFile;
+use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
 
 #[test]

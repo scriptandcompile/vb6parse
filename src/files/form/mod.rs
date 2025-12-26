@@ -10,14 +10,15 @@ use serde::Serialize;
 use uuid::Uuid;
 
 use crate::{
-    cst::{parse, ConcreteSyntaxTree},
     errors::FormErrorKind,
+    files::common::{FileAttributes, FileFormatVersion, ObjectReference, Properties},
+    io::SourceFile,
     language::{Control, ControlKind, MenuControl, PropertyGroup},
+    lexer::{tokenize, TokenStream},
     parsers::{
-        header::{FileAttributes, FileFormatVersion},
-        CstNode, ObjectReference, ParseResult, SyntaxKind,
+        cst::{parse, ConcreteSyntaxTree, CstNode},
+        ParseResult, SyntaxKind,
     },
-    tokenize, Properties, SourceFile, TokenStream,
 };
 
 pub mod control_only;
@@ -643,8 +644,8 @@ impl FormFile {
 mod tests {
 
     use super::*;
+    use crate::files::common::extract_version;
     use crate::io::SourceFile;
-    use crate::parsers::header::extract_version;
 
     #[test]
     fn extract_version_from_cst() {
@@ -726,7 +727,7 @@ End
 
     #[test]
     fn nested_property_group() {
-        use crate::parsers::form::FormFile;
+        use crate::files::form::FormFile;
 
         let input = b"VERSION 5.00\r
     Object = \"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\"; \"mscomctl.ocx\"\r

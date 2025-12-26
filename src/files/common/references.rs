@@ -10,7 +10,7 @@ use uuid::Uuid;
 /// # use uuid::Error;
 ///
 /// # fn main() -> Result<(), uuid::Error> {
-///     use vb6parse::parsers::objectreference::ObjectReference;
+///     use vb6parse::files::common::ObjectReference;
 ///     use uuid::Uuid;
 ///
 ///     let compiled_ref = ObjectReference::Compiled {

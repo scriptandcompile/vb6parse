@@ -20,7 +20,7 @@ pub use color::{
     VB_WINDOW_BACKGROUND, VB_WINDOW_FRAME, VB_WINDOW_TEXT, VB_YELLOW,
 };
 
-pub use crate::properties::PropertyGroup;
+pub use crate::files::common::PropertyGroup;
 
 pub use controls::{
     checkbox::{CheckBoxProperties, CheckBoxValue},

@@ -1,3 +1,14 @@
+//! Common structures and functions for VB6 file types.
+//!
+//! This module contains common structures and functions used across different VB6 file types,
+//! such as file format version extraction and file attribute parsing.
+//!
+//!
+//! - [`FileFormatVersion`] for representing VB6 file format versions.
+//! - [`FileAttributes`] for representing common file attributes like `VB_Name`, `VB_GlobalNameSpace`, `VB_Exposed`, `VB_Creatable`, and `VB_PredeclaredId`.
+//! - Functions to extract version and attributes from a CST.
+//!
+
 use std::collections::HashMap;
 
 use crate::parsers::SyntaxKind;
@@ -226,7 +237,7 @@ pub(crate) fn extract_version(
 ///
 /// Parses Attribute statements to extract file metadata like `VB_Name`, `VB_GlobalNameSpace`, etc.
 pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> FileAttributes {
-    use crate::parsers::header::{Creatable, Exposed, NameSpace, PreDeclaredID};
+    use crate::files::common::{Creatable, Exposed, NameSpace, PreDeclaredID};
 
     let mut name = String::new();
     let mut global_name_space = NameSpace::Local;

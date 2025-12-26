@@ -22,6 +22,7 @@
 //!
 //! ```rust
 //! use vb6parse::*;
+//! use vb6parse::files::project::properties::CompileTargetType;
 //!
 //! let input = r#"Type=Exe
 //! Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -128,7 +129,7 @@
 //! repeated throughout the library.
 //!
 //! ```rust
-//! use vb6parse::parsers::FormFile;
+//! use vb6parse::FormFile;
 //!
 //! let input = b"VERSION 5.00\r
 //! Begin VB.Form frmExampleForm\r
@@ -180,12 +181,14 @@
 //! ```
 
 pub mod errors;
+pub mod files;
 pub mod io;
 pub mod language;
 pub mod lexer;
 pub mod parsers;
 
 pub use crate::errors::*;
+pub use crate::files::*;
 pub use crate::io::{SourceFile, SourceStream};
 pub use crate::language::*;
 pub use crate::lexer::{tokenize, TokenStream};

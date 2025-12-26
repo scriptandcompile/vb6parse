@@ -6,13 +6,13 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 use strum_macros::{EnumIter, EnumMessage};
 
-use crate::parsers::project::compilesettings::CompilationType;
+use crate::files::project::compilesettings::CompilationType;
 
 /// Represents the properties of a VB6 project.
 ///
 /// # Examples
 /// ```rust
-/// use vb6parse::parsers::project::properties::{ProjectProperties, StartMode, InteractionMode};
+/// use vb6parse::files::project::properties::{ProjectProperties, StartMode, InteractionMode};
 /// let project_props = ProjectProperties {
 ///     unused_control_info: Default::default(),
 ///     upgrade_controls: Default::default(),

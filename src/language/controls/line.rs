@@ -8,7 +8,7 @@
 
 use crate::language::color::{Color, VB_WINDOW_TEXT};
 use crate::language::controls::{DrawMode, DrawStyle, Visibility};
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use serde::Serialize;
 

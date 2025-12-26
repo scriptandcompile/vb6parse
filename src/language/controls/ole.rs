@@ -15,7 +15,7 @@ use crate::language::controls::{
     ReferenceOrValue, SizeMode, TabStop, Visibility,
 };
 use crate::language::Color;
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;

@@ -17,13 +17,13 @@ use uuid::Uuid;
 
 use crate::{
     errors::{ErrorDetails, ProjectErrorKind},
-    io::{Comparator, SourceFile, SourceStream},
-    objectreference::ObjectReference,
-    parseresults::ParseResult,
-    parsers::project::{
+    files::common::ObjectReference,
+    files::project::{
         compilesettings::CompilationType,
         properties::{CompileTargetType, ProjectProperties},
     },
+    io::{Comparator, SourceFile, SourceStream},
+    parsers::ParseResult,
 };
 
 /// Represents a VB6 Project file.
@@ -246,6 +246,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -289,6 +290,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -333,6 +335,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -377,6 +380,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -421,6 +425,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -466,6 +471,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -511,6 +517,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -556,6 +563,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -602,6 +610,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -647,6 +656,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -693,6 +703,7 @@ impl<'a> ProjectFile<'a> {
     /// # Example
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -776,6 +787,7 @@ impl<'a> ProjectFile<'a> {
     ///
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::files::project::properties::CompileTargetType;
     ///
     /// let input = r#"Type=Exe
     /// Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -2989,10 +3001,15 @@ fn parse_dll_base_address<'a>(
 #[cfg(test)]
 mod tests {
     use crate::*;
+    use crate::files::common::ObjectReference;
+    use crate::files::project::compilesettings::*;
+    use crate::files::project::properties::*;
+    use crate::files::project::ProjectReference;
+    use uuid::Uuid;
 
     #[test]
     fn compatibility_mode_is_unknown() {
-        use crate::project::parse_quoted_converted_value;
+        use crate::files::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"5\"\n");
 
@@ -3063,7 +3080,7 @@ mod tests {
 
     #[test]
     fn project_type_is_exe() {
-        use crate::parsers::project::parse_converted_value;
+        use crate::files::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=Exe\n");
 
@@ -3078,7 +3095,7 @@ mod tests {
 
     #[test]
     fn project_type_is_oledll() {
-        use crate::parsers::project::parse_converted_value;
+        use crate::files::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=OleDll\r\n");
 
@@ -3093,7 +3110,7 @@ mod tests {
 
     #[test]
     fn project_type_is_control() {
-        use crate::parsers::project::parse_converted_value;
+        use crate::files::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=Control\n");
 
@@ -3108,7 +3125,7 @@ mod tests {
 
     #[test]
     fn project_type_is_ole_exe() {
-        use crate::parsers::project::parse_converted_value;
+        use crate::files::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=OleExe\n");
 
@@ -3123,7 +3140,7 @@ mod tests {
 
     #[test]
     fn project_type_is_unknown_type() {
-        use crate::parsers::project::parse_converted_value;
+        use crate::files::project::parse_converted_value;
 
         let mut input = SourceStream::new("", "Type=blah\r\n");
 
@@ -3145,7 +3162,7 @@ mod tests {
 
     #[test]
     fn reference_compiled_line_valid() {
-        use crate::parsers::project::parse_reference;
+        use crate::files::project::parse_reference;
 
         let mut input = SourceStream::new("", "Reference=*\\G{000440D8-E9ED-4435-A9A2-06B05387BB16}#c.0#0#..\\DBCommon\\Libs\\VbIntellisenseFix.dll#VbIntellisenseFix\r\n");
 
@@ -3180,7 +3197,7 @@ mod tests {
 
     #[test]
     fn reference_subproject_line_valid() {
-        use crate::parsers::project::parse_reference;
+        use crate::files::project::parse_reference;
 
         let mut input = SourceStream::new("", "Reference=*\\Atest.vbp\r\n");
 
@@ -3205,7 +3222,7 @@ mod tests {
 
     #[test]
     fn module_line_valid() {
-        use crate::parsers::project::parse_module;
+        use crate::files::project::parse_module;
 
         let mut input = SourceStream::new("", "Module=modDBAssist; ..\\DBCommon\\DBAssist.bas\r\n");
 
@@ -3221,7 +3238,7 @@ mod tests {
 
     #[test]
     fn class_line_valid() {
-        use crate::parsers::project::parse_class;
+        use crate::files::project::parse_class;
 
         let mut input = SourceStream::new(
             "",
@@ -3240,7 +3257,7 @@ mod tests {
 
     #[test]
     fn object_line_valid() {
-        use crate::parsers::project::parse_object;
+        use crate::files::project::parse_object;
 
         let mut input = SourceStream::new(
             "",

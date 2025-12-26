@@ -11,7 +11,7 @@ use crate::language::controls::{
     ReferenceOrValue, Visibility,
 };
 
-use crate::parsers::Properties;
+use crate::files::common::Properties;
 
 use image::DynamicImage;
 use serde::Serialize;

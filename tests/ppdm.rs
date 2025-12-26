@@ -1,4 +1,6 @@
 use vb6parse::*;
+use vb6parse::files::project::compilesettings::*;
+use vb6parse::files::project::properties::*;
 
 #[test]
 fn ppdm_project_load() {

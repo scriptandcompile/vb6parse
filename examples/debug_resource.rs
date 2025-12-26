@@ -1,4 +1,4 @@
-use vb6parse::parsers::resource::FormResourceFile;
+use vb6parse::FormResource;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -8,7 +8,7 @@ fn main() {
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx"
     };
 
-    let result = FormResourceFile::from_file(file_path).expect("Failed to read file");
+    let result = FormResource::from_file(file_path).expect("Failed to read file");
 
     let resource_file = result.unwrap_or_fail();
 
@@ -18,7 +18,7 @@ fn main() {
     println!("Total entries: {}", entries.len());
     for (i, (offset, entry)) in entries.iter().enumerate() {
         match entry {
-            vb6parse::parsers::resource::ResourceEntry::Record12ByteHeader { data } => {
+            vb6parse::files::resource::ResourceEntry::Record12ByteHeader { data } => {
                 println!(
                     "Entry {}: Offset 0x{:X} - Record12ByteHeader ({} bytes)",
                     i,
@@ -26,7 +26,7 @@ fn main() {
                     data.len()
                 );
             }
-            vb6parse::parsers::resource::ResourceEntry::Record4ByteHeader { data } => {
+            vb6parse::files::resource::ResourceEntry::Record4ByteHeader { data } => {
                 println!(
                     "Entry {}: Offset 0x{:X} - Record4ByteHeader ({} bytes)",
                     i,
@@ -41,7 +41,7 @@ fn main() {
                 }
                 println!("---");
             }
-            vb6parse::parsers::resource::ResourceEntry::ListItems { items } => {
+            vb6parse::files::resource::ResourceEntry::ListItems { items } => {
                 println!(
                     "Entry {}: Offset 0x{:X} - ListItems ({} items)",
                     i,
@@ -52,19 +52,19 @@ fn main() {
                     println!("  Item {j}: {item:?}");
                 }
             }
-            vb6parse::parsers::resource::ResourceEntry::Record3ByteHeader { data } => {
+            vb6parse::files::resource::ResourceEntry::Record3ByteHeader { data } => {
                 println!(
                     "Entry {i}: Offset 0x{offset:X} - Record3ByteHeader ({} bytes)",
                     data.len()
                 );
             }
-            vb6parse::parsers::resource::ResourceEntry::Record1ByteHeader { data } => {
+            vb6parse::files::resource::ResourceEntry::Record1ByteHeader { data } => {
                 println!(
                     "Entry {i}: Offset 0x{offset:X} - Record1ByteHeader ({} bytes)",
                     data.len()
                 );
             }
-            vb6parse::parsers::resource::ResourceEntry::Empty { .. } => {
+            vb6parse::files::resource::ResourceEntry::Empty { .. } => {
                 println!("Entry {i}: Offset 0x{offset:X} - Empty (removed image placeholder)");
             }
         }

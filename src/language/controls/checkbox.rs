@@ -27,7 +27,7 @@ use crate::{
         },
         Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    parsers::Properties,
+    files::common::Properties,
     FormErrorKind,
 };
 

@@ -1,4 +1,6 @@
-use vb6parse::{ObjectReference, ProjectFile, ProjectReference, SourceFile};
+use vb6parse::{
+    files::common::ObjectReference, files::project::ProjectReference, ProjectFile, SourceFile,
+};
 
 /// Example showing how to parse a VB6 project file from raw bytes.
 /// This example uses a hardcoded string, but in a real application,
