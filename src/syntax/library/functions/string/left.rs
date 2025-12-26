@@ -487,11 +487,11 @@
 //!
 //! | Function | Purpose | Parameters | Use Case |
 //! |----------|---------|------------|----------|
-//! | `Left` | Extract from left | `String`, `Long` | Get prefix/first N chars |
-//! | `Right` | Extract from right | `String`, `Long` | Get suffix/last N chars |
-//! | `Mid` | Extract from middle | `String`, `Long`, [ `Long` ] | Get substring from any position |
-//! | `InStr` | Find substring | [ `Long`, ] `String`, `String` | Locate substring position |
-//! | `Len` | Get string length | `String` | Measure string |
+//! | `Left` | Extract from left | ```(string, length)``` | Get prefix/first N chars |
+//! | `Right` | Extract from right | ```(string, length)``` | Get suffix/last N chars |
+//! | `Mid` | Extract from middle | ```(string, start, [length])``` | Get substring from any position |
+//! | `InStr` | Find substring | ```([start,] string1, string2)``` | Locate substring position |
+//! | `Len` | Get string length | ```(string)``` | Measure string |
 //! ## Left vs Mid
 //!
 //! ```vb
