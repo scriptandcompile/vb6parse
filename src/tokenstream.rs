@@ -52,6 +52,17 @@ impl<'a> TokenStream<'a> {
         }
     }
 
+    /// Creates a `TokenStream` from a tokens vector without a file name
+    /// Used when reconstructing token stream from parsed tokens
+    #[must_use]
+    pub fn from_tokens(tokens: Vec<(&'a str, Token)>) -> Self {
+        Self {
+            file_name: String::new(),
+            tokens,
+            offset: 0,
+        }
+    }
+
     /// Returns the source file name
     #[must_use]
     pub fn file_name(&self) -> &str {

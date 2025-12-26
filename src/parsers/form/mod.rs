@@ -519,7 +519,7 @@ impl FormFile {
         // Extract version from CST
         let format_version = extract_version(&cst);
 
-        // Extract objects from CST
+        // Phase 5: Extract objects from CST (note: can be optimized later with direct parsing)
         let objects = extract_objects(&cst);
 
         // Extract form and controls from CST
