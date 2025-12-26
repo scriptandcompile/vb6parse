@@ -186,6 +186,7 @@ pub mod io;
 pub mod language;
 pub mod lexer;
 pub mod parsers;
+pub mod syntax;
 
 pub use crate::errors::*;
 pub use crate::files::*;

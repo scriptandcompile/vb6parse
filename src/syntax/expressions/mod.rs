@@ -73,9 +73,8 @@
 //! ```
 
 use crate::language::Token;
+use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
-
-use super::Parser;
 
 /// Operator binding power (precedence) levels.
 ///
@@ -83,7 +82,7 @@ use super::Parser;
 /// These values are based on the VB6 language specification and determine
 /// the order in which operators are applied when parsing expressions.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub(super) struct BindingPower(u8);
+pub(crate) struct BindingPower(u8);
 
 impl BindingPower {
     /// No binding power - used as a minimum baseline
@@ -152,7 +151,7 @@ impl Parser<'_> {
     /// y = obj.method(arg)    ' Member access and call
     /// z = (a + b) * c        ' Parenthesized expression
     /// ```
-    pub(super) fn parse_expression(&mut self) {
+    pub(crate) fn parse_expression(&mut self) {
         self.parse_expression_with_binding_power(BindingPower::NONE);
     }
 
@@ -168,7 +167,7 @@ impl Parser<'_> {
     /// obj.property = value   ' obj.property is the lvalue
     /// arr(i) = 10           ' arr(i) is the lvalue
     /// ```
-    pub(super) fn parse_lvalue(&mut self) {
+    pub(crate) fn parse_lvalue(&mut self) {
         // Parse with a minimum binding power HIGHER than COMPARISON
         // This ensures = is not treated as a binary operator
         // COMPARISON is 70, so we use 75 to exclude it
@@ -201,7 +200,7 @@ impl Parser<'_> {
     ///     left = make_binary(left, op, right)
     ///   return left
     /// ```
-    pub(super) fn parse_expression_with_binding_power(&mut self, min_bp: BindingPower) {
+    pub(crate) fn parse_expression_with_binding_power(&mut self, min_bp: BindingPower) {
         // Skip leading whitespace
         self.consume_whitespace();
 
@@ -768,7 +767,7 @@ impl Parser<'_> {
     /// Parse argument list inside parentheses.
     ///
     /// Arguments are comma-separated expressions, optionally with named parameters.
-    pub(super) fn parse_argument_list_in_parens(&mut self) {
+    pub(crate) fn parse_argument_list_in_parens(&mut self) {
         self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
 
         // Skip whitespace after opening paren

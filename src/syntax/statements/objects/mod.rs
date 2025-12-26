@@ -14,9 +14,8 @@
 //! library module.
 
 use crate::language::Token;
+use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
-
-use super::Parser;
 
 impl Parser<'_> {
     /// Parse a Call statement:
@@ -32,7 +31,7 @@ impl Parser<'_> {
     /// | argumentlist| Optional            | List of arguments to be passed to the procedure. Arguments are enclosed in parentheses and separated by commas. |
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/call-statement)
-    pub(super) fn parse_call_statement(&mut self) {
+    pub(crate) fn parse_call_statement(&mut self) {
         // if we are now parsing a call statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -51,7 +50,7 @@ impl Parser<'_> {
     /// In VB6, you can call a Sub procedure without using the Call keyword:
     /// - `MySub arg1, arg2` instead of `Call MySub(arg1, arg2)`
     /// - `MySub` (no arguments)
-    pub(super) fn parse_procedure_call(&mut self) {
+    pub(crate) fn parse_procedure_call(&mut self) {
         // if we are now parsing a procedure call, we are no longer in the header.
         self.parsing_header = false;
 
@@ -69,7 +68,7 @@ impl Parser<'_> {
     /// - `MySub` (no arguments)
     /// - `MySub arg1, arg2` (arguments without parentheses)
     /// - `MySub(arg1, arg2)` (arguments with parentheses)
-    pub(super) fn is_at_procedure_call(&self) -> bool {
+    pub(crate) fn is_at_procedure_call(&self) -> bool {
         // Must start with an identifier or keyword used as identifier
         // BUT exclude keywords that have structural meaning and can't be procedure names
         if self.at_token(Token::Identifier) {
@@ -184,7 +183,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/raiseevent-statement)
-    pub(super) fn parse_raiseevent_statement(&mut self) {
+    pub(crate) fn parse_raiseevent_statement(&mut self) {
         // if we are now parsing a raiseevent statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -206,7 +205,7 @@ impl Parser<'_> {
     /// - Set objectVar = [New] objectExpression
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement)
-    pub(super) fn parse_set_statement(&mut self) {
+    pub(crate) fn parse_set_statement(&mut self) {
         // if we are now parsing a set statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -234,7 +233,7 @@ impl Parser<'_> {
     /// ```
     ///
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/with-statement)
-    pub(super) fn parse_with_statement(&mut self) {
+    pub(crate) fn parse_with_statement(&mut self) {
         // if we are now parsing a with statement, we are no longer in the header.
         self.parsing_header = false;
 
@@ -271,7 +270,7 @@ impl Parser<'_> {
     }
 
     /// Check if the current token is a statement keyword that `parse_statement` can handle.
-    pub(super) fn is_statement_keyword(&self) -> bool {
+    pub(crate) fn is_statement_keyword(&self) -> bool {
         matches!(
             self.current_token(),
             Some(
@@ -285,7 +284,7 @@ impl Parser<'_> {
 
     /// This is a centralized statement dispatcher that handles all VB6 statement types
     /// defined in this module (object manipulation statements).
-    pub(super) fn parse_statement(&mut self) {
+    pub(crate) fn parse_statement(&mut self) {
         match self.current_token() {
             Some(Token::CallKeyword) => {
                 self.parse_call_statement();

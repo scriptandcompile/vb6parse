@@ -10,33 +10,33 @@ use std::num::NonZeroUsize;
 
 impl Parser<'_> {
     /// Check if we've reached the end of the token stream.
-    pub(super) fn is_at_end(&self) -> bool {
+    pub(crate) fn is_at_end(&self) -> bool {
         self.pos >= self.tokens.len()
     }
 
     /// Get the current token without advancing the position.
-    pub(super) fn current_token(&self) -> Option<&Token> {
+    pub(crate) fn current_token(&self) -> Option<&Token> {
         self.tokens.get(self.pos).map(|(_, token)| token)
     }
 
     /// Check if the current token matches the given token type.
-    pub(super) fn at_token(&self, token: Token) -> bool {
+    pub(crate) fn at_token(&self, token: Token) -> bool {
         self.current_token() == Some(&token)
     }
 
     /// Peek ahead to get the next keyword (non-whitespace token).
-    pub(super) fn peek_next_keyword(&self) -> Option<Token> {
+    pub(crate) fn peek_next_keyword(&self) -> Option<Token> {
         self.peek_next_count_keywords(NonZeroUsize::new(1).unwrap())
             .next()
     }
 
     /// Check if the current token is an identifier.
-    pub(super) fn is_identifier(&self) -> bool {
+    pub(crate) fn is_identifier(&self) -> bool {
         matches!(self.current_token(), Some(Token::Identifier))
     }
 
     /// Check if the current token is a keyword.
-    pub(super) fn at_keyword(&self) -> bool {
+    pub(crate) fn at_keyword(&self) -> bool {
         match self.current_token() {
             Some(token) => token.is_keyword(),
             None => false,
@@ -44,7 +44,7 @@ impl Parser<'_> {
     }
 
     /// Check if the current token is a number (any numeric literal type).
-    pub(super) fn is_number(&self) -> bool {
+    pub(crate) fn is_number(&self) -> bool {
         matches!(
             self.current_token(),
             Some(
@@ -64,7 +64,7 @@ impl Parser<'_> {
     ///
     /// # Returns
     /// An iterator over the next `count` keywords (non-whitespace tokens)
-    pub(super) fn peek_next_count_keywords(
+    pub(crate) fn peek_next_count_keywords(
         &self,
         count: NonZeroUsize,
     ) -> impl Iterator<Item = Token> + '_ {
@@ -77,7 +77,7 @@ impl Parser<'_> {
     }
 
     /// Peek ahead and get the next `count` tokens (including whitespace) from the current position.
-    pub(super) fn peek_next_count_tokens(
+    pub(crate) fn peek_next_count_tokens(
         &self,
         count: NonZeroUsize,
     ) -> impl Iterator<Item = Token> + '_ {
@@ -89,13 +89,13 @@ impl Parser<'_> {
     }
 
     /// Peek ahead to get the next token (including whitespace).
-    pub(super) fn peek_next_token(&self) -> Option<Token> {
+    pub(crate) fn peek_next_token(&self) -> Option<Token> {
         self.peek_next_count_tokens(NonZeroUsize::new(1).unwrap())
             .next()
     }
 
     /// Consume the current token and advance to the next position.
-    pub(super) fn consume_token(&mut self) {
+    pub(crate) fn consume_token(&mut self) {
         if let Some((text, token)) = self.tokens.get(self.pos) {
             let kind = SyntaxKind::from(*token);
             self.builder.token(kind.to_raw(), text);
@@ -105,7 +105,7 @@ impl Parser<'_> {
 
     /// Check if the current token is a keyword or identifier followed by `DollarSign`.
     /// This pattern represents functions like `Error$`, `Mid$`, `Len$`, `UCase$`, `LCase$`.
-    pub(super) fn at_keyword_dollar(&self) -> bool {
+    pub(crate) fn at_keyword_dollar(&self) -> bool {
         // Check for specific keywords that have $ variants
         let is_dollar_keyword = matches!(
             self.current_token(),
@@ -170,7 +170,7 @@ impl Parser<'_> {
 
     /// Consume keyword/identifier + `DollarSign` as a merged Identifier token.
     /// This merges tokens like `Error` + `$`, `Len` + `$`, `Mid` + `$`, etc. into single identifiers.
-    pub(super) fn consume_keyword_dollar_as_identifier(&mut self) {
+    pub(crate) fn consume_keyword_dollar_as_identifier(&mut self) {
         if self.at_keyword_dollar() {
             // Get the text of both tokens
             let first_text = self.tokens.get(self.pos).map_or("", |(text, _)| *text);
@@ -195,7 +195,7 @@ impl Parser<'_> {
     /// - If the current token is `ErrorKeyword` followed by `DollarSign`, they are merged into "Error$"
     /// - If the current token is an Identifier (like `Len`, `Mid`, `UCase`, `LCase`) followed by `DollarSign`,
     ///   they are merged into a single identifier (e.g., `Len$`, `Mid$`, `UCase$`, `LCase$`)
-    pub(super) fn consume_token_as_identifier(&mut self) {
+    pub(crate) fn consume_token_as_identifier(&mut self) {
         // Check for keyword/identifier + $ special cases
         if self.at_keyword_dollar() {
             self.consume_keyword_dollar_as_identifier();
@@ -210,7 +210,7 @@ impl Parser<'_> {
 
     /// Consume all whitespace tokens at the current position.
     /// Also consumes line continuations (underscore followed by newline).
-    pub(super) fn consume_whitespace(&mut self) {
+    pub(crate) fn consume_whitespace(&mut self) {
         loop {
             if self.at_token(Token::Whitespace) {
                 self.consume_token();
@@ -249,7 +249,7 @@ impl Parser<'_> {
     }
 
     /// Consume the current token as an Unknown token.
-    pub(super) fn consume_token_as_unknown(&mut self) {
+    pub(crate) fn consume_token_as_unknown(&mut self) {
         if let Some((text, _)) = self.tokens.get(self.pos) {
             self.builder.token(SyntaxKind::Unknown.to_raw(), text);
             self.pos += 1;
@@ -264,7 +264,7 @@ impl Parser<'_> {
     ///
     /// # Arguments
     /// * `target` - The token to stop at (will not be consumed)
-    pub(super) fn consume_until(&mut self, target: Token) {
+    pub(crate) fn consume_until(&mut self, target: Token) {
         while !self.is_at_end() && !self.at_token(target) {
             // Check for keyword/identifier + $ pattern and merge it
             if self.at_keyword_dollar() {
@@ -307,7 +307,7 @@ impl Parser<'_> {
     ///
     /// # Arguments
     /// * `target` - The token to stop at and consume
-    pub(super) fn consume_until_after(&mut self, target: Token) {
+    pub(crate) fn consume_until_after(&mut self, target: Token) {
         self.consume_until(target);
         if self.at_token(target) {
             self.consume_token();
