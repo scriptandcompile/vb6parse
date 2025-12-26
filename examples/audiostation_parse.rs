@@ -3,7 +3,7 @@
 
 use std::env;
 use vb6parse::parsers::project::ProjectFile;
-use vb6parse::SourceFile;
+use vb6parse::io::SourceFile;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let current_directory = env::current_dir()?;

@@ -4,8 +4,8 @@
 //! Concrete Syntax Tree (CST) that represents VB6 code structure.
 
 use vb6parse::language::Token;
+use vb6parse::lexer::TokenStream;
 use vb6parse::parsers::cst::parse;
-use vb6parse::tokenstream::TokenStream;
 
 fn main() {
     // Create a token stream representing a simple VB6 subroutine

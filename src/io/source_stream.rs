@@ -7,14 +7,14 @@
 //!
 //! # Example
 //! ```rust
-//! use vb6parse::SourceStream;
+//! use vb6parse::io::SourceStream;
 //!
 //! let source_stream = SourceStream::new("example.bas", "Dim x As Integer");
 //! assert_eq!(source_stream.peek(3), Some("Dim"));
 //! ```
 //!
 //! # See Also
-//! - [`SourceFile`](crate::sourcefile::SourceFile): for reading and decoding source files
+//! - [`SourceFile`](crate::io::SourceFile): for reading and decoding source files
 //! - [`ErrorDetails`]: for error handling details
 
 use std::fmt::Debug;

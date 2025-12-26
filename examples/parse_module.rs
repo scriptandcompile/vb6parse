@@ -1,5 +1,5 @@
 use vb6parse::parsers::ModuleFile;
-use vb6parse::SourceFile;
+use vb6parse::io::SourceFile;
 
 /// Example showing how to parse a VB6 module file from raw bytes.
 /// This example uses a hardcoded byte array, but in a real application,

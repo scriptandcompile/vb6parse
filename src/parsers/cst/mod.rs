@@ -27,7 +27,7 @@
 //! ```rust
 //! use vb6parse::language::Token;
 //! use vb6parse::parsers::cst::parse;
-//! use vb6parse::tokenstream::TokenStream;
+//! use vb6parse::lexer::TokenStream;
 //!
 //! // Create a token stream
 //! let tokens = vec![
@@ -58,14 +58,12 @@
 
 use std::num::NonZeroUsize;
 
+use crate::io::{SourceFile, SourceStream};
 use crate::language::Token;
+use crate::lexer::{tokenize, TokenStream};
 use crate::parsers::SyntaxKind;
-use crate::tokenize::tokenize;
-use crate::tokenstream::TokenStream;
 use crate::CodeErrorKind;
 use crate::ParseResult;
-use crate::SourceFile;
-use crate::SourceStream;
 
 use rowan::{GreenNode, GreenNodeBuilder, Language};
 use serde::Serialize;
@@ -343,7 +341,7 @@ impl ConcreteSyntaxTree {
 /// # Example
 ///
 /// ```rust
-/// use vb6parse::tokenstream::TokenStream;
+/// use vb6parse::lexer::TokenStream;
 /// use vb6parse::parsers::cst::parse;
 ///
 /// let tokens = TokenStream::new("example.bas".to_string(), vec![]);

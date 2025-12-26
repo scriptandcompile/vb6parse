@@ -1,5 +1,6 @@
-use vb6parse::tokenize::tokenize;
-use vb6parse::{parsers::cst::parse, SourceFile};
+use vb6parse::io::SourceFile;
+use vb6parse::lexer::tokenize;
+use vb6parse::parsers::cst::parse;
 
 fn main() {
     let source = b"VERSION 5.00

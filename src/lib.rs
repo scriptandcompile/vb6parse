@@ -180,19 +180,15 @@
 //! ```
 
 pub mod errors;
+pub mod io;
 pub mod language;
+pub mod lexer;
 pub mod parsers;
-pub mod sourcefile;
-pub mod sourcestream;
-pub mod tokenize;
-pub mod tokenstream;
 
 pub use crate::errors::*;
+pub use crate::io::{SourceFile, SourceStream};
 pub use crate::language::*;
+pub use crate::lexer::{tokenize, TokenStream};
 pub use crate::parsers::parse;
 pub use crate::parsers::*;
 pub use crate::parsers::{ConcreteSyntaxTree, SerializableTree, SyntaxKind};
-pub use crate::sourcefile::*;
-pub use crate::sourcestream::SourceStream;
-pub use crate::tokenize::tokenize;
-pub use crate::tokenstream::TokenStream;

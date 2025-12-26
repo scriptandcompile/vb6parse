@@ -1,5 +1,5 @@
 use vb6parse::parsers::FormFile;
-use vb6parse::SourceFile;
+use vb6parse::io::SourceFile;
 
 #[test]
 fn artificial_life_form_load() {
