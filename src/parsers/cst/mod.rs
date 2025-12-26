@@ -411,6 +411,13 @@ impl<'a> Parser<'a> {
     // ==================== Direct Extraction Helpers ====================
     // These methods support direct extraction without CST building
 
+    /// Consume the parser and return the remaining tokens
+    /// Used to get tokens after direct extraction for CST building
+    pub(crate) fn into_tokens(self) -> Vec<(&'a str, Token)> {
+        // Return tokens from current position onwards
+        self.tokens[self.pos..].to_vec()
+    }
+
     /// Skip whitespace tokens without consuming them into the CST
     pub(crate) fn skip_whitespace(&mut self) {
         while self.at_token(Token::Whitespace) {
@@ -729,6 +736,142 @@ impl<'a> Parser<'a> {
         };
 
         (name, guid)
+    }
+
+    /// Parse Object statements directly (without CST)
+    /// Phase 5: Direct extraction of Object references
+    pub(crate) fn parse_objects_direct(&mut self) -> Vec<crate::parsers::ObjectReference> {
+        let mut objects = Vec::new();
+
+        self.skip_whitespace_and_newlines();
+
+        // Continue parsing Object statements until we hit something else
+        while self.at_token(Token::ObjectKeyword) {
+            if let Some(obj_ref) = self.parse_single_object_direct() {
+                objects.push(obj_ref);
+            }
+            self.skip_whitespace_and_newlines();
+        }
+
+        objects
+    }
+
+    /// Parse a single Object statement line
+    /// Format: Object = "{UUID}#version#flags"; "filename"
+    /// Or:     Object = *\G{UUID}#version#flags; "filename"
+    fn parse_single_object_direct(&mut self) -> Option<crate::parsers::ObjectReference> {
+        use crate::parsers::ObjectReference;
+
+        // Expect "Object" keyword
+        if !self.at_token(Token::ObjectKeyword) {
+            return None;
+        }
+        self.consume_advance(); // Object
+        self.skip_whitespace();
+
+        // Expect "="
+        if !self.at_token(Token::EqualityOperator) {
+            return None;
+        }
+        self.consume_advance(); // =
+        self.skip_whitespace();
+
+        // Check for optional "*\G" prefix (embedded object)
+        let mut _is_embedded = false;
+        if self.at_token(Token::MultiplicationOperator) {
+            self.consume_advance(); // *
+            // Expect \G (backslash followed by identifier "G")
+            if let Some((_text, token)) = self.tokens.get(self.pos) {
+                if *token == Token::BackwardSlashOperator {
+                    self.consume_advance(); // \
+                    if let Some((text2, token2)) = self.tokens.get(self.pos) {
+                        if *token2 == Token::Identifier && text2.eq_ignore_ascii_case("G") {
+                            self.consume_advance(); // G
+                            _is_embedded = true;
+                        }
+                    }
+                }
+            }
+        }
+        self.skip_whitespace();
+
+        // Parse first string literal or GUID tokens: "{UUID}#version#flags"
+        // The GUID may be tokenized as:
+        //   - A StringLiteral: "{UUID}#version#flags"
+        //   - Individual tokens: { UUID-parts } # version # flags
+        let uuid_part = if let Some((text, token)) = self.tokens.get(self.pos) {
+            if *token == Token::StringLiteral {
+                // String literal format
+                let s = text.trim_matches('"').to_string();
+                self.consume_advance();
+                s
+            } else if *token == Token::LeftCurlyBrace {
+                // Token format: { guid-parts } #version# flags
+                // Collect all tokens until semicolon
+                let mut parts: Vec<&str> = Vec::new();
+                while !self.is_at_end() && !self.at_token(Token::Semicolon) {
+                    if let Some((text, token)) = self.tokens.get(self.pos) {
+                        // Skip whitespace but collect everything else
+                        if *token != Token::Whitespace {
+                            parts.push(text);
+                        }
+                        self.consume_advance();
+                    } else {
+                        break;
+                    }
+                }
+                // Reconstruct the UUID part string
+                // Need to convert: { ... } #version# flags -> {UUID}#version#flags
+                parts.concat()
+            } else {
+                return None;
+            }
+        } else {
+            return None;
+        };
+
+        self.skip_whitespace();
+
+        // Expect semicolon
+        if !self.at_token(Token::Semicolon) {
+            return None;
+        }
+        self.consume_advance(); // ;
+        self.skip_whitespace();
+
+        // Parse second string literal: filename
+        let file_name = if let Some((text, token)) = self.tokens.get(self.pos) {
+            if *token == Token::StringLiteral {
+                let s = text.trim_matches('"').to_string();
+                self.consume_advance();
+                s
+            } else {
+                return None;
+            }
+        } else {
+            return None;
+        };
+
+        // Parse UUID part: {UUID}#version#flags or UUID#version#flags
+        let parts: Vec<&str> = uuid_part.split('#').collect();
+        if parts.len() >= 3 {
+            // Extract UUID (remove braces if present)
+            let uuid_str = parts[0].trim_matches(|c| c == '{' || c == '}');
+
+            if let Ok(uuid) = uuid::Uuid::parse_str(uuid_str) {
+                let version = parts[1].to_string();
+                let unknown1 = parts[2].to_string();
+
+                return Some(ObjectReference::Compiled {
+                    uuid,
+                    version,
+                    unknown1,
+                    file_name,
+                });
+            }
+        }
+
+        None
     }
 
     /// Build `ControlKind` from control type string and properties
@@ -1997,6 +2140,98 @@ End
             assert!(property_groups[0].guid.is_some());
         } else {
             panic!("Expected Custom control kind");
+        }
+    }
+
+    // Phase 5 Tests: Direct Object Parsing
+    #[test]
+    fn parse_simple_object_statement() {
+        let source = r#"Object = "{12345678-1234-1234-1234-123456789ABC}#1.0#0"; "MyLib.dll""#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let objects = parser.parse_objects_direct();
+
+        assert_eq!(objects.len(), 1);
+        match &objects[0] {
+            crate::parsers::ObjectReference::Compiled {
+                uuid,
+                version,
+                unknown1,
+                file_name,
+            } => {
+                assert_eq!(
+                    uuid.to_string().to_uppercase(),
+                    "12345678-1234-1234-1234-123456789ABC"
+                );
+                assert_eq!(version, "1.0");
+                assert_eq!(unknown1, "0");
+                assert_eq!(file_name, "MyLib.dll");
+            }
+            _ => panic!("Expected Compiled object reference"),
+        }
+    }
+
+    #[test]
+    fn parse_multiple_object_statements() {
+        let source = r#"Object = "{AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA}#1.0#0"; "Lib1.dll"
+Object = "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}#2.0#1"; "Lib2.ocx"
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let objects = parser.parse_objects_direct();
+
+        assert_eq!(objects.len(), 2);
+        
+        match &objects[0] {
+            crate::parsers::ObjectReference::Compiled { file_name, .. } => {
+                assert_eq!(file_name, "Lib1.dll");
+            }
+            _ => panic!("Expected Compiled object reference"),
+        }
+
+        match &objects[1] {
+            crate::parsers::ObjectReference::Compiled { file_name, .. } => {
+                assert_eq!(file_name, "Lib2.ocx");
+            }
+            _ => panic!("Expected Compiled object reference"),
+        }
+    }
+
+    #[test]
+    fn parse_embedded_object_statement() {
+        let source = r#"Object = *\G{87654321-4321-4321-4321-CBA987654321}#3.0#5; "Embedded.ocx""#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let objects = parser.parse_objects_direct();
+
+        assert_eq!(objects.len(), 1);
+        match &objects[0] {
+            crate::parsers::ObjectReference::Compiled {
+                uuid,
+                version,
+                file_name,
+                ..
+            } => {
+                assert_eq!(
+                    uuid.to_string().to_uppercase(),
+                    "87654321-4321-4321-4321-CBA987654321"
+                );
+                assert_eq!(version, "3.0");
+                assert_eq!(file_name, "Embedded.ocx");
+            }
+            _ => panic!("Expected Compiled object reference"),
         }
     }
 
