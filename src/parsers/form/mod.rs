@@ -82,6 +82,7 @@ impl Display for FormFile {
 /// or
 ///
 /// `Object = *\G{UUID}#version#flags; "filename"`
+#[allow(dead_code)]
 fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
     let mut objects = Vec::new();
 
@@ -156,6 +157,7 @@ fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
 ///
 /// Recursively processes BEGIN...END blocks (`PropertiesBlock` nodes) to build
 /// a hierarchy of `VB6Control` structures.
+#[allow(dead_code)]
 fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
     // Find the first PropertiesBlock (should be the form)
     let properties_blocks: Vec<_> = cst
@@ -175,6 +177,7 @@ fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
 /// Extracts a `VB6Control` from a `PropertiesBlock` CST node.
 ///
 /// Recursively processes nested `PropertiesBlock` nodes for child controls.
+#[allow(dead_code)]
 fn extract_properties_block(block: &CstNode) -> Control {
     // Extract the type and name from the PropertiesBlock
     let mut control_type = String::new();
@@ -345,6 +348,7 @@ fn extract_properties_block(block: &CstNode) -> Control {
 /// Extracts a `MenuControl` from a `PropertiesBlock` CST node.
 ///
 /// Recursively processes nested `PropertiesBlock` nodes for sub-menus.
+#[allow(dead_code)]
 fn extract_menu_control(block: &CstNode) -> MenuControl {
     // Extract the name and properties from the menu block
     let mut menu_name = String::new();
@@ -402,6 +406,7 @@ fn extract_menu_control(block: &CstNode) -> MenuControl {
 }
 
 /// Extracts a `PropertyGroup` from a `PropertyGroup` CST node.
+#[allow(dead_code)]
 fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
     let mut name = String::new();
     let mut guid: Option<Uuid> = None;
@@ -467,6 +472,7 @@ fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
 }
 
 /// Extracts a key-value pair from a Property CST node.
+#[allow(dead_code)]
 fn extract_property(property_node: &CstNode) -> Option<(String, String)> {
     let mut key = String::new();
     let mut value = String::new();
