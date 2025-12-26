@@ -408,6 +408,110 @@ impl<'a> Parser<'a> {
         }
     }
 
+    // ==================== Direct Extraction Helpers ====================
+    // These methods support direct extraction without CST building
+
+    /// Skip whitespace tokens without consuming them into the CST
+    pub(crate) fn skip_whitespace(&mut self) {
+        while self.at_token(Token::Whitespace) {
+            self.pos += 1;
+        }
+    }
+
+    /// Skip whitespace and newline tokens without consuming them into the CST
+    pub(crate) fn skip_whitespace_and_newlines(&mut self) {
+        while self.at_token(Token::Whitespace) || self.at_token(Token::Newline) {
+            self.pos += 1;
+        }
+    }
+
+    /// Consume and advance past the current token without adding to CST
+    /// Returns the consumed token for inspection
+    pub(crate) fn consume_advance(&mut self) -> Option<(&'a str, Token)> {
+        if self.pos < self.tokens.len() {
+            let token = self.tokens[self.pos];
+            self.pos += 1;
+            Some(token)
+        } else {
+            None
+        }
+    }
+
+    // ==================== Direct Extraction Methods ====================
+
+    /// Parse VERSION statement directly without building CST
+    ///
+    /// Extracts the file format version (e.g., \"VERSION 5.00\") by directly
+    /// parsing tokens without CST construction overhead.
+    ///
+    /// # Returns
+    ///
+    /// A `ParseResult` containing:
+    /// - `result`: `Some(FileFormatVersion)` if found and valid, `None` if not present or invalid
+    /// - `failures`: Empty vec (no errors generated for missing VERSION)
+    ///
+    /// # Example
+    ///
+    /// ```ignore
+    /// let mut parser = Parser::new_direct_extraction(tokens, 0);
+    /// let result = parser.parse_version_direct();
+    /// if let Some(version) = result.result {
+    ///     println!(\"Version: {}.{}\", version.major, version.minor);
+    /// }
+    /// ```
+    pub(crate) fn parse_version_direct(
+        &mut self,
+    ) -> crate::ParseResult<'a, crate::parsers::FileFormatVersion, crate::errors::FormErrorKind>
+    {
+        use crate::parsers::FileFormatVersion;
+
+        self.skip_whitespace();
+
+        // Check if VERSION keyword is present
+        if !self.at_token(Token::VersionKeyword) {
+            return crate::ParseResult::new(None, Vec::new());
+        }
+
+        self.consume_advance(); // VERSION keyword
+        self.skip_whitespace();
+
+        // Parse version number (e.g., \"5.00\" or \"1.0\")
+        let version_result = if let Some((text, token)) = self.tokens.get(self.pos) {
+            match token {
+                Token::SingleLiteral | Token::DoubleLiteral | Token::IntegerLiteral => {
+                    let version_str = text.trim();
+                    self.consume_advance();
+
+                    // Parse \"major.minor\" format
+                    let parts: Vec<&str> = version_str.split('.').collect();
+                    if parts.len() == 2 {
+                        if let (Ok(major), Ok(minor)) =
+                            (parts[0].parse::<u8>(), parts[1].parse::<u8>())
+                        {
+                            Some(FileFormatVersion { major, minor })
+                        } else {
+                            None
+                        }
+                    } else {
+                        None
+                    }
+                }
+                _ => None,
+            }
+        } else {
+            None
+        };
+
+        // Skip optional CLASS keyword and trailing whitespace
+        self.skip_whitespace();
+        if self.at_token(Token::ClassKeyword) {
+            self.consume_advance();
+        }
+        self.skip_whitespace_and_newlines();
+
+        crate::ParseResult::new(version_result, Vec::new())
+    }
+
     /// Parse a complete module/class/form (the top-level structure)
     ///
     /// This function loops through all tokens and identifies what kind of
@@ -1096,5 +1200,144 @@ mod test {
         let parser = Parser::new_direct_extraction(tokens, 3);
         assert_eq!(parser.pos, 3);
         assert_eq!(parser.mode, ParserMode::DirectExtraction);
+    }
+
+    // Phase 2 Tests: VERSION Parsing
+
+    #[test]
+    fn parse_version_direct_with_version() {
+        let source = "VERSION 5.00\nSub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (version_opt, failures) = parser.parse_version_direct().unpack();
+
+        assert!(version_opt.is_some());
+        let version = version_opt.unwrap();
+        assert_eq!(version.major, 5);
+        assert_eq!(version.minor, 0);
+        assert!(failures.is_empty());
+    }
+
+    #[test]
+    fn parse_version_direct_without_version() {
+        let source = "Sub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.bas".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (version_opt, failures) = parser.parse_version_direct().unpack();
+
+        assert!(version_opt.is_none());
+        assert!(failures.is_empty());
+    }
+
+    #[test]
+    fn parse_version_direct_with_class_keyword() {
+        let source = "VERSION 1.0 CLASS\nSub Test()\nEnd Sub\n";
+        let mut stream = SourceStream::new("test.cls".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (version_opt, failures) = parser.parse_version_direct().unpack();
+
+        assert!(version_opt.is_some());
+        let version = version_opt.unwrap();
+        assert_eq!(version.major, 1);
+        assert_eq!(version.minor, 0);
+        assert!(failures.is_empty());
+    }
+
+    #[test]
+    fn parse_version_direct_version_100() {
+        let source = "VERSION 1.00\n";
+        let mut stream = SourceStream::new("test.cls".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (version_opt, _failures) = parser.parse_version_direct().unpack();
+
+        assert!(version_opt.is_some());
+        let version = version_opt.unwrap();
+        assert_eq!(version.major, 1);
+        assert_eq!(version.minor, 0);
+    }
+
+    #[test]
+    fn parse_version_direct_with_whitespace() {
+        let source = "  VERSION   5.00  \nSub Test()\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (version_opt, _failures) = parser.parse_version_direct().unpack();
+
+        assert!(version_opt.is_some());
+        let version = version_opt.unwrap();
+        assert_eq!(version.major, 5);
+        assert_eq!(version.minor, 0);
+    }
+
+    #[test]
+    fn parse_version_direct_position_advances() {
+        let source = "VERSION 5.00\nBegin VB.Form Form1\nEnd\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let initial_pos = parser.pos;
+        let _result = parser.parse_version_direct();
+
+        // Position should have advanced past VERSION statement
+        assert!(parser.pos > initial_pos);
+
+        // Should now be positioned at Begin keyword
+        assert_eq!(parser.current_token(), Some(&Token::BeginKeyword));
+    }
+
+    #[test]
+    fn parse_version_direct_accuracy() {
+        let test_cases = vec![
+            ("VERSION 5.00\n", Some((5, 0))),
+            ("VERSION 1.0\n", Some((1, 0))),
+            ("VERSION 6.00 CLASS\n", Some((6, 0))),
+            ("VERSION 4.00\n", Some((4, 0))),
+            ("Sub Test()\n", None), // No VERSION
+        ];
+
+        for (source, expected) in test_cases {
+            let mut stream = SourceStream::new("test.vb".to_string(), source);
+            let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+            let token_stream = token_stream_opt.expect("Tokenization failed");
+            let tokens = token_stream.into_tokens();
+
+            let mut parser = Parser::new_direct_extraction(tokens, 0);
+            let (version_opt, _failures) = parser.parse_version_direct().unpack();
+
+            match expected {
+                Some((major, minor)) => {
+                    assert!(version_opt.is_some(), "Expected version for: {}", source);
+                    let version = version_opt.unwrap();
+                    assert_eq!(version.major, major, "Major mismatch for: {}", source);
+                    assert_eq!(version.minor, minor, "Minor mismatch for: {}", source);
+                }
+                None => {
+                    assert!(version_opt.is_none(), "Expected no version for: {}", source);
+                }
+            }
+        }
     }
 }
