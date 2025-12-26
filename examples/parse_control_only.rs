@@ -63,7 +63,7 @@ End Sub
     let source_file = match SourceFile::decode_with_replacement("example.frm", form_content) {
         Ok(sf) => sf,
         Err(e) => {
-            eprintln!("Failed to decode source file: {:?}", e);
+            eprintln!("Failed to decode source file: {e:?}");
             return;
         }
     };
@@ -78,17 +78,14 @@ End Sub
     if !tok_failures.is_empty() {
         println!("Tokenization failures encountered:");
         for failure in &tok_failures {
-            println!("  - {:?}", failure);
+            println!("  - {failure:?}");
         }
         println!();
     }
 
-    let token_stream = match token_stream_opt {
-        Some(ts) => ts,
-        None => {
-            eprintln!("Tokenization failed");
-            return;
-        }
+    let Some(token_stream) = token_stream_opt else {
+        eprintln!("Tokenization failed");
+        return;
     };
 
     // Parse only the control (fast path - skips code section)
@@ -101,7 +98,7 @@ End Sub
     if !failures.is_empty() {
         println!("Parsing failures encountered:");
         for failure in &failures {
-            println!("  - {:?}", failure);
+            println!("  - {failure:?}");
         }
         println!();
     }
@@ -221,9 +218,9 @@ fn get_child_controls(
     kind: &vb6parse::language::ControlKind,
 ) -> Option<&Vec<vb6parse::language::Control>> {
     match kind {
-        vb6parse::language::ControlKind::Form { controls, .. } => Some(controls),
-        vb6parse::language::ControlKind::Frame { controls, .. } => Some(controls),
-        vb6parse::language::ControlKind::PictureBox { controls, .. } => Some(controls),
+        vb6parse::language::ControlKind::Form { controls, .. }
+        | vb6parse::language::ControlKind::Frame { controls, .. }
+        | vb6parse::language::ControlKind::PictureBox { controls, .. } => Some(controls),
         _ => None,
     }
 }
