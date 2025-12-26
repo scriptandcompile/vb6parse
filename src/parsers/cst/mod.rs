@@ -355,22 +355,12 @@ pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     parser.parse_root()
 }
 
-/// Parser mode determines whether to build a full CST or extract structures directly
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum ParserMode {
-    /// Build full CST including VERSION, control, attributes, and code
-    FullCst,
-    /// Extract structures directly without CST building
-    DirectExtraction,
-}
-
 /// Internal parser state for building the CST
 pub(crate) struct Parser<'a> {
     pub(crate) tokens: Vec<(&'a str, Token)>,
     pub(crate) pos: usize,
     builder: GreenNodeBuilder<'static>,
     parsing_header: bool,
-    mode: ParserMode,
 }
 
 impl<'a> Parser<'a> {
@@ -380,7 +370,6 @@ impl<'a> Parser<'a> {
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
-            mode: ParserMode::FullCst,
         }
     }
 
@@ -391,7 +380,6 @@ impl<'a> Parser<'a> {
             pos,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
-            mode: ParserMode::DirectExtraction,
         }
     }
 
@@ -1233,6 +1221,7 @@ impl<'a> Parser<'a> {
                     let is_resource_reference = value.contains(':')
                         && value
                             .split(':')
+                            .last()
                             .map_or(false, |part| part.chars().all(|c| c.is_ascii_digit()));
 
                     let cleaned_value = if !is_resource_reference
@@ -1740,7 +1729,7 @@ impl<'a> Parser<'a> {
 
 #[cfg(test)]
 mod test {
-    use super::{Parser, ParserMode};
+    use super::Parser;
     use crate::*;
 
     #[test]
@@ -1918,7 +1907,8 @@ mod test {
         let token_stream = token_stream_opt.expect("Tokenization failed");
 
         let parser = Parser::new(token_stream);
-        assert_eq!(parser.mode, ParserMode::FullCst);
+        // Verify parser was created successfully
+        assert_eq!(parser.pos, 0);
     }
 
     #[test]
@@ -1930,7 +1920,6 @@ mod test {
         let tokens = token_stream.into_tokens();
 
         let parser = Parser::new_direct_extraction(tokens, 0);
-        assert_eq!(parser.mode, ParserMode::DirectExtraction);
         assert_eq!(parser.pos, 0);
     }
 
@@ -1960,7 +1949,6 @@ mod test {
         // Create parser starting at position 3 (after VERSION keyword, whitespace, and version number)
         let parser = Parser::new_direct_extraction(tokens, 3);
         assert_eq!(parser.pos, 3);
-        assert_eq!(parser.mode, ParserMode::DirectExtraction);
     }
 
     // Phase 2 Tests: VERSION Parsing
