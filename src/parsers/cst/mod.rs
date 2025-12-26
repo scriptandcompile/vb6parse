@@ -512,6 +512,219 @@ impl<'a> Parser<'a> {
         crate::ParseResult::new(version_result, Vec::new())
     }
 
+    // ==================== Core Control Extraction Methods ====================
+
+    /// Parse control type directly from tokens (e.g., "VB.Form", "VB.CommandButton")
+    fn parse_control_type_direct(&mut self) -> String {
+        let mut parts = Vec::new();
+
+        // Parse identifier or keyword
+        if self.is_identifier() || self.at_keyword() {
+            if let Some((text, _)) = self.tokens.get(self.pos) {
+                parts.push(text.to_string());
+                self.consume_advance();
+            }
+        }
+
+        // Parse dot-separated parts (e.g., "VB.Form")
+        while self.at_token(Token::PeriodOperator) {
+            self.consume_advance(); // dot
+            if self.is_identifier() || self.at_keyword() {
+                if let Some((text, _)) = self.tokens.get(self.pos) {
+                    parts.push(".".to_string());
+                    parts.push(text.to_string());
+                    self.consume_advance();
+                }
+            }
+        }
+
+        parts.join("")
+    }
+
+    /// Parse control name directly from tokens
+    fn parse_control_name_direct(&mut self) -> String {
+        if self.is_identifier() || self.at_keyword() {
+            if let Some((text, _)) = self.tokens.get(self.pos) {
+                let name = text.to_string();
+                self.consume_advance();
+                return name;
+            }
+        }
+        String::new()
+    }
+
+    /// Parse a property assignment (Key = Value) directly from tokens
+    /// Returns (key, value) tuple
+    fn parse_property_direct(&mut self) -> Option<(String, String)> {
+        // Parse property key
+        let key = if self.is_identifier() || self.at_keyword() {
+            if let Some((text, _)) = self.tokens.get(self.pos) {
+                let k = text.to_string();
+                self.consume_advance();
+                k
+            } else {
+                return None;
+            }
+        } else {
+            return None;
+        };
+
+        self.skip_whitespace();
+
+        // Parse = sign
+        if !self.at_token(Token::EqualityOperator) {
+            return None;
+        }
+        self.consume_advance();
+        self.skip_whitespace();
+
+        // Parse value (everything until newline/colon)
+        let mut value_parts = Vec::new();
+        while !self.is_at_end()
+            && !self.at_token(Token::Newline)
+            && !self.at_token(Token::ColonOperator)
+        {
+            if let Some((text, _)) = self.tokens.get(self.pos) {
+                value_parts.push(text.to_string());
+                self.consume_advance();
+            } else {
+                break;
+            }
+        }
+
+        // Skip newline
+        self.skip_whitespace_and_newlines();
+
+        let value = value_parts.join("").trim().to_string();
+        Some((key, value))
+    }
+
+    /// Build `ControlKind` from control type string and properties
+    fn build_control_kind(
+        control_type: &str,
+        properties: crate::Properties,
+        child_controls: Vec<crate::language::Control>,
+        menus: Vec<crate::language::MenuControl>,
+    ) -> crate::language::ControlKind {
+        use crate::language::ControlKind;
+
+        match control_type {
+            "VB.Form" => ControlKind::Form {
+                properties: properties.into(),
+                controls: child_controls,
+                menus,
+            },
+            "VB.MDIForm" => ControlKind::MDIForm {
+                properties: properties.into(),
+                controls: child_controls,
+                menus,
+            },
+            "VB.CommandButton" => ControlKind::CommandButton {
+                properties: properties.into(),
+            },
+            "VB.TextBox" => ControlKind::TextBox {
+                properties: properties.into(),
+            },
+            "VB.Label" => ControlKind::Label {
+                properties: properties.into(),
+            },
+            "VB.CheckBox" => ControlKind::CheckBox {
+                properties: properties.into(),
+            },
+            "VB.ListBox" => ControlKind::ListBox {
+                properties: properties.into(),
+            },
+            "VB.Timer" => ControlKind::Timer {
+                properties: properties.into(),
+            },
+            "VB.Frame" => ControlKind::Frame {
+                properties: properties.into(),
+                controls: child_controls,
+            },
+            "VB.PictureBox" => ControlKind::PictureBox {
+                properties: properties.into(),
+                controls: child_controls,
+            },
+            _ => ControlKind::Custom {
+                properties: properties.into(),
+                property_groups: Vec::new(),
+            },
+        }
+    }
+
+    /// Parse properties block directly to Control without building CST
+    /// Phase 3: Simple implementation without nesting support
+    pub(crate) fn parse_properties_block_to_control(
+        &mut self,
+    ) -> crate::ParseResult<'a, crate::language::Control, crate::errors::FormErrorKind> {
+        use crate::language::Control;
+        use crate::Properties;
+
+        self.skip_whitespace();
+
+        // Expect BEGIN keyword
+        if !self.at_token(Token::BeginKeyword) {
+            return crate::ParseResult::new(None, Vec::new());
+        }
+
+        self.consume_advance(); // BEGIN
+        self.skip_whitespace();
+
+        // Parse control type (e.g., "VB.Form")
+        let control_type = self.parse_control_type_direct();
+        self.skip_whitespace();
+
+        // Parse control name
+        let control_name = self.parse_control_name_direct();
+        self.skip_whitespace_and_newlines();
+
+        // Parse properties until END
+        let mut properties = Properties::new();
+
+        while !self.is_at_end() && !self.at_token(Token::EndKeyword) {
+            self.skip_whitespace();
+
+            if self.at_token(Token::EndKeyword) {
+                break;
+            }
+
+            // Parse property (Key = Value)
+            if self.is_identifier() || self.at_keyword() {
+                if let Some((key, value)) = self.parse_property_direct() {
+                    properties.insert(&key, &value);
+                }
+            } else {
+                // Skip unknown token
+                self.consume_advance();
+            }
+        }
+
+        // Parse END keyword
+        if self.at_token(Token::EndKeyword) {
+            self.consume_advance();
+            self.skip_whitespace_and_newlines();
+        }
+
+        // Extract tag and index from properties
+        let tag = properties.get("Tag").cloned().unwrap_or_default();
+        let index = properties
+            .get("Index")
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(0);
+
+        // Build control kind (Phase 3: no child controls yet)
+        let kind = Self::build_control_kind(&control_type, properties, Vec::new(), Vec::new());
+
+        let control = Control {
+            name: control_name,
+            tag,
+            index,
+            kind,
+        };
+
+        crate::ParseResult::new(Some(control), Vec::new())
+    }
+
     /// Parse a complete module/class/form (the top-level structure)
     ///
     /// This function loops through all tokens and identifies what kind of
@@ -1329,15 +1542,158 @@ mod test {
 
             match expected {
                 Some((major, minor)) => {
-                    assert!(version_opt.is_some(), "Expected version for: {}", source);
+                    assert!(version_opt.is_some(), "Expected version for: {source}");
                     let version = version_opt.unwrap();
-                    assert_eq!(version.major, major, "Major mismatch for: {}", source);
-                    assert_eq!(version.minor, minor, "Minor mismatch for: {}", source);
+                    assert_eq!(version.major, major, "Major mismatch for: {source}");
+                    assert_eq!(version.minor, minor, "Minor mismatch for: {source}");
                 }
                 None => {
-                    assert!(version_opt.is_none(), "Expected no version for: {}", source);
+                    assert!(version_opt.is_none(), "Expected no version for: {source}");
                 }
             }
         }
+    }
+
+    // Phase 3 Tests: Core Control Extraction
+
+    #[test]
+    fn parse_control_type_direct_simple() {
+        let source = "VB.Form Form1\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let control_type = parser.parse_control_type_direct();
+
+        assert_eq!(control_type, "VB.Form");
+    }
+
+    #[test]
+    fn parse_control_name_direct_simple() {
+        let source = "Form1 \n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let control_name = parser.parse_control_name_direct();
+
+        assert_eq!(control_name, "Form1");
+    }
+
+    #[test]
+    fn parse_property_direct_simple() {
+        let source = "Caption = \"Hello World\"\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let property = parser.parse_property_direct();
+
+        assert!(property.is_some());
+        let (key, value) = property.unwrap();
+        assert_eq!(key, "Caption");
+        assert_eq!(value, "\"Hello World\"");
+    }
+
+    #[test]
+    fn parse_properties_block_to_control_simple_form() {
+        let source = r#"Begin VB.Form Form1
+   Caption = "Test Form"
+   ClientHeight = 3000
+   ClientWidth = 4000
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty(), "Expected no failures");
+        assert!(control_opt.is_some(), "Expected control to be parsed");
+
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Form1");
+
+        // Verify it's a Form
+        assert!(matches!(
+            control.kind,
+            crate::language::ControlKind::Form { .. }
+        ));
+    }
+
+    #[test]
+    fn parse_properties_block_to_control_command_button() {
+        let source = r#"Begin VB.CommandButton Command1
+   Caption = "Click Me"
+   Height = 495
+   Width = 1215
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(failures.is_empty());
+        assert!(control_opt.is_some());
+
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Command1");
+        assert!(matches!(
+            control.kind,
+            crate::language::ControlKind::CommandButton { .. }
+        ));
+    }
+
+    #[test]
+    fn parse_properties_block_to_control_textbox() {
+        let source = r#"Begin VB.TextBox Text1
+   Text = "Initial Text"
+   Height = 300
+   Width = 2000
+End
+"#;
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, _failures) = parser.parse_properties_block_to_control().unpack();
+
+        assert!(control_opt.is_some());
+        let control = control_opt.unwrap();
+        assert_eq!(control.name, "Text1");
+        assert!(matches!(
+            control.kind,
+            crate::language::ControlKind::TextBox { .. }
+        ));
+    }
+
+    #[test]
+    fn parse_properties_block_without_begin() {
+        let source = "Caption = \"Test\"\nEnd\n";
+        let mut stream = SourceStream::new("test.frm".to_string(), source);
+        let (token_stream_opt, _) = tokenize(&mut stream).unpack();
+        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let tokens = token_stream.into_tokens();
+
+        let mut parser = Parser::new_direct_extraction(tokens, 0);
+        let (control_opt, _failures) = parser.parse_properties_block_to_control().unpack();
+
+        // Should return None when BEGIN is missing
+        assert!(control_opt.is_none());
     }
 }
