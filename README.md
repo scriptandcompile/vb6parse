@@ -640,7 +640,32 @@ cargo fmt
 - ❌ **AST:** Not yet implemented (CST available)
 - ✅ **Testing:** 5,500+ tests across unit, integration, and doc tests
 - ✅ **Benchmarking:** Criterion-based performance testing
+- ✅ **Fuzz Testing:** Coverage-guided fuzzing with cargo-fuzz
 - ✅ **Documentation:** Comprehensive API docs and examples
+
+## Fuzz Testing
+
+VB6Parse includes comprehensive fuzz testing using `cargo-fuzz` and libFuzzer to discover edge cases, crashes, and undefined behavior.
+
+**Available Fuzz Targets:**
+- `sourcefile_decode` - Tests Windows-1252 decoding with arbitrary bytes
+- `sourcestream` - Tests low-level character stream operations
+- `tokenize` - Tests tokenization with malformed VB6 code
+
+**Quick Start:**
+
+```bash
+# Install cargo-fuzz (requires nightly)
+cargo install cargo-fuzz
+
+# Run a fuzzer for 60 seconds
+cargo +nightly fuzz run sourcefile_decode -- -max_total_time=60
+
+# List all fuzz targets
+cargo +nightly fuzz list
+```
+
+**Learn More:** See [fuzz/README.md](fuzz/README.md) for detailed usage and [Fuzzing.md](Fuzzing.md) for the complete fuzzing strategy.
 
 ## Examples
 
