@@ -605,6 +605,10 @@ cargo bench bulk_parser_load
 
 **See also:** [benches/](benches/)
 
+## Contributing
+
+Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
+
 ## Contributing to VB6Parse
 
 ### Development Setup
