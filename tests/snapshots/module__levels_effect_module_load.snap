@@ -605,14 +605,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "R = Color1 Mod 256\r\n"
+                text: "    R = Color1 Mod 256\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: R
                     is_token: false
@@ -669,14 +669,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "G = (Color1 \\ 256) And 255\r\n"
+                text: "    G = (Color1 \\ 256) And 255\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: G
                     is_token: false
@@ -769,14 +769,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "B = (Color1 \\ 65536) And 255\r\n"
+                text: "    B = (Color1 \\ 65536) And 255\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: B
                     is_token: false
@@ -869,14 +869,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "R2 = Color2 Mod 256\r\n"
+                text: "    R2 = Color2 Mod 256\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: R2
                     is_token: false
@@ -933,14 +933,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "G2 = (Color2 \\ 256) And 255\r\n"
+                text: "    G2 = (Color2 \\ 256) And 255\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: G2
                     is_token: false
@@ -1033,14 +1033,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "B2 = (Color2 \\ 65536) And 255\r\n"
+                text: "    B2 = (Color2 \\ 65536) And 255\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: B2
                     is_token: false
@@ -1337,14 +1337,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iWidth = DstObject.ScaleWidth\r\n"
+                text: "    iWidth = DstObject.ScaleWidth\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: iWidth
                     is_token: false
@@ -1385,14 +1385,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iHeight = DstObject.ScaleHeight\r\n"
+                text: "    iHeight = DstObject.ScaleHeight\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: iHeight
                     is_token: false
@@ -1465,14 +1465,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "VR = Abs(R - R2) / iWidth\r\n"
+                text: "    VR = Abs(R - R2) / iWidth\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: VR
                     is_token: false
@@ -1577,14 +1577,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "VG = Abs(G - G2) / iWidth\r\n"
+                text: "    VG = Abs(G - G2) / iWidth\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: VG
                     is_token: false
@@ -1689,14 +1689,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "VB = Abs(B - B2) / iWidth\r\n"
+                text: "    VB = Abs(B - B2) / iWidth\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: VB
                     is_token: false
@@ -2185,28 +2185,96 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
-              - kind: ForStatement
-                text: "For x = 0 To iWidth\r\n        R2 = R + VR * x\r\n        G2 = G + VG * x\r\n        B2 = B + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    Next x\r\n"
+              - kind: AssignmentStatement
+                text: "    For x = 0"
                 is_token: false
                 children:
-                  - kind: ForKeyword
-                    text: For
+                  - kind: Whitespace
+                    text: "    "
                     is_token: true
                     children: []
+                  - kind: IdentifierExpression
+                    text: For
+                    is_token: false
+                    children:
+                      - kind: ForKeyword
+                        text: For
+                        is_token: true
+                        children: []
                   - kind: Whitespace
                     text: " "
                     is_token: true
                     children: []
+                  - kind: BinaryExpression
+                    text: x = 0
+                    is_token: false
+                    children:
+                      - kind: IdentifierExpression
+                        text: x
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: x
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: EqualityOperator
+                        text: "="
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: NumericLiteralExpression
+                        text: "0"
+                        is_token: false
+                        children:
+                          - kind: IntegerLiteral
+                            text: "0"
+                            is_token: true
+                            children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: Unknown
+                text: To
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: CallStatement
+                text: "iWidth\r\n"
+                is_token: false
+                children:
+                  - kind: Identifier
+                    text: iWidth
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: AssignmentStatement
+                text: "        R2 = R + VR * x\r\n"
+                is_token: false
+                children:
+                  - kind: Whitespace
+                    text: "        "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
-                    text: x
+                    text: R2
                     is_token: false
                     children:
                       - kind: Identifier
-                        text: x
+                        text: R2
                         is_token: true
                         children: []
                   - kind: Whitespace
@@ -2221,446 +2289,386 @@ cst:
                     text: " "
                     is_token: true
                     children: []
-                  - kind: NumericLiteralExpression
-                    text: "0"
+                  - kind: BinaryExpression
+                    text: R + VR * x
                     is_token: false
                     children:
-                      - kind: IntegerLiteral
-                        text: "0"
+                      - kind: IdentifierExpression
+                        text: R
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: R
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
                         is_token: true
                         children: []
-                  - kind: Whitespace
-                    text: " "
-                    is_token: true
-                    children: []
-                  - kind: ToKeyword
-                    text: To
-                    is_token: true
-                    children: []
-                  - kind: Whitespace
-                    text: " "
-                    is_token: true
-                    children: []
-                  - kind: IdentifierExpression
-                    text: iWidth
-                    is_token: false
-                    children:
-                      - kind: Identifier
-                        text: iWidth
+                      - kind: AdditionOperator
+                        text: +
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BinaryExpression
+                        text: VR * x
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: VR
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: VR
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: MultiplicationOperator
+                            text: "*"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: x
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
                   - kind: Newline
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
-                    text: "        R2 = R + VR * x\r\n        G2 = G + VG * x\r\n        B2 = B + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    "
+              - kind: AssignmentStatement
+                text: "        G2 = G + VG * x\r\n"
+                is_token: false
+                children:
+                  - kind: Whitespace
+                    text: "        "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: G2
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
+                      - kind: Identifier
+                        text: G2
                         is_token: true
                         children: []
-                      - kind: AssignmentStatement
-                        text: "R2 = R + VR * x\r\n"
-                        is_token: false
-                        children:
-                          - kind: IdentifierExpression
-                            text: R2
-                            is_token: false
-                            children:
-                              - kind: Identifier
-                                text: R2
-                                is_token: true
-                                children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: EqualityOperator
-                            text: "="
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: BinaryExpression
-                            text: R + VR * x
-                            is_token: false
-                            children:
-                              - kind: IdentifierExpression
-                                text: R
-                                is_token: false
-                                children:
-                                  - kind: Identifier
-                                    text: R
-                                    is_token: true
-                                    children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: AdditionOperator
-                                text: +
-                                is_token: true
-                                children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: BinaryExpression
-                                text: VR * x
-                                is_token: false
-                                children:
-                                  - kind: IdentifierExpression
-                                    text: VR
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: VR
-                                        is_token: true
-                                        children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: MultiplicationOperator
-                                    text: "*"
-                                    is_token: true
-                                    children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: IdentifierExpression
-                                    text: x
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: x
-                                        is_token: true
-                                        children: []
-                          - kind: Newline
-                            text: "\r\n"
-                            is_token: true
-                            children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
-                      - kind: AssignmentStatement
-                        text: "G2 = G + VG * x\r\n"
-                        is_token: false
-                        children:
-                          - kind: IdentifierExpression
-                            text: G2
-                            is_token: false
-                            children:
-                              - kind: Identifier
-                                text: G2
-                                is_token: true
-                                children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: EqualityOperator
-                            text: "="
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: BinaryExpression
-                            text: G + VG * x
-                            is_token: false
-                            children:
-                              - kind: IdentifierExpression
-                                text: G
-                                is_token: false
-                                children:
-                                  - kind: Identifier
-                                    text: G
-                                    is_token: true
-                                    children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: AdditionOperator
-                                text: +
-                                is_token: true
-                                children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: BinaryExpression
-                                text: VG * x
-                                is_token: false
-                                children:
-                                  - kind: IdentifierExpression
-                                    text: VG
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: VG
-                                        is_token: true
-                                        children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: MultiplicationOperator
-                                    text: "*"
-                                    is_token: true
-                                    children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: IdentifierExpression
-                                    text: x
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: x
-                                        is_token: true
-                                        children: []
-                          - kind: Newline
-                            text: "\r\n"
-                            is_token: true
-                            children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
-                      - kind: AssignmentStatement
-                        text: "B2 = B + VB * x\r\n"
-                        is_token: false
-                        children:
-                          - kind: IdentifierExpression
-                            text: B2
-                            is_token: false
-                            children:
-                              - kind: Identifier
-                                text: B2
-                                is_token: true
-                                children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: EqualityOperator
-                            text: "="
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: BinaryExpression
-                            text: B + VB * x
-                            is_token: false
-                            children:
-                              - kind: IdentifierExpression
-                                text: B
-                                is_token: false
-                                children:
-                                  - kind: Identifier
-                                    text: B
-                                    is_token: true
-                                    children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: AdditionOperator
-                                text: +
-                                is_token: true
-                                children: []
-                              - kind: Whitespace
-                                text: " "
-                                is_token: true
-                                children: []
-                              - kind: BinaryExpression
-                                text: VB * x
-                                is_token: false
-                                children:
-                                  - kind: IdentifierExpression
-                                    text: VB
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: VB
-                                        is_token: true
-                                        children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: MultiplicationOperator
-                                    text: "*"
-                                    is_token: true
-                                    children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: IdentifierExpression
-                                    text: x
-                                    is_token: false
-                                    children:
-                                      - kind: Identifier
-                                        text: x
-                                        is_token: true
-                                        children: []
-                          - kind: Newline
-                            text: "\r\n"
-                            is_token: true
-                            children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
-                      - kind: CallStatement
-                        text: "DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n"
-                        is_token: false
-                        children:
-                          - kind: Identifier
-                            text: DstObject
-                            is_token: true
-                            children: []
-                          - kind: PeriodOperator
-                            text: "."
-                            is_token: true
-                            children: []
-                          - kind: LineKeyword
-                            text: Line
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: LeftParenthesis
-                            text: (
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: x
-                            is_token: true
-                            children: []
-                          - kind: Comma
-                            text: ","
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: IntegerLiteral
-                            text: "0"
-                            is_token: true
-                            children: []
-                          - kind: RightParenthesis
-                            text: )
-                            is_token: true
-                            children: []
-                          - kind: SubtractionOperator
-                            text: "-"
-                            is_token: true
-                            children: []
-                          - kind: LeftParenthesis
-                            text: (
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: x
-                            is_token: true
-                            children: []
-                          - kind: Comma
-                            text: ","
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: iHeight
-                            is_token: true
-                            children: []
-                          - kind: RightParenthesis
-                            text: )
-                            is_token: true
-                            children: []
-                          - kind: Comma
-                            text: ","
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: RGB
-                            is_token: true
-                            children: []
-                          - kind: LeftParenthesis
-                            text: (
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: R2
-                            is_token: true
-                            children: []
-                          - kind: Comma
-                            text: ","
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: G2
-                            is_token: true
-                            children: []
-                          - kind: Comma
-                            text: ","
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: B2
-                            is_token: true
-                            children: []
-                          - kind: RightParenthesis
-                            text: )
-                            is_token: true
-                            children: []
-                          - kind: Newline
-                            text: "\r\n"
-                            is_token: true
-                            children: []
-                      - kind: Whitespace
-                        text: "    "
-                        is_token: true
-                        children: []
-                  - kind: NextKeyword
-                    text: Next
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
                     is_token: true
                     children: []
                   - kind: Whitespace
                     text: " "
                     is_token: true
                     children: []
+                  - kind: BinaryExpression
+                    text: G + VG * x
+                    is_token: false
+                    children:
+                      - kind: IdentifierExpression
+                        text: G
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: G
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: AdditionOperator
+                        text: +
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BinaryExpression
+                        text: VG * x
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: VG
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: VG
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: MultiplicationOperator
+                            text: "*"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: x
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: AssignmentStatement
+                text: "        B2 = B + VB * x\r\n"
+                is_token: false
+                children:
+                  - kind: Whitespace
+                    text: "        "
+                    is_token: true
+                    children: []
+                  - kind: IdentifierExpression
+                    text: B2
+                    is_token: false
+                    children:
+                      - kind: Identifier
+                        text: B2
+                        is_token: true
+                        children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: EqualityOperator
+                    text: "="
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: BinaryExpression
+                    text: B + VB * x
+                    is_token: false
+                    children:
+                      - kind: IdentifierExpression
+                        text: B
+                        is_token: false
+                        children:
+                          - kind: Identifier
+                            text: B
+                            is_token: true
+                            children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: AdditionOperator
+                        text: +
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: BinaryExpression
+                        text: VB * x
+                        is_token: false
+                        children:
+                          - kind: IdentifierExpression
+                            text: VB
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: VB
+                                is_token: true
+                                children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: MultiplicationOperator
+                            text: "*"
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IdentifierExpression
+                            text: x
+                            is_token: false
+                            children:
+                              - kind: Identifier
+                                text: x
+                                is_token: true
+                                children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "        "
+                is_token: true
+                children: []
+              - kind: CallStatement
+                text: "DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n"
+                is_token: false
+                children:
+                  - kind: Identifier
+                    text: DstObject
+                    is_token: true
+                    children: []
+                  - kind: PeriodOperator
+                    text: "."
+                    is_token: true
+                    children: []
+                  - kind: LineKeyword
+                    text: Line
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: LeftParenthesis
+                    text: (
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: x
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "0"
+                    is_token: true
+                    children: []
+                  - kind: RightParenthesis
+                    text: )
+                    is_token: true
+                    children: []
+                  - kind: SubtractionOperator
+                    text: "-"
+                    is_token: true
+                    children: []
+                  - kind: LeftParenthesis
+                    text: (
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: x
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: iHeight
+                    is_token: true
+                    children: []
+                  - kind: RightParenthesis
+                    text: )
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: RGB
+                    is_token: true
+                    children: []
+                  - kind: LeftParenthesis
+                    text: (
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: R2
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: G2
+                    is_token: true
+                    children: []
+                  - kind: Comma
+                    text: ","
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: B2
+                    is_token: true
+                    children: []
+                  - kind: RightParenthesis
+                    text: )
+                    is_token: true
+                    children: []
+                  - kind: Newline
+                    text: "\r\n"
+                    is_token: true
+                    children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
+              - kind: Unknown
+                text: Next
+                is_token: true
+                children: []
+              - kind: Whitespace
+                text: " "
+                is_token: true
+                children: []
+              - kind: CallStatement
+                text: "x\r\n"
+                is_token: false
+                children:
                   - kind: Identifier
                     text: x
                     is_token: true

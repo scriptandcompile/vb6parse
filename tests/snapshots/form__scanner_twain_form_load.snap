@@ -2222,14 +2222,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "lblSuccess.Visible = False\r\n"
+                text: "    lblSuccess.Visible = False\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: MemberAccessExpression
                     text: lblSuccess.Visible
                     is_token: false
@@ -2682,14 +2682,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "ScanCheck = -5\r\n"
+                text: "    ScanCheck = -5\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: ScanCheck
                     is_token: false
@@ -2750,14 +2750,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "ScannerCaptureFile = ProgramPath & \"VBScanInterface.bmp\"\r\n"
+                text: "    ScannerCaptureFile = ProgramPath & \"VBScanInterface.bmp\"\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: ScannerCaptureFile
                     is_token: false
@@ -2834,14 +2834,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "ScanCheck = TWAIN_AcquireToFilename(frmScanner.hWnd, ScannerCaptureFile)\r\n"
+                text: "    ScanCheck = TWAIN_AcquireToFilename(frmScanner.hWnd, ScannerCaptureFile)\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: ScanCheck
                     is_token: false
@@ -3010,14 +3010,14 @@ cst:
                     text: "        picBuffer.Picture = LoadPicture(ScannerCaptureFile)\r\n        \r\n        'Be polite and remove the temporary file acquired from the scanner\r\n        Kill ScannerCaptureFile\r\n        \r\n        'Resize the image if the user has requested it\r\n        If optLoadImage(0).Value Then\r\n            '...no resize\r\n            picScan.AutoSize = True\r\n            picScan.Picture = picBuffer.Picture\r\n            picScan.Refresh\r\n        Else\r\n            '...resize\r\n            picScan.AutoSize = False\r\n            \r\n            'Setting the HALFTONE mode results in a slower, but higher-quality image resize\r\n            SetStretchBltMode picScan.hDC, STRETCHBLT_HALFTONE\r\n            StretchBlt picScan.hDC, 0, 0, picScan.ScaleWidth, picScan.ScaleHeight, picBuffer.hDC, 0, 0, picBuffer.ScaleWidth, picBuffer.ScaleHeight, vbSrcCopy\r\n            picScan.Picture = picScan.Image\r\n            picScan.Refresh\r\n        End If\r\n        \r\n        'Let the user know that everything worked\r\n        lblSuccess.Visible = True\r\n        \r\n        'Return focus to this project\r\n        frmScanner.SetFocus\r\n    "
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "picBuffer.Picture = LoadPicture(ScannerCaptureFile)\r\n"
+                        text: "        picBuffer.Picture = LoadPicture(ScannerCaptureFile)\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: picBuffer.Picture
                             is_token: false
@@ -3234,14 +3234,14 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: Whitespace
-                                text: "            "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "picScan.AutoSize = True\r\n"
+                                text: "            picScan.AutoSize = True\r\n"
                                 is_token: false
                                 children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                    is_token: true
+                                    children: []
                                   - kind: MemberAccessExpression
                                     text: picScan.AutoSize
                                     is_token: false
@@ -3282,14 +3282,14 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                              - kind: Whitespace
-                                text: "            "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "picScan.Picture = picBuffer.Picture\r\n"
+                                text: "            picScan.Picture = picBuffer.Picture\r\n"
                                 is_token: false
                                 children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                    is_token: true
+                                    children: []
                                   - kind: MemberAccessExpression
                                     text: picScan.Picture
                                     is_token: false
@@ -3394,14 +3394,14 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: Whitespace
-                                    text: "            "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "picScan.AutoSize = False\r\n"
+                                    text: "            picScan.AutoSize = False\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                        is_token: true
+                                        children: []
                                       - kind: MemberAccessExpression
                                         text: picScan.AutoSize
                                         is_token: false
@@ -3698,14 +3698,14 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                  - kind: Whitespace
-                                    text: "            "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "picScan.Picture = picScan.Image\r\n"
+                                    text: "            picScan.Picture = picScan.Image\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                        is_token: true
+                                        children: []
                                       - kind: MemberAccessExpression
                                         text: picScan.Picture
                                         is_token: false
@@ -3818,14 +3818,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "lblSuccess.Visible = True\r\n"
+                        text: "        lblSuccess.Visible = True\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: lblSuccess.Visible
                             is_token: false
@@ -4170,14 +4170,14 @@ cst:
                         text: "            scanErrMessage = \"Unknown error occurred.\"\r\n        "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"Unknown error occurred.\"\r\n"
+                            text: "            scanErrMessage = \"Unknown error occurred.\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -4242,14 +4242,14 @@ cst:
                         text: "            scanErrMessage = \"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\"\r\n        "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\"\r\n"
+                            text: "            scanErrMessage = \"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -4314,14 +4314,14 @@ cst:
                         text: "            scanErrMessage = \"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\"\r\n        "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\"\r\n"
+                            text: "            scanErrMessage = \"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -4386,14 +4386,14 @@ cst:
                         text: "            scanErrMessage = \"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\"\r\n        "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\"\r\n"
+                            text: "            scanErrMessage = \"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -4458,14 +4458,14 @@ cst:
                         text: "            scanErrMessage = \"Scan failed.  (This may happen if the user canceled the scan dialog.)\"\r\n        "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"Scan failed.  (This may happen if the user canceled the scan dialog.)\"\r\n"
+                            text: "            scanErrMessage = \"Scan failed.  (This may happen if the user canceled the scan dialog.)\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -4526,14 +4526,14 @@ cst:
                         text: "            scanErrMessage = \"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\"\r\n    "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "            "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "scanErrMessage = \"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\"\r\n"
+                            text: "            scanErrMessage = \"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\"\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "            "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: scanErrMessage
                                 is_token: false
@@ -5154,14 +5154,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "ProgramPath = App.Path\r\n"
+                text: "    ProgramPath = App.Path\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: ProgramPath
                     is_token: false
@@ -5346,14 +5346,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "    "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "hLib = LoadLibrary(ProgramPath & \"EZTW32.dll\")\r\n"
+                        text: "    hLib = LoadLibrary(ProgramPath & \"EZTW32.dll\")\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "    "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: hLib
                             is_token: false
@@ -5514,14 +5514,14 @@ cst:
                             text: "        ScanEnabled = False\r\n        MsgBox \"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\", vbOKOnly + vbCritical, \"Scanner DLL missing\"\r\n    "
                             is_token: false
                             children:
-                              - kind: Whitespace
-                                text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "ScanEnabled = False\r\n"
+                                text: "        ScanEnabled = False\r\n"
                                 is_token: false
                                 children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                    is_token: true
+                                    children: []
                                   - kind: IdentifierExpression
                                     text: ScanEnabled
                                     is_token: false
@@ -5638,14 +5638,14 @@ cst:
                                 text: "        ScanEnabled = True\r\n    "
                                 is_token: false
                                 children:
-                                  - kind: Whitespace
-                                    text: "        "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "ScanEnabled = True\r\n"
+                                    text: "        ScanEnabled = True\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "        "
+                                        is_token: true
+                                        children: []
                                       - kind: IdentifierExpression
                                         text: ScanEnabled
                                         is_token: false

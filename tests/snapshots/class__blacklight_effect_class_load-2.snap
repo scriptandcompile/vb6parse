@@ -4802,14 +4802,14 @@ cst:
                     text: "        .lStructSize = Len(tmpOFN)\r\n        \r\n        'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST\r\n        ' is used to prevent the user from entering invalid filenames.\r\n        .Flags = OFN_PATHMUSTEXIST Or OFN_LONGNAMES Or OFN_HIDEREADONLY\r\n        If FileMustExist Then .Flags = .Flags Or OFN_FILEMUSTEXIST\r\n        If MultiSelect Then .Flags = .Flags Or OFN_ALLOWMULTISELECT Or OFN_EXPLORER\r\n        \r\n        'Various other obvious flags\r\n        .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim Ch As String, i As Integer, s As String\r\n        For i = 1 To Len(Filter)\r\n            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        Next\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,\r\n        ' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch.\r\n        lInitPathSize = MAX_PATH_LOAD_XP\r\n        \r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    "
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lStructSize = Len(tmpOFN)\r\n"
+                        text: "        .lStructSize = Len(tmpOFN)\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -4910,14 +4910,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".Flags = OFN_PATHMUSTEXIST Or OFN_LONGNAMES Or OFN_HIDEREADONLY\r\n"
+                        text: "        .Flags = OFN_PATHMUSTEXIST Or OFN_LONGNAMES Or OFN_HIDEREADONLY\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5254,14 +5254,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".hWndOwner = Owner\r\n"
+                        text: "        .hWndOwner = Owner\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5306,14 +5306,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrInitialDir = InitDir\r\n"
+                        text: "        .lpstrInitialDir = InitDir\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5358,14 +5358,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrDefExt = DefaultExt\r\n"
+                        text: "        .lpstrDefExt = DefaultExt\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5410,14 +5410,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrTitle = DlgTitle\r\n"
+                        text: "        .lpstrTitle = DlgTitle\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5590,28 +5590,108 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
-                      - kind: ForStatement
-                        text: "For i = 1 To Len(Filter)\r\n            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        Next\r\n"
+                      - kind: AssignmentStatement
+                        text: "        For i = 1"
                         is_token: false
                         children:
-                          - kind: ForKeyword
-                            text: For
+                          - kind: Whitespace
+                            text: "        "
                             is_token: true
                             children: []
+                          - kind: IdentifierExpression
+                            text: For
+                            is_token: false
+                            children:
+                              - kind: ForKeyword
+                                text: For
+                                is_token: true
+                                children: []
                           - kind: Whitespace
                             text: " "
                             is_token: true
                             children: []
+                          - kind: BinaryExpression
+                            text: i = 1
+                            is_token: false
+                            children:
+                              - kind: IdentifierExpression
+                                text: i
+                                is_token: false
+                                children:
+                                  - kind: Identifier
+                                    text: i
+                                    is_token: true
+                                    children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: EqualityOperator
+                                text: "="
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: NumericLiteralExpression
+                                text: "1"
+                                is_token: false
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                                    is_token: true
+                                    children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: Unknown
+                        text: To
+                        is_token: true
+                        children: []
+                      - kind: Whitespace
+                        text: " "
+                        is_token: true
+                        children: []
+                      - kind: CallStatement
+                        text: "Len(Filter)\r\n"
+                        is_token: false
+                        children:
+                          - kind: LenKeyword
+                            text: Len
+                            is_token: true
+                            children: []
+                          - kind: LeftParenthesis
+                            text: (
+                            is_token: true
+                            children: []
+                          - kind: Identifier
+                            text: Filter
+                            is_token: true
+                            children: []
+                          - kind: RightParenthesis
+                            text: )
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                      - kind: AssignmentStatement
+                        text: "            Ch = Mid$(Filter, i, 1)\r\n"
+                        is_token: false
+                        children:
+                          - kind: Whitespace
+                            text: "            "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
-                            text: i
+                            text: Ch
                             is_token: false
                             children:
                               - kind: Identifier
-                                text: i
+                                text: Ch
                                 is_token: true
                                 children: []
                           - kind: Whitespace
@@ -5626,32 +5706,12 @@ cst:
                             text: " "
                             is_token: true
                             children: []
-                          - kind: NumericLiteralExpression
-                            text: "1"
-                            is_token: false
-                            children:
-                              - kind: IntegerLiteral
-                                text: "1"
-                                is_token: true
-                                children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
-                          - kind: ToKeyword
-                            text: To
-                            is_token: true
-                            children: []
-                          - kind: Whitespace
-                            text: " "
-                            is_token: true
-                            children: []
                           - kind: CallExpression
-                            text: Len(Filter)
+                            text: "Mid$(Filter, i, 1)"
                             is_token: false
                             children:
-                              - kind: LenKeyword
-                                text: Len
+                              - kind: Identifier
+                                text: Mid$
                                 is_token: true
                                 children: []
                               - kind: LeftParenthesis
@@ -5659,7 +5719,7 @@ cst:
                                 is_token: true
                                 children: []
                               - kind: ArgumentList
-                                text: Filter
+                                text: "Filter, i, 1"
                                 is_token: false
                                 children:
                                   - kind: Argument
@@ -5674,6 +5734,46 @@ cst:
                                             text: Filter
                                             is_token: true
                                             children: []
+                                  - kind: Comma
+                                    text: ","
+                                    is_token: true
+                                    children: []
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: Argument
+                                    text: i
+                                    is_token: false
+                                    children:
+                                      - kind: IdentifierExpression
+                                        text: i
+                                        is_token: false
+                                        children:
+                                          - kind: Identifier
+                                            text: i
+                                            is_token: true
+                                            children: []
+                                  - kind: Comma
+                                    text: ","
+                                    is_token: true
+                                    children: []
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: Argument
+                                    text: "1"
+                                    is_token: false
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        text: "1"
+                                        is_token: false
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                            is_token: true
+                                            children: []
                               - kind: RightParenthesis
                                 text: )
                                 is_token: true
@@ -5682,16 +5782,28 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
-                            text: "            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        "
+                      - kind: Whitespace
+                        text: "            "
+                        is_token: true
+                        children: []
+                      - kind: IfStatement
+                        text: "If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n"
+                        is_token: false
+                        children:
+                          - kind: IfKeyword
+                            text: If
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: BinaryExpression
+                            text: "Ch = \"|\" Or Ch = \":\""
                             is_token: false
                             children:
-                              - kind: Whitespace
-                                text: "            "
-                                is_token: true
-                                children: []
-                              - kind: AssignmentStatement
-                                text: "Ch = Mid$(Filter, i, 1)\r\n"
+                              - kind: BinaryExpression
+                                text: "Ch = \"|\""
                                 is_token: false
                                 children:
                                   - kind: IdentifierExpression
@@ -5714,78 +5826,134 @@ cst:
                                     text: " "
                                     is_token: true
                                     children: []
-                                  - kind: CallExpression
-                                    text: "Mid$(Filter, i, 1)"
+                                  - kind: StringLiteralExpression
+                                    text: "\"|\""
+                                    is_token: false
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"|\""
+                                        is_token: true
+                                        children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: OrKeyword
+                                text: Or
+                                is_token: true
+                                children: []
+                              - kind: Whitespace
+                                text: " "
+                                is_token: true
+                                children: []
+                              - kind: BinaryExpression
+                                text: "Ch = \":\""
+                                is_token: false
+                                children:
+                                  - kind: IdentifierExpression
+                                    text: Ch
                                     is_token: false
                                     children:
                                       - kind: Identifier
-                                        text: Mid$
+                                        text: Ch
                                         is_token: true
                                         children: []
-                                      - kind: LeftParenthesis
-                                        text: (
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: EqualityOperator
+                                    text: "="
+                                    is_token: true
+                                    children: []
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: StringLiteralExpression
+                                    text: "\":\""
+                                    is_token: false
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\":\""
                                         is_token: true
                                         children: []
-                                      - kind: ArgumentList
-                                        text: "Filter, i, 1"
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: ThenKeyword
+                            text: Then
+                            is_token: true
+                            children: []
+                          - kind: Newline
+                            text: "\r\n"
+                            is_token: true
+                            children: []
+                          - kind: CodeBlock
+                            text: "                s = s & vbNullChar\r\n            "
+                            is_token: false
+                            children:
+                              - kind: AssignmentStatement
+                                text: "                s = s & vbNullChar\r\n"
+                                is_token: false
+                                children:
+                                  - kind: Whitespace
+                                    text: "                "
+                                    is_token: true
+                                    children: []
+                                  - kind: IdentifierExpression
+                                    text: s
+                                    is_token: false
+                                    children:
+                                      - kind: Identifier
+                                        text: s
+                                        is_token: true
+                                        children: []
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: EqualityOperator
+                                    text: "="
+                                    is_token: true
+                                    children: []
+                                  - kind: Whitespace
+                                    text: " "
+                                    is_token: true
+                                    children: []
+                                  - kind: BinaryExpression
+                                    text: s & vbNullChar
+                                    is_token: false
+                                    children:
+                                      - kind: IdentifierExpression
+                                        text: s
                                         is_token: false
                                         children:
-                                          - kind: Argument
-                                            text: Filter
-                                            is_token: false
-                                            children:
-                                              - kind: IdentifierExpression
-                                                text: Filter
-                                                is_token: false
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Filter
-                                                    is_token: true
-                                                    children: []
-                                          - kind: Comma
-                                            text: ","
+                                          - kind: Identifier
+                                            text: s
                                             is_token: true
                                             children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: Argument
-                                            text: i
-                                            is_token: false
-                                            children:
-                                              - kind: IdentifierExpression
-                                                text: i
-                                                is_token: false
-                                                children:
-                                                  - kind: Identifier
-                                                    text: i
-                                                    is_token: true
-                                                    children: []
-                                          - kind: Comma
-                                            text: ","
-                                            is_token: true
-                                            children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: Argument
-                                            text: "1"
-                                            is_token: false
-                                            children:
-                                              - kind: NumericLiteralExpression
-                                                text: "1"
-                                                is_token: false
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "1"
-                                                    is_token: true
-                                                    children: []
-                                      - kind: RightParenthesis
-                                        text: )
+                                      - kind: Whitespace
+                                        text: " "
                                         is_token: true
                                         children: []
+                                      - kind: Ampersand
+                                        text: "&"
+                                        is_token: true
+                                        children: []
+                                      - kind: Whitespace
+                                        text: " "
+                                        is_token: true
+                                        children: []
+                                      - kind: IdentifierExpression
+                                        text: vbNullChar
+                                        is_token: false
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNullChar
+                                            is_token: true
+                                            children: []
                                   - kind: Newline
                                     text: "\r\n"
                                     is_token: true
@@ -5794,120 +5962,52 @@ cst:
                                 text: "            "
                                 is_token: true
                                 children: []
-                              - kind: IfStatement
-                                text: "If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n"
+                          - kind: ElseClause
+                            text: "Else\r\n                s = s & Ch\r\n            "
+                            is_token: false
+                            children:
+                              - kind: ElseKeyword
+                                text: Else
+                                is_token: true
+                                children: []
+                              - kind: Newline
+                                text: "\r\n"
+                                is_token: true
+                                children: []
+                              - kind: CodeBlock
+                                text: "                s = s & Ch\r\n            "
                                 is_token: false
                                 children:
-                                  - kind: IfKeyword
-                                    text: If
-                                    is_token: true
-                                    children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: BinaryExpression
-                                    text: "Ch = \"|\" Or Ch = \":\""
-                                    is_token: false
-                                    children:
-                                      - kind: BinaryExpression
-                                        text: "Ch = \"|\""
-                                        is_token: false
-                                        children:
-                                          - kind: IdentifierExpression
-                                            text: Ch
-                                            is_token: false
-                                            children:
-                                              - kind: Identifier
-                                                text: Ch
-                                                is_token: true
-                                                children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: EqualityOperator
-                                            text: "="
-                                            is_token: true
-                                            children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: StringLiteralExpression
-                                            text: "\"|\""
-                                            is_token: false
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"|\""
-                                                is_token: true
-                                                children: []
-                                      - kind: Whitespace
-                                        text: " "
-                                        is_token: true
-                                        children: []
-                                      - kind: OrKeyword
-                                        text: Or
-                                        is_token: true
-                                        children: []
-                                      - kind: Whitespace
-                                        text: " "
-                                        is_token: true
-                                        children: []
-                                      - kind: BinaryExpression
-                                        text: "Ch = \":\""
-                                        is_token: false
-                                        children:
-                                          - kind: IdentifierExpression
-                                            text: Ch
-                                            is_token: false
-                                            children:
-                                              - kind: Identifier
-                                                text: Ch
-                                                is_token: true
-                                                children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: EqualityOperator
-                                            text: "="
-                                            is_token: true
-                                            children: []
-                                          - kind: Whitespace
-                                            text: " "
-                                            is_token: true
-                                            children: []
-                                          - kind: StringLiteralExpression
-                                            text: "\":\""
-                                            is_token: false
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\":\""
-                                                is_token: true
-                                                children: []
-                                  - kind: Whitespace
-                                    text: " "
-                                    is_token: true
-                                    children: []
-                                  - kind: ThenKeyword
-                                    text: Then
-                                    is_token: true
-                                    children: []
-                                  - kind: Newline
-                                    text: "\r\n"
-                                    is_token: true
-                                    children: []
-                                  - kind: CodeBlock
-                                    text: "                s = s & vbNullChar\r\n            "
+                                  - kind: AssignmentStatement
+                                    text: "                s = s & Ch\r\n"
                                     is_token: false
                                     children:
                                       - kind: Whitespace
                                         text: "                "
                                         is_token: true
                                         children: []
-                                      - kind: AssignmentStatement
-                                        text: "s = s & vbNullChar\r\n"
+                                      - kind: IdentifierExpression
+                                        text: s
+                                        is_token: false
+                                        children:
+                                          - kind: Identifier
+                                            text: s
+                                            is_token: true
+                                            children: []
+                                      - kind: Whitespace
+                                        text: " "
+                                        is_token: true
+                                        children: []
+                                      - kind: EqualityOperator
+                                        text: "="
+                                        is_token: true
+                                        children: []
+                                      - kind: Whitespace
+                                        text: " "
+                                        is_token: true
+                                        children: []
+                                      - kind: BinaryExpression
+                                        text: s & Ch
                                         is_token: false
                                         children:
                                           - kind: IdentifierExpression
@@ -5922,166 +6022,58 @@ cst:
                                             text: " "
                                             is_token: true
                                             children: []
-                                          - kind: EqualityOperator
-                                            text: "="
+                                          - kind: Ampersand
+                                            text: "&"
                                             is_token: true
                                             children: []
                                           - kind: Whitespace
                                             text: " "
                                             is_token: true
                                             children: []
-                                          - kind: BinaryExpression
-                                            text: s & vbNullChar
+                                          - kind: IdentifierExpression
+                                            text: Ch
                                             is_token: false
                                             children:
-                                              - kind: IdentifierExpression
-                                                text: s
-                                                is_token: false
-                                                children:
-                                                  - kind: Identifier
-                                                    text: s
-                                                    is_token: true
-                                                    children: []
-                                              - kind: Whitespace
-                                                text: " "
+                                              - kind: Identifier
+                                                text: Ch
                                                 is_token: true
                                                 children: []
-                                              - kind: Ampersand
-                                                text: "&"
-                                                is_token: true
-                                                children: []
-                                              - kind: Whitespace
-                                                text: " "
-                                                is_token: true
-                                                children: []
-                                              - kind: IdentifierExpression
-                                                text: vbNullChar
-                                                is_token: false
-                                                children:
-                                                  - kind: Identifier
-                                                    text: vbNullChar
-                                                    is_token: true
-                                                    children: []
-                                          - kind: Newline
-                                            text: "\r\n"
-                                            is_token: true
-                                            children: []
-                                      - kind: Whitespace
-                                        text: "            "
-                                        is_token: true
-                                        children: []
-                                  - kind: ElseClause
-                                    text: "Else\r\n                s = s & Ch\r\n            "
-                                    is_token: false
-                                    children:
-                                      - kind: ElseKeyword
-                                        text: Else
-                                        is_token: true
-                                        children: []
                                       - kind: Newline
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
-                                        text: "                s = s & Ch\r\n            "
-                                        is_token: false
-                                        children:
-                                          - kind: Whitespace
-                                            text: "                "
-                                            is_token: true
-                                            children: []
-                                          - kind: AssignmentStatement
-                                            text: "s = s & Ch\r\n"
-                                            is_token: false
-                                            children:
-                                              - kind: IdentifierExpression
-                                                text: s
-                                                is_token: false
-                                                children:
-                                                  - kind: Identifier
-                                                    text: s
-                                                    is_token: true
-                                                    children: []
-                                              - kind: Whitespace
-                                                text: " "
-                                                is_token: true
-                                                children: []
-                                              - kind: EqualityOperator
-                                                text: "="
-                                                is_token: true
-                                                children: []
-                                              - kind: Whitespace
-                                                text: " "
-                                                is_token: true
-                                                children: []
-                                              - kind: BinaryExpression
-                                                text: s & Ch
-                                                is_token: false
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    text: s
-                                                    is_token: false
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: s
-                                                        is_token: true
-                                                        children: []
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                    is_token: true
-                                                    children: []
-                                                  - kind: Ampersand
-                                                    text: "&"
-                                                    is_token: true
-                                                    children: []
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                    is_token: true
-                                                    children: []
-                                                  - kind: IdentifierExpression
-                                                    text: Ch
-                                                    is_token: false
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Ch
-                                                        is_token: true
-                                                        children: []
-                                              - kind: Newline
-                                                text: "\r\n"
-                                                is_token: true
-                                                children: []
-                                          - kind: Whitespace
-                                            text: "            "
-                                            is_token: true
-                                            children: []
-                                  - kind: EndKeyword
-                                    text: End
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
-                                    text: " "
+                                    text: "            "
                                     is_token: true
                                     children: []
-                                  - kind: IfKeyword
-                                    text: If
-                                    is_token: true
-                                    children: []
-                                  - kind: Newline
-                                    text: "\r\n"
-                                    is_token: true
-                                    children: []
-                              - kind: Whitespace
-                                text: "        "
-                                is_token: true
-                                children: []
-                          - kind: NextKeyword
-                            text: Next
+                          - kind: EndKeyword
+                            text: End
+                            is_token: true
+                            children: []
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
+                          - kind: IfKeyword
+                            text: If
                             is_token: true
                             children: []
                           - kind: Newline
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
+                      - kind: Unknown
+                        text: Next
+                        is_token: true
+                        children: []
+                      - kind: Newline
+                        text: "\r\n"
+                        is_token: true
+                        children: []
                       - kind: Whitespace
                         text: "        "
                         is_token: true
@@ -6102,14 +6094,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "s = s & vbNullChar & vbNullChar\r\n"
+                        text: "        s = s & vbNullChar & vbNullChar\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -6190,14 +6182,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFilter = s\r\n"
+                        text: "        .lpstrFilter = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6242,14 +6234,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nFilterIndex = FilterIndex\r\n"
+                        text: "        .nFilterIndex = FilterIndex\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6326,14 +6318,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "lInitPathSize = MAX_PATH_LOAD_XP\r\n"
+                        text: "        lInitPathSize = MAX_PATH_LOAD_XP\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: lInitPathSize
                             is_token: false
@@ -6374,14 +6366,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: s = FileName & String
+                        text: "        s = FileName & String"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -6498,14 +6490,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFile = s\r\n"
+                        text: "        .lpstrFile = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6550,14 +6542,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nMaxFile = lInitPathSize\r\n"
+                        text: "        .nMaxFile = lInitPathSize\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6610,14 +6602,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: s = FileTitle & String
+                        text: "        s = FileTitle & String"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -6734,14 +6726,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFileTitle = s\r\n"
+                        text: "        .lpstrFileTitle = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6786,14 +6778,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nMaxFileTitle = MAX_FILE\r\n"
+                        text: "        .nMaxFileTitle = MAX_FILE\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -6906,14 +6898,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "lReturn = GetOpenFileNameW(VarPtr(tmpOFN))\r\n"
+                text: "    lReturn = GetOpenFileNameW(VarPtr(tmpOFN))\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: lReturn
                     is_token: false
@@ -7622,14 +7614,14 @@ cst:
                                     text: "                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n                If (lLen < 1) Then lLen = Len(tmpOFN.lpstrFile)\r\n            "
                                     is_token: false
                                     children:
-                                      - kind: Whitespace
-                                        text: "                "
-                                        is_token: true
-                                        children: []
                                       - kind: AssignmentStatement
-                                        text: "lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n"
+                                        text: "                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n"
                                         is_token: false
                                         children:
+                                          - kind: Whitespace
+                                            text: "                "
+                                            is_token: true
+                                            children: []
                                           - kind: IdentifierExpression
                                             text: lLen
                                             is_token: false
@@ -7926,14 +7918,14 @@ cst:
                                         text: "                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n            "
                                         is_token: false
                                         children:
-                                          - kind: Whitespace
-                                            text: "                "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: "lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n"
+                                            text: "                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "                "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: lLen
                                                 is_token: false
@@ -8202,14 +8194,14 @@ cst:
                                 text: "            FileName = tmpOFN.lpstrFile\r\n        "
                                 is_token: false
                                 children:
-                                  - kind: Whitespace
-                                    text: "            "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "FileName = tmpOFN.lpstrFile\r\n"
+                                    text: "            FileName = tmpOFN.lpstrFile\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                        is_token: true
+                                        children: []
                                       - kind: IdentifierExpression
                                         text: FileName
                                         is_token: false
@@ -8278,14 +8270,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n"
+                        text: "        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: lLen
                             is_token: false
@@ -8518,14 +8510,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "FilterIndex = tmpOFN.nFilterIndex\r\n"
+                        text: "        FilterIndex = tmpOFN.nFilterIndex\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: FilterIndex
                             is_token: false
@@ -8574,14 +8566,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "GetOpenFileName = True\r\n"
+                        text: "        GetOpenFileName = True\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: GetOpenFileName
                             is_token: false
@@ -8650,14 +8642,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "GetOpenFileName = False\r\n"
+                            text: "        GetOpenFileName = False\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "        "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: GetOpenFileName
                                 is_token: false
@@ -8690,14 +8682,14 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "FileName = vbNullString\r\n"
+                            text: "        FileName = vbNullString\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "        "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: FileName
                                 is_token: false
@@ -8730,14 +8722,14 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "FileTitle = vbNullString\r\n"
+                            text: "        FileTitle = vbNullString\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "        "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: FileTitle
                                 is_token: false
@@ -9634,14 +9626,14 @@ cst:
                     text: "        .lStructSize = Len(tmpOFN)\r\n        \r\n        'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD.\r\n        .Flags = OFN_HIDEREADONLY\r\n        If OverWritePrompt Then .Flags = .Flags Or OFN_OVERWRITEPROMPT\r\n        \r\n        'Various other obvious flags\r\n        If (Owner <> -1) Then .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim s As String\r\n        s = Filter\r\n        If InStr(1, s, \"|\", vbBinaryCompare) Then s = Replace$(s, \"|\", vbNullChar)\r\n        If InStr(1, s, \":\", vbBinaryCompare) Then s = Replace$(s, \":\", vbNullChar)\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call\r\n        ' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer).\r\n        lInitPathSize = MAX_PATH_SAVE\r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    "
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lStructSize = Len(tmpOFN)\r\n"
+                        text: "        .lStructSize = Len(tmpOFN)\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -9730,14 +9722,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".Flags = OFN_HIDEREADONLY\r\n"
+                        text: "        .Flags = OFN_HIDEREADONLY\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -10262,14 +10254,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "s = Filter\r\n"
+                        text: "        s = Filter\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -10770,14 +10762,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "s = s & vbNullChar & vbNullChar\r\n"
+                        text: "        s = s & vbNullChar & vbNullChar\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -10858,14 +10850,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFilter = s\r\n"
+                        text: "        .lpstrFilter = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -10910,14 +10902,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nFilterIndex = FilterIndex\r\n"
+                        text: "        .nFilterIndex = FilterIndex\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -10994,14 +10986,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "lInitPathSize = MAX_PATH_SAVE\r\n"
+                        text: "        lInitPathSize = MAX_PATH_SAVE\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: lInitPathSize
                             is_token: false
@@ -11034,14 +11026,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: s = FileName & String
+                        text: "        s = FileName & String"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -11158,14 +11150,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFile = s\r\n"
+                        text: "        .lpstrFile = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -11210,14 +11202,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nMaxFile = lInitPathSize\r\n"
+                        text: "        .nMaxFile = lInitPathSize\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -11270,14 +11262,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: s = FileTitle & String
+                        text: "        s = FileTitle & String"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: s
                             is_token: false
@@ -11394,14 +11386,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".lpstrFileTitle = s\r\n"
+                        text: "        .lpstrFileTitle = s\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -11446,14 +11438,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: ".nMaxFileTitle = MAX_FILE\r\n"
+                        text: "        .nMaxFileTitle = MAX_FILE\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -11566,14 +11558,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "lReturn = GetSaveFileNameW(VarPtr(tmpOFN))\r\n"
+                text: "    lReturn = GetSaveFileNameW(VarPtr(tmpOFN))\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: lReturn
                     is_token: false
@@ -11930,14 +11922,14 @@ cst:
                             text: "            lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n            If (lLen < 1&) Then lLen = Len(tmpOFN.lpstrFile)\r\n        "
                             is_token: false
                             children:
-                              - kind: Whitespace
-                                text: "            "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n"
+                                text: "            lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n"
                                 is_token: false
                                 children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                    is_token: true
+                                    children: []
                                   - kind: IdentifierExpression
                                     text: lLen
                                     is_token: false
@@ -12234,14 +12226,14 @@ cst:
                                 text: "            lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n        "
                                 is_token: false
                                 children:
-                                  - kind: Whitespace
-                                    text: "            "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n"
+                                    text: "            lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "            "
+                                        is_token: true
+                                        children: []
                                       - kind: IdentifierExpression
                                         text: lLen
                                         is_token: false
@@ -12502,14 +12494,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n"
+                        text: "        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: lLen
                             is_token: false
@@ -12742,14 +12734,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "FilterIndex = tmpOFN.nFilterIndex\r\n"
+                        text: "        FilterIndex = tmpOFN.nFilterIndex\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: FilterIndex
                             is_token: false
@@ -12798,14 +12790,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "GetSaveFileName = True\r\n"
+                        text: "        GetSaveFileName = True\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: GetSaveFileName
                             is_token: false
@@ -12866,14 +12858,14 @@ cst:
                         text: "        GetSaveFileName = False\r\n    "
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "GetSaveFileName = False\r\n"
+                            text: "        GetSaveFileName = False\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "        "
+                                is_token: true
+                                children: []
                               - kind: IdentifierExpression
                                 text: GetSaveFileName
                                 is_token: false

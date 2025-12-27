@@ -33,6 +33,9 @@ impl Parser<'_> {
     pub(super) fn parse_if_statement(&mut self) {
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "If" keyword
         self.consume_token();
 

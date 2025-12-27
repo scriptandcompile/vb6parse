@@ -1425,15 +1425,6 @@ impl<'a> Parser<'a> {
                         _ => self.parse_dim(),
                     }
                 }
-                // Whitespace and newlines - consume directly
-                Some(
-                    Token::Whitespace
-                    | Token::Newline
-                    | Token::EndOfLineComment
-                    | Token::RemComment,
-                ) => {
-                    self.consume_token();
-                }
                 // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
                     // Try control flow statements
@@ -1461,6 +1452,28 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
+                    // Whitespace, newlines, and comments - consume directly
+                    } else if matches!(
+                        self.current_token(),
+                        Some(
+                            Token::Whitespace
+                                | Token::Newline
+                                | Token::EndOfLineComment
+                                | Token::RemComment
+                        )
+                    ) {
+                        self.consume_token();
+                    // Whitespace, newlines, and comments - consume directly
+                    } else if matches!(
+                        self.current_token(),
+                        Some(
+                            Token::Whitespace
+                                | Token::Newline
+                                | Token::EndOfLineComment
+                                | Token::RemComment
+                        )
+                    ) {
+                        self.consume_token();
                     } else if self.is_identifier() || self.at_keyword() {
                         self.consume_token();
                     } else {
@@ -1684,15 +1697,6 @@ impl<'a> Parser<'a> {
                 ) => {
                     self.parse_dim();
                 }
-                // Whitespace and newlines - consume directly
-                Some(
-                    Token::Whitespace
-                    | Token::Newline
-                    | Token::EndOfLineComment
-                    | Token::RemComment,
-                ) => {
-                    self.consume_token();
-                }
                 // Anything else - check if it's a label, assignment, procedure call, or unknown
                 _ => {
                     // Check if this is a label (identifier followed by colon)
@@ -1707,6 +1711,17 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
+                    // Whitespace, newlines, and comments - consume directly
+                    } else if matches!(
+                        self.current_token(),
+                        Some(
+                            Token::Whitespace
+                                | Token::Newline
+                                | Token::EndOfLineComment
+                                | Token::RemComment
+                        )
+                    ) {
+                        self.consume_token();
                     } else {
                         self.consume_token_as_unknown();
                     }
