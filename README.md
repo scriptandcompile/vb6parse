@@ -197,7 +197,6 @@ For advanced use cases, access specific layers:
 use vb6parse::io::{SourceFile, SourceStream, Comparator};
 use vb6parse::lexer::{tokenize, Token, TokenStream};
 use vb6parse::parsers::{parse, ConcreteSyntaxTree};
-use vb6parse::syntax::library::functions::string::left;
 use vb6parse::language::controls::{Control, ControlKind};
 use vb6parse::errors::{ProjectErrorKind, FormErrorKind};
 ```
@@ -223,81 +222,81 @@ Bytes/String/File → SourceFile → SourceStream → TokenStream → CST → Ob
 
 ```
 src/
-├── io/                      # I/O Layer - Character streams and decoding
-│   ├── mod.rs              # SourceFile, SourceStream
-│   ├── comparator.rs       # Case-sensitive/insensitive comparison
-│   └── decode.rs           # Windows-1252 decoding
+├── io/                          # I/O Layer - Character streams and decoding
+│   ├── mod.rs                   # SourceFile, SourceStream
+│   ├── comparator.rs            # Case-sensitive/insensitive comparison
+│   └── decode.rs                # Windows-1252 decoding
 │
-├── lexer/                  # Lexer Layer - Tokenization
-│   ├── mod.rs              # tokenize() function, keyword lookup
-│   └── token_stream.rs     # TokenStream implementation
+├── lexer/                       # Lexer Layer - Tokenization
+│   ├── mod.rs                   # tokenize() function, keyword lookup
+│   └── token_stream.rs          # TokenStream implementation
 │
-├── syntax/                 # Syntax Layer - VB6 Language constructs
-│   ├── library/            # VB6 built-in library
-│   │   ├── functions/      # 160+ VB6 functions (14 categories)
-│   │   │   ├── array/      # Array, Filter, Join, Split, etc.
-│   │   │   ├── conversion/ # CBool, CInt, CLng, Str, Val, etc.
-│   │   │   ├── datetime/   # Date, Now, Time, Year, Month, etc.
-│   │   │   ├── file_system/# Dir, EOF, FileLen, LOF, etc.
-│   │   │   ├── financial/  # FV, IPmt, IRR, NPV, PV, Rate, etc.
-│   │   │   ├── interaction/# MsgBox, InputBox, Shell, etc.
-│   │   │   ├── math/       # Abs, Cos, Sin, Tan, Log, Sqr, etc.
-│   │   │   ├── miscellaneous/# Environ, RGB, QBColor, etc.
-│   │   │   ├── string/     # Left, Right, Mid, Len, Trim, etc.
+├── syntax/                      # Syntax Layer - VB6 Language constructs
+│   ├── library/                 # VB6 built-in library
+│   │   ├── functions/           # 160+ VB6 functions (14 categories)
+│   │   │   ├── array/           # Array, Filter, Join, Split, etc.
+│   │   │   ├── conversion/      # CBool, CInt, CLng, Str, Val, etc.
+│   │   │   ├── datetime/        # Date, Now, Time, Year, Month, etc.
+│   │   │   ├── file_system/     # Dir, EOF, FileLen, LOF, etc.
+│   │   │   ├── financial/       # FV, IPmt, IRR, NPV, PV, Rate, etc.
+│   │   │   ├── interaction/     # MsgBox, InputBox, Shell, etc.
+│   │   │   ├── math/            # Abs, Cos, Sin, Tan, Log, Sqr, etc.
+│   │   │   ├── miscellaneous/   # Environ, RGB, QBColor, etc.
+│   │   │   ├── string/          # Left, Right, Mid, Len, Trim, etc.
 │   │   │   └── ...
-│   │   └── statements/     # 42 VB6 statements (9 categories)
+│   │   └── statements/          # 42 VB6 statements (9 categories)
 │   │       ├── control_flow/    # If, Select Case, For, While, etc.
 │   │       ├── declarations/    # Dim, ReDim, Const, Enum, etc.
 │   │       ├── error_handling/  # On Error, Resume, Err, etc.
 │   │       ├── file_operations/ # Open, Close, Get, Put, etc.
 │   │       ├── objects/         # Set, With, RaiseEvent, etc.
 │   │       └── ...
-│   └── expressions/        # Expression parsing utilities
+│   └── expressions/             # Expression parsing utilities
 │
-├── parsers/                # Parsers Layer - CST construction
-│   ├── cst/                # Concrete Syntax Tree implementation
-│   │   ├── mod.rs          # parse(), ConcreteSyntaxTree, CstNode
-│   │   └── rowan_wrapper.rs# Red-green tree wrapper
-│   ├── parseresults.rs     # ParseResult<T, E> type
-│   └── syntaxkind.rs       # SyntaxKind enum (all token types)
+├── parsers/                     # Parsers Layer - CST construction
+│   ├── cst/                     # Concrete Syntax Tree implementation
+│   │   ├── mod.rs               # parse(), ConcreteSyntaxTree, CstNode
+│   │   └── rowan_wrapper.rs     # Red-green tree wrapper
+│   ├── parseresults.rs          # ParseResult<T, E> type
+│   └── syntaxkind.rs            # SyntaxKind enum (all token types)
 │
-├── files/                  # Files Layer - VB6 file format parsers
-│   ├── common/             # Shared parsing utilities
-│   │   ├── properties.rs   # Property bag, PropertyGroup
-│   │   ├── attributes.rs   # Attribute statement parsing
-│   │   └── references.rs   # Object reference parsing
-│   ├── project/            # VBP - Project files
-│   │   ├── mod.rs          # ProjectFile struct and parser
-│   │   ├── properties.rs   # Project properties
-│   │   ├── references.rs   # Reference types
-│   │   └── compilesettings.rs # Compilation settings
-│   ├── class/              # CLS - Class modules
-│   ├── module/             # BAS - Code modules
-│   ├── form/               # FRM - Forms
-│   └── resource/           # FRX - Form resources
+├── files/                       # Files Layer - VB6 file format parsers
+│   ├── common/                  # Shared parsing utilities
+│   │   ├── properties.rs        # Property bag, PropertyGroup
+│   │   ├── attributes.rs        # Attribute statement parsing
+│   │   └── references.rs        # Object reference parsing
+│   ├── project/                 # VBP - Project files
+│   │   ├── mod.rs               # ProjectFile struct and parser
+│   │   ├── properties.rs        # Project properties
+│   │   ├── references.rs        # Reference types
+│   │   └── compilesettings.rs   # Compilation settings
+│   ├── class/                   # CLS - Class modules
+│   ├── module/                  # BAS - Code modules
+│   ├── form/                    # FRM - Forms
+│   └── resource/                # FRX - Form resources
 │
-├── language/               # Language Layer - VB6 types and definitions
-│   ├── color.rs            # VB6 color constants and Color type
-│   ├── controls/           # VB6 control definitions (50+ controls)
-│   │   ├── mod.rs          # Control, ControlKind enums
-│   │   ├── form.rs         # FormProperties
-│   │   ├── textbox.rs      # TextBoxProperties
-│   │   ├── label.rs        # LabelProperties
-│   │   └── ...             # 50+ control types
-│   └── tokens.rs           # Token enum definition
+├── language/                    # Language Layer - VB6 types and definitions
+│   ├── color.rs                 # VB6 color constants and Color type
+│   ├── controls/                # VB6 control definitions (50+ controls)
+│   │   ├── mod.rs               # Control, ControlKind enums
+│   │   ├── form.rs              # FormProperties
+│   │   ├── textbox.rs           # TextBoxProperties
+│   │   ├── label.rs             # LabelProperties
+│   │   └── ...                  # 50+ control types
+│   └── tokens.rs                # Token enum definition
 │
-├── errors/                 # Errors Layer - Error types
-│   ├── mod.rs              # ErrorDetails, error printing
-│   ├── decode.rs           # SourceFileErrorKind
-│   ├── tokenize.rs         # CodeErrorKind
-│   ├── project.rs          # ProjectErrorKind
-│   ├── class.rs            # ClassErrorKind
-│   ├── module.rs           # ModuleErrorKind
-│   ├── form.rs             # FormErrorKind
-│   ├── property.rs         # PropertyError
-│   └── resource.rs         # ResourceErrorKind
+├── errors/                      # Errors Layer - Error types
+│   ├── mod.rs                   # ErrorDetails, error printing
+│   ├── decode.rs                # SourceFileErrorKind
+│   ├── tokenize.rs              # CodeErrorKind
+│   ├── project.rs               # ProjectErrorKind
+│   ├── class.rs                 # ClassErrorKind
+│   ├── module.rs                # ModuleErrorKind
+│   ├── form.rs                  # FormErrorKind
+│   ├── property.rs              # PropertyError
+│   └── resource.rs              # ResourceErrorKind
 │
-└── lib.rs                  # Public API surface
+└── lib.rs                       # Public API surface
 ```
 
 ## Common Tasks
@@ -605,11 +604,9 @@ cargo bench bulk_parser_load
 
 **See also:** [benches/](benches/)
 
-## Contributing
+## Contributing to VB6Parse
 
 Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
-
-## Contributing to VB6Parse
 
 ### Development Setup
 
@@ -669,7 +666,6 @@ cargo fmt
 - Use `phf` crate for compile-time lookup tables
 
 **See also:**
-- [CrateLayoutPlan.md](CrateLayoutPlan.md) - Architecture plan
 - [CHANGELOG.md](CHANGELOG.md) - Version history
 
 ## Supported File Types
@@ -679,7 +675,7 @@ cargo fmt
 | `.vbp` | Project files | ✅ Complete |
 | `.cls` | Class modules | ✅ Complete |
 | `.bas` | Code modules | ✅ Complete |
-| `.frm` | Forms | ✅ Complete |
+| `.frm` | Forms | ⚠️ PArtial (font, some icons, etc) |
 | `.frx` | Form resources | ⚠️ Partial (binary blobs loaded, not all mapped to properties) |
 | `.ctl` | User controls | ✅ Parsed as forms |
 | `.dob` | User documents | ✅ Parsed as forms |
@@ -690,12 +686,13 @@ cargo fmt
 
 ## Project Status
 
-- ✅ **Core Parsing:** Fully implemented for VBP, CLS, BAS, FRM files
+- ✅ **Core Parsing:** Fully implemented for VBP, CLS, BAS files
 - ✅ **Tokenization:** Complete with keyword lookup
 - ✅ **CST Construction:** Full syntax tree with source fidelity
 - ✅ **Error Handling:** Comprehensive error types and recovery
 - ✅ **VB6 Library:** 160+ functions, 42 statements documented
 - ⚠️ **FRX Resources:** Binary loading complete, property mapping partial
+- ⚠️ **FRM Properties:** Majority of FRM properties load properly, (icon, background, font mapping partial)
 - ❌ **AST:** Not yet implemented (CST available)
 - ✅ **Testing:** 5,500+ tests across unit, integration, and doc tests
 - ✅ **Benchmarking:** Criterion-based performance testing
@@ -760,7 +757,7 @@ cargo run --example parse_project
 
 ## Limitations
 
-1. **Encoding:** Primarily designed for "predominantly English" source code due to Windows-1252 encoding detection limitations
+1. **Encoding:** Primarily designed for "predominantly English" source code with Windows-1252 encoding detection limitations
 2. **AST:** Abstract Syntax Tree is not yet implemented (Concrete Syntax Tree is available)
 3. **FRX Mapping:** Binary resources are loaded but not all are mapped to control properties
 4. **Real-time Use:** While capable, not optimized for real-time highlighting or LSP (focus is on offline analysis)
