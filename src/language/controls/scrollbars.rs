@@ -8,11 +8,11 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, CausesValidation, DragMode, MousePointer, ReferenceOrValue, TabStop, TextDirection,
     Visibility,
 };
-use crate::files::common::Properties;
 
 use image::DynamicImage;
 use serde::Serialize;

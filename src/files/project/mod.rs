@@ -3048,8 +3048,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_project() {
-        use crate::io::{Comparator, SourceStream};
         use crate::files::project::parse_quoted_converted_value;
+        use crate::io::{Comparator, SourceStream};
 
         let mut input = SourceStream::new("", "CompatibleMode=\"1\"\r\n");
 
@@ -3066,8 +3066,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_compatible_exe() {
-        use crate::io::{Comparator, SourceStream};
         use crate::files::project::parse_quoted_converted_value;
+        use crate::io::{Comparator, SourceStream};
 
         let mut input = SourceStream::new("", "CompatibleMode=\"2\"\n");
 

@@ -38,10 +38,7 @@
 //! ```
 
 use crate::{
-    errors::FormErrorKind,
-    files::common::FileFormatVersion,
-    language::Control,
-    lexer::TokenStream,
+    errors::FormErrorKind, files::common::FileFormatVersion, language::Control, lexer::TokenStream,
     parsers::ParseResult,
 };
 

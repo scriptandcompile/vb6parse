@@ -6,9 +6,9 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use crate::files::common::Properties;
 use crate::language::color::{Color, VB_WINDOW_TEXT};
 use crate::language::controls::{DrawMode, DrawStyle, Visibility};
-use crate::files::common::Properties;
 
 use serde::Serialize;
 

@@ -11,6 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    files::common::Properties,
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
@@ -20,7 +21,6 @@ use crate::{
         },
         Color, FormLinkMode, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
     },
-    files::common::Properties,
 };
 
 use image::DynamicImage;

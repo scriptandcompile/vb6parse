@@ -20,6 +20,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    files::common::Properties,
     language::{
         controls::{
             Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
@@ -27,7 +28,6 @@ use crate::{
         },
         Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    files::common::Properties,
     FormErrorKind,
 };
 

@@ -10,9 +10,9 @@ use std::convert::TryFrom;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
+use crate::files::common::Properties;
 use crate::language::color::Color;
 use crate::language::controls::{BackStyle, DrawMode, DrawStyle, Visibility};
-use crate::files::common::Properties;
 
 use num_enum::TryFromPrimitive;
 use serde::Serialize;

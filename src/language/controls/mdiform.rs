@@ -6,6 +6,7 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use crate::files::common::Properties;
 use crate::language::{
     controls::{
         Activation, Appearance, FormLinkMode, MousePointer, Movability, OLEDropMode,
@@ -13,7 +14,6 @@ use crate::language::{
     },
     Color, VB_APPLICATION_WORKSPACE,
 };
-use crate::files::common::Properties;
 
 use image::DynamicImage;
 use serde::Serialize;

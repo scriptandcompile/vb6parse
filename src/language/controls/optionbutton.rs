@@ -11,12 +11,12 @@ use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
     OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
 };
 use crate::language::{Color, VB_3D_FACE, VB_BUTTON_TEXT};
-use crate::files::common::Properties;
 
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
