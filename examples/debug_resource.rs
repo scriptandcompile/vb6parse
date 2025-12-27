@@ -1,4 +1,4 @@
-use vb6parse::FormResource;
+use vb6parse::FormResourceFile;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -8,7 +8,7 @@ fn main() {
         "./tests/data/audiostation/Audiostation/src/Forms/Form_About.frx"
     };
 
-    let result = FormResource::from_file(file_path).expect("Failed to read file");
+    let result = FormResourceFile::from_file(file_path).expect("Failed to read file");
 
     let resource_file = result.unwrap_or_fail();
 
