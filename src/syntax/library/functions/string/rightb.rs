@@ -197,11 +197,11 @@ mod tests {
 
     #[test]
     fn rightb_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = RightB(data, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -210,11 +210,11 @@ End Sub
 
     #[test]
     fn rightb_checksum() {
-        let source = r#"
+        let source = r"
 Function GetChecksum(packet As String) As String
     GetChecksum = RightB(packet, 4)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -223,11 +223,11 @@ End Function
 
     #[test]
     fn rightb_trailer() {
-        let source = r#"
+        let source = r"
 Sub ParseData(data As String)
     trailer = RightB(data, 16)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -236,13 +236,13 @@ End Sub
 
     #[test]
     fn rightb_in_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If RightB(data, 4) = checksumBytes Then
         ProcessData
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -251,11 +251,11 @@ End Sub
 
     #[test]
     fn rightb_binary_record() {
-        let source = r#"
+        let source = r"
 Function GetRecordSuffix(record As String) As String
     GetRecordSuffix = RightB(record, 8)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -279,13 +279,13 @@ End Sub
 
     #[test]
     fn rightb_dbcs_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim jpText As String
     jpText = GetJapaneseText()
     bytes = RightB(jpText, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -294,11 +294,11 @@ End Sub
 
     #[test]
     fn rightb_validation() {
-        let source = r#"
+        let source = r"
 Function ValidateTrailer(data As String, trailer As String) As Boolean
     ValidateTrailer = (RightB(data, LenB(trailer)) = trailer)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -307,7 +307,7 @@ End Function
 
     #[test]
     fn rightb_crc_validation() {
-        let source = r#"
+        let source = r"
 Function ValidateCRC(data As String) As Boolean
     Dim crc As String
     Dim payload As String
@@ -317,7 +317,7 @@ Function ValidateCRC(data As String) As Boolean
     
     ValidateCRC = (CalculateCRC(payload) = crc)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));
@@ -326,11 +326,11 @@ End Function
 
     #[test]
     fn rightb_guid_extraction() {
-        let source = r#"
+        let source = r"
 Sub ExtractGUID(guidData As String)
     data4 = RightB(guidData, 8)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("RightB"));

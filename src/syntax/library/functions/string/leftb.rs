@@ -153,11 +153,11 @@ mod tests {
 
     #[test]
     fn leftb_basic() {
-        let source = r#"
+        let source = r"
 Sub Test()
     result = LeftB(data, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
@@ -183,11 +183,11 @@ End Function
 
     #[test]
     fn leftb_protocol_header() {
-        let source = r#"
+        let source = r"
 Sub ParsePacket(packet As String)
     header = LeftB(packet, 16)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
@@ -196,13 +196,13 @@ End Sub
 
     #[test]
     fn leftb_in_condition() {
-        let source = r#"
+        let source = r"
 Sub Test()
     If LeftB(data, 4) = magicBytes Then
         ProcessData
     End If
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
@@ -211,11 +211,11 @@ End Sub
 
     #[test]
     fn leftb_binary_record() {
-        let source = r#"
+        let source = r"
 Function GetRecordID(record As String) As String
     GetRecordID = LeftB(record, 8)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
@@ -239,13 +239,13 @@ End Sub
 
     #[test]
     fn leftb_dbcs_handling() {
-        let source = r#"
+        let source = r"
 Sub Test()
     Dim jpText As String
     jpText = GetJapaneseText()
     bytes = LeftB(jpText, 4)
 End Sub
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
@@ -254,11 +254,11 @@ End Sub
 
     #[test]
     fn leftb_validation() {
-        let source = r#"
+        let source = r"
 Function ValidateMagicBytes(data As String, magic As String) As Boolean
     ValidateMagicBytes = (LeftB(data, LenB(magic)) = magic)
 End Function
-"#;
+";
         let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
         let text = tree.debug_tree();
         assert!(text.contains("LeftB"));
