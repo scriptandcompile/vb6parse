@@ -3,19 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project (tries!) to adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.5.1] - 2025-01-01
-
-### Added
-- Comprehensive fuzz testing support with 9 fuzz targets covering all parser layers
-- Fuzz targets for: SourceFile decoding, SourceStream, tokenization, CST parsing, ProjectFile, ClassFile, ModuleFile, FormFile, and FormResourceFile
-- Corpus and artifacts directories for fuzzing with cargo-fuzz and libFuzzer
-
 ### Changed
-- Removed `winnow` dependency - no longer used in the codebase
+- Removed `winnow` dependency - no longer used in the codebase.
+- Removed `borrow` dependency - no longer used in the codebase.
 - Renamed `source_file` field to `file_name` in `TokenStream`
 - Made `TokenStream` fields private with accessor methods (`file_name()`, `offset()`)
 - Reorganized module structure: created IO module and Lexer module
@@ -33,6 +27,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VB6 Color BGR format handling (was incorrectly using RGB)
 
 ### Added
+- "Contributing" section in README.md linking to CONTRIBUTING.md
+- New CONTRIBUTING.md file with a list of low and medium difficulty enhancements for new contributors
+- Entry-level tasks documented: documentation improvements, new examples, increased test coverage, expanding FRX property mapping
+- Improved onboarding documentation for new contributors
+- Documented ConcreteSyntaxTree and CstNode navigation methods in README.md, including examples of tree traversal and node queries
+- Comprehensive fuzz testing support with 9 fuzz targets covering all parser layers
+- Fuzz targets for: SourceFile decoding, SourceStream, tokenization, CST parsing, ProjectFile, ClassFile, ModuleFile, FormFile, and FormResourceFile
+- Corpus and artifacts directories for fuzzing with cargo-fuzz and libFuzzer
 - Support for RmDir statements
 - Support for Resume statements
 - Support for Randomize statements
