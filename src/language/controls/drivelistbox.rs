@@ -6,11 +6,11 @@
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
 
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
 };
-use crate::files::common::Properties;
 use crate::language::Color;
 
 use image::DynamicImage;

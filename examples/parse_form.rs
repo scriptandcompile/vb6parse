@@ -1,6 +1,6 @@
-use vb6parse::language::ControlKind;
 use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
+use vb6parse::language::ControlKind;
 
 /// Example showing how to parse a VB6 form file from raw bytes.
 /// This example uses a hardcoded byte array, but in a real application,

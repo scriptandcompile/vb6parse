@@ -11,6 +11,7 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
+    files::common::Properties,
     language::{
         color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
@@ -18,7 +19,6 @@ use crate::{
             OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
         },
     },
-    files::common::Properties,
 };
 
 use image::DynamicImage;

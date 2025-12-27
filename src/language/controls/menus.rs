@@ -12,8 +12,8 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
-use crate::language::controls::{Activation, Visibility};
 use crate::files::common::Properties;
+use crate::language::controls::{Activation, Visibility};
 
 use num_enum::TryFromPrimitive;
 use serde::Serialize;

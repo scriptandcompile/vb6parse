@@ -10,10 +10,10 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Align, Appearance, DragMode, MousePointer, OLEDropMode, TextDirection, Visibility,
 };
-use crate::files::common::Properties;
 use crate::language::Color;
 
 use image::DynamicImage;

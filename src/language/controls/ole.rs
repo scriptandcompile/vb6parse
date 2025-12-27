@@ -10,12 +10,12 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::errors::FormErrorKind;
+use crate::files::common::Properties;
+use crate::language::color::Color;
 use crate::language::controls::{
     Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
     ReferenceOrValue, SizeMode, TabStop, Visibility,
 };
-use crate::language::color::Color;
-use crate::files::common::Properties;
 
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;

@@ -385,8 +385,7 @@ Option Explicit
     Attribute VB_PredeclaredId = False\r
     Attribute VB_Exposed = False";
 
-        let sourcefile =
-            SourceFile::decode_with_replacement("test.cls", input).unwrap();
+        let sourcefile = SourceFile::decode_with_replacement("test.cls", input).unwrap();
 
         let result = ClassFile::parse(&sourcefile);
 

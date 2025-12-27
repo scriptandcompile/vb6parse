@@ -5,11 +5,11 @@
 //! tag, name, and index are not included in this struct, but instead are part
 //! of the parent [`Control`](crate::language::controls::Control) struct.
 //!
+use crate::files::common::Properties;
 use crate::language::controls::{
     Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
     ReferenceOrValue, TabStop, Visibility,
 };
-use crate::files::common::Properties;
 use crate::language::Color;
 
 use image::DynamicImage;
