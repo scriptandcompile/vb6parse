@@ -49,6 +49,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::GoSubStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "GoSub" keyword
         self.consume_token();
@@ -90,6 +91,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::ReturnStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "Return" keyword
         self.consume_token();
@@ -113,6 +115,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::GotoStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "`GoTo`" keyword
         self.consume_token();
@@ -190,6 +193,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::ResumeStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "Resume" keyword
         self.consume_token();
@@ -215,6 +219,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::ExitStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "Exit" keyword
         self.consume_token();
@@ -253,6 +258,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::LabelStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume the label identifier
         self.consume_token();
@@ -347,6 +353,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::OnErrorStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "On" keyword
         self.consume_token();
@@ -409,6 +416,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::OnGoToStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "On" keyword
         self.consume_token();
@@ -468,6 +476,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::OnGoSubStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "On" keyword
         self.consume_token();

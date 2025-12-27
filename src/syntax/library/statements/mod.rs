@@ -94,14 +94,22 @@ impl Parser<'_> {
     /// Special handling:
     /// - `ErrorKeyword` followed by `DollarSign` is NOT a statement (it's the Error$ function)
     /// - `MidKeyword` followed by `DollarSign` is NOT a statement (it's the Mid$ function) so we exclude those patterns.
+    ///
+    /// Checks both current position and next non-whitespace token.
     pub(crate) fn is_library_statement_keyword(&self) -> bool {
         // Special case: keyword/identifier + DollarSign is a function, not a statement
         if self.at_keyword_dollar() {
             return false;
         }
 
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
         matches!(
-            self.current_token(),
+            token,
             Some(
                 Token::AppActivateKeyword
                     | Token::BeepKeyword
@@ -147,7 +155,13 @@ impl Parser<'_> {
 
     /// Dispatch library statement parsing to the appropriate parser.
     pub(crate) fn parse_library_statement(&mut self) {
-        match self.current_token() {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        match token {
             Some(Token::AppActivateKeyword) => {
                 self.parse_app_activate_statement();
             }

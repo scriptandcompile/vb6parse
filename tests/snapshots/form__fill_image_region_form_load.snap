@@ -862,14 +862,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n"
+                text: "    If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -946,14 +946,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        toDraw = True\r\n"
+                        text: "toDraw = True\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: toDraw
                             is_token: false
@@ -1006,14 +1006,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        xStart = x\r\n"
+                        text: "xStart = x\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: xStart
                             is_token: false
@@ -1046,14 +1046,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        yStart = y\r\n"
+                        text: "yStart = y\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: yStart
                             is_token: false
@@ -1190,14 +1190,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: RandomizeStatement
-                            text: "Randomize Timer\r\n"
+                            text: "        Randomize Timer\r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "        "
+                                is_token: true
+                                children: []
                               - kind: RandomizeKeyword
                                 text: Randomize
                                 is_token: true
@@ -1234,14 +1234,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: AssignmentStatement
-                            text: "        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n"
+                            text: "picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n"
                             is_token: false
                             children:
-                              - kind: Whitespace
-                                text: "        "
-                                is_token: true
-                                children: []
                               - kind: MemberAccessExpression
                                 text: picDemo.FillColor
                                 is_token: false
@@ -1874,14 +1874,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n"
+                text: "    If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2034,14 +2034,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        xStart = x\r\n"
+                        text: "xStart = x\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: xStart
                             is_token: false
@@ -2074,14 +2074,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        yStart = y\r\n"
+                        text: "yStart = y\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: yStart
                             is_token: false
@@ -2346,14 +2346,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    toDraw = False\r\n"
+                text: "toDraw = False\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: toDraw
                     is_token: false

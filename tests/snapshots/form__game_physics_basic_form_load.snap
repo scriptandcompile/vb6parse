@@ -1451,14 +1451,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    GameActive = True\r\n"
+                text: "GameActive = True\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false
@@ -1595,14 +1595,14 @@ cst:
             text: "    GameActive = False\r\n"
             is_token: false
             children:
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    GameActive = False\r\n"
+                text: "GameActive = False\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false
@@ -1807,14 +1807,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyLeft Then\r\n        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    End If\r\n"
+                text: "    If KeyCode = vbKeyLeft Then\r\n        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    End If\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -1871,14 +1871,14 @@ cst:
                     text: "        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    "
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        sLeft = 1\r\n"
+                        text: "sLeft = 1\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: sLeft
                             is_token: false
@@ -1911,14 +1911,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        picShip.Picture = PicL.Picture\r\n"
+                        text: "picShip.Picture = PicL.Picture\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: picShip.Picture
                             is_token: false
@@ -1967,14 +1967,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        picShipMask.Picture = PicLM.Picture\r\n"
+                        text: "picShipMask.Picture = PicLM.Picture\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: picShipMask.Picture
                             is_token: false
@@ -2063,14 +2063,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyRight Then\r\n        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    End If\r\n"
+                text: "    If KeyCode = vbKeyRight Then\r\n        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    End If\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2127,14 +2127,14 @@ cst:
                     text: "        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    "
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        sRight = 1\r\n"
+                        text: "sRight = 1\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: sRight
                             is_token: false
@@ -2167,14 +2167,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        picShip.Picture = PicR.Picture\r\n"
+                        text: "picShip.Picture = PicR.Picture\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: picShip.Picture
                             is_token: false
@@ -2223,14 +2223,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        picShipMask.Picture = PicRM.Picture\r\n"
+                        text: "picShipMask.Picture = PicRM.Picture\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: picShipMask.Picture
                             is_token: false
@@ -2319,14 +2319,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyUp Then sUp = 1\r\n    \r\n"
+                text: "    If KeyCode = vbKeyUp Then sUp = 1\r\n    \r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2435,14 +2435,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyDown Then sDown = 1\r\n    \r\n"
+                text: "    If KeyCode = vbKeyDown Then sDown = 1\r\n    \r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2551,14 +2551,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeySpace Then Firing = True\r\n    \r\n"
+                text: "    If KeyCode = vbKeySpace Then Firing = True\r\n    \r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2667,14 +2667,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyEscape Then GameActive = False\r\n    \r\n"
+                text: "    If KeyCode = vbKeyEscape Then GameActive = False\r\n    \r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -2907,14 +2907,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If KeyCode = vbKeyLeft Then sLeft = 0\r\n    If KeyCode = vbKeyRight Then sRight = 0\r\n    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\nEnd Sub\r\n\r\n"
+                text: "    If KeyCode = vbKeyLeft Then sLeft = 0\r\n    If KeyCode = vbKeyRight Then sRight = 0\r\n    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\nEnd Sub\r\n\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -3003,14 +3003,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IfStatement
-                    text: "If KeyCode = vbKeyRight Then sRight = 0\r\n    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\nEnd Sub\r\n"
+                    text: "    If KeyCode = vbKeyRight Then sRight = 0\r\n    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\nEnd Sub\r\n"
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "    "
+                        is_token: true
+                        children: []
                       - kind: IfKeyword
                         text: If
                         is_token: true
@@ -3099,14 +3099,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "    "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n"
+                        text: "    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "    "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -3195,14 +3195,14 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                          - kind: Whitespace
-                            text: "    "
-                            is_token: true
-                            children: []
                           - kind: IfStatement
-                            text: "If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n"
+                            text: "    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n"
                             is_token: false
                             children:
+                              - kind: Whitespace
+                                text: "    "
+                                is_token: true
+                                children: []
                               - kind: IfKeyword
                                 text: If
                                 is_token: true
@@ -3311,14 +3311,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "    "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If KeyCode = vbKeySpace Then Firing = False\r\n    \r\n"
+                        text: "    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "    "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -3543,14 +3543,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: DoStatement
-                text: "Do While GameActive\r\n        \r\n        If (Not GameActive) Then Exit Do\r\n        \r\n        'Calculate time at the start of the function\r\n        timeDelay = Timer\r\n        \r\n        'Draw the background stars\r\n        DrawStars\r\n        \r\n        'Calculate the ship's motion and location\r\n        VelocityCode\r\n        \r\n        'If necessary, fire some bullets\r\n        FireBullets\r\n        \r\n        'Change the velocity caption\r\n        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n        If GameActive Then DoEvents Else Exit Do\r\n        \r\n        'If framerate limitations are active, loop until enough time has passed\r\n        If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n        \r\n    'Then do it all again...\r\n    Loop\r\n"
+                text: "    Do While GameActive\r\n        \r\n        If (Not GameActive) Then Exit Do\r\n        \r\n        'Calculate time at the start of the function\r\n        timeDelay = Timer\r\n        \r\n        'Draw the background stars\r\n        DrawStars\r\n        \r\n        'Calculate the ship's motion and location\r\n        VelocityCode\r\n        \r\n        'If necessary, fire some bullets\r\n        FireBullets\r\n        \r\n        'Change the velocity caption\r\n        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n        If GameActive Then DoEvents Else Exit Do\r\n        \r\n        'If framerate limitations are active, loop until enough time has passed\r\n        If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n        \r\n    'Then do it all again...\r\n    Loop\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: DoKeyword
                     text: Do
                     is_token: true
@@ -3591,14 +3591,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If (Not GameActive) Then Exit Do\r\n        \r\n"
+                        text: "        If (Not GameActive) Then Exit Do\r\n        \r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -3691,14 +3691,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        timeDelay = Timer\r\n"
+                        text: "timeDelay = Timer\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: timeDelay
                             is_token: false
@@ -3859,14 +3859,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n"
+                        text: "LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: LblVel.Caption
                             is_token: false
@@ -3979,14 +3979,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If GameActive Then DoEvents "
+                        text: "        If GameActive Then DoEvents "
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -4027,14 +4027,14 @@ cst:
                         text: Else
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: " "
-                        is_token: true
-                        children: []
                       - kind: ExitStatement
-                        text: "Exit Do\r\n"
+                        text: " Exit Do\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: " "
+                            is_token: true
+                            children: []
                           - kind: ExitKeyword
                             text: Exit
                             is_token: true
@@ -4071,14 +4071,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n"
+                        text: "        If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -4155,14 +4155,14 @@ cst:
                             text: "            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        "
                             is_token: false
                             children:
-                              - kind: Whitespace
-                                text: "            "
-                                is_token: true
-                                children: []
                               - kind: DoStatement
-                                text: "Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n"
+                                text: "            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n"
                                 is_token: false
                                 children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                    is_token: true
+                                    children: []
                                   - kind: DoKeyword
                                     text: Do
                                     is_token: true
@@ -4303,14 +4303,14 @@ cst:
                                     text: "                If GameActive Then DoEvents Else Exit Do\r\n            "
                                     is_token: false
                                     children:
-                                      - kind: Whitespace
-                                        text: "                "
-                                        is_token: true
-                                        children: []
                                       - kind: IfStatement
-                                        text: "If GameActive Then DoEvents "
+                                        text: "                If GameActive Then DoEvents "
                                         is_token: false
                                         children:
+                                          - kind: Whitespace
+                                            text: "                "
+                                            is_token: true
+                                            children: []
                                           - kind: IfKeyword
                                             text: If
                                             is_token: true
@@ -4351,14 +4351,14 @@ cst:
                                         text: Else
                                         is_token: true
                                         children: []
-                                      - kind: Whitespace
-                                        text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: ExitStatement
-                                        text: "Exit Do\r\n"
+                                        text: " Exit Do\r\n"
                                         is_token: false
                                         children:
+                                          - kind: Whitespace
+                                            text: " "
+                                            is_token: true
+                                            children: []
                                           - kind: ExitKeyword
                                             text: Exit
                                             is_token: true
@@ -4459,14 +4459,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: UnloadStatement
-                text: "Unload Me\r\n"
+                text: "    Unload Me\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: UnloadKeyword
                     text: Unload
                     is_token: true
@@ -4603,14 +4603,14 @@ cst:
             text: "    GameActive = False\r\n"
             is_token: false
             children:
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    GameActive = False\r\n"
+                text: "GameActive = False\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false

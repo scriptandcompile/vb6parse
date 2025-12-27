@@ -2550,14 +2550,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    GetImageWidth = bm.bmWidth\r\n"
+                text: "GetImageWidth = bm.bmWidth\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: GetImageWidth
                     is_token: false
@@ -2822,14 +2822,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    GetImageHeight = Abs(bm.bmHeight)\r\n"
+                text: "GetImageHeight = Abs(bm.bmHeight)\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: GetImageHeight
                     is_token: false
@@ -3346,14 +3346,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    imgStride = (bm.bmWidth * 3) - 1 + (bm.bmWidth Mod 4)\r\n"
+                text: "imgStride = (bm.bmWidth * 3) - 1 + (bm.bmWidth Mod 4)\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: imgStride
                     is_token: false
@@ -3522,14 +3522,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: ReDimStatement
-                text: "ReDim dstPixelData(0 To imgStride, 0 To bm.bmHeight - 1) As Byte\r\n"
+                text: "    ReDim dstPixelData(0 To imgStride, 0 To bm.bmHeight - 1) As Byte\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: ReDimKeyword
                     text: ReDim
                     is_token: true
@@ -3546,14 +3546,10 @@ cst:
                     text: (
                     is_token: true
                     children: []
-                  - kind: NumericLiteralExpression
+                  - kind: IntegerLiteral
                     text: "0"
-                    is_token: false
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                        is_token: true
-                        children: []
+                    is_token: true
+                    children: []
                   - kind: Whitespace
                     text: " "
                     is_token: true
@@ -3566,14 +3562,10 @@ cst:
                     text: " "
                     is_token: true
                     children: []
-                  - kind: IdentifierExpression
+                  - kind: Identifier
                     text: imgStride
-                    is_token: false
-                    children:
-                      - kind: Identifier
-                        text: imgStride
-                        is_token: true
-                        children: []
+                    is_token: true
+                    children: []
                   - kind: Comma
                     text: ","
                     is_token: true
@@ -3582,14 +3574,10 @@ cst:
                     text: " "
                     is_token: true
                     children: []
-                  - kind: NumericLiteralExpression
+                  - kind: IntegerLiteral
                     text: "0"
-                    is_token: false
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                        is_token: true
-                        children: []
+                    is_token: true
+                    children: []
                   - kind: Whitespace
                     text: " "
                     is_token: true
@@ -3602,46 +3590,34 @@ cst:
                     text: " "
                     is_token: true
                     children: []
-                  - kind: BinaryExpression
-                    text: bm.bmHeight - 1
-                    is_token: false
-                    children:
-                      - kind: MemberAccessExpression
-                        text: bm.bmHeight
-                        is_token: false
-                        children:
-                          - kind: Identifier
-                            text: bm
-                            is_token: true
-                            children: []
-                          - kind: PeriodOperator
-                            text: "."
-                            is_token: true
-                            children: []
-                          - kind: Identifier
-                            text: bmHeight
-                            is_token: true
-                            children: []
-                      - kind: Whitespace
-                        text: " "
-                        is_token: true
-                        children: []
-                      - kind: SubtractionOperator
-                        text: "-"
-                        is_token: true
-                        children: []
-                      - kind: Whitespace
-                        text: " "
-                        is_token: true
-                        children: []
-                      - kind: NumericLiteralExpression
-                        text: "1"
-                        is_token: false
-                        children:
-                          - kind: IntegerLiteral
-                            text: "1"
-                            is_token: true
-                            children: []
+                  - kind: Identifier
+                    text: bm
+                    is_token: true
+                    children: []
+                  - kind: PeriodOperator
+                    text: "."
+                    is_token: true
+                    children: []
+                  - kind: Identifier
+                    text: bmHeight
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: SubtractionOperator
+                    text: "-"
+                    is_token: true
+                    children: []
+                  - kind: Whitespace
+                    text: " "
+                    is_token: true
+                    children: []
+                  - kind: IntegerLiteral
+                    text: "1"
+                    is_token: true
+                    children: []
                   - kind: RightParenthesis
                     text: )
                     is_token: true
@@ -3734,14 +3710,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: WithStatement
-                text: "With bmi.bmHeader\r\n        .bmWidth = bm.bmWidth\r\n        .bmHeight = bm.bmHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n"
+                text: "    With bmi.bmHeader\r\n        .bmWidth = bm.bmWidth\r\n        .bmHeight = bm.bmHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: WithKeyword
                     text: With
                     is_token: true
@@ -3770,14 +3746,14 @@ cst:
                     text: "        .bmWidth = bm.bmWidth\r\n        .bmHeight = bm.bmHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    "
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmWidth = bm.bmWidth\r\n"
+                        text: ".bmWidth = bm.bmWidth\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -3830,14 +3806,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmHeight = bm.bmHeight\r\n"
+                        text: ".bmHeight = bm.bmHeight\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -3890,14 +3866,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n"
+                        text: "        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -4010,14 +3986,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmSize = 40"
+                        text: ".bmSize = 40"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -4070,14 +4046,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmPlanes = 1"
+                        text: ".bmPlanes = 1"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -4130,14 +4106,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmBitCount = 24"
+                        text: ".bmBitCount = 24"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -4190,14 +4166,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmCompression = 0"
+                        text: ".bmCompression = 0"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -4958,14 +4934,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: WithStatement
-                text: "With bmi.bmHeader\r\n        .bmWidth = imgWidth\r\n        .bmHeight = imgHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n"
+                text: "    With bmi.bmHeader\r\n        .bmWidth = imgWidth\r\n        .bmHeight = imgHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: WithKeyword
                     text: With
                     is_token: true
@@ -4994,14 +4970,14 @@ cst:
                     text: "        .bmWidth = imgWidth\r\n        .bmHeight = imgHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    "
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmWidth = imgWidth\r\n"
+                        text: ".bmWidth = imgWidth\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5046,14 +5022,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmHeight = imgHeight\r\n"
+                        text: ".bmHeight = imgHeight\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5098,14 +5074,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: IfStatement
-                        text: "If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n"
+                        text: "        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IfKeyword
                             text: If
                             is_token: true
@@ -5218,14 +5194,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmSize = 40"
+                        text: ".bmSize = 40"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5278,14 +5254,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmPlanes = 1"
+                        text: ".bmPlanes = 1"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5338,14 +5314,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmBitCount = 24"
+                        text: ".bmBitCount = 24"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5398,14 +5374,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        .bmCompression = 0"
+                        text: ".bmCompression = 0"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
                             text: "."
                             is_token: false
@@ -5822,14 +5798,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "If dstPictureBox.AutoRedraw Then\r\n        dstPictureBox.Picture = dstPictureBox.Image\r\n        dstPictureBox.Refresh\r\n    End If\r\n"
+                text: "    If dstPictureBox.AutoRedraw Then\r\n        dstPictureBox.Picture = dstPictureBox.Image\r\n        dstPictureBox.Refresh\r\n    End If\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IfKeyword
                     text: If
                     is_token: true
@@ -5870,14 +5846,14 @@ cst:
                     text: "        dstPictureBox.Picture = dstPictureBox.Image\r\n        dstPictureBox.Refresh\r\n    "
                     is_token: false
                     children:
+                      - kind: Whitespace
+                        text: "        "
+                        is_token: true
+                        children: []
                       - kind: AssignmentStatement
-                        text: "        dstPictureBox.Picture = dstPictureBox.Image\r\n"
+                        text: "dstPictureBox.Picture = dstPictureBox.Image\r\n"
                         is_token: false
                         children:
-                          - kind: Whitespace
-                            text: "        "
-                            is_token: true
-                            children: []
                           - kind: MemberAccessExpression
                             text: dstPictureBox.Picture
                             is_token: false
