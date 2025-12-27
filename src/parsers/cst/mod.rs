@@ -49,6 +49,107 @@
 //! println!("Children: {}", cst.child_count());
 //! ```
 //!
+//! # Navigating the CST
+//!
+//! The CST provides rich navigation capabilities for traversing and querying the tree.
+//! Both [`ConcreteSyntaxTree`] and [`CstNode`] provide parallel navigation APIs:
+//!
+//! ## Root-Level Navigation
+//!
+//! ```rust
+//! use vb6parse::ConcreteSyntaxTree;
+//! use vb6parse::parsers::SyntaxKind;
+//!
+//! let source = "Sub Test()\nEnd Sub\n";
+//! let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+//!
+//! // Access root-level children
+//! println!("Child count: {}", cst.child_count());
+//! let first = cst.first_child();
+//!
+//! // Search root-level children
+//! let subs: Vec<_> = cst.children_by_kind(SyntaxKind::SubStatement).collect();
+//! ```
+//!
+//! ## Node-Level Navigation
+//!
+//! Once you have a [`CstNode`], you can navigate its structure:
+//!
+//! ```rust
+//! # use vb6parse::ConcreteSyntaxTree;
+//! # use vb6parse::parsers::SyntaxKind;
+//! # let source = "Sub Test()\nDim x\nEnd Sub\n";
+//! # let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+//! let root = cst.to_serializable().root;
+//!
+//! // Direct children
+//! println!("Child count: {}", root.child_count());
+//! let first = root.first_child();
+//!
+//! // Filter by kind
+//! let statements: Vec<_> = root.children_by_kind(SyntaxKind::DimStatement).collect();
+//!
+//! // Recursive search
+//! let dim_stmt = root.find(SyntaxKind::DimStatement);
+//! let all_identifiers = root.find_all(SyntaxKind::Identifier);
+//!
+//! // Filter tokens
+//! let non_tokens: Vec<_> = root.non_token_children().collect();
+//! let significant: Vec<_> = root.significant_children().collect();
+//!
+//! // Custom predicates
+//! let keywords = root.find_all_if(|n| {
+//!     matches!(n.kind, SyntaxKind::SubKeyword | SyntaxKind::DimKeyword)
+//! });
+//!
+//! // Iterate all nodes
+//! for node in root.descendants() {
+//!     if node.is_significant() {
+//!         println!("{:?}: {}", node.kind, node.text);
+//!     }
+//! }
+//! ```
+//!
+//! ## Navigation Methods
+//!
+//! Available on both [`ConcreteSyntaxTree`] and [`CstNode`]:
+//!
+//! **Basic Access:**
+//! - `child_count()` - Number of direct children
+//! - `first_child()`, `last_child()`, `child_at(index)` - Access specific children
+//!
+//! **By Kind:**
+//! - `children_by_kind(kind)` - Iterator over children of a specific kind
+//! - `first_child_by_kind(kind)` - First child of a specific kind
+//! - `contains_kind(kind)` - Check if a kind exists in children
+//!
+//! **Recursive Search:**
+//! - `find(kind)` - Find first descendant of a specific kind
+//! - `find_all(kind)` - Find all descendants of a specific kind
+//!
+//! **Token Filtering:**
+//! - `non_token_children()` - Structural nodes only
+//! - `token_children()` - Tokens only
+//! - `first_non_whitespace_child()` - Skip leading whitespace
+//! - `significant_children()` - Exclude whitespace and newlines
+//!
+//! **Predicate-Based:**
+//! - `find_if(predicate)` - Find first node matching a custom condition
+//! - `find_all_if(predicate)` - Find all nodes matching a custom condition
+//!
+//! **Tree Traversal:**
+//! - `descendants()` - Depth-first iterator over all nodes
+//! - `depth_first_iter()` - Alias for `descendants()`
+//!
+//! **Convenience Checkers** (`CstNode` only):
+//! - `is_whitespace()` - Check if node is whitespace.
+//! - `is_newline()` - Check if node is newline.
+//! - `is_comment()` - Check if node is an end-of-Line or REM comment.
+//! - `is_trivia()` - Whitespace, newline, end-of-Line comment, or REM comment.
+//! - `is_significant()` - Not trivia.
+//!
+//! For more details, see the documentation for [`ConcreteSyntaxTree`] and [`CstNode`].
+//!
 //! # Design Principles
 //!
 //! 1. **No rowan types exposed**: All public APIs use custom types that don't expose rowan.

@@ -709,7 +709,7 @@ End
         assert!(cst.contains_kind(SyntaxKind::ObjectStatement));
 
         // Verify we have exactly 2 ObjectStatements
-        let obj_statements = cst.find_children_by_kind(SyntaxKind::ObjectStatement);
+        let obj_statements: Vec<_> = cst.children_by_kind(SyntaxKind::ObjectStatement).collect();
         assert_eq!(obj_statements.len(), 2);
 
         // Verify the content of the first Object statement

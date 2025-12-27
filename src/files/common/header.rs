@@ -191,7 +191,7 @@ pub(crate) fn extract_version(
     cst: &crate::parsers::ConcreteSyntaxTree,
 ) -> Option<FileFormatVersion> {
     // Find the VersionStatement node
-    let version_nodes = cst.find_children_by_kind(SyntaxKind::VersionStatement);
+    let version_nodes: Vec<_> = cst.children_by_kind(SyntaxKind::VersionStatement).collect();
 
     if version_nodes.is_empty() {
         return None;
