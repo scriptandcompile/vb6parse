@@ -277,9 +277,11 @@ Sub Test()
     x = Array(1, 2, 3)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
         let debug = cst.debug_tree();
+
         assert!(debug.contains("Array"));
         assert!(debug.contains("Identifier"));
     }
