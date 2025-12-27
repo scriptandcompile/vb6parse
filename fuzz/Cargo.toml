@@ -47,3 +47,24 @@ path = "fuzz_targets/project_file.rs"
 test = false
 doc = false
 bench = false
+
+[[bin]]
+name = "class_file"
+path = "fuzz_targets/class_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "module_file"
+path = "fuzz_targets/module_file.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "form_file"
+path = "fuzz_targets/form_file.rs"
+test = false
+doc = false
+bench = false

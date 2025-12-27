@@ -2,10 +2,39 @@
 
 This document tracks crashes and bugs discovered by fuzz testing.
 
-## ProjectFile Fuzzer
+## Common Bug: UTF-8 Char Boundary Panic in SourceStream
 
-- **Crash discovered**: UTF-8 char boundary panic when parsing Chinese filenames encoded with Windows-1252
-- **Location**: `src/io/source_stream.rs:310` - string slicing on multi-byte character boundary  
+All fuzzers discovered the same critical bug: UTF-8 character boundary panic when parsing Windows-1252 encoded files with non-ASCII characters.
+
+**Root Cause**: `src/io/source_stream.rs:163` and `:310` - string slicing operations don't handle multi-byte UTF-8 characters correctly after Windows-1252 decoding.
+
+**Status**: Needs fix - SourceStream string slicing must use character boundary checks or operate on byte slices.
+
+### ProjectFile Fuzzer
+
+- **Crash location**: `src/io/source_stream.rs:310`
 - **Test Case**: `fuzz/artifacts/project_file/crash-4ff6b15016e5af289309a9b4787e284b530aa3fc`
+- **Trigger**: Chinese filenames (TLB×é¼þ - bytes 215,233,188,254) in path references
 - **Reproduction**: `cargo +nightly fuzz run project_file fuzz/artifacts/project_file/crash-4ff6b15016e5af289309a9b4787e284b530aa3fc`
-- **Status**: Needs fix - SourceStream string slicing doesn't handle multi-byte UTF-8 characters correctly
+
+### ClassFile Fuzzer
+
+- **Crash location**: `src/io/source_stream.rs:163`
+- **Test Case**: `fuzz/artifacts/class_file/crash-140a84fa3e8ae7277d60d64a6ae2db730383c928`
+- **Trigger**: String literal with "Ô" character (bytes 212,170)
+- **Reproduction**: `cargo +nightly fuzz run class_file fuzz/artifacts/class_file/crash-140a84fa3e8ae7277d60d64a6ae2db730383c928`
+
+### ModuleFile Fuzzer
+
+- **Crash location**: `src/io/source_stream.rs:163`
+- **Test Case**: `fuzz/artifacts/module_file/crash-9ed078c9446aa6eca02c2e40debd7cc6dd839a1b`
+- **Trigger**: Cyrillic characters in Debug.Print statements (bytes 209,229,233,247,224,241...)
+- **Reproduction**: `cargo +nightly fuzz run module_file fuzz/artifacts/module_file/crash-9ed078c9446aa6eca02c2e40debd7cc6dd839a1b`
+
+### FormFile Fuzzer
+
+- **Crash location**: `src/io/source_stream.rs:163`
+- **Test Case**: `fuzz/artifacts/form_file/crash-f22f053be128d3e1e4c7b29215598aafb638ee46`
+- **Trigger**: Chinese characters in form caption and comments (bytes 179,230,189,117,169...)
+- **Reproduction**: `cargo +nightly fuzz run form_file fuzz/artifacts/form_file/crash-f22f053be128d3e1e4c7b29215598aafb638ee46`
+
