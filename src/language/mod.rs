@@ -6,7 +6,7 @@
 //! types, which define the different kinds of controls that can be used in VB6
 //! forms.
 
-mod color;
+pub mod color;
 mod controls;
 mod tokens;
 

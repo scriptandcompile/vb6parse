@@ -19,12 +19,14 @@
 //!
 
 use crate::{
-    language::controls::{
-        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
-        ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor,
-    },
     files::common::Properties,
-    Color, VB_BUTTON_FACE,
+    language::{
+        color::{Color, VB_BUTTON_FACE},
+        controls::{
+            Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDropMode,
+            ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor,
+        },
+    },
 };
 
 use image::DynamicImage;

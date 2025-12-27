@@ -12,12 +12,14 @@ use std::str::FromStr;
 
 use crate::{
     errors::FormErrorKind,
-    language::controls::{
-        Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode, LinkMode,
-        MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
-    },
     files::common::Properties,
-    Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
+    language::{
+        color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
+        controls::{
+            Activation, Alignment, Appearance, AutoSize, BackStyle, BorderStyle, DragMode,
+            LinkMode, MousePointer, OLEDropMode, ReferenceOrValue, TextDirection, Visibility,
+        },
+    },
 };
 
 use image::DynamicImage;

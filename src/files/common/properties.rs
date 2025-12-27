@@ -9,7 +9,7 @@
 //! ```rust
 //! use vb6parse::files::common::{PropertyGroup, Properties};
 //! use vb6parse::language::Color;
-//! use vb6parse::VB_RED;
+//! use vb6parse::language::color::VB_RED;
 //! use std::collections::HashMap;
 //! use either::Either;
 //! use uuid::Uuid;
@@ -46,7 +46,7 @@ use crate::language::StartUpPosition;
 /// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
 ///     use vb6parse::files::common::PropertyGroup;
 ///     use vb6parse::language::Color;
-///     use vb6parse::VB_RED;
+///     use vb6parse::language::color::VB_RED;
 ///     use std::collections::HashMap;
 ///     use either::Either;
 ///     use uuid::Uuid;
@@ -440,7 +440,7 @@ impl Properties {
     /// ```rust
     /// # pub fn main() -> Result<(), Box<dyn std::error::Error>> {
     ///     use vb6parse::files::common::Properties;
-    ///     use vb6parse::VB_WHITE;
+    ///     use vb6parse::language::color::VB_WHITE;
     ///     use vb6parse::language::Color;
     ///
     ///     let mut props = Properties::new();

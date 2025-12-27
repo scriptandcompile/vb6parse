@@ -14,7 +14,7 @@ use crate::language::controls::{
     Activation, Appearance, BackStyle, BorderStyle, CausesValidation, DragMode, MousePointer,
     ReferenceOrValue, SizeMode, TabStop, Visibility,
 };
-use crate::language::Color;
+use crate::language::color::Color;
 use crate::files::common::Properties;
 
 use image::DynamicImage;

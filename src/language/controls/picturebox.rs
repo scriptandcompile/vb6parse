@@ -7,14 +7,16 @@
 //!
 
 use crate::{
-    language::controls::{
-        Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
-        ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency, HasDeviceContext,
-        LinkMode, MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, ScaleMode, TabStop,
-        TextDirection, Visibility,
-    },
     files::common::Properties,
-    Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
+    language::{
+        color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS},
+        controls::{
+            Activation, Align, Appearance, AutoRedraw, AutoSize, BorderStyle, CausesValidation,
+            ClipControls, DragMode, DrawMode, DrawStyle, FillStyle, FontTransparency,
+            HasDeviceContext, LinkMode, MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue,
+            ScaleMode, TabStop, TextDirection, Visibility,
+        },
+    },
 };
 
 use image::DynamicImage;

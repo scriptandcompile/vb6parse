@@ -193,8 +193,6 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::parsers::parse;
-
     type ConcreteSyntaxTree = crate::parsers::ConcreteSyntaxTree;
 
     #[test]

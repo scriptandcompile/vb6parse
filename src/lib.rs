@@ -180,6 +180,9 @@
 //! assert_eq!(project.attributes.name, "frmExampleForm");
 //! ```
 
+// =============================================================================
+// Layer modules (for advanced users who need full access)
+// =============================================================================
 pub mod errors;
 pub mod files;
 pub mod io;
@@ -188,15 +191,24 @@ pub mod lexer;
 pub mod parsers;
 pub mod syntax;
 
-// Re-export error types (not modules to avoid conflicts)
+// =============================================================================
+// Top-level re-exports for common use cases
+// =============================================================================
+
+// I/O Layer - Decoding and character stream access
+pub use crate::io::{SourceFile, SourceStream};
+
+// Lexer Layer - Tokenization
+pub use crate::lexer::{tokenize, Token, TokenStream};
+
+// File Parsers - Main entry points for parsing VB6 files
+pub use crate::files::{ClassFile, FormFile, FormResource, ModuleFile, ProjectFile};
+
+// Syntax Parsers - CST parsing and tree types
+pub use crate::parsers::{parse, ConcreteSyntaxTree, ParseResult, SerializableTree, SyntaxKind};
+
+// Error Types - All error kinds for pattern matching
 pub use crate::errors::{
     ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
     PropertyError, ResourceErrorKind, SourceFileErrorKind,
 };
-pub use crate::files::*;
-pub use crate::io::{SourceFile, SourceStream};
-pub use crate::language::*;
-pub use crate::lexer::{tokenize, TokenStream};
-pub use crate::parsers::parse;
-pub use crate::parsers::*;
-pub use crate::parsers::{ConcreteSyntaxTree, SerializableTree, SyntaxKind};

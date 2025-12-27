@@ -11,13 +11,15 @@ use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 use crate::{
-    language::controls::{
-        Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
-        MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection,
-        Visibility,
-    },
     files::common::Properties,
-    Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
+    language::{
+        color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
+        controls::{
+            Activation, Alignment, Appearance, BorderStyle, CausesValidation, DragMode, LinkMode,
+            MousePointer, OLEDragMode, OLEDropMode, ReferenceOrValue, TabStop, TextDirection,
+            Visibility,
+        },
+    },
 };
 
 use image::DynamicImage;

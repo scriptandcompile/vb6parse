@@ -3000,11 +3000,13 @@ fn parse_dll_base_address<'a>(
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::errors::{ErrorDetails, ProjectErrorKind};
     use crate::files::common::ObjectReference;
     use crate::files::project::compilesettings::*;
     use crate::files::project::properties::*;
     use crate::files::project::ProjectReference;
+    use crate::io::{Comparator, SourceFile, SourceStream};
+    use crate::ProjectFile;
     use uuid::Uuid;
 
     #[test]
@@ -3029,7 +3031,7 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_no_compatibility() {
-        use crate::project::parse_quoted_converted_value;
+        use crate::files::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"0\"\n");
 
@@ -3046,7 +3048,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_project() {
-        use crate::project::parse_quoted_converted_value;
+        use crate::io::{Comparator, SourceStream};
+        use crate::files::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"1\"\r\n");
 
@@ -3063,7 +3066,8 @@ mod tests {
 
     #[test]
     fn compatibility_mode_is_compatible_exe() {
-        use crate::project::parse_quoted_converted_value;
+        use crate::io::{Comparator, SourceStream};
+        use crate::files::project::parse_quoted_converted_value;
 
         let mut input = SourceStream::new("", "CompatibleMode=\"2\"\n");
 
