@@ -1,234 +1,689 @@
+# VB6Parse
 
-# Goals:
+A complete, high-performance parser library for Visual Basic 6 code and project files.
 
-VB6Parse aims to be a complete, end-to-end parser library for VB6. Including, but not limited to:
+[![Crates.io](https://img.shields.io/crates/v/vb6parse.svg)](https://crates.io/crates/vb6parse)
+[![Documentation](https://docs.rs/vb6parse/badge.svg)](https://docs.rs/vb6parse)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-* (*.vbp) VB6 project files.
-* (*.bas) VB6 module files.
-* (*.vbw) VB6 windows files for determining IDE editor windows and where they are opened.
-* (*.frm) VB6 Form files.
-* (*.frx) VB6 Form Resource files.
-* (*.dsx) VB6 Data Environment files.
-* (*.dsr) VB6 Data Environment Resource files.
-* (*.cls) VB6 Class files.
-* (*.ctl) VB6 User Control files.
-* (*.ctx) VB6 User Control Resource files.
-* (*.ttx) Crystal Report files.
-* (*.dob) User Document files.
+## Overview
 
-## Architecture
+VB6Parse is designed as a foundational library for tools that analyze, convert, or process Visual Basic 6 code. While capable of supporting real-time syntax highlighting and language servers, its primary focus is on offline analysis, legacy code utilities, and migration tools.
 
-```mermaid
-block
-    columns 5
-    space:2 bytes["Bytes"] strings["String"] file["File"]
-    
-    space:5
+**Key Features:**
+- Fast, efficient parsing with minimal allocations
+- Full support for VB6 project files, modules, classes, forms, and resources
+- Concrete Syntax Tree (CST) with complete source fidelity
+- 160+ built-in VB6 library functions and 42 statements
+- Comprehensive error handling with detailed failure information
+- Zero-copy tokenization and streaming parsing
 
-    space sourcestream["SourceStream"] space:3
+## Quick Start
 
-    bytes --> sourcestream
-    strings --> sourcestream
-    file --> sourcestream
+Add VB6Parse to your `Cargo.toml`:
 
-    space tokenize(["tokenize()"]) space:3
-
-    sourcestream-->tokenize
-
-
-    space tokenstream["TokenStream"] space:3
-    
-    tokenize <--> tokenstream
-
-    space parse(["parse()"]) space:3
-
-    tokenstream --> parse
-
-
-    space cst["CST"] space:3
-
-    parse <--> cst
-
-    space:5
-
-    block:objectlayerblock:6
-        columns 5
-        space:2  objectlayer{{"Object Layer"}} space:2
-
-        project["Project"] class["Class"] module["Module"] form["Form"] control["Control"]
-
-    end
-
-    cst --> objectlayerblock
-
-    bytes --> objectlayerblock
-    strings --> objectlayerblock
-    file --> objectlayerblock
-
+```toml
+[dependencies]
+vb6parse = "0.5.1"
 ```
 
-## Current support:
+### Parse a VB6 Project File
 
-<details>
-    <summary> (*.vbp) VB6 Project file parser feature support: </summary>
+```rust
+use vb6parse::*;
 
-- [x] Project Types
-    - [x] Exe
-    - [x] Control
-    - [x] OleExe
-    - [x] OleDll
-- [x] References
-- [x] Objects
-- [x] Modules
-- [x] Designers
-- [x] Classes
-- [x] Forms
-- [x] UserControls
-- [x] UserDocuments
-- [x] ResFile32
-- [x] IconForm 
-- [x] Startup 
-- [x] HelpFile 
-- [x] Title 
-- [x] ExeName32 
-- [x] Command32 
-- [x] Name
-- [x] HelpContextID 
-- [x] CompatibleMode 
-- [x] NoControlUpgrade 
-- [x] MajorVer 
-- [x] MinorVer
-- [x] RevisionVer 
-- [x] AutoIncrementVer 
-- [x] ServerSupportFiles
-- [x] VersionCompanyName
-- [x] VersionFileDescription
-- [x] VersionLegalCopyright
-- [x] VersionLegalTrademarks
-- [x] VersionProductName
-- [x] CondComp
-- [x] CompilationType
-- [x] OptimizationType
-- [x] NoAliasing
-- [x] CodeViewDebugInfo
-- [x] FavorPentiumPro(tm) - Yes, this is exactly what this looks like inside the project file, '(tm)' and all.
-- [x] BoundsCheck
-- [x] OverflowCheck
-- [x] FlPointCheck
-- [x] FDIVCheck
-- [x] UnroundedFP
-- [x] StartMode
-- [x] Unattended
-- [x] Retained
-- [x] ThreadPerObject
-- [x] MaxNumberOfThreads
-- [x] DebugStartOption
-- [x] AutoRefresh
+let input = r#"Type=Exe
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#...\stdole2.tlb#OLE Automation
+Module=Module1; Module1.bas
+Form=Form1.frm
+"#;
 
-</details>
+// Decode source with Windows-1252 encoding (VB6 default)
+let source = SourceFile::from_string("Project1.vbp", input);
 
-<details>
-    <summary> (*.cls) VB6 Class file parser feature support: </summary>
+// Parse the project
+let result = ProjectFile::parse(&source);
 
-- [x] Header
-- [x] VB6 Token stream tokenized.
-- [x] VB6 Concrete Syntax Tree formed from Token Stream.
-- [ ] VB6 Abstract Syntax Tree formed from the Concrete Syntax Tree.
+// Handle results
+let (project, failures) = result.unpack();
 
-</details>
+if let Some(project) = project {
+    println!("Project type: {:?}", project.project_type);
+    println!("Modules: {}", project.modules().count());
+    println!("Forms: {}", project.forms().count());
+}
 
-<details>
-    <summary> (*.bas) VB6 module file parser feature support: </summary>
+// Print any parsing errors
+for failure in failures {
+    failure.print();
+}
+```
 
-- [x] Header
-- [x] VB6 Token stream tokenized.
-- [x] VB6 Concrete Syntax Tree formed from Token Stream.
-- [ ] VB6 Abstract Syntax Tree formed from the Concrete Syntax Tree.
+### Parse a VB6 Module
 
-</details>
+```rust
+use vb6parse::*;
 
-<details>
-    <summary> (*.frm) VB6 form file parser feature support: </summary>
+let code = r#"Attribute VB_Name = "MyModule"
+Public Sub HelloWorld()
+    MsgBox "Hello, World!"
+End Sub
+"#;
 
-- [x] Header
-    - [x] Create Forms.
-    - [x] Create MDIForms.
-    - [x] Create Menu controls.
-    - [x] Create Frame controls.
-    - [x] Create CheckBox controls.
-    - [x] Create ComboBox controls.
-    - [x] Create CommandButton controls.
-    - [x] Create Data controls.
-    - [x] Create DirListBox controls.
-    - [x] Create DriveListBox controls.
-    - [x] Create FileListBox controls.
-    - [x] Create Image controls.
-    - [x] Create Label controls.
-    - [x] Create Line controls.
-    - [x] Create ListBox controls.
-    - [x] Create OLE controls.
-    - [x] Create OptionButton controls.
-    - [x] Create PictureBox controls.
-    - [x] Create HScrollBar controls.
-    - [x] Create VScrollBar controls.
-    - [x] Create Shape controls.
-    - [x] Create TextBox controls.
-    - [x] Create Timer controls.
-    - [x] Create UserControl controls.
-    - [/] Support for PropertyGroups (Font for example)
-    - [/] Load form property resources from frx files. 
+let source = SourceFile::from_string("MyModule.bas", code);
+let result = ModuleFile::parse(&source);
 
-- [x] VB6 Token Stream tokenized.
-- [x] VB6 Concrete Syntax Tree formed from Token Stream.
-- [x] VB6 Abstract Syntax Tree formed from Concrete Syntax Tree.
+let (module, failures) = result.unpack();
+if let Some(module) = module {
+    println!("Module name: {}", module.attributes.name);
+}
+```
 
- 
- **note**: The form currently loads resources from the frx file, but doesn't apply all of them to the correct property locations in all cases yet. 
-Instead of creating a picture and assigning it to the Picture property, we only load the binary blob from the FRX file and assign it to the property parsing bag.
+### Tokenize VB6 Code
 
-Further work is needed to correctly assign the binary resources to the their properties in the standard controls.
-</details>
+```rust
+use vb6parse::*;
 
-<details>
-    <summary> (*.frx) VB6 form resource file parser feature support: </summary>
+let source = SourceFile::from_string("test.bas", "Dim x As Integer");
+let result = tokenize(&source);
 
-- [ ] FormResourceFile support.
-- [x] Loading of Binary blobs.
-- [x] Loading of List items.
-- [x] Loading of Strings.
+let (token_stream, failures) = result.unpack();
+if let Some(tokens) = token_stream {
+    for token in tokens.iter() {
+        println!("{:?}: {:?}", token.kind(), token.text());
+    }
+}
+```
 
-</details>
+### Parse to Concrete Syntax Tree
 
-#### VB6Parse Status:
-- [x] Unit Testing - Significantly expanded with 5k+ unit tests.
-- [/] Integration/End-to-End Testing - Partially supported. Mostly reading finished.
-- [x] Benchmarking.
-- [ ] Top level API finalization.
-- [/] Documentation - Partially supported. Individual documentation elements finished. Tutorial and Walkthrough still required.
+```rust
+use vb6parse::*;
 
+let code = "Sub Test()\n    x = 5\nEnd Sub";
+let source = SourceFile::from_string("test.bas", code);
 
-### Examples:
+// Tokenize first
+let (tokens, _) = tokenize(&source).unpack();
 
-* [cst_parse](examples/cst_parse.rs) - Demonstrates how to parse an array of tokens independent from the rest of the parsing machinery. Useful for consuming a generated token stream which is easier to produce programmatically than VB6 source code.
-
-* [debug_cst](examples/debug_cst) - Demonstrates how to display a useful debug reperesentation of the CST. Helpful for debuging purposes and useful for development of vb6parse and related tools.
-
-* [parse_class](examples/parse_class) - Demonstrates how to consume a possibly erroneous byte array and convert the values into a `SourceFile` then parse the resulting `ClassFile`. In some cases, you need to test valid VB6 *source code* that is also *invalid* Unicode text. An example of this is when loading any VB6 source file that contains the '©' character. English VB6 stores this using Windows-1252 encoding which is an invalid byte sequence in Unicode since the source files are not saved *in* Unicode. Loading from bytes in this way lets you compare the actual byte sequences being loaded with the text conversion results. This will be invaluable for testing and developing the non-english loading future work of the library.
-
-* [parse_module](examples/parse_module.rs) - Demonstrates how to consume text and load it into a `SourceFile` then use the result to parse a module. This, besides loading from a file, is the most likely use case for VB6Parse API consumers.
-
-* [parse_project](examples/parse_project.rs) - Demonstrates how to parse and process a VB6 project file. Language Server Protocol (LSP), Interpreter, Compiler, Code formatter, debugger, editor, etc etc. Almost everything that uses the VB6Parse API will likely start with loading a project before moving on to further analysis and usage.
-
-* [parse_form](examples/parse_form.rs) - Demonstrates how to parse and process a VB6 Form file. Necessary for any GUI editor, localization tool, or UI-check tool.
-
-* [sourcestream](examples/sourcestream.rs) - Demonstrates how to load a `SourceStream` and use it to peek, read, consume, or process a stream of source text. Useful for learning how the tokenizer works or preparing to build one of your own.
-
-* [tokenstream](examples/tokenstream.rs) - Demonstrates how to load a source code stirng into a `SourceStream` and then from there into a `TokenStream` which then can be consumed to produce VB6 `Token`s. Useful for learning the underlying mechanics of VB6Parse or if you need source code converted into tokens without being further converted into a CST or AST.
-
-* [audiostation_parse](examples/audiostation_parse.rs) - Demonstrates a 'real data' parse of the audiostation test data project along with a single module from the project. This is a more complex but more complete example that more closely matches how the VB6Parse API should be used in a real product, error handling, and large scale navigation included.
+// Parse to CST
+if let Some(tokens) = tokens {
+    let (cst, _) = parse(&tokens).unpack();
     
+    if let Some(tree) = cst {
+        // Navigate the syntax tree
+        println!("Root children: {}", tree.root().child_count());
+    }
+}
+```
 
+## API Surface
 
-### Tests:
+### Top-Level Imports
 
-Be sure to use ```git submodule update --init --recursive``` to get all integration test submodule data if you plan to run ```cargo test```.
+For common use cases, import everything with:
+
+```rust
+use vb6parse::*;
+```
+
+This brings in:
+- **I/O Layer:** `SourceFile`, `SourceStream`
+- **Lexer:** `tokenize()`, `Token`, `TokenStream`
+- **File Parsers:** `ProjectFile`, `ClassFile`, `ModuleFile`, `FormFile`, `FormResourceFile`
+- **Syntax Parsers:** `parse()`, `ConcreteSyntaxTree`, `SyntaxKind`, `SerializableTree`
+- **Error Handling:** `ErrorDetails`, `ParseResult`, all error kind enums
+
+### Layer Modules (Advanced Usage)
+
+For advanced use cases, access specific layers:
+
+```rust
+use vb6parse::io::{SourceFile, SourceStream, Comparator};
+use vb6parse::lexer::{tokenize, Token, TokenStream};
+use vb6parse::parsers::{parse, ConcreteSyntaxTree};
+use vb6parse::syntax::library::functions::string::left;
+use vb6parse::language::controls::{Control, ControlKind};
+use vb6parse::errors::{ProjectErrorKind, FormErrorKind};
+```
+
+### Parsing Architecture
+
+```
+Bytes/String/File → SourceFile → SourceStream → TokenStream → CST → Object Layer
+                    (Windows-1252) (Characters)   (Tokens)    (Tree) (Structured)
+```
+
+**Layers:**
+
+1. **I/O Layer** (`io`): Character decoding and stream access
+2. **Lexer Layer** (`lexer`): Tokenization with keyword lookup
+3. **Syntax Layer** (`syntax`): VB6 language constructs and library functions
+4. **Parsers Layer** (`parsers`): CST construction from tokens
+5. **Files Layer** (`files`): High-level file format parsers
+6. **Language Layer** (`language`): VB6 types, colors, controls
+7. **Errors Layer** (`errors`): Comprehensive error types
+
+## Source Code Organization
+
+```
+src/
+├── io/                      # I/O Layer - Character streams and decoding
+│   ├── mod.rs              # SourceFile, SourceStream
+│   ├── comparator.rs       # Case-sensitive/insensitive comparison
+│   └── decode.rs           # Windows-1252 decoding
+│
+├── lexer/                  # Lexer Layer - Tokenization
+│   ├── mod.rs              # tokenize() function, keyword lookup
+│   └── token_stream.rs     # TokenStream implementation
+│
+├── syntax/                 # Syntax Layer - VB6 Language constructs
+│   ├── library/            # VB6 built-in library
+│   │   ├── functions/      # 160+ VB6 functions (14 categories)
+│   │   │   ├── array/      # Array, Filter, Join, Split, etc.
+│   │   │   ├── conversion/ # CBool, CInt, CLng, Str, Val, etc.
+│   │   │   ├── datetime/   # Date, Now, Time, Year, Month, etc.
+│   │   │   ├── file_system/# Dir, EOF, FileLen, LOF, etc.
+│   │   │   ├── financial/  # FV, IPmt, IRR, NPV, PV, Rate, etc.
+│   │   │   ├── interaction/# MsgBox, InputBox, Shell, etc.
+│   │   │   ├── math/       # Abs, Cos, Sin, Tan, Log, Sqr, etc.
+│   │   │   ├── miscellaneous/# Environ, RGB, QBColor, etc.
+│   │   │   ├── string/     # Left, Right, Mid, Len, Trim, etc.
+│   │   │   └── ...
+│   │   └── statements/     # 42 VB6 statements (9 categories)
+│   │       ├── control_flow/    # If, Select Case, For, While, etc.
+│   │       ├── declarations/    # Dim, ReDim, Const, Enum, etc.
+│   │       ├── error_handling/  # On Error, Resume, Err, etc.
+│   │       ├── file_operations/ # Open, Close, Get, Put, etc.
+│   │       ├── objects/         # Set, With, RaiseEvent, etc.
+│   │       └── ...
+│   └── expressions/        # Expression parsing utilities
+│
+├── parsers/                # Parsers Layer - CST construction
+│   ├── cst/                # Concrete Syntax Tree implementation
+│   │   ├── mod.rs          # parse(), ConcreteSyntaxTree, CstNode
+│   │   └── rowan_wrapper.rs# Red-green tree wrapper
+│   ├── parseresults.rs     # ParseResult<T, E> type
+│   └── syntaxkind.rs       # SyntaxKind enum (all token types)
+│
+├── files/                  # Files Layer - VB6 file format parsers
+│   ├── common/             # Shared parsing utilities
+│   │   ├── properties.rs   # Property bag, PropertyGroup
+│   │   ├── attributes.rs   # Attribute statement parsing
+│   │   └── references.rs   # Object reference parsing
+│   ├── project/            # VBP - Project files
+│   │   ├── mod.rs          # ProjectFile struct and parser
+│   │   ├── properties.rs   # Project properties
+│   │   ├── references.rs   # Reference types
+│   │   └── compilesettings.rs # Compilation settings
+│   ├── class/              # CLS - Class modules
+│   ├── module/             # BAS - Code modules
+│   ├── form/               # FRM - Forms
+│   └── resource/           # FRX - Form resources
+│
+├── language/               # Language Layer - VB6 types and definitions
+│   ├── color.rs            # VB6 color constants and Color type
+│   ├── controls/           # VB6 control definitions (50+ controls)
+│   │   ├── mod.rs          # Control, ControlKind enums
+│   │   ├── form.rs         # FormProperties
+│   │   ├── textbox.rs      # TextBoxProperties
+│   │   ├── label.rs        # LabelProperties
+│   │   └── ...             # 50+ control types
+│   └── tokens.rs           # Token enum definition
+│
+├── errors/                 # Errors Layer - Error types
+│   ├── mod.rs              # ErrorDetails, error printing
+│   ├── decode.rs           # SourceFileErrorKind
+│   ├── tokenize.rs         # CodeErrorKind
+│   ├── project.rs          # ProjectErrorKind
+│   ├── class.rs            # ClassErrorKind
+│   ├── module.rs           # ModuleErrorKind
+│   ├── form.rs             # FormErrorKind
+│   ├── property.rs         # PropertyError
+│   └── resource.rs         # ResourceErrorKind
+│
+└── lib.rs                  # Public API surface
+```
+
+## Common Tasks
+
+### 1. Load and Validate a VB6 Project
+
+```rust
+use vb6parse::*;
+use std::fs;
+
+fn load_project(path: &str) -> Result<ProjectFile, String> {
+    let bytes = fs::read(path).map_err(|e| e.to_string())?;
+    
+    let source = SourceFile::decode_with_replacement(path, &bytes)
+        .map_err(|e| format!("Decode error: {:?}", e))?;
+    
+    let result = ProjectFile::parse(&source);
+    let (project, failures) = result.unpack();
+    
+    if !failures.is_empty() {
+        for failure in &failures {
+            failure.print();
+        }
+        return Err(format!("Parse had {} failures", failures.len()));
+    }
+    
+    project.ok_or_else(|| "Parse returned no result".to_string())
+}
+```
+
+### 2. Extract All Form Controls
+
+```rust
+use vb6parse::*;
+use vb6parse::language::controls::{Control, ControlKind};
+
+fn extract_controls(form_path: &str) -> Vec<String> {
+    let source = SourceFile::from_file(form_path).unwrap();
+    let result = FormFile::parse(&source);
+    let (form, _) = result.unpack();
+    
+    let mut control_names = Vec::new();
+    
+    if let Some(form) = form {
+        fn visit_control(control: &Control, names: &mut Vec<String>) {
+            names.push(control.name.clone());
+            
+            // Recursively visit children
+            if let Some(children) = control.kind.children() {
+                for child in children {
+                    visit_control(child, names);
+                }
+            }
+        }
+        
+        for control in &form.controls {
+            visit_control(control, &mut control_names);
+        }
+    }
+    
+    control_names
+}
+```
+
+### 3. Analyze Code Without Full Parsing
+
+```rust
+use vb6parse::*;
+
+fn count_function_calls(code: &str, function_name: &str) -> usize {
+    let source = SourceFile::from_string("temp.bas", code);
+    let result = tokenize(&source);
+    let (tokens, _) = result.unpack();
+    
+    tokens
+        .map(|ts| {
+            ts.iter()
+                .filter(|t| {
+                    matches!(t.kind(), SyntaxKind::IdentifierToken)
+                        && t.text().eq_ignore_ascii_case(function_name)
+                })
+                .count()
+        })
+        .unwrap_or(0)
+}
+```
+
+### 4. Convert VB6 to Syntax Tree and Back
+
+```rust
+use vb6parse::*;
+
+fn roundtrip_code(code: &str) -> String {
+    let source = SourceFile::from_string("temp.bas", code);
+    let (tokens, _) = tokenize(&source).unpack();
+    
+    if let Some(tokens) = tokens {
+        let (cst, _) = parse(&tokens).unpack();
+        
+        if let Some(tree) = cst {
+            // CST preserves all whitespace and comments
+            return tree.root().text().to_string();
+        }
+    }
+    
+    String::new()
+}
+```
+
+## Advanced Topics
+
+### Error Handling
+
+VB6Parse uses a custom `ParseResult<T, E>` type that separates successful results from recoverable errors:
+
+```rust
+use vb6parse::*;
+
+let result = ProjectFile::parse(&source);
+
+// Option 1: Unpack into result and failures
+let (project_opt, failures) = result.unpack();
+
+// Option 2: Check for failures first
+if result.has_failures() {
+    for failure in result.failures() {
+        eprintln!("Error at line {}: {:?}", 
+                  failure.offset.line_number,
+                  failure.kind);
+    }
+}
+
+// Option 3: Convert to Result<T, Vec<ErrorDetails>>
+let std_result = result.ok_or_errors();
+```
+
+**See also:**
+- [src/parsers/parseresults.rs](src/parsers/parseresults.rs) - ParseResult implementation
+- [src/errors/mod.rs](src/errors/mod.rs) - Error types and ErrorDetails
+
+### Working with the CST
+
+The Concrete Syntax Tree preserves all source information including whitespace and comments:
+
+```rust
+use vb6parse::*;
+
+let (tree, _) = parse(&tokens).unpack().0.unwrap();
+
+// Navigate the tree
+let root = tree.root();
+for child in root.children() {
+    println!("Node: {:?}", child.kind());
+    println!("Text: {}", child.text());
+}
+
+// Serialize for debugging
+let serializable = tree.to_serializable();
+println!("{:#?}", serializable);
+```
+
+**See also:**
+- [src/parsers/cst/mod.rs](src/parsers/cst/mod.rs) - CST documentation
+- [examples/cst_parse.rs](examples/cst_parse.rs) - CST parsing example
+- [examples/debug_cst.rs](examples/debug_cst.rs) - CST debugging
+
+### Character Encoding
+
+VB6 uses Windows-1252 encoding. Always use `decode_with_replacement()` for file content:
+
+```rust
+use vb6parse::*;
+
+// From bytes (e.g., file read)
+let bytes = std::fs::read("file.bas")?;
+let source = SourceFile::decode_with_replacement("file.bas", &bytes)?;
+
+// From UTF-8 string (testing/programmatic)
+let source = SourceFile::from_string("test.bas", "Dim x As Integer");
+```
+
+**See also:**
+- [src/io/decode.rs](src/io/decode.rs) - Decoding implementation
+- [examples/parse_class.rs](examples/parse_class.rs) - Byte-level parsing
+
+### VB6 Library Functions
+
+VB6Parse includes full definitions for 160+ VB6 library functions organized into 14 categories:
+
+```rust
+// Access function metadata
+use vb6parse::syntax::library::functions::string::left;
+use vb6parse::syntax::library::functions::math::sin;
+use vb6parse::syntax::library::functions::conversion::cint;
+
+// Each module includes:
+// - Full VB6 documentation
+// - Function signatures
+// - Parameter descriptions
+// - Usage examples
+// - Related functions
+```
+
+**Categories:**
+- Array manipulation (Array, Filter, Join, Split, UBound, LBound)
+- Conversion (CBool, CDate, CInt, CLng, CStr, Val, Str)
+- Date/Time (Date, Time, Now, Year, Month, Day, Hour, DateAdd, DateDiff)
+- File System (Dir, EOF, FileLen, FreeFile, LOF, Seek)
+- Financial (FV, IPmt, IRR, NPV, PV, Rate)
+- Formatting (Format, FormatCurrency, FormatDateTime, FormatNumber, FormatPercent)
+- Interaction (MsgBox, InputBox, Shell, CreateObject, GetObject)
+- Inspection (IsArray, IsDate, IsEmpty, IsNull, IsNumeric, TypeName, VarType)
+- Math (Abs, Atn, Cos, Exp, Log, Rnd, Sgn, Sin, Sqr, Tan)
+- String (Left, Right, Mid, Len, InStr, Replace, Trim, UCase, LCase)
+- And more...
+
+**See also:** [src/syntax/library/functions/](src/syntax/library/functions/)
+
+### Form Resources (FRX Files)
+
+Form resource files contain binary data for controls (images, icons, property blobs):
+
+```rust
+use vb6parse::*;
+
+let bytes = std::fs::read("Form1.frx")?;
+let result = FormResource::load_from_bytes(&bytes);
+
+let (resource, failures) = result.unpack();
+if let Some(resource) = resource {
+    for (offset, data) in &resource.resources {
+        println!("Resource at offset {}: {} bytes", offset, data.len());
+    }
+}
+```
+
+**See also:**
+- [documents/FRX_format.md](documents/FRX_format.md) - FRX format specification
+- [examples/debug_resource.rs](examples/debug_resource.rs) - Resource file debugging
+
+## Testing
+
+VB6Parse has comprehensive test coverage:
+
+- **5,467 library tests** - Testing VB6 library functions and statements
+- **83 documentation tests** - Ensuring examples work correctly
+- **31 integration tests** - Parsing real-world VB6 projects
+
+### Running Tests
+
+```bash
+# Clone test data (required for integration tests)
+git submodule update --init --recursive
+
+# Run all tests
+cargo test
+
+# Run only library tests
+cargo test --lib
+
+# Run only integration tests
+cargo test --test '*'
+
+# Run documentation tests
+cargo test --doc
+```
+
+### Snapshot Testing
+
+Integration tests use [insta](https://docs.rs/insta) for snapshot testing:
+
+```bash
+# Review snapshot changes
+cargo insta review
+
+# Accept all snapshots
+cargo insta accept
+```
+
+**Test data location:** `tests/data/` (git submodules of real VB6 projects)
+
+**See also:**
+- [tests/](tests/) - Test files
+- [tests/snapshots/](tests/snapshots/) - Snapshot files
+
+## Benchmarking
+
+VB6Parse includes criterion benchmarks for performance testing:
+
+```bash
+# Run all benchmarks
+cargo bench
+
+# Run specific benchmark
+cargo bench bulk_parser_load
+
+# Generate HTML reports
+# Results saved to target/criterion/
+```
+
+**Benchmarks:**
+- `bulk_parser_load` - Parsing multiple large VB6 projects
+- Token stream generation
+- CST construction
+
+**See also:** [benches/](benches/)
+
+## Contributing to VB6Parse
+
+### Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/scriptandcompile/vb6parse
+cd vb6parse
+
+# Get test data
+git submodule update --init --recursive
+
+# Run tests
+cargo test
+
+# Run benchmarks
+cargo bench
+
+# Check for issues
+cargo clippy
+
+# Format code
+cargo fmt
+```
+
+### Code Organization Guidelines
+
+1. **Layer Separation:** Keep clear boundaries between layers
+2. **Windows-1252 Handling:** Always use `SourceFile::decode_with_replacement()`
+3. **Error Recovery:** Parsers should recover from errors when possible
+4. **CST Fidelity:** Preserve all source text including whitespace and comments
+5. **Documentation:** Include doc tests for public APIs
+
+### Adding New Features
+
+**VB6 Library Functions:**
+- Add to appropriate category in `src/syntax/library/functions/`
+- Include full VB6 documentation
+- Add comprehensive tests
+- Update category mod.rs
+
+**Control Types:**
+- Add to `src/language/controls/`
+- Define properties struct
+- Add to ControlKind enum
+- Include property validation
+
+**Error Types:**
+- Add to appropriate error module in `src/errors/`
+- Ensure Display implementation
+- Add context information
+
+### Performance Considerations
+
+- Use zero-copy where possible (string slices, not String)
+- Avoid unnecessary allocations (use iterators)
+- Leverage rowan's red-green tree for CST memory efficiency
+- Use `phf` crate for compile-time lookup tables
+
+**See also:**
+- [CrateLayoutPlan.md](CrateLayoutPlan.md) - Architecture plan
+- [CHANGELOG.md](CHANGELOG.md) - Version history
+
+## Supported File Types
+
+| Extension | Description | Status |
+|-----------|-------------|--------|
+| `.vbp` | Project files | ✅ Complete |
+| `.cls` | Class modules | ✅ Complete |
+| `.bas` | Code modules | ✅ Complete |
+| `.frm` | Forms | ✅ Complete |
+| `.frx` | Form resources | ⚠️ Partial (binary blobs loaded, not all mapped to properties) |
+| `.ctl` | User controls | ✅ Parsed as forms |
+| `.dob` | User documents | ✅ Parsed as forms |
+| `.vbw` | IDE window state | ❌ Not yet implemented |
+| `.dsx` | Data environments | ❌ Not yet implemented |
+| `.dsr` | Data env. resources | ❌ Not yet implemented |
+| `.ttx` | Crystal reports | ❌ Not yet implemented |
+
+## Project Status
+
+- ✅ **Core Parsing:** Fully implemented for VBP, CLS, BAS, FRM files
+- ✅ **Tokenization:** Complete with keyword lookup
+- ✅ **CST Construction:** Full syntax tree with source fidelity
+- ✅ **Error Handling:** Comprehensive error types and recovery
+- ✅ **VB6 Library:** 160+ functions, 42 statements documented
+- ⚠️ **FRX Resources:** Binary loading complete, property mapping partial
+- ❌ **AST:** Not yet implemented (CST available)
+- ✅ **Testing:** 5,500+ tests across unit, integration, and doc tests
+- ✅ **Benchmarking:** Criterion-based performance testing
+- ✅ **Documentation:** Comprehensive API docs and examples
+
+## Examples
+
+All examples are located in the [examples/](examples/) directory:
+
+| Example | Description |
+|---------|-------------|
+| [audiostation_parse.rs](examples/audiostation_parse.rs) | Parse a complete real-world VB6 project |
+| [cst_parse.rs](examples/cst_parse.rs) | Parse tokens directly to CST |
+| [debug_cst.rs](examples/debug_cst.rs) | Display CST debug representation |
+| [debug_resource.rs](examples/debug_resource.rs) | Inspect FRX resource files |
+| [parse_class.rs](examples/parse_class.rs) | Parse class files from bytes |
+| [parse_control_only.rs](examples/parse_control_only.rs) | Parse individual form controls |
+| [parse_form.rs](examples/parse_form.rs) | Parse VB6 forms |
+| [parse_module.rs](examples/parse_module.rs) | Parse code modules |
+| [parse_project.rs](examples/parse_project.rs) | Parse project files |
+| [sourcestream.rs](examples/sourcestream.rs) | Work with character streams |
+| [tokenstream.rs](examples/tokenstream.rs) | Tokenize VB6 code |
+
+Run any example with:
+
+```bash
+cargo run --example parse_project
+```
+
+## Resources
+
+- **Documentation:** [docs.rs/vb6parse](https://docs.rs/vb6parse)
+- **Repository:** [github.com/scriptandcompile/vb6parse](https://github.com/scriptandcompile/vb6parse)
+- **Crates.io:** [crates.io/crates/vb6parse](https://crates.io/crates/vb6parse)
+- **License:** MIT
+
+## Limitations
+
+1. **Encoding:** Primarily designed for "predominantly English" source code due to Windows-1252 encoding detection limitations
+2. **AST:** Abstract Syntax Tree is not yet implemented (Concrete Syntax Tree is available)
+3. **FRX Mapping:** Binary resources are loaded but not all are mapped to control properties
+4. **Real-time Use:** While capable, not optimized for real-time highlighting or LSP (focus is on offline analysis)
+
+## License
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+---
+
+Built with ❤️ by [ScriptAndCompile](https://github.com/scriptandcompile)
