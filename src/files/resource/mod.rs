@@ -22,14 +22,14 @@ use crate::ParseResult;
 /// # Example
 ///
 /// ```no_run
-/// use vb6parse::FormResource;
+/// use vb6parse::FormResourceFile;
 ///
 /// let bytes = std::fs::read("path/to/form.frx")?;
-/// let result = FormResource::parse("form.frx", bytes);
+/// let result = FormResourceFile::parse("form.frx", bytes);
 /// let resource_file = result.unwrap_or_fail();
 ///
 /// // Or use from_file for convenience
-/// let result = FormResource::from_file("path/to/form.frx")?;
+/// let result = FormResourceFile::from_file("path/to/form.frx")?;
 /// let resource_file = result.unwrap_or_fail();
 ///
 /// // Access a binary blob (e.g., icon) at offset 0x00
