@@ -10,7 +10,7 @@ use crate::language::controls::{
     ReferenceOrValue, TabStop, Visibility,
 };
 use crate::files::common::Properties;
-use crate::Color;
+use crate::language::Color;
 
 use image::DynamicImage;
 use serde::Serialize;

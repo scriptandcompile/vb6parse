@@ -13,30 +13,30 @@
 //! The [`ErrorDetails`] type is the central error container that wraps any of these
 //! error kinds along with source location information for diagnostic reporting.
 
+use ariadne::{Label, Report, ReportKind, Source};
 use core::convert::From;
 use std::error::Error;
 use std::fmt::{Debug, Display};
-use ariadne::{Label, Report, ReportKind, Source};
 
 // Submodules
-pub mod decode;
-pub mod tokenize;
-pub mod resource;
 pub mod class;
+pub mod decode;
+pub mod form;
 pub mod module;
 pub mod project;
-pub mod form;
 pub mod property;
+pub mod resource;
+pub mod tokenize;
 
 // Re-export error kinds for convenience
-pub use decode::SourceFileErrorKind;
-pub use tokenize::CodeErrorKind;
-pub use resource::ResourceErrorKind;
 pub use class::ClassErrorKind;
+pub use decode::SourceFileErrorKind;
+pub use form::FormErrorKind;
 pub use module::ModuleErrorKind;
 pub use project::ProjectErrorKind;
-pub use form::FormErrorKind;
 pub use property::PropertyError;
+pub use resource::ResourceErrorKind;
+pub use tokenize::CodeErrorKind;
 
 /// Contains detailed information about an error that occurred during parsing.
 /// This struct contains the source name, source content, error offset,

@@ -53,13 +53,13 @@
 
 pub mod token_stream;
 
+pub use crate::language::Token;
 pub use token_stream::TokenStream;
 
 use phf::{phf_ordered_map, OrderedMap};
 
 use crate::{
     io::SourceStream,
-    language::Token,
     parsers::{Comparator, ParseResult},
     CodeErrorKind,
 };
@@ -473,7 +473,7 @@ pub fn tokenize_without_whitespaces<'a>(
 ///
 /// None if there is no line comment at the current position in the stream.
 fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
-    input.peek_text("'", super::Comparator::CaseInsensitive)?;
+    input.peek_text("'", crate::io::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
         None => None,
@@ -509,7 +509,7 @@ fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTupl
 ///
 /// None if there is no REM comment at the current position in the stream.
 fn take_rem_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
-    input.peek_text("REM", super::Comparator::CaseInsensitive)?;
+    input.peek_text("REM", crate::io::Comparator::CaseInsensitive)?;
 
     match input.take_until_newline() {
         None => None,
@@ -669,7 +669,7 @@ fn take_date_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<
 /// `Some()` with a tuple containing the matched string literal text and its corresponding VB6 token
 /// if a string literal is found at the current position in the stream; otherwise, `None`.
 fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
-    input.peek_text("\"", super::Comparator::CaseInsensitive)?;
+    input.peek_text("\"", crate::io::Comparator::CaseInsensitive)?;
 
     // TODO: Need to handle error reporting of incorrect escape sequences as well
     // as string literals that hit a newline before the second quote character.

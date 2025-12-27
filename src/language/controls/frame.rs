@@ -7,15 +7,14 @@
 //!
 
 use crate::{
+    files::common::Properties,
     language::{
-        color::Color,
+        color::{Color, VB_BUTTON_FACE, VB_BUTTON_TEXT},
         controls::{
             Activation, Appearance, BorderStyle, ClipControls, DragMode, MousePointer, OLEDropMode,
             ReferenceOrValue, TextDirection, Visibility,
         },
-        VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    files::common::Properties,
 };
 
 use image::DynamicImage;

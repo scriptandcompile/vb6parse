@@ -48,7 +48,7 @@ use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 use crate::errors::FormErrorKind;
-use crate::PropertyGroup;
+use crate::language::PropertyGroup;
 
 use crate::language::controls::{
     checkbox::CheckBoxProperties,
@@ -1333,6 +1333,7 @@ impl ControlKind {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyFrame".to_string(),
@@ -1370,6 +1371,7 @@ impl ControlKind {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyForm".to_string(),
@@ -1417,6 +1419,7 @@ impl ControlKind {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyFrame".to_string(),
@@ -1484,6 +1487,7 @@ impl Control {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyForm".to_string(),
@@ -1539,6 +1543,7 @@ impl Control {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyFrame".to_string(),
@@ -1579,6 +1584,7 @@ impl Control {
     /// Example:
     /// ```rust
     /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
     /// let control = Control {
     ///     name: "MyFrame".to_string(),

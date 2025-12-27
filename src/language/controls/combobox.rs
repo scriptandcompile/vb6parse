@@ -24,12 +24,15 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use crate::{
-    language::controls::{
-        Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode, OLEDropMode,
-        ReferenceOrValue, TabStop, TextDirection, Visibility,
-    },
+    errors::FormErrorKind,
     files::common::Properties,
-    Color, FormErrorKind, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT,
+    language::{
+        color::{Color, VB_WINDOW_BACKGROUND, VB_WINDOW_TEXT},
+        controls::{
+            Activation, Appearance, CausesValidation, DragMode, MousePointer, OLEDragMode,
+            OLEDropMode, ReferenceOrValue, TabStop, TextDirection, Visibility,
+        },
+    },
 };
 
 use image::DynamicImage;
