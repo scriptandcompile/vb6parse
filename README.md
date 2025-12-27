@@ -117,6 +117,61 @@ if let Some(tokens) = tokens {
 }
 ```
 
+### Navigating the CST
+
+The CST provides rich navigation capabilities for traversing and querying the tree structure:
+
+```rust
+use vb6parse::*;
+use vb6parse::parsers::SyntaxKind;
+
+let source = "Sub Test()\n    Dim x As Integer\n    x = 42\nEnd Sub";
+let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+let root = cst.to_serializable().root;
+
+// Basic navigation
+let child_count = root.child_count();
+let first = root.first_child();
+
+// Find by kind
+let sub_stmt = root.find(SyntaxKind::SubStatement);  // First match
+let all_dims = root.find_all(SyntaxKind::DimStatement);  // All matches
+
+// Filter children
+let non_tokens: Vec<_> = root.non_token_children().collect();
+let significant: Vec<_> = root.significant_children().collect();
+
+// Custom search with predicates
+let keywords = root.find_all_if(|n| n.kind.to_string().ends_with("Keyword"));
+let complex = root.find_all_if(|n| !n.is_token && n.children.len() > 5);
+
+// Iterate all nodes depth-first
+for node in root.descendants() {
+    if node.is_significant() {
+        println!("{:?}: {}", node.kind, node.text);
+    }
+}
+
+// Convenience checkers
+if node.is_comment() || node.is_whitespace() {
+    // Skip trivia
+}
+```
+
+**Available Navigation Methods:**
+
+Both `ConcreteSyntaxTree` and `CstNode` provide:
+- **Basic:** `child_count()`, `first_child()`, `last_child()`, `child_at()`
+- **By Kind:** `children_by_kind()`, `first_child_by_kind()`, `contains_kind()`
+- **Recursive:** `find()`, `find_all()`
+- **Filtering:** `non_token_children()`, `token_children()`, `significant_children()`
+- **Predicates:** `find_if()`, `find_all_if()`
+- **Traversal:** `descendants()`, `depth_first_iter()`
+
+CstNode also provides: `is_whitespace()`, `is_newline()`, `is_comment()`, `is_trivia()`, `is_significant()`
+
+**See also:** [examples/cst_navigation.rs](examples/cst_navigation.rs) for comprehensive examples.
+
 ## API Surface
 
 ### Top-Level Imports
