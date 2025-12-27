@@ -7,17 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2025-01-01
+
+### Added
+- Comprehensive fuzz testing support with 9 fuzz targets covering all parser layers
+- Fuzz targets for: SourceFile decoding, SourceStream, tokenization, CST parsing, ProjectFile, ClassFile, ModuleFile, FormFile, and FormResourceFile
+- Corpus and artifacts directories for fuzzing with cargo-fuzz and libFuzzer
+
 ### Changed
 - Removed `winnow` dependency - no longer used in the codebase
 - Renamed `source_file` field to `file_name` in `TokenStream`
 - Made `TokenStream` fields private with accessor methods (`file_name()`, `offset()`)
+- Reorganized module structure: created IO module and Lexer module
+- Moved source_file and source_stream into new `io/` module
+- Moved tokenization components into new `lexer/` module
+- Reorganized parser components into dedicated modules (expressions, control_flow, declarations, objects)
+- Moved all library statements and functions into their correct categories
+- Improved module organization for better separation of concerns
 
 ### Fixed
 - All C-GETTER violations - removed `get_` prefix from parameterless getters
 - ProjectFile fields are now mostly private (except `project_type`, `other_properties`, `properties`)
 - ParseResult fields are now private with accessor methods
-
-## [0.5.1] - 2024
+- FormResourceFile naming consistency (previously had some FormResource references)
+- VB6 Color BGR format handling (was incorrectly using RGB)
 
 ### Added
 - Support for RmDir statements
