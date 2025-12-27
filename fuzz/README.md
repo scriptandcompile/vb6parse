@@ -26,6 +26,7 @@ Run a specific fuzzer:
 cargo +nightly fuzz run sourcefile_decode
 cargo +nightly fuzz run sourcestream
 cargo +nightly fuzz run tokenize
+cargo +nightly fuzz run cst_parse
 ```
 
 Run with a time limit (e.g., 60 seconds):
@@ -58,6 +59,14 @@ Tests the tokenizer with arbitrary text input to find:
 - Invalid VB6 syntax handling
 - Unterminated string literals
 - Edge cases in token parsing
+
+### cst_parse
+Tests Concrete Syntax Tree construction with:
+- Invalid VB6 syntax patterns
+- Mismatched control structures (If/End If, For/Next, etc.)
+- Deeply nested code structures
+- Incomplete statements
+- Complex expressions
 
 ## Corpus
 

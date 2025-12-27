@@ -651,6 +651,7 @@ VB6Parse includes comprehensive fuzz testing using `cargo-fuzz` and libFuzzer to
 - `sourcefile_decode` - Tests Windows-1252 decoding with arbitrary bytes
 - `sourcestream` - Tests low-level character stream operations
 - `tokenize` - Tests tokenization with malformed VB6 code
+- `cst_parse` - Tests Concrete Syntax Tree parsing with invalid syntax
 
 **Quick Start:**
 
