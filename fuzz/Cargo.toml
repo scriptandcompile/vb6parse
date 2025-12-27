@@ -68,3 +68,10 @@ path = "fuzz_targets/form_file.rs"
 test = false
 doc = false
 bench = false
+
+[[bin]]
+name = "form_resource"
+path = "fuzz_targets/form_resource.rs"
+test = false
+doc = false
+bench = false
