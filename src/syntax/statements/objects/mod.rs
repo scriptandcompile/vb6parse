@@ -36,6 +36,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "Call" keyword
         self.consume_token();
@@ -55,6 +56,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::CallStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume everything until newline (procedure name and arguments)
         self.consume_until_after(Token::Newline);
@@ -189,6 +191,7 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::RaiseEventStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "RaiseEvent" keyword
         self.consume_token();
@@ -210,6 +213,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::SetStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "Set" keyword
         self.consume_token();
@@ -238,6 +242,7 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::WithStatement.to_raw());
+        self.consume_whitespace();
 
         // Consume "With" keyword
         self.consume_token();
@@ -270,9 +275,16 @@ impl Parser<'_> {
     }
 
     /// Check if the current token is a statement keyword that `parse_statement` can handle.
+    /// Checks both current position and next non-whitespace token.
     pub(crate) fn is_statement_keyword(&self) -> bool {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
         matches!(
-            self.current_token(),
+            token,
             Some(
                 Token::CallKeyword
                     | Token::RaiseEventKeyword
@@ -285,7 +297,13 @@ impl Parser<'_> {
     /// This is a centralized statement dispatcher that handles all VB6 statement types
     /// defined in this module (object manipulation statements).
     pub(crate) fn parse_statement(&mut self) {
-        match self.current_token() {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        match token {
             Some(Token::CallKeyword) => {
                 self.parse_call_statement();
             }

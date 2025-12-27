@@ -1137,14 +1137,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    Me.WindowState = vbMinimized\r\n"
+                text: "Me.WindowState = vbMinimized\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: MemberAccessExpression
                     text: Me.WindowState
                     is_token: false
@@ -1245,14 +1245,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    scrHwnd = GetDesktopWindow\r\n"
+                text: "scrHwnd = GetDesktopWindow\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: scrHwnd
                     is_token: false
@@ -1345,14 +1345,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    shDC = GetDC(scrHwnd)\r\n"
+                text: "shDC = GetDC(scrHwnd)\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: shDC
                     is_token: false
@@ -1497,14 +1497,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n"
+                text: "screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: screenWidth
                     is_token: false
@@ -1577,14 +1577,14 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n"
+                text: "screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
                     text: screenHeight
                     is_token: false
@@ -1869,14 +1869,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    Me.Picture = Me.Image\r\n"
+                text: "Me.Picture = Me.Image\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: MemberAccessExpression
                     text: Me.Picture
                     is_token: false
@@ -1945,14 +1945,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
+              - kind: Whitespace
+                text: "    "
+                is_token: true
+                children: []
               - kind: AssignmentStatement
-                text: "    Me.WindowState = vbNormal\r\n"
+                text: "Me.WindowState = vbNormal\r\n"
                 is_token: false
                 children:
-                  - kind: Whitespace
-                    text: "    "
-                    is_token: true
-                    children: []
                   - kind: MemberAccessExpression
                     text: Me.WindowState
                     is_token: false

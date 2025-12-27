@@ -1427,8 +1427,21 @@ impl<'a> Parser<'a> {
                 }
                 // Anything else - check if it's a statement, label, assignment, or unknown
                 _ => {
+                    // Whitespace, newlines, and comments - consume directly FIRST
+                    // This must be checked before is_at_procedure_call to avoid
+                    // treating REM comments as procedure calls
+                    if matches!(
+                        self.current_token(),
+                        Some(
+                            Token::Whitespace
+                                | Token::Newline
+                                | Token::EndOfLineComment
+                                | Token::RemComment
+                        )
+                    ) {
+                        self.consume_token();
                     // Try control flow statements
-                    if self.is_control_flow_keyword() {
+                    } else if self.is_control_flow_keyword() {
                         self.parse_control_flow_statement();
                     // Try built-in statements
                     } else if self.is_library_statement_keyword() {
@@ -1452,28 +1465,6 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
-                    // Whitespace, newlines, and comments - consume directly
-                    } else if matches!(
-                        self.current_token(),
-                        Some(
-                            Token::Whitespace
-                                | Token::Newline
-                                | Token::EndOfLineComment
-                                | Token::RemComment
-                        )
-                    ) {
-                        self.consume_token();
-                    // Whitespace, newlines, and comments - consume directly
-                    } else if matches!(
-                        self.current_token(),
-                        Some(
-                            Token::Whitespace
-                                | Token::Newline
-                                | Token::EndOfLineComment
-                                | Token::RemComment
-                        )
-                    ) {
-                        self.consume_token();
                     } else if self.is_identifier() || self.at_keyword() {
                         self.consume_token();
                     } else {
@@ -1488,9 +1479,16 @@ impl<'a> Parser<'a> {
     }
 
     /// Check if the current token is a control flow keyword.
+    /// Checks both current position and next non-whitespace token.
     fn is_control_flow_keyword(&self) -> bool {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
         matches!(
-            self.current_token(),
+            token,
             Some(
                 Token::IfKeyword
                     | Token::SelectKeyword
@@ -1509,7 +1507,13 @@ impl<'a> Parser<'a> {
 
     /// Dispatch control flow statement parsing to the appropriate parser.
     fn parse_control_flow_statement(&mut self) {
-        match self.current_token() {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        match token {
             Some(Token::IfKeyword) => {
                 self.parse_if_statement();
             }
@@ -1518,7 +1522,17 @@ impl<'a> Parser<'a> {
             }
             Some(Token::ForKeyword) => {
                 // Peek ahead to see if next keyword is "Each"
-                if let Some(Token::EachKeyword) = self.peek_next_keyword() {
+                // Need to peek TWO keywords ahead if we're currently at whitespace
+                let next_kw = if self.at_token(Token::Whitespace) {
+                    // We peeked to find "For", now peek one more for "Each"
+                    self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
+                        .nth(1)
+                } else {
+                    // We're directly at "For", peek once for "Each"
+                    self.peek_next_keyword()
+                };
+
+                if let Some(Token::EachKeyword) = next_kw {
                     self.parse_for_each_statement();
                 } else {
                     self.parse_for_statement();
@@ -1547,14 +1561,29 @@ impl<'a> Parser<'a> {
             }
             Some(Token::OnKeyword) => {
                 // Look ahead to distinguish between On Error, On GoTo, and On GoSub
-                if let Some(Token::ErrorKeyword) = self.peek_next_keyword() {
+                // Need to peek different amounts depending on whether we're at whitespace
+                let next_kw = if self.at_token(Token::Whitespace) {
+                    // We peeked to find "On", now peek one more for "Error/GoTo/GoSub"
+                    self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
+                        .nth(1)
+                } else {
+                    // We're directly at "On", peek once for next keyword
+                    self.peek_next_keyword()
+                };
+
+                if let Some(Token::ErrorKeyword) = next_kw {
                     self.parse_on_error_statement();
                 } else {
                     // Need to scan ahead to find GoTo or GoSub keyword
                     // to distinguish between On GoTo and On GoSub
-                    use std::num::NonZeroUsize;
+                    let peek_start = if self.at_token(Token::Whitespace) {
+                        2
+                    } else {
+                        1
+                    };
                     let keywords: Vec<Token> = self
                         .peek_next_count_keywords(NonZeroUsize::new(20).unwrap())
+                        .skip(peek_start)
                         .collect();
 
                     let has_goto = keywords.contains(&Token::GotoKeyword);
@@ -1575,11 +1604,15 @@ impl<'a> Parser<'a> {
     }
 
     /// Check if the current token is an array statement keyword.
+    /// Checks both current position and next non-whitespace token.
     fn is_variable_declaration_keyword(&self) -> bool {
-        matches!(
-            self.current_token(),
-            Some(Token::ReDimKeyword | Token::EraseKeyword)
-        )
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        matches!(token, Some(Token::ReDimKeyword | Token::EraseKeyword))
     }
 
     /// Check if we're at an Object statement with proper format.
@@ -1628,7 +1661,13 @@ impl<'a> Parser<'a> {
 
     /// Dispatch array statement parsing to the appropriate parser.
     fn parse_array_statement(&mut self) {
-        match self.current_token() {
+        let token = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        match token {
             Some(Token::ReDimKeyword) => {
                 self.parse_redim_statement();
             }
@@ -1687,6 +1726,17 @@ impl<'a> Parser<'a> {
 
             // Handle other constructs that aren't in parse_statement
             match self.current_token() {
+                // Whitespace, newlines, and comments - consume directly FIRST
+                // This must be checked before is_at_procedure_call to avoid
+                // treating REM comments as procedure calls
+                Some(
+                    Token::Whitespace
+                    | Token::Newline
+                    | Token::EndOfLineComment
+                    | Token::RemComment,
+                ) => {
+                    self.consume_token();
+                }
                 // Variable declarations: Dim/Private/Public/Const/Static
                 Some(
                     Token::DimKeyword
@@ -1703,7 +1753,10 @@ impl<'a> Parser<'a> {
                     if self.is_at_label() {
                         self.parse_label_statement();
                     // Check for Let statement (optional assignment keyword)
-                    } else if self.at_token(Token::LetKeyword) {
+                    } else if self.at_token(Token::LetKeyword)
+                        || (self.at_token(Token::Whitespace)
+                            && self.peek_next_keyword() == Some(Token::LetKeyword))
+                    {
                         self.parse_let_statement();
                     // Check if this looks like an assignment statement (identifier = expression)
                     } else if self.is_at_assignment() {
@@ -1711,17 +1764,6 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
-                    // Whitespace, newlines, and comments - consume directly
-                    } else if matches!(
-                        self.current_token(),
-                        Some(
-                            Token::Whitespace
-                                | Token::Newline
-                                | Token::EndOfLineComment
-                                | Token::RemComment
-                        )
-                    ) {
-                        self.consume_token();
                     } else {
                         self.consume_token_as_unknown();
                     }
