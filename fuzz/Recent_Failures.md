@@ -2,6 +2,15 @@
 
 This document tracks crashes and bugs discovered by fuzz testing.
 
+## FormResourceFile Fuzzer (NEW!)
+
+- **Crash discovered**: Integer underflow panic in resource file parsing
+- **Location**: `src/files/resource/mod.rs:593` - attempt to subtract with overflow
+- **Test Case**: `fuzz/artifacts/form_resource/crash-141eb5122a02efc395e538e2a7e54a6e38f5c8ad`
+- **Trigger**: Malformed 12-byte header with "lt\0\0" signature and size values causing subtraction underflow: `[0, 0, 0, 0, 108, 116, 0, 0, 0, 0, 0, 0]`
+- **Reproduction**: `cargo +nightly fuzz run form_resource fuzz/artifacts/form_resource/crash-141eb5122a02efc395e538e2a7e54a6e38f5c8ad`
+- **Status**: Needs fix - Resource parser must validate size fields and use checked arithmetic
+
 ## Common Bug: UTF-8 Char Boundary Panic in SourceStream
 
 All fuzzers discovered the same critical bug: UTF-8 character boundary panic when parsing Windows-1252 encoded files with non-ASCII characters.
