@@ -1,3 +1,21 @@
+//! Defines the `Color` enum and related functionality for handling colors
+//! in VB6 forms and controls.
+//!
+//! This module includes predefined VB6 colors as constants, as well as methods
+//! for parsing and formatting colors in the VB6 hex format.
+//!
+//! In VB6, colors are represented as 24-bit RGB values stored in a special
+//! format as '&H00BBGGRR&' for RGB colors and '&H800000II&' for system colors,
+//! where 'II' is the index of the system color.
+//!
+//!! # Example
+//! ```rust
+//! use vb6parse::language::Color;
+//! let color = Color::from_hex("&H00FF0000&").unwrap();
+//! assert_eq!(color, Color::RGB { red: 0x00, green: 0x00, blue: 0xFF });
+//! assert_eq!(color.to_vb_string(), "&H000000FF&");
+//! ```
+
 use crate::errors::FormErrorKind;
 
 use std::fmt::Display;
