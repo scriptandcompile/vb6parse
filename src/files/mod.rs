@@ -5,7 +5,7 @@
 //! - `.cls` - Class modules ([`ClassFile`])
 //! - `.bas` - Code modules ([`ModuleFile`])
 //! - `.frm` - Forms ([`FormFile`])
-//! - `.frx` - Form resources ([`FormResource`])
+//! - `.frx` - Form resources ([`FormResourceFile`])
 //!
 //! These parsers operate on the "object layer" - they parse complete files into
 //! structured objects. They build on top of the lower-level syntax (CST) parsers.
@@ -53,4 +53,4 @@ pub use class::ClassFile;
 pub use form::FormFile;
 pub use module::ModuleFile;
 pub use project::ProjectFile;
-pub use resource::FormResourceFile as FormResource;
+pub use resource::FormResourceFile;

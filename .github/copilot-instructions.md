@@ -46,7 +46,7 @@ let (project, failures) = result.unpack();
 - **Classes** (`*.cls`): `ClassFile::parse(&source_file)` - Returns header + CST of code
 - **Modules** (`*.bas`): `ModuleFile::parse(&source_file)` - Returns header + CST of code  
 - **Forms** (`*.frm`): `FormFile::parse(&source_file)` - Special: UI controls in header, code in body. Forms have resource files (`.frx`)
-- **Form Resources** (`*.frx`): `FormResource::load_from_bytes(&bytes)` - Parses binary blobs for control strings and binary data.
+- **Form Resources** (`*.frx`): `FormResourceFile::load_from_bytes(&bytes)` - Parses binary blobs for control strings and binary data.
 
 ## CST Navigation
 

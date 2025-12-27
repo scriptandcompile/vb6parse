@@ -202,7 +202,7 @@ pub use crate::io::{SourceFile, SourceStream};
 pub use crate::lexer::{tokenize, Token, TokenStream};
 
 // File Parsers - Main entry points for parsing VB6 files
-pub use crate::files::{ClassFile, FormFile, FormResource, ModuleFile, ProjectFile};
+pub use crate::files::{ClassFile, FormFile, FormResourceFile, ModuleFile, ProjectFile};
 
 // Syntax Parsers - CST parsing and tree types
 pub use crate::parsers::{parse, ConcreteSyntaxTree, ParseResult, SerializableTree, SyntaxKind};

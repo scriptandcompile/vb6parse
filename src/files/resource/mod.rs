@@ -246,10 +246,10 @@ impl FormResourceFile {
     /// # Example
     ///
     /// ```no_run
-    /// use vb6parse::FormResource;
+    /// use vb6parse::FormResourceFile;
     ///
     /// let bytes = std::fs::read("tests/data/form.frx")?;
-    /// let result = FormResource::parse("form.frx", bytes);
+    /// let result = FormResourceFile::parse("form.frx", bytes);
     ///
     /// if result.has_failures() {
     ///     for failure in result.failures() {
@@ -327,9 +327,9 @@ impl FormResourceFile {
     /// # Example
     ///
     /// ```no_run
-    /// use vb6parse::FormResource;
+    /// use vb6parse::FormResourceFile;
     ///
-    /// let result = FormResource::from_file("tests/data/form.frx")?;
+    /// let result = FormResourceFile::from_file("tests/data/form.frx")?;
     /// let resource_file = result.unwrap_or_fail();
     /// # Ok::<(), std::io::Error>(())
     /// ```
