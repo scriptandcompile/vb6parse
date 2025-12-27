@@ -1974,14 +1974,14 @@ cst:
                                         text: "        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    "
                                         is_token: false
                                         children:
-                                          - kind: Whitespace
-                                            text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".lStructSize = Len(cc)\r\n"
+                                            text: "        .lStructSize = Len(cc)\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: "."
                                                 is_token: false
@@ -2050,14 +2050,14 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                          - kind: Whitespace
-                                            text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".hwndOwner = hParent\r\n"
+                                            text: "        .hwndOwner = hParent\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: "."
                                                 is_token: false
@@ -2102,14 +2102,14 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                          - kind: Whitespace
-                                            text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".lpCustColors = VarPtr(aColorRef(0))\r\n"
+                                            text: "        .lpCustColors = VarPtr(aColorRef(0))\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: "."
                                                 is_token: false
@@ -2202,14 +2202,14 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                          - kind: Whitespace
-                                            text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".rgbResult = initColor\r\n"
+                                            text: "        .rgbResult = initColor\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: "."
                                                 is_token: false
@@ -2254,14 +2254,14 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                          - kind: Whitespace
-                                            text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n"
+                                            text: "        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n"
                                             is_token: false
                                             children:
+                                              - kind: Whitespace
+                                                text: "        "
+                                                is_token: true
+                                                children: []
                                               - kind: IdentifierExpression
                                                 text: "."
                                                 is_token: false
@@ -2482,14 +2482,14 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: Whitespace
-                                    text: "    "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "ShowColorDialog = CBool(ChooseColor(cc))\r\n"
+                                    text: "    ShowColorDialog = CBool(ChooseColor(cc))\r\n"
                                     is_token: false
                                     children:
+                                      - kind: Whitespace
+                                        text: "    "
+                                        is_token: true
+                                        children: []
                                       - kind: IdentifierExpression
                                         text: ShowColorDialog
                                         is_token: false

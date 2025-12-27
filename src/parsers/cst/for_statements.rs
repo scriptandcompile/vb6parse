@@ -24,6 +24,9 @@ impl Parser<'_> {
 
         self.builder.start_node(SyntaxKind::ForStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "For" keyword
         self.consume_token();
 
@@ -95,6 +98,9 @@ impl Parser<'_> {
 
         self.builder
             .start_node(SyntaxKind::ForEachStatement.to_raw());
+
+        // Consume any leading whitespace
+        self.consume_whitespace();
 
         // Consume "For" keyword
         self.consume_token();

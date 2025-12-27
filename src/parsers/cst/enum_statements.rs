@@ -63,6 +63,9 @@ impl Parser<'_> {
         self.parsing_header = false;
         self.builder.start_node(SyntaxKind::EnumStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume optional Public/Private keyword
         if self.at_token(Token::PublicKeyword) || self.at_token(Token::PrivateKeyword) {
             self.consume_token();

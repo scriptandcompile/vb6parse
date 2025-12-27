@@ -15,6 +15,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::AttributeStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "Attribute" keyword
         self.consume_token();
 

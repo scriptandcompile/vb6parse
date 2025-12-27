@@ -54,6 +54,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::FunctionStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume optional Public/Private/Friend keyword
         if self.at_token(Token::PublicKeyword)
             || self.at_token(Token::PrivateKeyword)

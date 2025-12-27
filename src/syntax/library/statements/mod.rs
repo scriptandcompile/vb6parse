@@ -282,6 +282,9 @@ impl Parser<'_> {
 
         self.builder.start_node(kind.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume the keyword
         self.consume_token();
 

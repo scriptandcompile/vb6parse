@@ -60,6 +60,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::DeclareStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume optional Public/Private keyword
         if self.at_token(Token::PublicKeyword) || self.at_token(Token::PrivateKeyword) {
             self.consume_token();
@@ -171,6 +174,9 @@ impl Parser<'_> {
         // Event statements are only valid in class modules
         self.builder.start_node(SyntaxKind::EventStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume optional Public keyword
         if self.at_token(Token::PublicKeyword) {
             self.consume_token();
@@ -246,6 +252,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::ImplementsStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "Implements" keyword
         self.consume_token();
 
@@ -288,6 +297,9 @@ impl Parser<'_> {
     pub(super) fn parse_object_statement(&mut self) {
         self.builder
             .start_node(SyntaxKind::ObjectStatement.to_raw());
+
+        // Consume any leading whitespace
+        self.consume_whitespace();
 
         // Consume "Object" keyword
         self.consume_token();

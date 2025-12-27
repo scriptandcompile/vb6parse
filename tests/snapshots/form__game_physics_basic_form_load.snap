@@ -1451,14 +1451,14 @@ cst:
                 text: "\r\n"
                 is_token: true
                 children: []
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "GameActive = True\r\n"
+                text: "    GameActive = True\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false
@@ -1595,14 +1595,14 @@ cst:
             text: "    GameActive = False\r\n"
             is_token: false
             children:
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "GameActive = False\r\n"
+                text: "    GameActive = False\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false
@@ -1871,14 +1871,14 @@ cst:
                     text: "        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    "
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "sLeft = 1\r\n"
+                        text: "        sLeft = 1\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: sLeft
                             is_token: false
@@ -1911,14 +1911,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "picShip.Picture = PicL.Picture\r\n"
+                        text: "        picShip.Picture = PicL.Picture\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: picShip.Picture
                             is_token: false
@@ -1967,14 +1967,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "picShipMask.Picture = PicLM.Picture\r\n"
+                        text: "        picShipMask.Picture = PicLM.Picture\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: picShipMask.Picture
                             is_token: false
@@ -2127,14 +2127,14 @@ cst:
                     text: "        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    "
                     is_token: false
                     children:
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "sRight = 1\r\n"
+                        text: "        sRight = 1\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: sRight
                             is_token: false
@@ -2167,14 +2167,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "picShip.Picture = PicR.Picture\r\n"
+                        text: "        picShip.Picture = PicR.Picture\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: picShip.Picture
                             is_token: false
@@ -2223,14 +2223,14 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "picShipMask.Picture = PicRM.Picture\r\n"
+                        text: "        picShipMask.Picture = PicRM.Picture\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: picShipMask.Picture
                             is_token: false
@@ -3691,14 +3691,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "timeDelay = Timer\r\n"
+                        text: "        timeDelay = Timer\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: IdentifierExpression
                             text: timeDelay
                             is_token: false
@@ -3859,14 +3859,14 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: Whitespace
-                        text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n"
+                        text: "        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n"
                         is_token: false
                         children:
+                          - kind: Whitespace
+                            text: "        "
+                            is_token: true
+                            children: []
                           - kind: MemberAccessExpression
                             text: LblVel.Caption
                             is_token: false
@@ -4603,14 +4603,14 @@ cst:
             text: "    GameActive = False\r\n"
             is_token: false
             children:
-              - kind: Whitespace
-                text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "GameActive = False\r\n"
+                text: "    GameActive = False\r\n"
                 is_token: false
                 children:
+                  - kind: Whitespace
+                    text: "    "
+                    is_token: true
+                    children: []
                   - kind: IdentifierExpression
                     text: GameActive
                     is_token: false

@@ -17,6 +17,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::OptionStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "Option" keyword
         self.consume_token();
 

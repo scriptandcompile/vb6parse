@@ -25,6 +25,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::AssignmentStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Parse left-hand side - use parse_lvalue which stops before =
         self.parse_lvalue();
 
@@ -63,6 +66,9 @@ impl Parser<'_> {
         // Let statements can appear in both header and body, so we do not modify parsing_header here.
 
         self.builder.start_node(SyntaxKind::LetStatement.to_raw());
+
+        // Consume any leading whitespace
+        self.consume_whitespace();
 
         // Consume "Let" keyword
         self.consume_token();

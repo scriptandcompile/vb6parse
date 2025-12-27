@@ -30,6 +30,9 @@ impl Parser<'_> {
 
         self.builder.start_node(SyntaxKind::DoStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume "Do" keyword
         self.consume_token();
 
@@ -147,6 +150,9 @@ impl Parser<'_> {
         self.parsing_header = false;
 
         self.builder.start_node(SyntaxKind::WhileStatement.to_raw());
+
+        // Consume any leading whitespace
+        self.consume_whitespace();
 
         // Consume "While" keyword
         self.consume_token();

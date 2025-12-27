@@ -60,6 +60,9 @@ impl Parser<'_> {
         self.builder
             .start_node(SyntaxKind::DefTypeStatement.to_raw());
 
+        // Consume any leading whitespace
+        self.consume_whitespace();
+
         // Consume the DefType keyword (DefBool, DefByte, DefInt, etc.)
         // TODO: Validate that the keyword is one of the valid DefType keywords
         self.consume_token();
