@@ -212,3 +212,7 @@ pub use crate::errors::{
     ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
     PropertyError, ResourceErrorKind, SourceFileErrorKind,
 };
+
+#[cfg(test)]
+#[macro_use]
+mod test_utils;

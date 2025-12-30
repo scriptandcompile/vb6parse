@@ -329,7 +329,12 @@ impl ConcreteSyntaxTree {
     }
 
     /// Convert the internal rowan tree to a root `CstNode`.
-    fn to_root_node(&self) -> CstNode {
+    ///
+    /// # Returns
+    ///
+    /// The root `CstNode` representing the entire CST.
+    #[must_use]
+    pub fn to_root_node(&self) -> CstNode {
         CstNode {
             kind: SyntaxKind::Root,
             text: self.text(),
