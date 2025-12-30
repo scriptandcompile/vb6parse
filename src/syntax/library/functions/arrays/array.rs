@@ -280,6 +280,54 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
+        assert_tree!(cst.to_root_node(), [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                CodeBlock {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                            Whitespace (" "),
+                            EqualityOperator,
+                            Whitespace (" "),
+                            CallExpression {
+                                Identifier ("Array"),
+                                ArgumentList {
+                                    LeftParenthesis,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                    Comma,
+                                    NumericLiteralExpression {
+                                        Whitespace (" "),
+                                        IntegerLiteral ("2"),
+                                    },
+                                    Comma,
+                                    NumericLiteralExpression {
+                                        Whitespace (" "),
+                                        IntegerLiteral ("3"),
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                    },
+                    Newline,
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+            },
+        ]);
         let debug = cst.debug_tree();
 
         assert!(debug.contains("Array"));
