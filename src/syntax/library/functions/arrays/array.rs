@@ -296,42 +296,45 @@ End Sub
                     AssignmentStatement {
                         IdentifierExpression {
                             Identifier ("x"),
-                            Whitespace (" "),
-                            EqualityOperator,
-                            Whitespace (" "),
-                            CallExpression {
-                                Identifier ("Array"),
-                                ArgumentList {
-                                    LeftParenthesis,
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
                                     NumericLiteralExpression {
                                         IntegerLiteral ("1"),
                                     },
-                                    Comma,
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
                                     NumericLiteralExpression {
-                                        Whitespace (" "),
                                         IntegerLiteral ("2"),
                                     },
-                                    Comma,
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
                                     NumericLiteralExpression {
-                                        Whitespace (" "),
                                         IntegerLiteral ("3"),
                                     },
-                                    RightParenthesis,
                                 },
                             },
+                            RightParenthesis,
                         },
+                        Newline,
                     },
-                    Newline,
                 },
                 EndKeyword,
                 Whitespace (" "),
                 SubKeyword,
+                Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("Identifier"));
     }
 
     #[test]
