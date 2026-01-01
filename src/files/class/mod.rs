@@ -176,7 +176,7 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
     let properties_blocks: Vec<_> = cst
         .children()
         .into_iter()
-        .filter(|c| c.kind == SyntaxKind::PropertiesBlock)
+        .filter(|c| c.kind() == SyntaxKind::PropertiesBlock)
         .collect();
 
     if properties_blocks.is_empty() {
@@ -187,9 +187,9 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
 
     // Find all Property nodes within the PropertiesBlock
     let property_nodes: Vec<_> = properties_block
-        .children
+        .children()
         .iter()
-        .filter(|c| c.kind == SyntaxKind::Property)
+        .filter(|c| c.kind() == SyntaxKind::Property)
         .collect();
 
     for prop_node in property_nodes {
@@ -197,16 +197,16 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
         let mut value = String::new();
         let mut found_equals = false;
 
-        for child in &prop_node.children {
-            if !child.is_token {
+        for child in prop_node.children() {
+            if !child.is_token() {
                 continue;
             }
 
-            match child.kind {
+            match child.kind() {
                 SyntaxKind::PropertyKey => {
                     // This is a nested node, get its text
-                    if let Some(first_child) = child.children.first() {
-                        key = first_child.text.trim().to_string();
+                    if let Some(first_child) = child.children().first() {
+                        key = first_child.text().trim().to_string();
                     }
                 }
                 SyntaxKind::EqualityOperator => {
@@ -215,11 +215,11 @@ fn extract_properties(cst: &crate::parsers::ConcreteSyntaxTree) -> ClassProperti
                 SyntaxKind::PropertyValue => {
                     // This is a nested node, get all its text
                     if found_equals {
-                        for val_child in &child.children {
-                            if val_child.is_token {
-                                match val_child.kind {
+                        for val_child in child.children() {
+                            if val_child.is_token() {
+                                match val_child.kind() {
                                     SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
-                                        value.push_str(val_child.text.trim());
+                                        value.push_str(val_child.text().trim());
                                     }
                                     SyntaxKind::SubtractionOperator => {
                                         value.push('-');

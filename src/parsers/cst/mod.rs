@@ -99,13 +99,13 @@
 //!
 //! // Custom predicates
 //! let keywords = root.find_all_if(|n| {
-//!     matches!(n.kind, SyntaxKind::SubKeyword | SyntaxKind::DimKeyword)
+//!     matches!(n.kind(), SyntaxKind::SubKeyword | SyntaxKind::DimKeyword)
 //! });
 //!
 //! // Iterate all nodes
 //! for node in root.descendants() {
 //!     if node.is_significant() {
-//!         println!("{:?}: {}", node.kind, node.text);
+//!         println!("{:?}: {}", node.kind(), node.text());
 //!     }
 //! }
 //! ```
@@ -335,12 +335,7 @@ impl ConcreteSyntaxTree {
     /// The root `CstNode` representing the entire CST.
     #[must_use]
     pub fn to_root_node(&self) -> CstNode {
-        CstNode {
-            kind: SyntaxKind::Root,
-            text: self.text(),
-            is_token: false,
-            children: self.children(),
-        }
+        CstNode::new(SyntaxKind::Root, self.text(), false, self.children())
     }
 
     /// Create a new CST with specified node kinds removed from the root level.
@@ -1907,8 +1902,8 @@ mod test {
         assert!(cst.contains_kind(SyntaxKind::SubStatement));
 
         let first = cst.first_child().unwrap();
-        assert_eq!(first.kind, SyntaxKind::EndOfLineComment);
-        assert!(first.is_token);
+        assert_eq!(first.kind(), SyntaxKind::EndOfLineComment);
+        assert!(first.is_token());
     }
 
     #[test]
@@ -1998,11 +1993,11 @@ mod test {
 
         // Use navigation methods
         let children = cst.children();
-        assert_eq!(children[0].kind, SyntaxKind::EndOfLineComment);
-        assert_eq!(children[1].kind, SyntaxKind::Newline);
-        assert_eq!(children[2].kind, SyntaxKind::RemComment);
-        assert_eq!(children[3].kind, SyntaxKind::Newline);
-        assert_eq!(children[4].kind, SyntaxKind::SubStatement);
+        assert_eq!(children[0].kind(), SyntaxKind::EndOfLineComment);
+        assert_eq!(children[1].kind(), SyntaxKind::Newline);
+        assert_eq!(children[2].kind(), SyntaxKind::RemComment);
+        assert_eq!(children[3].kind(), SyntaxKind::Newline);
+        assert_eq!(children[4].kind(), SyntaxKind::SubStatement);
 
         assert!(cst.contains_kind(SyntaxKind::EndOfLineComment));
         assert!(cst.contains_kind(SyntaxKind::RemComment));
@@ -2028,10 +2023,13 @@ mod test {
         let serializable = cst.to_serializable();
 
         // Verify structure
-        assert_eq!(serializable.root.kind, SyntaxKind::Root);
-        assert!(!serializable.root.is_token);
-        assert_eq!(serializable.root.children.len(), 1);
-        assert_eq!(serializable.root.children[0].kind, SyntaxKind::SubStatement);
+        assert_eq!(serializable.root.kind(), SyntaxKind::Root);
+        assert!(!serializable.root.is_token());
+        assert_eq!(serializable.root.children().len(), 1);
+        assert_eq!(
+            serializable.root.children()[0].kind(),
+            SyntaxKind::SubStatement
+        );
 
         // Can be used with insta for snapshot testing:
         // insta::assert_yaml_snapshot!(serializable);
@@ -2047,7 +2045,7 @@ mod test {
         // insta::assert_yaml_snapshot!(serializable);
 
         // Verify it's serializable by checking structure
-        assert!(!serializable.root.children.is_empty());
+        assert!(!serializable.root.children().is_empty());
     }
 
     // Phase 1 Tests: Parser Modes and Constructors

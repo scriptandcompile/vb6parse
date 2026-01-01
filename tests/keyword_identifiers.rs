@@ -40,13 +40,13 @@ fn keyword_as_variable_in_assignment() {
     let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let children = cst.children();
-    assert_eq!(children[0].kind, SyntaxKind::AssignmentStatement);
+    assert_eq!(children[0].kind(), SyntaxKind::AssignmentStatement);
     // text is now wrapped in IdentifierExpression
     assert_eq!(
-        children[0].children[0].kind,
+        children[0].children()[0].kind(),
         SyntaxKind::IdentifierExpression
     );
-    assert!(children[0].children[0].text.contains("text"));
+    assert!(children[0].children()[0].text().contains("text"));
 }
 
 #[test]
@@ -55,15 +55,15 @@ fn keyword_as_property_in_assignment() {
     let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
     let children = cst.children();
-    assert_eq!(children[0].kind, SyntaxKind::AssignmentStatement);
+    assert_eq!(children[0].kind(), SyntaxKind::AssignmentStatement);
     // obj.text is now wrapped in MemberAccessExpression
     assert_eq!(
-        children[0].children[0].kind,
+        children[0].children()[0].kind(),
         SyntaxKind::MemberAccessExpression
     );
     // The member access should contain "obj" and "text"
-    assert!(children[0].children[0].text.contains("obj"));
-    assert!(children[0].children[0].text.contains("text"));
+    assert!(children[0].children()[0].text().contains("obj"));
+    assert!(children[0].children()[0].text().contains("text"));
 }
 
 #[test]

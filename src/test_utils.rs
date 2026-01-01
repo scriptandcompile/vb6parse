@@ -10,29 +10,35 @@
 //! locations when assertions fail.
 //!
 //! # Example
-//! ```rust,ignore
-//! use vb6parse::parsers::cst::{ConcreteSyntaxTree, SyntaxKind};
-//! use vb6parse::test_utils::assert_tree;
+//! ```rust
+//! use vb6parse::*;
 //!
-//! let cst = ConcreteSyntaxTree::parse("Sub Test()\nEnd Sub");
-//! assert_tree!(cst.to_root_node(), [
-//!     Newline,
-//!     SubStatement {
-//!         SubKeyword,
-//!         Whitespace (" "),
-//!         Identifier ("Test"),
-//!         ParameterList {
-//!             LeftParenthesis,
-//!             RightParenthesis,
-//!         },
-//!         Newline,
-//!     },
-//!     EndSubStatement {
-//!         EndSubKeyword,
-//!         Whitespace (" "),
-//!         SubKeyword,
-//!     },
-//! ]);
+//! let source = "Sub Test()\nEnd Sub\n";
+//!
+//! let (cst_opt, _) = ConcreteSyntaxTree::from_text("file.bas", source).unpack();
+//! let cst = cst_opt.expect("Failed to parse CST");
+//!
+//! // This will assert the structure of the CST
+//! // but can only be used within module tests due to its internal visibility.
+//!
+//! // assert_tree!(cst.to_root_node(), [
+//! //    Newline,
+//! //    SubStatement {
+//! //        SubKeyword,
+//! //        Whitespace (" "),
+//! //        Identifier ("Test"),
+//! //        ParameterList {
+//! //            LeftParenthesis,
+//! //            RightParenthesis,
+//! //        },
+//! //        Newline,
+//! //    },
+//! //    EndSubStatement {
+//! //        EndSubKeyword,
+//! //        Whitespace (" "),
+//! //        SubKeyword,
+//! //    },
+//! // ]);
 //! ```
 
 // The items in this module are used by the assert_tree! macro but appear unused
@@ -254,18 +260,18 @@ pub(crate) fn check_tree(
     let expected_nodes = parse_tree_spec(tree_spec)
         .map_err(|e| format!("Failed to parse tree specification: {e}\nSpec:\n{tree_spec}"))?;
 
-    check_nodes(&node.children, &expected_nodes, file, base_line, &["Root"])?;
+    check_nodes(node.children(), &expected_nodes, file, base_line, &["Root"])?;
 
     // Check if there are extra children
-    if node.children.len() > expected_nodes.len() {
-        let extra_count = node.children.len() - expected_nodes.len();
+    if node.children().len() > expected_nodes.len() {
+        let extra_count = node.children().len() - expected_nodes.len();
         return Err(format!(
             "\n{}:{}: Assertion failed in tree structure\nPath: {}\nExpected {} children, but found {} ({}extra)\n",
             file,
             base_line,
             "Root",
             expected_nodes.len(),
-            node.children.len(),
+            node.children().len(),
             extra_count,
         ));
     }
@@ -310,7 +316,7 @@ fn check_single_node(
     path: &[&str],
 ) -> Result<(), String> {
     let expected_kind_str = expected.kind();
-    let actual_kind = actual.kind;
+    let actual_kind = actual.kind();
     let actual_kind_str = format!("{actual_kind:?}");
 
     // Compare kinds
@@ -332,7 +338,7 @@ fn check_single_node(
             kind,
             ..
         } => {
-            if !actual.is_token {
+            if !actual.is_token() {
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected a token node with text\nActual:   non-token node\n",
                     file,
@@ -343,7 +349,7 @@ fn check_single_node(
                 ));
             }
 
-            let actual_text = &actual.text;
+            let actual_text = actual.text();
             if expected_text != actual_text {
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected text: {:?}\nActual text:   {:?}\n",
@@ -360,11 +366,11 @@ fn check_single_node(
         ExpectedNode::WithChildren { kind, children, .. } => {
             let mut new_path = path.to_vec();
             new_path.push(kind);
-            check_nodes(&actual.children, children, file, base_line, &new_path)?;
+            check_nodes(actual.children(), children, file, base_line, &new_path)?;
 
             // Check for extra children
-            if actual.children.len() > children.len() {
-                let extra_count = actual.children.len() - children.len();
+            if actual.children().len() > children.len() {
+                let extra_count = actual.children().len() - children.len();
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {}\nExpected {} children, but found {} ({} extra)\n",
                     file,
@@ -372,7 +378,7 @@ fn check_single_node(
                     path.join(" → "),
                     kind,
                     children.len(),
-                    actual.children.len(),
+                    actual.children().len(),
                     extra_count,
                 ));
             }

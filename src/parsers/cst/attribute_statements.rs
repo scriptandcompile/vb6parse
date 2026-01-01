@@ -43,8 +43,13 @@ mod test {
 
         // Use navigation methods
         assert!(cst.contains_kind(SyntaxKind::AttributeStatement));
-        let attr_statements: Vec<_> = cst.children_by_kind(SyntaxKind::AttributeStatement).collect();
+        let attr_statements: Vec<_> = cst
+            .children_by_kind(SyntaxKind::AttributeStatement)
+            .collect();
         assert_eq!(attr_statements.len(), 1);
-        assert_eq!(attr_statements[0].text, "Attribute VB_Name = \"modTest\"\n");
+        assert_eq!(
+            attr_statements[0].text(),
+            "Attribute VB_Name = \"modTest\"\n"
+        );
     }
 }

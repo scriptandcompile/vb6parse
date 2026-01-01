@@ -40,15 +40,15 @@ End Function
     println!("\n2. All Identifiers:");
     let identifiers = root.find_all(SyntaxKind::Identifier);
     for (i, id) in identifiers.iter().enumerate() {
-        if !id.text.trim().is_empty() {
-            println!("   {}: {}", i + 1, id.text.trim());
+        if !id.text().trim().is_empty() {
+            println!("   {}: {}", i + 1, id.text().trim());
         }
     }
 
     // Example 3: Find first Sub statement and navigate its children
     println!("\n3. First Sub Statement Structure:");
     if let Some(sub_stmt) = root.find(SyntaxKind::SubStatement) {
-        println!("   Text: {}", sub_stmt.text.lines().next().unwrap_or(""));
+        println!("   Text: {}", sub_stmt.text().lines().next().unwrap_or(""));
         println!("   Direct children: {}", sub_stmt.child_count());
         println!(
             "   Significant children: {}",
@@ -62,10 +62,10 @@ End Function
 
     // Example 4: Filter out trivia
     println!("\n4. Non-Trivia Structural Nodes:");
-    let significant_nodes = root.find_all_if(|n| n.is_significant() && !n.is_token);
+    let significant_nodes = root.find_all_if(|n| n.is_significant() && !n.is_token());
     println!("   Count: {}", significant_nodes.len());
     for node in significant_nodes.iter().take(5) {
-        println!("   - {:?}", node.kind);
+        println!("   - {:?}", node.kind());
     }
 
     // Example 5: Depth-first traversal
@@ -76,9 +76,13 @@ End Function
         .take(15)
         .enumerate()
     {
-        let prefix = if node.is_token { "[Token]" } else { "[Node] " };
+        let prefix = if node.is_token() {
+            "[Token]"
+        } else {
+            "[Node] "
+        };
         let text_preview = node
-            .text
+            .text()
             .chars()
             .take(20)
             .collect::<String>()
@@ -87,17 +91,17 @@ End Function
             "   {} {} {:?} -> {:?}",
             i + 1,
             prefix,
-            node.kind,
+            node.kind(),
             text_preview
         );
     }
 
     // Example 6: Find nodes matching complex criteria
     println!("\n6. Find All Keywords:");
-    let keywords = root.find_all_if(|n| n.is_token && n.kind.to_string().ends_with("Keyword"));
+    let keywords = root.find_all_if(|n| n.is_token() && n.kind().to_string().ends_with("Keyword"));
     println!("   Found {} keywords:", keywords.len());
     for kw in keywords.iter().take(10) {
-        println!("      - {} ({:?})", kw.text.trim(), kw.kind);
+        println!("      - {} ({:?})", kw.text().trim(), kw.kind());
     }
 
     // Example 7: Token vs Non-Token children
@@ -113,14 +117,14 @@ End Function
     println!("\n8. Comments Found:");
     let comments = root.find_all_if(CstNode::is_comment);
     for comment in &comments {
-        println!("   - {}", comment.text.trim());
+        println!("   - {}", comment.text().trim());
     }
 
     // Example 9: Using predicates for complex queries
     println!("\n9. Complex Predicate Example:");
     println!("   Find all As keywords in type declarations:");
     let as_in_types = root.find_all_if(|n| {
-        n.kind == SyntaxKind::AsKeyword && n.text.trim().eq_ignore_ascii_case("as")
+        n.kind() == SyntaxKind::AsKeyword && n.text().trim().eq_ignore_ascii_case("as")
     });
     println!("   Found {} 'As' keywords", as_in_types.len());
 
@@ -129,7 +133,8 @@ End Function
     let first_sig_opt = root
         .significant_children()
         .next()
-        .map(|n| (n.kind, n.is_token, n.child_count()));
+        .map(|n| (n.kind(), n.is_token(), n.child_count()));
+
     if let Some((kind, is_token, child_count)) = first_sig_opt {
         println!("   Kind: {kind:?}");
         println!("   Is token: {is_token}");

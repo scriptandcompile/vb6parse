@@ -109,7 +109,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefInt I"));
     }
@@ -122,7 +122,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefInt A-Z"));
     }
@@ -135,7 +135,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefLng L, M-N"));
     }
@@ -148,7 +148,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefStr S"));
     }
@@ -161,7 +161,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefDbl D-F"));
     }
@@ -174,7 +174,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefObj A-Z"));
     }
@@ -187,7 +187,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefBool"));
     }
@@ -200,7 +200,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefByte"));
     }
@@ -213,7 +213,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefCur"));
     }
@@ -226,7 +226,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefSng"));
     }
@@ -239,7 +239,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefDec"));
     }
@@ -252,7 +252,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefDate"));
     }
@@ -265,7 +265,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("DefVar"));
     }
@@ -278,7 +278,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("A, B, C"));
     }
@@ -291,7 +291,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("A-C, E, G-Z"));
     }
@@ -304,13 +304,13 @@ mod test {
 
         assert_eq!(cst.child_count(), 3);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         if let Some(child) = cst.child_at(2) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
     }
 
@@ -322,7 +322,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
         assert!(cst.text().contains("A - Z"));
     }
@@ -335,7 +335,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DefTypeStatement);
+            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
         }
     }
 

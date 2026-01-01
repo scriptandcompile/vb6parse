@@ -203,20 +203,20 @@ pub(crate) fn extract_version(
     // Expected order: VersionKeyword, Whitespace, SingleLiteral, ...
     let mut found_version_keyword = false;
 
-    for child in &version_node.children {
+    for child in version_node.children() {
         // Skip until we find the VERSION keyword
         if !found_version_keyword {
-            if child.kind == SyntaxKind::VersionKeyword {
+            if child.kind() == SyntaxKind::VersionKeyword {
                 found_version_keyword = true;
             }
             continue;
         }
 
         // After VERSION keyword, look for SingleLiteral (the version number)
-        if child.kind == SyntaxKind::SingleLiteral {
+        if child.kind() == SyntaxKind::SingleLiteral {
             // Parse the version number from the SingleLiteral text
             // It should be in format "major.minor" (e.g., "5.00" or "1.0")
-            let version_str = child.text.trim();
+            let version_str = child.text().trim();
             let parts: Vec<&str> = version_str.split('.').collect();
 
             if parts.len() != 2 {
@@ -251,7 +251,7 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
     let attr_statements: Vec<_> = cst
         .children()
         .into_iter()
-        .filter(|c| c.kind == SyntaxKind::AttributeStatement)
+        .filter(|c| c.kind() == SyntaxKind::AttributeStatement)
         .collect();
 
     for attr_stmt in attr_statements {
@@ -262,16 +262,16 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
         let mut value = String::new();
         let mut found_equals = false;
 
-        for child in &attr_stmt.children {
-            if !child.is_token {
+        for child in attr_stmt.children() {
+            if !child.is_token() {
                 continue; // Skip non-token children
             }
 
-            match child.kind {
+            match child.kind() {
                 SyntaxKind::Identifier => {
                     if !found_equals {
                         // This is the attribute key (e.g., "VB_Name")
-                        key = child.text.trim().to_string();
+                        key = child.text().trim().to_string();
                     }
                 }
                 SyntaxKind::EqualityOperator => {
@@ -280,7 +280,7 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
                 SyntaxKind::StringLiteral => {
                     if found_equals {
                         // This is the string value - remove surrounding quotes
-                        value = child.text.trim().trim_matches('"').to_string();
+                        value = child.text().trim().trim_matches('"').to_string();
                     }
                 }
                 SyntaxKind::TrueKeyword => {
@@ -295,7 +295,7 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
                 }
                 SyntaxKind::IntegerLiteral | SyntaxKind::LongLiteral => {
                     if found_equals {
-                        value = child.text.trim().to_string();
+                        value = child.text().trim().to_string();
                     }
                 }
                 SyntaxKind::SubtractionOperator => {

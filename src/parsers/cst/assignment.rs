@@ -172,35 +172,41 @@ x = 5
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // Left side: IdentifierExpression containing Identifier
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
         assert_eq!(
-            cst.children()[1].children[0].children[0].kind,
+            cst.children()[1].children()[0].children()[0].kind(),
             SyntaxKind::Identifier
         );
-        assert_eq!(cst.children()[1].children[0].children[0].text, "x");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert_eq!(cst.children()[1].children()[0].children()[0].text(), "x");
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: NumericLiteralExpression containing IntegerLiteral
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
         assert_eq!(
-            cst.children()[1].children[4].children[0].kind,
+            cst.children()[1].children()[4].children()[0].kind(),
             SyntaxKind::IntegerLiteral
         );
-        assert_eq!(cst.children()[1].children[4].children[0].text, "5");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].children()[4].children()[0].text(), "5");
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -212,33 +218,45 @@ myName = "John"
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
         assert_eq!(
-            cst.children()[1].children[0].children[0].kind,
+            cst.children()[1].children()[0].children()[0].kind(),
             SyntaxKind::Identifier
         );
-        assert_eq!(cst.children()[1].children[0].children[0].text, "myName");
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[0].children()[0].text(),
+            "myName"
+        );
+        assert_eq!(
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::StringLiteralExpression
         );
         assert_eq!(
-            cst.children()[1].children[4].children[0].kind,
+            cst.children()[1].children()[4].children()[0].kind(),
             SyntaxKind::StringLiteral
         );
-        assert_eq!(cst.children()[1].children[4].children[0].text, "\"John\"");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert_eq!(
+            cst.children()[1].children()[4].children()[0].text(),
+            "\"John\""
+        );
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -250,31 +268,42 @@ obj.subProperty = value
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // The assignment contains: MemberAccessExpression = IdentifierExpression
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::MemberAccessExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("obj"));
-        assert!(cst.children()[1].children[0].text.contains("subProperty"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("obj"));
+        assert!(cst.children()[1].children()[0]
+            .text()
+            .contains("subProperty"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::IdentifierExpression
         );
         assert_eq!(
-            cst.children()[1].children[4].children[0].kind,
+            cst.children()[1].children()[4].children()[0].kind(),
             SyntaxKind::Identifier
         );
-        assert_eq!(cst.children()[1].children[4].children[0].text, "value");
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert_eq!(
+            cst.children()[1].children()[4].children()[0].text(),
+            "value"
+        );
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -286,28 +315,34 @@ arr(0) = 100
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // Left side: CallExpression for array access
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("arr"));
-        assert!(cst.children()[1].children[0].text.contains('0'));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("arr"));
+        assert!(cst.children()[1].children()[0].text().contains('0'));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: NumericLiteralExpression
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("100"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("100"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -319,27 +354,33 @@ matrix(i, j) = value
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("matrix"));
-        assert!(cst.children()[1].children[0].text.contains('i'));
-        assert!(cst.children()[1].children[0].text.contains('j'));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("matrix"));
+        assert!(cst.children()[1].children()[0].text().contains('i'));
+        assert!(cst.children()[1].children()[0].text().contains('j'));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("value"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("value"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -351,27 +392,35 @@ result = MyFunction(arg1, arg2)
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("result"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("result"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("MyFunction"));
-        assert!(cst.children()[1].children[4].text.contains("arg1"));
-        assert!(cst.children()[1].children[4].text.contains("arg2"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4]
+            .text()
+            .contains("MyFunction"));
+        assert!(cst.children()[1].children()[4].text().contains("arg1"));
+        assert!(cst.children()[1].children()[4].text().contains("arg2"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -383,30 +432,36 @@ sum = a + b * c
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("sum"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("sum"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: BinaryExpression (a + (b * c))
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::BinaryExpression
         );
-        assert!(cst.children()[1].children[4].text.contains('a'));
-        assert!(cst.children()[1].children[4].text.contains('+'));
-        assert!(cst.children()[1].children[4].text.contains('b'));
-        assert!(cst.children()[1].children[4].text.contains('*'));
-        assert!(cst.children()[1].children[4].text.contains('c'));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains('a'));
+        assert!(cst.children()[1].children()[4].text().contains('+'));
+        assert!(cst.children()[1].children()[4].text().contains('b'));
+        assert!(cst.children()[1].children()[4].text().contains('*'));
+        assert!(cst.children()[1].children()[4].text().contains('c'));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -418,28 +473,34 @@ text = obj.GetText()
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // "text" is converted to IdentifierExpression
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("text"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("text"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: CallExpression wrapping MemberAccessExpression
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("obj"));
-        assert!(cst.children()[1].children[4].text.contains("GetText"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("obj"));
+        assert!(cst.children()[1].children()[4].text().contains("GetText"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -451,28 +512,36 @@ value = obj.SubObj.SubProperty
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("value"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("value"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: nested MemberAccessExpression
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::MemberAccessExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("obj"));
-        assert!(cst.children()[1].children[4].text.contains("SubObj"));
-        assert!(cst.children()[1].children[4].text.contains("SubProperty"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("obj"));
+        assert!(cst.children()[1].children()[4].text().contains("SubObj"));
+        assert!(cst.children()[1].children()[4]
+            .text()
+            .contains("SubProperty"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -486,55 +555,73 @@ z = 3
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains('x'));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains('x'));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
 
-        assert_eq!(cst.children()[2].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[2].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[2].children[0].kind,
+            cst.children()[2].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[2].children[0].text.contains('y'));
-        assert_eq!(cst.children()[2].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[2].children()[0].text().contains('y'));
         assert_eq!(
-            cst.children()[2].children[2].kind,
+            cst.children()[2].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[2].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[2].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[2].children[4].kind,
+            cst.children()[2].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[2].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
 
-        assert_eq!(cst.children()[3].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[3].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[3].children[0].kind,
+            cst.children()[3].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[3].children[0].text.contains('z'));
-        assert_eq!(cst.children()[3].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[3].children()[0].text().contains('z'));
         assert_eq!(
-            cst.children()[3].children[2].kind,
+            cst.children()[3].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[3].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[3].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[3].children[4].kind,
+            cst.children()[3].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[3].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
 
@@ -546,20 +633,26 @@ z = 3
         let source = "x   =   5";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[0].children[0].kind,
+            cst.children()[0].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[0].children[0].text.contains('x'));
-        assert_eq!(cst.children()[0].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[0].children()[0].text().contains('x'));
         assert_eq!(
-            cst.children()[0].children[2].kind,
+            cst.children()[0].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[0].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[0].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[0].children[4].kind,
+            cst.children()[0].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[0].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
 
@@ -576,22 +669,27 @@ End Function
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        let assignment = &cst.children()[1].children[7].children[1];
-        assert_eq!(assignment.kind, SyntaxKind::AssignmentStatement);
+        let cst_children = cst.children();
+        let sub_children = cst_children[1].children();
+        let assignment = &sub_children[7].children()[1];
+        assert_eq!(assignment.kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            assignment.children[0].kind,
+            assignment.children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(assignment.children[0].text.contains("result"));
-        assert_eq!(assignment.children[1].kind, SyntaxKind::Whitespace);
-        assert_eq!(assignment.children[2].kind, SyntaxKind::EqualityOperator);
-        assert_eq!(assignment.children[3].kind, SyntaxKind::Whitespace);
+        assert!(assignment.children()[0].text().contains("result"));
+        assert_eq!(assignment.children()[1].kind(), SyntaxKind::Whitespace);
         assert_eq!(
-            assignment.children[4].kind,
+            assignment.children()[2].kind(),
+            SyntaxKind::EqualityOperator
+        );
+        assert_eq!(assignment.children()[3].kind(), SyntaxKind::Whitespace);
+        assert_eq!(
+            assignment.children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
-        assert!(assignment.children[4].text.contains("42"));
-        assert_eq!(assignment.children[5].kind, SyntaxKind::Newline);
+        assert!(assignment.children()[4].text().contains("42"));
+        assert_eq!(assignment.children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -603,26 +701,34 @@ item = Collection("Key")
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("item"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("item"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("Collection"));
-        assert!(cst.children()[1].children[4].text.contains("Key"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4]
+            .text()
+            .contains("Collection"));
+        assert!(cst.children()[1].children()[4].text().contains("Key"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -634,26 +740,32 @@ path = Environ$("TEMP")
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("path"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("path"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::CallExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("Environ$"));
-        assert!(cst.children()[1].children[4].text.contains("TEMP"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("Environ$"));
+        assert!(cst.children()[1].children()[4].text().contains("TEMP"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -666,23 +778,23 @@ x = 5
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert!(cst.children()[0].kind == SyntaxKind::Newline);
+        assert!(cst.children()[0].kind() == SyntaxKind::Newline);
 
-        assert!(cst.children()[1].kind == SyntaxKind::OptionStatement);
-        assert!(cst.children()[1].children[0].kind == SyntaxKind::OptionKeyword);
-        assert!(cst.children()[1].children[1].kind == SyntaxKind::Whitespace);
-        assert!(cst.children()[1].children[2].kind == SyntaxKind::ExplicitKeyword);
-        assert!(cst.children()[1].children[3].kind == SyntaxKind::Newline);
+        assert!(cst.children()[1].kind() == SyntaxKind::OptionStatement);
+        assert!(cst.children()[1].children()[0].kind() == SyntaxKind::OptionKeyword);
+        assert!(cst.children()[1].children()[1].kind() == SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[2].kind() == SyntaxKind::ExplicitKeyword);
+        assert!(cst.children()[1].children()[3].kind() == SyntaxKind::Newline);
 
-        assert!(cst.children()[2].kind == SyntaxKind::AssignmentStatement);
-        assert!(cst.children()[2].children[0].kind == SyntaxKind::IdentifierExpression);
-        assert!(cst.children()[2].children[0].text.contains('x'));
-        assert!(cst.children()[2].children[1].kind == SyntaxKind::Whitespace);
-        assert!(cst.children()[2].children[2].kind == SyntaxKind::EqualityOperator);
-        assert!(cst.children()[2].children[3].kind == SyntaxKind::Whitespace);
-        assert!(cst.children()[2].children[4].kind == SyntaxKind::NumericLiteralExpression);
-        assert!(cst.children()[2].children[4].text.contains('5'));
-        assert!(cst.children()[2].children[5].kind == SyntaxKind::Newline);
+        assert!(cst.children()[2].kind() == SyntaxKind::AssignmentStatement);
+        assert!(cst.children()[2].children()[0].kind() == SyntaxKind::IdentifierExpression);
+        assert!(cst.children()[2].children()[0].text().contains('x'));
+        assert!(cst.children()[2].children()[1].kind() == SyntaxKind::Whitespace);
+        assert!(cst.children()[2].children()[2].kind() == SyntaxKind::EqualityOperator);
+        assert!(cst.children()[2].children()[3].kind() == SyntaxKind::Whitespace);
+        assert!(cst.children()[2].children()[4].kind() == SyntaxKind::NumericLiteralExpression);
+        assert!(cst.children()[2].children()[4].text().contains('5'));
+        assert!(cst.children()[2].children()[5].kind() == SyntaxKind::Newline);
 
         // Verify the parsed tree can be converted back to the original source
         assert_eq!(cst.text().trim(), source.trim());
@@ -695,25 +807,31 @@ pi = 3.14159
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("pi"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("pi"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("3.14159"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("3.14159"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -725,28 +843,34 @@ fullName = firstName & " " & lastName
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("fullName"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("fullName"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: BinaryExpression with concatenation
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::BinaryExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("firstName"));
-        assert!(cst.children()[1].children[4].text.contains('&'));
-        assert!(cst.children()[1].children[4].text.contains("lastName"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("firstName"));
+        assert!(cst.children()[1].children()[4].text().contains('&'));
+        assert!(cst.children()[1].children()[4].text().contains("lastName"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -758,26 +882,32 @@ person.Age = 25
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::MemberAccessExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("person"));
-        assert!(cst.children()[1].children[0].text.contains("Age"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("person"));
+        assert!(cst.children()[1].children()[0].text().contains("Age"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::NumericLiteralExpression
         );
-        assert!(cst.children()[1].children[4].text.contains("25"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert!(cst.children()[1].children()[4].text().contains("25"));
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -789,27 +919,33 @@ result = (a + b) * c
 ";
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("result"));
-        assert_eq!(cst.children()[1].children[1].kind, SyntaxKind::Whitespace);
+        assert!(cst.children()[1].children()[0].text().contains("result"));
         assert_eq!(
-            cst.children()[1].children[2].kind,
+            cst.children()[1].children()[1].kind(),
+            SyntaxKind::Whitespace
+        );
+        assert_eq!(
+            cst.children()[1].children()[2].kind(),
             SyntaxKind::EqualityOperator
         );
-        assert_eq!(cst.children()[1].children[3].kind, SyntaxKind::Whitespace);
+        assert_eq!(
+            cst.children()[1].children()[3].kind(),
+            SyntaxKind::Whitespace
+        );
         // Right side: BinaryExpression with ParenthesizedExpression
         assert_eq!(
-            cst.children()[1].children[4].kind,
+            cst.children()[1].children()[4].kind(),
             SyntaxKind::BinaryExpression
         );
         let debug = cst.debug_tree();
         assert!(debug.contains("ParenthesizedExpression"));
-        assert_eq!(cst.children()[1].children[5].kind, SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].children()[5].kind(), SyntaxKind::Newline);
 
         assert_eq!(cst.text().trim(), source.trim());
     }
@@ -1004,14 +1140,14 @@ text = "hello"
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // "text" keyword should be converted to IdentifierExpression
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("text"));
+        assert!(cst.children()[1].children()[0].text().contains("text"));
     }
 
     #[test]
@@ -1021,14 +1157,14 @@ obj.text = "hello"
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::MemberAccessExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("obj"));
-        assert!(cst.children()[1].children[0].text.contains("text"));
+        assert!(cst.children()[1].children()[0].text().contains("obj"));
+        assert!(cst.children()[1].children()[0].text().contains("text"));
     }
 
     #[test]
@@ -1038,13 +1174,13 @@ database = "mydb.mdb"
 "#;
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
-        assert_eq!(cst.children()[0].kind, SyntaxKind::Newline);
-        assert_eq!(cst.children()[1].kind, SyntaxKind::AssignmentStatement);
+        assert_eq!(cst.children()[0].kind(), SyntaxKind::Newline);
+        assert_eq!(cst.children()[1].kind(), SyntaxKind::AssignmentStatement);
         // "database" keyword should be converted to IdentifierExpression
         assert_eq!(
-            cst.children()[1].children[0].kind,
+            cst.children()[1].children()[0].kind(),
             SyntaxKind::IdentifierExpression
         );
-        assert!(cst.children()[1].children[0].text.contains("database"));
+        assert!(cst.children()[1].children()[0].text().contains("database"));
     }
 }
