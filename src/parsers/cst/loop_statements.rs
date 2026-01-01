@@ -60,7 +60,7 @@ impl Parser<'_> {
         }
 
         // Parse the loop body until "Loop"
-        self.parse_code_block(|parser| parser.at_token(Token::LoopKeyword));
+        self.parse_statement_list(|parser| parser.at_token(Token::LoopKeyword));
 
         // Consume "Loop" keyword
         if self.at_token(Token::LoopKeyword) {
@@ -169,7 +169,7 @@ impl Parser<'_> {
         }
 
         // Parse the loop body until "Wend"
-        self.parse_code_block(|parser| parser.at_token(Token::WendKeyword));
+        self.parse_statement_list(|parser| parser.at_token(Token::WendKeyword));
 
         // Consume "Wend" keyword
         if self.at_token(Token::WendKeyword) {

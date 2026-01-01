@@ -245,7 +245,7 @@ pub enum SyntaxKind {
     /// Argument
     Argument,
     /// Block of code/statements
-    CodeBlock,
+    StatementList,
 
     // Token kinds - map from Token
     // We start these at a higher offset to avoid conflicts

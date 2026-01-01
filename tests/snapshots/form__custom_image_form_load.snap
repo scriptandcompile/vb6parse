@@ -2038,7 +2038,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Loop variables\r\n    Dim x As Long\r\n    \r\n    'Reset the text boxes to default values\r\n    For x = 0 To 24\r\n        TxtF(x) = 0\r\n    Next x\r\n    TxtWeight = 1\r\n    TxtBias = 0\r\n    \r\n    Select Case cmbFilter.ListIndex\r\n        'Blur\r\n        Case 0\r\n            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = 1\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n            TxtWeight = 9\r\n        'Sharpen\r\n        Case 1\r\n            TxtF(7) = -1\r\n            TxtF(11) = -1\r\n            TxtF(12) = 5\r\n            TxtF(13) = -1\r\n            TxtF(17) = -1\r\n        'Emboss\r\n        Case 2\r\n            TxtF(11) = -1\r\n            TxtF(13) = 1\r\n            TxtBias = 127\r\n        'Engrave\r\n        Case 3\r\n            TxtF(11) = 1\r\n            TxtF(13) = -1\r\n            TxtBias = 127\r\n        'Grease\r\n        Case 4\r\n            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = -7\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n        'Unfocus\r\n        Case 5\r\n            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = -4\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n            TxtWeight = 4\r\n        'Vibrate\r\n        Case 6\r\n            TxtF(0) = 1\r\n            TxtF(4) = -1\r\n            TxtF(6) = -1\r\n            TxtF(8) = 1\r\n            TxtF(12) = 1\r\n            TxtF(16) = 1\r\n            TxtF(18) = -1\r\n            TxtF(20) = -1\r\n            TxtF(24) = 1\r\n    End Select\r\n    \r\n    UpdateEffect\r\n    \r\n"
             is_token: false
             children:
@@ -2190,7 +2190,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        TxtF(x) = 0\r\n    "
                     is_token: false
                     children:
@@ -2446,7 +2446,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = 1\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n            TxtWeight = 9\r\n        'Sharpen\r\n        "
                         is_token: false
                         children:
@@ -3102,7 +3102,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(7) = -1\r\n            TxtF(11) = -1\r\n            TxtF(12) = 5\r\n            TxtF(13) = -1\r\n            TxtF(17) = -1\r\n        'Emboss\r\n        "
                         is_token: false
                         children:
@@ -3494,7 +3494,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(11) = -1\r\n            TxtF(13) = 1\r\n            TxtBias = 127\r\n        'Engrave\r\n        "
                         is_token: false
                         children:
@@ -3710,7 +3710,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(11) = 1\r\n            TxtF(13) = -1\r\n            TxtBias = 127\r\n        'Grease\r\n        "
                         is_token: false
                         children:
@@ -3926,7 +3926,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = -7\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n        'Unfocus\r\n        "
                         is_token: false
                         children:
@@ -4550,7 +4550,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(6) = 1\r\n            TxtF(7) = 1\r\n            TxtF(8) = 1\r\n            TxtF(11) = 1\r\n            TxtF(12) = -4\r\n            TxtF(13) = 1\r\n            TxtF(16) = 1\r\n            TxtF(17) = 1\r\n            TxtF(18) = 1\r\n            TxtWeight = 4\r\n        'Vibrate\r\n        "
                         is_token: false
                         children:
@@ -5214,7 +5214,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            TxtF(0) = 1\r\n            TxtF(4) = -1\r\n            TxtF(6) = -1\r\n            TxtF(8) = 1\r\n            TxtF(12) = 1\r\n            TxtF(16) = 1\r\n            TxtF(18) = -1\r\n            TxtF(20) = -1\r\n            TxtF(24) = 1\r\n    "
                         is_token: false
                         children:
@@ -5946,7 +5946,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -6034,7 +6034,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    LoadImageAutosized vbNullString\r\n"
             is_token: false
             children:
@@ -6122,7 +6122,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    cmbFilter.Clear\r\n    cmbFilter.AddItem \"Blur\"\r\n    cmbFilter.AddItem \"Sharpen\"\r\n    cmbFilter.AddItem \"Emboss\"\r\n    cmbFilter.AddItem \"Engrave\"\r\n    cmbFilter.AddItem \"Grease\"\r\n    cmbFilter.AddItem \"Unfocus\"\r\n    cmbFilter.AddItem \"Vibrate\"\r\n    cmbFilter.ListIndex = 2\r\n    \r\n    'Draw the initial effect with a default value, then update the image\r\n    If (App.LogMode = 0) Then Me.Caption = Me.Caption & \" - compile for significantly better performance!\"\r\n    LoadImageAutosized App.Path & \"\\sample.jpg\"\r\n    UpdateEffect\r\n    Me.Show\r\n    \r\n"
             is_token: false
             children:
@@ -6766,7 +6766,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    AutoSelectText TxtBias\r\n"
             is_token: false
             children:
@@ -6874,7 +6874,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    AutoSelectText TxtF(Index)\r\n"
             is_token: false
             children:
@@ -6974,7 +6974,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    AutoSelectText TxtWeight\r\n"
             is_token: false
             children:
@@ -7062,7 +7062,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Windows common dialog interface\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a\r\n    ' subset of modern image file types.\r\n    Dim cdfStr As String\r\n    cdfStr = \"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\"\r\n    cdfStr = cdfStr & \"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\"\r\n    \r\n    Dim sFile As String\r\n    If cDialog.GetOpenFileName(sFile, , True, False, cdfStr, , , \"Select image\", , Me.hWnd) Then\r\n        \r\n        'Load the image and refresh the effect\r\n        LoadImageAutosized sFile\r\n        UpdateEffect\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim ImageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, ImageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, ImageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newWidth As Long, minWidth As Long\r\n    minWidth = (cmdApply.Left + cmdApply.Width + 20) * Screen.TwipsPerPixelX\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then\r\n        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 1.4) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\n'The omnipotent DoFilter routine - it takes whatever is in FM() and applies it to the image\r\nPublic Sub DoFilter(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, ByVal filterSize As Long, ByVal filterWeight As Long, ByVal filterBias As Long, Optional ByVal invertResult As Boolean = False)\r\n    \r\n    'This array will hold the image's original pixel data\r\n    Dim ImageData() As Byte\r\n    \r\n    'tData holds the calculated values of the filter (as opposed to the original values)\r\n    Dim tData() As Byte\r\n        \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic) - 1\r\n    iHeight = fDraw.GetImageHeight(srcPic) - 1\r\n    fDraw.GetImageData2D srcPic, ImageData()\r\n    fDraw.GetImageData2D srcPic, tData()  'We only do this so that tData() is sized appropriately\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'C and D are like X and Y - they are additional loop variables used for sub-loops\r\n    Dim c As Long, d As Long\r\n    \r\n    'CalcX and CalcY are temporary width and height values for sub-loops\r\n    Dim calcX As Long, calcY As Long\r\n    \r\n    'CalcVar determines the size of each sub-loop\r\n    Dim calcVar As Long\r\n    calcVar = (filterSize \\ 2)\r\n    \r\n    'TempRef is like QuickX below, but for sub-loops\r\n    Dim tempRef As Long\r\n    \r\n    'FilterWeightTemp will be reset for every pixel, and decremented appropriately if\r\n    ' attempting to calculate the value for a pixel outside the perimeter of the image\r\n    Dim filterWeightTemp As Long\r\n    \r\n    'Now that we're ready, run a quick loop through the image, calculating pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For y = 0 To iHeight\r\n    For x = 0 To iWidth\r\n    \r\n        quickX = x * 3\r\n        \r\n        'Reset red, green, and blue\r\n        r = 0\r\n        g = 0\r\n        b = 0\r\n        filterWeightTemp = filterWeight\r\n        \r\n        'Run a sub-loop around this pixel\r\n        For c = x - calcVar To x + calcVar\r\n            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        Next c\r\n        \r\n        'If a weight has been set, apply it now\r\n        If (filterWeight <> 1) Then\r\n            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        End If\r\n        \r\n        'If a bias has been specified, apply it now\r\n        If (filterBias <> 0) Then\r\n            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        End If\r\n        \r\n        'Make sure all values are between 0 and 255\r\n        ByteMe r\r\n        ByteMe g\r\n        ByteMe b\r\n        \r\n        'If inversion is specified, apply it now\r\n        If invertResult Then\r\n            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        End If\r\n        \r\n        'Finally, remember the new value in our tData array\r\n        tData(quickX, y) = CByte(b)\r\n        tData(quickX + 1, y) = CByte(g)\r\n        tData(quickX + 2, y) = CByte(r)\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth + 1, iHeight + 1, tData()\r\n    \r\nEnd Sub\r\n\r\n'Convert to absolute byte values (Long-type)\r\nPrivate Sub ByteMe(ByRef TempVar As Long)\r\n    If (TempVar > 255) Then TempVar = 255\r\n    If (TempVar < 0) Then TempVar = 0\r\nEnd Sub\r\n\r\n'Pass this a text box and it will select all text currently in the text box\r\nPrivate Function AutoSelectText(ByRef tBox As TextBox)\r\n    tBox.SelStart = 0\r\n    tBox.SelLength = Len(tBox.Text)\r\nEnd Function\r\n\r\n'Confirm that the variable passed in is a valid number\r\nPublic Function NumberValid(ByVal check As Variant) As Boolean\r\n    If Not IsNumeric(check) Then\r\n        MsgBox check & \" is not a valid entry.  Please enter a numeric value.\", vbCritical + vbOKOnly + vbApplicationModal, App.Title\r\n        NumberValid = False\r\n    Else\r\n        NumberValid = True\r\n    End If\r\nEnd Function\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    'Loop variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Before we do anything else, check to make sure every text box contains a valid number\r\n    For x = 0 To 24\r\n        If Not NumberValid(TxtF(x)) Then\r\n            AutoSelectText TxtF(x)\r\n            Exit Sub\r\n        End If\r\n    Next x\r\n    If Not NumberValid(TxtWeight) Then\r\n        AutoSelectText TxtWeight\r\n        Exit Sub\r\n    End If\r\n    If Not NumberValid(TxtBias) Then\r\n        AutoSelectText TxtBias\r\n        Exit Sub\r\n    End If\r\n    \r\n    'Copy the values from the text boxes into our FM() array\r\n    ReDim FM(-2 To 2, -2 To 2) As Long\r\n    For x = -2 To 2\r\n    For y = -2 To 2\r\n        FM(x, y) = Val(TxtF((x + 2) + (y + 2) * 5))\r\n    Next y\r\n    Next x\r\n    \r\n    DoFilter Me.picBack, Me.picMain, 5, Val(TxtWeight.Text), Val(TxtBias.Text), False\r\n    \r\nEnd Sub\r\n"
             is_token: false
             children:
@@ -7682,7 +7682,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim ImageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, ImageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, ImageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newWidth As Long, minWidth As Long\r\n    minWidth = (cmdApply.Left + cmdApply.Width + 20) * Screen.TwipsPerPixelX\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then\r\n        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 1.4) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\n'The omnipotent DoFilter routine - it takes whatever is in FM() and applies it to the image\r\nPublic Sub DoFilter(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, ByVal filterSize As Long, ByVal filterWeight As Long, ByVal filterBias As Long, Optional ByVal invertResult As Boolean = False)\r\n    \r\n    'This array will hold the image's original pixel data\r\n    Dim ImageData() As Byte\r\n    \r\n    'tData holds the calculated values of the filter (as opposed to the original values)\r\n    Dim tData() As Byte\r\n        \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic) - 1\r\n    iHeight = fDraw.GetImageHeight(srcPic) - 1\r\n    fDraw.GetImageData2D srcPic, ImageData()\r\n    fDraw.GetImageData2D srcPic, tData()  'We only do this so that tData() is sized appropriately\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'C and D are like X and Y - they are additional loop variables used for sub-loops\r\n    Dim c As Long, d As Long\r\n    \r\n    'CalcX and CalcY are temporary width and height values for sub-loops\r\n    Dim calcX As Long, calcY As Long\r\n    \r\n    'CalcVar determines the size of each sub-loop\r\n    Dim calcVar As Long\r\n    calcVar = (filterSize \\ 2)\r\n    \r\n    'TempRef is like QuickX below, but for sub-loops\r\n    Dim tempRef As Long\r\n    \r\n    'FilterWeightTemp will be reset for every pixel, and decremented appropriately if\r\n    ' attempting to calculate the value for a pixel outside the perimeter of the image\r\n    Dim filterWeightTemp As Long\r\n    \r\n    'Now that we're ready, run a quick loop through the image, calculating pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For y = 0 To iHeight\r\n    For x = 0 To iWidth\r\n    \r\n        quickX = x * 3\r\n        \r\n        'Reset red, green, and blue\r\n        r = 0\r\n        g = 0\r\n        b = 0\r\n        filterWeightTemp = filterWeight\r\n        \r\n        'Run a sub-loop around this pixel\r\n        For c = x - calcVar To x + calcVar\r\n            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        Next c\r\n        \r\n        'If a weight has been set, apply it now\r\n        If (filterWeight <> 1) Then\r\n            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        End If\r\n        \r\n        'If a bias has been specified, apply it now\r\n        If (filterBias <> 0) Then\r\n            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        End If\r\n        \r\n        'Make sure all values are between 0 and 255\r\n        ByteMe r\r\n        ByteMe g\r\n        ByteMe b\r\n        \r\n        'If inversion is specified, apply it now\r\n        If invertResult Then\r\n            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        End If\r\n        \r\n        'Finally, remember the new value in our tData array\r\n        tData(quickX, y) = CByte(b)\r\n        tData(quickX + 1, y) = CByte(g)\r\n        tData(quickX + 2, y) = CByte(r)\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth + 1, iHeight + 1, tData()\r\n    \r\nEnd Sub\r\n\r\n'Convert to absolute byte values (Long-type)\r\nPrivate Sub ByteMe(ByRef TempVar As Long)\r\n    If (TempVar > 255) Then TempVar = 255\r\n    If (TempVar < 0) Then TempVar = 0\r\nEnd Sub\r\n\r\n'Pass this a text box and it will select all text currently in the text box\r\nPrivate Function AutoSelectText(ByRef tBox As TextBox)\r\n    tBox.SelStart = 0\r\n    tBox.SelLength = Len(tBox.Text)\r\nEnd Function\r\n\r\n'Confirm that the variable passed in is a valid number\r\nPublic Function NumberValid(ByVal check As Variant) As Boolean\r\n    If Not IsNumeric(check) Then\r\n        MsgBox check & \" is not a valid entry.  Please enter a numeric value.\", vbCritical + vbOKOnly + vbApplicationModal, App.Title\r\n        NumberValid = False\r\n    Else\r\n        NumberValid = True\r\n    End If\r\nEnd Function\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    'Loop variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Before we do anything else, check to make sure every text box contains a valid number\r\n    For x = 0 To 24\r\n        If Not NumberValid(TxtF(x)) Then\r\n            AutoSelectText TxtF(x)\r\n            Exit Sub\r\n        End If\r\n    Next x\r\n    If Not NumberValid(TxtWeight) Then\r\n        AutoSelectText TxtWeight\r\n        Exit Sub\r\n    End If\r\n    If Not NumberValid(TxtBias) Then\r\n        AutoSelectText TxtBias\r\n        Exit Sub\r\n    End If\r\n    \r\n    'Copy the values from the text boxes into our FM() array\r\n    ReDim FM(-2 To 2, -2 To 2) As Long\r\n    For x = -2 To 2\r\n    For y = -2 To 2\r\n        FM(x, y) = Val(TxtF((x + 2) + (y + 2) * 5))\r\n    Next y\r\n    Next x\r\n    \r\n    DoFilter Me.picBack, Me.picMain, 5, Val(TxtWeight.Text), Val(TxtBias.Text), False\r\n    \r\nEnd Sub\r\n"
                     is_token: false
                     children:
@@ -9086,7 +9086,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 1.4) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\n'The omnipotent DoFilter routine - it takes whatever is in FM() and applies it to the image\r\nPublic Sub DoFilter(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, ByVal filterSize As Long, ByVal filterWeight As Long, ByVal filterBias As Long, Optional ByVal invertResult As Boolean = False)\r\n    \r\n    'This array will hold the image's original pixel data\r\n    Dim ImageData() As Byte\r\n    \r\n    'tData holds the calculated values of the filter (as opposed to the original values)\r\n    Dim tData() As Byte\r\n        \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic) - 1\r\n    iHeight = fDraw.GetImageHeight(srcPic) - 1\r\n    fDraw.GetImageData2D srcPic, ImageData()\r\n    fDraw.GetImageData2D srcPic, tData()  'We only do this so that tData() is sized appropriately\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'C and D are like X and Y - they are additional loop variables used for sub-loops\r\n    Dim c As Long, d As Long\r\n    \r\n    'CalcX and CalcY are temporary width and height values for sub-loops\r\n    Dim calcX As Long, calcY As Long\r\n    \r\n    'CalcVar determines the size of each sub-loop\r\n    Dim calcVar As Long\r\n    calcVar = (filterSize \\ 2)\r\n    \r\n    'TempRef is like QuickX below, but for sub-loops\r\n    Dim tempRef As Long\r\n    \r\n    'FilterWeightTemp will be reset for every pixel, and decremented appropriately if\r\n    ' attempting to calculate the value for a pixel outside the perimeter of the image\r\n    Dim filterWeightTemp As Long\r\n    \r\n    'Now that we're ready, run a quick loop through the image, calculating pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For y = 0 To iHeight\r\n    For x = 0 To iWidth\r\n    \r\n        quickX = x * 3\r\n        \r\n        'Reset red, green, and blue\r\n        r = 0\r\n        g = 0\r\n        b = 0\r\n        filterWeightTemp = filterWeight\r\n        \r\n        'Run a sub-loop around this pixel\r\n        For c = x - calcVar To x + calcVar\r\n            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        Next c\r\n        \r\n        'If a weight has been set, apply it now\r\n        If (filterWeight <> 1) Then\r\n            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        End If\r\n        \r\n        'If a bias has been specified, apply it now\r\n        If (filterBias <> 0) Then\r\n            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        End If\r\n        \r\n        'Make sure all values are between 0 and 255\r\n        ByteMe r\r\n        ByteMe g\r\n        ByteMe b\r\n        \r\n        'If inversion is specified, apply it now\r\n        If invertResult Then\r\n            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        End If\r\n        \r\n        'Finally, remember the new value in our tData array\r\n        tData(quickX, y) = CByte(b)\r\n        tData(quickX + 1, y) = CByte(g)\r\n        tData(quickX + 2, y) = CByte(r)\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth + 1, iHeight + 1, tData()\r\n    \r\nEnd Sub\r\n\r\n'Convert to absolute byte values (Long-type)\r\nPrivate Sub ByteMe(ByRef TempVar As Long)\r\n    If (TempVar > 255) Then TempVar = 255\r\n    If (TempVar < 0) Then TempVar = 0\r\nEnd Sub\r\n\r\n'Pass this a text box and it will select all text currently in the text box\r\nPrivate Function AutoSelectText(ByRef tBox As TextBox)\r\n    tBox.SelStart = 0\r\n    tBox.SelLength = Len(tBox.Text)\r\nEnd Function\r\n\r\n'Confirm that the variable passed in is a valid number\r\nPublic Function NumberValid(ByVal check As Variant) As Boolean\r\n    If Not IsNumeric(check) Then\r\n        MsgBox check & \" is not a valid entry.  Please enter a numeric value.\", vbCritical + vbOKOnly + vbApplicationModal, App.Title\r\n        NumberValid = False\r\n    Else\r\n        NumberValid = True\r\n    End If\r\nEnd Function\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    'Loop variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Before we do anything else, check to make sure every text box contains a valid number\r\n    For x = 0 To 24\r\n        If Not NumberValid(TxtF(x)) Then\r\n            AutoSelectText TxtF(x)\r\n            Exit Sub\r\n        End If\r\n    Next x\r\n    If Not NumberValid(TxtWeight) Then\r\n        AutoSelectText TxtWeight\r\n        Exit Sub\r\n    End If\r\n    If Not NumberValid(TxtBias) Then\r\n        AutoSelectText TxtBias\r\n        Exit Sub\r\n    End If\r\n    \r\n    'Copy the values from the text boxes into our FM() array\r\n    ReDim FM(-2 To 2, -2 To 2) As Long\r\n    For x = -2 To 2\r\n    For y = -2 To 2\r\n        FM(x, y) = Val(TxtF((x + 2) + (y + 2) * 5))\r\n    Next y\r\n    Next x\r\n    \r\n    DoFilter Me.picBack, Me.picMain, 5, Val(TxtWeight.Text), Val(TxtBias.Text), False\r\n    \r\nEnd Sub\r\n"
                             is_token: false
                             children:
@@ -11398,7 +11398,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "    For x = 0 To iWidth\r\n    \r\n        quickX = x * 3\r\n        \r\n        'Reset red, green, and blue\r\n        r = 0\r\n        g = 0\r\n        b = 0\r\n        filterWeightTemp = filterWeight\r\n        \r\n        'Run a sub-loop around this pixel\r\n        For c = x - calcVar To x + calcVar\r\n            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        Next c\r\n        \r\n        'If a weight has been set, apply it now\r\n        If (filterWeight <> 1) Then\r\n            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        End If\r\n        \r\n        'If a bias has been specified, apply it now\r\n        If (filterBias <> 0) Then\r\n            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        End If\r\n        \r\n        'Make sure all values are between 0 and 255\r\n        ByteMe r\r\n        ByteMe g\r\n        ByteMe b\r\n        \r\n        'If inversion is specified, apply it now\r\n        If invertResult Then\r\n            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        End If\r\n        \r\n        'Finally, remember the new value in our tData array\r\n        tData(quickX, y) = CByte(b)\r\n        tData(quickX + 1, y) = CByte(g)\r\n        tData(quickX + 2, y) = CByte(r)\r\n        \r\n    Next x\r\n    "
                                     is_token: false
                                     children:
@@ -11470,7 +11470,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "    \r\n        quickX = x * 3\r\n        \r\n        'Reset red, green, and blue\r\n        r = 0\r\n        g = 0\r\n        b = 0\r\n        filterWeightTemp = filterWeight\r\n        \r\n        'Run a sub-loop around this pixel\r\n        For c = x - calcVar To x + calcVar\r\n            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        Next c\r\n        \r\n        'If a weight has been set, apply it now\r\n        If (filterWeight <> 1) Then\r\n            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        End If\r\n        \r\n        'If a bias has been specified, apply it now\r\n        If (filterBias <> 0) Then\r\n            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        End If\r\n        \r\n        'Make sure all values are between 0 and 255\r\n        ByteMe r\r\n        ByteMe g\r\n        ByteMe b\r\n        \r\n        'If inversion is specified, apply it now\r\n        If invertResult Then\r\n            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        End If\r\n        \r\n        'Finally, remember the new value in our tData array\r\n        tData(quickX, y) = CByte(b)\r\n        tData(quickX + 1, y) = CByte(g)\r\n        tData(quickX + 2, y) = CByte(r)\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -11862,7 +11862,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            tempRef = c * 3\r\n        For d = y - calcVar To y + calcVar\r\n            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       Next d\r\n        "
                                                     is_token: false
                                                     children:
@@ -12046,7 +12046,7 @@ cst:
                                                             text: "\r\n"
                                                             is_token: true
                                                             children: []
-                                                          - kind: CodeBlock
+                                                          - kind: StatementList
                                                             text: "            \r\n            calcX = c - x\r\n            calcY = d - y\r\n            \r\n            'If no filter value is being applied to this pixel, ignore it (GoTo's aren't generally a part of good programming, but they ARE convenient :)\r\n            If FM(calcX, calcY) = 0 Then GoTo 7\r\n            \r\n            'If this pixel lies outside the image perimeter, ignore it and adjust FilterWeight accordingly\r\n            If (c < 0) Or (d < 0) Or (c > iWidth) Or (d > iHeight) Then\r\n                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            End If\r\n            \r\n            'Adjust red, green, and blue according to the values in the filter matrix (FM)\r\n            r = r + (ImageData(tempRef + 2, d) * FM(calcX, calcY))\r\n            g = g + (ImageData(tempRef + 1, d) * FM(calcX, calcY))\r\n            b = b + (ImageData(tempRef, d) * FM(calcX, calcY))\r\n\r\n7       "
                                                             is_token: false
                                                             children:
@@ -12602,7 +12602,7 @@ cst:
                                                                     text: "\r\n"
                                                                     is_token: true
                                                                     children: []
-                                                                  - kind: CodeBlock
+                                                                  - kind: StatementList
                                                                     text: "                filterWeightTemp = filterWeight - FM(calcX, calcY)\r\n                GoTo 7\r\n            "
                                                                     is_token: false
                                                                     children:
@@ -13530,7 +13530,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            r = r \\ filterWeightTemp\r\n            g = g \\ filterWeightTemp\r\n            b = b \\ filterWeightTemp\r\n        "
                                                     is_token: false
                                                     children:
@@ -13838,7 +13838,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            r = r + filterBias\r\n            g = g + filterBias\r\n            b = b + filterBias\r\n        "
                                                     is_token: false
                                                     children:
@@ -14202,7 +14202,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            r = 255 - r\r\n            g = 255 - g\r\n            b = 255 - b\r\n        "
                                                     is_token: false
                                                     children:
@@ -15686,7 +15686,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        MsgBox check & \" is not a valid entry.  Please enter a numeric value.\", vbCritical + vbOKOnly + vbApplicationModal, App.Title\r\n        NumberValid = False\r\n    "
                                     is_token: false
                                     children:
@@ -15850,7 +15850,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        NumberValid = True\r\n    "
                                         is_token: false
                                         children:
@@ -16146,7 +16146,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        If Not NumberValid(TxtF(x)) Then\r\n            AutoSelectText TxtF(x)\r\n            Exit Sub\r\n        End If\r\n    "
                                     is_token: false
                                     children:
@@ -16246,7 +16246,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "            AutoSelectText TxtF(x)\r\n            Exit Sub\r\n        "
                                             is_token: false
                                             children:
@@ -16422,7 +16422,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        AutoSelectText TxtWeight\r\n        Exit Sub\r\n    "
                                     is_token: false
                                     children:
@@ -16566,7 +16566,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        AutoSelectText TxtBias\r\n        Exit Sub\r\n    "
                                     is_token: false
                                     children:
@@ -16838,7 +16838,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "    For y = -2 To 2\r\n        FM(x, y) = Val(TxtF((x + 2) + (y + 2) * 5))\r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -16918,7 +16918,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        FM(x, y) = Val(TxtF((x + 2) + (y + 2) * 5))\r\n    "
                                             is_token: false
                                             children:

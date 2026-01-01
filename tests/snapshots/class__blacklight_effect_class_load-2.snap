@@ -2166,7 +2166,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Private Const OFN_READONLY = &H1, OFN_OVERWRITEPROMPT = &H2, OFN_HIDEREADONLY = &H4, OFN_NOCHANGEDIR = &H8, OFN_SHOWHELP = &H10\r\n    Private Const OFN_ENABLEHOOK = &H20, OFN_ENABLETEMPLATE = &H40, OFN_ENABLETEMPLATEHANDLE = &H80, OFN_NOVALIDATE = &H100\r\n    Private Const OFN_ALLOWMULTISELECT = &H200, OFN_EXTENSIONDIFFERENT = &H400, OFN_PATHMUSTEXIST = &H800, OFN_FILEMUSTEXIST = &H1000\r\n    Private Const OFN_CREATEPROMPT = &H2000, OFN_SHAREAWARE = &H4000, OFN_NOREADONLYRETURN = &H8000&, OFN_NOTESTFILECREATE = &H10000\r\n    Private Const OFN_NONETWORKBUTTON = &H20000, OFN_NOLONGNAMES = &H40000, OFN_EXPLORER = &H80000, OFN_NODEREFERENCELINKS = &H100000\r\n    Private Const OFN_LONGNAMES = &H200000\r\n#"
             is_token: false
             children:
@@ -4626,7 +4626,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    Dim lReturn As Long, lInitPathSize As Long\r\n    \r\n    'Prep a relevant OFN struct\r\n    Dim tmpOFN As OPENFILENAME\r\n    \r\n    With tmpOFN\r\n        .lStructSize = Len(tmpOFN)\r\n        \r\n        'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST\r\n        ' is used to prevent the user from entering invalid filenames.\r\n        .Flags = OFN_PATHMUSTEXIST Or OFN_LONGNAMES Or OFN_HIDEREADONLY\r\n        If FileMustExist Then .Flags = .Flags Or OFN_FILEMUSTEXIST\r\n        If MultiSelect Then .Flags = .Flags Or OFN_ALLOWMULTISELECT Or OFN_EXPLORER\r\n        \r\n        'Various other obvious flags\r\n        .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim Ch As String, i As Integer, s As String\r\n        For i = 1 To Len(Filter)\r\n            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        Next\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,\r\n        ' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch.\r\n        lInitPathSize = MAX_PATH_LOAD_XP\r\n        \r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    End With\r\n    \r\n    'Turn control over to the common dialog function\r\n    lReturn = GetOpenFileNameW(VarPtr(tmpOFN))\r\n    \r\n    'Before proceeding, add debug info in the special case of a buffer underrun.  This case is problematic, as we can't simply\r\n    ' \"try again\" without re-raising a modal dialog, so I'm hoping my current default buffer size is always sufficient.\r\n    If (lReturn = 0) And (CommDlgExtendedError() = FNERR_BUFFERTOOSMALL) Then\r\n        MsgBox \"Unfortunately, the number of images you selected exceeds what Windows® allows for a single load operation.  Please try again with a smaller set of selected images.\", vbExclamation Or vbOKOnly, \"Error: too many images\"\r\n    End If\r\n    \r\n    'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer.\r\n    ' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that\r\n    '  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 16K buffer as a limit,\r\n    '  since PD won't do well with that many loaded images anyway.)\r\n    If (lReturn <> 0) Then\r\n        \r\n        'Success!  Parse out the relevant strings.\r\n        \r\n        Dim lLen As Long\r\n        \r\n        If (Not MultiSelect) Then\r\n        \r\n            If (tmpOFN.nFileOffset <> 0) Then\r\n                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n                If (lLen < 1) Then lLen = Len(tmpOFN.lpstrFile)\r\n            Else\r\n                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n            End If\r\n            \r\n            If lLen Then FileName = Left$(tmpOFN.lpstrFile, lLen)\r\n            \r\n        Else\r\n            FileName = tmpOFN.lpstrFile\r\n        End If\r\n        \r\n        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n        If lLen Then FileTitle = Left$(tmpOFN.lpstrFileTitle, lLen)\r\n        \r\n        'Return the filter index, so the caller can store it to preferences as desired\r\n        FilterIndex = tmpOFN.nFilterIndex\r\n        \r\n        GetOpenFileName = True\r\n        \r\n    Else\r\n        \r\n        GetOpenFileName = False\r\n        FileName = vbNullString\r\n        FileTitle = vbNullString\r\n        \r\n    End If\r\n                    \r\n"
             is_token: false
             children:
@@ -4798,7 +4798,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        .lStructSize = Len(tmpOFN)\r\n        \r\n        'OFN_EXPLORER is explicitly flagged to force Explorer mode even when allowing multiselect, and OFN_PATHMUSTEXIST\r\n        ' is used to prevent the user from entering invalid filenames.\r\n        .Flags = OFN_PATHMUSTEXIST Or OFN_LONGNAMES Or OFN_HIDEREADONLY\r\n        If FileMustExist Then .Flags = .Flags Or OFN_FILEMUSTEXIST\r\n        If MultiSelect Then .Flags = .Flags Or OFN_ALLOWMULTISELECT Or OFN_EXPLORER\r\n        \r\n        'Various other obvious flags\r\n        .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim Ch As String, i As Integer, s As String\r\n        For i = 1 To Len(Filter)\r\n            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        Next\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small,\r\n        ' the call to GetOpenFilename will fail, and we can't retry without re-raising the dialog from scratch.\r\n        lInitPathSize = MAX_PATH_LOAD_XP\r\n        \r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    "
                     is_token: false
                     children:
@@ -5682,7 +5682,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            Ch = Mid$(Filter, i, 1)\r\n            If Ch = \"|\" Or Ch = \":\" Then\r\n                s = s & vbNullChar\r\n            Else\r\n                s = s & Ch\r\n            End If\r\n        "
                             is_token: false
                             children:
@@ -5898,7 +5898,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                s = s & vbNullChar\r\n            "
                                     is_token: false
                                     children:
@@ -5982,7 +5982,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                s = s & Ch\r\n            "
                                         is_token: false
                                         children:
@@ -7170,7 +7170,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        MsgBox \"Unfortunately, the number of images you selected exceeds what Windows® allows for a single load operation.  Please try again with a smaller set of selected images.\", vbExclamation Or vbOKOnly, \"Error: too many images\"\r\n    "
                     is_token: false
                     children:
@@ -7386,7 +7386,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        \r\n        'Success!  Parse out the relevant strings.\r\n        \r\n        Dim lLen As Long\r\n        \r\n        If (Not MultiSelect) Then\r\n        \r\n            If (tmpOFN.nFileOffset <> 0) Then\r\n                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n                If (lLen < 1) Then lLen = Len(tmpOFN.lpstrFile)\r\n            Else\r\n                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n            End If\r\n            \r\n            If lLen Then FileName = Left$(tmpOFN.lpstrFile, lLen)\r\n            \r\n        Else\r\n            FileName = tmpOFN.lpstrFile\r\n        End If\r\n        \r\n        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n        If lLen Then FileTitle = Left$(tmpOFN.lpstrFileTitle, lLen)\r\n        \r\n        'Return the filter index, so the caller can store it to preferences as desired\r\n        FilterIndex = tmpOFN.nFilterIndex\r\n        \r\n        GetOpenFileName = True\r\n        \r\n    "
                     is_token: false
                     children:
@@ -7526,7 +7526,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        \r\n            If (tmpOFN.nFileOffset <> 0) Then\r\n                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n                If (lLen < 1) Then lLen = Len(tmpOFN.lpstrFile)\r\n            Else\r\n                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n            End If\r\n            \r\n            If lLen Then FileName = Left$(tmpOFN.lpstrFile, lLen)\r\n            \r\n        "
                             is_token: false
                             children:
@@ -7618,7 +7618,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1\r\n                If (lLen < 1) Then lLen = Len(tmpOFN.lpstrFile)\r\n            "
                                     is_token: false
                                     children:
@@ -7922,7 +7922,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n            "
                                         is_token: false
                                         children:
@@ -8198,7 +8198,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            FileName = tmpOFN.lpstrFile\r\n        "
                                 is_token: false
                                 children:
@@ -8638,7 +8638,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        \r\n        GetOpenFileName = False\r\n        FileName = vbNullString\r\n        FileTitle = vbNullString\r\n        \r\n    "
                         is_token: false
                         children:
@@ -9462,7 +9462,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    Dim lReturn As Long, lInitPathSize As Long\r\n    \r\n    'Prep a relevant OFN struct\r\n    Dim tmpOFN As OPENFILENAME\r\n    \r\n    With tmpOFN\r\n        .lStructSize = Len(tmpOFN)\r\n        \r\n        'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD.\r\n        .Flags = OFN_HIDEREADONLY\r\n        If OverWritePrompt Then .Flags = .Flags Or OFN_OVERWRITEPROMPT\r\n        \r\n        'Various other obvious flags\r\n        If (Owner <> -1) Then .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim s As String\r\n        s = Filter\r\n        If InStr(1, s, \"|\", vbBinaryCompare) Then s = Replace$(s, \"|\", vbNullChar)\r\n        If InStr(1, s, \":\", vbBinaryCompare) Then s = Replace$(s, \":\", vbNullChar)\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call\r\n        ' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer).\r\n        lInitPathSize = MAX_PATH_SAVE\r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    End With\r\n    \r\n    'Turn control over to the common dialog function\r\n    lReturn = GetSaveFileNameW(VarPtr(tmpOFN))\r\n    \r\n    'Non-zero returns are considered successful, but note that a failure state may have occurred due to a too-small buffer.\r\n    ' (We could technically handle buffer overflows by retrying with a larger buffer, but I don't know how to do that\r\n    '  without re-displaying the entire effing common dialog; to that end, I've hard-coded a 1K buffer as a limit,\r\n    '  which should allow for saving to just about anywhere!)\r\n    If (lReturn <> 0) Then\r\n        \r\n        'Success!  Parse out the relevant filename string.\r\n        Dim lLen As Long\r\n        If (tmpOFN.nFileOffset <> 0) Then\r\n            lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n            If (lLen < 1&) Then lLen = Len(tmpOFN.lpstrFile)\r\n        Else\r\n            lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n        End If\r\n        \r\n        If lLen Then FileName = Left$(tmpOFN.lpstrFile, lLen)\r\n        \r\n        'As a convenience, return the file title too (which is just the filename + extension, with no path data)\r\n        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n        If lLen Then FileTitle = Left$(tmpOFN.lpstrFileTitle, lLen)\r\n        \r\n        'Return the filter index, so the caller can store it to preferences as desired\r\n        FilterIndex = tmpOFN.nFilterIndex\r\n        \r\n        GetSaveFileName = True\r\n        \r\n    Else\r\n        GetSaveFileName = False\r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -9630,7 +9630,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        .lStructSize = Len(tmpOFN)\r\n        \r\n        'We forcefully hide the \"Open as Read Only\" checkbox, as it makes little sense for PD.\r\n        .Flags = OFN_HIDEREADONLY\r\n        If OverWritePrompt Then .Flags = .Flags Or OFN_OVERWRITEPROMPT\r\n        \r\n        'Various other obvious flags\r\n        If (Owner <> -1) Then .hWndOwner = Owner\r\n        .lpstrInitialDir = InitDir\r\n        .lpstrDefExt = DefaultExt\r\n        .lpstrTitle = DlgTitle\r\n        \r\n        'The filter string is actually null-delimited, which isn't easy for the caller to do, so we allow the old-style\r\n        ' pipe and colon separators, which are forcibly converted now.\r\n        Dim s As String\r\n        s = Filter\r\n        If InStr(1, s, \"|\", vbBinaryCompare) Then s = Replace$(s, \"|\", vbNullChar)\r\n        If InStr(1, s, \":\", vbBinaryCompare) Then s = Replace$(s, \":\", vbNullChar)\r\n        \r\n        'Double-nulls mark final termination\r\n        s = s & vbNullChar & vbNullChar\r\n        .lpstrFilter = s\r\n        .nFilterIndex = FilterIndex\r\n        \r\n        'We have to start with a prepared buffer of some arbitrary size.  If the size proves too small, we could technically call\r\n        ' the function again with a larger buffer (not implemented, as PD uses a comically huge buffer).\r\n        lInitPathSize = MAX_PATH_SAVE\r\n        s = FileName & String$(lInitPathSize - Len(FileName), 0)\r\n        .lpstrFile = s\r\n        .nMaxFile = lInitPathSize\r\n        \r\n        s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n        .lpstrFileTitle = s\r\n        .nMaxFileTitle = MAX_FILE\r\n        \r\n        'All other fields are fine as-is\r\n        \r\n    "
                     is_token: false
                     children:
@@ -11782,7 +11782,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        \r\n        'Success!  Parse out the relevant filename string.\r\n        Dim lLen As Long\r\n        If (tmpOFN.nFileOffset <> 0) Then\r\n            lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n            If (lLen < 1&) Then lLen = Len(tmpOFN.lpstrFile)\r\n        Else\r\n            lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n        End If\r\n        \r\n        If lLen Then FileName = Left$(tmpOFN.lpstrFile, lLen)\r\n        \r\n        'As a convenience, return the file title too (which is just the filename + extension, with no path data)\r\n        lLen = lstrlenW(StrPtr(tmpOFN.lpstrFileTitle))\r\n        If lLen Then FileTitle = Left$(tmpOFN.lpstrFileTitle, lLen)\r\n        \r\n        'Return the filter index, so the caller can store it to preferences as desired\r\n        FilterIndex = tmpOFN.nFilterIndex\r\n        \r\n        GetSaveFileName = True\r\n        \r\n    "
                     is_token: false
                     children:
@@ -11926,7 +11926,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            lLen = InStr(tmpOFN.nFileOffset, tmpOFN.lpstrFile, vbNullChar) - 1&\r\n            If (lLen < 1&) Then lLen = Len(tmpOFN.lpstrFile)\r\n        "
                             is_token: false
                             children:
@@ -12230,7 +12230,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            lLen = lstrlenW(StrPtr(tmpOFN.lpstrFile))\r\n        "
                                 is_token: false
                                 children:
@@ -12862,7 +12862,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        GetSaveFileName = False\r\n    "
                         is_token: false
                         children:

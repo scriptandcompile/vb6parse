@@ -473,7 +473,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'RGB() variables for each color\r\n    Dim r As Long, g As Long, b As Long\r\n    Dim R2 As Long, G2 As Long, B2 As Long\r\n    \r\n    'Extract the r,g,b values from the colors passed by the user\r\n    r = Color1 Mod 256\r\n    g = (Color1 \\ 256) And 255\r\n    b = (Color1 \\ 65536) And 255\r\n    R2 = Color2 Mod 256\r\n    G2 = (Color2 \\ 256) And 255\r\n    B2 = (Color2 \\ 65536) And 255\r\n    \r\n    'Calculation variables for the gradiency\r\n    Dim VR As Single, VG As Single, VB As Single\r\n    \r\n    'Size of the picture box we'll be drawing to\r\n    Dim iWidth As Long, iHeight As Long\r\n    iWidth = DstObject.ScaleWidth\r\n    iHeight = DstObject.ScaleHeight\r\n    \r\n    'Here, create a calculation variable for determining the step between\r\n    'each level of the gradient\r\n    VR = Abs(r - R2) / iWidth\r\n    VG = Abs(g - G2) / iWidth\r\n    VB = Abs(b - B2) / iWidth\r\n    'If the second value is lower then the first value, make the step negative\r\n    If R2 < r Then VR = -VR\r\n    If G2 < g Then VG = -VG\r\n    If B2 < b Then VB = -VB\r\n    'Last, run a loop through the width of the picture box, incrementing the color as\r\n    'we go (thus creating a gradient effect)\r\n    Dim x As Long\r\n    For x = 0 To iWidth\r\n        R2 = r + VR * x\r\n        G2 = g + VG * x\r\n        B2 = b + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    Next x\r\n"
             is_token: false
             children:
@@ -2349,7 +2349,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        R2 = r + VR * x\r\n        G2 = g + VG * x\r\n        B2 = b + VB * x\r\n        DstObject.Line (x, 0)-(x, iHeight), RGB(R2, G2, B2)\r\n    "
                     is_token: false
                     children:

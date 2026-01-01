@@ -73,7 +73,7 @@ impl Parser<'_> {
         self.consume_until_after(Token::Newline);
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(Token::NextKeyword));
+        self.parse_statement_list(|parser| parser.at_token(Token::NextKeyword));
 
         // Consume "Next" keyword
         if self.at_token(Token::NextKeyword) {
@@ -134,7 +134,7 @@ impl Parser<'_> {
         self.consume_until_after(Token::Newline);
 
         // Parse the loop body until "Next"
-        self.parse_code_block(|parser| parser.at_token(Token::NextKeyword));
+        self.parse_statement_list(|parser| parser.at_token(Token::NextKeyword));
 
         // Consume "Next" keyword
         if self.at_token(Token::NextKeyword) {

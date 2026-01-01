@@ -101,7 +101,7 @@ impl Parser<'_> {
         self.consume_until_after(Token::Newline);
 
         // Parse body until "End Function"
-        self.parse_code_block(|parser| {
+        self.parse_statement_list(|parser| {
             parser.at_token(Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(Token::FunctionKeyword)
         });

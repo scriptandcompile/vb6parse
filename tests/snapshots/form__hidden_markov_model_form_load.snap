@@ -3265,7 +3265,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    Dim total As Long\r\n    total = aTot + cTot + gTot + tTot\r\n    \r\n    txtStateProb(0).Text = aTot / total\r\n    txtStateProb(1).Text = cTot / total\r\n    txtStateProb(2).Text = gTot / total\r\n    txtStateProb(3).Text = tTot / total\r\n    txtStateProb(4).Text = txtStateProb(0) / 2\r\n    txtStateProb(5).Text = txtStateProb(1) * 2\r\n    txtStateProb(6).Text = txtStateProb(2) * 2\r\n    txtStateProb(7).Text = txtStateProb(3) / 2\r\n    \r\n"
             is_token: false
             children:
@@ -4409,7 +4409,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    Message \"Building look-up tables...\"\r\n\r\n    'First, collect all of probabilities into look-up tables\r\n    For x = 0 To 3\r\n        pIorB(x) = Log(CDbl(txtIBprob(x)))\r\n    Next x\r\n    For x = 0 To 7\r\n        pState(x) = Log(CDbl(txtStateProb(x)))\r\n    Next x\r\n    For x = 0 To 1\r\n        pInitial(x) = Log(CDbl(txtInitProb(x)))\r\n    Next x\r\n\r\n    Message \"Calculating initial states...\"\r\n\r\n    'Arrays for holding all HMM entries\r\n    Dim bHMM() As Double, iHMM() As Double\r\n    ReDim bHMM(0 To lenDNA) As Double\r\n    ReDim iHMM(0 To lenDNA) As Double\r\n    \r\n    'We use these strings to show the B and I states output by the algorithms\r\n    Dim sHMM As String\r\n    sHMM = \"\"\r\n    Dim sViterbi As String\r\n    sViterbi = \"\"\r\n    \r\n    'Manually perform the first calculation for the first entry\r\n    bHMM(0) = pState(DNA(0)) + pInitial(0)\r\n    iHMM(0) = pState(DNA(0) + 4) + pInitial(1)\r\n    If bHMM(0) > iHMM(0) Then sHMM = sHMM & \"B\" Else sHMM = sHMM & \"I\"\r\n    \r\n    'Next, loop through every entry and calulate HMM data as we go\r\n    For x = 1 To lenDNA - 1\r\n\r\n        bHMM(x) = pState(DNA(x)) + dMax(bHMM(x - 1) + pIorB(0), iHMM(x - 1) + pIorB(2))\r\n        iHMM(x) = pState(DNA(x) + 4) + dMax(iHMM(x - 1) + pIorB(3), bHMM(x - 1) + pIorB(1))\r\n        \r\n        'Remember states\r\n        If bHMM(x) > iHMM(x) Then sHMM = sHMM & \"B\" Else sHMM = sHMM & \"I\"\r\n        \r\n        'Display a friendly message to let the user know how things are coming\r\n        If (x Mod 100) = 0 Then Message \"Generating HMM (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n    Next x\r\n    \r\n    'Now proceed back through the data and generate Viterbi info\r\n    Dim bHMM1() As Double\r\n    Dim bHMM2() As Double\r\n    Dim iHMM1() As Double\r\n    Dim iHMM2() As Double\r\n     \r\n    ReDim bHMM1(0 To lenDNA) As Double\r\n    ReDim bHMM2(0 To lenDNA) As Double\r\n    ReDim iHMM1(0 To lenDNA) As Double\r\n    ReDim iHMM2(0 To lenDNA) As Double\r\n    \r\n    'Assemble initial Viterbi data\r\n    For x = 1 To lenDNA - 1\r\n\r\n        'Another friendly message\r\n        If (x Mod 100) = 0 Then Message \"Generating Viterbi data (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n        bHMM1(x) = bHMM(x - 1) + pIorB(0)\r\n        bHMM2(x) = iHMM(x - 1) + pIorB(2)\r\n        iHMM1(x) = bHMM(x - 1) + pIorB(1)\r\n        iHMM2(x) = iHMM(x - 1) + pIorB(3)\r\n        \r\n    Next x\r\n    \r\n    'Next comes the Viterbi algorithm itself\r\n    ReDim vHMM(0 To lenDNA) As Double\r\n    \r\n    Dim totalI As Long, totalB As Long\r\n    \r\n    If bHMM(lenDNA - 1) > iHMM(lenDNA - 1) Then\r\n        vHMM(lenDNA - 1) = 0\r\n        sViterbi = \"B\"\r\n        totalB = totalB + 1\r\n    Else\r\n        vHMM(lenDNA - 1) = 1\r\n        sViterbi = \"I\"\r\n        totalI = totalI + 1\r\n    End If\r\n    \r\n    For x = lenDNA - 2 To 0 Step -1\r\n\r\n        'Who doesn't like friendly messages?\r\n        If (x Mod 100) = 0 Then Message \"Performing Viterbi algorithm (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n        If vHMM(x + 1) = 0 Then\r\n            If bHMM1(x + 1) > bHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        Else\r\n            If iHMM1(x + 1) > iHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        End If\r\n        \r\n    Next x\r\n    \r\n    'Display the results of our analysis and encourage the user to continue with step 4\r\n    txtTest = \"Raw HMM analysis: \" & vbCrLf & sHMM & vbCrLf & vbCrLf & \"Viterbi analysis: \" & vbCrLf & sViterbi\r\n\r\n    lblStep3Results.Caption = \"Results: \" & CSng(totalB) / (totalB + totalI) * 100 & \"% B, \" & CSng(totalI) / (totalB + totalI) * 100 & \"% I\"\r\n\r\n    Message \"Step 3 completed successfully.  Please proceed with Step 4.\"\r\n    \r\n    cmdWindow.Enabled = True\r\n\r\n"
             is_token: false
             children:
@@ -4525,7 +4525,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        pIorB(x) = Log(CDbl(txtIBprob(x)))\r\n    "
                     is_token: false
                     children:
@@ -4753,7 +4753,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        pState(x) = Log(CDbl(txtStateProb(x)))\r\n    "
                     is_token: false
                     children:
@@ -4981,7 +4981,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        pInitial(x) = Log(CDbl(txtInitProb(x)))\r\n    "
                     is_token: false
                     children:
@@ -6297,7 +6297,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "\r\n        bHMM(x) = pState(DNA(x)) + dMax(bHMM(x - 1) + pIorB(0), iHMM(x - 1) + pIorB(2))\r\n        iHMM(x) = pState(DNA(x) + 4) + dMax(iHMM(x - 1) + pIorB(3), bHMM(x - 1) + pIorB(1))\r\n        \r\n        'Remember states\r\n        If bHMM(x) > iHMM(x) Then sHMM = sHMM & \"B\" Else sHMM = sHMM & \"I\"\r\n        \r\n        'Display a friendly message to let the user know how things are coming\r\n        If (x Mod 100) = 0 Then Message \"Generating HMM (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n    "
                     is_token: false
                     children:
@@ -8173,7 +8173,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "\r\n        'Another friendly message\r\n        If (x Mod 100) = 0 Then Message \"Generating Viterbi data (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n        bHMM1(x) = bHMM(x - 1) + pIorB(0)\r\n        bHMM2(x) = iHMM(x - 1) + pIorB(2)\r\n        iHMM1(x) = bHMM(x - 1) + pIorB(1)\r\n        iHMM2(x) = iHMM(x - 1) + pIorB(3)\r\n        \r\n    "
                     is_token: false
                     children:
@@ -9389,7 +9389,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        vHMM(lenDNA - 1) = 0\r\n        sViterbi = \"B\"\r\n        totalB = totalB + 1\r\n    "
                     is_token: false
                     children:
@@ -9589,7 +9589,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        vHMM(lenDNA - 1) = 1\r\n        sViterbi = \"I\"\r\n        totalI = totalI + 1\r\n    "
                         is_token: false
                         children:
@@ -9921,7 +9921,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "\r\n        'Who doesn't like friendly messages?\r\n        If (x Mod 100) = 0 Then Message \"Performing Viterbi algorithm (Base \" & x & \" of \" & lenDNA - 1 & \")...\"\r\n        \r\n        If vHMM(x + 1) = 0 Then\r\n            If bHMM1(x + 1) > bHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        Else\r\n            If iHMM1(x + 1) > iHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        End If\r\n        \r\n    "
                     is_token: false
                     children:
@@ -10249,7 +10249,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            If bHMM1(x + 1) > bHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        "
                             is_token: false
                             children:
@@ -10409,7 +10409,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            "
                                     is_token: false
                                     children:
@@ -10621,7 +10621,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            "
                                         is_token: false
                                         children:
@@ -10853,7 +10853,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            If iHMM1(x + 1) > iHMM2(x + 1) Then\r\n                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            Else\r\n                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            End If\r\n        "
                                 is_token: false
                                 children:
@@ -11013,7 +11013,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                sViterbi = \"B\" & sViterbi\r\n                vHMM(x) = 0\r\n                totalB = totalB + 1\r\n            "
                                         is_token: false
                                         children:
@@ -11225,7 +11225,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "                sViterbi = \"I\" & sViterbi\r\n                vHMM(x) = 1\r\n                totalI = totalI + 1\r\n            "
                                             is_token: false
                                             children:
@@ -12237,7 +12237,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Simple open dialog\r\n    Dim newDialog As pdOpenSaveDialog\r\n    Set newDialog = New pdOpenSaveDialog\r\n    \r\n    Dim sFile As String\r\n    If newDialog.GetOpenFileName(sFile, , True, , \"FASTA files (*.fas, *.fasta)|*.fas;*.fasta|All files|*.*\", , , \"Open a FASTA file\", , frmMain.hWnd) Then\r\n\r\n        Message \"Opening FASTA file...\"\r\n        \r\n        lblFile.Caption = \"Current file: \" & sFile\r\n        \r\n        Dim fNum As Long\r\n        fNum = FreeFile\r\n        \r\n        Open sFile For Input As #fNum\r\n        \r\n        'This is an arbitrary \"default\" max # of lines in the file\r\n        eFile = 100\r\n        ReDim fText(0 To eFile) As String\r\n        \r\n        'Temporary line read from the file\r\n        Dim hInfo As String\r\n        \r\n        'Total length of all lines\r\n        Dim numChars As Long\r\n        \r\n        'Total number of lines\r\n        Dim numOfLines As Long\r\n        numOfLines = -1\r\n        \r\n        Message \"Reading in FASTA data...\"\r\n        \r\n        'Read through to the end of the file\r\n        Do While Not EOF(fNum)\r\n            Line Input #fNum, hInfo\r\n            hInfo = Trim(hInfo)\r\n            \r\n            'Line width must be greater than 0 and not a FASTA comment line\r\n            If (Len(hInfo) > 0) And Not (Left(hInfo, 1) = \">\") Then\r\n                numOfLines = numOfLines + 1\r\n    \r\n                'If the current line exceeds the maximum number of lines allowed, double the size of the\r\n                ' array and continue onward.\r\n                If numOfLines > eFile Then\r\n                    eFile = eFile * 2\r\n                    ReDim Preserve fText(0 To eFile) As String\r\n                End If\r\n                \r\n                fText(numOfLines) = LCase(hInfo) 'Make EVERYTHING lowercase (to simplify text comparisons)\r\n                numChars = numChars + Len(hInfo)\r\n            \r\n            End If\r\n        \r\n        Loop\r\n        \r\n        'Close the file\r\n        Close #fNum\r\n        \r\n        'Resize our array to the minimum size necessary\r\n        ReDim Preserve fText(0 To numOfLines) As String\r\n        ReDim DNA(0 To numChars) As Byte\r\n        \r\n        'Prepare to convert the FASTA from text to numbers\r\n        Dim curChar As Long\r\n        curChar = 0\r\n        aTot = 0\r\n        cTot = 0\r\n        gTot = 0\r\n        tTot = 0\r\n        \r\n        Dim entry As String * 1\r\n        \r\n        Message \"Converting FASTA data to byte data for HMM analysis...\"\r\n        \r\n        'Travel through each line, converting the FASTA data as we go\r\n        For x = 0 To numOfLines\r\n            \r\n            'On each line, travel through each character individually\r\n            For y = 1 To Len(fText(x))\r\n                \r\n                'Grab the current character\r\n                entry = Mid(fText(x), y, 1)\r\n                Select Case entry\r\n                    'Convert A/C/G/T to numbers, and count how many total A's, C's, G's, T's we have\r\n                    Case \"a\"\r\n                        DNA(curChar) = 0\r\n                        aTot = aTot + 1\r\n                    Case \"c\"\r\n                        DNA(curChar) = 1\r\n                        cTot = cTot + 1\r\n                    Case \"g\"\r\n                        DNA(curChar) = 2\r\n                        gTot = gTot + 1\r\n                    Case \"t\"\r\n                        DNA(curChar) = 3\r\n                        tTot = tTot + 1\r\n                    'Ignore anything that isn't A/C/G/T\r\n                    Case Else\r\n                        Message \"FASTA ERROR: a character other than a, c, g, t was detected (\" & entry & \").\"\r\n                        curChar = curChar - 1\r\n                End Select\r\n                curChar = curChar + 1\r\n            Next y\r\n        Next x\r\n        \r\n        lenDNA = curChar\r\n        \r\n        Message \"Step 1 completed successfully.  Please begin Step 2, and when complete, please click the Step 3 button.\"\r\n\r\n        cmdHMM.Enabled = True\r\n\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'Displays relevant messages at the bottom of the screen\r\nPrivate Sub Message(ByRef iMessage As String)\r\n    lblMessage.Caption = \" \" & iMessage\r\n    lblMessage.Refresh\r\n    DoEvents\r\nEnd Sub\r\n\r\n'Determine the larger of two Double-type variables\r\nPrivate Function dMax(ByVal d1 As Double, ByVal d2 As Double) As Double\r\n    If (d1 > d2) Then dMax = d1 Else dMax = d2\r\nEnd Function\r\n\r\n'This routine performs a sliding window analysis of the HMM/Viterbi data\r\nPrivate Sub cmdWindow_Click()\r\n    \r\n    Dim winSize As Long\r\n    winSize = CLng(txtWindowSize)\r\n    \r\n    Dim wResults() As Long\r\n    ReDim wResults(0 To lenDNA - winSize) As Long\r\n    \r\n    'Observed vs expected ratio of C/G content\r\n    Dim oeResults() As Single\r\n    ReDim oeResults(0 To lenDNA - winSize) As Single\r\n    \r\n    'Calculate an expected value\r\n    Dim CGexpected As Single\r\n    CGexpected = (cTot + gTot) / (cTot + gTot + aTot + tTot)\r\n    Dim cgCount As Single\r\n    Dim cgMax As Single\r\n    cgMax = 0\r\n    \r\n    Dim tCount As Long\r\n    Dim iMax As Long, iMin As Long\r\n    iMax = 0\r\n    iMin = winSize\r\n    \r\n    'Travel through the data, calculating sliding window values as we go\r\n    For x = 0 To UBound(wResults)\r\n        'Reset the I counter\r\n        tCount = 0\r\n        'Reset the c/g observed count\r\n        cgCount = 0\r\n        If (x Mod 100) = 0 Then Message \"Analyzing window \" & x & \" of \" & UBound(wResults)\r\n        \r\n        'Analyze this sliding window\r\n        For y = x To x + winSize\r\n            If vHMM(y) = 1 Then tCount = tCount + 1\r\n            If DNA(y) = 1 Or DNA(y) = 2 Then cgCount = cgCount + 1\r\n        Next y\r\n        \r\n        'Store the value of this sliding window\r\n        wResults(x) = tCount\r\n        cgCount = cgCount / (winSize * CGexpected)\r\n        oeResults(x) = cgCount\r\n        If cgCount > cgMax Then cgMax = cgCount\r\n        If tCount > iMax Then iMax = tCount\r\n        If tCount < iMin Then iMin = tCount\r\n    Next x\r\n    \r\n    Dim tIndex As Single\r\n    \r\n    lblPercent.Caption = \" I/B Ratio (Maximum = \" & iMax / winSize & \"): \"\r\n    lblCGHeader.Caption = \" C/G Observed vs. Expected (Maximum = \" & cgMax & \"):\"\r\n    \r\n    'Draw the results\r\n    For x = 0 To picResults.ScaleWidth\r\n    \r\n        tIndex = (x / picResults.ScaleWidth) * UBound(wResults)\r\n        \r\n        picResults.Line (x + 1, 0)-(x + 1, picResults.ScaleHeight), RGB(255, 0, 0)\r\n        picOE.Line (x + 1, 0)-(x + 1, picOE.ScaleHeight), RGB(255, 0, 0)\r\n        \r\n        'Percentage plot\r\n        picResults.Line (x, 0)-(x, picResults.ScaleHeight), RGB(255, 255, 255)\r\n        picResults.Line (x, picResults.ScaleHeight)-(x, picResults.ScaleHeight - (CSng(wResults(tIndex)) / CSng(iMax)) * picResults.ScaleHeight)\r\n    \r\n        'O/E plot\r\n        picOE.Line (x, 0)-(x, picOE.ScaleHeight), RGB(255, 255, 255)\r\n        picOE.Line (x, picOE.ScaleHeight)-(x, picOE.ScaleHeight - (CSng(oeResults(tIndex)) / CSng(cgMax)) * picOE.ScaleHeight)\r\n    \r\n        picResults.Refresh\r\n        picOE.Refresh\r\n        DoEvents\r\n    \r\n    Next x\r\n    \r\n    'Lastly, let's attempt to locate an island\r\n    For x = 0 To UBound(wResults)\r\n        \r\n        If wResults(x) > (iMax * 0.9) Then\r\n            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        End If\r\n        \r\n    Next x\r\n    \r\n    lblRecommendation.Caption = \"No potential CpG islands were found (minimum length = \" & winSize & \" bases)\"\r\n    \r\nNoMoreLook:\r\n    \r\n    Message \" Sliding window analyses are complete.\"\r\n    \r\nEnd Sub\r\n"
             is_token: false
             children:
@@ -13317,7 +13317,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "            Line Input #fNum, hInfo\r\n            hInfo = Trim(hInfo)\r\n            \r\n            'Line width must be greater than 0 and not a FASTA comment line\r\n            If (Len(hInfo) > 0) And Not (Left(hInfo, 1) = \">\") Then\r\n                numOfLines = numOfLines + 1\r\n    \r\n                'If the current line exceeds the maximum number of lines allowed, double the size of the\r\n                ' array and continue onward.\r\n                If numOfLines > eFile Then\r\n                    eFile = eFile * 2\r\n                    ReDim Preserve fText(0 To eFile) As String\r\n                End If\r\n                \r\n                fText(numOfLines) = LCase(hInfo) 'Make EVERYTHING lowercase (to simplify text comparisons)\r\n                numChars = numChars + Len(hInfo)\r\n            \r\n            End If\r\n        \r\n        "
                     is_token: false
                     children:
@@ -13665,7 +13665,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "                numOfLines = numOfLines + 1\r\n    \r\n                'If the current line exceeds the maximum number of lines allowed, double the size of the\r\n                ' array and continue onward.\r\n                If numOfLines > eFile Then\r\n                    eFile = eFile * 2\r\n                    ReDim Preserve fText(0 To eFile) As String\r\n                End If\r\n                \r\n                fText(numOfLines) = LCase(hInfo) 'Make EVERYTHING lowercase (to simplify text comparisons)\r\n                numChars = numChars + Len(hInfo)\r\n            \r\n            "
                             is_token: false
                             children:
@@ -13825,7 +13825,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                    eFile = eFile * 2\r\n                    ReDim Preserve fText(0 To eFile) As String\r\n                "
                                     is_token: false
                                     children:
@@ -14885,7 +14885,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "            \r\n            'On each line, travel through each character individually\r\n            For y = 1 To Len(fText(x))\r\n                \r\n                'Grab the current character\r\n                entry = Mid(fText(x), y, 1)\r\n                Select Case entry\r\n                    'Convert A/C/G/T to numbers, and count how many total A's, C's, G's, T's we have\r\n                    Case \"a\"\r\n                        DNA(curChar) = 0\r\n                        aTot = aTot + 1\r\n                    Case \"c\"\r\n                        DNA(curChar) = 1\r\n                        cTot = cTot + 1\r\n                    Case \"g\"\r\n                        DNA(curChar) = 2\r\n                        gTot = gTot + 1\r\n                    Case \"t\"\r\n                        DNA(curChar) = 3\r\n                        tTot = tTot + 1\r\n                    'Ignore anything that isn't A/C/G/T\r\n                    Case Else\r\n                        Message \"FASTA ERROR: a character other than a, c, g, t was detected (\" & entry & \").\"\r\n                        curChar = curChar - 1\r\n                End Select\r\n                curChar = curChar + 1\r\n            Next y\r\n        "
                     is_token: false
                     children:
@@ -15025,7 +15025,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "                \r\n                'Grab the current character\r\n                entry = Mid(fText(x), y, 1)\r\n                Select Case entry\r\n                    'Convert A/C/G/T to numbers, and count how many total A's, C's, G's, T's we have\r\n                    Case \"a\"\r\n                        DNA(curChar) = 0\r\n                        aTot = aTot + 1\r\n                    Case \"c\"\r\n                        DNA(curChar) = 1\r\n                        cTot = cTot + 1\r\n                    Case \"g\"\r\n                        DNA(curChar) = 2\r\n                        gTot = gTot + 1\r\n                    Case \"t\"\r\n                        DNA(curChar) = 3\r\n                        tTot = tTot + 1\r\n                    'Ignore anything that isn't A/C/G/T\r\n                    Case Else\r\n                        Message \"FASTA ERROR: a character other than a, c, g, t was detected (\" & entry & \").\"\r\n                        curChar = curChar - 1\r\n                End Select\r\n                curChar = curChar + 1\r\n            "
                             is_token: false
                             children:
@@ -15249,7 +15249,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                        DNA(curChar) = 0\r\n                        aTot = aTot + 1\r\n                    "
                                         is_token: false
                                         children:
@@ -15405,7 +15405,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                        DNA(curChar) = 1\r\n                        cTot = cTot + 1\r\n                    "
                                         is_token: false
                                         children:
@@ -15561,7 +15561,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                        DNA(curChar) = 2\r\n                        gTot = gTot + 1\r\n                    "
                                         is_token: false
                                         children:
@@ -15717,7 +15717,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                        DNA(curChar) = 3\r\n                        tTot = tTot + 1\r\n                    'Ignore anything that isn't A/C/G/T\r\n                    "
                                         is_token: false
                                         children:
@@ -15885,7 +15885,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                        Message \"FASTA ERROR: a character other than a, c, g, t was detected (\" & entry & \").\"\r\n                        curChar = curChar - 1\r\n                "
                                         is_token: false
                                         children:
@@ -16305,7 +16305,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'Displays relevant messages at the bottom of the screen\r\nPrivate Sub Message(ByRef iMessage As String)\r\n    lblMessage.Caption = \" \" & iMessage\r\n    lblMessage.Refresh\r\n    DoEvents\r\nEnd Sub\r\n\r\n'Determine the larger of two Double-type variables\r\nPrivate Function dMax(ByVal d1 As Double, ByVal d2 As Double) As Double\r\n    If (d1 > d2) Then dMax = d1 "
                     is_token: false
                     children:
@@ -16777,7 +16777,7 @@ cst:
                         text: " "
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "dMax = d2\r\nEnd Function\r\n\r\n'This routine performs a sliding window analysis of the HMM/Viterbi data\r\nPrivate Sub cmdWindow_Click()\r\n    \r\n    Dim winSize As Long\r\n    winSize = CLng(txtWindowSize)\r\n    \r\n    Dim wResults() As Long\r\n    ReDim wResults(0 To lenDNA - winSize) As Long\r\n    \r\n    'Observed vs expected ratio of C/G content\r\n    Dim oeResults() As Single\r\n    ReDim oeResults(0 To lenDNA - winSize) As Single\r\n    \r\n    'Calculate an expected value\r\n    Dim CGexpected As Single\r\n    CGexpected = (cTot + gTot) / (cTot + gTot + aTot + tTot)\r\n    Dim cgCount As Single\r\n    Dim cgMax As Single\r\n    cgMax = 0\r\n    \r\n    Dim tCount As Long\r\n    Dim iMax As Long, iMin As Long\r\n    iMax = 0\r\n    iMin = winSize\r\n    \r\n    'Travel through the data, calculating sliding window values as we go\r\n    For x = 0 To UBound(wResults)\r\n        'Reset the I counter\r\n        tCount = 0\r\n        'Reset the c/g observed count\r\n        cgCount = 0\r\n        If (x Mod 100) = 0 Then Message \"Analyzing window \" & x & \" of \" & UBound(wResults)\r\n        \r\n        'Analyze this sliding window\r\n        For y = x To x + winSize\r\n            If vHMM(y) = 1 Then tCount = tCount + 1\r\n            If DNA(y) = 1 Or DNA(y) = 2 Then cgCount = cgCount + 1\r\n        Next y\r\n        \r\n        'Store the value of this sliding window\r\n        wResults(x) = tCount\r\n        cgCount = cgCount / (winSize * CGexpected)\r\n        oeResults(x) = cgCount\r\n        If cgCount > cgMax Then cgMax = cgCount\r\n        If tCount > iMax Then iMax = tCount\r\n        If tCount < iMin Then iMin = tCount\r\n    Next x\r\n    \r\n    Dim tIndex As Single\r\n    \r\n    lblPercent.Caption = \" I/B Ratio (Maximum = \" & iMax / winSize & \"): \"\r\n    lblCGHeader.Caption = \" C/G Observed vs. Expected (Maximum = \" & cgMax & \"):\"\r\n    \r\n    'Draw the results\r\n    For x = 0 To picResults.ScaleWidth\r\n    \r\n        tIndex = (x / picResults.ScaleWidth) * UBound(wResults)\r\n        \r\n        picResults.Line (x + 1, 0)-(x + 1, picResults.ScaleHeight), RGB(255, 0, 0)\r\n        picOE.Line (x + 1, 0)-(x + 1, picOE.ScaleHeight), RGB(255, 0, 0)\r\n        \r\n        'Percentage plot\r\n        picResults.Line (x, 0)-(x, picResults.ScaleHeight), RGB(255, 255, 255)\r\n        picResults.Line (x, picResults.ScaleHeight)-(x, picResults.ScaleHeight - (CSng(wResults(tIndex)) / CSng(iMax)) * picResults.ScaleHeight)\r\n    \r\n        'O/E plot\r\n        picOE.Line (x, 0)-(x, picOE.ScaleHeight), RGB(255, 255, 255)\r\n        picOE.Line (x, picOE.ScaleHeight)-(x, picOE.ScaleHeight - (CSng(oeResults(tIndex)) / CSng(cgMax)) * picOE.ScaleHeight)\r\n    \r\n        picResults.Refresh\r\n        picOE.Refresh\r\n        DoEvents\r\n    \r\n    Next x\r\n    \r\n    'Lastly, let's attempt to locate an island\r\n    For x = 0 To UBound(wResults)\r\n        \r\n        If wResults(x) > (iMax * 0.9) Then\r\n            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        End If\r\n        \r\n    Next x\r\n    \r\n    lblRecommendation.Caption = \"No potential CpG islands were found (minimum length = \" & winSize & \" bases)\"\r\n    \r\nNoMoreLook:\r\n    \r\n    Message \" Sliding window analyses are complete.\"\r\n    \r\nEnd Sub\r\n"
                         is_token: false
                         children:
@@ -17957,7 +17957,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        'Reset the I counter\r\n        tCount = 0\r\n        'Reset the c/g observed count\r\n        cgCount = 0\r\n        If (x Mod 100) = 0 Then Message \"Analyzing window \" & x & \" of \" & UBound(wResults)\r\n        \r\n        'Analyze this sliding window\r\n        For y = x To x + winSize\r\n            If vHMM(y) = 1 Then tCount = tCount + 1\r\n            If DNA(y) = 1 Or DNA(y) = 2 Then cgCount = cgCount + 1\r\n        Next y\r\n        \r\n        'Store the value of this sliding window\r\n        wResults(x) = tCount\r\n        cgCount = cgCount / (winSize * CGexpected)\r\n        oeResults(x) = cgCount\r\n        If cgCount > cgMax Then cgMax = cgCount\r\n        If tCount > iMax Then iMax = tCount\r\n        If tCount < iMin Then iMin = tCount\r\n    Next x\r\n    \r\n    Dim tIndex As Single\r\n    \r\n    lblPercent.Caption = \" I/B Ratio (Maximum = \" & iMax / winSize & \"): \"\r\n    lblCGHeader.Caption = \" C/G Observed vs. Expected (Maximum = \" & cgMax & \"):\"\r\n    \r\n    'Draw the results\r\n    For x = 0 To picResults.ScaleWidth\r\n    \r\n        tIndex = (x / picResults.ScaleWidth) * UBound(wResults)\r\n        \r\n        picResults.Line (x + 1, 0)-(x + 1, picResults.ScaleHeight), RGB(255, 0, 0)\r\n        picOE.Line (x + 1, 0)-(x + 1, picOE.ScaleHeight), RGB(255, 0, 0)\r\n        \r\n        'Percentage plot\r\n        picResults.Line (x, 0)-(x, picResults.ScaleHeight), RGB(255, 255, 255)\r\n        picResults.Line (x, picResults.ScaleHeight)-(x, picResults.ScaleHeight - (CSng(wResults(tIndex)) / CSng(iMax)) * picResults.ScaleHeight)\r\n    \r\n        'O/E plot\r\n        picOE.Line (x, 0)-(x, picOE.ScaleHeight), RGB(255, 255, 255)\r\n        picOE.Line (x, picOE.ScaleHeight)-(x, picOE.ScaleHeight - (CSng(oeResults(tIndex)) / CSng(cgMax)) * picOE.ScaleHeight)\r\n    \r\n        picResults.Refresh\r\n        picOE.Refresh\r\n        DoEvents\r\n    \r\n    Next x\r\n    \r\n    'Lastly, let's attempt to locate an island\r\n    For x = 0 To UBound(wResults)\r\n        \r\n        If wResults(x) > (iMax * 0.9) Then\r\n            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        End If\r\n        \r\n    Next x\r\n    \r\n    lblRecommendation.Caption = \"No potential CpG islands were found (minimum length = \" & winSize & \" bases)\"\r\n    \r\nNoMoreLook:\r\n    \r\n    Message \" Sliding window analyses are complete.\"\r\n    \r\nEnd Sub\r\n"
                                 is_token: false
                                 children:
@@ -18349,7 +18349,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            If vHMM(y) = 1 Then tCount = tCount + 1\r\n            If DNA(y) = 1 Or DNA(y) = 2 Then cgCount = cgCount + 1\r\n        Next y\r\n        \r\n        'Store the value of this sliding window\r\n        wResults(x) = tCount\r\n        cgCount = cgCount / (winSize * CGexpected)\r\n        oeResults(x) = cgCount\r\n        If cgCount > cgMax Then cgMax = cgCount\r\n        If tCount > iMax Then iMax = tCount\r\n        If tCount < iMin Then iMin = tCount\r\n    Next x\r\n    \r\n    Dim tIndex As Single\r\n    \r\n    lblPercent.Caption = \" I/B Ratio (Maximum = \" & iMax / winSize & \"): \"\r\n    lblCGHeader.Caption = \" C/G Observed vs. Expected (Maximum = \" & cgMax & \"):\"\r\n    \r\n    'Draw the results\r\n    For x = 0 To picResults.ScaleWidth\r\n    \r\n        tIndex = (x / picResults.ScaleWidth) * UBound(wResults)\r\n        \r\n        picResults.Line (x + 1, 0)-(x + 1, picResults.ScaleHeight), RGB(255, 0, 0)\r\n        picOE.Line (x + 1, 0)-(x + 1, picOE.ScaleHeight), RGB(255, 0, 0)\r\n        \r\n        'Percentage plot\r\n        picResults.Line (x, 0)-(x, picResults.ScaleHeight), RGB(255, 255, 255)\r\n        picResults.Line (x, picResults.ScaleHeight)-(x, picResults.ScaleHeight - (CSng(wResults(tIndex)) / CSng(iMax)) * picResults.ScaleHeight)\r\n    \r\n        'O/E plot\r\n        picOE.Line (x, 0)-(x, picOE.ScaleHeight), RGB(255, 255, 255)\r\n        picOE.Line (x, picOE.ScaleHeight)-(x, picOE.ScaleHeight - (CSng(oeResults(tIndex)) / CSng(cgMax)) * picOE.ScaleHeight)\r\n    \r\n        picResults.Refresh\r\n        picOE.Refresh\r\n        DoEvents\r\n    \r\n    Next x\r\n    \r\n    'Lastly, let's attempt to locate an island\r\n    For x = 0 To UBound(wResults)\r\n        \r\n        If wResults(x) > (iMax * 0.9) Then\r\n            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        End If\r\n        \r\n    Next x\r\n    \r\n    lblRecommendation.Caption = \"No potential CpG islands were found (minimum length = \" & winSize & \" bases)\"\r\n    \r\nNoMoreLook:\r\n    \r\n    Message \" Sliding window analyses are complete.\"\r\n    \r\nEnd Sub\r\n"
                                         is_token: false
                                         children:
@@ -19653,7 +19653,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "    \r\n        tIndex = (x / picResults.ScaleWidth) * UBound(wResults)\r\n        \r\n        picResults.Line (x + 1, 0)-(x + 1, picResults.ScaleHeight), RGB(255, 0, 0)\r\n        picOE.Line (x + 1, 0)-(x + 1, picOE.ScaleHeight), RGB(255, 0, 0)\r\n        \r\n        'Percentage plot\r\n        picResults.Line (x, 0)-(x, picResults.ScaleHeight), RGB(255, 255, 255)\r\n        picResults.Line (x, picResults.ScaleHeight)-(x, picResults.ScaleHeight - (CSng(wResults(tIndex)) / CSng(iMax)) * picResults.ScaleHeight)\r\n    \r\n        'O/E plot\r\n        picOE.Line (x, 0)-(x, picOE.ScaleHeight), RGB(255, 255, 255)\r\n        picOE.Line (x, picOE.ScaleHeight)-(x, picOE.ScaleHeight - (CSng(oeResults(tIndex)) / CSng(cgMax)) * picOE.ScaleHeight)\r\n    \r\n        picResults.Refresh\r\n        picOE.Refresh\r\n        DoEvents\r\n    \r\n    "
                                                 is_token: false
                                                 children:
@@ -21057,7 +21057,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        \r\n        If wResults(x) > (iMax * 0.9) Then\r\n            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        End If\r\n        \r\n    "
                                                 is_token: false
                                                 children:
@@ -21189,7 +21189,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            y = x + 1\r\n            \r\n            Do While wResults(y) > (iMax * 0.8)\r\n                y = y + 1\r\n            Loop\r\n            \r\n            'See how far our search went\r\n            If (y + winSize - x) > 200 Then\r\n                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            End If\r\n            \r\n        "
                                                         is_token: false
                                                         children:
@@ -21385,7 +21385,7 @@ cst:
                                                                 text: "\r\n"
                                                                 is_token: true
                                                                 children: []
-                                                              - kind: CodeBlock
+                                                              - kind: StatementList
                                                                 text: "                y = y + 1\r\n            "
                                                                 is_token: false
                                                                 children:
@@ -21605,7 +21605,7 @@ cst:
                                                                 text: "\r\n"
                                                                 is_token: true
                                                                 children: []
-                                                              - kind: CodeBlock
+                                                              - kind: StatementList
                                                                 text: "                lblRecommendation.Caption = \"There is a likely CpG island from base \" & x & \" to base \" & y + winSize & \".\"\r\n                tIndex = (x / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                tIndex = (y / UBound(wResults)) * picResults.ScaleWidth\r\n                picResults.Line (tIndex, 0)-(tIndex, picResults.ScaleHeight), RGB(255, 0, 0)\r\n                picOE.Line (tIndex, 0)-(tIndex, picOE.ScaleHeight), RGB(255, 0, 0)\r\n                GoTo NoMoreLook\r\n                \r\n            "
                                                                 is_token: false
                                                                 children:

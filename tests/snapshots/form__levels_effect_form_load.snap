@@ -1575,7 +1575,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Upon loading the form, automatically set two histogram variables:\r\n     'Luminance is the default histogram source\r\n     lastHistSource = DRAWMETHOD_LUMINANCE\r\n     'Line graph is the default drawing option\r\n     lastHistMethod = DRAWMETHOD_BARS\r\n\r\n    'Also, set the default midtone scrollbar ratio to 1/2\r\n    midRatio = 0.5\r\n    \r\n    '...and allow refreshing\r\n    iRefresh = True\r\n    \r\n    'Draw the initial effect with a default value, then update the image\r\n    If (App.LogMode = 0) Then Me.Caption = Me.Caption & \" - compile for significantly better performance!\"\r\n    LoadImageAutosized App.Path & \"\\sample.jpg\"\r\n    UpdateEffect\r\n    Me.Show\r\n    \r\n"
             is_token: false
             children:
@@ -2155,7 +2155,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    frmHistogram.Show\r\n"
             is_token: false
             children:
@@ -2255,7 +2255,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Allow refreshing\r\n    iRefresh = True\r\n    \r\n    'Set the output levels to (0-255)\r\n    hsOutL.Value = 0\r\n    hsOutR.Value = 255\r\n    \r\n    'Set the input levels to (0-255)\r\n    hsInL.Value = 0\r\n    hsInR.Value = 255\r\n    FixScrollBars\r\n    \r\n    'Set the midtone level to default (127)\r\n    midRatio = 0.5\r\n    hsInM.Value = 127\r\n    FixScrollBars\r\n    \r\n"
             is_token: false
             children:
@@ -2803,7 +2803,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Unload frmHistogram\r\n"
             is_token: false
             children:
@@ -2923,7 +2923,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    FixScrollBars\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -3019,7 +3019,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    FixScrollBars\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -3115,7 +3115,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    If iRefresh Then\r\n        midRatio = (CDbl(hsInM.Value) - CDbl(hsInL.Value)) / (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        FixScrollBars True\r\n        UpdateEffect\r\n    End If\r\n"
             is_token: false
             children:
@@ -3155,7 +3155,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        midRatio = (CDbl(hsInM.Value) - CDbl(hsInL.Value)) / (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        FixScrollBars True\r\n        UpdateEffect\r\n    "
                     is_token: false
                     children:
@@ -3543,7 +3543,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    If iRefresh Then\r\n        midRatio = (CDbl(hsInM.Value) - CDbl(hsInL.Value)) / (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        FixScrollBars True\r\n        UpdateEffect\r\n    End If\r\n"
             is_token: false
             children:
@@ -3583,7 +3583,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        midRatio = (CDbl(hsInM.Value) - CDbl(hsInL.Value)) / (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        FixScrollBars True\r\n        UpdateEffect\r\n    "
                     is_token: false
                     children:
@@ -3971,7 +3971,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    FixScrollBars\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4067,7 +4067,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    FixScrollBars\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4163,7 +4163,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4243,7 +4243,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4323,7 +4323,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4403,7 +4403,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -4491,7 +4491,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Windows common dialog interface\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a\r\n    ' subset of modern image file types.\r\n    Dim cdfStr As String\r\n    cdfStr = \"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\"\r\n    cdfStr = cdfStr & \"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\"\r\n    \r\n    Dim sFile As String\r\n    If cDialog.GetOpenFileName(sFile, , True, False, cdfStr, , , \"Select image\", , Me.hWnd) Then\r\n        \r\n        'Reset all scrollbars\r\n        hsOutL.Value = 0\r\n        hsOutR.Value = 255\r\n        hsInL.Value = 0\r\n        hsInR.Value = 255\r\n        FixScrollBars\r\n        hsInM.Value = 127\r\n        midRatio = 0.5\r\n        FixScrollBars\r\n        \r\n        'Load the image and refresh the effect\r\n        LoadImageAutosized sFile\r\n        UpdateEffect\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (frmLevels.Top + frmLevels.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 10) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.1) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    MapImageLevels picBack, picMain, hsInL.Value, hsInM.Value, hsInR.Value, hsOutL.Value, hsOutR.Value\r\nEnd Sub\r\n\r\n'Draw an image based on user-adjusted input and output levels\r\nPrivate Sub MapImageLevels(srcPic As PictureBox, dstPic As PictureBox, ByVal inLLimit As Long, ByVal inMLimit As Long, ByVal inRLimit As Long, ByVal outLLimit As Long, ByVal outRLimit As Long)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(frmMain.picBack)\r\n    iHeight = fDraw.GetImageHeight(frmMain.picBack)\r\n    fDraw.GetImageData2D frmMain.picBack, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim R As Long, G As Long, B As Long, l As Long\r\n    \r\n    'Look-up table for the midtone (gamma) leveled values\r\n    Dim gValues(0 To 255) As Double\r\n    \r\n    'WARNING: This next chunk of code is a lot of messy math.  Don't worry too much\r\n    'if you can't make sense of it ;)\r\n    \r\n    'Fill the gamma table with appropriate gamma values (from 10 to .1, ranged quadratically)\r\n    'NOTE: This table is constant, and could be loaded from file instead of generated mathematically every time we run this function\r\n    Dim gStep As Double\r\n    gStep = (MAXGAMMA + MIDGAMMA) / 127\r\n    For x = 0 To 127\r\n        gValues(x) = (CDbl(x) / 127) * MIDGAMMA\r\n    Next x\r\n    For x = 128 To 255\r\n        gValues(x) = MIDGAMMA + (CDbl(x - 127) * gStep)\r\n    Next x\r\n    For x = 0 To 255\r\n        gValues(x) = 1 / ((gValues(x) + 1 / ROOT10) ^ 2)\r\n    Next x\r\n    \r\n    'Because we've built our look-up tables on a 0-255 scale, correct the inMLimit\r\n    'value (from the midtones scroll bar) to simply represent a ratio on that scale\r\n    Dim tRatio As Double\r\n    tRatio = (inMLimit - inLLimit) / (inRLimit - inLLimit)\r\n    tRatio = tRatio * 255\r\n    'Then convert that ratio into a byte (so we can access a look-up table with it)\r\n    Dim bRatio As Byte\r\n    bRatio = CByte(tRatio)\r\n    \r\n    'Calculate a look-up table of gamma-corrected values based on the midtones scrollbar\r\n    Dim gLevels(0 To 255) As Byte\r\n    Dim tmpGamma As Double\r\n    For x = 0 To 255\r\n        tmpGamma = CDbl(x) / 255\r\n        tmpGamma = tmpGamma ^ (1 / gValues(bRatio))\r\n        tmpGamma = tmpGamma * 255\r\n        If tmpGamma > 255 Then\r\n            tmpGamma = 255\r\n        ElseIf tmpGamma < 0 Then\r\n            tmpGamma = 0\r\n        End If\r\n        gLevels(x) = tmpGamma\r\n    Next x\r\n    \r\n    'Look-up table for the input leveled values\r\n    Dim newLevels(0 To 255) As Byte\r\n    \r\n    'Fill the look-up table with appropriately mapped input limits\r\n    Dim pStep As Single\r\n    pStep = 255 / (CSng(inRLimit) - CSng(inLLimit))\r\n    For x = 0 To 255\r\n        If x < inLLimit Then\r\n            newLevels(x) = 0\r\n        ElseIf x > inRLimit Then\r\n            newLevels(x) = 255\r\n        Else\r\n            newLevels(x) = ByteMe(((CSng(x) - CSng(inLLimit)) * pStep))\r\n        End If\r\n    Next x\r\n    \r\n    'Now run all input-mapped values through our midtone-correction look-up\r\n    For x = 0 To 255\r\n        newLevels(x) = gLevels(newLevels(x))\r\n    Next x\r\n    \r\n    'Last of all, remap all image values to match the user-specified output limits\r\n    Dim oStep As Double\r\n    oStep = (CSng(outRLimit) - CSng(outLLimit)) / 255\r\n    For x = 0 To 255\r\n        newLevels(x) = ByteMe(CSng(outLLimit) + (CSng(newLevels(x)) * oStep))\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n    \r\n        'Grab red, green, and blue\r\n        B = imageData(quickX, y)\r\n        G = imageData(quickX + 1, y)\r\n        R = imageData(quickX + 2, y)\r\n        \r\n        'Correct them all\r\n        imageData(quickX, y) = newLevels(B)\r\n        imageData(quickX + 1, y) = newLevels(G)\r\n        imageData(quickX + 2, y) = newLevels(R)\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D picMain, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Used to make sure the scroll bars have appropriate limits\r\nPrivate Sub FixScrollBars(Optional midMoving As Boolean = False)\r\n\r\n    'Make sure that the input scrollbar values don't overlap, and update the labels\r\n    'to display such\r\n    hsInM.Min = hsInL.Value + 1\r\n    lblMiddleL.Caption = hsInL.Value + 1\r\n    hsInR.Min = hsInL.Value + 2\r\n    lblRightL.Caption = hsInL.Value + 2\r\n    hsInL.Max = hsInR.Value - 2\r\n    lblLeftR.Caption = hsInR.Value - 2\r\n    hsInM.Max = hsInR.Value - 1\r\n    lblMiddleR.Caption = hsInR.Value - 1\r\n    \r\n    'If the user hasn't moved the midtones scrollbar, attempt to preserve its ratio\r\n    If (Not midMoving) Then\r\n        iRefresh = False\r\n        Dim newValue As Long\r\n        newValue = hsInL.Value + midRatio * (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        If newValue > hsInM.Max Then\r\n            newValue = hsInM.Max\r\n        ElseIf newValue < hsInM.Min Then\r\n            newValue = hsInM.Min\r\n        End If\r\n        hsInM.Value = newValue\r\n        DoEvents\r\n        iRefresh = True\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'Used to restrict values to the (0-255) range\r\nPrivate Function ByteMe(ByVal val As Long) As Byte\r\n    If val > 255 Then\r\n        ByteMe = 255\r\n    ElseIf val < 0 Then\r\n        ByteMe = 0\r\n    Else\r\n        ByteMe = val\r\n    End If\r\nEnd Function\r\n\r\n"
             is_token: false
             children:
@@ -5439,7 +5439,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (frmLevels.Top + frmLevels.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 10) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.1) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    MapImageLevels picBack, picMain, hsInL.Value, hsInM.Value, hsInR.Value, hsOutL.Value, hsOutR.Value\r\nEnd Sub\r\n\r\n'Draw an image based on user-adjusted input and output levels\r\nPrivate Sub MapImageLevels(srcPic As PictureBox, dstPic As PictureBox, ByVal inLLimit As Long, ByVal inMLimit As Long, ByVal inRLimit As Long, ByVal outLLimit As Long, ByVal outRLimit As Long)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(frmMain.picBack)\r\n    iHeight = fDraw.GetImageHeight(frmMain.picBack)\r\n    fDraw.GetImageData2D frmMain.picBack, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim R As Long, G As Long, B As Long, l As Long\r\n    \r\n    'Look-up table for the midtone (gamma) leveled values\r\n    Dim gValues(0 To 255) As Double\r\n    \r\n    'WARNING: This next chunk of code is a lot of messy math.  Don't worry too much\r\n    'if you can't make sense of it ;)\r\n    \r\n    'Fill the gamma table with appropriate gamma values (from 10 to .1, ranged quadratically)\r\n    'NOTE: This table is constant, and could be loaded from file instead of generated mathematically every time we run this function\r\n    Dim gStep As Double\r\n    gStep = (MAXGAMMA + MIDGAMMA) / 127\r\n    For x = 0 To 127\r\n        gValues(x) = (CDbl(x) / 127) * MIDGAMMA\r\n    Next x\r\n    For x = 128 To 255\r\n        gValues(x) = MIDGAMMA + (CDbl(x - 127) * gStep)\r\n    Next x\r\n    For x = 0 To 255\r\n        gValues(x) = 1 / ((gValues(x) + 1 / ROOT10) ^ 2)\r\n    Next x\r\n    \r\n    'Because we've built our look-up tables on a 0-255 scale, correct the inMLimit\r\n    'value (from the midtones scroll bar) to simply represent a ratio on that scale\r\n    Dim tRatio As Double\r\n    tRatio = (inMLimit - inLLimit) / (inRLimit - inLLimit)\r\n    tRatio = tRatio * 255\r\n    'Then convert that ratio into a byte (so we can access a look-up table with it)\r\n    Dim bRatio As Byte\r\n    bRatio = CByte(tRatio)\r\n    \r\n    'Calculate a look-up table of gamma-corrected values based on the midtones scrollbar\r\n    Dim gLevels(0 To 255) As Byte\r\n    Dim tmpGamma As Double\r\n    For x = 0 To 255\r\n        tmpGamma = CDbl(x) / 255\r\n        tmpGamma = tmpGamma ^ (1 / gValues(bRatio))\r\n        tmpGamma = tmpGamma * 255\r\n        If tmpGamma > 255 Then\r\n            tmpGamma = 255\r\n        ElseIf tmpGamma < 0 Then\r\n            tmpGamma = 0\r\n        End If\r\n        gLevels(x) = tmpGamma\r\n    Next x\r\n    \r\n    'Look-up table for the input leveled values\r\n    Dim newLevels(0 To 255) As Byte\r\n    \r\n    'Fill the look-up table with appropriately mapped input limits\r\n    Dim pStep As Single\r\n    pStep = 255 / (CSng(inRLimit) - CSng(inLLimit))\r\n    For x = 0 To 255\r\n        If x < inLLimit Then\r\n            newLevels(x) = 0\r\n        ElseIf x > inRLimit Then\r\n            newLevels(x) = 255\r\n        Else\r\n            newLevels(x) = ByteMe(((CSng(x) - CSng(inLLimit)) * pStep))\r\n        End If\r\n    Next x\r\n    \r\n    'Now run all input-mapped values through our midtone-correction look-up\r\n    For x = 0 To 255\r\n        newLevels(x) = gLevels(newLevels(x))\r\n    Next x\r\n    \r\n    'Last of all, remap all image values to match the user-specified output limits\r\n    Dim oStep As Double\r\n    oStep = (CSng(outRLimit) - CSng(outLLimit)) / 255\r\n    For x = 0 To 255\r\n        newLevels(x) = ByteMe(CSng(outLLimit) + (CSng(newLevels(x)) * oStep))\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n    \r\n        'Grab red, green, and blue\r\n        B = imageData(quickX, y)\r\n        G = imageData(quickX + 1, y)\r\n        R = imageData(quickX + 2, y)\r\n        \r\n        'Correct them all\r\n        imageData(quickX, y) = newLevels(B)\r\n        imageData(quickX + 1, y) = newLevels(G)\r\n        imageData(quickX + 2, y) = newLevels(R)\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D picMain, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Used to make sure the scroll bars have appropriate limits\r\nPrivate Sub FixScrollBars(Optional midMoving As Boolean = False)\r\n\r\n    'Make sure that the input scrollbar values don't overlap, and update the labels\r\n    'to display such\r\n    hsInM.Min = hsInL.Value + 1\r\n    lblMiddleL.Caption = hsInL.Value + 1\r\n    hsInR.Min = hsInL.Value + 2\r\n    lblRightL.Caption = hsInL.Value + 2\r\n    hsInL.Max = hsInR.Value - 2\r\n    lblLeftR.Caption = hsInR.Value - 2\r\n    hsInM.Max = hsInR.Value - 1\r\n    lblMiddleR.Caption = hsInR.Value - 1\r\n    \r\n    'If the user hasn't moved the midtones scrollbar, attempt to preserve its ratio\r\n    If (Not midMoving) Then\r\n        iRefresh = False\r\n        Dim newValue As Long\r\n        newValue = hsInL.Value + midRatio * (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        If newValue > hsInM.Max Then\r\n            newValue = hsInM.Max\r\n        ElseIf newValue < hsInM.Min Then\r\n            newValue = hsInM.Min\r\n        End If\r\n        hsInM.Value = newValue\r\n        DoEvents\r\n        iRefresh = True\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'Used to restrict values to the (0-255) range\r\nPrivate Function ByteMe(ByVal val As Long) As Byte\r\n    If val > 255 Then\r\n        ByteMe = 255\r\n    ElseIf val < 0 Then\r\n        ByteMe = 0\r\n    Else\r\n        ByteMe = val\r\n    End If\r\nEnd Function\r\n\r\n"
                     is_token: false
                     children:
@@ -6843,7 +6843,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        newHeight = (imgHeight + picMain.Top * 10) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.1) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    MapImageLevels picBack, picMain, hsInL.Value, hsInM.Value, hsInR.Value, hsOutL.Value, hsOutR.Value\r\nEnd Sub\r\n\r\n'Draw an image based on user-adjusted input and output levels\r\nPrivate Sub MapImageLevels(srcPic As PictureBox, dstPic As PictureBox, ByVal inLLimit As Long, ByVal inMLimit As Long, ByVal inRLimit As Long, ByVal outLLimit As Long, ByVal outRLimit As Long)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(frmMain.picBack)\r\n    iHeight = fDraw.GetImageHeight(frmMain.picBack)\r\n    fDraw.GetImageData2D frmMain.picBack, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim R As Long, G As Long, B As Long, l As Long\r\n    \r\n    'Look-up table for the midtone (gamma) leveled values\r\n    Dim gValues(0 To 255) As Double\r\n    \r\n    'WARNING: This next chunk of code is a lot of messy math.  Don't worry too much\r\n    'if you can't make sense of it ;)\r\n    \r\n    'Fill the gamma table with appropriate gamma values (from 10 to .1, ranged quadratically)\r\n    'NOTE: This table is constant, and could be loaded from file instead of generated mathematically every time we run this function\r\n    Dim gStep As Double\r\n    gStep = (MAXGAMMA + MIDGAMMA) / 127\r\n    For x = 0 To 127\r\n        gValues(x) = (CDbl(x) / 127) * MIDGAMMA\r\n    Next x\r\n    For x = 128 To 255\r\n        gValues(x) = MIDGAMMA + (CDbl(x - 127) * gStep)\r\n    Next x\r\n    For x = 0 To 255\r\n        gValues(x) = 1 / ((gValues(x) + 1 / ROOT10) ^ 2)\r\n    Next x\r\n    \r\n    'Because we've built our look-up tables on a 0-255 scale, correct the inMLimit\r\n    'value (from the midtones scroll bar) to simply represent a ratio on that scale\r\n    Dim tRatio As Double\r\n    tRatio = (inMLimit - inLLimit) / (inRLimit - inLLimit)\r\n    tRatio = tRatio * 255\r\n    'Then convert that ratio into a byte (so we can access a look-up table with it)\r\n    Dim bRatio As Byte\r\n    bRatio = CByte(tRatio)\r\n    \r\n    'Calculate a look-up table of gamma-corrected values based on the midtones scrollbar\r\n    Dim gLevels(0 To 255) As Byte\r\n    Dim tmpGamma As Double\r\n    For x = 0 To 255\r\n        tmpGamma = CDbl(x) / 255\r\n        tmpGamma = tmpGamma ^ (1 / gValues(bRatio))\r\n        tmpGamma = tmpGamma * 255\r\n        If tmpGamma > 255 Then\r\n            tmpGamma = 255\r\n        ElseIf tmpGamma < 0 Then\r\n            tmpGamma = 0\r\n        End If\r\n        gLevels(x) = tmpGamma\r\n    Next x\r\n    \r\n    'Look-up table for the input leveled values\r\n    Dim newLevels(0 To 255) As Byte\r\n    \r\n    'Fill the look-up table with appropriately mapped input limits\r\n    Dim pStep As Single\r\n    pStep = 255 / (CSng(inRLimit) - CSng(inLLimit))\r\n    For x = 0 To 255\r\n        If x < inLLimit Then\r\n            newLevels(x) = 0\r\n        ElseIf x > inRLimit Then\r\n            newLevels(x) = 255\r\n        Else\r\n            newLevels(x) = ByteMe(((CSng(x) - CSng(inLLimit)) * pStep))\r\n        End If\r\n    Next x\r\n    \r\n    'Now run all input-mapped values through our midtone-correction look-up\r\n    For x = 0 To 255\r\n        newLevels(x) = gLevels(newLevels(x))\r\n    Next x\r\n    \r\n    'Last of all, remap all image values to match the user-specified output limits\r\n    Dim oStep As Double\r\n    oStep = (CSng(outRLimit) - CSng(outLLimit)) / 255\r\n    For x = 0 To 255\r\n        newLevels(x) = ByteMe(CSng(outLLimit) + (CSng(newLevels(x)) * oStep))\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n    \r\n        'Grab red, green, and blue\r\n        B = imageData(quickX, y)\r\n        G = imageData(quickX + 1, y)\r\n        R = imageData(quickX + 2, y)\r\n        \r\n        'Correct them all\r\n        imageData(quickX, y) = newLevels(B)\r\n        imageData(quickX + 1, y) = newLevels(G)\r\n        imageData(quickX + 2, y) = newLevels(R)\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D picMain, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Used to make sure the scroll bars have appropriate limits\r\nPrivate Sub FixScrollBars(Optional midMoving As Boolean = False)\r\n\r\n    'Make sure that the input scrollbar values don't overlap, and update the labels\r\n    'to display such\r\n    hsInM.Min = hsInL.Value + 1\r\n    lblMiddleL.Caption = hsInL.Value + 1\r\n    hsInR.Min = hsInL.Value + 2\r\n    lblRightL.Caption = hsInL.Value + 2\r\n    hsInL.Max = hsInR.Value - 2\r\n    lblLeftR.Caption = hsInR.Value - 2\r\n    hsInM.Max = hsInR.Value - 1\r\n    lblMiddleR.Caption = hsInR.Value - 1\r\n    \r\n    'If the user hasn't moved the midtones scrollbar, attempt to preserve its ratio\r\n    If (Not midMoving) Then\r\n        iRefresh = False\r\n        Dim newValue As Long\r\n        newValue = hsInL.Value + midRatio * (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        If newValue > hsInM.Max Then\r\n            newValue = hsInM.Max\r\n        ElseIf newValue < hsInM.Min Then\r\n            newValue = hsInM.Min\r\n        End If\r\n        hsInM.Value = newValue\r\n        DoEvents\r\n        iRefresh = True\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'Used to restrict values to the (0-255) range\r\nPrivate Function ByteMe(ByVal val As Long) As Byte\r\n    If val > 255 Then\r\n        ByteMe = 255\r\n    ElseIf val < 0 Then\r\n        ByteMe = 0\r\n    Else\r\n        ByteMe = val\r\n    End If\r\nEnd Function\r\n\r\n"
                             is_token: false
                             children:
@@ -9003,7 +9003,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        gValues(x) = (CDbl(x) / 127) * MIDGAMMA\r\n    "
                                     is_token: false
                                     children:
@@ -9243,7 +9243,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        gValues(x) = MIDGAMMA + (CDbl(x - 127) * gStep)\r\n    "
                                     is_token: false
                                     children:
@@ -9507,7 +9507,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        gValues(x) = 1 / ((gValues(x) + 1 / ROOT10) ^ 2)\r\n    "
                                     is_token: false
                                     children:
@@ -10331,7 +10331,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        tmpGamma = CDbl(x) / 255\r\n        tmpGamma = tmpGamma ^ (1 / gValues(bRatio))\r\n        tmpGamma = tmpGamma * 255\r\n        If tmpGamma > 255 Then\r\n            tmpGamma = 255\r\n        ElseIf tmpGamma < 0 Then\r\n            tmpGamma = 0\r\n        End If\r\n        gLevels(x) = tmpGamma\r\n    "
                                     is_token: false
                                     children:
@@ -10671,7 +10671,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "            tmpGamma = 255\r\n        "
                                             is_token: false
                                             children:
@@ -10775,7 +10775,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "            tmpGamma = 0\r\n        "
                                                 is_token: false
                                                 children:
@@ -11295,7 +11295,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        If x < inLLimit Then\r\n            newLevels(x) = 0\r\n        ElseIf x > inRLimit Then\r\n            newLevels(x) = 255\r\n        Else\r\n            newLevels(x) = ByteMe(((CSng(x) - CSng(inLLimit)) * pStep))\r\n        End If\r\n    "
                                     is_token: false
                                     children:
@@ -11359,7 +11359,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "            newLevels(x) = 0\r\n        "
                                             is_token: false
                                             children:
@@ -11487,7 +11487,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "            newLevels(x) = 255\r\n        "
                                                 is_token: false
                                                 children:
@@ -11571,7 +11571,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "            newLevels(x) = ByteMe(((CSng(x) - CSng(inLLimit)) * pStep))\r\n        "
                                                 is_token: false
                                                 children:
@@ -11911,7 +11911,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        newLevels(x) = gLevels(newLevels(x))\r\n    "
                                     is_token: false
                                     children:
@@ -12323,7 +12323,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        newLevels(x) = ByteMe(CSng(outLLimit) + (CSng(newLevels(x)) * oStep))\r\n    "
                                     is_token: false
                                     children:
@@ -12719,7 +12719,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n    \r\n        'Grab red, green, and blue\r\n        B = imageData(quickX, y)\r\n        G = imageData(quickX + 1, y)\r\n        R = imageData(quickX + 2, y)\r\n        \r\n        'Correct them all\r\n        imageData(quickX, y) = newLevels(B)\r\n        imageData(quickX + 1, y) = newLevels(G)\r\n        imageData(quickX + 2, y) = newLevels(R)\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -12879,7 +12879,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "    \r\n        'Grab red, green, and blue\r\n        B = imageData(quickX, y)\r\n        G = imageData(quickX + 1, y)\r\n        R = imageData(quickX + 2, y)\r\n        \r\n        'Correct them all\r\n        imageData(quickX, y) = newLevels(B)\r\n        imageData(quickX + 1, y) = newLevels(G)\r\n        imageData(quickX + 2, y) = newLevels(R)\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -14583,7 +14583,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        iRefresh = False\r\n        Dim newValue As Long\r\n        newValue = hsInL.Value + midRatio * (CDbl(hsInR.Value) - CDbl(hsInL.Value))\r\n        If newValue > hsInM.Max Then\r\n            newValue = hsInM.Max\r\n        ElseIf newValue < hsInM.Min Then\r\n            newValue = hsInM.Min\r\n        End If\r\n        hsInM.Value = newValue\r\n        DoEvents\r\n        iRefresh = True\r\n    "
                                     is_token: false
                                     children:
@@ -14931,7 +14931,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "            newValue = hsInM.Max\r\n        "
                                             is_token: false
                                             children:
@@ -15051,7 +15051,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "            newValue = hsInM.Min\r\n        "
                                                 is_token: false
                                                 children:
@@ -15423,7 +15423,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        ByteMe = 255\r\n    "
                                     is_token: false
                                     children:
@@ -15527,7 +15527,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        ByteMe = 0\r\n    "
                                         is_token: false
                                         children:
@@ -15587,7 +15587,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        ByteMe = val\r\n    "
                                         is_token: false
                                         children:

@@ -2438,7 +2438,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Dim bm As GDI_Bitmap\r\n    GetObject srcPictureBox.Image, Len(bm), bm\r\n    GetImageWidth = bm.bmWidth\r\n"
             is_token: false
             children:
@@ -2710,7 +2710,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Dim bm As GDI_Bitmap\r\n    GetObject srcPictureBox.Image, Len(bm), bm\r\n    GetImageHeight = Abs(bm.bmHeight)\r\n"
             is_token: false
             children:
@@ -3130,7 +3130,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI\r\n    Dim bm As GDI_Bitmap\r\n    GetObject srcPictureBox.Image, Len(bm), bm\r\n    \r\n    'Calculate a size for the destination array.  For performance reasons, Windows requires\r\n    ' 24-bpp DIB scanlines to be aligned on 4-byte boundaries - this means that the destination\r\n    ' array's width may not be a multiple of (imageWidth * 3), by design.\r\n    Dim imgStride As Long\r\n    imgStride = (bm.bmWidth * 3) - 1 + (bm.bmWidth Mod 4)\r\n    ReDim dstPixelData(0 To imgStride, 0 To bm.bmHeight - 1) As Byte\r\n    \r\n    'Create a temporary header to pass to the GetDIBits call\r\n    Dim bmi As GDI_BitmapInfo\r\n    \r\n    With bmi.bmHeader\r\n        .bmWidth = bm.bmWidth\r\n        .bmHeight = bm.bmHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n    \r\n    'Copy the pixel data into our array\r\n    GetDIBits srcPictureBox.hDC, srcPictureBox.Image, 0, bm.bmHeight, dstPixelData(0, 0), bmi, 0\r\n    \r\n"
             is_token: false
             children:
@@ -3742,7 +3742,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        .bmWidth = bm.bmWidth\r\n        .bmHeight = bm.bmHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    "
                     is_token: false
                     children:
@@ -4734,7 +4734,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'To avoid dealing with .ScaleMode issues, retrieve the underlying image dimensions via WAPI\r\n    Dim bm As GDI_Bitmap\r\n    GetObject dstPictureBox.Image, Len(bm), bm\r\n    \r\n    'Create a temporary header to pass to the StretchDIBits call\r\n    Dim bmi As GDI_BitmapInfo\r\n    \r\n    With bmi.bmHeader\r\n        .bmWidth = imgWidth\r\n        .bmHeight = imgHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    End With\r\n    \r\n    'If stretching will be involved, request high-quality stretching from GDI\r\n    SetStretchBltMode dstPictureBox.hDC, 3&\r\n    \r\n    'Paint the pixel data into the destination picture box.  By using bm.bmWidth and bm.bmHeight as\r\n    ' the destination width/height, the pixel data will be automatically resized to fit the picture box.\r\n    StretchDIBits dstPictureBox.hDC, 0, 0, bm.bmWidth, bm.bmHeight, 0, 0, imgWidth, imgHeight, srcPixelData(0, 0), bmi, 0, vbSrcCopy\r\n    \r\n    'VB's built-in backbuffer system (\"AutoRedraw\") won't detect changes made by WAPI functions,\r\n    ' so we need to manually notify it of the need to redraw.\r\n    If dstPictureBox.AutoRedraw Then\r\n        dstPictureBox.Picture = dstPictureBox.Image\r\n        dstPictureBox.Refresh\r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -4966,7 +4966,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        .bmWidth = imgWidth\r\n        .bmHeight = imgHeight\r\n        If fixOrientation Then .bmHeight = -1 * .bmHeight\r\n        .bmSize = 40                'Size, in bytes, of the header\r\n        .bmPlanes = 1               'Number of planes (always one for this instance)\r\n        .bmBitCount = 24            'Bits per pixel (always 24 for this instance)\r\n        .bmCompression = 0          'Compression (always none for this instance)\r\n    "
                     is_token: false
                     children:
@@ -5842,7 +5842,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        dstPictureBox.Picture = dstPictureBox.Image\r\n        dstPictureBox.Refresh\r\n    "
                     is_token: false
                     children:

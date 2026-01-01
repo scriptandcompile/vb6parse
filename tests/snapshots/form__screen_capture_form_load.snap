@@ -1117,7 +1117,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\n"
             is_token: false
             children:

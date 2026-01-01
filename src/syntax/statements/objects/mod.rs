@@ -251,7 +251,7 @@ impl Parser<'_> {
         self.consume_until_after(Token::Newline);
 
         // Parse the body until "End With"
-        self.parse_code_block(|parser| {
+        self.parse_statement_list(|parser| {
             parser.at_token(Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(Token::WithKeyword)
         });

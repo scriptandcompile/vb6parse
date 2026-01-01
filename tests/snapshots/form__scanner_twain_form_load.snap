@@ -2202,7 +2202,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'If this is not the first scan the user has performed, hide the \"successful scan\" label\r\n    lblSuccess.Visible = False\r\n\r\n    'Make sure that the scanner was successfully found before attempting to scan an image\r\n    If (Not ScanEnabled) Then\r\n        MsgBox \"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\" & vbCrLf & vbCrLf & \"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\", vbCritical + vbOKOnly + vbApplicationModal, \"Scanner Interface Error\"\r\n        Exit Sub\r\n    End If\r\n\r\n    'Basic scanner capture code\r\n    On Error GoTo ScanError\r\n    Dim ScannerCaptureFile As String, ScanCheck As Long\r\n    'ScanCheck is used to store the return values of the EZTW32.dll scanner functions.  We start by setting it\r\n    ' to an arbitrary value that only we know; if an error occurs and this value is still present, it means an\r\n    ' error occurred outside of the EZTW32 library.\r\n    ScanCheck = -5\r\n    \r\n    'A temporary file is required by the scanner; we will place it in the project folder, then delete it when finished\r\n    ScannerCaptureFile = ProgramPath & \"VBScanInterface.bmp\"\r\n    \r\n    'This line uses the EZTW32.dll file to scan the image and send it to a temporary file\r\n    ScanCheck = TWAIN_AcquireToFilename(frmScanner.hWnd, ScannerCaptureFile)\r\n    \r\n    'If the image was successfully scanned, load it into the available picture box\r\n    If ScanCheck = 0 Then\r\n        picBuffer.Picture = LoadPicture(ScannerCaptureFile)\r\n        \r\n        'Be polite and remove the temporary file acquired from the scanner\r\n        Kill ScannerCaptureFile\r\n        \r\n        'Resize the image if the user has requested it\r\n        If optLoadImage(0).Value Then\r\n            '...no resize\r\n            picScan.AutoSize = True\r\n            picScan.Picture = picBuffer.Picture\r\n            picScan.Refresh\r\n        Else\r\n            '...resize\r\n            picScan.AutoSize = False\r\n            \r\n            'Setting the HALFTONE mode results in a slower, but higher-quality image resize\r\n            SetStretchBltMode picScan.hDC, STRETCHBLT_HALFTONE\r\n            StretchBlt picScan.hDC, 0, 0, picScan.ScaleWidth, picScan.ScaleHeight, picBuffer.hDC, 0, 0, picBuffer.ScaleWidth, picBuffer.ScaleHeight, vbSrcCopy\r\n            picScan.Picture = picScan.Image\r\n            picScan.Refresh\r\n        End If\r\n        \r\n        'Let the user know that everything worked\r\n        lblSuccess.Visible = True\r\n        \r\n        'Return focus to this project\r\n        frmScanner.SetFocus\r\n    Else\r\n        'If the scan was unsuccessful, let the user know what happened\r\n        GoTo ScanError\r\n    End If\r\n    \r\n    Exit Sub\r\n\r\n'Something went wrong\r\nScanError:\r\n    \r\n    Dim scanErrMessage As String\r\n    \r\n    Select Case ScanCheck\r\n        Case -5\r\n            scanErrMessage = \"Unknown error occurred.\"\r\n        Case -4\r\n            scanErrMessage = \"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\"\r\n        Case -3\r\n            scanErrMessage = \"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\"\r\n        Case -2\r\n            scanErrMessage = \"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\"\r\n        Case -1\r\n            scanErrMessage = \"Scan failed.  (This may happen if the user canceled the scan dialog.)\"\r\n        Case Else\r\n            scanErrMessage = \"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\"\r\n    End Select\r\n    \r\n    MsgBox scanErrMessage, vbCritical + vbOKOnly + vbApplicationModal, \"Scanner Interface Error\"\r\n\r\n"
             is_token: false
             children:
@@ -2346,7 +2346,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        MsgBox \"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\" & vbCrLf & vbCrLf & \"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\", vbCritical + vbOKOnly + vbApplicationModal, \"Scanner Interface Error\"\r\n        Exit Sub\r\n    "
                     is_token: false
                     children:
@@ -3006,7 +3006,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        picBuffer.Picture = LoadPicture(ScannerCaptureFile)\r\n        \r\n        'Be polite and remove the temporary file acquired from the scanner\r\n        Kill ScannerCaptureFile\r\n        \r\n        'Resize the image if the user has requested it\r\n        If optLoadImage(0).Value Then\r\n            '...no resize\r\n            picScan.AutoSize = True\r\n            picScan.Picture = picBuffer.Picture\r\n            picScan.Refresh\r\n        Else\r\n            '...resize\r\n            picScan.AutoSize = False\r\n            \r\n            'Setting the HALFTONE mode results in a slower, but higher-quality image resize\r\n            SetStretchBltMode picScan.hDC, STRETCHBLT_HALFTONE\r\n            StretchBlt picScan.hDC, 0, 0, picScan.ScaleWidth, picScan.ScaleHeight, picBuffer.hDC, 0, 0, picBuffer.ScaleWidth, picBuffer.ScaleHeight, vbSrcCopy\r\n            picScan.Picture = picScan.Image\r\n            picScan.Refresh\r\n        End If\r\n        \r\n        'Let the user know that everything worked\r\n        lblSuccess.Visible = True\r\n        \r\n        'Return focus to this project\r\n        frmScanner.SetFocus\r\n    "
                     is_token: false
                     children:
@@ -3218,7 +3218,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            '...no resize\r\n            picScan.AutoSize = True\r\n            picScan.Picture = picBuffer.Picture\r\n            picScan.Refresh\r\n        "
                             is_token: false
                             children:
@@ -3378,7 +3378,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            '...resize\r\n            picScan.AutoSize = False\r\n            \r\n            'Setting the HALFTONE mode results in a slower, but higher-quality image resize\r\n            SetStretchBltMode picScan.hDC, STRETCHBLT_HALFTONE\r\n            StretchBlt picScan.hDC, 0, 0, picScan.ScaleWidth, picScan.ScaleHeight, picBuffer.hDC, 0, 0, picBuffer.ScaleWidth, picBuffer.ScaleHeight, vbSrcCopy\r\n            picScan.Picture = picScan.Image\r\n            picScan.Refresh\r\n        "
                                 is_token: false
                                 children:
@@ -3926,7 +3926,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        'If the scan was unsuccessful, let the user know what happened\r\n        GoTo ScanError\r\n    "
                         is_token: false
                         children:
@@ -4166,7 +4166,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"Unknown error occurred.\"\r\n        "
                         is_token: false
                         children:
@@ -4238,7 +4238,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"Scan successful, but temporary file save failed.  Is it possible that your hard drive is full (or almost full)?\"\r\n        "
                         is_token: false
                         children:
@@ -4310,7 +4310,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"Unable to acquire DIB lock.  Please make sure no other programs are accessing the scanner.  If the problem persists, reboot and try again.\"\r\n        "
                         is_token: false
                         children:
@@ -4382,7 +4382,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"Temporary file access error.  This can be caused when running on a system with limited access rights.  Please enable admin rights and try again.\"\r\n        "
                         is_token: false
                         children:
@@ -4454,7 +4454,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"Scan failed.  (This may happen if the user canceled the scan dialog.)\"\r\n        "
                         is_token: false
                         children:
@@ -4522,7 +4522,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            scanErrMessage = \"The scanner returned an error code that wasn't specified in the EZTW32.dll documentation.  Please visit http://www.eztwain.com for more information.\"\r\n    "
                         is_token: false
                         children:
@@ -4746,7 +4746,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Only launch the scanner select form if the EZTW32.dll file was successfully found at program load\r\n    If ScanEnabled Then\r\n        TWAIN_SelectImageSource (frmScanner.hWnd)\r\n    Else\r\n    'If the EZTW32.dll file doesn't exist...\r\n        MsgBox \"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\" & vbCrLf & vbCrLf & \"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\", vbCritical + vbOKOnly + vbApplicationModal, \"Scanner Interface Error\"\r\n        Exit Sub\r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -4806,7 +4806,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        TWAIN_SelectImageSource (frmScanner.hWnd)\r\n    "
                     is_token: false
                     children:
@@ -4866,7 +4866,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "    'If the EZTW32.dll file doesn't exist...\r\n        MsgBox \"The scanner/digital camera interface plug-in (EZTW32.dll) was marked as missing upon program initialization.\" & vbCrLf & vbCrLf & \"To enable scanner support, please copy the EZTW32.dll file (available for download from http://eztwain.com/ezt1_download.htm) into this application directory and reload the program.\", vbCritical + vbOKOnly + vbApplicationModal, \"Scanner Interface Error\"\r\n        Exit Sub\r\n    "
                         is_token: false
                         children:
@@ -5130,7 +5130,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Remember the folder from which the program was launched\r\n    ProgramPath = App.Path\r\n    If Right(ProgramPath, 1) <> \"\\\" Then ProgramPath = ProgramPath & \"\\\"\r\n\r\n    'This code allows us to load the scanner DLL from any location; this is easier than forcing the user to\r\n    ' copy the file into their system directory.  However, it requires a bit of extra code.\r\n    hLib = LoadLibrary(ProgramPath & \"EZTW32.dll\")\r\n\r\n    If TWAIN_IsAvailable() = 0 Then\r\n        ScanEnabled = False\r\n        MsgBox \"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\", vbOKOnly + vbCritical, \"Scanner DLL missing\"\r\n    Else\r\n        ScanEnabled = True\r\n    End If\r\n\r\nEnd Sub\r\n\r\nPrivate Sub Form_Unload(Cancel As Integer)\r\n    \r\n    'Unload the scanner DLL from memory.\r\n    FreeLibrary hLib\r\n    \r\nEnd Sub\r\n"
             is_token: false
             children:
@@ -5314,7 +5314,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "\r\n    'This code allows us to load the scanner DLL from any location; this is easier than forcing the user to\r\n    ' copy the file into their system directory.  However, it requires a bit of extra code.\r\n    hLib = LoadLibrary(ProgramPath & \"EZTW32.dll\")\r\n\r\n    If TWAIN_IsAvailable() = 0 Then\r\n        ScanEnabled = False\r\n        MsgBox \"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\", vbOKOnly + vbCritical, \"Scanner DLL missing\"\r\n    Else\r\n        ScanEnabled = True\r\n    End If\r\n\r\nEnd Sub\r\n\r\nPrivate Sub Form_Unload(Cancel As Integer)\r\n    \r\n    'Unload the scanner DLL from memory.\r\n    FreeLibrary hLib\r\n    \r\nEnd Sub\r\n"
                     is_token: false
                     children:
@@ -5510,7 +5510,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        ScanEnabled = False\r\n        MsgBox \"Unfortunately, this program was unable to locate the DLL file necessary for scanner support.  Please ensure that a file called EZTW32.dll is located in the same directory as this project file, then restart the project.  Thanks!\", vbOKOnly + vbCritical, \"Scanner DLL missing\"\r\n    "
                             is_token: false
                             children:
@@ -5634,7 +5634,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        ScanEnabled = True\r\n    "
                                 is_token: false
                                 children:

@@ -519,7 +519,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Toggle the effect\r\n    If (chkEnable.Value = vbChecked) Then UpdateEffect Else LoadImageAutosized vbNullString\r\n    \r\n"
             is_token: false
             children:
@@ -723,7 +723,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Draw the initial effect with a default value, then update the image\r\n    If (App.LogMode = 0) Then Me.Caption = Me.Caption & \" - compile for significantly better performance!\"\r\n    LoadImageAutosized App.Path & \"\\sample.jpg\"\r\n    UpdateEffect\r\n    Me.Show\r\n    \r\n"
             is_token: false
             children:
@@ -1063,7 +1063,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -1143,7 +1143,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -1223,7 +1223,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Windows common dialog interface\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a\r\n    ' subset of modern image file types.\r\n    Dim cdfStr As String\r\n    cdfStr = \"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\"\r\n    cdfStr = cdfStr & \"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\"\r\n    \r\n    Dim sFile As String\r\n    If cDialog.GetOpenFileName(sFile, , True, False, cdfStr, , , \"Select image\", , Me.hWnd) Then\r\n        \r\n        'Load the image and refresh the effect\r\n        LoadImageAutosized sFile\r\n        UpdateEffect\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim ImageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, ImageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, ImageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newWidth As Long, minWidth As Long\r\n    minWidth = (hScroll.Left + hScroll.Width + 20) * Screen.TwipsPerPixelX\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then\r\n        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 2) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    If (chkEnable.Value = vbChecked) Then DrawBlacklight picBack, picMain, hScroll.Value\r\nEnd Sub\r\n\r\n'This is the core Blacklight function\r\nPublic Sub DrawBlacklight(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, Optional ByVal fxWeight As Long = 2)\r\n\r\n    'Coordinates, dimensions, and pixel data\r\n    Dim x As Long, y As Long, imgWidth As Long, imgHeight As Long, imgPixels() As Byte\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into imgpixels())\r\n    Dim fDraw As New FastDrawing\r\n    imgWidth = fDraw.GetImageWidth(srcPic)\r\n    imgHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imgPixels()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long, l As Long\r\n\r\n    'Run a quick loop through the image, adjusting pixel values as we go\r\n    Dim xStride As Long\r\n    \r\n    For y = 0 To imgHeight - 1\r\n    For x = 0 To imgWidth - 1\r\n        \r\n        xStride = x * 3\r\n        \r\n        'Windows DIBs are always in BGR order\r\n        b = imgPixels(xStride, y)\r\n        g = imgPixels(xStride + 1, y)\r\n        r = imgPixels(xStride + 2, y)\r\n        \r\n        'Calculate luminance.  (R + G + B) / 3 would also work.\r\n        l = (222 * r + 707 * g + 71 * b) \\ 1000\r\n        \r\n        'The blacklight effect is pretty simple!\r\n        r = Abs(r - l) * fxWeight\r\n        g = Abs(g - l) * fxWeight\r\n        b = Abs(b - l) * fxWeight\r\n        If (r > 255) Then r = 255\r\n        If (g > 255) Then g = 255\r\n        If (b > 255) Then b = 255\r\n        \r\n        'Assign the new pixel values\r\n        imgPixels(xStride, y) = b\r\n        imgPixels(xStride + 1, y) = g\r\n        imgPixels(xStride + 2, y) = r\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, imgWidth, imgHeight, imgPixels()\r\n    \r\nEnd Sub\r\n"
             is_token: false
             children:
@@ -1839,7 +1839,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim ImageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, ImageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, ImageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newWidth As Long, minWidth As Long\r\n    minWidth = (hScroll.Left + hScroll.Width + 20) * Screen.TwipsPerPixelX\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then\r\n        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 2) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    If (chkEnable.Value = vbChecked) Then DrawBlacklight picBack, picMain, hScroll.Value\r\nEnd Sub\r\n\r\n'This is the core Blacklight function\r\nPublic Sub DrawBlacklight(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, Optional ByVal fxWeight As Long = 2)\r\n\r\n    'Coordinates, dimensions, and pixel data\r\n    Dim x As Long, y As Long, imgWidth As Long, imgHeight As Long, imgPixels() As Byte\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into imgpixels())\r\n    Dim fDraw As New FastDrawing\r\n    imgWidth = fDraw.GetImageWidth(srcPic)\r\n    imgHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imgPixels()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long, l As Long\r\n\r\n    'Run a quick loop through the image, adjusting pixel values as we go\r\n    Dim xStride As Long\r\n    \r\n    For y = 0 To imgHeight - 1\r\n    For x = 0 To imgWidth - 1\r\n        \r\n        xStride = x * 3\r\n        \r\n        'Windows DIBs are always in BGR order\r\n        b = imgPixels(xStride, y)\r\n        g = imgPixels(xStride + 1, y)\r\n        r = imgPixels(xStride + 2, y)\r\n        \r\n        'Calculate luminance.  (R + G + B) / 3 would also work.\r\n        l = (222 * r + 707 * g + 71 * b) \\ 1000\r\n        \r\n        'The blacklight effect is pretty simple!\r\n        r = Abs(r - l) * fxWeight\r\n        g = Abs(g - l) * fxWeight\r\n        b = Abs(b - l) * fxWeight\r\n        If (r > 255) Then r = 255\r\n        If (g > 255) Then g = 255\r\n        If (b > 255) Then b = 255\r\n        \r\n        'Assign the new pixel values\r\n        imgPixels(xStride, y) = b\r\n        imgPixels(xStride + 1, y) = g\r\n        imgPixels(xStride + 2, y) = r\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, imgWidth, imgHeight, imgPixels()\r\n    \r\nEnd Sub\r\n"
                     is_token: false
                     children:
@@ -3243,7 +3243,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        newWidth = (imgWidth + picMain.Left * 4) * Screen.TwipsPerPixelX\r\n        If (newWidth < minWidth) Then newWidth = minWidth\r\n        Me.Width = newWidth\r\n    End If\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then Me.Height = (imgHeight + picMain.Top * 2) * Screen.TwipsPerPixelY\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    If (chkEnable.Value = vbChecked) Then DrawBlacklight picBack, picMain, hScroll.Value\r\nEnd Sub\r\n\r\n'This is the core Blacklight function\r\nPublic Sub DrawBlacklight(ByRef srcPic As PictureBox, ByRef dstPic As PictureBox, Optional ByVal fxWeight As Long = 2)\r\n\r\n    'Coordinates, dimensions, and pixel data\r\n    Dim x As Long, y As Long, imgWidth As Long, imgHeight As Long, imgPixels() As Byte\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into imgpixels())\r\n    Dim fDraw As New FastDrawing\r\n    imgWidth = fDraw.GetImageWidth(srcPic)\r\n    imgHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imgPixels()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Long, g As Long, b As Long, l As Long\r\n\r\n    'Run a quick loop through the image, adjusting pixel values as we go\r\n    Dim xStride As Long\r\n    \r\n    For y = 0 To imgHeight - 1\r\n    For x = 0 To imgWidth - 1\r\n        \r\n        xStride = x * 3\r\n        \r\n        'Windows DIBs are always in BGR order\r\n        b = imgPixels(xStride, y)\r\n        g = imgPixels(xStride + 1, y)\r\n        r = imgPixels(xStride + 2, y)\r\n        \r\n        'Calculate luminance.  (R + G + B) / 3 would also work.\r\n        l = (222 * r + 707 * g + 71 * b) \\ 1000\r\n        \r\n        'The blacklight effect is pretty simple!\r\n        r = Abs(r - l) * fxWeight\r\n        g = Abs(g - l) * fxWeight\r\n        b = Abs(b - l) * fxWeight\r\n        If (r > 255) Then r = 255\r\n        If (g > 255) Then g = 255\r\n        If (b > 255) Then b = 255\r\n        \r\n        'Assign the new pixel values\r\n        imgPixels(xStride, y) = b\r\n        imgPixels(xStride + 1, y) = g\r\n        imgPixels(xStride + 2, y) = r\r\n        \r\n    Next x\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, imgWidth, imgHeight, imgPixels()\r\n    \r\nEnd Sub\r\n"
                             is_token: false
                             children:
@@ -4991,7 +4991,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "    For x = 0 To imgWidth - 1\r\n        \r\n        xStride = x * 3\r\n        \r\n        'Windows DIBs are always in BGR order\r\n        b = imgPixels(xStride, y)\r\n        g = imgPixels(xStride + 1, y)\r\n        r = imgPixels(xStride + 2, y)\r\n        \r\n        'Calculate luminance.  (R + G + B) / 3 would also work.\r\n        l = (222 * r + 707 * g + 71 * b) \\ 1000\r\n        \r\n        'The blacklight effect is pretty simple!\r\n        r = Abs(r - l) * fxWeight\r\n        g = Abs(g - l) * fxWeight\r\n        b = Abs(b - l) * fxWeight\r\n        If (r > 255) Then r = 255\r\n        If (g > 255) Then g = 255\r\n        If (b > 255) Then b = 255\r\n        \r\n        'Assign the new pixel values\r\n        imgPixels(xStride, y) = b\r\n        imgPixels(xStride + 1, y) = g\r\n        imgPixels(xStride + 2, y) = r\r\n        \r\n    Next x\r\n    "
                                     is_token: false
                                     children:
@@ -5087,7 +5087,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        xStride = x * 3\r\n        \r\n        'Windows DIBs are always in BGR order\r\n        b = imgPixels(xStride, y)\r\n        g = imgPixels(xStride + 1, y)\r\n        r = imgPixels(xStride + 2, y)\r\n        \r\n        'Calculate luminance.  (R + G + B) / 3 would also work.\r\n        l = (222 * r + 707 * g + 71 * b) \\ 1000\r\n        \r\n        'The blacklight effect is pretty simple!\r\n        r = Abs(r - l) * fxWeight\r\n        g = Abs(g - l) * fxWeight\r\n        b = Abs(b - l) * fxWeight\r\n        If (r > 255) Then r = 255\r\n        If (g > 255) Then g = 255\r\n        If (b > 255) Then b = 255\r\n        \r\n        'Assign the new pixel values\r\n        imgPixels(xStride, y) = b\r\n        imgPixels(xStride + 1, y) = g\r\n        imgPixels(xStride + 2, y) = r\r\n        \r\n    "
                                             is_token: false
                                             children:

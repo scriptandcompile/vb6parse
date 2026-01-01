@@ -14134,7 +14134,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'return object's APIReturn property\r\n    APIReturn = m_lApiReturn\r\n"
             is_token: false
             children:
@@ -14270,7 +14270,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'return object's ExtendedError property\r\n    ExtendedError = m_lExtendedError\r\n"
             is_token: false
             children:
@@ -14382,7 +14382,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "Private Sub Class_Initialize()\r\n    InitColors\r\nEnd Sub\r\n#"
             is_token: false
             children:
@@ -15290,7 +15290,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    Dim opfile As OPENFILENAME, s As String\r\n    \r\n    m_lApiReturn = 0\r\n    m_lExtendedError = 0\r\n\r\nWith opfile\r\n    .lStructSize = Len(opfile)\r\n    \r\n    ' Add in specific flags and strip out non-VB flags\r\n    \r\n    .flags = (-FileMustExist * OFN_FILEMUSTEXIST) Or _\r\n            (-MultiSelect * OFN_ALLOWMULTISELECT) Or _\r\n             (-ReadOnly * OFN_READONLY) Or _\r\n             (-HideReadOnly * OFN_HIDEREADONLY) Or _\r\n             (flags And CLng(Not (OFN_ENABLEHOOK Or _\r\n                                  OFN_ENABLETEMPLATE)))\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then .hWndOwner = Owner\r\n    ' InitDir can take initial directory string\r\n    .lpstrInitialDir = InitDir\r\n    ' DefaultExt can take default extension\r\n    .lpstrDefExt = DefaultExt\r\n    ' DlgTitle can take dialog box title\r\n    .lpstrTitle = DlgTitle\r\n    \r\n    ' To make Windows-style filter, replace | and : with nulls\r\n    Dim ch As String, i As Integer\r\n    For i = 1 To Len(Filter)\r\n        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    Next\r\n    ' Put double null at end\r\n    s = s & vbNullChar & vbNullChar\r\n    .lpstrFilter = s\r\n    .nFilterIndex = FilterIndex\r\n\r\n    ' Pad file and file title buffers to maximum path\r\n    s = Filename & String$(MAX_PATH - Len(Filename), 0)\r\n    .lpstrFile = s\r\n    .nMaxFile = MAX_PATH\r\n    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n    .lpstrFileTitle = s\r\n    .nMaxFileTitle = MAX_FILE\r\n    ' All other fields set to zero\r\n    \r\n    m_lApiReturn = GetOpenFileName(opfile)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        ' Success\r\n        VBGetOpenFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n        If (.flags And OFN_READONLY) Then ReadOnly = True\r\n    Case 0\r\n        ' Cancelled\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    Case Else\r\n        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    End Select\r\nEnd With\r\n"
             is_token: false
             children:
@@ -15478,7 +15478,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    .lStructSize = Len(opfile)\r\n    \r\n    ' Add in specific flags and strip out non-VB flags\r\n    \r\n    .flags = (-FileMustExist * OFN_FILEMUSTEXIST) Or _\r\n            (-MultiSelect * OFN_ALLOWMULTISELECT) Or _\r\n             (-ReadOnly * OFN_READONLY) Or _\r\n             (-HideReadOnly * OFN_HIDEREADONLY) Or _\r\n             (flags And CLng(Not (OFN_ENABLEHOOK Or _\r\n                                  OFN_ENABLETEMPLATE)))\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then .hWndOwner = Owner\r\n    ' InitDir can take initial directory string\r\n    .lpstrInitialDir = InitDir\r\n    ' DefaultExt can take default extension\r\n    .lpstrDefExt = DefaultExt\r\n    ' DlgTitle can take dialog box title\r\n    .lpstrTitle = DlgTitle\r\n    \r\n    ' To make Windows-style filter, replace | and : with nulls\r\n    Dim ch As String, i As Integer\r\n    For i = 1 To Len(Filter)\r\n        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    Next\r\n    ' Put double null at end\r\n    s = s & vbNullChar & vbNullChar\r\n    .lpstrFilter = s\r\n    .nFilterIndex = FilterIndex\r\n\r\n    ' Pad file and file title buffers to maximum path\r\n    s = Filename & String$(MAX_PATH - Len(Filename), 0)\r\n    .lpstrFile = s\r\n    .nMaxFile = MAX_PATH\r\n    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n    .lpstrFileTitle = s\r\n    .nMaxFileTitle = MAX_FILE\r\n    ' All other fields set to zero\r\n    \r\n    m_lApiReturn = GetOpenFileName(opfile)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        ' Success\r\n        VBGetOpenFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n        If (.flags And OFN_READONLY) Then ReadOnly = True\r\n    Case 0\r\n        ' Cancelled\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    Case Else\r\n        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    End Select\r\n"
                     is_token: false
                     children:
@@ -16578,7 +16578,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    "
                             is_token: false
                             children:
@@ -16794,7 +16794,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            s = s & vbNullChar\r\n        "
                                     is_token: false
                                     children:
@@ -16878,7 +16878,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            s = s & ch\r\n        "
                                         is_token: false
                                         children:
@@ -17798,7 +17798,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        ' Success\r\n        VBGetOpenFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n        If (.flags And OFN_READONLY) Then ReadOnly = True\r\n    Case 0\r\n        ' Cancelled\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    "
                                 is_token: false
                                 children:
@@ -18618,7 +18618,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBGetOpenFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = -1\r\n        Filter = \"\"\r\n    "
                                 is_token: false
                                 children:
@@ -19062,7 +19062,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    StrZToStr = Left$(s, lstrlen(s))\r\n"
             is_token: false
             children:
@@ -19782,7 +19782,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "            \r\n    Dim opfile As OPENFILENAME, s As String\r\n\r\n    m_lApiReturn = 0\r\n    m_lExtendedError = 0\r\n\r\nWith opfile\r\n    .lStructSize = Len(opfile)\r\n    \r\n    ' Add in specific flags and strip out non-VB flags\r\n    .flags = (-OverWritePrompt * OFN_OVERWRITEPROMPT) Or _\r\n             OFN_HIDEREADONLY Or _\r\n             (flags And CLng(Not (OFN_ENABLEHOOK Or _\r\n                                  OFN_ENABLETEMPLATE)))\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then .hWndOwner = Owner\r\n    ' InitDir can take initial directory string\r\n    .lpstrInitialDir = InitDir\r\n    ' DefaultExt can take default extension\r\n    .lpstrDefExt = DefaultExt\r\n    ' DlgTitle can take dialog box title\r\n    .lpstrTitle = DlgTitle\r\n    \r\n    ' Make new filter with bars (|) replacing nulls and double null at end\r\n    Dim ch As String, i As Integer\r\n    For i = 1 To Len(Filter)\r\n        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    Next\r\n    ' Put double null at end\r\n    s = s & vbNullChar & vbNullChar\r\n    .lpstrFilter = s\r\n    .nFilterIndex = FilterIndex\r\n\r\n    ' Pad file and file title buffers to maximum path\r\n    s = Filename & String$(MAX_PATH - Len(Filename), 0)\r\n    .lpstrFile = s\r\n    .nMaxFile = MAX_PATH\r\n    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n    .lpstrFileTitle = s\r\n    .nMaxFileTitle = MAX_FILE\r\n    ' All other fields zero\r\n    \r\n    m_lApiReturn = GetSaveFileName(opfile)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        VBGetSaveFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n    Case 0\r\n        ' Cancelled:\r\n        VBGetSaveFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    Case Else\r\n        ' Extended error:\r\n        VBGetSaveFileName = False\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    End Select\r\nEnd With\r\n"
             is_token: false
             children:
@@ -19970,7 +19970,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    .lStructSize = Len(opfile)\r\n    \r\n    ' Add in specific flags and strip out non-VB flags\r\n    .flags = (-OverWritePrompt * OFN_OVERWRITEPROMPT) Or _\r\n             OFN_HIDEREADONLY Or _\r\n             (flags And CLng(Not (OFN_ENABLEHOOK Or _\r\n                                  OFN_ENABLETEMPLATE)))\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then .hWndOwner = Owner\r\n    ' InitDir can take initial directory string\r\n    .lpstrInitialDir = InitDir\r\n    ' DefaultExt can take default extension\r\n    .lpstrDefExt = DefaultExt\r\n    ' DlgTitle can take dialog box title\r\n    .lpstrTitle = DlgTitle\r\n    \r\n    ' Make new filter with bars (|) replacing nulls and double null at end\r\n    Dim ch As String, i As Integer\r\n    For i = 1 To Len(Filter)\r\n        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    Next\r\n    ' Put double null at end\r\n    s = s & vbNullChar & vbNullChar\r\n    .lpstrFilter = s\r\n    .nFilterIndex = FilterIndex\r\n\r\n    ' Pad file and file title buffers to maximum path\r\n    s = Filename & String$(MAX_PATH - Len(Filename), 0)\r\n    .lpstrFile = s\r\n    .nMaxFile = MAX_PATH\r\n    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)\r\n    .lpstrFileTitle = s\r\n    .nMaxFileTitle = MAX_FILE\r\n    ' All other fields zero\r\n    \r\n    m_lApiReturn = GetSaveFileName(opfile)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        VBGetSaveFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n    Case 0\r\n        ' Cancelled:\r\n        VBGetSaveFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    Case Else\r\n        ' Extended error:\r\n        VBGetSaveFileName = False\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    End Select\r\n"
                     is_token: false
                     children:
@@ -20858,7 +20858,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        ch = Mid$(Filter, i, 1)\r\n        If ch = \"|\" Or ch = \":\" Then\r\n            s = s & vbNullChar\r\n        Else\r\n            s = s & ch\r\n        End If\r\n    "
                             is_token: false
                             children:
@@ -21074,7 +21074,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            s = s & vbNullChar\r\n        "
                                     is_token: false
                                     children:
@@ -21158,7 +21158,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            s = s & ch\r\n        "
                                         is_token: false
                                         children:
@@ -22078,7 +22078,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        VBGetSaveFileName = True\r\n        Filename = StrZToStr(.lpstrFile)\r\n        FileTitle = StrZToStr(.lpstrFileTitle)\r\n        flags = .flags\r\n        ' Return the filter index\r\n        FilterIndex = .nFilterIndex\r\n        ' Look up the filter the user selected and return that\r\n        Filter = FilterLookup(.lpstrFilter, FilterIndex)\r\n    "
                                 is_token: false
                                 children:
@@ -22494,7 +22494,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        ' Cancelled:\r\n        VBGetSaveFileName = False\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    "
                                 is_token: false
                                 children:
@@ -22774,7 +22774,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "        ' Extended error:\r\n        VBGetSaveFileName = False\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        Filename = \"\"\r\n        FileTitle = \"\"\r\n        flags = 0\r\n        FilterIndex = 0\r\n        Filter = \"\"\r\n    "
                                 is_token: false
                                 children:
@@ -23258,7 +23258,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Dim iStart As Long, iEnd As Long, s As String\r\n    iStart = 1\r\n    If sFilters = \"\" Then Exit Function\r\n    Do\r\n        ' Cut out both parts marked by null character\r\n        iEnd = InStr(iStart, sFilters, vbNullChar)\r\n        If iEnd = 0 Then Exit Function\r\n        iEnd = InStr(iEnd + 1, sFilters, vbNullChar)\r\n        If iEnd Then\r\n            s = Mid$(sFilters, iStart, iEnd - iStart)\r\n        Else\r\n            s = Mid$(sFilters, iStart)\r\n        End If\r\n        iStart = iEnd + 1\r\n        If iCur = 1 Then\r\n            FilterLookup = s\r\n            Exit Function\r\n        End If\r\n        iCur = iCur - 1\r\n    Loop While iCur\r\nEnd Function\r\n\r\nFunction VBGetFileTitle(sFile As String) As String\r\n    Dim sFileTitle As String, cFileTitle As Integer\r\n\r\n    cFileTitle = MAX_PATH\r\n    sFileTitle = String$(MAX_PATH, 0)\r\n    cFileTitle = GetFileTitle(sFile, sFileTitle, MAX_PATH)\r\n    If cFileTitle Then\r\n        VBGetFileTitle = \"\"\r\n    Else\r\n        VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)\r\n    End If\r\n\r\nEnd Function\r\n\r\n' ChooseColor wrapper\r\nFunction VBChooseColor(Color As Long, _\r\n                       Optional AnyColor As Boolean = True, _\r\n                       Optional FullOpen As Boolean = False, _\r\n                       Optional DisableFullOpen As Boolean = False, _\r\n                       Optional Owner As Long = -1, _\r\n                       Optional flags As Long) As Boolean\r\n\r\n    Dim chclr As TCHOOSECOLOR\r\n    chclr.lStructSize = Len(chclr)\r\n    \r\n    ' Color must get reference variable to receive result\r\n    ' Flags can get reference variable or constant with bit flags\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then chclr.hWndOwner = Owner\r\n\r\n    ' Assign color (default uninitialized value of zero is good default)\r\n    chclr.rgbResult = Color\r\n\r\n    ' Mask out unwanted bits\r\n    Dim afMask As Long\r\n    afMask = CLng(Not (CC_ENABLEHOOK Or _\r\n                       CC_ENABLETEMPLATE))\r\n    ' Pass in flags\r\n    chclr.flags = afMask And (CC_RGBInit Or _\r\n                  IIf(AnyColor, CC_AnyColor, CC_SolidColor) Or _\r\n                  (-FullOpen * CC_FullOpen) Or _\r\n                  (-DisableFullOpen * CC_PreventFullOpen))\r\n\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n\r\n    chclr.lpCustColors = VarPtr(alCustom(0))\r\n    ' All other fields zero\r\n    \r\n    m_lApiReturn = ChooseColor(chclr)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        ' Success\r\n        VBChooseColor = True\r\n        Color = chclr.rgbResult\r\n    Case 0\r\n        ' Cancelled\r\n        VBChooseColor = False\r\n        Color = -1\r\n    Case Else\r\n        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBChooseColor = False\r\n        Color = -1\r\n    End Select\r\n\r\nEnd Function\r\n\r\nPrivate Sub InitColors()\r\n    Dim i As Integer\r\n    ' Initialize with first 16 system interface colors\r\n    For i = 0 To 15\r\n        alCustom(i) = GetSysColor(i)\r\n    Next\r\n    fNotFirst = True\r\nEnd Sub\r\n\r\n' Property to read or modify custom colors (use to save colors in registry)\r\nPublic Property Get CustomColor(i As Integer) As Long\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        CustomColor = alCustom(i)\r\n    Else\r\n        CustomColor = -1\r\n    End If\r\nEnd Property\r\n\r\nPublic Property Let CustomColor(i As Integer, iValue As Long)\r\n    ' If first time, initialize to system colors\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        alCustom(i) = iValue\r\n    End If\r\nEnd Property\r\n\r\nPrivate Property Get DevMode() As DevMode\r\n    DevMode = m_dvmode\r\nEnd Property\r\n\r\n#If fComponent = 0 Then\r\nPrivate Sub ErrRaise(e As Long)\r\n    Dim sText As String, sSource As String\r\n    If e > 1000 Then\r\n        sSource = App.EXEName & \".CommonDialog\"\r\n        Err.Raise COMError(e), sSource, sText\r\n    Else\r\n        ' Raise standard Visual Basic error\r\n        sSource = App.EXEName & \".VBError\"\r\n        Err.Raise e, sSource\r\n    End If\r\nEnd Sub\r\n#End If\r\n\r\n\r\nPrivate Sub StrToBytes(ab() As Byte, s As String)\r\n    If IsArrayEmpty(ab) Then\r\n        ' Assign to empty array\r\n        ab = StrConv(s, vbFromUnicode)\r\n    Else\r\n        Dim cab As Long\r\n        ' Copy to existing array, padding or truncating if necessary\r\n        cab = UBound(ab) - LBound(ab) + 1\r\n        If Len(s) < cab Then s = s & String$(cab - Len(s), 0)\r\n        'If UnicodeTypeLib Then\r\n        '    Dim st As String\r\n        '    st = StrConv(s, vbFromUnicode)\r\n        '    CopyMemoryStr ab(LBound(ab)), st, cab\r\n        'Else\r\n            CopyMemoryStr ab(LBound(ab)), s, cab\r\n        'End If\r\n    End If\r\nEnd Sub\r\n\r\n\r\nPrivate Function BytesToStr(ab() As Byte) As String\r\n    BytesToStr = StrConv(ab, vbUnicode)\r\nEnd Function\r\n\r\nPrivate Function COMError(e As Long) As Long\r\n    COMError = e Or vbObjectError\r\nEnd Function\r\n'\r\nPrivate Function IsArrayEmpty(va As Variant) As Boolean\r\n    Dim v As Variant\r\n    On Error Resume Next\r\n    v = va(LBound(va))\r\n    IsArrayEmpty = (Err <> 0)\r\nEnd Function\r\n\r\n\r\n\r\n\r\n\r\n"
             is_token: false
             children:
@@ -23494,7 +23494,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        ' Cut out both parts marked by null character\r\n        iEnd = InStr(iStart, sFilters, vbNullChar)\r\n        If iEnd = 0 Then Exit Function\r\n        iEnd = InStr(iEnd + 1, sFilters, vbNullChar)\r\n        If iEnd Then\r\n            s = Mid$(sFilters, iStart, iEnd - iStart)\r\n        Else\r\n            s = Mid$(sFilters, iStart)\r\n        End If\r\n        iStart = iEnd + 1\r\n        If iCur = 1 Then\r\n            FilterLookup = s\r\n            Exit Function\r\n        End If\r\n        iCur = iCur - 1\r\n    Loop While iCur\r\nEnd Function\r\n\r\nFunction VBGetFileTitle(sFile As String) As String\r\n    Dim sFileTitle As String, cFileTitle As Integer\r\n\r\n    cFileTitle = MAX_PATH\r\n    sFileTitle = String$(MAX_PATH, 0)\r\n    cFileTitle = GetFileTitle(sFile, sFileTitle, MAX_PATH)\r\n    If cFileTitle Then\r\n        VBGetFileTitle = \"\"\r\n    Else\r\n        VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)\r\n    End If\r\n\r\nEnd Function\r\n\r\n' ChooseColor wrapper\r\nFunction VBChooseColor(Color As Long, _\r\n                       Optional AnyColor As Boolean = True, _\r\n                       Optional FullOpen As Boolean = False, _\r\n                       Optional DisableFullOpen As Boolean = False, _\r\n                       Optional Owner As Long = -1, _\r\n                       Optional flags As Long) As Boolean\r\n\r\n    Dim chclr As TCHOOSECOLOR\r\n    chclr.lStructSize = Len(chclr)\r\n    \r\n    ' Color must get reference variable to receive result\r\n    ' Flags can get reference variable or constant with bit flags\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then chclr.hWndOwner = Owner\r\n\r\n    ' Assign color (default uninitialized value of zero is good default)\r\n    chclr.rgbResult = Color\r\n\r\n    ' Mask out unwanted bits\r\n    Dim afMask As Long\r\n    afMask = CLng(Not (CC_ENABLEHOOK Or _\r\n                       CC_ENABLETEMPLATE))\r\n    ' Pass in flags\r\n    chclr.flags = afMask And (CC_RGBInit Or _\r\n                  IIf(AnyColor, CC_AnyColor, CC_SolidColor) Or _\r\n                  (-FullOpen * CC_FullOpen) Or _\r\n                  (-DisableFullOpen * CC_PreventFullOpen))\r\n\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n\r\n    chclr.lpCustColors = VarPtr(alCustom(0))\r\n    ' All other fields zero\r\n    \r\n    m_lApiReturn = ChooseColor(chclr)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        ' Success\r\n        VBChooseColor = True\r\n        Color = chclr.rgbResult\r\n    Case 0\r\n        ' Cancelled\r\n        VBChooseColor = False\r\n        Color = -1\r\n    Case Else\r\n        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBChooseColor = False\r\n        Color = -1\r\n    End Select\r\n\r\nEnd Function\r\n\r\nPrivate Sub InitColors()\r\n    Dim i As Integer\r\n    ' Initialize with first 16 system interface colors\r\n    For i = 0 To 15\r\n        alCustom(i) = GetSysColor(i)\r\n    Next\r\n    fNotFirst = True\r\nEnd Sub\r\n\r\n' Property to read or modify custom colors (use to save colors in registry)\r\nPublic Property Get CustomColor(i As Integer) As Long\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        CustomColor = alCustom(i)\r\n    Else\r\n        CustomColor = -1\r\n    End If\r\nEnd Property\r\n\r\nPublic Property Let CustomColor(i As Integer, iValue As Long)\r\n    ' If first time, initialize to system colors\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        alCustom(i) = iValue\r\n    End If\r\nEnd Property\r\n\r\nPrivate Property Get DevMode() As DevMode\r\n    DevMode = m_dvmode\r\nEnd Property\r\n\r\n#If fComponent = 0 Then\r\nPrivate Sub ErrRaise(e As Long)\r\n    Dim sText As String, sSource As String\r\n    If e > 1000 Then\r\n        sSource = App.EXEName & \".CommonDialog\"\r\n        Err.Raise COMError(e), sSource, sText\r\n    Else\r\n        ' Raise standard Visual Basic error\r\n        sSource = App.EXEName & \".VBError\"\r\n        Err.Raise e, sSource\r\n    End If\r\nEnd Sub\r\n#End If\r\n\r\n\r\nPrivate Sub StrToBytes(ab() As Byte, s As String)\r\n    If IsArrayEmpty(ab) Then\r\n        ' Assign to empty array\r\n        ab = StrConv(s, vbFromUnicode)\r\n    Else\r\n        Dim cab As Long\r\n        ' Copy to existing array, padding or truncating if necessary\r\n        cab = UBound(ab) - LBound(ab) + 1\r\n        If Len(s) < cab Then s = s & String$(cab - Len(s), 0)\r\n        'If UnicodeTypeLib Then\r\n        '    Dim st As String\r\n        '    st = StrConv(s, vbFromUnicode)\r\n        '    CopyMemoryStr ab(LBound(ab)), st, cab\r\n        'Else\r\n            CopyMemoryStr ab(LBound(ab)), s, cab\r\n        'End If\r\n    End If\r\nEnd Sub\r\n\r\n\r\nPrivate Function BytesToStr(ab() As Byte) As String\r\n    BytesToStr = StrConv(ab, vbUnicode)\r\nEnd Function\r\n\r\nPrivate Function COMError(e As Long) As Long\r\n    COMError = e Or vbObjectError\r\nEnd Function\r\n'\r\nPrivate Function IsArrayEmpty(va As Variant) As Boolean\r\n    Dim v As Variant\r\n    On Error Resume Next\r\n    v = va(LBound(va))\r\n    IsArrayEmpty = (Err <> 0)\r\nEnd Function\r\n\r\n\r\n\r\n\r\n\r\n"
                         is_token: false
                         children:
@@ -23858,7 +23858,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            s = Mid$(sFilters, iStart, iEnd - iStart)\r\n        "
                                     is_token: false
                                     children:
@@ -24006,7 +24006,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            s = Mid$(sFilters, iStart)\r\n        "
                                         is_token: false
                                         children:
@@ -24238,7 +24238,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            FilterLookup = s\r\n            Exit Function\r\n        "
                                     is_token: false
                                     children:
@@ -24426,7 +24426,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "End Function\r\n\r\nFunction VBGetFileTitle(sFile As String) As String\r\n    Dim sFileTitle As String, cFileTitle As Integer\r\n\r\n    cFileTitle = MAX_PATH\r\n    sFileTitle = String$(MAX_PATH, 0)\r\n    cFileTitle = GetFileTitle(sFile, sFileTitle, MAX_PATH)\r\n    If cFileTitle Then\r\n        VBGetFileTitle = \"\"\r\n    Else\r\n        VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)\r\n    End If\r\n\r\nEnd Function\r\n\r\n' ChooseColor wrapper\r\nFunction VBChooseColor(Color As Long, _\r\n                       Optional AnyColor As Boolean = True, _\r\n                       Optional FullOpen As Boolean = False, _\r\n                       Optional DisableFullOpen As Boolean = False, _\r\n                       Optional Owner As Long = -1, _\r\n                       Optional flags As Long) As Boolean\r\n\r\n    Dim chclr As TCHOOSECOLOR\r\n    chclr.lStructSize = Len(chclr)\r\n    \r\n    ' Color must get reference variable to receive result\r\n    ' Flags can get reference variable or constant with bit flags\r\n    ' Owner can take handle of owning window\r\n    If Owner <> -1 Then chclr.hWndOwner = Owner\r\n\r\n    ' Assign color (default uninitialized value of zero is good default)\r\n    chclr.rgbResult = Color\r\n\r\n    ' Mask out unwanted bits\r\n    Dim afMask As Long\r\n    afMask = CLng(Not (CC_ENABLEHOOK Or _\r\n                       CC_ENABLETEMPLATE))\r\n    ' Pass in flags\r\n    chclr.flags = afMask And (CC_RGBInit Or _\r\n                  IIf(AnyColor, CC_AnyColor, CC_SolidColor) Or _\r\n                  (-FullOpen * CC_FullOpen) Or _\r\n                  (-DisableFullOpen * CC_PreventFullOpen))\r\n\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n\r\n    chclr.lpCustColors = VarPtr(alCustom(0))\r\n    ' All other fields zero\r\n    \r\n    m_lApiReturn = ChooseColor(chclr)\r\n    Select Case m_lApiReturn\r\n    Case 1\r\n        ' Success\r\n        VBChooseColor = True\r\n        Color = chclr.rgbResult\r\n    Case 0\r\n        ' Cancelled\r\n        VBChooseColor = False\r\n        Color = -1\r\n    Case Else\r\n        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBChooseColor = False\r\n        Color = -1\r\n    End Select\r\n\r\nEnd Function\r\n\r\nPrivate Sub InitColors()\r\n    Dim i As Integer\r\n    ' Initialize with first 16 system interface colors\r\n    For i = 0 To 15\r\n        alCustom(i) = GetSysColor(i)\r\n    Next\r\n    fNotFirst = True\r\nEnd Sub\r\n\r\n' Property to read or modify custom colors (use to save colors in registry)\r\nPublic Property Get CustomColor(i As Integer) As Long\r\n    ' If first time, initialize to white\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        CustomColor = alCustom(i)\r\n    Else\r\n        CustomColor = -1\r\n    End If\r\nEnd Property\r\n\r\nPublic Property Let CustomColor(i As Integer, iValue As Long)\r\n    ' If first time, initialize to system colors\r\n    If fNotFirst = False Then InitColors\r\n    If i >= 0 And i <= 15 Then\r\n        alCustom(i) = iValue\r\n    End If\r\nEnd Property\r\n\r\nPrivate Property Get DevMode() As DevMode\r\n    DevMode = m_dvmode\r\nEnd Property\r\n\r\n#If fComponent = 0 Then\r\nPrivate Sub ErrRaise(e As Long)\r\n    Dim sText As String, sSource As String\r\n    If e > 1000 Then\r\n        sSource = App.EXEName & \".CommonDialog\"\r\n        Err.Raise COMError(e), sSource, sText\r\n    Else\r\n        ' Raise standard Visual Basic error\r\n        sSource = App.EXEName & \".VBError\"\r\n        Err.Raise e, sSource\r\n    End If\r\nEnd Sub\r\n#End If\r\n\r\n\r\nPrivate Sub StrToBytes(ab() As Byte, s As String)\r\n    If IsArrayEmpty(ab) Then\r\n        ' Assign to empty array\r\n        ab = StrConv(s, vbFromUnicode)\r\n    Else\r\n        Dim cab As Long\r\n        ' Copy to existing array, padding or truncating if necessary\r\n        cab = UBound(ab) - LBound(ab) + 1\r\n        If Len(s) < cab Then s = s & String$(cab - Len(s), 0)\r\n        'If UnicodeTypeLib Then\r\n        '    Dim st As String\r\n        '    st = StrConv(s, vbFromUnicode)\r\n        '    CopyMemoryStr ab(LBound(ab)), st, cab\r\n        'Else\r\n            CopyMemoryStr ab(LBound(ab)), s, cab\r\n        'End If\r\n    End If\r\nEnd Sub\r\n\r\n\r\nPrivate Function BytesToStr(ab() As Byte) As String\r\n    BytesToStr = StrConv(ab, vbUnicode)\r\nEnd Function\r\n\r\nPrivate Function COMError(e As Long) As Long\r\n    COMError = e Or vbObjectError\r\nEnd Function\r\n'\r\nPrivate Function IsArrayEmpty(va As Variant) As Boolean\r\n    Dim v As Variant\r\n    On Error Resume Next\r\n    v = va(LBound(va))\r\n    IsArrayEmpty = (Err <> 0)\r\nEnd Function\r\n\r\n\r\n\r\n\r\n\r\n"
                                     is_token: false
                                     children:
@@ -24838,7 +24838,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        VBGetFileTitle = \"\"\r\n    "
                                             is_token: false
                                             children:
@@ -24898,7 +24898,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)\r\n    "
                                                 is_token: false
                                                 children:
@@ -26678,7 +26678,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        ' Success\r\n        VBChooseColor = True\r\n        Color = chclr.rgbResult\r\n    "
                                                 is_token: false
                                                 children:
@@ -26806,7 +26806,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        ' Cancelled\r\n        VBChooseColor = False\r\n        Color = -1\r\n    "
                                                 is_token: false
                                                 children:
@@ -26934,7 +26934,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        ' Extended error\r\n        m_lExtendedError = CommDlgExtendedError()\r\n        VBChooseColor = False\r\n        Color = -1\r\n    "
                                                 is_token: false
                                                 children:
@@ -27290,7 +27290,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        alCustom(i) = GetSysColor(i)\r\n    "
                                             is_token: false
                                             children:
@@ -27730,7 +27730,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        CustomColor = alCustom(i)\r\n    "
                                             is_token: false
                                             children:
@@ -27814,7 +27814,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        CustomColor = -1\r\n    "
                                                 is_token: false
                                                 children:
@@ -28186,7 +28186,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        alCustom(i) = iValue\r\n    "
                                             is_token: false
                                             children:
@@ -28474,7 +28474,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "Private Sub ErrRaise(e As Long)\r\n    Dim sText As String, sSource As String\r\n    If e > 1000 Then\r\n        sSource = App.EXEName & \".CommonDialog\"\r\n        Err.Raise COMError(e), sSource, sText\r\n    Else\r\n        ' Raise standard Visual Basic error\r\n        sSource = App.EXEName & \".VBError\"\r\n        Err.Raise e, sSource\r\n    End If\r\nEnd Sub\r\n#"
                                             is_token: false
                                             children:
@@ -28662,7 +28662,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "        sSource = App.EXEName & \".CommonDialog\"\r\n        Err.Raise COMError(e), sSource, sText\r\n    "
                                                     is_token: false
                                                     children:
@@ -28822,7 +28822,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "        ' Raise standard Visual Basic error\r\n        sSource = App.EXEName & \".VBError\"\r\n        Err.Raise e, sSource\r\n    "
                                                         is_token: false
                                                         children:
@@ -29170,7 +29170,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        ' Assign to empty array\r\n        ab = StrConv(s, vbFromUnicode)\r\n    "
                                             is_token: false
                                             children:
@@ -29286,7 +29286,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        Dim cab As Long\r\n        ' Copy to existing array, padding or truncating if necessary\r\n        cab = UBound(ab) - LBound(ab) + 1\r\n        If Len(s) < cab Then s = s & String$(cab - Len(s), 0)\r\n        'If UnicodeTypeLib Then\r\n        '    Dim st As String\r\n        '    st = StrConv(s, vbFromUnicode)\r\n        '    CopyMemoryStr ab(LBound(ab)), st, cab\r\n        'Else\r\n            CopyMemoryStr ab(LBound(ab)), s, cab\r\n        'End If\r\n    "
                                                 is_token: false
                                                 children:

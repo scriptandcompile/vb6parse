@@ -1238,7 +1238,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lastHistMethod = cmbHistMethod.ListIndex\r\n    DrawHistogram cmbHistSource.ListIndex, cmbHistMethod.ListIndex\r\n"
             is_token: false
             children:
@@ -1402,7 +1402,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lastHistSource = cmbHistSource.ListIndex\r\n    DrawHistogram cmbHistSource.ListIndex, cmbHistMethod.ListIndex\r\n"
             is_token: false
             children:
@@ -1578,7 +1578,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "        \r\n    GenerateHistogram\r\n    \r\n    'Clear out the combo box that displays histogram sources and fill it with\r\n    'appropriate choices\r\n    cmbHistSource.Clear\r\n    cmbHistSource.AddItem \"Red\"\r\n    cmbHistSource.AddItem \"Green\"\r\n    cmbHistSource.AddItem \"Blue\"\r\n    cmbHistSource.AddItem \"Luminance\"\r\n    'Set the current combo box option to be whatever we used last\r\n    cmbHistSource.ListIndex = lastHistSource\r\n    \r\n    'Clear out the combo box that displays histogram drawing methods and fill it\r\n    'with appropriate choices\r\n    cmbHistMethod.Clear\r\n    cmbHistMethod.AddItem \"Connecting lines\"\r\n    cmbHistMethod.AddItem \"Solid bars\"\r\n    'Set the current combo box option to be whatever we used last\r\n    cmbHistMethod.ListIndex = lastHistMethod\r\n    \r\n"
             is_token: false
             children:
@@ -2226,7 +2226,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Clear out whatever was there before\r\n    picH.Cls\r\n    \r\n    'tHeight is used to determine the height of the maximum value in the\r\n    'histogram.  We want it to be slightly shorter than the height of the\r\n    'picture box; this way the tallest histogram value fills the entire picture\r\n    Dim tHeight As Long\r\n    tHeight = picH.ScaleHeight - 2\r\n    \r\n    'LastX and LastY are used to draw a connecting line between histogram points\r\n    Dim LastX As Long, LastY As Long\r\n    \r\n    'The type of histogram we're drawing will determine the color of the histogram\r\n    'line - we'll make it match what we're drawing (red/green/blue/black)\r\n    Select Case hType\r\n        'Red\r\n        Case 0\r\n            picH.ForeColor = RGB(255, 0, 0)\r\n        'Green\r\n        Case 1\r\n            picH.ForeColor = RGB(0, 255, 0)\r\n        'Blue\r\n        Case 2\r\n            picH.ForeColor = RGB(0, 0, 255)\r\n        'Luminance\r\n        Case 3\r\n            picH.ForeColor = RGB(0, 0, 0)\r\n    End Select\r\n    \r\n    'Now draw a little gradient below the histogram window (just 'cause Photoshop\r\n    'does it and it adds a nice touch, hehe ;)\r\n    If hType < 3 Then\r\n        'Draw a gradient from black to the color of the current histogram model\r\n        DrawGradient picGradient, RGB(0, 0, 0), picH.ForeColor\r\n    Else\r\n        'For luminance, draw a gradient from black to white\r\n        DrawGradient picGradient, RGB(0, 0, 0), RGB(255, 255, 255)\r\n    End If\r\n    \r\n    'Now we'll draw the histogram.  Pay careful attention to this section of code\r\n    \r\n    'For the first point there is no last 'x' or 'y', so we'll just make it the\r\n    'same as the first value in the histogram. (We care about this only if we're\r\n    'drawing a \"connected lines\" type of histogram.)\r\n    LastX = 0\r\n    LastY = tHeight - (hData(hType, 0) / hMax(hType)) * tHeight\r\n    \r\n    'Run a loop through every histogram value...\r\n    For x = 0 To 255\r\n        'This is the most complicated line in the project.  The y-value of the\r\n        'histogram is drawn as a percentage (RData(x) / MaxVal) * tHeight) with\r\n        'tHeight being the tallest possible value (when RData(x) = MaxVal).  We\r\n        'then subtract that value from tHeight because y values INCREASE as we\r\n        'move DOWN a picture box - remember that (0,0) is in the top left.\r\n        y = tHeight - (hData(hType, x) / hMax(hType)) * tHeight\r\n        'For connecting lines...\r\n        If drawMethod = 0 Then\r\n            'Then draw a line from the last (x,y) to the current (x,y)\r\n            picH.Line (LastX, LastY)-(x, y)\r\n            LastX = x\r\n            LastY = y\r\n        'For a bar graph...\r\n        ElseIf drawMethod = 1 Then\r\n            'Draw a line from the bottom of the picture box to the calculated y-value\r\n            picH.Line (x, tHeight)-(x, y)\r\n        End If\r\n    Next x\r\n    \r\n    'Last but not least, generate the statistics at the bottom of the form\r\n    \r\n    'Total number of pixels\r\n    Dim fDraw As New FastDrawing\r\n    Dim iWidth As Long, iHeight As Long\r\n    iWidth = fDraw.GetImageWidth(frmMain.PicMain)\r\n    iHeight = fDraw.GetImageHeight(frmMain.PicMain)\r\n    lblTotalPixels.Caption = \"Total pixels: \" & (iWidth * iHeight)\r\n    \r\n    'Maximum value\r\n    lblMaxCount.Caption = hMax(hType)\r\n\r\n"
             is_token: false
             children:
@@ -2622,7 +2622,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            picH.ForeColor = RGB(255, 0, 0)\r\n        'Green\r\n        "
                         is_token: false
                         children:
@@ -2774,7 +2774,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            picH.ForeColor = RGB(0, 255, 0)\r\n        'Blue\r\n        "
                         is_token: false
                         children:
@@ -2926,7 +2926,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            picH.ForeColor = RGB(0, 0, 255)\r\n        'Luminance\r\n        "
                         is_token: false
                         children:
@@ -3078,7 +3078,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            picH.ForeColor = RGB(0, 0, 0)\r\n    "
                         is_token: false
                         children:
@@ -3306,7 +3306,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'Draw a gradient from black to the color of the current histogram model\r\n        DrawGradient picGradient, RGB(0, 0, 0), picH.ForeColor\r\n    "
                     is_token: false
                     children:
@@ -3430,7 +3430,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        'For luminance, draw a gradient from black to white\r\n        DrawGradient picGradient, RGB(0, 0, 0), RGB(255, 255, 255)\r\n    "
                         is_token: false
                         children:
@@ -3970,7 +3970,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'This is the most complicated line in the project.  The y-value of the\r\n        'histogram is drawn as a percentage (RData(x) / MaxVal) * tHeight) with\r\n        'tHeight being the tallest possible value (when RData(x) = MaxVal).  We\r\n        'then subtract that value from tHeight because y values INCREASE as we\r\n        'move DOWN a picture box - remember that (0,0) is in the top left.\r\n        y = tHeight - (hData(hType, x) / hMax(hType)) * tHeight\r\n        'For connecting lines...\r\n        If drawMethod = 0 Then\r\n            'Then draw a line from the last (x,y) to the current (x,y)\r\n            picH.Line (LastX, LastY)-(x, y)\r\n            LastX = x\r\n            LastY = y\r\n        'For a bar graph...\r\n        ElseIf drawMethod = 1 Then\r\n            'Draw a line from the bottom of the picture box to the calculated y-value\r\n            picH.Line (x, tHeight)-(x, y)\r\n        End If\r\n    "
                     is_token: false
                     children:
@@ -4298,7 +4298,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            'Then draw a line from the last (x,y) to the current (x,y)\r\n            picH.Line (LastX, LastY)-(x, y)\r\n            LastX = x\r\n            LastY = y\r\n        'For a bar graph...\r\n        "
                             is_token: false
                             children:
@@ -4546,7 +4546,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            'Draw a line from the bottom of the picture box to the calculated y-value\r\n            picH.Line (x, tHeight)-(x, y)\r\n        "
                                 is_token: false
                                 children:
@@ -5270,7 +5270,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Unload Me\r\n"
             is_token: false
             children:
@@ -5478,7 +5478,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lblLevel.Caption = x\r\n    lblCount.Caption = hData(lastHistSource, x)\r\n"
             is_token: false
             children:
@@ -5682,7 +5682,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(frmMain.PicMain)\r\n    iHeight = fDraw.GetImageHeight(frmMain.PicMain)\r\n    fDraw.GetImageData2D frmMain.PicMain, imageData()\r\n    \r\n    'These variables will hold temporary histogram values\r\n    Dim r As Long, g As Long, b As Long, l As Long\r\n    \r\n    'If the histogram has already been used, we need to clear out all the\r\n    'maximum values and histogram values\r\n    For x = 0 To 3\r\n        hMax(x) = 0\r\n        For y = 0 To 255\r\n            hData(x, y) = 0\r\n        Next y\r\n    Next x\r\n    \r\n    'Run a quick loop through the image, gathering what we need to\r\n    'calculate our histogram\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'We have to gather the red, green, and blue in order to calculate luminance\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        'Rather than generate authentic luminance (which requires an HSL\r\n        'conversion routine), we'll use the shortcut formula - averaging\r\n        'R, G, and B.  This is plenty accurate for a project like this.\r\n        l = (r + g + b) \\ 3\r\n        'Increment each value in the array, depending on its present value;\r\n        'this will let us see how many of each color value (and luminance\r\n        'value) there is in the image\r\n        'Red\r\n        hData(0, r) = hData(0, r) + 1\r\n        'Green\r\n        hData(1, g) = hData(1, g) + 1\r\n        'Blue\r\n        hData(2, b) = hData(2, b) + 1\r\n        'Luminance\r\n        hData(3, l) = hData(3, l) + 1\r\n    Next y\r\n    Next x\r\n    \r\n    'Run a quick loop through the completed array to find maximum values\r\n    For x = 0 To 255\r\n        'Red\r\n        If hData(0, x) > hMax(0) Then hMax(0) = hData(0, x)\r\n        'Green\r\n        If hData(1, x) > hMax(1) Then hMax(1) = hData(1, x)\r\n        'Blue\r\n        If hData(2, x) > hMax(2) Then hMax(2) = hData(2, x)\r\n        'Luminance\r\n        If hData(3, x) > hMax(3) Then hMax(3) = hData(3, x)\r\n    Next x\r\n    \r\n    'When all has been completed, off we go to draw the histogram.  Yay.\r\n    'We'll always draw the luminance histogram first; if the user has already looked\r\n    'at a particular histogram, remember which one and display it instead.\r\n    DrawHistogram lastHistSource, lastHistMethod\r\n\r\nEnd Sub\r\n"
             is_token: false
             children:
@@ -6382,7 +6382,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        hMax(x) = 0\r\n        For y = 0 To 255\r\n            hData(x, y) = 0\r\n        Next y\r\n    "
                     is_token: false
                     children:
@@ -6518,7 +6518,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            hData(x, y) = 0\r\n        "
                             is_token: false
                             children:
@@ -6810,7 +6810,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'We have to gather the red, green, and blue in order to calculate luminance\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        'Rather than generate authentic luminance (which requires an HSL\r\n        'conversion routine), we'll use the shortcut formula - averaging\r\n        'R, G, and B.  This is plenty accurate for a project like this.\r\n        l = (r + g + b) \\ 3\r\n        'Increment each value in the array, depending on its present value;\r\n        'this will let us see how many of each color value (and luminance\r\n        'value) there is in the image\r\n        'Red\r\n        hData(0, r) = hData(0, r) + 1\r\n        'Green\r\n        hData(1, g) = hData(1, g) + 1\r\n        'Blue\r\n        hData(2, b) = hData(2, b) + 1\r\n        'Luminance\r\n        hData(3, l) = hData(3, l) + 1\r\n    Next y\r\n    "
                     is_token: false
                     children:
@@ -6970,7 +6970,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        'We have to gather the red, green, and blue in order to calculate luminance\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        'Rather than generate authentic luminance (which requires an HSL\r\n        'conversion routine), we'll use the shortcut formula - averaging\r\n        'R, G, and B.  This is plenty accurate for a project like this.\r\n        l = (r + g + b) \\ 3\r\n        'Increment each value in the array, depending on its present value;\r\n        'this will let us see how many of each color value (and luminance\r\n        'value) there is in the image\r\n        'Red\r\n        hData(0, r) = hData(0, r) + 1\r\n        'Green\r\n        hData(1, g) = hData(1, g) + 1\r\n        'Blue\r\n        hData(2, b) = hData(2, b) + 1\r\n        'Luminance\r\n        hData(3, l) = hData(3, l) + 1\r\n    "
                             is_token: false
                             children:
@@ -8266,7 +8266,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'Red\r\n        If hData(0, x) > hMax(0) Then hMax(0) = hData(0, x)\r\n        'Green\r\n        If hData(1, x) > hMax(1) Then hMax(1) = hData(1, x)\r\n        'Blue\r\n        If hData(2, x) > hMax(2) Then hMax(2) = hData(2, x)\r\n        'Luminance\r\n        If hData(3, x) > hMax(3) Then hMax(3) = hData(3, x)\r\n    Next x\r\n    \r\n    'When all has been completed, off we go to draw the histogram.  Yay.\r\n    'We'll always draw the luminance histogram first; if the user has already looked\r\n    'at a particular histogram, remember which one and display it instead.\r\n    DrawHistogram lastHistSource, lastHistMethod\r\n\r\nEnd Sub\r\n"
                     is_token: false
                     children:
