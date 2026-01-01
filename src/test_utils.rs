@@ -265,15 +265,17 @@ pub(crate) fn check_tree(
         )
     })?;
 
-    check_nodes(node.children(), &expected_nodes, file, base_line, &["Root"])?;
+    check_nodes(node.children(), &expected_nodes, file, base_line, &["Root"])
+        .map_err(|e| format!("{}\nCST Debug:\n{}\n", e, tree.debug_tree()))?;
 
     // Check if there are extra children
     if node.children().len() > expected_nodes.len() {
         let extra_count = node.children().len() - expected_nodes.len();
         return Err(format!(
-            "\n{file}:{base_line}: Assertion failed in tree structure\nPath: Root\nExpected {} children, but found {} ({extra_count}extra)\n",
+            "\n{file}:{base_line}: Assertion failed in tree structure\nPath: Root\nExpected {} children, but found {} ({extra_count}extra)\nCST Debug:\n{}\n",
             expected_nodes.len(),
             node.children().len(),
+            tree.debug_tree()
         ));
     }
 
@@ -321,13 +323,9 @@ fn check_single_node(
     // Compare kinds
     if expected_kind_str != actual_kind_str {
         return Err(format!(
-            "\n{}:{}: Assertion failed in tree structure\nPath: {} → [{}]\nExpected: {}\nActual:   {}\n",
-            file,
+            "\n{file}:{}: Assertion failed in tree structure\nPath: {} → [{idx}]\nExpected: {expected_kind_str}\nActual:   {actual_kind_str}\n",
             base_line + expected.line_offset() as usize + 1,
             path.join(" → "),
-            idx,
-            expected_kind_str,
-            actual_kind_str,
         ));
     }
 
@@ -339,26 +337,18 @@ fn check_single_node(
         } => {
             if !actual.is_token() {
                 return Err(format!(
-                    "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected a token node with text\nActual:   non-token node\n",
-                    file,
+                    "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind} [{idx}]\nExpected a token node with text\nActual:   non-token node\n",
                     base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
-                    kind,
-                    idx,
                 ));
             }
 
             let actual_text = actual.text();
             if expected_text != actual_text {
                 return Err(format!(
-                    "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected text: {:?}\nActual text:   {:?}\n",
-                    file,
+                    "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind} [{idx}]\nExpected text: {expected_text:?}\nActual text:   {actual_text:?}\n",
                     base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
-                    kind,
-                    idx,
-                    expected_text,
-                    actual_text,
                 ));
             }
         }
@@ -371,14 +361,11 @@ fn check_single_node(
             if actual.children().len() > children.len() {
                 let extra_count = actual.children().len() - children.len();
                 return Err(format!(
-                    "\n{}:{}: Assertion failed in tree structure\nPath: {} → {}\nExpected {} children, but found {} ({} extra)\n",
-                    file,
+                    "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind}\nExpected {} children, but found {} ({extra_count} extra)\n",
                     base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
-                    kind,
                     children.len(),
                     actual.children().len(),
-                    extra_count,
                 ));
             }
         }
