@@ -1170,7 +1170,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    GetMaxDNA = DNALENGTH\r\n"
             is_token: false
             children:
@@ -1326,7 +1326,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    GetDNABase = DNA(pos)\r\n"
             is_token: false
             children:
@@ -1462,7 +1462,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Generate a random number between -1 and 1\r\n    Dim Mutate As Long\r\n    Mutate = Int(Rnd * 3) - 1\r\n    \r\n    'Select a random base, then apply the mutation to it.\r\n    '(Note that Mutate can have a value of 0, in which case it is an \"inconsequential\" mutation)\r\n    Dim pos As Long\r\n    pos = Rnd * DNALENGTH\r\n    If DNA(pos) = 3 And Mutate = 1 Then Mutate = 0\r\n    If DNA(pos) = 0 And Mutate = -1 Then Mutate = 0\r\n    DNA(pos) = DNA(pos) + Mutate\r\n\r\nEnd Sub\r\n\r\n'Two possible methods for creating a new creature:\r\n'1: Create a creature with random DNA\r\nPublic Sub CreateRandom()\r\n\r\n    'Creatures are born with full energy\r\n    Energy = startEnergy\r\n    \r\n    'Give this one random DNA\r\n    InitializeRandomDNA\r\n    \r\n    'Generate initial values for all genetically-set attributes\r\n    GetInitialSize\r\n    GetInitialSpeed\r\n    GetInitialRange\r\n    \r\n    'The only time this routine is run is for the initial generation, so\r\n    ' unilaterally set ParentID to -1 (indicative of first generation creatures)\r\n    ParentID = -1\r\n    AncestralID = -1\r\n    \r\n"
             is_token: false
             children:
@@ -2698,7 +2698,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Split the parent creature's energy with the child\r\n    srcCreature.Energy = srcCreature.Energy / 2\r\n    Energy = srcCreature.Energy\r\n    ParentID = srcCreature.ID\r\n    \r\n    'If the parent was a member of the founding set of creatures, set\r\n    ' the AncestralID to match the ParentID\r\n    If srcCreature.AncestralID = -1 Then\r\n        AncestralID = srcCreature.ID\r\n    Else\r\n        AncestralID = srcCreature.AncestralID\r\n    End If\r\n    \r\n    'Copy the parent's DNA over to the child\r\n    InitializeDNAFromCreature srcCreature\r\n    \r\n    'If mutations are enabled, mutate away!\r\n    For i = 0 To numOfMutations\r\n        MutateBase\r\n    Next i\r\n    \r\n    'Generate initial values for all genetically-set attributes\r\n    GetInitialSize\r\n    GetInitialSpeed\r\n    GetInitialRange\r\n    \r\n"
             is_token: false
             children:
@@ -3006,7 +3006,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        AncestralID = srcCreature.ID\r\n    "
                     is_token: false
                     children:
@@ -3074,7 +3074,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        AncestralID = srcCreature.AncestralID\r\n    "
                         is_token: false
                         children:
@@ -3278,7 +3278,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        MutateBase\r\n    "
                     is_token: false
                     children:
@@ -3498,7 +3498,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ReDim DNA(0 To DNALENGTH) As Byte\r\n    For x = 0 To DNALENGTH\r\n        DNA(x) = srcDNA.GetDNABase(x)\r\n    Next x\r\n"
             is_token: false
             children:
@@ -3638,7 +3638,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        DNA(x) = srcDNA.GetDNABase(x)\r\n    "
                     is_token: false
                     children:
@@ -3830,7 +3830,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ReDim DNA(0 To DNALENGTH) As Byte\r\n    For x = 0 To DNALENGTH\r\n        DNA(x) = Int(Rnd * 4)\r\n    Next x\r\n"
             is_token: false
             children:
@@ -3970,7 +3970,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        DNA(x) = Int(Rnd * 4)\r\n    "
                     is_token: false
                     children:
@@ -4174,7 +4174,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Mark the creature as not selected\r\n    Selected = False\r\n    \r\n    'Mark the creature as alive\r\n    isAlive = True\r\n    \r\n    'Start counting the number of cycles this creature has lived (0)\r\n    Lifetime = 0\r\n        \r\n    'Set the creature's target type as \"undefined\"\r\n    targetType = -1\r\n    tX = 0\r\n    tY = 0\r\n    \r\n"
             is_token: false
             children:
@@ -4610,7 +4610,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    For i = 0 To 49\r\n        If DNA(i) = 3 Then gSize = gSize + 1\r\n    Next i\r\n    \r\nEnd Sub\r\n\r\n'Creature speed\r\nPublic Sub GetInitialSpeed()\r\n    \r\n    For i = 50 To 149\r\n        If DNA(i) = 3 Then gSpeed = gSpeed + 1\r\n    Next i\r\n    \r\n    'We don't want speed to be too fast, so divide it by 20\r\n    gSpeed = gSpeed / 20\r\n       \r\nEnd Sub\r\n\r\n'Creature range (how far it can see)\r\nPublic Sub GetInitialRange()\r\n\r\n    For i = 150 To 199\r\n        If DNA(i) = 3 Then gRange = gRange + 1\r\n    Next i\r\n    \r\n    'Add size to this value (so range is never smaller than the size of the creature)\r\n    gRange = gRange + gSize\r\n\r\nEnd Sub\r\n\r\n'END gene creators\r\n'************************************************************************\r\n\r\n\r\n'This routine will draw the creature onto (PictureBox) at its present coordinates\r\nPublic Sub DrawOrganism(ByVal pBox As PictureBox)\r\n\r\n    'If the creature is alive, draw it in blue and red.\r\n    If isAlive Then\r\n        \r\n        oX = Int(osX)\r\n        oY = Int(osY)\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        End If\r\n    \r\n    'If it's dead, draw it in light gray\r\n    Else\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        End If\r\n    End If\r\n        \r\nEnd Sub\r\n\r\n'This routine handles the main thought process for this creature\r\nPublic Sub Brain()\r\n    \r\n    'Thinking takes energy...\r\n    Energy = Energy - 1\r\n    \r\n    'If it has no energy, it dies\r\n    If (Energy <= 0) Then\r\n        Energy = 0\r\n        isAlive = False\r\n        \r\n    'If the creature is still alive, count this cycle\r\n    Else\r\n        Lifetime = Lifetime + 1\r\n    End If\r\n    \r\n    'Determine what kind of a target square the creature has (random or food)\r\n    If (targetType = -1) Then\r\n    \r\n        'If it doesn't have a target, scan for food\r\n        ScanForFood\r\n        \r\n    Else\r\n    \r\n        'Check to see if the target is close enough to evaluate\r\n        If (Abs(osX - tX) < gSize) And (Abs(osY - tY) < gSize) Then\r\n        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        Else\r\n    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        End If\r\n    \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'This subroutine allows the creature to scan for food within its maximum scan radius\r\n' NOTE: The creatures maybe represented as circles, but they actually search in a\r\n'       square pattern. It's noticeably easier to program than a circular pattern.\r\nPublic Sub ScanForFood()\r\n\r\n    'The initial x and y coordinates to search from\r\n    Dim iX As Long, iY As Long\r\n    \r\n    'The initial x and y coordinates to search to\r\n    Dim fX As Long, fY As Long\r\n    \r\n    'Trim search coordinates (don't want them outside the limit of the food array)\r\n    iX = gThan(0, oX - gRange)\r\n    iY = gThan(0, oY - gRange)\r\n    fX = lThan(WORLDWIDTH, oX + gRange)\r\n    fY = lThan(WORLDHEIGHT, oY + gRange)\r\n    \r\n    'Search for food\r\n    For x = iX To fX\r\n    For y = iY To fY\r\n    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n'Come here when searching is over(one way or another)\r\nnoMoreSearch:\r\n\r\n    'If the creature found food, there's nothing more to do\r\n    If targetType = 1 Then\r\n        Exit Sub\r\n        \r\n    'If the creature didn't find food, set a random target location and start moving there\r\n    Else\r\n        targetType = 0  'targetType = 0 denotes a random target\r\n        tX = Rnd * WORLDWIDTH\r\n        tY = Rnd * WORLDHEIGHT\r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Returns the smaller of two numbers\r\nPrivate Function lThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 < n2) Then lThan = n1 Else lThan = n2\r\nEnd Function\r\n\r\n'Returns the larger of two numbers\r\nPrivate Function gThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 > n2) Then gThan = n1 Else gThan = n2\r\nEnd Function\r\n"
             is_token: false
             children:
@@ -4686,7 +4686,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        If DNA(i) = 3 Then gSize = gSize + 1\r\n    Next i\r\n    \r\nEnd Sub\r\n\r\n'Creature speed\r\nPublic Sub GetInitialSpeed()\r\n    \r\n    For i = 50 To 149\r\n        If DNA(i) = 3 Then gSpeed = gSpeed + 1\r\n    Next i\r\n    \r\n    'We don't want speed to be too fast, so divide it by 20\r\n    gSpeed = gSpeed / 20\r\n       \r\nEnd Sub\r\n\r\n'Creature range (how far it can see)\r\nPublic Sub GetInitialRange()\r\n\r\n    For i = 150 To 199\r\n        If DNA(i) = 3 Then gRange = gRange + 1\r\n    Next i\r\n    \r\n    'Add size to this value (so range is never smaller than the size of the creature)\r\n    gRange = gRange + gSize\r\n\r\nEnd Sub\r\n\r\n'END gene creators\r\n'************************************************************************\r\n\r\n\r\n'This routine will draw the creature onto (PictureBox) at its present coordinates\r\nPublic Sub DrawOrganism(ByVal pBox As PictureBox)\r\n\r\n    'If the creature is alive, draw it in blue and red.\r\n    If isAlive Then\r\n        \r\n        oX = Int(osX)\r\n        oY = Int(osY)\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        End If\r\n    \r\n    'If it's dead, draw it in light gray\r\n    Else\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        End If\r\n    End If\r\n        \r\nEnd Sub\r\n\r\n'This routine handles the main thought process for this creature\r\nPublic Sub Brain()\r\n    \r\n    'Thinking takes energy...\r\n    Energy = Energy - 1\r\n    \r\n    'If it has no energy, it dies\r\n    If (Energy <= 0) Then\r\n        Energy = 0\r\n        isAlive = False\r\n        \r\n    'If the creature is still alive, count this cycle\r\n    Else\r\n        Lifetime = Lifetime + 1\r\n    End If\r\n    \r\n    'Determine what kind of a target square the creature has (random or food)\r\n    If (targetType = -1) Then\r\n    \r\n        'If it doesn't have a target, scan for food\r\n        ScanForFood\r\n        \r\n    Else\r\n    \r\n        'Check to see if the target is close enough to evaluate\r\n        If (Abs(osX - tX) < gSize) And (Abs(osY - tY) < gSize) Then\r\n        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        Else\r\n    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        End If\r\n    \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'This subroutine allows the creature to scan for food within its maximum scan radius\r\n' NOTE: The creatures maybe represented as circles, but they actually search in a\r\n'       square pattern. It's noticeably easier to program than a circular pattern.\r\nPublic Sub ScanForFood()\r\n\r\n    'The initial x and y coordinates to search from\r\n    Dim iX As Long, iY As Long\r\n    \r\n    'The initial x and y coordinates to search to\r\n    Dim fX As Long, fY As Long\r\n    \r\n    'Trim search coordinates (don't want them outside the limit of the food array)\r\n    iX = gThan(0, oX - gRange)\r\n    iY = gThan(0, oY - gRange)\r\n    fX = lThan(WORLDWIDTH, oX + gRange)\r\n    fY = lThan(WORLDHEIGHT, oY + gRange)\r\n    \r\n    'Search for food\r\n    For x = iX To fX\r\n    For y = iY To fY\r\n    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n'Come here when searching is over(one way or another)\r\nnoMoreSearch:\r\n\r\n    'If the creature found food, there's nothing more to do\r\n    If targetType = 1 Then\r\n        Exit Sub\r\n        \r\n    'If the creature didn't find food, set a random target location and start moving there\r\n    Else\r\n        targetType = 0  'targetType = 0 denotes a random target\r\n        tX = Rnd * WORLDWIDTH\r\n        tY = Rnd * WORLDHEIGHT\r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Returns the smaller of two numbers\r\nPrivate Function lThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 < n2) Then lThan = n1 Else lThan = n2\r\nEnd Function\r\n\r\n'Returns the larger of two numbers\r\nPrivate Function gThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 > n2) Then gThan = n1 Else gThan = n2\r\nEnd Function\r\n"
                     is_token: false
                     children:
@@ -5002,7 +5002,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        If DNA(i) = 3 Then gSpeed = gSpeed + 1\r\n    Next i\r\n    \r\n    'We don't want speed to be too fast, so divide it by 20\r\n    gSpeed = gSpeed / 20\r\n       \r\nEnd Sub\r\n\r\n'Creature range (how far it can see)\r\nPublic Sub GetInitialRange()\r\n\r\n    For i = 150 To 199\r\n        If DNA(i) = 3 Then gRange = gRange + 1\r\n    Next i\r\n    \r\n    'Add size to this value (so range is never smaller than the size of the creature)\r\n    gRange = gRange + gSize\r\n\r\nEnd Sub\r\n\r\n'END gene creators\r\n'************************************************************************\r\n\r\n\r\n'This routine will draw the creature onto (PictureBox) at its present coordinates\r\nPublic Sub DrawOrganism(ByVal pBox As PictureBox)\r\n\r\n    'If the creature is alive, draw it in blue and red.\r\n    If isAlive Then\r\n        \r\n        oX = Int(osX)\r\n        oY = Int(osY)\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        End If\r\n    \r\n    'If it's dead, draw it in light gray\r\n    Else\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        End If\r\n    End If\r\n        \r\nEnd Sub\r\n\r\n'This routine handles the main thought process for this creature\r\nPublic Sub Brain()\r\n    \r\n    'Thinking takes energy...\r\n    Energy = Energy - 1\r\n    \r\n    'If it has no energy, it dies\r\n    If (Energy <= 0) Then\r\n        Energy = 0\r\n        isAlive = False\r\n        \r\n    'If the creature is still alive, count this cycle\r\n    Else\r\n        Lifetime = Lifetime + 1\r\n    End If\r\n    \r\n    'Determine what kind of a target square the creature has (random or food)\r\n    If (targetType = -1) Then\r\n    \r\n        'If it doesn't have a target, scan for food\r\n        ScanForFood\r\n        \r\n    Else\r\n    \r\n        'Check to see if the target is close enough to evaluate\r\n        If (Abs(osX - tX) < gSize) And (Abs(osY - tY) < gSize) Then\r\n        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        Else\r\n    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        End If\r\n    \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'This subroutine allows the creature to scan for food within its maximum scan radius\r\n' NOTE: The creatures maybe represented as circles, but they actually search in a\r\n'       square pattern. It's noticeably easier to program than a circular pattern.\r\nPublic Sub ScanForFood()\r\n\r\n    'The initial x and y coordinates to search from\r\n    Dim iX As Long, iY As Long\r\n    \r\n    'The initial x and y coordinates to search to\r\n    Dim fX As Long, fY As Long\r\n    \r\n    'Trim search coordinates (don't want them outside the limit of the food array)\r\n    iX = gThan(0, oX - gRange)\r\n    iY = gThan(0, oY - gRange)\r\n    fX = lThan(WORLDWIDTH, oX + gRange)\r\n    fY = lThan(WORLDHEIGHT, oY + gRange)\r\n    \r\n    'Search for food\r\n    For x = iX To fX\r\n    For y = iY To fY\r\n    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n'Come here when searching is over(one way or another)\r\nnoMoreSearch:\r\n\r\n    'If the creature found food, there's nothing more to do\r\n    If targetType = 1 Then\r\n        Exit Sub\r\n        \r\n    'If the creature didn't find food, set a random target location and start moving there\r\n    Else\r\n        targetType = 0  'targetType = 0 denotes a random target\r\n        tX = Rnd * WORLDWIDTH\r\n        tY = Rnd * WORLDHEIGHT\r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Returns the smaller of two numbers\r\nPrivate Function lThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 < n2) Then lThan = n1 Else lThan = n2\r\nEnd Function\r\n\r\n'Returns the larger of two numbers\r\nPrivate Function gThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 > n2) Then gThan = n1 Else gThan = n2\r\nEnd Function\r\n"
                             is_token: false
                             children:
@@ -5398,7 +5398,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        If DNA(i) = 3 Then gRange = gRange + 1\r\n    Next i\r\n    \r\n    'Add size to this value (so range is never smaller than the size of the creature)\r\n    gRange = gRange + gSize\r\n\r\nEnd Sub\r\n\r\n'END gene creators\r\n'************************************************************************\r\n\r\n\r\n'This routine will draw the creature onto (PictureBox) at its present coordinates\r\nPublic Sub DrawOrganism(ByVal pBox As PictureBox)\r\n\r\n    'If the creature is alive, draw it in blue and red.\r\n    If isAlive Then\r\n        \r\n        oX = Int(osX)\r\n        oY = Int(osY)\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        End If\r\n    \r\n    'If it's dead, draw it in light gray\r\n    Else\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        End If\r\n    End If\r\n        \r\nEnd Sub\r\n\r\n'This routine handles the main thought process for this creature\r\nPublic Sub Brain()\r\n    \r\n    'Thinking takes energy...\r\n    Energy = Energy - 1\r\n    \r\n    'If it has no energy, it dies\r\n    If (Energy <= 0) Then\r\n        Energy = 0\r\n        isAlive = False\r\n        \r\n    'If the creature is still alive, count this cycle\r\n    Else\r\n        Lifetime = Lifetime + 1\r\n    End If\r\n    \r\n    'Determine what kind of a target square the creature has (random or food)\r\n    If (targetType = -1) Then\r\n    \r\n        'If it doesn't have a target, scan for food\r\n        ScanForFood\r\n        \r\n    Else\r\n    \r\n        'Check to see if the target is close enough to evaluate\r\n        If (Abs(osX - tX) < gSize) And (Abs(osY - tY) < gSize) Then\r\n        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        Else\r\n    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        End If\r\n    \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'This subroutine allows the creature to scan for food within its maximum scan radius\r\n' NOTE: The creatures maybe represented as circles, but they actually search in a\r\n'       square pattern. It's noticeably easier to program than a circular pattern.\r\nPublic Sub ScanForFood()\r\n\r\n    'The initial x and y coordinates to search from\r\n    Dim iX As Long, iY As Long\r\n    \r\n    'The initial x and y coordinates to search to\r\n    Dim fX As Long, fY As Long\r\n    \r\n    'Trim search coordinates (don't want them outside the limit of the food array)\r\n    iX = gThan(0, oX - gRange)\r\n    iY = gThan(0, oY - gRange)\r\n    fX = lThan(WORLDWIDTH, oX + gRange)\r\n    fY = lThan(WORLDHEIGHT, oY + gRange)\r\n    \r\n    'Search for food\r\n    For x = iX To fX\r\n    For y = iY To fY\r\n    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n'Come here when searching is over(one way or another)\r\nnoMoreSearch:\r\n\r\n    'If the creature found food, there's nothing more to do\r\n    If targetType = 1 Then\r\n        Exit Sub\r\n        \r\n    'If the creature didn't find food, set a random target location and start moving there\r\n    Else\r\n        targetType = 0  'targetType = 0 denotes a random target\r\n        tX = Rnd * WORLDWIDTH\r\n        tY = Rnd * WORLDHEIGHT\r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Returns the smaller of two numbers\r\nPrivate Function lThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 < n2) Then lThan = n1 Else lThan = n2\r\nEnd Function\r\n\r\n'Returns the larger of two numbers\r\nPrivate Function gThan(ByVal n1 As Long, ByVal n2 As Long) As Long\r\n    If (n1 > n2) Then gThan = n1 Else gThan = n2\r\nEnd Function\r\n"
                                     is_token: false
                                     children:
@@ -5822,7 +5822,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        oX = Int(osX)\r\n        oY = Int(osY)\r\n    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        End If\r\n    \r\n    'If it's dead, draw it in light gray\r\n    "
                                             is_token: false
                                             children:
@@ -6026,7 +6026,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        "
                                                     is_token: false
                                                     children:
@@ -6270,7 +6270,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            pBox.Circle (oX, oY), gRange, RGB(255, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 255)\r\n        "
                                                         is_token: false
                                                         children:
@@ -6554,7 +6554,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "    \r\n        'If the creature is selected, draw it in black.\r\n        If Me.Selected Then\r\n            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        Else\r\n            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        End If\r\n    "
                                                 is_token: false
                                                 children:
@@ -6622,7 +6622,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            pBox.Circle (oX, oY), gRange, RGB(0, 0, 0)\r\n            pBox.Circle (oX, oY), gSize, RGB(0, 0, 0)\r\n        "
                                                         is_token: false
                                                         children:
@@ -6866,7 +6866,7 @@ cst:
                                                             text: "\r\n"
                                                             is_token: true
                                                             children: []
-                                                          - kind: CodeBlock
+                                                          - kind: StatementList
                                                             text: "            pBox.Circle (oX, oY), gRange, RGB(224, 224, 224)\r\n            pBox.Circle (oX, oY), gSize, RGB(208, 208, 208)\r\n        "
                                                             is_token: false
                                                             children:
@@ -7382,7 +7382,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        Energy = 0\r\n        isAlive = False\r\n        \r\n    'If the creature is still alive, count this cycle\r\n    "
                                             is_token: false
                                             children:
@@ -7502,7 +7502,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        Lifetime = Lifetime + 1\r\n    "
                                                 is_token: false
                                                 children:
@@ -7690,7 +7690,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "    \r\n        'If it doesn't have a target, scan for food\r\n        ScanForFood\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -7754,7 +7754,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "    \r\n        'Check to see if the target is close enough to evaluate\r\n        If (Abs(osX - tX) < gSize) And (Abs(osY - tY) < gSize) Then\r\n        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        Else\r\n    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        End If\r\n    \r\n    "
                                                 is_token: false
                                                 children:
@@ -8006,7 +8006,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "        \r\n            'Depending on the target type, the creature needs to re-evaluate all options\r\n            \r\n            'If the target is food and we've arrived, eat it!\r\n            If (targetType = 1) Then\r\n            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            Else\r\n                targetType = -1\r\n            End If\r\n            \r\n        'If the target isn't close enough, the creature needs to move closer\r\n        "
                                                         is_token: false
                                                         children:
@@ -8122,7 +8122,7 @@ cst:
                                                                 text: "\r\n"
                                                                 is_token: true
                                                                 children: []
-                                                              - kind: CodeBlock
+                                                              - kind: StatementList
                                                                 text: "            \r\n                Food(tX, tY) = 0  'Erase this food from the array\r\n                SetPixelV frmMain.picFood.hDC, tX, tY, frmMain.picFood.BackColor  'Remove it from the map, too\r\n                Energy = Energy + foodWorth  'Add the food value to this creature's energy\r\n                targetType = -1  'Reset the target type (since it no longer has a target)\r\n                \r\n            'If the target isn't food, it's just a random target - so reset it!\r\n            "
                                                                 is_token: false
                                                                 children:
@@ -8490,7 +8490,7 @@ cst:
                                                                     text: "\r\n"
                                                                     is_token: true
                                                                     children: []
-                                                                  - kind: CodeBlock
+                                                                  - kind: StatementList
                                                                     text: "                targetType = -1\r\n            "
                                                                     is_token: false
                                                                     children:
@@ -8598,7 +8598,7 @@ cst:
                                                             text: "\r\n"
                                                             is_token: true
                                                             children: []
-                                                          - kind: CodeBlock
+                                                          - kind: StatementList
                                                             text: "    \r\n            If (tY < osY) Then\r\n                osY = osY - gSpeed\r\n            Else\r\n                osY = osY + gSpeed\r\n            End If\r\n            If (tX < osX) Then\r\n                osX = osX - gSpeed\r\n            Else\r\n                osX = osX + gSpeed\r\n            End If\r\n            \r\n        "
                                                             is_token: false
                                                             children:
@@ -8682,7 +8682,7 @@ cst:
                                                                     text: "\r\n"
                                                                     is_token: true
                                                                     children: []
-                                                                  - kind: CodeBlock
+                                                                  - kind: StatementList
                                                                     text: "                osY = osY - gSpeed\r\n            "
                                                                     is_token: false
                                                                     children:
@@ -8766,7 +8766,7 @@ cst:
                                                                         text: "\r\n"
                                                                         is_token: true
                                                                         children: []
-                                                                      - kind: CodeBlock
+                                                                      - kind: StatementList
                                                                         text: "                osY = osY + gSpeed\r\n            "
                                                                         is_token: false
                                                                         children:
@@ -8926,7 +8926,7 @@ cst:
                                                                     text: "\r\n"
                                                                     is_token: true
                                                                     children: []
-                                                                  - kind: CodeBlock
+                                                                  - kind: StatementList
                                                                     text: "                osX = osX - gSpeed\r\n            "
                                                                     is_token: false
                                                                     children:
@@ -9010,7 +9010,7 @@ cst:
                                                                         text: "\r\n"
                                                                         is_token: true
                                                                         children: []
-                                                                      - kind: CodeBlock
+                                                                      - kind: StatementList
                                                                         text: "                osX = osX + gSpeed\r\n            "
                                                                         is_token: false
                                                                         children:
@@ -9954,7 +9954,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "    For y = iY To fY\r\n    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    Next y\r\n    "
                                             is_token: false
                                             children:
@@ -10026,7 +10026,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "    \r\n        'If the creature finds food...\r\n        If Food(x, y) = 255 Then\r\n            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        End If\r\n        \r\n    "
                                                     is_token: false
                                                     children:
@@ -10154,7 +10154,7 @@ cst:
                                                             text: "\r\n"
                                                             is_token: true
                                                             children: []
-                                                          - kind: CodeBlock
+                                                          - kind: StatementList
                                                             text: "            'Mark the target as being of type \"Food\"\r\n            targetType = 1\r\n            'Remember these x and y coordinates as the new target\r\n            tX = x\r\n            tY = y\r\n            'Quit searching for food\r\n            GoTo noMoreSearch\r\n        "
                                                             is_token: false
                                                             children:
@@ -10514,7 +10514,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        Exit Sub\r\n        \r\n    'If the creature didn't find food, set a random target location and start moving there\r\n    "
                                             is_token: false
                                             children:
@@ -10578,7 +10578,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "        targetType = 0  'targetType = 0 denotes a random target\r\n        tX = Rnd * WORLDWIDTH\r\n        tY = Rnd * WORLDHEIGHT\r\n    "
                                                 is_token: false
                                                 children:

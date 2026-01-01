@@ -291,7 +291,7 @@ End Sub
                     RightParenthesis,
                 },
                 Newline,
-                CodeBlock {
+                StatementList {
                     Whitespace ("    "),
                     AssignmentStatement {
                         IdentifierExpression {

@@ -1299,7 +1299,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    PicMain.SetFocus\r\n"
             is_token: false
             children:
@@ -1395,7 +1395,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Upon form load, it's necessary to initialize some key variables\r\n    InitializeGameEngine\r\n    \r\n    'When everything is set, start the game!\r\n    GameActive = True\r\n    MainLoop   'MainLoop appears at the bottom of the form\r\n    \r\n"
             is_token: false
             children:
@@ -1591,7 +1591,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    GameActive = False\r\n"
             is_token: false
             children:
@@ -1751,7 +1751,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Depending on the arrow key being pressed, set the correct direction variable\r\n    ' and the correct ship picture\r\n    \r\n    'Left\r\n    If KeyCode = vbKeyLeft Then\r\n        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    End If\r\n    \r\n    'Right\r\n    If KeyCode = vbKeyRight Then\r\n        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    End If\r\n    \r\n    'Up\r\n    If KeyCode = vbKeyUp Then sUp = 1\r\n    \r\n    'Down\r\n    If KeyCode = vbKeyDown Then sDown = 1\r\n    \r\n    'Space (fire the gun)\r\n    If KeyCode = vbKeySpace Then Firing = True\r\n    \r\n    'Escape (end the game)\r\n    If KeyCode = vbKeyEscape Then GameActive = False\r\n    \r\n"
             is_token: false
             children:
@@ -1867,7 +1867,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        sLeft = 1\r\n        picShip.Picture = PicL.Picture\r\n        picShipMask.Picture = PicLM.Picture\r\n    "
                     is_token: false
                     children:
@@ -2123,7 +2123,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        sRight = 1\r\n        picShip.Picture = PicR.Picture\r\n        picShipMask.Picture = PicRM.Picture\r\n    "
                     is_token: false
                     children:
@@ -2887,7 +2887,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Whenever an arrow key is released, reset motion in that direction\r\n    If KeyCode = vbKeyLeft Then sLeft = 0\r\n    If KeyCode = vbKeyRight Then sRight = 0\r\n    If KeyCode = vbKeyUp Then sUp = 0\r\n    If KeyCode = vbKeyDown Then sDown = 0\r\n    \r\n    'When the space bar is released, stop firing\r\n    If KeyCode = vbKeySpace Then Firing = False\r\n    \r\nEnd Sub\r\n\r\n'MAIN LOOP\r\nPublic Sub MainLoop()\r\n\r\n    'This variable is used to track time and reduce framerate (if necessary)\r\n    Dim timeDelay As Single\r\n    \r\n    Do While GameActive\r\n        \r\n        If (Not GameActive) Then Exit Do\r\n        \r\n        'Calculate time at the start of the function\r\n        timeDelay = Timer\r\n        \r\n        'Draw the background stars\r\n        DrawStars\r\n        \r\n        'Calculate the ship's motion and location\r\n        VelocityCode\r\n        \r\n        'If necessary, fire some bullets\r\n        FireBullets\r\n        \r\n        'Change the velocity caption\r\n        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n        If GameActive Then DoEvents Else Exit Do\r\n        \r\n        'If framerate limitations are active, loop until enough time has passed\r\n        If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n        \r\n    'Then do it all again...\r\n    Loop\r\n    \r\n    'When the loop exits, release the main form\r\n    Unload Me\r\n    \r\n"
             is_token: false
             children:
@@ -3579,7 +3579,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        \r\n        If (Not GameActive) Then Exit Do\r\n        \r\n        'Calculate time at the start of the function\r\n        timeDelay = Timer\r\n        \r\n        'Draw the background stars\r\n        DrawStars\r\n        \r\n        'Calculate the ship's motion and location\r\n        VelocityCode\r\n        \r\n        'If necessary, fire some bullets\r\n        FireBullets\r\n        \r\n        'Change the velocity caption\r\n        LblVel.Caption = CStr(50 - sVelVert) & \" kps\"\r\n        If GameActive Then DoEvents Else Exit Do\r\n        \r\n        'If framerate limitations are active, loop until enough time has passed\r\n        If (chkFramerate.Value = vbChecked) Then\r\n            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        End If\r\n        \r\n    'Then do it all again...\r\n    "
                     is_token: false
                     children:
@@ -4151,7 +4151,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            Do While (GameActive And ((Timer - timeDelay) < 1.66666666666667E-02))\r\n                If GameActive Then DoEvents Else Exit Do\r\n            Loop\r\n        "
                             is_token: false
                             children:
@@ -4299,7 +4299,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                If GameActive Then DoEvents Else Exit Do\r\n            "
                                     is_token: false
                                     children:
@@ -4599,7 +4599,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    GameActive = False\r\n"
             is_token: false
             children:

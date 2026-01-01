@@ -2975,7 +2975,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Change the AutoRedraw property of the picture box based on the check box's value\r\n    If ChkAutoRedraw.Value = vbChecked Then Picture1.AutoRedraw = True Else Picture1.AutoRedraw = False\r\n"
             is_token: false
             children:
@@ -3215,7 +3215,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Get the text value, convert it to type 'Single,' and send it to the sub\r\n    tBrightness = CSng(Val(TxtBrightness)) / 100\r\n    DrawDIBBrightness Picture1, Picture1, tBrightness\r\n"
             is_token: false
             children:
@@ -3543,7 +3543,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    'Build a look-up table for all possible brightness values\r\n    Dim bTable(0 To 255) As Long\r\n    Dim TempColor As Long\r\n    For x = 0 To 255\r\n        'Calculate the brightness for pixel value x\r\n        TempColor = Int(CSng(x) * Brightness)\r\n        'Make sure that the calculated value is between 0 and 255 (so we don't get an error)\r\n        ByteMe TempColor\r\n        'Place the corrected value into its array spot\r\n        bTable(x) = TempColor\r\n    Next x\r\n    'Get the pixel data into our ImageData array\r\n    GetImageData SrcPicture, ImageData()\r\n    'Temporary width and height variables are faster than accessing the Scale properties over and over again\r\n    Dim TempWidth As Long, TempHeight As Long\r\n    TempWidth = DstPicture.ScaleWidth - 1\r\n    TempHeight = DstPicture.ScaleHeight - 1\r\n    'run a loop through the picture to change every pixel\r\n    For x = 0 To TempWidth\r\n    For y = 0 To TempHeight\r\n        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)\r\n        If DstPicture.AutoRedraw = True And (x Mod 25) = 0 Then SetImageData DstPicture, ImageData()\r\n    Next x\r\n    'final picture refresh\r\n    SetImageData DstPicture, ImageData()\r\n"
             is_token: false
             children:
@@ -3823,7 +3823,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'Calculate the brightness for pixel value x\r\n        TempColor = Int(CSng(x) * Brightness)\r\n        'Make sure that the calculated value is between 0 and 255 (so we don't get an error)\r\n        ByteMe TempColor\r\n        'Place the corrected value into its array spot\r\n        bTable(x) = TempColor\r\n    "
                     is_token: false
                     children:
@@ -4443,7 +4443,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For y = 0 To TempHeight\r\n        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)\r\n        If DstPicture.AutoRedraw = True And (x Mod 25) = 0 Then SetImageData DstPicture, ImageData()\r\n    "
                     is_token: false
                     children:
@@ -4515,7 +4515,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    "
                             is_token: false
                             children:
@@ -5591,7 +5591,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Declare us some variables of the necessary bitmap types\r\n    Dim bm As BITMAP\r\n    Dim bmi As BITMAPINFO\r\n    'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data\r\n    bmi.bmHeader.bmSize = 40 'Size, in bytes, of the header (always 40)\r\n    bmi.bmHeader.bmPlanes = 1 'Number of planes (always one for this instance)\r\n    bmi.bmHeader.bmBitCount = 24 'Bits per pixel (always 24 for this instance)\r\n    bmi.bmHeader.bmCompression = 0 'Compression: standard/none or RLE\r\n    'Calculate the size of the bitmap type (in bytes)\r\n    Dim bmLen As Long\r\n    bmLen = Len(bm)\r\n    'Get the picture box information from SrcPictureBox and put it into our 'bm' variable\r\n    GetObject SrcPictureBox.Image, bmLen, bm\r\n    'Build a correctly sized array\r\n    ReDim ImageData(0 To 2, 0 To bm.bmWidth - 1, 0 To bm.bmHeight - 1)\r\n    'Finish building the 'bmi' variable we want to pass to the GetDIBits call (the same one we used above)\r\n    bmi.bmHeader.bmWidth = bm.bmWidth\r\n    bmi.bmHeader.bmHeight = bm.bmHeight\r\n    'Now that we've completely filled up the 'bmi' variable, we use GetDIBits to take the data from\r\n    'SrcPictureBox and put it into the ImageData() array using the settings we specified in 'bmi'\r\n    GetDIBits SrcPictureBox.hDC, SrcPictureBox.Image, 0, bm.bmHeight, ImageData(0, 0, 0), bmi, 0\r\n"
             is_token: false
             children:
@@ -6791,7 +6791,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Declare us some variables of the necessary bitmap types\r\n    Dim bm As BITMAP\r\n    Dim bmi As BITMAPINFO\r\n    'Now we fill up the bmi (Bitmap information variable) with all of the appropriate data\r\n    bmi.bmHeader.bmSize = 40 'Size, in bytes, of the header (always 40)\r\n    bmi.bmHeader.bmPlanes = 1 'Number of planes (always one for this instance)\r\n    bmi.bmHeader.bmBitCount = 24 'Bits per pixel (always 24 for this instance)\r\n    bmi.bmHeader.bmCompression = 0 'Compression: standard/none or RLE\r\n    'Calculate the size of the bitmap type (in bytes)\r\n    Dim bmLen As Long\r\n    bmLen = Len(bm)\r\n    'Get the picture box information from DstPictureBox and put it into our 'bm' variable\r\n    GetObject DstPictureBox.Image, bmLen, bm\r\n    'Now that we know the object's size, finish building the temporary header to pass to the StretchDIBits call\r\n    '(continuing to use the 'bmi' we used above)\r\n    bmi.bmHeader.bmWidth = bm.bmWidth\r\n    bmi.bmHeader.bmHeight = bm.bmHeight\r\n    'Now that we've built the temporary header, we use StretchDIBits to take the data from the\r\n    'ImageData() array and put it into SrcPictureBox using the settings specified in 'bmi' (the\r\n    'StretchDIBits call should be on one continuous line)\r\n    StretchDIBits DstPictureBox.hDC, 0, 0, bm.bmWidth, bm.bmHeight, 0, 0, bm.bmWidth, bm.bmHeight, ImageData(0, 0, 0), bmi, 0, vbSrcCopy\r\n    'Since this doesn't automatically initialize AutoRedraw, we have to do it manually\r\n    'Note: Always set AutoRedraw to true when using DIB sections; when AutoRedraw is false\r\n    'you will get unpredictable results.\r\n    If DstPictureBox.AutoRedraw = True Then\r\n        DstPictureBox.Picture = DstPictureBox.Image\r\n        DstPictureBox.Refresh\r\n    End If\r\n"
             is_token: false
             children:
@@ -7899,7 +7899,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        DstPictureBox.Picture = DstPictureBox.Image\r\n        DstPictureBox.Refresh\r\n    "
                     is_token: false
                     children:
@@ -8099,7 +8099,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    If TempVar > 255 Then TempVar = 255: Exit Sub\r\n    If TempVar < 0 Then TempVar = 0: Exit Sub\r\nEnd Sub\r\n\r\nPrivate Sub CmdBrightnessBB_Click()\r\n    'Get the text value, convert it to type 'Single,' and send it to the sub\r\n    tBrightness = CSng(Val(TxtBrightness)) / 100\r\n    DrawBitmapBitsBrightness Picture1, Picture1, tBrightness\r\n"
             is_token: false
             children:
@@ -8723,7 +8723,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    'Build a look-up table for all possible brightness values\r\n    Dim bTable(0 To 255) As Long\r\n    Dim TempColor As Long\r\n    For x = 0 To 255\r\n        'Calculate the brightness for pixel value x\r\n        TempColor = Int(CSng(x) * Brightness)\r\n        'Make sure that the calculated value is between 0 and 255 (so we don't get an error)\r\n        ByteMe TempColor\r\n        'Place the corrected value into its array spot\r\n        bTable(x) = TempColor\r\n    Next x\r\n    'Create a bitmap variable and copy the basic information from 'PictureBox.Image' into it\r\n    Dim bm As BITMAP\r\n    GetObject DstPicture.Image, Len(bm), bm\r\n    'Create an array of bytes and fill it with the information from 'bm' (i.e. PictureBox.image)\r\n    Dim ImageData() As Byte\r\n    ReDim ImageData(0 To (bm.bmBitsPixel \\ 8) - 1, 0 To bm.bmWidth - 1, 0 To bm.bmHeight - 1)\r\n    GetBitmapBits DstPicture.Image, bm.bmWidthBytes * bm.bmHeight, ImageData(0, 0, 0)\r\n\r\n    'Temporary width and height variables are faster than accessing the Scale properties over and over again\r\n    Dim TempWidth As Long, TempHeight As Long\r\n    TempWidth = DstPicture.ScaleWidth - 1\r\n    TempHeight = DstPicture.ScaleHeight - 1\r\n    'run a loop through the picture to change every pixel\r\n    For x = 0 To TempWidth\r\n    For y = 0 To TempHeight\r\n        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)\r\n        If DstPicture.AutoRedraw = True And (x Mod 25) = 0 Then\r\n            SetBitmapBits DstPicture.Image, bm.bmWidthBytes * bm.bmHeight, ImageData(0, 0, 0)\r\n            DstPicture.Picture = DstPicture.Image\r\n            DstPicture.Refresh\r\n        End If\r\n    Next x\r\n    'final picture refresh\r\n    SetBitmapBits DstPicture.Image, bm.bmWidthBytes * bm.bmHeight, ImageData(0, 0, 0)\r\n    DstPicture.Picture = DstPicture.Image\r\n    DstPicture.Refresh\r\n"
             is_token: false
             children:
@@ -9003,7 +9003,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'Calculate the brightness for pixel value x\r\n        TempColor = Int(CSng(x) * Brightness)\r\n        'Make sure that the calculated value is between 0 and 255 (so we don't get an error)\r\n        ByteMe TempColor\r\n        'Place the corrected value into its array spot\r\n        bTable(x) = TempColor\r\n    "
                     is_token: false
                     children:
@@ -10079,7 +10079,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For y = 0 To TempHeight\r\n        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect if AutoRedraw is set)\r\n        If DstPicture.AutoRedraw = True And (x Mod 25) = 0 Then\r\n            SetBitmapBits DstPicture.Image, bm.bmWidthBytes * bm.bmHeight, ImageData(0, 0, 0)\r\n            DstPicture.Picture = DstPicture.Image\r\n            DstPicture.Refresh\r\n        End If\r\n    "
                     is_token: false
                     children:
@@ -10151,7 +10151,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        'Use the values in the look-up table to quickly change the brightness values\r\n        'of each color.  The look-up table is much faster than doing the math\r\n        'over and over for each individual pixel.\r\n        ImageData(2, x, y) = bTable(ImageData(2, x, y))   'Change the red\r\n        ImageData(1, x, y) = bTable(ImageData(1, x, y))   'Change the green\r\n        ImageData(0, x, y) = bTable(ImageData(0, x, y))   'Change the blue\r\n    "
                             is_token: false
                             children:
@@ -10975,7 +10975,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            SetBitmapBits DstPicture.Image, bm.bmWidthBytes * bm.bmHeight, ImageData(0, 0, 0)\r\n            DstPicture.Picture = DstPicture.Image\r\n            DstPicture.Refresh\r\n        "
                             is_token: false
                             children:

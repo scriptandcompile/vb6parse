@@ -157,7 +157,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Default tiles are nasty brown school carpet on the left, water (?) on the right\r\n    CurPicIndex = 0\r\n    CurPicIndex2 = 1\r\n    \r\n    'Our default map size is 20 tiles by 20 tiles\r\n    SizeX = 20\r\n    SizeY = 20\r\n    ReDim MapArray(0 To SizeX, 0 To SizeY) As Byte\r\n    \r\n    'Set the default zoom to 100% (64, or the size of our tiles)\r\n    Zoom = 64\r\n    \r\n    'Set appropriate values for the main scroll bars\r\n    Main.HSTileBar.Max = Abs(Main.PicTiles.ScaleWidth - Main.PicTilesBuffer.ScaleWidth) / 64\r\n    Main.HSMain.Max = (SizeX * Zoom) - Main.MainPic.ScaleWidth\r\n    Main.VSMain.Max = (SizeY * Zoom) - Main.MainPic.ScaleHeight\r\n    \r\n    'Initialize the map array\r\n    For x = 0 To SizeX\r\n    For Y = 0 To SizeY\r\n        MapArray(x, Y) = 0\r\n    Next Y\r\n    Next x\r\n    \r\n    'Show the form and draw everything to it\r\n    Main.Show\r\n    RefreshAll\r\n    \r\n"
             is_token: false
             children:
@@ -1069,7 +1069,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For Y = 0 To SizeY\r\n        MapArray(x, Y) = 0\r\n    Next Y\r\n    "
                     is_token: false
                     children:
@@ -1141,7 +1141,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        MapArray(x, Y) = 0\r\n    "
                             is_token: false
                             children:
@@ -1405,7 +1405,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Clear out the current map\r\n    Main.MainPic.Picture = LoadPicture(vbNullString)\r\n    \r\n    For x = 0 To SizeX\r\n    For Y = 0 To SizeY\r\n        'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop.\r\n        'However, in an editor environment this is somewhat unimportant.\r\n        If UseStretchBlt Then\r\n            StretchBlt Main.MainPic.hdc, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    Next Y\r\n    Next x\r\n    \r\n    'Because AutoRedraw is set to true for our main map, update the .Picture property and force a refresh\r\n    Main.MainPic.Picture = Main.MainPic.Image\r\n    Main.MainPic.Refresh\r\n    \r\n"
             is_token: false
             children:
@@ -1589,7 +1589,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For Y = 0 To SizeY\r\n        'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop.\r\n        'However, in an editor environment this is somewhat unimportant.\r\n        If UseStretchBlt Then\r\n            StretchBlt Main.MainPic.hdc, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    Next Y\r\n    "
                     is_token: false
                     children:
@@ -1661,7 +1661,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        'For speed purposes, it would be better to remove this \"If/Then\" statement to be outside the loop.\r\n        'However, in an editor environment this is somewhat unimportant.\r\n        If UseStretchBlt Then\r\n            StretchBlt Main.MainPic.hdc, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    "
                             is_token: false
                             children:
@@ -1725,7 +1725,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            StretchBlt Main.MainPic.hdc, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        "
                                     is_token: false
                                     children:
@@ -2041,7 +2041,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (x * Zoom) - ViewX, (Y * Zoom) - ViewY, Zoom, Zoom, MapArray(x, Y) * 64, 0, 64, 64, vbSrcCopy\r\n        "
                                         is_token: false
                                         children:
@@ -2597,7 +2597,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ViewX = Main.HSMain.Value\r\n    ViewY = Main.VSMain.Value\r\n    DrawMap\r\n"
             is_token: false
             children:
@@ -2805,7 +2805,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    If UseStretchBlt Then\r\n        StretchBlt Main.PicTiles.hdc, 0, 0, Main.PicTiles.ScaleWidth, 64, Main.PicTilesBuffer.hdc, Main.HSTileBar.Value * 64, 0, Main.PicTiles.ScaleWidth, 64, vbSrcCopy\r\n    Else\r\n        Main.PicTiles.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, Main.PicTiles.ScaleWidth, 64, Main.HSTileBar.Value * 64, 0, Main.PicTiles.ScaleWidth, 64, vbSrcCopy\r\n    End If\r\n    \r\n    Main.MainPic.Picture = Main.MainPic.Image\r\n    Main.MainPic.Refresh\r\n\r\n"
             is_token: false
             children:
@@ -2853,7 +2853,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        StretchBlt Main.PicTiles.hdc, 0, 0, Main.PicTiles.ScaleWidth, 64, Main.PicTilesBuffer.hdc, Main.HSTileBar.Value * 64, 0, Main.PicTiles.ScaleWidth, 64, vbSrcCopy\r\n    "
                     is_token: false
                     children:
@@ -3113,7 +3113,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        Main.PicTiles.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, Main.PicTiles.ScaleWidth, 64, Main.HSTileBar.Value * 64, 0, Main.PicTiles.ScaleWidth, 64, vbSrcCopy\r\n    "
                         is_token: false
                         children:
@@ -3657,7 +3657,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Calculate the actual x and y values (accounting for zoom and scrolling)\r\n    CurX = (x \\ Zoom) + (ViewX \\ Zoom)\r\n    CurY = (Y \\ Zoom) + (ViewY \\ Zoom)\r\n    \r\n    'If the user moved the mouse outside of the map dimensions, cancel this routine\r\n    If CurX > SizeX Or CurY > SizeY Or CurX < 0 Or CurY < 0 Then Exit Sub\r\n    \r\n    'Store this tile value in MapArray\r\n    MapArray(CurX, CurY) = ArrayIndex\r\n    \r\n    'Draw the new tile\r\n    If UseStretchBlt Then\r\n        StretchBlt Main.MainPic.hdc, (CurX * Zoom) - ViewX, (CurY * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, ArrayIndex * 64, 0, 64, 64, vbSrcCopy\r\n    Else\r\n        Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (CurX * Zoom) - ViewX, (CurY * Zoom) - ViewY, Zoom, Zoom, ArrayIndex * 64, 0, 64, 64, vbSrcCopy\r\n    End If\r\n    \r\n    Main.MainPic.Picture = Main.MainPic.Image\r\n    Main.MainPic.Refresh\r\n    \r\n"
             is_token: false
             children:
@@ -4357,7 +4357,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        StretchBlt Main.MainPic.hdc, (CurX * Zoom) - ViewX, (CurY * Zoom) - ViewY, Zoom, Zoom, Main.PicTilesBuffer.hdc, ArrayIndex * 64, 0, 64, 64, vbSrcCopy\r\n    "
                     is_token: false
                     children:
@@ -4649,7 +4649,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        Main.MainPic.PaintPicture Main.PicTilesBuffer.Picture, (CurX * Zoom) - ViewX, (CurY * Zoom) - ViewY, Zoom, Zoom, ArrayIndex * 64, 0, 64, 64, vbSrcCopy\r\n    "
                         is_token: false
                         children:
@@ -5129,7 +5129,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Get a new zoom value from the user\r\n    Zoom = InputBox(\"Enter the percent zoom (100 is default)\")\r\n    Zoom = Int((Zoom / 100) * 64)\r\n    \r\n    'Change the scroll bars depending on the new zoom value\r\n    If (SizeX * Zoom) < Main.MainPic.ScaleWidth Then\r\n        Main.HSMain.Value = 0\r\n        Main.HSMain.Enabled = False\r\n    Else\r\n        Main.HSMain.Enabled = True\r\n        Main.HSMain.Max = (SizeX * Zoom) - Main.MainPic.ScaleWidth\r\n    End If\r\n    \r\n    If (SizeY * Zoom) < Main.MainPic.ScaleHeight Then\r\n        Main.VSMain.Value = 0\r\n        Main.VSMain.Enabled = False\r\n    Else\r\n        Main.VSMain.Enabled = True\r\n        Main.VSMain.Max = (SizeY * Zoom) - Main.MainPic.ScaleHeight\r\n    End If\r\n    \r\n    'Draw the new map image\r\n    DrawMap\r\n    \r\n"
             is_token: false
             children:
@@ -5473,7 +5473,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        Main.HSMain.Value = 0\r\n        Main.HSMain.Enabled = False\r\n    "
                     is_token: false
                     children:
@@ -5613,7 +5613,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        Main.HSMain.Enabled = True\r\n        Main.HSMain.Max = (SizeX * Zoom) - Main.MainPic.ScaleWidth\r\n    "
                         is_token: false
                         children:
@@ -5961,7 +5961,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        Main.VSMain.Value = 0\r\n        Main.VSMain.Enabled = False\r\n    "
                     is_token: false
                     children:
@@ -6101,7 +6101,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        Main.VSMain.Enabled = True\r\n        Main.VSMain.Max = (SizeY * Zoom) - Main.MainPic.ScaleHeight\r\n    "
                         is_token: false
                         children:
@@ -6437,7 +6437,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    If UseStretchBlt Then\r\n        StretchBlt Main.Pic1.hdc, 0, 0, 64, 64, Main.PicTilesBuffer.hdc, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        StretchBlt Main.Pic2.hdc, 0, 0, 64, 64, Main.PicTilesBuffer.hdc, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n    Else\r\n        Main.Pic1.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        Main.Pic2.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n    End If\r\n    DrawTileBar\r\n    DrawMap\r\n    \r\n"
             is_token: false
             children:
@@ -6485,7 +6485,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        StretchBlt Main.Pic1.hdc, 0, 0, 64, 64, Main.PicTilesBuffer.hdc, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        StretchBlt Main.Pic2.hdc, 0, 0, 64, 64, Main.PicTilesBuffer.hdc, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n    "
                     is_token: false
                     children:
@@ -6889,7 +6889,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        Main.Pic1.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        Main.Pic2.PaintPicture Main.PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n    "
                         is_token: false
                         children:

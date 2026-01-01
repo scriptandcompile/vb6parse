@@ -655,7 +655,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    UpdateEffect\r\n"
             is_token: false
             children:
@@ -743,7 +743,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Draw the initial effect with a default value, then update the image\r\n    If (App.LogMode = 0) Then Me.Caption = Me.Caption & \" - compile for significantly better performance!\"\r\n    LoadImageAutosized App.Path & \"\\sample.jpg\"\r\n    UpdateEffect\r\n    Me.Show\r\n        \r\n"
             is_token: false
             children:
@@ -1071,7 +1071,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    DrawThreshold picBack, picMain, hscrThreshold.Value, (chkWhite.Value = vbChecked)\r\n"
             is_token: false
             children:
@@ -1307,7 +1307,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    LoadImageAutosized vbNullString\r\n"
             is_token: false
             children:
@@ -1403,7 +1403,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lblThreshold.Caption = hscrThreshold.Value\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -1539,7 +1539,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lblThreshold.Caption = hscrThreshold.Value\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -1683,7 +1683,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Windows common dialog interface\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a\r\n    ' subset of modern image file types.\r\n    Dim cdfStr As String\r\n    cdfStr = \"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\"\r\n    cdfStr = cdfStr & \"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\"\r\n    \r\n    Dim sFile As String\r\n    If cDialog.GetOpenFileName(sFile, , True, False, cdfStr, , , \"Select image\", , Me.hWnd) Then\r\n        \r\n        'Load the image and refresh the effect\r\n        LoadImageAutosized sFile\r\n        UpdateEffect\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (cmdReset.Top + cmdReset.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\n'Automatically black-out pixels below a certain threshold; parameters are source picture box, destination picture box, blackout threshold (value between 0 and 255)\r\nPublic Sub DrawThreshold(srcPic As PictureBox, dstPic As PictureBox, ByVal blackOutValue As Long, Optional forceToWhite As Boolean = False)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will be used to calculate a temporary grayscale value for each pixel\r\n    Dim gray As Long\r\n    \r\n    'Initialize a grayscale look-up table\r\n    Dim gLookup(0 To 765) As Long\r\n    For x = 0 To 765\r\n        gLookup(x) = x \\ 3\r\n    Next x\r\n        \r\n    'Now, loop through each pixel, blacking it out (or ignoring it) according to the user's specified threshold value\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Calculate luminance\r\n        gray = gLookup(r + g + b)\r\n        \r\n        'If below the threshold, assign all color channels to their new values based on the look-up table created above\r\n        If gray <= blackOutValue Then\r\n            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        Else\r\n            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
             is_token: false
             children:
@@ -2299,7 +2299,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (cmdReset.Top + cmdReset.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\n'Automatically black-out pixels below a certain threshold; parameters are source picture box, destination picture box, blackout threshold (value between 0 and 255)\r\nPublic Sub DrawThreshold(srcPic As PictureBox, dstPic As PictureBox, ByVal blackOutValue As Long, Optional forceToWhite As Boolean = False)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will be used to calculate a temporary grayscale value for each pixel\r\n    Dim gray As Long\r\n    \r\n    'Initialize a grayscale look-up table\r\n    Dim gLookup(0 To 765) As Long\r\n    For x = 0 To 765\r\n        gLookup(x) = x \\ 3\r\n    Next x\r\n        \r\n    'Now, loop through each pixel, blacking it out (or ignoring it) according to the user's specified threshold value\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Calculate luminance\r\n        gray = gLookup(r + g + b)\r\n        \r\n        'If below the threshold, assign all color channels to their new values based on the look-up table created above\r\n        If gray <= blackOutValue Then\r\n            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        Else\r\n            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
                     is_token: false
                     children:
@@ -3703,7 +3703,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\n'Automatically black-out pixels below a certain threshold; parameters are source picture box, destination picture box, blackout threshold (value between 0 and 255)\r\nPublic Sub DrawThreshold(srcPic As PictureBox, dstPic As PictureBox, ByVal blackOutValue As Long, Optional forceToWhite As Boolean = False)\r\n\r\n    'This array will hold the image's pixel data\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will be used to calculate a temporary grayscale value for each pixel\r\n    Dim gray As Long\r\n    \r\n    'Initialize a grayscale look-up table\r\n    Dim gLookup(0 To 765) As Long\r\n    For x = 0 To 765\r\n        gLookup(x) = x \\ 3\r\n    Next x\r\n        \r\n    'Now, loop through each pixel, blacking it out (or ignoring it) according to the user's specified threshold value\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Calculate luminance\r\n        gray = gLookup(r + g + b)\r\n        \r\n        'If below the threshold, assign all color channels to their new values based on the look-up table created above\r\n        If gray <= blackOutValue Then\r\n            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        Else\r\n            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        End If\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
                             is_token: false
                             children:
@@ -5383,7 +5383,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        gLookup(x) = x \\ 3\r\n    "
                                     is_token: false
                                     children:
@@ -5655,7 +5655,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Calculate luminance\r\n        gray = gLookup(r + g + b)\r\n        \r\n        'If below the threshold, assign all color channels to their new values based on the look-up table created above\r\n        If gray <= blackOutValue Then\r\n            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        Else\r\n            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        End If\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -5815,7 +5815,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Calculate luminance\r\n        gray = gLookup(r + g + b)\r\n        \r\n        'If below the threshold, assign all color channels to their new values based on the look-up table created above\r\n        If gray <= blackOutValue Then\r\n            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        Else\r\n            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        End If\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -6351,7 +6351,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            imageData(quickX + 2, y) = 0\r\n            imageData(quickX + 1, y) = 0\r\n            imageData(quickX, y) = 0\r\n        "
                                                     is_token: false
                                                     children:
@@ -6655,7 +6655,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            'If forceToWhite is \"true\", set this pixel to white\r\n            If forceToWhite Then\r\n                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            End If\r\n        "
                                                         is_token: false
                                                         children:
@@ -6707,7 +6707,7 @@ cst:
                                                                 text: "\r\n"
                                                                 is_token: true
                                                                 children: []
-                                                              - kind: CodeBlock
+                                                              - kind: StatementList
                                                                 text: "                imageData(quickX + 2, y) = 255\r\n                imageData(quickX + 1, y) = 255\r\n                imageData(quickX, y) = 255\r\n            "
                                                                 is_token: false
                                                                 children:

@@ -1976,7 +1976,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    drawDeadCreatures = chkDisplayDead\r\n    picMap.Cls\r\n    If (Not runSim) Then DrawMap\r\n"
             is_token: false
             children:
@@ -2180,7 +2180,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    toMultiply = chkMultiply\r\n"
             is_token: false
             children:
@@ -2292,7 +2292,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Only update the box if a simulation is running (or has been run before)\r\n    If (UBound(creatures) > 0) Then\r\n    \r\n        'Mark all creatures as unselected\r\n        For i = 0 To UBound(creatures)\r\n        \r\n            creatures(i).Selected = False\r\n            \r\n            'Erase any currently selected creature\r\n            If drawDeadCreatures Then\r\n                creatures(i).DrawOrganism picMap\r\n            Else\r\n                If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n            End If\r\n            \r\n        Next i\r\n        \r\n        '\"Select\" the current creature\r\n        creatures(cmbOrganisms.ListIndex).Selected = True\r\n        \r\n        'If this creature is dead, we have to go out of our way to draw it\r\n        If drawDeadCreatures Then creatures(cmbOrganisms.ListIndex).DrawOrganism picMap\r\n        \r\n        'Now we write a bunch of text to the creature text box\r\n        With txtInfo\r\n            .Text = \"Creature #\" & cmbOrganisms.ListIndex & vbCrLf\r\n            .Text = .Text & \"------------------------\" & vbCrLf\r\n            .Text = .Text & \"Lifetime: \" & creatures(cmbOrganisms.ListIndex).Lifetime & \" cycles\"\r\n            If creatures(cmbOrganisms.ListIndex).isAlive Then\r\n                .Text = .Text & \" (still alive)\"\r\n            Else\r\n                .Text = .Text & \" (now dead)\"\r\n            End If\r\n            .Text = .Text & vbCrLf\r\n            .Text = .Text & \"Size: \" & creatures(cmbOrganisms.ListIndex).gSize & vbCrLf\r\n            .Text = .Text & \"Range: \" & creatures(cmbOrganisms.ListIndex).gRange & vbCrLf\r\n            .Text = .Text & \"Speed: \" & creatures(cmbOrganisms.ListIndex).gSpeed & vbCrLf\r\n            .Text = .Text & \"Current Energy: \" & creatures(cmbOrganisms.ListIndex).Energy & vbCrLf\r\n            .Text = .Text & \"Parent: \"\r\n            'The first generation of creatures are marked with -1 as their ParentID and AncestralID\r\n            If (creatures(cmbOrganisms.ListIndex).ParentID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).ParentID & vbCrLf\r\n            End If\r\n            .Text = .Text & \"Original ancestor: \"\r\n            If (creatures(cmbOrganisms.ListIndex).AncestralID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).AncestralID & vbCrLf\r\n            End If\r\n        End With\r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -2408,7 +2408,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    \r\n        'Mark all creatures as unselected\r\n        For i = 0 To UBound(creatures)\r\n        \r\n            creatures(i).Selected = False\r\n            \r\n            'Erase any currently selected creature\r\n            If drawDeadCreatures Then\r\n                creatures(i).DrawOrganism picMap\r\n            Else\r\n                If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n            End If\r\n            \r\n        Next i\r\n        \r\n        '\"Select\" the current creature\r\n        creatures(cmbOrganisms.ListIndex).Selected = True\r\n        \r\n        'If this creature is dead, we have to go out of our way to draw it\r\n        If drawDeadCreatures Then creatures(cmbOrganisms.ListIndex).DrawOrganism picMap\r\n        \r\n        'Now we write a bunch of text to the creature text box\r\n        With txtInfo\r\n            .Text = \"Creature #\" & cmbOrganisms.ListIndex & vbCrLf\r\n            .Text = .Text & \"------------------------\" & vbCrLf\r\n            .Text = .Text & \"Lifetime: \" & creatures(cmbOrganisms.ListIndex).Lifetime & \" cycles\"\r\n            If creatures(cmbOrganisms.ListIndex).isAlive Then\r\n                .Text = .Text & \" (still alive)\"\r\n            Else\r\n                .Text = .Text & \" (now dead)\"\r\n            End If\r\n            .Text = .Text & vbCrLf\r\n            .Text = .Text & \"Size: \" & creatures(cmbOrganisms.ListIndex).gSize & vbCrLf\r\n            .Text = .Text & \"Range: \" & creatures(cmbOrganisms.ListIndex).gRange & vbCrLf\r\n            .Text = .Text & \"Speed: \" & creatures(cmbOrganisms.ListIndex).gSpeed & vbCrLf\r\n            .Text = .Text & \"Current Energy: \" & creatures(cmbOrganisms.ListIndex).Energy & vbCrLf\r\n            .Text = .Text & \"Parent: \"\r\n            'The first generation of creatures are marked with -1 as their ParentID and AncestralID\r\n            If (creatures(cmbOrganisms.ListIndex).ParentID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).ParentID & vbCrLf\r\n            End If\r\n            .Text = .Text & \"Original ancestor: \"\r\n            If (creatures(cmbOrganisms.ListIndex).AncestralID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).AncestralID & vbCrLf\r\n            End If\r\n        End With\r\n    "
                     is_token: false
                     children:
@@ -2524,7 +2524,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        \r\n            creatures(i).Selected = False\r\n            \r\n            'Erase any currently selected creature\r\n            If drawDeadCreatures Then\r\n                creatures(i).DrawOrganism picMap\r\n            Else\r\n                If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n            End If\r\n            \r\n        "
                             is_token: false
                             children:
@@ -2668,7 +2668,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                creatures(i).DrawOrganism picMap\r\n            "
                                     is_token: false
                                     children:
@@ -2732,7 +2732,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n            "
                                         is_token: false
                                         children:
@@ -3140,7 +3140,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            .Text = \"Creature #\" & cmbOrganisms.ListIndex & vbCrLf\r\n            .Text = .Text & \"------------------------\" & vbCrLf\r\n            .Text = .Text & \"Lifetime: \" & creatures(cmbOrganisms.ListIndex).Lifetime & \" cycles\"\r\n            If creatures(cmbOrganisms.ListIndex).isAlive Then\r\n                .Text = .Text & \" (still alive)\"\r\n            Else\r\n                .Text = .Text & \" (now dead)\"\r\n            End If\r\n            .Text = .Text & vbCrLf\r\n            .Text = .Text & \"Size: \" & creatures(cmbOrganisms.ListIndex).gSize & vbCrLf\r\n            .Text = .Text & \"Range: \" & creatures(cmbOrganisms.ListIndex).gRange & vbCrLf\r\n            .Text = .Text & \"Speed: \" & creatures(cmbOrganisms.ListIndex).gSpeed & vbCrLf\r\n            .Text = .Text & \"Current Energy: \" & creatures(cmbOrganisms.ListIndex).Energy & vbCrLf\r\n            .Text = .Text & \"Parent: \"\r\n            'The first generation of creatures are marked with -1 as their ParentID and AncestralID\r\n            If (creatures(cmbOrganisms.ListIndex).ParentID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).ParentID & vbCrLf\r\n            End If\r\n            .Text = .Text & \"Original ancestor: \"\r\n            If (creatures(cmbOrganisms.ListIndex).AncestralID = -1) Then\r\n                .Text = .Text & \"none (original)\" & vbCrLf\r\n            Else\r\n                .Text = .Text & creatures(cmbOrganisms.ListIndex).AncestralID & vbCrLf\r\n            End If\r\n        "
                             is_token: false
                             children:
@@ -3560,7 +3560,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                .Text = .Text & \" (still alive)\"\r\n            "
                                     is_token: false
                                     children:
@@ -3656,7 +3656,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                .Text = .Text & \" (now dead)\"\r\n            "
                                         is_token: false
                                         children:
@@ -4588,7 +4588,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                .Text = .Text & \"none (original)\" & vbCrLf\r\n            "
                                     is_token: false
                                     children:
@@ -4700,7 +4700,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                .Text = .Text & creatures(cmbOrganisms.ListIndex).ParentID & vbCrLf\r\n            "
                                         is_token: false
                                         children:
@@ -5044,7 +5044,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                .Text = .Text & \"none (original)\" & vbCrLf\r\n            "
                                     is_token: false
                                     children:
@@ -5156,7 +5156,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                .Text = .Text & creatures(cmbOrganisms.ListIndex).AncestralID & vbCrLf\r\n            "
                                         is_token: false
                                         children:
@@ -5424,7 +5424,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'New CommonDialog object (prevents us from having to bundle the OCX)\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'Use the dialog to get a save file location from the user\r\n    Dim sFile As String\r\n    If cDialog.GetSaveFileName(sFile, , True, \"Simulation data (.txt)|*.txt|All files|*.*\", , , \"Save simulation data\", \".txt\", frmMain.hWnd) Then\r\n        \r\n        If FileExist(sFile) Then Kill sFile\r\n        \r\n        Open sFile For Output As #1\r\n        \r\n        'Create a header row\r\n        Dim hInfo As String\r\n        hInfo = \"Creature#\" & vbTab & \"Lifetime\" & vbTab & \"Size\" & vbTab & \"Range\" & vbTab & \"Speed\" & vbTab & \"Parent\" & vbTab & \"AncestralID\" & vbTab & \"DNA\"\r\n        Print #1, hInfo\r\n        \r\n        'Don't write anything further unless a simulation has been ran\r\n        If (UBound(creatures) > 0) Then\r\n        \r\n            'Loop through every creature, dumping info into the file as we go\r\n            For i = 0 To UBound(creatures)\r\n                \r\n                'A temporary string for storing the information on this creature\r\n                Dim tInfo As String\r\n                \r\n                tInfo = creatures(i).ID & vbTab\r\n                tInfo = tInfo & creatures(i).Lifetime & vbTab\r\n                tInfo = tInfo & creatures(i).gSize & vbTab\r\n                tInfo = tInfo & creatures(i).gRange & vbTab\r\n                tInfo = tInfo & creatures(i).gSpeed & vbTab\r\n                If (creatures(i).ParentID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).ParentID & vbTab\r\n                End If\r\n                If (creatures(i).AncestralID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).AncestralID & vbTab\r\n                End If\r\n      \r\n                'As a bonus, include the creature's actual \"DNA\" strand\r\n                For x = 0 To creatures(i).GetMaxDNA\r\n                    tInfo = tInfo & creatures(i).GetDNABase(x)\r\n                Next x\r\n                \r\n                'Write the line to file\r\n                Print #1, tInfo\r\n        \r\n            Next i\r\n            \r\n        End If\r\n        \r\n        Close #1\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n\r\n'START button: begin a new simulation\r\nPrivate Sub cmdStart_Click()\r\n    \r\n    'Clear out the buffer picture boxes\r\n    picMap.Picture = LoadPicture(vbNullString)\r\n    picFood.Picture = LoadPicture(vbNullString)\r\n    \r\n    'Collect important values from text boxes and check boxes\r\n    startEnergy = CLng(txtInitialEnergy)\r\n    InitialCreatures = CLng(txtOrganisms) - 1\r\n    foodRegen = CLng(txtFoodRegen)\r\n    foodGen = CLng(txtFoodGen)\r\n    foodWorth = CLng(txtFoodWorth)\r\n    toMultiply = chkMultiply\r\n    drawDeadCreatures = chkDisplayDead\r\n    mutateTurns = CLng(txtMutateTurns)\r\n    numOfMutations = CLng(txtMutations)\r\n    \r\n    'Randomly fill the food array with the specified amount of food\r\n    ReDim Food(0 To WORLDWIDTH, 0 To WORLDHEIGHT) As Long\r\n    \r\n    For i = 0 To CLng(txtInitialFood)\r\n        x = Int(Rnd * WORLDWIDTH)\r\n        y = Int(Rnd * WORLDHEIGHT)\r\n        Food(x, y) = 255\r\n    Next i\r\n    \r\n    'Draw the food to its own special picture box\r\n    For x = 0 To WORLDWIDTH\r\n    For y = 0 To WORLDHEIGHT\r\n        If (Food(x, y) > 0) Then SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n    Next y\r\n    Next x\r\n    \r\n    'Empty the \"select a creature\" combo box\r\n    cmbOrganisms.Clear\r\n    \r\n    'Create the original batch of creatures\r\n    ReDim creatures(0 To InitialCreatures) As Organism\r\n    \r\n    For i = 0 To InitialCreatures\r\n        Set creatures(i) = New Organism\r\n        creatures(i).CreateRandom\r\n        creatures(i).ID = i\r\n        creatures(i).oX = Int(Rnd * WORLDWIDTH)\r\n        creatures(i).osX = creatures(i).oX\r\n        creatures(i).oY = Int(Rnd * WORLDHEIGHT)\r\n        creatures(i).osY = creatures(i).oY\r\n        cmbOrganisms.AddItem \"Creature #\" & i\r\n    Next i\r\n    \r\n    'Reset other tracking data\r\n    numOfCycles = 0\r\n    numAlive = InitialCreatures\r\n    totalCreatures = InitialCreatures\r\n    \r\n    'Start the simulation\r\n    runSim = True\r\n    MainLoop\r\n    \r\nEnd Sub\r\n\r\n'STOP button: only stops the simulation; it does NOT erase any data\r\n' (in case the user wants to export to a file for further analyses)\r\nPrivate Sub cmdStop_Click()\r\n    runSim = False\r\nEnd Sub\r\n\r\n'When the program is first started...\r\nPrivate Sub Form_Load()\r\n    \r\n    'Set the main loop as \"not running\"\r\n    runSim = False\r\n    \r\n    'Seed the random number generator\r\n    Randomize Timer\r\n    \r\n    'Prepare the creature array\r\n    ReDim creatures(0) As Organism\r\n    \r\n    'Display some explanatory text\r\n    txtInfo.Text = \"Please select a creature from the drop-down box.\"\r\n    \r\nEnd Sub\r\n\r\n'DRAW EVERYTHING: copy the food buffer to a new buffer, add the creatures, then flip the\r\n' composited buffer to the screen\r\nPrivate Sub DrawMap()\r\n    \r\n    'Copy the food buffer to the creature buffer\r\n    BitBlt picMap.hDC, 0, 0, picMap.ScaleWidth, picMap.ScaleHeight, picFood.hDC, 0, 0, vbSrcCopy\r\n    \r\n    'Next, draw all the creatures over the food\r\n    For i = 0 To UBound(creatures)\r\n        If drawDeadCreatures Then\r\n            creatures(i).DrawOrganism picMap\r\n        Else\r\n            If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n        End If\r\n    Next i\r\n    \r\n    'Last, copy the composited image to the screen (doing it this way prevents flickering)\r\n    BitBlt picFront.hDC, 0, 0, picFront.ScaleWidth, picFront.ScaleHeight, picMap.hDC, 0, 0, vbSrcCopy\r\n    \r\nEnd Sub\r\n\r\n'Food is randomly regenerated at a rate specified by the user\r\nPrivate Sub GenerateFood()\r\n    \r\n    Dim setNewFood As Long\r\n    \r\n    'Assign setNewFood an arbitrary value between zero and a million\r\n    setNewFood = Int(Rnd * 1000000)\r\n    \r\n    'This formula makes it so that roughly every foodRegen turns, new food is drawn\r\n    If (setNewFood Mod foodRegen = 0) Then\r\n        'Draw new food (the amount specified by the user) at random locations\r\n        For i = 0 To foodGen\r\n            x = Int(Rnd * WORLDWIDTH)\r\n            y = Int(Rnd * WORLDHEIGHT)\r\n            'Mark this spot in the food array as being \"filled\"\r\n            Food(x, y) = 255\r\n            'Draw food as a pleasant dark green color\r\n            SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n        Next i\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n\r\n'THE MAIN PROGRAM LOOP. It runs when start is pushed and stops when stop is pushed.  Advanced, I know.\r\nPrivate Sub MainLoop()\r\n    \r\n    'Count keeps track of how many times the loop has been run\r\n    Dim count As Long\r\n    count = 1\r\n    \r\n    'If \"stop\" has not been pressed, process another iteration of the loop\r\n    Do While runSim = True\r\n    \r\n        'First, attempt to generate food\r\n        GenerateFood\r\n        \r\n        'The \"think\" routine allows all the creatures one turn worth of brain activity\r\n        Think\r\n        \r\n        'If the creatures have been allowed to multiply, do that now\r\n        If toMultiply = True Then\r\n            \r\n            'Only reproduce once every <mutateTurns>\r\n            If count Mod mutateTurns = 0 Then\r\n            \r\n                'Cycle through each creature one-at-a-time\r\n                For i = 0 To UBound(creatures)\r\n                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                Next i\r\n            End If\r\n        End If\r\n        \r\n        'Update the statistics label\r\n        lblTitle.Caption = \"Running simulator: \" & numAlive & \" alive, \" & (totalCreatures - numAlive + 1) & \" dead @ \" & count & \" cycles\"\r\n        \r\n        'Draw everything\r\n        DrawMap\r\n        \r\n        'Pause for user events\r\n        DoEvents\r\n        \r\n        'If all our creatures have died, end the loop automatically\r\n        If numAlive = 0 Then runSim = False\r\n        \r\n        count = count + 1\r\n    Loop\r\n    \r\nEnd Sub\r\n\r\n'THINK: the routine that allows each creature one round of brain activity\r\nPrivate Sub Think()\r\n\r\n    'Reset the number of living creatures\r\n    numAlive = 0\r\n\r\n    'Loop through every creature, allowing each a moment of simple thought processing\r\n    For i = 0 To UBound(creatures)\r\n        If creatures(i).isAlive = True Then\r\n            creatures(i).Brain\r\n            'Track the number of living creatures while we're at it\r\n            numAlive = numAlive + 1\r\n        End If\r\n    Next i\r\n\r\nEnd Sub\r\n\r\n'If the user shuts down the program, make sure our creatures don't remain alive in the background\r\nPrivate Sub Form_Unload(Cancel As Integer)\r\n    runSim = False\r\nEnd Sub\r\n\r\n'If the user clicks on a particular creature, display that creature's information\r\nPrivate Sub picFront_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n    \r\n    'Allow left mouseclicks to select a creature...\r\n    If Button = 1 Then\r\n    \r\n        Dim minDistance As Single\r\n        Dim curDist As Single\r\n        Dim minIndex As Long\r\n        \r\n        minDistance = 10000\r\n        minIndex = 0\r\n        \r\n        'Ignore mouse clicks if a simulation hasn't been run\r\n        If UBound(creatures) > 0 Then\r\n        \r\n            'Loop through each creature and find the one whose center is closest to the\r\n            ' click location\r\n            For i = 0 To UBound(creatures)\r\n                'If dead creatures aren't being drawn, and this creature is dead, ignore it\r\n                If drawDeadCreatures = False And creatures(i).isAlive = False Then GoTo NEXTI\r\n                'Calculate distance\r\n                curDist = Distance(x, y, creatures(i).oX, creatures(i).oY)\r\n                'If this one is closer than what we currently have, promote it\r\n                If curDist < minDistance Then\r\n                    minDistance = curDist\r\n                    minIndex = i\r\n                End If\r\nNEXTI:      Next i\r\n            \r\n            'Only allow a creature to be selected if the click was physically inside the\r\n            ' creature's radius\r\n            If minDistance < (creatures(minIndex).gRange * 2) Then\r\n                If drawDeadCreatures = True Then\r\n                    cmbOrganisms.ListIndex = minIndex\r\n                Else\r\n                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                End If\r\n                \r\n            '...otherwise, ignore this click\r\n            Else\r\n                For i = 0 To UBound(creatures)\r\n                    creatures(i).Selected = False\r\n                Next i\r\n                cmbOrganisms.Text = \"Please select a creature\"\r\n                txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n            End If\r\n        \r\n        End If\r\n    \r\n    '...while right and middle-clicks remove any previous selections\r\n    Else\r\n    \r\n        If UBound(creatures) > 0 Then\r\n            For i = 0 To UBound(creatures)\r\n                creatures(i).Selected = False\r\n            Next i\r\n        End If\r\n        \r\n        cmbOrganisms.Text = \"Please select a creature\"\r\n        txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n    \r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Simple Euclidean distance function\r\nPrivate Function Distance(ByVal x1 As Single, ByVal y1 As Single, ByVal x2 As Single, ByVal y2 As Single)\r\n    Distance = Sqr((x1 - x2) ^ 2 + (y1 - y2) ^ 2)\r\nEnd Function\r\n\r\n'Check to see if a file with this name already exists\r\nPrivate Function FileExist(fName As String) As Boolean\r\n    On Error Resume Next\r\n    Dim Temp As Long\r\n    Temp = GetAttr(fName)\r\n    FileExist = Not CBool(Err)\r\nEnd Function\r\n"
             is_token: false
             children:
@@ -6512,7 +6512,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        \r\n            'Loop through every creature, dumping info into the file as we go\r\n            For i = 0 To UBound(creatures)\r\n                \r\n                'A temporary string for storing the information on this creature\r\n                Dim tInfo As String\r\n                \r\n                tInfo = creatures(i).ID & vbTab\r\n                tInfo = tInfo & creatures(i).Lifetime & vbTab\r\n                tInfo = tInfo & creatures(i).gSize & vbTab\r\n                tInfo = tInfo & creatures(i).gRange & vbTab\r\n                tInfo = tInfo & creatures(i).gSpeed & vbTab\r\n                If (creatures(i).ParentID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).ParentID & vbTab\r\n                End If\r\n                If (creatures(i).AncestralID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).AncestralID & vbTab\r\n                End If\r\n      \r\n                'As a bonus, include the creature's actual \"DNA\" strand\r\n                For x = 0 To creatures(i).GetMaxDNA\r\n                    tInfo = tInfo & creatures(i).GetDNABase(x)\r\n                Next x\r\n                \r\n                'Write the line to file\r\n                Print #1, tInfo\r\n        \r\n            Next i\r\n            \r\n        "
                     is_token: false
                     children:
@@ -6628,7 +6628,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "                \r\n                'A temporary string for storing the information on this creature\r\n                Dim tInfo As String\r\n                \r\n                tInfo = creatures(i).ID & vbTab\r\n                tInfo = tInfo & creatures(i).Lifetime & vbTab\r\n                tInfo = tInfo & creatures(i).gSize & vbTab\r\n                tInfo = tInfo & creatures(i).gRange & vbTab\r\n                tInfo = tInfo & creatures(i).gSpeed & vbTab\r\n                If (creatures(i).ParentID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).ParentID & vbTab\r\n                End If\r\n                If (creatures(i).AncestralID = -1) Then\r\n                    tInfo = tInfo & \"n/a\" & vbTab\r\n                Else\r\n                    tInfo = tInfo & creatures(i).AncestralID & vbTab\r\n                End If\r\n      \r\n                'As a bonus, include the creature's actual \"DNA\" strand\r\n                For x = 0 To creatures(i).GetMaxDNA\r\n                    tInfo = tInfo & creatures(i).GetDNABase(x)\r\n                Next x\r\n                \r\n                'Write the line to file\r\n                Print #1, tInfo\r\n        \r\n            "
                             is_token: false
                             children:
@@ -7412,7 +7412,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                    tInfo = tInfo & \"n/a\" & vbTab\r\n                "
                                     is_token: false
                                     children:
@@ -7520,7 +7520,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                    tInfo = tInfo & creatures(i).ParentID & vbTab\r\n                "
                                         is_token: false
                                         children:
@@ -7784,7 +7784,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                    tInfo = tInfo & \"n/a\" & vbTab\r\n                "
                                     is_token: false
                                     children:
@@ -7892,7 +7892,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "                    tInfo = tInfo & creatures(i).AncestralID & vbTab\r\n                "
                                         is_token: false
                                         children:
@@ -8164,7 +8164,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "                    tInfo = tInfo & creatures(i).GetDNABase(x)\r\n                "
                                     is_token: false
                                     children:
@@ -8512,7 +8512,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n\r\n'START button: begin a new simulation\r\nPrivate Sub cmdStart_Click()\r\n    \r\n    'Clear out the buffer picture boxes\r\n    picMap.Picture = LoadPicture(vbNullString)\r\n    picFood.Picture = LoadPicture(vbNullString)\r\n    \r\n    'Collect important values from text boxes and check boxes\r\n    startEnergy = CLng(txtInitialEnergy)\r\n    InitialCreatures = CLng(txtOrganisms) - 1\r\n    foodRegen = CLng(txtFoodRegen)\r\n    foodGen = CLng(txtFoodGen)\r\n    foodWorth = CLng(txtFoodWorth)\r\n    toMultiply = chkMultiply\r\n    drawDeadCreatures = chkDisplayDead\r\n    mutateTurns = CLng(txtMutateTurns)\r\n    numOfMutations = CLng(txtMutations)\r\n    \r\n    'Randomly fill the food array with the specified amount of food\r\n    ReDim Food(0 To WORLDWIDTH, 0 To WORLDHEIGHT) As Long\r\n    \r\n    For i = 0 To CLng(txtInitialFood)\r\n        x = Int(Rnd * WORLDWIDTH)\r\n        y = Int(Rnd * WORLDHEIGHT)\r\n        Food(x, y) = 255\r\n    Next i\r\n    \r\n    'Draw the food to its own special picture box\r\n    For x = 0 To WORLDWIDTH\r\n    For y = 0 To WORLDHEIGHT\r\n        If (Food(x, y) > 0) Then SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n    Next y\r\n    Next x\r\n    \r\n    'Empty the \"select a creature\" combo box\r\n    cmbOrganisms.Clear\r\n    \r\n    'Create the original batch of creatures\r\n    ReDim creatures(0 To InitialCreatures) As Organism\r\n    \r\n    For i = 0 To InitialCreatures\r\n        Set creatures(i) = New Organism\r\n        creatures(i).CreateRandom\r\n        creatures(i).ID = i\r\n        creatures(i).oX = Int(Rnd * WORLDWIDTH)\r\n        creatures(i).osX = creatures(i).oX\r\n        creatures(i).oY = Int(Rnd * WORLDHEIGHT)\r\n        creatures(i).osY = creatures(i).oY\r\n        cmbOrganisms.AddItem \"Creature #\" & i\r\n    Next i\r\n    \r\n    'Reset other tracking data\r\n    numOfCycles = 0\r\n    numAlive = InitialCreatures\r\n    totalCreatures = InitialCreatures\r\n    \r\n    'Start the simulation\r\n    runSim = True\r\n    MainLoop\r\n    \r\nEnd Sub\r\n\r\n'STOP button: only stops the simulation; it does NOT erase any data\r\n' (in case the user wants to export to a file for further analyses)\r\nPrivate Sub cmdStop_Click()\r\n    runSim = False\r\nEnd Sub\r\n\r\n'When the program is first started...\r\nPrivate Sub Form_Load()\r\n    \r\n    'Set the main loop as \"not running\"\r\n    runSim = False\r\n    \r\n    'Seed the random number generator\r\n    Randomize Timer\r\n    \r\n    'Prepare the creature array\r\n    ReDim creatures(0) As Organism\r\n    \r\n    'Display some explanatory text\r\n    txtInfo.Text = \"Please select a creature from the drop-down box.\"\r\n    \r\nEnd Sub\r\n\r\n'DRAW EVERYTHING: copy the food buffer to a new buffer, add the creatures, then flip the\r\n' composited buffer to the screen\r\nPrivate Sub DrawMap()\r\n    \r\n    'Copy the food buffer to the creature buffer\r\n    BitBlt picMap.hDC, 0, 0, picMap.ScaleWidth, picMap.ScaleHeight, picFood.hDC, 0, 0, vbSrcCopy\r\n    \r\n    'Next, draw all the creatures over the food\r\n    For i = 0 To UBound(creatures)\r\n        If drawDeadCreatures Then\r\n            creatures(i).DrawOrganism picMap\r\n        Else\r\n            If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n        End If\r\n    Next i\r\n    \r\n    'Last, copy the composited image to the screen (doing it this way prevents flickering)\r\n    BitBlt picFront.hDC, 0, 0, picFront.ScaleWidth, picFront.ScaleHeight, picMap.hDC, 0, 0, vbSrcCopy\r\n    \r\nEnd Sub\r\n\r\n'Food is randomly regenerated at a rate specified by the user\r\nPrivate Sub GenerateFood()\r\n    \r\n    Dim setNewFood As Long\r\n    \r\n    'Assign setNewFood an arbitrary value between zero and a million\r\n    setNewFood = Int(Rnd * 1000000)\r\n    \r\n    'This formula makes it so that roughly every foodRegen turns, new food is drawn\r\n    If (setNewFood Mod foodRegen = 0) Then\r\n        'Draw new food (the amount specified by the user) at random locations\r\n        For i = 0 To foodGen\r\n            x = Int(Rnd * WORLDWIDTH)\r\n            y = Int(Rnd * WORLDHEIGHT)\r\n            'Mark this spot in the food array as being \"filled\"\r\n            Food(x, y) = 255\r\n            'Draw food as a pleasant dark green color\r\n            SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n        Next i\r\n    End If\r\n    \r\nEnd Sub\r\n\r\n\r\n'THE MAIN PROGRAM LOOP. It runs when start is pushed and stops when stop is pushed.  Advanced, I know.\r\nPrivate Sub MainLoop()\r\n    \r\n    'Count keeps track of how many times the loop has been run\r\n    Dim count As Long\r\n    count = 1\r\n    \r\n    'If \"stop\" has not been pressed, process another iteration of the loop\r\n    Do While runSim = True\r\n    \r\n        'First, attempt to generate food\r\n        GenerateFood\r\n        \r\n        'The \"think\" routine allows all the creatures one turn worth of brain activity\r\n        Think\r\n        \r\n        'If the creatures have been allowed to multiply, do that now\r\n        If toMultiply = True Then\r\n            \r\n            'Only reproduce once every <mutateTurns>\r\n            If count Mod mutateTurns = 0 Then\r\n            \r\n                'Cycle through each creature one-at-a-time\r\n                For i = 0 To UBound(creatures)\r\n                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                Next i\r\n            End If\r\n        End If\r\n        \r\n        'Update the statistics label\r\n        lblTitle.Caption = \"Running simulator: \" & numAlive & \" alive, \" & (totalCreatures - numAlive + 1) & \" dead @ \" & count & \" cycles\"\r\n        \r\n        'Draw everything\r\n        DrawMap\r\n        \r\n        'Pause for user events\r\n        DoEvents\r\n        \r\n        'If all our creatures have died, end the loop automatically\r\n        If numAlive = 0 Then runSim = False\r\n        \r\n        count = count + 1\r\n    Loop\r\n    \r\nEnd Sub\r\n\r\n'THINK: the routine that allows each creature one round of brain activity\r\nPrivate Sub Think()\r\n\r\n    'Reset the number of living creatures\r\n    numAlive = 0\r\n\r\n    'Loop through every creature, allowing each a moment of simple thought processing\r\n    For i = 0 To UBound(creatures)\r\n        If creatures(i).isAlive = True Then\r\n            creatures(i).Brain\r\n            'Track the number of living creatures while we're at it\r\n            numAlive = numAlive + 1\r\n        End If\r\n    Next i\r\n\r\nEnd Sub\r\n\r\n'If the user shuts down the program, make sure our creatures don't remain alive in the background\r\nPrivate Sub Form_Unload(Cancel As Integer)\r\n    runSim = False\r\nEnd Sub\r\n\r\n'If the user clicks on a particular creature, display that creature's information\r\nPrivate Sub picFront_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)\r\n    \r\n    'Allow left mouseclicks to select a creature...\r\n    If Button = 1 Then\r\n    \r\n        Dim minDistance As Single\r\n        Dim curDist As Single\r\n        Dim minIndex As Long\r\n        \r\n        minDistance = 10000\r\n        minIndex = 0\r\n        \r\n        'Ignore mouse clicks if a simulation hasn't been run\r\n        If UBound(creatures) > 0 Then\r\n        \r\n            'Loop through each creature and find the one whose center is closest to the\r\n            ' click location\r\n            For i = 0 To UBound(creatures)\r\n                'If dead creatures aren't being drawn, and this creature is dead, ignore it\r\n                If drawDeadCreatures = False And creatures(i).isAlive = False Then GoTo NEXTI\r\n                'Calculate distance\r\n                curDist = Distance(x, y, creatures(i).oX, creatures(i).oY)\r\n                'If this one is closer than what we currently have, promote it\r\n                If curDist < minDistance Then\r\n                    minDistance = curDist\r\n                    minIndex = i\r\n                End If\r\nNEXTI:      Next i\r\n            \r\n            'Only allow a creature to be selected if the click was physically inside the\r\n            ' creature's radius\r\n            If minDistance < (creatures(minIndex).gRange * 2) Then\r\n                If drawDeadCreatures = True Then\r\n                    cmbOrganisms.ListIndex = minIndex\r\n                Else\r\n                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                End If\r\n                \r\n            '...otherwise, ignore this click\r\n            Else\r\n                For i = 0 To UBound(creatures)\r\n                    creatures(i).Selected = False\r\n                Next i\r\n                cmbOrganisms.Text = \"Please select a creature\"\r\n                txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n            End If\r\n        \r\n        End If\r\n    \r\n    '...while right and middle-clicks remove any previous selections\r\n    Else\r\n    \r\n        If UBound(creatures) > 0 Then\r\n            For i = 0 To UBound(creatures)\r\n                creatures(i).Selected = False\r\n            Next i\r\n        End If\r\n        \r\n        cmbOrganisms.Text = \"Please select a creature\"\r\n        txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n    \r\n    End If\r\n\r\nEnd Sub\r\n\r\n'Simple Euclidean distance function\r\nPrivate Function Distance(ByVal x1 As Single, ByVal y1 As Single, ByVal x2 As Single, ByVal y2 As Single)\r\n    Distance = Sqr((x1 - x2) ^ 2 + (y1 - y2) ^ 2)\r\nEnd Function\r\n\r\n'Check to see if a file with this name already exists\r\nPrivate Function FileExist(fName As String) As Boolean\r\n    On Error Resume Next\r\n    Dim Temp As Long\r\n    Temp = GetAttr(fName)\r\n    FileExist = Not CBool(Err)\r\nEnd Function\r\n"
                     is_token: false
                     children:
@@ -9536,7 +9536,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        x = Int(Rnd * WORLDWIDTH)\r\n        y = Int(Rnd * WORLDHEIGHT)\r\n        Food(x, y) = 255\r\n    "
                             is_token: false
                             children:
@@ -9908,7 +9908,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "    For y = 0 To WORLDHEIGHT\r\n        If (Food(x, y) > 0) Then SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n    Next y\r\n    "
                             is_token: false
                             children:
@@ -9980,7 +9980,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        If (Food(x, y) > 0) Then SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n    "
                                     is_token: false
                                     children:
@@ -10444,7 +10444,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        Set creatures(i) = New Organism\r\n        creatures(i).CreateRandom\r\n        creatures(i).ID = i\r\n        creatures(i).oX = Int(Rnd * WORLDWIDTH)\r\n        creatures(i).osX = creatures(i).oX\r\n        creatures(i).oY = Int(Rnd * WORLDHEIGHT)\r\n        creatures(i).osY = creatures(i).oY\r\n        cmbOrganisms.AddItem \"Creature #\" & i\r\n    "
                             is_token: false
                             children:
@@ -12168,7 +12168,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        If drawDeadCreatures Then\r\n            creatures(i).DrawOrganism picMap\r\n        Else\r\n            If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n        End If\r\n    "
                             is_token: false
                             children:
@@ -12208,7 +12208,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            creatures(i).DrawOrganism picMap\r\n        "
                                     is_token: false
                                     children:
@@ -12272,7 +12272,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            If creatures(i).isAlive Then creatures(i).DrawOrganism picMap\r\n        "
                                         is_token: false
                                         children:
@@ -12940,7 +12940,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        'Draw new food (the amount specified by the user) at random locations\r\n        For i = 0 To foodGen\r\n            x = Int(Rnd * WORLDWIDTH)\r\n            y = Int(Rnd * WORLDHEIGHT)\r\n            'Mark this spot in the food array as being \"filled\"\r\n            Food(x, y) = 255\r\n            'Draw food as a pleasant dark green color\r\n            SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n        Next i\r\n    "
                             is_token: false
                             children:
@@ -13024,7 +13024,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            x = Int(Rnd * WORLDWIDTH)\r\n            y = Int(Rnd * WORLDHEIGHT)\r\n            'Mark this spot in the food array as being \"filled\"\r\n            Food(x, y) = 255\r\n            'Draw food as a pleasant dark green color\r\n            SetPixelV picFood.hDC, x, y, RGB(0, 64, 0)\r\n        "
                                     is_token: false
                                     children:
@@ -13712,7 +13712,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "    \r\n        'First, attempt to generate food\r\n        GenerateFood\r\n        \r\n        'The \"think\" routine allows all the creatures one turn worth of brain activity\r\n        Think\r\n        \r\n        'If the creatures have been allowed to multiply, do that now\r\n        If toMultiply = True Then\r\n            \r\n            'Only reproduce once every <mutateTurns>\r\n            If count Mod mutateTurns = 0 Then\r\n            \r\n                'Cycle through each creature one-at-a-time\r\n                For i = 0 To UBound(creatures)\r\n                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                Next i\r\n            End If\r\n        End If\r\n        \r\n        'Update the statistics label\r\n        lblTitle.Caption = \"Running simulator: \" & numAlive & \" alive, \" & (totalCreatures - numAlive + 1) & \" dead @ \" & count & \" cycles\"\r\n        \r\n        'Draw everything\r\n        DrawMap\r\n        \r\n        'Pause for user events\r\n        DoEvents\r\n        \r\n        'If all our creatures have died, end the loop automatically\r\n        If numAlive = 0 Then runSim = False\r\n        \r\n        count = count + 1\r\n    "
                             is_token: false
                             children:
@@ -13868,7 +13868,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            \r\n            'Only reproduce once every <mutateTurns>\r\n            If count Mod mutateTurns = 0 Then\r\n            \r\n                'Cycle through each creature one-at-a-time\r\n                For i = 0 To UBound(creatures)\r\n                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                Next i\r\n            End If\r\n        "
                                     is_token: false
                                     children:
@@ -13976,7 +13976,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "            \r\n                'Cycle through each creature one-at-a-time\r\n                For i = 0 To UBound(creatures)\r\n                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                Next i\r\n            "
                                             is_token: false
                                             children:
@@ -14092,7 +14092,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "                    \r\n                    'If this creature is a) alive and b) has existed for at least one lifecycle\r\n                    ' (i.e. it wasn't just created), let it reproduce\r\n                    If (creatures(i).isAlive = True And creatures(i).Lifetime >= mutateTurns) Then\r\n                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    End If\r\n                "
                                                     is_token: false
                                                     children:
@@ -14320,7 +14320,7 @@ cst:
                                                             text: "\r\n"
                                                             is_token: true
                                                             children: []
-                                                          - kind: CodeBlock
+                                                          - kind: StatementList
                                                             text: "                        'Track some basic statistics\r\n                        totalCreatures = totalCreatures + 1\r\n                        numAlive = numAlive + 1\r\n                        'Make room in the array for a new creature\r\n                        ReDim Preserve creatures(0 To totalCreatures) As Organism\r\n                        'Create the creature using its parent's data\r\n                        Set creatures(totalCreatures) = New Organism\r\n                        creatures(totalCreatures).CreateFromCreature creatures(i)\r\n                        creatures(totalCreatures).ID = totalCreatures\r\n                        creatures(totalCreatures).oX = creatures(i).oX\r\n                        creatures(totalCreatures).osX = creatures(i).osX\r\n                        creatures(totalCreatures).oY = creatures(i).oY\r\n                        creatures(totalCreatures).osY = creatures(i).osY\r\n                        'Add this creature's entry to the combo box\r\n                        cmbOrganisms.AddItem \"Creature #\" & totalCreatures\r\n                    "
                                                             is_token: false
                                                             children:
@@ -16124,7 +16124,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        If creatures(i).isAlive = True Then\r\n            creatures(i).Brain\r\n            'Track the number of living creatures while we're at it\r\n            numAlive = numAlive + 1\r\n        End If\r\n    "
                             is_token: false
                             children:
@@ -16224,7 +16224,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            creatures(i).Brain\r\n            'Track the number of living creatures while we're at it\r\n            numAlive = numAlive + 1\r\n        "
                                     is_token: false
                                     children:
@@ -16756,7 +16756,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "    \r\n        Dim minDistance As Single\r\n        Dim curDist As Single\r\n        Dim minIndex As Long\r\n        \r\n        minDistance = 10000\r\n        minIndex = 0\r\n        \r\n        'Ignore mouse clicks if a simulation hasn't been run\r\n        If UBound(creatures) > 0 Then\r\n        \r\n            'Loop through each creature and find the one whose center is closest to the\r\n            ' click location\r\n            For i = 0 To UBound(creatures)\r\n                'If dead creatures aren't being drawn, and this creature is dead, ignore it\r\n                If drawDeadCreatures = False And creatures(i).isAlive = False Then GoTo NEXTI\r\n                'Calculate distance\r\n                curDist = Distance(x, y, creatures(i).oX, creatures(i).oY)\r\n                'If this one is closer than what we currently have, promote it\r\n                If curDist < minDistance Then\r\n                    minDistance = curDist\r\n                    minIndex = i\r\n                End If\r\nNEXTI:      Next i\r\n            \r\n            'Only allow a creature to be selected if the click was physically inside the\r\n            ' creature's radius\r\n            If minDistance < (creatures(minIndex).gRange * 2) Then\r\n                If drawDeadCreatures = True Then\r\n                    cmbOrganisms.ListIndex = minIndex\r\n                Else\r\n                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                End If\r\n                \r\n            '...otherwise, ignore this click\r\n            Else\r\n                For i = 0 To UBound(creatures)\r\n                    creatures(i).Selected = False\r\n                Next i\r\n                cmbOrganisms.Text = \"Please select a creature\"\r\n                txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n            End If\r\n        \r\n        End If\r\n    \r\n    '...while right and middle-clicks remove any previous selections\r\n    "
                             is_token: false
                             children:
@@ -17080,7 +17080,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        \r\n            'Loop through each creature and find the one whose center is closest to the\r\n            ' click location\r\n            For i = 0 To UBound(creatures)\r\n                'If dead creatures aren't being drawn, and this creature is dead, ignore it\r\n                If drawDeadCreatures = False And creatures(i).isAlive = False Then GoTo NEXTI\r\n                'Calculate distance\r\n                curDist = Distance(x, y, creatures(i).oX, creatures(i).oY)\r\n                'If this one is closer than what we currently have, promote it\r\n                If curDist < minDistance Then\r\n                    minDistance = curDist\r\n                    minIndex = i\r\n                End If\r\nNEXTI:      Next i\r\n            \r\n            'Only allow a creature to be selected if the click was physically inside the\r\n            ' creature's radius\r\n            If minDistance < (creatures(minIndex).gRange * 2) Then\r\n                If drawDeadCreatures = True Then\r\n                    cmbOrganisms.ListIndex = minIndex\r\n                Else\r\n                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                End If\r\n                \r\n            '...otherwise, ignore this click\r\n            Else\r\n                For i = 0 To UBound(creatures)\r\n                    creatures(i).Selected = False\r\n                Next i\r\n                cmbOrganisms.Text = \"Please select a creature\"\r\n                txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n            End If\r\n        \r\n        "
                                     is_token: false
                                     children:
@@ -17208,7 +17208,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "                'If dead creatures aren't being drawn, and this creature is dead, ignore it\r\n                If drawDeadCreatures = False And creatures(i).isAlive = False Then GoTo NEXTI\r\n                'Calculate distance\r\n                curDist = Distance(x, y, creatures(i).oX, creatures(i).oY)\r\n                'If this one is closer than what we currently have, promote it\r\n                If curDist < minDistance Then\r\n                    minDistance = curDist\r\n                    minIndex = i\r\n                End If\r\nNEXTI:      "
                                             is_token: false
                                             children:
@@ -17668,7 +17668,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "                    minDistance = curDist\r\n                    minIndex = i\r\n                "
                                                     is_token: false
                                                     children:
@@ -17968,7 +17968,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "                If drawDeadCreatures = True Then\r\n                    cmbOrganisms.ListIndex = minIndex\r\n                Else\r\n                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                End If\r\n                \r\n            '...otherwise, ignore this click\r\n            "
                                             is_token: false
                                             children:
@@ -18032,7 +18032,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "                    cmbOrganisms.ListIndex = minIndex\r\n                "
                                                     is_token: false
                                                     children:
@@ -18100,7 +18100,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "                    If creatures(minIndex).isAlive = True Then\r\n                        cmbOrganisms.ListIndex = minIndex\r\n                    End If\r\n                "
                                                         is_token: false
                                                         children:
@@ -18200,7 +18200,7 @@ cst:
                                                                 text: "\r\n"
                                                                 is_token: true
                                                                 children: []
-                                                              - kind: CodeBlock
+                                                              - kind: StatementList
                                                                 text: "                        cmbOrganisms.ListIndex = minIndex\r\n                    "
                                                                 is_token: false
                                                                 children:
@@ -18328,7 +18328,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "                For i = 0 To UBound(creatures)\r\n                    creatures(i).Selected = False\r\n                Next i\r\n                cmbOrganisms.Text = \"Please select a creature\"\r\n                txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n            "
                                                 is_token: false
                                                 children:
@@ -18424,7 +18424,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "                    creatures(i).Selected = False\r\n                "
                                                         is_token: false
                                                         children:
@@ -18704,7 +18704,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "    \r\n        If UBound(creatures) > 0 Then\r\n            For i = 0 To UBound(creatures)\r\n                creatures(i).Selected = False\r\n            Next i\r\n        End If\r\n        \r\n        cmbOrganisms.Text = \"Please select a creature\"\r\n        txtInfo.Text = \"Please select a creature from the drop-down box.  Once selected, it will turn BLACK for easy identification.\"\r\n    \r\n    "
                                 is_token: false
                                 children:
@@ -18800,7 +18800,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            For i = 0 To UBound(creatures)\r\n                creatures(i).Selected = False\r\n            Next i\r\n        "
                                         is_token: false
                                         children:
@@ -18896,7 +18896,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "                creatures(i).Selected = False\r\n            "
                                                 is_token: false
                                                 children:

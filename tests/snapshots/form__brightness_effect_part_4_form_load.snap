@@ -615,7 +615,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Dim NewColor As Long\r\n    Dim x As Long, y As Long\r\n    'Image data\r\n    Dim iArray() As Byte\r\n    Dim bTable(0 To 255) As Long\r\n    'Build a look-up table of all 256 possible brightness values\r\n    For x = 0 To 255\r\n        NewColor = x + Brightness\r\n        ByteMe NewColor\r\n        bTable(x) = NewColor\r\n    Next x\r\n    'Instantiate a FastDrawing class\r\n    Dim fDraw As New FastDrawing\r\n    'Get the image information\r\n    fDraw.GetImageData SrcPicture, iArray()\r\n    'Temporary width and height variables are faster\r\n    Dim TempWidth As Long, TempHeight As Long\r\n    'I don't know why the width must always be (width - 1); this seems to be a\r\n    'strange byproduct of using DIB sections in VB.  Go figure.\r\n    TempWidth = fDraw.GetImageWidth(SrcPicture) - 1\r\n    TempHeight = fDraw.GetImageHeight(SrcPicture) - 1\r\n    'run a loop through the picture to change every pixel\r\n    For x = 0 To TempWidth\r\n    For y = 0 To TempHeight\r\n        iArray(2, x, y) = bTable(iArray(2, x, y))\r\n        iArray(1, x, y) = bTable(iArray(1, x, y))\r\n        iArray(0, x, y) = bTable(iArray(0, x, y))\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect)\r\n        If x Mod 25 = 0 Then fDraw.SetImageData DstPicture, fDraw.GetImageWidth(SrcPicture), fDraw.GetImageHeight(SrcPicture), iArray()\r\n    Next x\r\n    'final picture refresh\r\n    fDraw.SetImageData DstPicture, fDraw.GetImageWidth(SrcPicture), fDraw.GetImageHeight(SrcPicture), iArray()\r\n    'free up the memory we borrowed for our image array\r\n    Erase iArray\r\n"
             is_token: false
             children:
@@ -943,7 +943,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        NewColor = x + Brightness\r\n        ByteMe NewColor\r\n        bTable(x) = NewColor\r\n    "
                     is_token: false
                     children:
@@ -1627,7 +1627,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For y = 0 To TempHeight\r\n        iArray(2, x, y) = bTable(iArray(2, x, y))\r\n        iArray(1, x, y) = bTable(iArray(1, x, y))\r\n        iArray(0, x, y) = bTable(iArray(0, x, y))\r\n    Next y\r\n        'refresh the picture box every 25 lines (a nice progress bar effect)\r\n        If x Mod 25 = 0 Then fDraw.SetImageData DstPicture, fDraw.GetImageWidth(SrcPicture), fDraw.GetImageHeight(SrcPicture), iArray()\r\n    "
                     is_token: false
                     children:
@@ -1699,7 +1699,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        iArray(2, x, y) = bTable(iArray(2, x, y))\r\n        iArray(1, x, y) = bTable(iArray(1, x, y))\r\n        iArray(0, x, y) = bTable(iArray(0, x, y))\r\n    "
                             is_token: false
                             children:
@@ -2839,7 +2839,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Dim NewColor As Long\r\n    Dim x As Long\r\n    'Image data\r\n    Dim iArray() As Byte\r\n    Dim bTable(0 To 255) As Long\r\n    'Build a look-up table of all 256 possible brightness values\r\n    For x = 0 To 255\r\n        NewColor = x + Brightness\r\n        ByteMe NewColor\r\n        bTable(x) = NewColor\r\n    Next x\r\n    'Instantiate a FastDrawing class\r\n    Dim fDraw As New FastDrawing\r\n    'Get the image data (in stream format)\r\n    fDraw.GetImageDataStream SrcPicture, iArray()\r\n    'Get the stream length from the image\r\n    Dim StreamLength As Long\r\n    StreamLength = fDraw.GetImageStreamLength(SrcPicture)\r\n    'run a loop through the picture to change every pixel\r\n    For x = 0 To StreamLength\r\n        iArray(x) = bTable(iArray(x))\r\n    Next x\r\n    'Draw the picture\r\n    fDraw.SetImageDataStream DstPicture, fDraw.GetImageWidth(SrcPicture), fDraw.GetImageHeight(SrcPicture), iArray()\r\n    'free up the memory we borrowed for our image array\r\n    Erase iArray\r\n"
             is_token: false
             children:
@@ -3139,7 +3139,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        NewColor = x + Brightness\r\n        ByteMe NewColor\r\n        bTable(x) = NewColor\r\n    "
                     is_token: false
                     children:
@@ -3647,7 +3647,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        iArray(x) = bTable(iArray(x))\r\n    "
                     is_token: false
                     children:
@@ -4043,7 +4043,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    If TempVar > 255 Then TempVar = 255: Exit Sub\r\n    If TempVar < 0 Then TempVar = 0: Exit Sub\r\nEnd Sub\r\n\r\nPrivate Sub Form_Load()\r\n    Picture2.Picture = Picture1.Picture\r\n"
             is_token: false
             children:
@@ -4459,7 +4459,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Get the brightness value and send it to the sub\r\n    tBrightness = CLng(hScrollBrightness.Value)\r\n    If ChkMethod.Value = vbChecked Then\r\n        DrawFastBrightness Picture2, Picture1, tBrightness\r\n    Else\r\n        DrawBrightness Picture2, Picture1, tBrightness\r\n    End If\r\n"
             is_token: false
             children:
@@ -4615,7 +4615,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        DrawFastBrightness Picture2, Picture1, tBrightness\r\n    "
                     is_token: false
                     children:
@@ -4683,7 +4683,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        DrawBrightness Picture2, Picture1, tBrightness\r\n    "
                         is_token: false
                         children:
@@ -4815,7 +4815,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Get the brightness value and send it to the subroutine\r\n    tBrightness = CLng(hScrollBrightness.Value)\r\n    If ChkMethod.Value = vbChecked Then\r\n        DrawFastBrightness Picture2, Picture1, tBrightness\r\n    Else\r\n        DrawBrightness Picture2, Picture1, tBrightness\r\n    End If\r\n"
             is_token: false
             children:
@@ -4971,7 +4971,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        DrawFastBrightness Picture2, Picture1, tBrightness\r\n    "
                     is_token: false
                     children:
@@ -5039,7 +5039,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        DrawBrightness Picture2, Picture1, tBrightness\r\n    "
                         is_token: false
                         children:

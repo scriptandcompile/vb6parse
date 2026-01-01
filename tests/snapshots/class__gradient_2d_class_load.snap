@@ -1514,7 +1514,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    Dim cc As ChooseColorStruct\r\n    Dim aColorRef(15) As Long\r\n    Dim lInitColor As Long\r\n  \r\n    ' Translate the initial OLE color to a long value\r\n    If (initColor <> 0) Then\r\n        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
             is_token: false
             children:
@@ -1754,7 +1754,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
                     is_token: false
                     children:
@@ -1930,7 +1930,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
                                 is_token: false
                                 children:
@@ -1970,7 +1970,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    "
                                         is_token: false
                                         children:

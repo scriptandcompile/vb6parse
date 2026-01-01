@@ -1784,22 +1784,22 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// Parse a code block, consuming tokens until a termination condition is met.
+    /// Parse a statement list, consuming tokens until a termination condition is met.
     ///
-    /// This is a generic code block parser that can handle different termination conditions:
+    /// This is a generic statement list parser that can handle different termination conditions:
     /// - End Sub, End Function, End If, etc.
     /// - `ElseIf` or Else (for If statements)
     ///
     /// # Arguments
     /// * `stop_conditions` - A closure that returns true when the block should stop parsing
-    pub(crate) fn parse_code_block<F>(&mut self, stop_conditions: F)
+    pub(crate) fn parse_statement_list<F>(&mut self, stop_conditions: F)
     where
         F: Fn(&Parser) -> bool,
     {
-        // Code blocks can appear in both header and body, so we do not modify parsing_header here.
+        // Statement lists can appear in both header and body, so we do not modify parsing_header here.
 
-        // Start a CodeBlock node
-        self.builder.start_node(SyntaxKind::CodeBlock.to_raw());
+        // Start a StatementList node
+        self.builder.start_node(SyntaxKind::StatementList.to_raw());
 
         while !self.is_at_end() {
             if stop_conditions(self) {
@@ -1876,7 +1876,7 @@ impl<'a> Parser<'a> {
                 }
             }
         }
-        self.builder.finish_node(); // CodeBlock
+        self.builder.finish_node(); // StatementList
     }
 }
 

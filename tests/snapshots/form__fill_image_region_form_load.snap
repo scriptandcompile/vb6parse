@@ -830,7 +830,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Check the mouse button\r\n    ' If the left button is pressed...\r\n    If Button = vbLeftButton Then\r\n        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    ElseIf Button = vbRightButton Then\r\n    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -922,7 +922,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        \r\n        'Remember that the left-hand button is down\r\n        toDraw = True\r\n        \r\n        'Remember the current mouse location\r\n        xStart = x\r\n        yStart = y\r\n    \r\n    ' If the right button...\r\n    "
                     is_token: false
                     children:
@@ -1166,7 +1166,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "    \r\n        'Seed VB's random number generator\r\n        Randomize Timer\r\n        \r\n        'Set the picture box's .FillColor property to a random number\r\n        picDemo.FillColor = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))\r\n        \r\n        'Use the API to fill this region\r\n        'Parameters: (picture box), (x coordinate), (y coordinate), (color being replaced), (fill method - always 1)\r\n        ExtFloodFill picDemo.hDC, x, y, picDemo.Point(x, y), 1\r\n        \r\n    "
                         is_token: false
                         children:
@@ -1842,7 +1842,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'If drawing is enabled (meaning the left mouse button has previously been pressed),\r\n    ' draw a line between the old x coordinate and the current one\r\n    If toDraw Then\r\n    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    End If\r\n    \r\n"
             is_token: false
             children:
@@ -1910,7 +1910,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    \r\n        'Use VB's line function to draw the line\r\n        picDemo.Line (xStart, yStart)-(x, y)\r\n        \r\n        'Replace the old xStart and yStart variables with the current location of the mouse\r\n        xStart = x\r\n        yStart = y\r\n        \r\n    "
                     is_token: false
                     children:
@@ -2322,7 +2322,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Disable drawing\r\n    toDraw = False\r\n    \r\n"
             is_token: false
             children:

@@ -86,7 +86,7 @@ impl Parser<'_> {
                     self.consume_until_after(Token::Newline);
 
                     // Parse statements in Case Else until next Case or End Select
-                    self.parse_code_block(|parser| {
+                    self.parse_statement_list(|parser| {
                         (parser.at_token(Token::CaseKeyword))
                             || (parser.at_token(Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(Token::SelectKeyword))
@@ -104,7 +104,7 @@ impl Parser<'_> {
                     self.consume_until_after(Token::Newline);
 
                     // Parse statements in Case until next Case or End Select
-                    self.parse_code_block(|parser| {
+                    self.parse_statement_list(|parser| {
                         (parser.at_token(Token::CaseKeyword))
                             || (parser.at_token(Token::EndKeyword)
                                 && parser.peek_next_keyword() == Some(Token::SelectKeyword))

@@ -787,22 +787,22 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         if let Some(child) = cst.child_at(0) {
             assert_eq!(child.kind, SyntaxKind::SubStatement);
 
-            // Find the code block inside the Sub
-            let code_blocks: Vec<_> = child
+            // Find the statement list inside the Sub
+            let statement_lists: Vec<_> = child
                 .children
                 .iter()
-                .filter(|c| c.kind == SyntaxKind::CodeBlock)
+                .filter(|c| c.kind == SyntaxKind::StatementList)
                 .collect();
 
-            assert_eq!(code_blocks.len(), 1);
+            assert_eq!(statement_lists.len(), 1);
 
-            println!("Code block children:");
-            for (i, c) in code_blocks[0].children.iter().enumerate() {
+            println!("Statement list children:");
+            for (i, c) in statement_lists[0].children.iter().enumerate() {
                 println!("  {}: {:?} = {:?}", i, c.kind, c.text);
             }
 
-            // Inside the code block, we should NOT have an ObjectStatement
-            let obj_statements: Vec<_> = code_blocks[0]
+            // Inside the statement list, we should NOT have an ObjectStatement
+            let obj_statements: Vec<_> = statement_lists[0]
                 .children
                 .iter()
                 .filter(|c| c.kind == SyntaxKind::ObjectStatement)
@@ -815,7 +815,7 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
             );
 
             // Should have an assignment statement
-            let assignments: Vec<_> = code_blocks[0]
+            let assignments: Vec<_> = statement_lists[0]
                 .children
                 .iter()
                 .filter(|c| c.kind == SyntaxKind::AssignmentStatement)

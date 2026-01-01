@@ -926,7 +926,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Populate the list box with the various available grayscale conversion algorithms\r\n    lstFilters.AddItem \"Average value [(R+G+B) / 3]\", 0\r\n    lstFilters.AddItem \"Adjusted for the human eye\", 1\r\n    lstFilters.AddItem \"Desaturate\", 2\r\n    lstFilters.AddItem \"Decompose\", 3\r\n    lstFilters.AddItem \"Single color channel\", 4\r\n    lstFilters.AddItem \"Specific # of shades\", 5\r\n    lstFilters.AddItem \"Specific # of shades (dithered)\", 6\r\n    \r\n    'Start the program with nothing selected yet\r\n    lstFilters.ListIndex = -1\r\n    \r\n    'Draw the initial effect with a default value, then update the image\r\n    If (App.LogMode = 0) Then Me.Caption = Me.Caption & \" - compile for significantly better performance!\"\r\n    LoadImageAutosized App.Path & \"\\sample.jpg\"\r\n    UpdateEffect\r\n    Me.Show\r\n    \r\n"
             is_token: false
             children:
@@ -1666,7 +1666,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    LoadImageAutosized vbNullString\r\n"
             is_token: false
             children:
@@ -1762,7 +1762,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lblShades.Caption = hscrShades.Value\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -1898,7 +1898,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    lblShades.Caption = hscrShades.Value\r\n    UpdateEffect\r\n"
             is_token: false
             children:
@@ -2042,7 +2042,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    Select Case lstFilters.ListIndex\r\n    \r\n        'Average method\r\n        Case 0\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        Case 1\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Desaturate\r\n        Case 2\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Decompose (high or low)\r\n        Case 3\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = True\r\n            frameDecompose.Top = 168\r\n            frameShades.Visible = False\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        Case 4\r\n            frameDecompose.Visible = False\r\n            frameChannel.Visible = True\r\n            frameChannel.Top = 168\r\n            frameShades.Visible = False\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        Case 5\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = True\r\n            frameShades.Top = 168\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        Case 6\r\n            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = True\r\n            frameShades.Top = 168\r\n            \r\n    End Select\r\n    \r\n    UpdateEffect\r\n\r\n"
             is_token: false
             children:
@@ -2138,7 +2138,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        "
                         is_token: false
                         children:
@@ -2330,7 +2330,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Desaturate\r\n        "
                         is_token: false
                         children:
@@ -2522,7 +2522,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = False\r\n            \r\n        'Decompose (high or low)\r\n        "
                         is_token: false
                         children:
@@ -2714,7 +2714,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = True\r\n            frameDecompose.Top = 168\r\n            frameShades.Visible = False\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        "
                         is_token: false
                         children:
@@ -2954,7 +2954,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameDecompose.Visible = False\r\n            frameChannel.Visible = True\r\n            frameChannel.Top = 168\r\n            frameShades.Visible = False\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        "
                         is_token: false
                         children:
@@ -3194,7 +3194,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = True\r\n            frameShades.Top = 168\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        "
                         is_token: false
                         children:
@@ -3434,7 +3434,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            frameChannel.Visible = False\r\n            frameDecompose.Visible = False\r\n            frameShades.Visible = True\r\n            frameShades.Top = 168\r\n            \r\n    "
                         is_token: false
                         children:
@@ -3754,7 +3754,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Windows common dialog interface\r\n    Dim cDialog As pdOpenSaveDialog\r\n    Set cDialog = New pdOpenSaveDialog\r\n    \r\n    'VB6's built-in image loader (which wraps an ancient OLE loader) only supports a\r\n    ' subset of modern image file types.\r\n    Dim cdfStr As String\r\n    cdfStr = \"All Compatible Graphics|*.bmp;*.jpg;*.jpeg;*.gif;*.wmf;*.emf|\"\r\n    cdfStr = cdfStr & \"BMP - Windows Bitmap|*.bmp|EMF - Enhanced Metafile|*.emf|GIF - Compuserve|*.gif|JPG/JPEG - JFIF Compliant|*.jpg;*.jpeg|WMF - Windows Meta File|*.wmf|All files|*.*\"\r\n    \r\n    Dim sFile As String\r\n    If cDialog.GetOpenFileName(sFile, , True, False, cdfStr, , , \"Select image\", , Me.hWnd) Then\r\n        \r\n        'De-select all of the current grayscale methods\r\n        lstFilters.ListIndex = -1\r\n        frameChannel.Visible = False\r\n        frameDecompose.Visible = False\r\n        frameShades.Visible = False\r\n        \r\n        'Load the image and refresh the effect\r\n        LoadImageAutosized sFile\r\n        UpdateEffect\r\n        \r\n    End If\r\n    \r\nEnd Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (cmdReset.Top + cmdReset.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    Select Case lstFilters.ListIndex\r\n    \r\n        'Average method\r\n        Case 0\r\n            DrawGrayscaleAverageMethod picBack, picMain\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        Case 1\r\n            DrawGrayscaleHumanMethod picBack, picMain\r\n            \r\n        'Desaturate\r\n        Case 2\r\n            DrawDesaturate picBack, picMain\r\n            \r\n        'Decompose (high or low)\r\n        Case 3\r\n            DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        Case 4\r\n            If optChannel.Item(0) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 0\r\n            ElseIf optChannel.Item(1) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 1\r\n            Else\r\n                DrawGrayscaleSingleChannel picBack, picMain, 2\r\n            End If\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        Case 5\r\n            DrawGrayscaleCustomShades picBack, picMain, hscrShades.Value\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        Case 6\r\n            DrawGrayscaleCustomShadesDithered picBack, picMain, hscrShades.Value\r\n            \r\n    End Select\r\n    \r\nEnd Sub\r\n\r\n'This function ensures that a long-type variable falls into the range of 0-255\r\nPublic Function ByteMeL(ByVal tempVar As Long) As Byte\r\n    If tempVar > 255 Then\r\n        ByteMeL = 255\r\n    ElseIf tempVar < 0 Then\r\n        ByteMeL = 0\r\n    Else\r\n        ByteMeL = CByte(tempVar)\r\n    End If\r\nEnd Function\r\n\r\n'Return the maximum of three Long-type variables\r\nPrivate Function Maximum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r > g) Then\r\n      If (r > b) Then\r\n         Maximum = r\r\n      Else\r\n         Maximum = b\r\n      End If\r\n   Else\r\n      If (b > g) Then\r\n         Maximum = b\r\n      Else\r\n         Maximum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'Return the minimum of three Long-type variables\r\nPrivate Function Minimum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r < g) Then\r\n      If (r < b) Then\r\n         Minimum = r\r\n      Else\r\n         Minimum = b\r\n      End If\r\n   Else\r\n      If (b < g) Then\r\n         Minimum = b\r\n      Else\r\n         Minimum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'If one of the Color Channel option buttons are clicked, redraw the image to match\r\nPrivate Sub optChannel_Click(Index As Integer)\r\n    DrawGrayscaleSingleChannel picBack, picMain, Index\r\nEnd Sub\r\n\r\n'If one of the Decompose option buttons are clicked, redraw the image to match\r\nPrivate Sub optDecompose_Click(Index As Integer)\r\n    DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the (R+G+B)/3 formula\r\nPublic Sub DrawGrayscaleAverageMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n\r\n'Convert an image to grayscale using a formula based on cone density of the human eye [ (222 * R + 707 * G + 71 * B) \\ 1000 ]\r\nPublic Sub DrawGrayscaleHumanMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = ByteMeL((222 * r + 707 * g + 71 * b) \\ 1000)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the standard luminance formula [ (Max(R,G,B) + Min(R,G,B)) \\ 2 ]\r\nPublic Sub DrawDesaturate(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'These variables will hold the maximum and minimum channel values for each pixel\r\n    Dim cMax As Long, cMin As Long\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        cMax = Maximum(r, g, b)\r\n        cMin = Minimum(r, g, b)\r\n        \r\n        gray = ByteMeL((cMax + cMin) \\ 2)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (which uses either the minimum [true] or maximum [false] color channel as the gray value)\r\nPublic Sub DrawGrayscaleDecompose(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal minValue As Boolean = True)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the low or high value, as determined by the minValue parameter\r\n        If minValue = True Then\r\n            gray = ByteMeL(Minimum(r, g, b))\r\n        Else\r\n            gray = ByteMeL(Maximum(r, g, b))\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (where red = 0, green = 1, blue = 2)\r\nPublic Sub DrawGrayscaleSingleChannel(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal cChannel As Long = 0)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the red, green, or blue channel, as determined by the cChannel parameter\r\n        If cChannel = 0 Then\r\n            gray = r\r\n        ElseIf cChannel = 1 Then\r\n            gray = g\r\n        Else\r\n            gray = b\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray; any value in the range [2,256] is acceptable\r\nPublic Sub DrawGrayscaleCustomShades(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'This algorithm is well-suited to using a look-up table, so let's build one and (obviously!) prepopulate it\r\n    Dim grayLookup(0 To 255) As Byte\r\n    Dim grayTempCalc As Long\r\n    \r\n    For x = 0 To 255\r\n        grayTempCalc = Int((CDbl(x) / conversionFactor) + 0.5) * conversionFactor\r\n        grayLookup(x) = ByteMeL(grayTempCalc)\r\n    Next x\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup((CLng(r) + CLng(g) + CLng(b)) \\ 3)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray (WITH error-diffusion dithering support!)\r\nPublic Sub DrawGrayscaleCustomShadesDithered(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'Unfortunately, this algorithm (unlike its non-dithering counterpart) is not well-suited to using a look-up table, so all calculations have been moved into the loop\r\n    Dim grayTempCalc As Long\r\n    \r\n    'This value tracks the drifting error of our conversions, which allows us to dither\r\n    Dim errorValue As Long\r\n    errorValue = 0\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    'Note that I have reversed the loop order (now we go horizontally instead of vertically).\r\n    ' This is because I want my dithering algorithm to work from left-to-right instead of top-to-bottom.\r\n    For y = 0 To iHeight - 1\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n\r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'First, generate a raw grayscale value\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        grayTempCalc = gray\r\n        \r\n        'Add the error value (a cumulative value of the difference between actual gray values and gray values we've selected) to the current gray value\r\n        grayTempCalc = grayTempCalc + errorValue\r\n        \r\n        'Rebuild our temporary calculation variable using the shade reduction formula\r\n        grayTempCalc = Int((CDbl(grayTempCalc) / conversionFactor) + 0.5) * conversionFactor\r\n        \r\n        'Adjust our error value to include this latest calculation\r\n        errorValue = CLng(gray) + errorValue - grayTempCalc\r\n        \r\n        gray = ByteMeL(grayTempCalc)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next x\r\n        'Reset our error value after each row\r\n        errorValue = 0\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
             is_token: false
             children:
@@ -4590,7 +4590,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "End Sub\r\n\r\n'If a null string is passed, simply paint an unmodified copy of the backbuffer into the foreground buffer\r\nPrivate Sub LoadImageAutosized(Optional ByVal srcFilePath As String = vbNullString)\r\n\r\n    If (LenB(srcFilePath) <> 0) Then picBack.Picture = LoadPicture(srcFilePath)\r\n        \r\n    'Copy the image, automatically resized, from the background picture box to the foreground one\r\n    Dim fDraw As FastDrawing\r\n    Set fDraw = New FastDrawing\r\n    \r\n    Dim imageData() As Byte, imgWidth As Long, imgHeight As Long\r\n    imgWidth = fDraw.GetImageWidth(Me.picBack)\r\n    imgHeight = fDraw.GetImageHeight(Me.picBack)\r\n    fDraw.GetImageData2D Me.picBack, imageData()\r\n    \r\n    Me.picMain.Width = imgWidth + 2\r\n    Me.picMain.Height = imgHeight + 2\r\n    fDraw.SetImageData2D Me.picMain, imgWidth, imgHeight, imageData()\r\n    \r\n    'Resize the form to automatically contain the new picture box dimensions.\r\n    ' (This performs some sloppy checks to keep the form from resizing larger than the primary display,\r\n    '  but it is *not* good code - a proper solution would involve the AdjustWindowRect() API or similar!)\r\n    Dim newHeight As Long, minHeight As Long\r\n    minHeight = (cmdReset.Top + cmdReset.Height + 60) * Screen.TwipsPerPixelY\r\n    If (imgHeight < (Screen.Height \\ Screen.TwipsPerPixelY) - 50) Then\r\n        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    Select Case lstFilters.ListIndex\r\n    \r\n        'Average method\r\n        Case 0\r\n            DrawGrayscaleAverageMethod picBack, picMain\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        Case 1\r\n            DrawGrayscaleHumanMethod picBack, picMain\r\n            \r\n        'Desaturate\r\n        Case 2\r\n            DrawDesaturate picBack, picMain\r\n            \r\n        'Decompose (high or low)\r\n        Case 3\r\n            DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        Case 4\r\n            If optChannel.Item(0) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 0\r\n            ElseIf optChannel.Item(1) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 1\r\n            Else\r\n                DrawGrayscaleSingleChannel picBack, picMain, 2\r\n            End If\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        Case 5\r\n            DrawGrayscaleCustomShades picBack, picMain, hscrShades.Value\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        Case 6\r\n            DrawGrayscaleCustomShadesDithered picBack, picMain, hscrShades.Value\r\n            \r\n    End Select\r\n    \r\nEnd Sub\r\n\r\n'This function ensures that a long-type variable falls into the range of 0-255\r\nPublic Function ByteMeL(ByVal tempVar As Long) As Byte\r\n    If tempVar > 255 Then\r\n        ByteMeL = 255\r\n    ElseIf tempVar < 0 Then\r\n        ByteMeL = 0\r\n    Else\r\n        ByteMeL = CByte(tempVar)\r\n    End If\r\nEnd Function\r\n\r\n'Return the maximum of three Long-type variables\r\nPrivate Function Maximum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r > g) Then\r\n      If (r > b) Then\r\n         Maximum = r\r\n      Else\r\n         Maximum = b\r\n      End If\r\n   Else\r\n      If (b > g) Then\r\n         Maximum = b\r\n      Else\r\n         Maximum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'Return the minimum of three Long-type variables\r\nPrivate Function Minimum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r < g) Then\r\n      If (r < b) Then\r\n         Minimum = r\r\n      Else\r\n         Minimum = b\r\n      End If\r\n   Else\r\n      If (b < g) Then\r\n         Minimum = b\r\n      Else\r\n         Minimum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'If one of the Color Channel option buttons are clicked, redraw the image to match\r\nPrivate Sub optChannel_Click(Index As Integer)\r\n    DrawGrayscaleSingleChannel picBack, picMain, Index\r\nEnd Sub\r\n\r\n'If one of the Decompose option buttons are clicked, redraw the image to match\r\nPrivate Sub optDecompose_Click(Index As Integer)\r\n    DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the (R+G+B)/3 formula\r\nPublic Sub DrawGrayscaleAverageMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n\r\n'Convert an image to grayscale using a formula based on cone density of the human eye [ (222 * R + 707 * G + 71 * B) \\ 1000 ]\r\nPublic Sub DrawGrayscaleHumanMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = ByteMeL((222 * r + 707 * g + 71 * b) \\ 1000)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the standard luminance formula [ (Max(R,G,B) + Min(R,G,B)) \\ 2 ]\r\nPublic Sub DrawDesaturate(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'These variables will hold the maximum and minimum channel values for each pixel\r\n    Dim cMax As Long, cMin As Long\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        cMax = Maximum(r, g, b)\r\n        cMin = Minimum(r, g, b)\r\n        \r\n        gray = ByteMeL((cMax + cMin) \\ 2)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (which uses either the minimum [true] or maximum [false] color channel as the gray value)\r\nPublic Sub DrawGrayscaleDecompose(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal minValue As Boolean = True)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the low or high value, as determined by the minValue parameter\r\n        If minValue = True Then\r\n            gray = ByteMeL(Minimum(r, g, b))\r\n        Else\r\n            gray = ByteMeL(Maximum(r, g, b))\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (where red = 0, green = 1, blue = 2)\r\nPublic Sub DrawGrayscaleSingleChannel(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal cChannel As Long = 0)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the red, green, or blue channel, as determined by the cChannel parameter\r\n        If cChannel = 0 Then\r\n            gray = r\r\n        ElseIf cChannel = 1 Then\r\n            gray = g\r\n        Else\r\n            gray = b\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray; any value in the range [2,256] is acceptable\r\nPublic Sub DrawGrayscaleCustomShades(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'This algorithm is well-suited to using a look-up table, so let's build one and (obviously!) prepopulate it\r\n    Dim grayLookup(0 To 255) As Byte\r\n    Dim grayTempCalc As Long\r\n    \r\n    For x = 0 To 255\r\n        grayTempCalc = Int((CDbl(x) / conversionFactor) + 0.5) * conversionFactor\r\n        grayLookup(x) = ByteMeL(grayTempCalc)\r\n    Next x\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup((CLng(r) + CLng(g) + CLng(b)) \\ 3)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray (WITH error-diffusion dithering support!)\r\nPublic Sub DrawGrayscaleCustomShadesDithered(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'Unfortunately, this algorithm (unlike its non-dithering counterpart) is not well-suited to using a look-up table, so all calculations have been moved into the loop\r\n    Dim grayTempCalc As Long\r\n    \r\n    'This value tracks the drifting error of our conversions, which allows us to dither\r\n    Dim errorValue As Long\r\n    errorValue = 0\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    'Note that I have reversed the loop order (now we go horizontally instead of vertically).\r\n    ' This is because I want my dithering algorithm to work from left-to-right instead of top-to-bottom.\r\n    For y = 0 To iHeight - 1\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n\r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'First, generate a raw grayscale value\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        grayTempCalc = gray\r\n        \r\n        'Add the error value (a cumulative value of the difference between actual gray values and gray values we've selected) to the current gray value\r\n        grayTempCalc = grayTempCalc + errorValue\r\n        \r\n        'Rebuild our temporary calculation variable using the shade reduction formula\r\n        grayTempCalc = Int((CDbl(grayTempCalc) / conversionFactor) + 0.5) * conversionFactor\r\n        \r\n        'Adjust our error value to include this latest calculation\r\n        errorValue = CLng(gray) + errorValue - grayTempCalc\r\n        \r\n        gray = ByteMeL(grayTempCalc)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next x\r\n        'Reset our error value after each row\r\n        errorValue = 0\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
                     is_token: false
                     children:
@@ -5994,7 +5994,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        newHeight = (imgHeight + picMain.Top * 9) * Screen.TwipsPerPixelY\r\n        If (newHeight < minHeight) Then newHeight = minHeight\r\n        Me.Height = newHeight\r\n    End If\r\n    If (imgWidth < (Screen.Width \\ Screen.TwipsPerPixelX) - 50) Then Me.Width = (imgWidth + picMain.Left * 1.15) * Screen.TwipsPerPixelX\r\n    \r\nEnd Sub\r\n\r\nPrivate Sub UpdateEffect()\r\n    \r\n    Select Case lstFilters.ListIndex\r\n    \r\n        'Average method\r\n        Case 0\r\n            DrawGrayscaleAverageMethod picBack, picMain\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        Case 1\r\n            DrawGrayscaleHumanMethod picBack, picMain\r\n            \r\n        'Desaturate\r\n        Case 2\r\n            DrawDesaturate picBack, picMain\r\n            \r\n        'Decompose (high or low)\r\n        Case 3\r\n            DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        Case 4\r\n            If optChannel.Item(0) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 0\r\n            ElseIf optChannel.Item(1) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 1\r\n            Else\r\n                DrawGrayscaleSingleChannel picBack, picMain, 2\r\n            End If\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        Case 5\r\n            DrawGrayscaleCustomShades picBack, picMain, hscrShades.Value\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        Case 6\r\n            DrawGrayscaleCustomShadesDithered picBack, picMain, hscrShades.Value\r\n            \r\n    End Select\r\n    \r\nEnd Sub\r\n\r\n'This function ensures that a long-type variable falls into the range of 0-255\r\nPublic Function ByteMeL(ByVal tempVar As Long) As Byte\r\n    If tempVar > 255 Then\r\n        ByteMeL = 255\r\n    ElseIf tempVar < 0 Then\r\n        ByteMeL = 0\r\n    Else\r\n        ByteMeL = CByte(tempVar)\r\n    End If\r\nEnd Function\r\n\r\n'Return the maximum of three Long-type variables\r\nPrivate Function Maximum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r > g) Then\r\n      If (r > b) Then\r\n         Maximum = r\r\n      Else\r\n         Maximum = b\r\n      End If\r\n   Else\r\n      If (b > g) Then\r\n         Maximum = b\r\n      Else\r\n         Maximum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'Return the minimum of three Long-type variables\r\nPrivate Function Minimum(ByVal r As Long, ByVal g As Long, ByVal b As Long) As Long\r\n   If (r < g) Then\r\n      If (r < b) Then\r\n         Minimum = r\r\n      Else\r\n         Minimum = b\r\n      End If\r\n   Else\r\n      If (b < g) Then\r\n         Minimum = b\r\n      Else\r\n         Minimum = g\r\n      End If\r\n   End If\r\nEnd Function\r\n\r\n'If one of the Color Channel option buttons are clicked, redraw the image to match\r\nPrivate Sub optChannel_Click(Index As Integer)\r\n    DrawGrayscaleSingleChannel picBack, picMain, Index\r\nEnd Sub\r\n\r\n'If one of the Decompose option buttons are clicked, redraw the image to match\r\nPrivate Sub optDecompose_Click(Index As Integer)\r\n    DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the (R+G+B)/3 formula\r\nPublic Sub DrawGrayscaleAverageMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n\r\n'Convert an image to grayscale using a formula based on cone density of the human eye [ (222 * R + 707 * G + 71 * B) \\ 1000 ]\r\nPublic Sub DrawGrayscaleHumanMethod(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = ByteMeL((222 * r + 707 * g + 71 * b) \\ 1000)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using the standard luminance formula [ (Max(R,G,B) + Min(R,G,B)) \\ 2 ]\r\nPublic Sub DrawDesaturate(srcPic As PictureBox, dstPic As PictureBox)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'These variables will hold the maximum and minimum channel values for each pixel\r\n    Dim cMax As Long, cMin As Long\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        cMax = Maximum(r, g, b)\r\n        cMin = Minimum(r, g, b)\r\n        \r\n        gray = ByteMeL((cMax + cMin) \\ 2)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (which uses either the minimum [true] or maximum [false] color channel as the gray value)\r\nPublic Sub DrawGrayscaleDecompose(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal minValue As Boolean = True)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the low or high value, as determined by the minValue parameter\r\n        If minValue = True Then\r\n            gray = ByteMeL(Minimum(r, g, b))\r\n        Else\r\n            gray = ByteMeL(Maximum(r, g, b))\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to grayscale using a channel decompose function (where red = 0, green = 1, blue = 2)\r\nPublic Sub DrawGrayscaleSingleChannel(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal cChannel As Long = 0)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Long, g As Long, b As Long\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the red, green, or blue channel, as determined by the cChannel parameter\r\n        If cChannel = 0 Then\r\n            gray = r\r\n        ElseIf cChannel = 1 Then\r\n            gray = g\r\n        Else\r\n            gray = b\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray; any value in the range [2,256] is acceptable\r\nPublic Sub DrawGrayscaleCustomShades(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'This algorithm is well-suited to using a look-up table, so let's build one and (obviously!) prepopulate it\r\n    Dim grayLookup(0 To 255) As Byte\r\n    Dim grayTempCalc As Long\r\n    \r\n    For x = 0 To 255\r\n        grayTempCalc = Int((CDbl(x) / conversionFactor) + 0.5) * conversionFactor\r\n        grayLookup(x) = ByteMeL(grayTempCalc)\r\n    Next x\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup((CLng(r) + CLng(g) + CLng(b)) \\ 3)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n'Convert an image to a specific number of shades of gray (WITH error-diffusion dithering support!)\r\nPublic Sub DrawGrayscaleCustomShadesDithered(srcPic As PictureBox, dstPic As PictureBox, Optional ByVal numOfShades As Long = 256)\r\n\r\n    'These arrays will hold the source and destination image's pixel data, respectively\r\n    Dim imageData() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the image's data (into ImageData())\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic)\r\n    iHeight = fDraw.GetImageHeight(srcPic)\r\n    fDraw.GetImageData2D srcPic, imageData()\r\n    \r\n    'These variables will hold temporary pixel color values (red, green, blue)\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    \r\n    'This value will hold the grayscale value of each pixel\r\n    Dim gray As Byte\r\n    \r\n    'This look-up table holds all possible totals of adding together the R, G, and B values of an image (0 to 255*3 - for pure white)\r\n    Dim grayLookup(0 To 765) As Byte\r\n    \r\n    'Populate the look-up table\r\n    For x = 0 To 765\r\n        grayLookup(x) = x \\ 3\r\n    Next x\r\n    \r\n    'This conversionFactor is the value we need to turn grayscale values in the [0,255] range into a specific subset of values\r\n    Dim conversionFactor As Single\r\n    conversionFactor = (255 / (numOfShades - 1))\r\n    \r\n    'Unfortunately, this algorithm (unlike its non-dithering counterpart) is not well-suited to using a look-up table, so all calculations have been moved into the loop\r\n    Dim grayTempCalc As Long\r\n    \r\n    'This value tracks the drifting error of our conversions, which allows us to dither\r\n    Dim errorValue As Long\r\n    errorValue = 0\r\n    \r\n    'Loop through the image, adjusting pixel values as we go\r\n    Dim quickX As Long\r\n    \r\n    'Note that I have reversed the loop order (now we go horizontally instead of vertically).\r\n    ' This is because I want my dithering algorithm to work from left-to-right instead of top-to-bottom.\r\n    For y = 0 To iHeight - 1\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n\r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'First, generate a raw grayscale value\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        grayTempCalc = gray\r\n        \r\n        'Add the error value (a cumulative value of the difference between actual gray values and gray values we've selected) to the current gray value\r\n        grayTempCalc = grayTempCalc + errorValue\r\n        \r\n        'Rebuild our temporary calculation variable using the shade reduction formula\r\n        grayTempCalc = Int((CDbl(grayTempCalc) / conversionFactor) + 0.5) * conversionFactor\r\n        \r\n        'Adjust our error value to include this latest calculation\r\n        errorValue = CLng(gray) + errorValue - grayTempCalc\r\n        \r\n        gray = ByteMeL(grayTempCalc)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next x\r\n        'Reset our error value after each row\r\n        errorValue = 0\r\n    Next y\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D dstPic, iWidth, iHeight, imageData()\r\n\r\nEnd Sub\r\n\r\n"
                             is_token: false
                             children:
@@ -6774,7 +6774,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawGrayscaleAverageMethod picBack, picMain\r\n            \r\n        'Adjusted to match cone density of the human eye\r\n        "
                                         is_token: false
                                         children:
@@ -6858,7 +6858,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawGrayscaleHumanMethod picBack, picMain\r\n            \r\n        'Desaturate\r\n        "
                                         is_token: false
                                         children:
@@ -6942,7 +6942,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawDesaturate picBack, picMain\r\n            \r\n        'Decompose (high or low)\r\n        "
                                         is_token: false
                                         children:
@@ -7026,7 +7026,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawGrayscaleDecompose picBack, picMain, optDecompose(0).Value\r\n            \r\n        'Single color channel (user-selectable between red, green, and blue)\r\n        "
                                         is_token: false
                                         children:
@@ -7142,7 +7142,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            If optChannel.Item(0) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 0\r\n            ElseIf optChannel.Item(1) Then\r\n                DrawGrayscaleSingleChannel picBack, picMain, 1\r\n            Else\r\n                DrawGrayscaleSingleChannel picBack, picMain, 2\r\n            End If\r\n            \r\n        'Specific # of shades of gray (3-255)\r\n        "
                                         is_token: false
                                         children:
@@ -7218,7 +7218,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "                DrawGrayscaleSingleChannel picBack, picMain, 0\r\n            "
                                                 is_token: false
                                                 children:
@@ -7342,7 +7342,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "                DrawGrayscaleSingleChannel picBack, picMain, 1\r\n            "
                                                     is_token: false
                                                     children:
@@ -7410,7 +7410,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "                DrawGrayscaleSingleChannel picBack, picMain, 2\r\n            "
                                                     is_token: false
                                                     children:
@@ -7526,7 +7526,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawGrayscaleCustomShades picBack, picMain, hscrShades.Value\r\n            \r\n        'Specific # of shades of gray (3-255) WITH dithering\r\n        "
                                         is_token: false
                                         children:
@@ -7630,7 +7630,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "            DrawGrayscaleCustomShadesDithered picBack, picMain, hscrShades.Value\r\n            \r\n    "
                                         is_token: false
                                         children:
@@ -7894,7 +7894,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        ByteMeL = 255\r\n    "
                                     is_token: false
                                     children:
@@ -7998,7 +7998,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        ByteMeL = 0\r\n    "
                                         is_token: false
                                         children:
@@ -8058,7 +8058,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "        ByteMeL = CByte(tempVar)\r\n    "
                                         is_token: false
                                         children:
@@ -8398,7 +8398,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "      If (r > b) Then\r\n         Maximum = r\r\n      Else\r\n         Maximum = b\r\n      End If\r\n   "
                                     is_token: false
                                     children:
@@ -8474,7 +8474,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "         Maximum = r\r\n      "
                                             is_token: false
                                             children:
@@ -8534,7 +8534,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "         Maximum = b\r\n      "
                                                 is_token: false
                                                 children:
@@ -8614,7 +8614,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "      If (b > g) Then\r\n         Maximum = b\r\n      Else\r\n         Maximum = g\r\n      End If\r\n   "
                                         is_token: false
                                         children:
@@ -8690,7 +8690,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "         Maximum = b\r\n      "
                                                 is_token: false
                                                 children:
@@ -8750,7 +8750,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "         Maximum = g\r\n      "
                                                     is_token: false
                                                     children:
@@ -9086,7 +9086,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "      If (r < b) Then\r\n         Minimum = r\r\n      Else\r\n         Minimum = b\r\n      End If\r\n   "
                                     is_token: false
                                     children:
@@ -9162,7 +9162,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "         Minimum = r\r\n      "
                                             is_token: false
                                             children:
@@ -9222,7 +9222,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "         Minimum = b\r\n      "
                                                 is_token: false
                                                 children:
@@ -9302,7 +9302,7 @@ cst:
                                         text: "\r\n"
                                         is_token: true
                                         children: []
-                                      - kind: CodeBlock
+                                      - kind: StatementList
                                         text: "      If (b < g) Then\r\n         Minimum = b\r\n      Else\r\n         Minimum = g\r\n      End If\r\n   "
                                         is_token: false
                                         children:
@@ -9378,7 +9378,7 @@ cst:
                                                 text: "\r\n"
                                                 is_token: true
                                                 children: []
-                                              - kind: CodeBlock
+                                              - kind: StatementList
                                                 text: "         Minimum = b\r\n      "
                                                 is_token: false
                                                 children:
@@ -9438,7 +9438,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "         Minimum = g\r\n      "
                                                     is_token: false
                                                     children:
@@ -10730,7 +10730,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        grayLookup(x) = x \\ 3\r\n    "
                                     is_token: false
                                     children:
@@ -11062,7 +11062,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -11222,7 +11222,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -13166,7 +13166,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = ByteMeL((222 * r + 707 * g + 71 * b) \\ 1000)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -13326,7 +13326,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = ByteMeL((222 * r + 707 * g + 71 * b) \\ 1000)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -15390,7 +15390,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        cMax = Maximum(r, g, b)\r\n        cMin = Minimum(r, g, b)\r\n        \r\n        gray = ByteMeL((cMax + cMin) \\ 2)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -15550,7 +15550,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        cMax = Maximum(r, g, b)\r\n        cMin = Minimum(r, g, b)\r\n        \r\n        gray = ByteMeL((cMax + cMin) \\ 2)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -17706,7 +17706,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the low or high value, as determined by the minValue parameter\r\n        If minValue = True Then\r\n            gray = ByteMeL(Minimum(r, g, b))\r\n        Else\r\n            gray = ByteMeL(Maximum(r, g, b))\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -17866,7 +17866,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the low or high value, as determined by the minValue parameter\r\n        If minValue = True Then\r\n            gray = ByteMeL(Minimum(r, g, b))\r\n        Else\r\n            gray = ByteMeL(Maximum(r, g, b))\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -18270,7 +18270,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            gray = ByteMeL(Minimum(r, g, b))\r\n        "
                                                     is_token: false
                                                     children:
@@ -18418,7 +18418,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            gray = ByteMeL(Maximum(r, g, b))\r\n        "
                                                         is_token: false
                                                         children:
@@ -20042,7 +20042,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the red, green, or blue channel, as determined by the cChannel parameter\r\n        If cChannel = 0 Then\r\n            gray = r\r\n        ElseIf cChannel = 1 Then\r\n            gray = g\r\n        Else\r\n            gray = b\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -20202,7 +20202,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Assign a gray value based on the red, green, or blue channel, as determined by the cChannel parameter\r\n        If cChannel = 0 Then\r\n            gray = r\r\n        ElseIf cChannel = 1 Then\r\n            gray = g\r\n        Else\r\n            gray = b\r\n        End If\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -20606,7 +20606,7 @@ cst:
                                                     text: "\r\n"
                                                     is_token: true
                                                     children: []
-                                                  - kind: CodeBlock
+                                                  - kind: StatementList
                                                     text: "            gray = r\r\n        "
                                                     is_token: false
                                                     children:
@@ -20710,7 +20710,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            gray = g\r\n        "
                                                         is_token: false
                                                         children:
@@ -20770,7 +20770,7 @@ cst:
                                                         text: "\r\n"
                                                         is_token: true
                                                         children: []
-                                                      - kind: CodeBlock
+                                                      - kind: StatementList
                                                         text: "            gray = b\r\n        "
                                                         is_token: false
                                                         children:
@@ -22530,7 +22530,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        grayTempCalc = Int((CDbl(x) / conversionFactor) + 0.5) * conversionFactor\r\n        grayLookup(x) = ByteMeL(grayTempCalc)\r\n    "
                                     is_token: false
                                     children:
@@ -22974,7 +22974,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup((CLng(r) + CLng(g) + CLng(b)) \\ 3)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next y\r\n    "
                                     is_token: false
                                     children:
@@ -23134,7 +23134,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        \r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'Look up this pixel's value in the lookup table\r\n        gray = grayLookup((CLng(r) + CLng(g) + CLng(b)) \\ 3)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:
@@ -25194,7 +25194,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "        grayLookup(x) = x \\ 3\r\n    "
                                     is_token: false
                                     children:
@@ -25822,7 +25822,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n\r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'First, generate a raw grayscale value\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        grayTempCalc = gray\r\n        \r\n        'Add the error value (a cumulative value of the difference between actual gray values and gray values we've selected) to the current gray value\r\n        grayTempCalc = grayTempCalc + errorValue\r\n        \r\n        'Rebuild our temporary calculation variable using the shade reduction formula\r\n        grayTempCalc = Int((CDbl(grayTempCalc) / conversionFactor) + 0.5) * conversionFactor\r\n        \r\n        'Adjust our error value to include this latest calculation\r\n        errorValue = CLng(gray) + errorValue - grayTempCalc\r\n        \r\n        gray = ByteMeL(grayTempCalc)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    Next x\r\n        'Reset our error value after each row\r\n        errorValue = 0\r\n    "
                                     is_token: false
                                     children:
@@ -25918,7 +25918,7 @@ cst:
                                             text: "\r\n"
                                             is_token: true
                                             children: []
-                                          - kind: CodeBlock
+                                          - kind: StatementList
                                             text: "        quickX = x * 3\r\n\r\n        'Get the source image pixels\r\n        r = imageData(quickX + 2, y)\r\n        g = imageData(quickX + 1, y)\r\n        b = imageData(quickX, y)\r\n        \r\n        'First, generate a raw grayscale value\r\n        gray = grayLookup(CLng(r) + CLng(g) + CLng(b))\r\n        grayTempCalc = gray\r\n        \r\n        'Add the error value (a cumulative value of the difference between actual gray values and gray values we've selected) to the current gray value\r\n        grayTempCalc = grayTempCalc + errorValue\r\n        \r\n        'Rebuild our temporary calculation variable using the shade reduction formula\r\n        grayTempCalc = Int((CDbl(grayTempCalc) / conversionFactor) + 0.5) * conversionFactor\r\n        \r\n        'Adjust our error value to include this latest calculation\r\n        errorValue = CLng(gray) + errorValue - grayTempCalc\r\n        \r\n        gray = ByteMeL(grayTempCalc)\r\n        \r\n        'Assign all color channels to the new gray value\r\n        imageData(quickX + 2, y) = gray\r\n        imageData(quickX + 1, y) = gray\r\n        imageData(quickX, y) = gray\r\n        \r\n    "
                                             is_token: false
                                             children:

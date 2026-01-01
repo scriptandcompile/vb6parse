@@ -833,7 +833,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    Select Case cmbDrawMethod.ListIndex\r\n        Case 0\r\n            UseStretchBlt = False\r\n        Case 1\r\n            UseStretchBlt = True\r\n    End Select\r\n    \r\n"
             is_token: false
             children:
@@ -913,7 +913,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            UseStretchBlt = False\r\n        "
                         is_token: false
                         children:
@@ -981,7 +981,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            UseStretchBlt = True\r\n    "
                         is_token: false
                         children:
@@ -1113,7 +1113,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    Select Case cmbDrawMethod.ListIndex\r\n        Case 0\r\n            UseStretchBlt = False\r\n        Case 1\r\n            UseStretchBlt = True\r\n    End Select\r\n    \r\n"
             is_token: false
             children:
@@ -1189,7 +1189,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            UseStretchBlt = False\r\n        "
                         is_token: false
                         children:
@@ -1257,7 +1257,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "            UseStretchBlt = True\r\n    "
                         is_token: false
                         children:
@@ -1397,7 +1397,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    InitializeEditor\r\n\r\n    'Also, populate the DrawMethod combo box\r\n    cmbDrawMethod.AddItem \"Use PaintPicture\"\r\n    cmbDrawMethod.AddItem \"Use StretchBlt\"\r\n    cmbDrawMethod.ListIndex = 0\r\n    UseStretchBlt = False\r\n    \r\n    'Load a default map\r\n    On Error GoTo MapMissing\r\n    \r\n    Open App.Path & \"\\Demo.map\" For Binary As #1\r\n        'At present, map files are pretty simple - the width, height, and data is all we currently store\r\n        Get #1, 1, SizeX\r\n        Get #1, , SizeY\r\n        ReDim MapArray(0 To SizeX, 0 To SizeY) As Byte\r\n        Get #1, , MapArray\r\n    Close #1\r\n    \r\n    'Once MapArray has been successfully created, Draw the map!\r\n    DrawMap\r\n    \r\nMapMissing:\r\n\r\n"
             is_token: false
             children:
@@ -2161,7 +2161,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ScrollMap\r\n"
             is_token: false
             children:
@@ -2241,7 +2241,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ScrollMap\r\n"
             is_token: false
             children:
@@ -2321,7 +2321,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ScrollMap\r\n"
             is_token: false
             children:
@@ -2401,7 +2401,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ScrollMap\r\n"
             is_token: false
             children:
@@ -2481,7 +2481,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    DrawTileBar\r\n"
             is_token: false
             children:
@@ -2569,7 +2569,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    DrawTileBar\r\n"
             is_token: false
             children:
@@ -2761,7 +2761,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    MouseState = True\r\n    'Left button\r\n    If Button = 1 Then DrawTile x, Y, CurPicIndex\r\n    'Right button\r\n    If Button = 2 Then DrawTile x, Y, CurPicIndex2\r\n"
             is_token: false
             children:
@@ -3201,7 +3201,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    'Only draw if a button is down\r\n    If MouseState Then\r\n        If Button = 1 Then DrawTile x, Y, CurPicIndex\r\n        If Button = 2 Then DrawTile x, Y, CurPicIndex2\r\n    End If\r\n"
             is_token: false
             children:
@@ -3253,7 +3253,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        If Button = 1 Then DrawTile x, Y, CurPicIndex\r\n        If Button = 2 Then DrawTile x, Y, CurPicIndex2\r\n    "
                     is_token: false
                     children:
@@ -3649,7 +3649,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    MouseState = False\r\n"
             is_token: false
             children:
@@ -3761,7 +3761,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    Unload Me\r\n"
             is_token: false
             children:
@@ -3857,7 +3857,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Keep the current size settings and reset the map to zero (default tile)\r\n    For x = 0 To SizeX\r\n    For Y = 0 To SizeY\r\n        MapArray(x, Y) = 0\r\n    Next Y\r\n    Next x\r\n    \r\n    'Last, draw the new map\r\n    DrawMap\r\n    \r\n"
             is_token: false
             children:
@@ -3949,7 +3949,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "    For Y = 0 To SizeY\r\n        MapArray(x, Y) = 0\r\n    Next Y\r\n    "
                     is_token: false
                     children:
@@ -4021,7 +4021,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "        MapArray(x, Y) = 0\r\n    "
                             is_token: false
                             children:
@@ -4261,7 +4261,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    \r\n    'Initialize the common dialog interface\r\n    Dim newDialog As pdOpenSaveDialog\r\n    Set newDialog = New pdOpenSaveDialog\r\n    \r\n    'String returned from the common dialog wrapper\r\n    Dim sFile As String\r\n    \r\n    'This string contains the filters for loading different kinds of images.  Using\r\n    'this feature correctly makes our common dialog box a LOT more pleasant to use.\r\n    Dim cdfStr As String\r\n    cdfStr = \"VB Map Files (.map)|*.map|All Files|*.*\"\r\n    \r\n    'If cancel isn't selected, load a map from the user-specified file\r\n    If newDialog.GetOpenFileName(sFile, , True, , cdfStr, 1, , \"Open a map file\", , Me.hWnd) Then\r\n        \r\n        'Open the file\r\n        Open sFile For Binary As #1\r\n            'At present, map files are pretty simple - the width, height, and data is all we currently store\r\n            Get #1, 1, SizeX\r\n            Get #1, , SizeY\r\n            ReDim MapArray(0 To SizeX, 0 To SizeY) As Byte\r\n            Get #1, , MapArray\r\n        Close #1\r\n        \r\n        'Once MapArray has been successfully created, Draw the map!\r\n        DrawMap\r\n        \r\n    End If\r\n    \r\n\r\nEnd Sub\r\n\r\n'Menu -> Refresh\r\nPrivate Sub MnuRefresh_Click()\r\n    RefreshAll\r\nEnd Sub\r\n\r\n'Menu -> Resize\r\nPrivate Sub MnuResize_Click()\r\n    FrmResize.Visible = True\r\nEnd Sub\r\n\r\n'Menu -> Save\r\nPrivate Sub MnuSave_Click()\r\n\r\n    'Initialize the common dialog interface\r\n    Dim newDialog As pdOpenSaveDialog\r\n    Set newDialog = New pdOpenSaveDialog\r\n    \r\n    'String returned from the common dialog wrapper\r\n    Dim sFile As String\r\n    \r\n    'This string contains the filters for loading different kinds of images.  Using\r\n    'this feature correctly makes our common dialog box a LOT more pleasant to use.\r\n    Dim cdfStr As String\r\n    cdfStr = \"VB Map Files (.map)|*.map|All Files|*.*\"\r\n    \r\n    'If cancel isn't selected, save a map to the user-specified file\r\n    If newDialog.GetSaveFileName(sFile, , , cdfStr, 1, , \"Save a map file\", \".map\", Me.hWnd) Then\r\n        \r\n        'Open the file\r\n        Open sFile For Binary As #1\r\n            'At present, map files are pretty simple - the width, height, and data is all we currently store\r\n            Put #1, 1, SizeX\r\n            Put #1, , SizeY\r\n            Put #1, , MapArray\r\n        Close #1\r\n        \r\n    End If\r\n\r\n"
             is_token: false
             children:
@@ -5189,7 +5189,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "\r\nEnd Sub\r\n\r\n'Menu -> Refresh\r\nPrivate Sub MnuRefresh_Click()\r\n    RefreshAll\r\nEnd Sub\r\n\r\n'Menu -> Resize\r\nPrivate Sub MnuResize_Click()\r\n    FrmResize.Visible = True\r\nEnd Sub\r\n\r\n'Menu -> Save\r\nPrivate Sub MnuSave_Click()\r\n\r\n    'Initialize the common dialog interface\r\n    Dim newDialog As pdOpenSaveDialog\r\n    Set newDialog = New pdOpenSaveDialog\r\n    \r\n    'String returned from the common dialog wrapper\r\n    Dim sFile As String\r\n    \r\n    'This string contains the filters for loading different kinds of images.  Using\r\n    'this feature correctly makes our common dialog box a LOT more pleasant to use.\r\n    Dim cdfStr As String\r\n    cdfStr = \"VB Map Files (.map)|*.map|All Files|*.*\"\r\n    \r\n    'If cancel isn't selected, save a map to the user-specified file\r\n    If newDialog.GetSaveFileName(sFile, , , cdfStr, 1, , \"Save a map file\", \".map\", Me.hWnd) Then\r\n        \r\n        'Open the file\r\n        Open sFile For Binary As #1\r\n            'At present, map files are pretty simple - the width, height, and data is all we currently store\r\n            Put #1, 1, SizeX\r\n            Put #1, , SizeY\r\n            Put #1, , MapArray\r\n        Close #1\r\n        \r\n    "
                     is_token: false
                     children:
@@ -6313,7 +6313,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "    ChangeZoom\r\n"
             is_token: false
             children:
@@ -6505,7 +6505,7 @@ cst:
             text: "\r\n"
             is_token: true
             children: []
-          - kind: CodeBlock
+          - kind: StatementList
             text: "\r\n    'Left button...\r\n    If Button = 1 Then\r\n        'Current picture is the x value integer divided by 64 (tile width) + whatever the scrollbar is at\r\n        CurPicIndex = (x \\ 64) + HSTileBar.Value\r\n        'Draw this tile in its picture box on the left\r\n        If UseStretchBlt Then\r\n            StretchBlt Pic1.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Pic1.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    'Right button...\r\n    ElseIf Button = 2 Then\r\n        CurPicIndex2 = (x \\ 64) + HSTileBar.Value\r\n        If UseStretchBlt Then\r\n            StretchBlt Pic2.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Pic2.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    End If\r\n    \r\n    'Because AutoRedraw is set to true for these pictures boxes, we must refresh them and update the .Picture property\r\n    Pic1.Picture = Pic1.Image\r\n    Pic2.Picture = Pic2.Image\r\n    Pic1.Refresh\r\n    Pic2.Refresh\r\n\r\n"
             is_token: false
             children:
@@ -6585,7 +6585,7 @@ cst:
                     text: "\r\n"
                     is_token: true
                     children: []
-                  - kind: CodeBlock
+                  - kind: StatementList
                     text: "        'Current picture is the x value integer divided by 64 (tile width) + whatever the scrollbar is at\r\n        CurPicIndex = (x \\ 64) + HSTileBar.Value\r\n        'Draw this tile in its picture box on the left\r\n        If UseStretchBlt Then\r\n            StretchBlt Pic1.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Pic1.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    'Right button...\r\n    "
                     is_token: false
                     children:
@@ -6757,7 +6757,7 @@ cst:
                             text: "\r\n"
                             is_token: true
                             children: []
-                          - kind: CodeBlock
+                          - kind: StatementList
                             text: "            StretchBlt Pic1.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        "
                             is_token: false
                             children:
@@ -6953,7 +6953,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            Pic1.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex * 64, 0, 64, 64, vbSrcCopy\r\n        "
                                 is_token: false
                                 children:
@@ -7213,7 +7213,7 @@ cst:
                         text: "\r\n"
                         is_token: true
                         children: []
-                      - kind: CodeBlock
+                      - kind: StatementList
                         text: "        CurPicIndex2 = (x \\ 64) + HSTileBar.Value\r\n        If UseStretchBlt Then\r\n            StretchBlt Pic2.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        Else\r\n            Pic2.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        End If\r\n    "
                         is_token: false
                         children:
@@ -7361,7 +7361,7 @@ cst:
                                 text: "\r\n"
                                 is_token: true
                                 children: []
-                              - kind: CodeBlock
+                              - kind: StatementList
                                 text: "            StretchBlt Pic2.hdc, 0, 0, 64, 64, PicTilesBuffer.hdc, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        "
                                 is_token: false
                                 children:
@@ -7557,7 +7557,7 @@ cst:
                                     text: "\r\n"
                                     is_token: true
                                     children: []
-                                  - kind: CodeBlock
+                                  - kind: StatementList
                                     text: "            Pic2.PaintPicture PicTilesBuffer.Picture, 0, 0, 64, 64, CurPicIndex2 * 64, 0, 64, 64, vbSrcCopy\r\n        "
                                     is_token: false
                                     children:
