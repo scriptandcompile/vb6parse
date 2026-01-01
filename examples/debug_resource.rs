@@ -1,3 +1,12 @@
+//! A simple example to demonstrate how to debug VB6 Form Resource Files (.frx).
+//!
+//! This example reads a VB6 Form Resource File, parses its content,
+//! and then prints out the details of each resource entry for debugging purposes.
+//!
+//! To run this example, ensure that the test data submodules are initialized
+//! to provide access to the sample .frx file.
+//!
+
 use vb6parse::FormResourceFile;
 
 fn main() {

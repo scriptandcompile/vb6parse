@@ -1,5 +1,6 @@
 //! Example demonstrating how to read the audiostation project file
 //! and parse it into a Concrete Syntax Tree (CST).
+//!
 
 use std::env;
 use vb6parse::files::ProjectFile;

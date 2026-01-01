@@ -6,6 +6,7 @@
 //!
 //! This is useful for scenarios that only need UI information (control hierarchy,
 //! properties) and don't need the code implementation.
+//!
 
 use vb6parse::{tokenize, FormFile, SourceFile};
 

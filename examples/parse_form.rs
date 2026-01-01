@@ -1,14 +1,15 @@
+//! Example showing how to parse a VB6 form file from raw bytes.
+//! This example uses a hardcoded byte array, but in a real application,
+//! you would typically read the bytes from a `.frm` file on disk.
+//!
+//! This is a minimal example with just a couple of controls.
+//!
+
 use vb6parse::files::FormFile;
 use vb6parse::io::SourceFile;
 use vb6parse::language::ControlKind;
 
-/// Example showing how to parse a VB6 form file from raw bytes.
-/// This example uses a hardcoded byte array, but in a real application,
-/// you would typically read the bytes from a `.frm` file on disk.
 fn main() {
-    // Hardcoded example of a VB6 form file content in bytes.
-    // This is a minimal example with just a couple of controls.
-    // In a real application, you would read this from a file.
     let input = b"VERSION 5.00
 Begin VB.Form Form1
     BorderStyle     =   1  'Fixed Single

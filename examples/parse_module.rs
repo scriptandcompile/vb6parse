@@ -1,9 +1,11 @@
+//! Example showing how to parse a VB6 module file from raw bytes.
+//! This example uses a hardcoded byte array, but in a real application,
+//! you would typically read the bytes from a `.bas` file on disk.
+//!
+
 use vb6parse::files::ModuleFile;
 use vb6parse::io::SourceFile;
 
-/// Example showing how to parse a VB6 module file from raw bytes.
-/// This example uses a hardcoded byte array, but in a real application,
-/// you would typically read the bytes from a `.bas` file on disk.
 fn main() {
     // Hardcoded example of a VB6 module file content in bytes.
     let input = "Attribute VB_Name = \"Module1\"
