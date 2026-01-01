@@ -604,7 +604,7 @@ impl<'a> Parser<'a> {
         use crate::language::{ControlKind, MenuControl};
 
         let (name, tag, index, kind) = control.into_parts();
-        
+
         if let ControlKind::Menu {
             properties,
             sub_menus,
@@ -613,13 +613,7 @@ impl<'a> Parser<'a> {
             MenuControl::new(name, tag, index, properties, sub_menus)
         } else {
             // Fallback: create empty menu control
-            MenuControl::new(
-                name,
-                tag,
-                index,
-                MenuProperties::default(),
-                Vec::new(),
-            )
+            MenuControl::new(name, tag, index, MenuProperties::default(), Vec::new())
         }
     }
 
