@@ -280,7 +280,7 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst.to_root_node(), [
+        assert_tree!(cst, [
             Newline,
             SubStatement {
                 SubKeyword,
@@ -344,10 +344,44 @@ Sub Test()
     x = Array()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList,
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -357,10 +391,50 @@ Sub Test()
     x = Array(42)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("42"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -370,11 +444,64 @@ Sub Test()
     names = Array("Alice", "Bob", "Charlie")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("Alice"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("names"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Alice\""),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Bob\""),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Charlie\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -384,12 +511,71 @@ Sub Test()
     mixed = Array("Hello", 42, True, 3.14)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("Hello"));
-        assert!(debug.contains("True"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("mixed"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Hello\""),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("42"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    BooleanLiteralExpression {
+                                        TrueKeyword,
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    NumericLiteralExpression {
+                                        SingleLiteral ("3.14"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -399,11 +585,71 @@ Sub Test()
     result = Array(a, b, c, d)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("Identifier"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("a"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("b"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("c"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("d"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -413,10 +659,88 @@ Sub Test()
     arr = Array(x + 1, y * 2, z - 3)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace (" "),
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace ("    "),
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("arr"),
+                        },
+                        Whitespace (" "),
+                        EqualityOperator,
+                        Whitespace (" "),
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("x"),
+                                        },
+                                        Whitespace (" "),
+                                        AdditionOperator,
+                                        Whitespace (" "),
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("y"),
+                                        },
+                                        Whitespace (" "),
+                                        MultiplicationOperator,
+                                        Whitespace (" "),
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("2"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace (" "),
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("z"),
+                                        },
+                                        Whitespace (" "),
+                                        SubtractionOperator,
+                                        Whitespace (" "),
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("3"),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace (" "),
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -427,11 +751,62 @@ Sub Test()
     data = Array(1, 2, 3, 4, 5)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier "Test",
+                ParameterList { LeftParenthesis, RightParenthesis },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier "data",
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        VariantKeyword,
+                        Newline
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression { Identifier "data" },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier "Array",
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral "3" } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral "4" } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral "5" } }
+                            },
+                            RightParenthesis
+                        },
+                        Newline
+                    }
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline
+        }]);
     }
 
     #[test]
@@ -441,11 +816,49 @@ Function GetValues() As Variant
     GetValues = Array(10, 20, 30)
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("FunctionStatement"));
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier "GetValues",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Whitespace,
+            AsKeyword,
+            Whitespace,
+            VariantKeyword,
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "GetValues" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "10" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "20" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "30" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            FunctionKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -457,11 +870,67 @@ Sub Test()
     Next item
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("ForEachStatement"));
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                ForEachStatement {
+                    ForKeyword,
+                    Whitespace,
+                    EachKeyword,
+                    Whitespace,
+                    Identifier "item",
+                    Whitespace,
+                    InKeyword,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            CallExpression {
+                                Identifier "Process",
+                                Whitespace,
+                                ArgumentList {
+                                    Argument { IdentifierExpression { Identifier "item" } }
+                                }
+                            },
+                            Newline
+                        }
+                    },
+                    Whitespace,
+                    NextKeyword,
+                    Whitespace,
+                    Identifier "item",
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -471,10 +940,52 @@ Sub Test()
     x = Array("A", "B", "C")(0)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "x" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    IndexExpression {
+                        CallExpression {
+                            Identifier "Array",
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument { StringLiteralExpression { StringLiteral } },
+                                Comma,
+                                Whitespace,
+                                Argument { StringLiteralExpression { StringLiteral } },
+                                Comma,
+                                Whitespace,
+                                Argument { StringLiteralExpression { StringLiteral } }
+                            },
+                            RightParenthesis
+                        },
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "0" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -484,10 +995,42 @@ Sub Test()
     dates = Array(#1/1/2025#, #12/31/2025#)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "dates" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { DateLiteralExpression { DateLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { DateLiteralExpression { DateLiteral } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -497,10 +1040,45 @@ Sub Test()
     values = Array(Null, Empty, Nothing)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "values" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NullLiteralExpression { NullKeyword } },
+                            Comma,
+                            Whitespace,
+                            Argument { EmptyLiteralExpression { EmptyKeyword } },
+                            Comma,
+                            Whitespace,
+                            Argument { NothingLiteralExpression { NothingKeyword } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -510,11 +1088,66 @@ Sub Test()
     matrix = Array(Array(1, 2), Array(3, 4))
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("Array").count();
-        assert!(count >= 3);
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "matrix" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier "Array",
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                        Comma,
+                                        Whitespace,
+                                        Argument { NumericLiteralExpression { IntegerLiteral "2" } }
+                                    },
+                                    RightParenthesis
+                                }
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                CallExpression {
+                                    Identifier "Array",
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument { NumericLiteralExpression { IntegerLiteral "3" } },
+                                        Comma,
+                                        Whitespace,
+                                        Argument { NumericLiteralExpression { IntegerLiteral "4" } }
+                                    },
+                                    RightParenthesis
+                                }
+                            }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -524,10 +1157,49 @@ Sub Test()
     ProcessData Array(1, 2, 3)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                CallStatement {
+                    CallExpression {
+                        Identifier "ProcessData",
+                        Whitespace,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier "Array",
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                        Comma,
+                                        Whitespace,
+                                        Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                        Comma,
+                                        Whitespace,
+                                        Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                                    },
+                                    RightParenthesis
+                                }
+                            }
+                        }
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -539,10 +1211,81 @@ Sub Test()
     c = ArRaY(5, 6)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ARRAY") || debug.contains("array") || debug.contains("ArRaY"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier ("Test"),
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier ("a") },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("ARRAY"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral ("1") } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral ("2") } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                },
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier ("b") },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("array"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral ("3") } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral ("4") } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                },
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier ("c") },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("ArRaY"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral ("5") } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral ("6") } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -555,11 +1298,81 @@ Sub Test()
     size = UBound(arr)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("UBound"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword, Whitespace, Identifier ("Test"), ParameterList { LeftParenthesis, RightParenthesis }, Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("arr"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        VariantKeyword,
+                        Newline
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression { Identifier ("arr") },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Array"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument { NumericLiteralExpression { IntegerLiteral ("1") } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral ("2") } },
+                                Comma,
+                                Whitespace,
+                                Argument { NumericLiteralExpression { IntegerLiteral ("3") } }
+                            },
+                            RightParenthesis
+                        },
+                        Newline
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("size"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression { Identifier ("size") },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("UBound"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument { IdentifierExpression { Identifier ("arr") } }
+                            },
+                            RightParenthesis
+                        },
+                        Newline
+                    }
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline
+            }
+        ]);
     }
 
     #[test]
@@ -571,11 +1384,69 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                IfStatement {
+                    IfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier "UBound",
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier "Array",
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                                        },
+                                        RightParenthesis
+                                    }
+                                }
+                            },
+                            RightParenthesis
+                        },
+                        Whitespace,
+                        GreaterThanOperator,
+                        Whitespace,
+                        NumericLiteralExpression { IntegerLiteral "0" }
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            CallExpression { Identifier "Process" },
+                            Newline
+                        }
+                    },
+                    Whitespace,
+                    EndIfKeyword,
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -587,11 +1458,85 @@ Sub Test()
     arr3 = Array(True, False)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("Array").count();
-        assert!(count >= 3);
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "arr1" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                },
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "arr2" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { StringLiteralExpression { StringLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { StringLiteralExpression { StringLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { StringLiteralExpression { StringLiteral } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                },
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "arr3" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { BooleanLiteralExpression { TrueKeyword } },
+                            Comma,
+                            Whitespace,
+                            Argument { BooleanLiteralExpression { FalseKeyword } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -603,10 +1548,59 @@ Sub Test()
                  5, 6)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "data" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                            Comma,
+                            Whitespace,
+                            LineContinuation,
+                            Newline,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "3" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "4" } },
+                            Comma,
+                            Whitespace,
+                            LineContinuation,
+                            Newline,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "5" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "6" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -616,11 +1610,54 @@ Sub Test()
     x = Array  (  1 ,  2 ,  3  )
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("Whitespace"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "x" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        Whitespace,
+                        Whitespace,
+                        LeftParenthesis,
+                        Whitespace,
+                        Whitespace,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                            Whitespace,
+                            Comma,
+                            Whitespace,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                            Whitespace,
+                            Comma,
+                            Whitespace,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "3" } },
+                            Whitespace,
+                            Whitespace
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -633,10 +1670,65 @@ Sub Test()
     End Select
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                SelectCaseStatement {
+                    SelectKeyword,
+                    Whitespace,
+                    CaseKeyword,
+                    Whitespace,
+                    IdentifierExpression { Identifier "value" },
+                    Newline,
+                    CaseClause {
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        CaseConditionList {
+                            CallExpression {
+                                Identifier "Array",
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                    Comma,
+                                    Whitespace,
+                                    Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                    Comma,
+                                    Whitespace,
+                                    Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                                },
+                                RightParenthesis
+                            }
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                CallExpression { Identifier "Process" },
+                                Newline
+                            }
+                        }
+                    },
+                    Whitespace,
+                    EndKeyword,
+                    Whitespace,
+                    SelectKeyword,
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -646,11 +1738,53 @@ Sub Test()
     values = Array(obj.Prop1, obj.Prop2)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("obj"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "values" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                MemberAccessExpression {
+                                    IdentifierExpression { Identifier "obj" },
+                                    DotOperator,
+                                    Identifier "Prop1"
+                                }
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                MemberAccessExpression {
+                                    IdentifierExpression { Identifier "obj" },
+                                    DotOperator,
+                                    Identifier "Prop2"
+                                }
+                            }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -660,11 +1794,62 @@ Sub Test()
     results = Array(GetA(), GetB(), GetC())
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("GetA"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "results" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier "GetA",
+                                    LeftParenthesis,
+                                    RightParenthesis
+                                }
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                CallExpression {
+                                    Identifier "GetB",
+                                    LeftParenthesis,
+                                    RightParenthesis
+                                }
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                CallExpression {
+                                    Identifier "GetC",
+                                    LeftParenthesis,
+                                    RightParenthesis
+                                }
+                            }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -674,10 +1859,59 @@ Sub Test()
     Debug.Print Array(1, 2, 3)(0)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                CallStatement {
+                    CallExpression {
+                        MemberAccessExpression {
+                            IdentifierExpression { Identifier "Debug" },
+                            DotOperator,
+                            Identifier "Print"
+                        },
+                        Whitespace,
+                        ArgumentList {
+                            Argument {
+                                IndexExpression {
+                                    CallExpression {
+                                        Identifier "Array",
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                                        },
+                                        RightParenthesis
+                                    },
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument { NumericLiteralExpression { IntegerLiteral "0" } }
+                                    },
+                                    RightParenthesis
+                                }
+                            }
+                        }
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -689,11 +1923,61 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("WithStatement"));
+        assert_tree!(cst, [ SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                WithStatement {
+                    WithKeyword,
+                    Whitespace,
+                    IdentifierExpression { Identifier "myObject" },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            MemberAccessExpression {
+                                DotOperator,
+                                Identifier "Data"
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier "Array",
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                                    Comma,
+                                    Whitespace,
+                                    Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                                    Comma,
+                                    Whitespace,
+                                    Argument { NumericLiteralExpression { IntegerLiteral "3" } }
+                                },
+                                RightParenthesis
+                            },
+                            Newline
+                        }
+                    },
+                    Whitespace,
+                    EndKeyword,
+                    Whitespace,
+                    WithKeyword,
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -703,10 +1987,50 @@ Sub Test()
     nums = Array(1%, 2&, 3!, 4#, 5@)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "nums" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { LongLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { SingleLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { DoubleLiteral } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { CurrencyLiteral } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -714,10 +2038,35 @@ End Sub
         let source = r"
 Const DEFAULT_VALUES = Array(0, 1, 2)
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                ConstKeyword,
+                Whitespace,
+                Identifier ("DEFAULT_VALUES"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Array"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument { NumericLiteralExpression { IntegerLiteral ("0") } },
+                        Comma,
+                        Whitespace,
+                        Argument { NumericLiteralExpression { IntegerLiteral ("1") } },
+                        Comma,
+                        Whitespace,
+                        Argument { NumericLiteralExpression { IntegerLiteral ("2") } }
+                    },
+                    RightParenthesis
+                },
+                Newline
+            }
+        ]);
     }
 
     #[test]
@@ -729,11 +2078,79 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
-        assert!(debug.contains("DoStatement"));
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier ("Test"),
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                DoStatement {
+                    DoKeyword,
+                    Whitespace,
+                    WhileKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        IdentifierExpression { Identifier ("i") },
+                        Whitespace,
+                        LessThanOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("UBound"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Array"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument { NumericLiteralExpression { IntegerLiteral ("1") } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral ("2") } },
+                                            Comma,
+                                            Whitespace,
+                                            Argument { NumericLiteralExpression { IntegerLiteral ("3") } }
+                                        },
+                                        RightParenthesis
+                                    }
+                                }
+                            },
+                            RightParenthesis
+                        }
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression { Identifier ("i") },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression { Identifier ("i") },
+                                Whitespace,
+                                AdditionOperator,
+                                Whitespace,
+                                NumericLiteralExpression { IntegerLiteral ("1") }
+                            },
+                            Newline
+                        }
+                    },
+                    Whitespace,
+                    LoopKeyword,
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 
     #[test]
@@ -743,9 +2160,64 @@ Sub Test()
     data = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("Array"));
+        assert_tree!(cst, [SubStatement {
+            SubKeyword,
+            Whitespace,
+            Identifier "Test",
+            ParameterList { LeftParenthesis, RightParenthesis },
+            Newline,
+            StatementList {
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression { Identifier "data" },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier "Array",
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument { NumericLiteralExpression { IntegerLiteral "1" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "2" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "3" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "4" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "5" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "6" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "7" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "8" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "9" } },
+                            Comma,
+                            Whitespace,
+                            Argument { NumericLiteralExpression { IntegerLiteral "10" } }
+                        },
+                        RightParenthesis
+                    },
+                    Newline
+                }
+            },
+            EndKeyword,
+            Whitespace,
+            SubKeyword,
+            Newline
+        }]);
     }
 }
