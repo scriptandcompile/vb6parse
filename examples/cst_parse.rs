@@ -2,6 +2,7 @@
 //!
 //! This example shows how to create a `TokenStream` and parse it into a
 //! Concrete Syntax Tree (CST) that represents VB6 code structure.
+//!
 
 use vb6parse::language::Token;
 use vb6parse::lexer::TokenStream;

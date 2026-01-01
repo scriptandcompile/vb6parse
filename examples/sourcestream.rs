@@ -1,3 +1,9 @@
+//! Example demonstrating various functionalities of the `SourceStream` API.
+//! This example shows how to navigate, peek, and extract text from a VB6 source code stream.
+//! It includes examples of case-sensitive and case-insensitive operations,
+//! as well as line-based operations and error handling.
+//!
+
 use vb6parse::io::{Comparator, SourceStream};
 
 fn main() {

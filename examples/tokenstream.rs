@@ -1,3 +1,8 @@
+//! Example demonstrating various functionalities of the `TokenStream` API.
+//! This example shows how to create a `TokenStream`, navigate through it,
+//! and extract information about the tokens.
+//!
+
 use vb6parse::io::SourceStream;
 use vb6parse::lexer::tokenize;
 

@@ -2,6 +2,7 @@
 //!
 //! Shows how to use the various navigation APIs to traverse and query
 //! the Concrete Syntax Tree.
+//!
 
 use vb6parse::parsers::cst::CstNode;
 use vb6parse::parsers::SyntaxKind;

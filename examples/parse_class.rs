@@ -1,9 +1,11 @@
+//! Example showing how to parse a VB6 class file from raw bytes.
+//! This example uses a hardcoded byte array, but in a real application,
+//! you would typically read the bytes from a `.cls` file on disk.
+//!
+
 use vb6parse::files::ClassFile;
 use vb6parse::io::SourceFile;
 
-/// Example showing how to parse a VB6 class file from raw bytes.
-/// This example uses a hardcoded byte array, but in a real application,
-/// you would typically read the bytes from a `.cls` file on disk.
 fn main() {
     // Hardcoded example of a VB6 class file content in bytes.
     let input = b"VERSION 1.0 CLASS
