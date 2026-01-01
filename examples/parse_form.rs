@@ -81,7 +81,7 @@ Attribute VB_Exposed = False
         properties,
         controls,
         menus,
-    } = form_file.form.kind
+    } = form_file.form.kind()
     else {
         panic!("Unexpected control kind");
     };

@@ -53,7 +53,7 @@ impl Display for FormFile {
         write!(
             f,
             "FormFile {{ form name: {:?}, objects count: {:?} }}",
-            self.form.name,
+            self.form.name(),
             self.objects.len()
         )
     }
@@ -340,12 +340,7 @@ fn extract_properties_block(block: &CstNode) -> Control {
         }
     };
 
-    Control {
-        name: control_name,
-        tag,
-        index,
-        kind,
-    }
+    Control::new(control_name, tag, index, kind)
 }
 
 /// Extracts a `MenuControl` from a `PropertiesBlock` CST node.
@@ -399,13 +394,7 @@ fn extract_menu_control(block: &CstNode) -> MenuControl {
         .and_then(|s| s.parse().ok())
         .unwrap_or(0);
 
-    MenuControl {
-        name: menu_name,
-        tag,
-        index,
-        properties: properties.into(),
-        sub_menus,
-    }
+    MenuControl::new(menu_name, tag, index, properties.into(), sub_menus)
 }
 
 /// Extracts a `PropertyGroup` from a `PropertyGroup` CST node.
@@ -545,16 +534,16 @@ impl FormFile {
         let mut form = control_opt.unwrap_or_else(|| {
             use crate::language::FormProperties;
 
-            Control {
-                name: String::new(),
-                tag: String::new(),
-                index: 0,
-                kind: ControlKind::Form {
+            Control::new(
+                String::new(),
+                String::new(),
+                0,
+                ControlKind::Form {
                     properties: FormProperties::default(),
                     controls: Vec::new(),
                     menus: Vec::new(),
                 },
-            }
+            )
         });
 
         // Parse Attributes directly (no CST overhead)
@@ -563,7 +552,7 @@ impl FormFile {
         // The form's name comes from the VB_Name attribute if present,
         // otherwise from the PropertiesName in the Begin statement
         if !attributes.name.is_empty() {
-            form.name.clone_from(&attributes.name);
+            form.set_name(attributes.name.clone());
         }
         // If attributes.name is empty, form.name already has the name from the Begin statement
 
@@ -627,7 +616,7 @@ impl FormFile {
     ///
     ///     if let Some((version, form, _remaining)) = parse_result {
     ///         if let Some(f) = form {
-    ///             println!("Form: {}", f.name);
+    ///             println!("Form: {}", f.name());
     ///         }
     ///     }
     /// }
@@ -802,25 +791,25 @@ End
         assert_eq!(result.objects.len(), 1);
         assert_eq!(result.version.major, 5);
         assert_eq!(result.version.minor, 0);
-        assert_eq!(result.form.name, "Form_Main");
-        assert!(matches!(result.form.kind, ControlKind::Form { .. }));
+        assert_eq!(result.form.name(), "Form_Main");
+        assert!(matches!(result.form.kind(), ControlKind::Form { .. }));
 
         if let ControlKind::Form {
             controls,
             properties,
             menus,
-        } = &result.form.kind
+        } = result.form.kind()
         {
             assert_eq!(controls.len(), 1);
             assert_eq!(menus.len(), 0);
             assert_eq!(properties.caption, "Audiostation");
-            assert_eq!(controls[0].name, "Imagelist_CDDisplay");
-            assert!(matches!(controls[0].kind, ControlKind::Custom { .. }));
+            assert_eq!(controls[0].name(), "Imagelist_CDDisplay");
+            assert!(matches!(controls[0].kind(), ControlKind::Custom { .. }));
 
             if let ControlKind::Custom {
                 properties,
                 property_groups,
-            } = &controls[0].kind
+            } = controls[0].kind()
             {
                 assert_eq!(properties.len(), 9);
                 assert_eq!(property_groups.len(), 1);
@@ -909,15 +898,15 @@ End
         assert_eq!(result.version.major, 5);
         assert_eq!(result.version.minor, 0);
 
-        assert_eq!(result.form.name, "frmExampleForm");
-        assert_eq!(result.form.tag, "");
-        assert_eq!(result.form.index, 0);
+        assert_eq!(result.form.name(), "frmExampleForm");
+        assert_eq!(result.form.tag(), "");
+        assert_eq!(result.form.index(), 0);
 
         if let ControlKind::Form {
             controls,
             properties,
             menus,
-        } = &result.form.kind
+        } = result.form.kind()
         {
             assert_eq!(controls.len(), 0);
             assert_eq!(menus.len(), 1);
@@ -925,25 +914,25 @@ End
             assert_eq!(properties.back_color, VB_WINDOW_BACKGROUND);
             assert_eq!(
                 *menus,
-                vec![MenuControl {
-                    name: "mnuFile".into(),
-                    tag: String::new(),
-                    index: 0,
-                    properties: MenuProperties {
+                vec![MenuControl::new(
+                    "mnuFile".into(),
+                    String::new(),
+                    0,
+                    MenuProperties {
                         caption: "&File".into(),
                         ..Default::default()
                     },
-                    sub_menus: vec![MenuControl {
-                        name: "mnuOpenImage".into(),
-                        tag: String::new(),
-                        index: 0,
-                        properties: MenuProperties {
+                    vec![MenuControl::new(
+                        "mnuOpenImage".into(),
+                        String::new(),
+                        0,
+                        MenuProperties {
                             caption: "&Open image".into(),
                             ..Default::default()
                         },
-                        sub_menus: vec![],
-                    }]
-                }]
+                        vec![],
+                    )]
+                )]
             );
         } else {
             panic!("Expected form kind");
@@ -981,19 +970,19 @@ End
         assert!(result_opt.is_some());
         let form_file = result_opt.expect("Expected parse result");
 
-        assert_eq!(form_file.form.name, "Form1");
+        assert_eq!(form_file.form.name(), "Form1");
 
-        if let ControlKind::Form { controls, .. } = &form_file.form.kind {
+        if let ControlKind::Form { controls, .. } = form_file.form.kind() {
             assert_eq!(controls.len(), 2);
-            assert_eq!(controls[0].name, "Command1");
-            assert_eq!(controls[1].name, "Text1");
+            assert_eq!(controls[0].name(), "Command1");
+            assert_eq!(controls[1].name(), "Text1");
 
             // Check control types
             assert!(matches!(
-                controls[0].kind,
+                controls[0].kind(),
                 ControlKind::CommandButton { .. }
             ));
-            assert!(matches!(controls[1].kind, ControlKind::TextBox { .. }));
+            assert!(matches!(controls[1].kind(), ControlKind::TextBox { .. }));
         } else {
             panic!("Expected Form kind");
         }

@@ -23,15 +23,117 @@ use serde::Serialize;
 #[derive(Debug, PartialEq, Eq, Clone, Serialize)]
 pub struct MenuControl {
     /// The name of the menu control.
-    pub name: String,
+    name: String,
     /// The tag of the menu control.
-    pub tag: String,
+    tag: String,
     /// The index of the menu control.
-    pub index: i32,
+    index: i32,
     /// The properties of the menu control.
-    pub properties: MenuProperties,
+    properties: MenuProperties,
     /// The sub-menus of the menu control.
-    pub sub_menus: Vec<MenuControl>,
+    sub_menus: Vec<MenuControl>,
+}
+
+impl MenuControl {
+    /// Creates a new `MenuControl` with the specified properties.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the menu control
+    /// * `tag` - The tag of the menu control
+    /// * `index` - The index of the menu control
+    /// * `properties` - The properties of the menu control
+    /// * `sub_menus` - The sub-menus of the menu control
+    ///
+    /// # Returns
+    ///
+    /// A new `MenuControl` instance.
+    #[must_use]
+    pub fn new(
+        name: String,
+        tag: String,
+        index: i32,
+        properties: MenuProperties,
+        sub_menus: Vec<MenuControl>,
+    ) -> Self {
+        Self {
+            name,
+            tag,
+            index,
+            properties,
+            sub_menus,
+        }
+    }
+
+    /// Returns the name of the menu control.
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    /// Returns the tag of the menu control.
+    #[must_use]
+    pub fn tag(&self) -> &str {
+        &self.tag
+    }
+
+    /// Returns the index of the menu control.
+    #[must_use]
+    pub fn index(&self) -> i32 {
+        self.index
+    }
+
+    /// Returns a reference to the menu properties.
+    #[must_use]
+    pub fn properties(&self) -> &MenuProperties {
+        &self.properties
+    }
+
+    /// Returns a slice of the sub-menus.
+    #[must_use]
+    pub fn sub_menus(&self) -> &[MenuControl] {
+        &self.sub_menus
+    }
+
+    /// Consumes the menu control and returns its name.
+    #[must_use]
+    pub fn into_name(self) -> String {
+        self.name
+    }
+
+    /// Consumes the menu control and returns its tag.
+    #[must_use]
+    pub fn into_tag(self) -> String {
+        self.tag
+    }
+
+    /// Consumes the menu control and returns its properties.
+    #[must_use]
+    pub fn into_properties(self) -> MenuProperties {
+        self.properties
+    }
+
+    /// Consumes the menu control and returns its sub-menus.
+    #[must_use]
+    pub fn into_sub_menus(self) -> Vec<MenuControl> {
+        self.sub_menus
+    }
+
+    /// Consumes the menu control and returns all of its parts as a tuple.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing `(name, tag, index, properties, sub_menus)`.
+    #[must_use]
+    pub fn into_parts(self) -> (String, String, i32, MenuProperties, Vec<MenuControl>) {
+        (
+            self.name,
+            self.tag,
+            self.index,
+            self.properties,
+            self.sub_menus,
+        )
+    }
 }
 
 impl Display for MenuControl {

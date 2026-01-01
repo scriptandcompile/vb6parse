@@ -117,14 +117,14 @@ End Sub
 
             // Display control information
             if let Some(control) = control_opt {
-                println!("Form name: {}", control.name);
+                println!("Form name: {}", control.name());
 
                 // Display form properties
                 if let vb6parse::language::ControlKind::Form {
                     properties,
                     controls,
                     ..
-                } = &control.kind
+                } = control.kind()
                 {
                     println!("Form caption: {:?}", properties.caption);
                     println!(
@@ -135,7 +135,7 @@ End Sub
 
                     println!("\nChild controls:");
                     for child in controls {
-                        print_control_info(child, 1);
+                        print_control_info(&child, 1);
                     }
                 } else {
                     println!("Warning: Parsed control is not a Form");
@@ -171,12 +171,12 @@ fn print_control_info(control: &vb6parse::language::Control, indent_level: usize
     println!(
         "{}- {} ({})",
         indent,
-        control.name,
-        control_type_name(&control.kind)
+        control.name(),
+        control_type_name(control.kind())
     );
 
     // If this control has children, print them recursively
-    if let Some(children) = get_child_controls(&control.kind) {
+    if let Some(children) = get_child_controls(control.kind()) {
         for child in children {
             print_control_info(child, indent_level + 1);
         }

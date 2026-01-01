@@ -603,27 +603,23 @@ impl<'a> Parser<'a> {
         use crate::language::MenuProperties;
         use crate::language::{ControlKind, MenuControl};
 
+        let (name, tag, index, kind) = control.into_parts();
+        
         if let ControlKind::Menu {
             properties,
             sub_menus,
-        } = control.kind
+        } = kind
         {
-            MenuControl {
-                name: control.name,
-                tag: control.tag,
-                index: control.index,
-                properties,
-                sub_menus,
-            }
+            MenuControl::new(name, tag, index, properties, sub_menus)
         } else {
             // Fallback: create empty menu control
-            MenuControl {
-                name: control.name,
-                tag: control.tag,
-                index: control.index,
-                properties: MenuProperties::default(),
-                sub_menus: Vec::new(),
-            }
+            MenuControl::new(
+                name,
+                tag,
+                index,
+                MenuProperties::default(),
+                Vec::new(),
+            )
         }
     }
 
@@ -1293,7 +1289,7 @@ impl<'a> Parser<'a> {
 
                 if let Some(child) = child_opt {
                     // Check if it's a menu control
-                    if matches!(child.kind, crate::language::ControlKind::Menu { .. }) {
+                    if matches!(child.kind(), crate::language::ControlKind::Menu { .. }) {
                         menus.push(Self::control_to_menu(child));
                     } else {
                         child_controls.push(child);
@@ -1354,12 +1350,7 @@ impl<'a> Parser<'a> {
             property_groups,
         );
 
-        let control = Control {
-            name: control_name,
-            tag,
-            index,
-            kind,
-        };
+        let control = Control::new(control_name, tag, index, kind);
 
         crate::ParseResult::new(Some(control), failures)
     }
@@ -2308,11 +2299,11 @@ End
         assert!(control_opt.is_some(), "Expected control to be parsed");
 
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Form1");
+        assert_eq!(control.name(), "Form1");
 
         // Verify it's a Form
         assert!(matches!(
-            control.kind,
+            control.kind(),
             crate::language::ControlKind::Form { .. }
         ));
     }
@@ -2337,9 +2328,9 @@ End
         assert!(control_opt.is_some());
 
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Command1");
+        assert_eq!(control.name(), "Command1");
         assert!(matches!(
-            control.kind,
+            control.kind(),
             crate::language::ControlKind::CommandButton { .. }
         ));
     }
@@ -2362,9 +2353,9 @@ End
 
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Text1");
+        assert_eq!(control.name(), "Text1");
         assert!(matches!(
-            control.kind,
+            control.kind(),
             crate::language::ControlKind::TextBox { .. }
         ));
     }
@@ -2407,14 +2398,14 @@ End
         assert!(failures.is_empty(), "Should have no failures");
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Form1");
+        assert_eq!(control.name(), "Form1");
 
         // Check form has child controls
-        if let crate::language::ControlKind::Form { controls, .. } = control.kind {
+        if let crate::language::ControlKind::Form { controls, .. } = control.kind() {
             assert_eq!(controls.len(), 1);
-            assert_eq!(controls[0].name, "Command1");
+            assert_eq!(controls[0].name(), "Command1");
             assert!(matches!(
-                controls[0].kind,
+                controls[0].kind(),
                 crate::language::ControlKind::CommandButton { .. }
             ));
         } else {
@@ -2445,13 +2436,13 @@ End
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Frame1");
+        assert_eq!(control.name(), "Frame1");
 
         // Check frame has 2 child checkboxes
-        if let crate::language::ControlKind::Frame { controls, .. } = control.kind {
+        if let crate::language::ControlKind::Frame { controls, .. } = control.kind() {
             assert_eq!(controls.len(), 2);
-            assert_eq!(controls[0].name, "Check1");
-            assert_eq!(controls[1].name, "Check2");
+            assert_eq!(controls[0].name(), "Check1");
+            assert_eq!(controls[1].name(), "Check2");
         } else {
             panic!("Expected Frame control kind");
         }
@@ -2478,12 +2469,12 @@ End
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "Command1");
+        assert_eq!(control.name(), "Command1");
 
         // Check for property - CommandButton should have parsed successfully
         // Property groups are stored in Custom control kind, not specific control types
         assert!(matches!(
-            control.kind,
+            control.kind(),
             crate::language::ControlKind::CommandButton { .. }
         ));
     }
@@ -2510,12 +2501,12 @@ End
         assert!(failures.is_empty());
         assert!(control_opt.is_some());
         let control = control_opt.unwrap();
-        assert_eq!(control.name, "TreeView1");
+        assert_eq!(control.name(), "TreeView1");
 
         // Check for Custom control with property groups
         if let crate::language::ControlKind::Custom {
             property_groups, ..
-        } = control.kind
+        } = control.kind()
         {
             assert_eq!(property_groups.len(), 1);
             assert_eq!(property_groups[0].name, "Font");
@@ -2653,7 +2644,7 @@ End
         // Check for nested property groups
         if let crate::language::ControlKind::Custom {
             property_groups, ..
-        } = control.kind
+        } = control.kind()
         {
             assert_eq!(property_groups.len(), 1);
             assert_eq!(property_groups[0].name, "Outer");
@@ -2696,13 +2687,13 @@ End
         let control = control_opt.unwrap();
 
         // Verify deep nesting: Form > PictureBox > Frame > Label
-        if let crate::language::ControlKind::Form { controls, .. } = control.kind {
+        if let crate::language::ControlKind::Form { controls, .. } = control.kind() {
             assert_eq!(controls.len(), 1);
-            if let crate::language::ControlKind::PictureBox { controls, .. } = &controls[0].kind {
+            if let crate::language::ControlKind::PictureBox { controls, .. } = controls[0].kind() {
                 assert_eq!(controls.len(), 1);
-                if let crate::language::ControlKind::Frame { controls, .. } = &controls[0].kind {
+                if let crate::language::ControlKind::Frame { controls, .. } = controls[0].kind() {
                     assert_eq!(controls.len(), 1);
-                    assert_eq!(controls[0].name, "Label1");
+                    assert_eq!(controls[0].name(), "Label1");
                 } else {
                     panic!("Expected Frame");
                 }
