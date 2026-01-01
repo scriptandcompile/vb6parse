@@ -334,7 +334,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert_eq!(cst.text(), source);
@@ -348,7 +348,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert!(cst.text().contains("Call ProcessData"));
@@ -371,8 +371,8 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(sub_statement) = cst.child_at(0) {
-            assert_eq!(sub_statement.kind, SyntaxKind::SubStatement);
-            assert!(sub_statement.text.contains("Call DoSomething"));
+            assert_eq!(sub_statement.kind(), SyntaxKind::SubStatement);
+            assert!(sub_statement.text().contains("Call DoSomething"));
         }
 
         assert_eq!(cst.text(), source);
@@ -386,7 +386,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert_eq!(cst.text(), source);
@@ -401,7 +401,7 @@ mod test {
 
         for i in 0..3 {
             if let Some(child) = cst.child_at(i) {
-                assert_eq!(child.kind, SyntaxKind::CallStatement);
+                assert_eq!(child.kind(), SyntaxKind::CallStatement);
             }
         }
 
@@ -418,7 +418,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert!(cst.text().contains("\"Hello, World!\""));
@@ -432,7 +432,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert!(cst.text().contains("x + y"));
@@ -448,7 +448,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert_eq!(cst.text(), source);
@@ -462,7 +462,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert_eq!(cst.text(), source);
@@ -476,7 +476,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert!(cst.text().contains("MsgBox"));
@@ -490,7 +490,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert!(cst.text().contains("ProcessData"));
@@ -504,7 +504,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(sub_statement) = cst.child_at(0) {
-            assert_eq!(sub_statement.kind, SyntaxKind::SubStatement);
+            assert_eq!(sub_statement.kind(), SyntaxKind::SubStatement);
 
             // Check that the debug tree contains CallStatements
             let debug = cst.debug_tree();
@@ -530,7 +530,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::CallStatement);
+            assert_eq!(child.kind(), SyntaxKind::CallStatement);
         }
 
         assert_eq!(cst.text(), source);
@@ -545,7 +545,7 @@ mod test {
         assert_eq!(cst.child_count(), 1);
 
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::AssignmentStatement);
+            assert_eq!(child.kind(), SyntaxKind::AssignmentStatement);
         }
     }
 

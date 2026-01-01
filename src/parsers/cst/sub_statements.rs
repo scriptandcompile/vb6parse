@@ -148,7 +148,7 @@ mod test {
 
             assert_eq!(cst.child_count(), 1, "Code: {source}");
             if let Some(child) = cst.child_at(0) {
-                assert_eq!(child.kind, expected_kind, "Code: {source}");
+                assert_eq!(child.kind(), expected_kind, "Code: {source}");
             }
         }
     }
@@ -161,7 +161,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Public Static Sub Initialize"));
     }
@@ -174,7 +174,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Public Sub Initialize"));
     }
@@ -187,7 +187,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Private Sub Initialize"));
     }
@@ -200,7 +200,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
     }
 
@@ -212,7 +212,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("ByVal x As Integer"));
     }
@@ -225,7 +225,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Exit Sub"));
     }
@@ -238,7 +238,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Friend Sub"));
     }
@@ -251,7 +251,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Static Sub"));
     }
@@ -264,7 +264,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Dim x As Integer"));
         assert!(cst.text().contains("x = 10"));
@@ -278,7 +278,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
         }
         assert!(cst.text().contains("Optional"));
     }

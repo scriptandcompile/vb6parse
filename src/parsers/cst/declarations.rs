@@ -323,7 +323,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("Declare Function GetTickCount"));
         assert!(cst.text().contains("Lib"));
@@ -338,7 +338,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("Declare Sub Sleep"));
         assert!(cst.text().contains("Lib"));
@@ -352,7 +352,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("Public Declare Function BitBlt"));
         assert!(cst.text().contains("gdi32"));
@@ -366,7 +366,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("Private Declare Function GetPixel"));
     }
@@ -379,7 +379,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("CopyMemory"));
         assert!(cst.text().contains("Alias"));
@@ -394,7 +394,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("SendMessageTimeout"));
         assert!(cst.text().contains("SendMessageTimeoutA"));
@@ -408,7 +408,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("kernel32.dll"));
     }
@@ -421,7 +421,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("GetLastError"));
     }
@@ -434,7 +434,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("ByRef lpPrevWndFunc"));
         assert!(cst.text().contains("ByVal hwnd"));
@@ -448,7 +448,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("As Any"));
     }
@@ -461,7 +461,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("StretchBlt"));
         assert!(cst.text().contains("GDI32"));
@@ -476,7 +476,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("Declare Sub"));
         assert!(cst.text().contains("GdiplusShutdown"));
@@ -490,7 +490,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("As String"));
     }
@@ -503,10 +503,10 @@ mod test {
 
         assert_eq!(cst.child_count(), 2);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("VirtualProtect"));
         assert!(cst.text().contains("RtlMoveMemory"));
@@ -520,7 +520,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::DeclareStatement);
+            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
         }
         assert!(cst.text().contains("As Byte"));
     }
@@ -533,7 +533,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Event"));
         assert!(cst.text().contains("StatusChanged"));
@@ -546,7 +546,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("DataReceived"));
         assert!(cst.text().contains("ByVal"));
@@ -559,7 +559,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Public"));
         assert!(cst.text().contains("Click"));
@@ -572,7 +572,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("OldValue"));
         assert!(cst.text().contains("NewValue"));
@@ -585,7 +585,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Data()"));
     }
@@ -597,7 +597,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
     }
 
@@ -608,7 +608,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("ByRef"));
         assert!(cst.text().contains("Cancel"));
@@ -629,7 +629,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("ProgressUpdate"));
         assert!(cst.text().contains("PercentComplete"));
@@ -642,7 +642,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Object"));
     }
@@ -654,10 +654,10 @@ mod test {
 
         assert_eq!(cst.child_count(), 2);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Click"));
         assert!(cst.text().contains("DblClick"));
@@ -670,7 +670,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("Variant"));
     }
@@ -682,7 +682,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::EventStatement);
+            assert_eq!(child.kind(), SyntaxKind::EventStatement);
         }
         assert!(cst.text().contains("CustomerRecord"));
     }
@@ -695,9 +695,11 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::ObjectStatement);
-            assert!(child.text.contains("831FDD16-0C5C-11D2-A9FC-0000F8754DA1"));
-            assert!(child.text.contains("mscomctl.ocx"));
+            assert_eq!(child.kind(), SyntaxKind::ObjectStatement);
+            assert!(child
+                .text()
+                .contains("831FDD16-0C5C-11D2-A9FC-0000F8754DA1"));
+            assert!(child.text().contains("mscomctl.ocx"));
         }
     }
 
@@ -713,12 +715,12 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let obj_statements: Vec<_> = cst
             .children()
             .into_iter()
-            .filter(|c| c.kind == SyntaxKind::ObjectStatement)
+            .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
             .collect();
 
         assert_eq!(obj_statements.len(), 2);
-        assert!(obj_statements[0].text.contains("mscomctl.ocx"));
-        assert!(obj_statements[1].text.contains("COMDLG32.OCX"));
+        assert!(obj_statements[0].text().contains("mscomctl.ocx"));
+        assert!(obj_statements[1].text().contains("COMDLG32.OCX"));
     }
 
     #[test]
@@ -728,10 +730,12 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::ObjectStatement);
+            assert_eq!(child.kind(), SyntaxKind::ObjectStatement);
             // Just verify the statement contains the key parts
-            assert!(child.text.contains("00025600-0000-0000-C000-000000000046"));
-            assert!(child.text.contains("stdole2.tlb"));
+            assert!(child
+                .text()
+                .contains("00025600-0000-0000-C000-000000000046"));
+            assert!(child.text().contains("stdole2.tlb"));
         }
     }
 
@@ -755,7 +759,7 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let statements: Vec<_> = cst
             .children()
             .into_iter()
-            .filter(|c| c.kind == SyntaxKind::ObjectStatement)
+            .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
             .collect();
 
         assert_eq!(
@@ -768,7 +772,7 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let assignments: Vec<_> = cst
             .children()
             .into_iter()
-            .filter(|c| c.kind == SyntaxKind::AssignmentStatement)
+            .filter(|c| c.kind() == SyntaxKind::AssignmentStatement)
             .collect();
 
         assert_eq!(assignments.len(), 1, "Should have one AssignmentStatement");
@@ -785,27 +789,27 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::SubStatement);
+            assert_eq!(child.kind(), SyntaxKind::SubStatement);
 
             // Find the statement list inside the Sub
             let statement_lists: Vec<_> = child
-                .children
+                .children()
                 .iter()
-                .filter(|c| c.kind == SyntaxKind::StatementList)
+                .filter(|c| c.kind() == SyntaxKind::StatementList)
                 .collect();
 
             assert_eq!(statement_lists.len(), 1);
 
             println!("Statement list children:");
-            for (i, c) in statement_lists[0].children.iter().enumerate() {
-                println!("  {}: {:?} = {:?}", i, c.kind, c.text);
+            for (i, c) in statement_lists[0].children().iter().enumerate() {
+                println!("  {}: {:?} = {:?}", i, c.kind(), c.text());
             }
 
             // Inside the statement list, we should NOT have an ObjectStatement
             let obj_statements: Vec<_> = statement_lists[0]
-                .children
+                .children()
                 .iter()
-                .filter(|c| c.kind == SyntaxKind::ObjectStatement)
+                .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
                 .collect();
 
             assert_eq!(
@@ -816,9 +820,9 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 
             // Should have an assignment statement
             let assignments: Vec<_> = statement_lists[0]
-                .children
+                .children()
                 .iter()
-                .filter(|c| c.kind == SyntaxKind::AssignmentStatement)
+                .filter(|c| c.kind() == SyntaxKind::AssignmentStatement)
                 .collect();
 
             assert_eq!(assignments.len(), 1, "Should have one AssignmentStatement");
@@ -831,7 +835,7 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
             // Ideally this should be fixed in the future, but for now we verify:
             // 1. No ObjectStatement is created ✓
             // 2. An AssignmentStatement exists ✓
-            println!("Assignment text: {}", assignments[0].text);
+            println!("Assignment text: {}", assignments[0].text());
         }
     }
 }

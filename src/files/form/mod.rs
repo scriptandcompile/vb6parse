@@ -93,7 +93,7 @@ fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
     let obj_statements: Vec<_> = cst
         .children()
         .into_iter()
-        .filter(|c| c.kind == SyntaxKind::ObjectStatement)
+        .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
         .collect();
 
     for obj_stmt in obj_statements {
@@ -106,25 +106,25 @@ fn extract_objects(cst: &ConcreteSyntaxTree) -> Vec<ObjectReference> {
         let mut found_equals = false;
         let mut found_semicolon = false;
 
-        for child in &obj_stmt.children {
-            if !child.is_token {
+        for child in obj_stmt.children() {
+            if !child.is_token() {
                 continue;
             }
 
-            match child.kind {
+            match child.kind() {
                 SyntaxKind::EqualityOperator => {
                     found_equals = true;
                 }
                 SyntaxKind::StringLiteral if found_equals && !found_semicolon => {
                     // First string literal: contains UUID#version#flags
-                    uuid_part = child.text.trim_matches('"').to_string();
+                    uuid_part = child.text().trim_matches('"').to_string();
                 }
                 SyntaxKind::Semicolon => {
                     found_semicolon = true;
                 }
                 SyntaxKind::StringLiteral if found_semicolon => {
                     // Second string literal: contains filename
-                    file_name = child.text.trim_matches('"').to_string();
+                    file_name = child.text().trim_matches('"').to_string();
                     break;
                 }
                 _ => {}
@@ -166,7 +166,7 @@ fn extract_control(cst: &ConcreteSyntaxTree) -> Option<Control> {
     let properties_blocks: Vec<_> = cst
         .children()
         .into_iter()
-        .filter(|c| c.kind == SyntaxKind::PropertiesBlock)
+        .filter(|c| c.kind() == SyntaxKind::PropertiesBlock)
         .collect();
 
     if properties_blocks.is_empty() {
@@ -189,15 +189,15 @@ fn extract_properties_block(block: &CstNode) -> Control {
     let mut child_blocks: Vec<&CstNode> = Vec::new();
     let mut property_groups: Vec<PropertyGroup> = Vec::new();
 
-    for child in &block.children {
-        match child.kind {
+    for child in block.children() {
+        match child.kind() {
             SyntaxKind::PropertiesType => {
                 // Extract the full type name (e.g., "VB.Form", "VB.CommandButton")
-                control_type = child.text.trim().to_string();
+                control_type = child.text().trim().to_string();
             }
             SyntaxKind::PropertiesName => {
                 // Extract the control name
-                control_name = child.text.trim().to_string();
+                control_name = child.text().trim().to_string();
             }
             SyntaxKind::Property => {
                 // Extract key-value properties
@@ -227,9 +227,9 @@ fn extract_properties_block(block: &CstNode) -> Control {
     for child_block in child_blocks {
         // Check if this is a menu by looking at its PropertiesType
         let mut is_menu = false;
-        for child in &child_block.children {
-            if child.kind == SyntaxKind::PropertiesType {
-                let block_type = child.text.trim();
+        for child in child_block.children() {
+            if child.kind() == SyntaxKind::PropertiesType {
+                let block_type = child.text().trim();
                 if block_type == "VB.Menu" {
                     is_menu = true;
                     break;
@@ -358,11 +358,11 @@ fn extract_menu_control(block: &CstNode) -> MenuControl {
     let mut properties = Properties::new();
     let mut child_menu_blocks: Vec<&CstNode> = Vec::new();
 
-    for child in &block.children {
-        match child.kind {
+    for child in block.children() {
+        match child.kind() {
             SyntaxKind::PropertiesName => {
                 // Extract the menu name
-                menu_name = child.text.trim().to_string();
+                menu_name = child.text().trim().to_string();
             }
             SyntaxKind::Property => {
                 // Extract key-value properties
@@ -372,9 +372,9 @@ fn extract_menu_control(block: &CstNode) -> MenuControl {
             }
             SyntaxKind::PropertiesBlock => {
                 // Check if this is a nested menu
-                for sub_child in &child.children {
-                    if sub_child.kind == SyntaxKind::PropertiesType {
-                        let block_type = sub_child.text.trim();
+                for sub_child in child.children() {
+                    if sub_child.kind() == SyntaxKind::PropertiesType {
+                        let block_type = sub_child.text().trim();
                         if block_type == "VB.Menu" {
                             child_menu_blocks.push(child);
                             break;
@@ -416,11 +416,11 @@ fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
     let mut properties: HashMap<String, Either<String, PropertyGroup>> = HashMap::new();
 
     // Extract the property group name and GUID
-    for child in &group_node.children {
-        if child.kind == SyntaxKind::PropertyGroupName {
-            name = child.text.trim().to_string();
+    for child in group_node.children() {
+        if child.kind() == SyntaxKind::PropertyGroupName {
+            name = child.text().trim().to_string();
             // Check if there's a GUID in the text after the name
-            let full_text = child.text.trim();
+            let full_text = child.text().trim();
             if let Some(start) = full_text.find('{') {
                 if let Some(end) = full_text.find('}') {
                     let uuid_str = &full_text[start + 1..end];
@@ -434,7 +434,7 @@ fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
 
     // If GUID wasn't in the name node, check the parent text
     if guid.is_none() {
-        let full_text = group_node.text.trim();
+        let full_text = group_node.text().trim();
         if let Some(start) = full_text.find('{') {
             if let Some(end) = full_text.find('}') {
                 let uuid_str = &full_text[start + 1..end];
@@ -446,8 +446,8 @@ fn extract_property_group(group_node: &CstNode) -> Option<PropertyGroup> {
     }
 
     // Extract properties and nested property groups
-    for child in &group_node.children {
-        match child.kind {
+    for child in group_node.children() {
+        match child.kind() {
             SyntaxKind::Property => {
                 if let Some((key, value)) = extract_property(child) {
                     properties.insert(key, Either::Left(value));
@@ -480,13 +480,13 @@ fn extract_property(property_node: &CstNode) -> Option<(String, String)> {
     let mut key = String::new();
     let mut value = String::new();
 
-    for child in &property_node.children {
-        match child.kind {
+    for child in property_node.children() {
+        match child.kind() {
             SyntaxKind::PropertyKey => {
-                key = child.text.trim().to_string();
+                key = child.text().trim().to_string();
             }
             SyntaxKind::PropertyValue => {
-                let trimmed = child.text.trim();
+                let trimmed = child.text().trim();
                 // Remove surrounding quotes if this is a string literal
                 value = if trimmed.starts_with('"') && trimmed.ends_with('"') && trimmed.len() >= 2
                 {
@@ -714,15 +714,15 @@ End
 
         // Verify the content of the first Object statement
         assert!(obj_statements[0]
-            .text
+            .text()
             .contains("831FDD16-0C5C-11D2-A9FC-0000F8754DA1"));
-        assert!(obj_statements[0].text.contains("mscomctl.ocx"));
+        assert!(obj_statements[0].text().contains("mscomctl.ocx"));
 
         // Verify the content of the second Object statement
         assert!(obj_statements[1]
-            .text
+            .text()
             .contains("F9043C88-F6F2-101A-A3C9-08002B2F49FB"));
-        assert!(obj_statements[1].text.contains("COMDLG32.OCX"));
+        assert!(obj_statements[1].text().contains("COMDLG32.OCX"));
     }
 
     #[test]

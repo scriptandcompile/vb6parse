@@ -103,11 +103,11 @@
 //! # let root = cst.to_serializable().root;
 //!
 //! // Find first non-token node
-//! let first_structural = root.find_if(|n| !n.is_token);
+//! let first_structural = root.find_if(|n| !n.is_token());
 //!
 //! // Find all keywords
 //! let keywords = root.find_all_if(|n| {
-//!     matches!(n.kind,
+//!     matches!(n.kind(),
 //!         SyntaxKind::SubKeyword |
 //!         SyntaxKind::DimKeyword |
 //!         SyntaxKind::AsKeyword
@@ -116,7 +116,7 @@
 //!
 //! // Complex queries
 //! let complex_nodes = root.find_all_if(|n| {
-//!     !n.is_token && n.children.len() > 5
+//!     !n.is_token() && n.children().len() > 5
 //! });
 //! ```
 //!
@@ -133,13 +133,13 @@
 //! // Iterate all descendants
 //! for node in root.descendants() {
 //!     if node.is_significant() {
-//!         println!("{:?}: {}", node.kind, node.text.trim());
+//!         println!("{:?}: {}", node.kind(), node.text().trim());
 //!     }
 //! }
 //!
 //! // Count specific types
 //! let identifier_count = root.descendants()
-//!     .filter(|n| n.kind == SyntaxKind::Identifier)
+//!     .filter(|n| n.kind() == SyntaxKind::Identifier)
 //!     .count();
 //! ```
 //!
@@ -155,7 +155,7 @@
 //!
 //! for node in root.descendants() {
 //!     if node.is_comment() {
-//!         println!("Comment: {}", node.text);
+//!         println!("Comment: {}", node.text());
 //!     }
 //!     if node.is_trivia() {
 //!         // Skip whitespace, newlines, and comments
@@ -191,16 +191,151 @@ use super::{ConcreteSyntaxTree, VB6Language};
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, Hash)]
 pub struct CstNode {
     /// The kind of syntax element this node represents
-    pub kind: SyntaxKind,
+    kind: SyntaxKind,
     /// The text content of this node
-    pub text: String,
+    text: String,
     /// Whether this is a token (true) or a structural node (false)
-    pub is_token: bool,
+    is_token: bool,
     /// The children of this node (empty for tokens)
-    pub children: Vec<CstNode>,
+    children: Vec<CstNode>,
 }
 
 impl CstNode {
+    /// Create a new `CstNode` (internal use only)
+    pub(crate) fn new(
+        kind: SyntaxKind,
+        text: String,
+        is_token: bool,
+        children: Vec<CstNode>,
+    ) -> Self {
+        Self {
+            kind,
+            text,
+            is_token,
+            children,
+        }
+    }
+}
+
+impl CstNode {
+    /// Get the syntax kind of this node
+    ///
+    /// # Returns
+    ///
+    /// The `SyntaxKind` representing the type of this syntax element
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use vb6parse::parsers::cst::ConcreteSyntaxTree;
+    /// # use vb6parse::parsers::SyntaxKind;
+    /// let (cst, _) = ConcreteSyntaxTree::from_text("test.bas", "Sub Test()\nEnd Sub").unpack();
+    /// let cst = cst.unwrap();
+    /// let root = cst.to_root_node();
+    /// if let Some(child) = root.first_child() {
+    ///     let kind = child.kind();
+    ///     // kind will be SyntaxKind::Newline or SyntaxKind::SubStatement
+    /// }
+    /// ```
+    #[inline]
+    #[must_use]
+    pub fn kind(&self) -> SyntaxKind {
+        self.kind
+    }
+
+    /// Get the text content of this node
+    ///
+    /// Returns the complete text span covered by this node, including all child nodes
+    /// and tokens. For tokens, this is the literal text. For structural nodes, this
+    /// is the concatenation of all descendant text.
+    ///
+    /// # Returns
+    ///
+    /// A string slice containing the text content of this node
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use vb6parse::parsers::cst::ConcreteSyntaxTree;
+    /// let (cst, _) = ConcreteSyntaxTree::from_text("test.bas", "Dim x As Integer").unpack();
+    /// let cst = cst.unwrap();
+    /// let root = cst.to_root_node();
+    /// if let Some(child) = root.first_child() {
+    ///     println!("Text: {}", child.text());
+    /// }
+    /// ```
+    #[inline]
+    #[must_use]
+    pub fn text(&self) -> &str {
+        &self.text
+    }
+
+    /// Check if this node is a token
+    ///
+    /// Tokens are leaf nodes in the CST that represent individual lexical elements
+    /// like identifiers, keywords, operators, literals, etc. Structural nodes are
+    /// non-leaf nodes that group tokens and other nodes into syntactic constructs.
+    ///
+    /// # Returns
+    ///
+    /// `true` if this is a token node, `false` if it's a structural node
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use vb6parse::parsers::cst::ConcreteSyntaxTree;
+    /// let (cst, _) = ConcreteSyntaxTree::from_text("test.bas", "Sub Test()\nEnd Sub").unpack();
+    /// let cst = cst.unwrap();
+    /// let root = cst.to_root_node();
+    /// for child in root.descendants() {
+    ///     if child.is_token() {
+    ///         println!("Token: {:?} = '{}'", child.kind(), child.text());
+    ///     }
+    /// }
+    /// ```
+    #[inline]
+    #[must_use]
+    pub fn is_token(&self) -> bool {
+        self.is_token
+    }
+
+    /// Get a slice of direct child nodes
+    ///
+    /// Returns a reference to the vector of child nodes. For token nodes, this
+    /// will be an empty slice. For structural nodes, this contains all direct
+    /// children including both tokens and other structural nodes.
+    ///
+    /// # Returns
+    ///
+    /// A slice of child `CstNode` references
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use vb6parse::parsers::cst::ConcreteSyntaxTree;
+    /// let (cst, _) = ConcreteSyntaxTree::from_text("test.bas", "Sub Test()\nEnd Sub").unpack();
+    /// let cst = cst.unwrap();
+    /// let root = cst.to_root_node();
+    ///
+    /// // Iterate over children
+    /// for child in root.children() {
+    ///     println!("Child: {:?}", child.kind());
+    /// }
+    ///
+    /// // Check child count
+    /// println!("Number of children: {}", root.children().len());
+    ///
+    /// // Access by index
+    /// if let Some(first) = root.children().get(0) {
+    ///     println!("First child: {:?}", first.kind());
+    /// }
+    /// ```
+    #[inline]
+    #[must_use]
+    pub fn children(&self) -> &[CstNode] {
+        &self.children
+    }
+
     /// Get the number of children of this node
     #[must_use]
     pub fn child_count(&self) -> usize {
@@ -251,7 +386,9 @@ impl CstNode {
     ///
     /// An iterator over child nodes matching the specified kind
     pub fn children_by_kind(&self, kind: SyntaxKind) -> impl Iterator<Item = &CstNode> {
-        self.children.iter().filter(move |child| child.kind == kind)
+        self.children()
+            .iter()
+            .filter(move |child| child.kind() == kind)
     }
 
     /// Find the first direct child of a specific kind
@@ -265,7 +402,7 @@ impl CstNode {
     /// The first child node matching the kind, or `None` if not found
     #[must_use]
     pub fn first_child_by_kind(&self, kind: SyntaxKind) -> Option<&CstNode> {
-        self.children.iter().find(|child| child.kind == kind)
+        self.children().iter().find(|child| child.kind() == kind)
     }
 
     /// Check if any direct child has the specified kind
@@ -279,7 +416,7 @@ impl CstNode {
     /// `true` if at least one child matches the kind, `false` otherwise
     #[must_use]
     pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
-        self.children.iter().any(|child| child.kind == kind)
+        self.children().iter().any(|child| child.kind() == kind)
     }
 
     /// Find the first descendant node of a specific kind (depth-first search)
@@ -297,12 +434,12 @@ impl CstNode {
     #[must_use]
     pub fn find(&self, kind: SyntaxKind) -> Option<&CstNode> {
         // Check self first
-        if self.kind == kind {
+        if self.kind() == kind {
             return Some(self);
         }
 
         // Then search children recursively
-        for child in &self.children {
+        for child in self.children() {
             if let Some(found) = child.find(kind) {
                 return Some(found);
             }
@@ -332,37 +469,37 @@ impl CstNode {
 
     /// Helper for recursive collection
     fn find_all_recursive<'a>(&'a self, kind: SyntaxKind, results: &mut Vec<&'a CstNode>) {
-        if self.kind == kind {
+        if self.kind() == kind {
             results.push(self);
         }
 
-        for child in &self.children {
+        for child in self.children() {
             child.find_all_recursive(kind, results);
         }
     }
 
     /// Get an iterator over non-token children (structural nodes only)
     pub fn non_token_children(&self) -> impl Iterator<Item = &CstNode> {
-        self.children.iter().filter(|child| !child.is_token)
+        self.children().iter().filter(|child| !child.is_token())
     }
 
     /// Get an iterator over token children only
     pub fn token_children(&self) -> impl Iterator<Item = &CstNode> {
-        self.children.iter().filter(|child| child.is_token)
+        self.children().iter().filter(|child| child.is_token())
     }
 
     /// Get the first non-whitespace child
     #[must_use]
     pub fn first_non_whitespace_child(&self) -> Option<&CstNode> {
-        self.children
+        self.children()
             .iter()
-            .find(|child| child.kind != SyntaxKind::Whitespace)
+            .find(|child| child.kind() != SyntaxKind::Whitespace)
     }
 
     /// Get an iterator over significant children (excluding whitespace and newlines)
     pub fn significant_children(&self) -> impl Iterator<Item = &CstNode> {
-        self.children.iter().filter(|child| {
-            child.kind != SyntaxKind::Whitespace && child.kind != SyntaxKind::Newline
+        self.children().iter().filter(|child| {
+            child.kind() != SyntaxKind::Whitespace && child.kind() != SyntaxKind::Newline
         })
     }
 
@@ -391,7 +528,7 @@ impl CstNode {
             return Some(self);
         }
 
-        for child in &self.children {
+        for child in self.children() {
             if let Some(found) = child.find_if_internal(predicate) {
                 return Some(found);
             }
@@ -431,7 +568,7 @@ impl CstNode {
             results.push(self);
         }
 
-        for child in &self.children {
+        for child in self.children() {
             child.find_all_if_internal(predicate, results);
         }
     }
@@ -463,20 +600,20 @@ impl CstNode {
     /// Check if this node is whitespace
     #[must_use]
     pub fn is_whitespace(&self) -> bool {
-        self.kind == SyntaxKind::Whitespace
+        self.kind() == SyntaxKind::Whitespace
     }
 
     /// Check if this node is a newline
     #[must_use]
     pub fn is_newline(&self) -> bool {
-        self.kind == SyntaxKind::Newline
+        self.kind() == SyntaxKind::Newline
     }
 
     /// Check if this node is a comment
     #[must_use]
     pub fn is_comment(&self) -> bool {
         matches!(
-            self.kind,
+            self.kind(),
             SyntaxKind::EndOfLineComment | SyntaxKind::RemComment
         )
     }
@@ -511,7 +648,7 @@ impl<'a> Iterator for DepthFirstIter<'a> {
         let node = self.stack.pop()?;
 
         // Push children in reverse order so they're visited left-to-right
-        for child in node.children.iter().rev() {
+        for child in node.children().iter().rev() {
             self.stack.push(child);
         }
 
@@ -531,7 +668,7 @@ impl Iterator for DepthFirstIterOwned {
         let node = self.stack.pop()?;
 
         // Push children in reverse order so they're visited left-to-right
-        for child in node.children.iter().rev() {
+        for child in node.children().iter().rev() {
             self.stack.push(child.clone());
         }
 
@@ -624,7 +761,7 @@ impl ConcreteSyntaxTree {
     /// # let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
     /// // Use iterator directly
     /// for dim_stmt in cst.children_by_kind(SyntaxKind::DimStatement) {
-    ///     println!("Found: {}", dim_stmt.text);
+    ///     println!("Found: {}", dim_stmt.text());
     /// }
     ///
     /// // Or collect into a Vec
@@ -633,7 +770,7 @@ impl ConcreteSyntaxTree {
     pub fn children_by_kind(&self, kind: SyntaxKind) -> impl Iterator<Item = CstNode> {
         self.children()
             .into_iter()
-            .filter(move |child| child.kind == kind)
+            .filter(move |child| child.kind() == kind)
     }
 
     /// Find the first direct child of a specific kind
@@ -647,7 +784,9 @@ impl ConcreteSyntaxTree {
     /// The first child node matching the kind, or `None` if not found
     #[must_use]
     pub fn first_child_by_kind(&self, kind: SyntaxKind) -> Option<CstNode> {
-        self.children().into_iter().find(|child| child.kind == kind)
+        self.children()
+            .into_iter()
+            .find(|child| child.kind() == kind)
     }
 
     /// Check if the tree contains any node of the specified kind
@@ -661,7 +800,7 @@ impl ConcreteSyntaxTree {
     /// `true` if at least one node of the specified kind exists, `false` otherwise
     #[must_use]
     pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
-        self.children().iter().any(|child| child.kind == kind)
+        self.children().iter().any(|child| child.kind() == kind)
     }
 
     /// Get the first child node (including tokens)
@@ -736,12 +875,14 @@ impl ConcreteSyntaxTree {
 
     /// Get an iterator over non-token children (structural nodes only)
     pub fn non_token_children(&self) -> impl Iterator<Item = CstNode> {
-        self.children().into_iter().filter(|child| !child.is_token)
+        self.children()
+            .into_iter()
+            .filter(|child| !child.is_token())
     }
 
     /// Get an iterator over token children only
     pub fn token_children(&self) -> impl Iterator<Item = CstNode> {
-        self.children().into_iter().filter(|child| child.is_token)
+        self.children().into_iter().filter(CstNode::is_token)
     }
 
     /// Get the first non-whitespace child
@@ -749,13 +890,13 @@ impl ConcreteSyntaxTree {
     pub fn first_non_whitespace_child(&self) -> Option<CstNode> {
         self.children()
             .into_iter()
-            .find(|child| child.kind != SyntaxKind::Whitespace)
+            .find(|child| child.kind() != SyntaxKind::Whitespace)
     }
 
     /// Get an iterator over significant children (excluding whitespace and newlines)
     pub fn significant_children(&self) -> impl Iterator<Item = CstNode> {
         self.children().into_iter().filter(|child| {
-            child.kind != SyntaxKind::Whitespace && child.kind != SyntaxKind::Newline
+            child.kind() != SyntaxKind::Whitespace && child.kind() != SyntaxKind::Newline
         })
     }
 
@@ -842,10 +983,10 @@ mod test {
         let children = cst.children();
 
         assert_eq!(children.len(), 2); // AttributeStatement, SubStatement
-        assert_eq!(children[0].kind, SyntaxKind::AttributeStatement);
-        assert_eq!(children[1].kind, SyntaxKind::SubStatement);
-        assert!(!children[0].is_token);
-        assert!(!children[1].is_token);
+        assert_eq!(children[0].kind(), SyntaxKind::AttributeStatement);
+        assert_eq!(children[1].kind(), SyntaxKind::SubStatement);
+        assert!(!children[0].is_token());
+        assert!(!children[1].is_token());
     }
 
     #[test]
@@ -884,8 +1025,8 @@ mod test {
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let first = cst.first_child().unwrap();
-        assert_eq!(first.kind, SyntaxKind::AttributeStatement);
-        assert_eq!(first.text, "Attribute VB_Name\n");
+        assert_eq!(first.kind(), SyntaxKind::AttributeStatement);
+        assert_eq!(first.text(), "Attribute VB_Name\n");
 
         let last = cst.last_child().unwrap();
         assert_eq!(last.kind, SyntaxKind::SubStatement);
@@ -897,10 +1038,10 @@ mod test {
         let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
 
         let first = cst.child_at(0).unwrap();
-        assert_eq!(first.kind, SyntaxKind::AttributeStatement);
+        assert_eq!(first.kind(), SyntaxKind::AttributeStatement);
 
         let second = cst.child_at(1).unwrap();
-        assert_eq!(second.kind, SyntaxKind::DimStatement);
+        assert_eq!(second.kind(), SyntaxKind::DimStatement);
 
         let third = cst.child_at(2).unwrap();
         assert_eq!(third.kind, SyntaxKind::SubStatement);
@@ -932,20 +1073,20 @@ mod test {
         assert_eq!(children.len(), 4);
 
         // First is the comment
-        assert_eq!(children[0].kind, SyntaxKind::EndOfLineComment);
-        assert!(children[0].is_token);
+        assert_eq!(children[0].kind(), SyntaxKind::EndOfLineComment);
+        assert!(children[0].is_token());
 
         // Second is newline
-        assert_eq!(children[1].kind, SyntaxKind::Newline);
-        assert!(children[1].is_token);
+        assert_eq!(children[1].kind(), SyntaxKind::Newline);
+        assert!(children[1].is_token());
 
         // Third is the second newline
-        assert_eq!(children[2].kind, SyntaxKind::Newline);
-        assert!(children[2].is_token);
+        assert_eq!(children[2].kind(), SyntaxKind::Newline);
+        assert!(children[2].is_token());
 
         // Fourth is SubStatement
-        assert_eq!(children[3].kind, SyntaxKind::SubStatement);
-        assert!(!children[3].is_token);
+        assert_eq!(children[3].kind(), SyntaxKind::SubStatement);
+        assert!(!children[3].is_token());
     }
 
     // CstNode navigation tests
@@ -963,7 +1104,7 @@ mod test {
         assert!(root.child_at(10).is_none());
 
         let first = root.first_child().unwrap();
-        assert_eq!(first.kind, SyntaxKind::SubStatement);
+        assert_eq!(first.kind(), SyntaxKind::SubStatement);
     }
 
     #[test]
@@ -1055,7 +1196,7 @@ mod test {
         let first_non_ws = cst2.first_non_whitespace_child();
 
         if let Some(node) = first_non_ws {
-            assert_ne!(node.kind, SyntaxKind::Whitespace);
+            assert_ne!(node.kind(), SyntaxKind::Whitespace);
         }
 
         // significant_children should exclude whitespace/newlines
@@ -1143,7 +1284,7 @@ mod test {
 
         let all_nodes: Vec<_> = root.descendants().collect();
         assert!(!all_nodes.is_empty());
-        assert_eq!(all_nodes[0].kind, SyntaxKind::Root);
+        assert_eq!(all_nodes[0].kind(), SyntaxKind::Root);
 
         // Count specific node types
         let identifier_count = root

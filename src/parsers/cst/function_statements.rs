@@ -140,12 +140,12 @@ mod test {
 
         // First child should be a DimStatement (declaration)
         if let Some(first_child) = cst.child_at(0) {
-            assert_eq!(first_child.kind, SyntaxKind::DimStatement);
+            assert_eq!(first_child.kind(), SyntaxKind::DimStatement);
         }
 
         // Second child should be a FunctionStatement
         if let Some(second_child) = cst.child_at(1) {
-            assert_eq!(second_child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(second_child.kind(), SyntaxKind::FunctionStatement);
         }
 
         assert!(cst.text().contains("Private myVar As Integer"));
@@ -191,7 +191,7 @@ mod test {
 
             assert_eq!(cst.child_count(), 1, "Code: {source}");
             if let Some(child) = cst.child_at(0) {
-                assert_eq!(child.kind, expected_kind, "Code: {source}");
+                assert_eq!(child.kind(), expected_kind, "Code: {source}");
             }
         }
     }
@@ -204,7 +204,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("Public Function GetValue"));
     }
@@ -217,7 +217,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("Private Static Function Calculate"));
     }
@@ -230,7 +230,7 @@ mod test {
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("Friend Function ProcessData"));
     }
@@ -360,7 +360,7 @@ End Function
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
     }
 
@@ -372,7 +372,7 @@ End Function
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("GetValue = 42"));
     }
@@ -385,7 +385,7 @@ End Function
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("Exit Function"));
     }
@@ -398,7 +398,7 @@ End Function
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
     }
 
@@ -410,7 +410,7 @@ End Function
 
         assert_eq!(cst.child_count(), 1);
         if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind, SyntaxKind::FunctionStatement);
+            assert_eq!(child.kind(), SyntaxKind::FunctionStatement);
         }
         assert!(cst.text().contains("ByVal x As Long, ByVal y As Long"));
     }
