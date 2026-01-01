@@ -26,12 +26,8 @@
 //!     let (parse_result, failures) = result.unpack();
 //!
 //!     if let Some((version, control, _remaining_tokens)) = parse_result {
-//!         if let Some(v) = version {
-//!             println!("VERSION {}.{}", v.major, v.minor);
-//!         }
-//!
 //!         if let Some(ctrl) = control {
-//!             println!("Control: {}", ctrl.name);
+//!             println!("Control: {}", ctrl.name());
 //!         }
 //!     }
 //! }

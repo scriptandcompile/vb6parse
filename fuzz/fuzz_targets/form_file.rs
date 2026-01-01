@@ -48,17 +48,17 @@ fuzz_target!(|data: &[u8]| {
             }
             
             // Exercise form control hierarchy
-            let _ = &form.form.kind;
-            let _ = &form.form.name;
-            let _ = &form.form.tag;
-            let _ = form.form.index;
+            let _ = form.form.kind();
+            let _ = form.form.name();
+            let _ = form.form.tag();
+            let _ = form.form.index();
             
             // Walk through child controls recursively
             fn walk_controls(control: &vb6parse::language::Control) {
-                let _ = &control.kind;
-                let _ = &control.name;
-                let _ = &control.tag;
-                let _ = control.index;
+                let _ = control.kind();
+                let _ = control.name();
+                let _ = control.tag();
+                let _ = control.index();
                 
                 if let Some(children) = control.children() {
                     for child in children {

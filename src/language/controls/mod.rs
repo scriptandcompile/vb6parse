@@ -1066,13 +1066,97 @@ impl<T> Display for ReferenceOrValue<T> {
 #[derive(Debug, PartialEq, Clone, Serialize)]
 pub struct Control {
     /// The name of the control.
-    pub name: String,
+    name: String,
     /// The tag of the control.
-    pub tag: String,
+    tag: String,
     /// The index of the control.
-    pub index: i32,
+    index: i32,
     /// The kind of control.
-    pub kind: ControlKind,
+    kind: ControlKind,
+}
+
+impl Control {
+    /// Creates a new `Control` with the specified properties.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the control
+    /// * `tag` - The tag of the control
+    /// * `index` - The index of the control
+    /// * `kind` - The kind of control
+    ///
+    /// # Returns
+    ///
+    /// A new `Control` instance.
+    #[must_use]
+    pub fn new(name: String, tag: String, index: i32, kind: ControlKind) -> Self {
+        Self {
+            name,
+            tag,
+            index,
+            kind,
+        }
+    }
+
+    /// Returns the name of the control.
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    /// Returns the tag of the control.
+    #[must_use]
+    pub fn tag(&self) -> &str {
+        &self.tag
+    }
+
+    /// Returns the index of the control.
+    #[must_use]
+    pub fn index(&self) -> i32 {
+        self.index
+    }
+
+    /// Returns a reference to the control kind.
+    #[must_use]
+    pub fn kind(&self) -> &ControlKind {
+        &self.kind
+    }
+
+    /// Consumes the control and returns its name.
+    #[must_use]
+    pub fn into_name(self) -> String {
+        self.name
+    }
+
+    /// Consumes the control and returns its tag.
+    #[must_use]
+    pub fn into_tag(self) -> String {
+        self.tag
+    }
+
+    /// Consumes the control and returns its kind.
+    #[must_use]
+    pub fn into_kind(self) -> ControlKind {
+        self.kind
+    }
+
+    /// Consumes the control and returns all of its parts as a tuple.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing `(name, tag, index, kind)`.
+    #[must_use]
+    pub fn into_parts(self) -> (String, String, i32, ControlKind) {
+        (self.name, self.tag, self.index, self.kind)
+    }
+
+    /// Sets the name of the control.
+    ///
+    /// This is primarily used during parsing when the control name needs to be
+    /// updated based on attributes (e.g., VB_Name attribute in forms).
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
 }
 
 impl Display for Control {
@@ -1335,19 +1419,19 @@ impl ControlKind {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyFrame".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Frame {
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
     ///         properties: Default::default(),
     ///         controls: vec![],
     ///     },
-    /// };
+    /// );
     ///
-    /// if let Some(children) = control.kind.children() {
+    /// if let Some(children) = control.kind().children() {
     ///     for child in children {
-    ///         println!("Child control: {}", child.name);
+    ///         println!("Child control: {}", child.name());
     ///     }
     /// };
     /// ```
@@ -1373,31 +1457,31 @@ impl ControlKind {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyForm".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Form {
+    /// let control = Control::new(
+    ///     "MyForm".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Form {
     ///         properties: Default::default(),
     ///         controls: vec![],
     ///         menus: vec![
-    ///             MenuControl {
-    ///                 properties: MenuProperties {
+    ///             MenuControl::new(
+    ///                 "File".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 MenuProperties {
     ///                     caption: "File".to_string(),
     ///                     ..Default::default()
     ///                 },
-    ///                 index: 0,
-    ///                 name: "File".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 sub_menus: vec![],
-    ///             },
+    ///                 vec![],
+    ///             ),
     ///        ],
     ///     },
-    /// };
+    /// );
     ///
-    /// if let Some(menus) = control.kind.menus() {
+    /// if let Some(menus) = control.kind().menus() {
     ///     for menu in menus {
-    ///         println!("Menu: {}", menu.properties.caption);
+    ///         println!("Menu: {}", menu.properties().caption);
     ///     }
     /// };
     #[must_use]
@@ -1421,37 +1505,35 @@ impl ControlKind {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyFrame".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Frame {
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
     ///         properties: Default::default(),
     ///         controls: vec![
-    ///             Control {
-    ///                 name: "Child1".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 index: 0,
-    ///                 kind: ControlKind::Label {
+    ///             Control::new(
+    ///                 "Child1".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 ControlKind::Label {
     ///                     properties: Default::default(),
     ///                 },
-    ///             },
-    ///             Control {
-    ///                 name: "Child2".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 index: 1,
-    ///                 kind: ControlKind::TextBox {
+    ///             ),
+    ///             Control::new(
+    ///                 "Child2".to_string(),
+    ///                 "".to_string(),
+    ///                 1,
+    ///                 ControlKind::TextBox {
     ///                     properties: Default::default(),
     ///                 },
-    ///             },
+    ///             ),
     ///         ],
     ///     },
-    /// };
+    /// );
     ///
-    /// if let children = control.kind.descendants() {
-    ///     for child in children {
-    ///         println!("Child control: {}", child.name);
-    ///     }
+    /// for child in control.kind().descendants() {
+    ///     println!("Child control: {}", child.name());
     /// };
     /// ```
     #[must_use]
@@ -1489,31 +1571,31 @@ impl Control {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyForm".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Form {
+    /// let control = Control::new(
+    ///     "MyForm".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Form {
     ///         properties: Default::default(),
     ///         controls: vec![],
     ///         menus: vec![
-    ///             MenuControl {
-    ///                 properties: MenuProperties {
+    ///             MenuControl::new(
+    ///                 "File".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 MenuProperties {
     ///                     caption: "File".to_string(),
     ///                     ..Default::default()
     ///                 },
-    ///                 index: 0,
-    ///                 name: "File".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 sub_menus: vec![],
-    ///             },
+    ///                 vec![],
+    ///             ),
     ///        ],
     ///     },
-    /// };
+    /// );
     ///
     /// if let Some(menus) = control.menus() {
     ///     for menu in menus {
-    ///         println!("Menu: {}", menu.properties.caption);
+    ///         println!("Menu: {}", menu.properties().caption);
     ///     }
     /// };
     /// ```
@@ -1545,19 +1627,19 @@ impl Control {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyFrame".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Frame {
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
     ///         properties: Default::default(),
     ///         controls: vec![],
     ///     },
-    /// };
+    /// );
     ///
     /// if let Some(children) = control.children() {
     ///     for child in children {
-    ///         println!("Child control: {}", child.name);
+    ///         println!("Child control: {}", child.name());
     ///     }
     /// };
     /// ```
@@ -1586,36 +1668,36 @@ impl Control {
     /// use vb6parse::*;
     /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
     ///
-    /// let control = Control {
-    ///     name: "MyFrame".to_string(),
-    ///     tag: "".to_string(),
-    ///     index: 0,
-    ///     kind: ControlKind::Frame {
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
     ///         properties: Default::default(),
     ///         controls: vec![
-    ///             Control {
-    ///                 name: "Child1".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 index: 0,
-    ///                 kind: ControlKind::Label {
+    ///             Control::new(
+    ///                 "Child1".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 ControlKind::Label {
     ///                     properties: Default::default(),
     ///                 },
-    ///             },
-    ///             Control {
-    ///                 name: "Child2".to_string(),
-    ///                 tag: "".to_string(),
-    ///                 index: 1,
-    ///                 kind: ControlKind::TextBox {
+    ///             ),
+    ///             Control::new(
+    ///                 "Child2".to_string(),
+    ///                 "".to_string(),
+    ///                 1,
+    ///                 ControlKind::TextBox {
     ///                     properties: Default::default(),
     ///                 },
-    ///             },
+    ///             ),
     ///         ],
     ///     },
-    /// };
+    /// );
     ///
     /// let mut descendants = control.descendants();
     /// while let Some(descendant) = descendants.next() {
-    ///     println!("Descendant control: {}", descendant.name);
+    ///     println!("Descendant control: {}", descendant.name());
     /// }
     /// ```
     #[must_use]
