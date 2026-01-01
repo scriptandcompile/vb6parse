@@ -213,6 +213,9 @@ pub use crate::errors::{
     PropertyError, ResourceErrorKind, SourceFileErrorKind,
 };
 
-#[cfg(test)]
+// =============================================================================
+// Test utilities (macros available for testing - internal only)
+// =============================================================================
+
 #[macro_use]
-mod test_utils;
+pub(crate) mod test_utils;
