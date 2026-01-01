@@ -45,7 +45,7 @@
 // to the compiler because they're only invoked through macro expansion.
 #![allow(dead_code)]
 
-use crate::parsers::cst::CstNode;
+use crate::{parsers::cst::CstNode, ConcreteSyntaxTree};
 
 /// Macro to assert the structure of a CST node against an expected pattern.
 ///
@@ -58,7 +58,7 @@ use crate::parsers::cst::CstNode;
 macro_rules! assert_tree {
     ($node:expr, [ $($tree:tt)* ]) => {{
         let tree_spec = stringify!($($tree)*);
-        if let Err(e) = $crate::test_utils::check_tree(&$node, tree_spec, file!(), line!()) {
+        if let Err(e) = $crate::test_utils::check_tree(&$node, tree_spec, file!(), line!() as usize) {
             panic!("{}", e);
         }
     }};
@@ -252,13 +252,18 @@ impl TreeParser {
 /// Check a CST node against the expected tree specification
 #[allow(clippy::cast_possible_truncation)]
 pub(crate) fn check_tree(
-    node: &CstNode,
+    tree: &ConcreteSyntaxTree,
     tree_spec: &str,
     file: &str,
-    base_line: u32,
+    base_line: usize,
 ) -> Result<(), String> {
-    let expected_nodes = parse_tree_spec(tree_spec)
-        .map_err(|e| format!("Failed to parse tree specification: {e}\nSpec:\n{tree_spec}"))?;
+    let node = tree.to_root_node();
+    let expected_nodes = parse_tree_spec(tree_spec).map_err(|e| {
+        format!(
+            "Failed to parse tree specification: {e}\nSpec:\n{tree_spec}\nCST Debug:\n{}\n",
+            tree.debug_tree()
+        )
+    })?;
 
     check_nodes(node.children(), &expected_nodes, file, base_line, &["Root"])?;
 
@@ -266,13 +271,9 @@ pub(crate) fn check_tree(
     if node.children().len() > expected_nodes.len() {
         let extra_count = node.children().len() - expected_nodes.len();
         return Err(format!(
-            "\n{}:{}: Assertion failed in tree structure\nPath: {}\nExpected {} children, but found {} ({}extra)\n",
-            file,
-            base_line,
-            "Root",
+            "\n{file}:{base_line}: Assertion failed in tree structure\nPath: Root\nExpected {} children, but found {} ({extra_count}extra)\n",
             expected_nodes.len(),
             node.children().len(),
-            extra_count,
         ));
     }
 
@@ -284,17 +285,15 @@ fn check_nodes(
     actual_nodes: &[CstNode],
     expected_nodes: &[ExpectedNode],
     file: &str,
-    base_line: u32,
+    base_line: usize,
     path: &[&str],
 ) -> Result<(), String> {
     for (idx, expected) in expected_nodes.iter().enumerate() {
         let actual = actual_nodes.get(idx).ok_or_else(|| {
             format!(
-                "\n{}:{}: Assertion failed in tree structure\nPath: {}\nExpected child at index {}: {}\nBut node has only {} children\n",
-                file,
-                base_line + expected.line_offset() as u32 + 1,
+                "\n{file}:{}: Assertion failed in tree structure\nPath: {}\nExpected child at index {idx}: {}\nBut node has only {} children\n",
+                base_line + expected.line_offset() as usize + 1,
                 path.join(" → "),
-                idx,
                 expected.kind(),
                 actual_nodes.len(),
             )
@@ -312,7 +311,7 @@ fn check_single_node(
     expected: &ExpectedNode,
     idx: usize,
     file: &str,
-    base_line: u32,
+    base_line: usize,
     path: &[&str],
 ) -> Result<(), String> {
     let expected_kind_str = expected.kind();
@@ -324,7 +323,7 @@ fn check_single_node(
         return Err(format!(
             "\n{}:{}: Assertion failed in tree structure\nPath: {} → [{}]\nExpected: {}\nActual:   {}\n",
             file,
-            base_line + expected.line_offset() as u32 + 1,
+            base_line + expected.line_offset() as usize + 1,
             path.join(" → "),
             idx,
             expected_kind_str,
@@ -342,7 +341,7 @@ fn check_single_node(
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected a token node with text\nActual:   non-token node\n",
                     file,
-                    base_line + expected.line_offset() as u32 + 1,
+                    base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
                     kind,
                     idx,
@@ -354,7 +353,7 @@ fn check_single_node(
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {} [{}]\nExpected text: {:?}\nActual text:   {:?}\n",
                     file,
-                    base_line + expected.line_offset() as u32 + 1,
+                    base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
                     kind,
                     idx,
@@ -374,7 +373,7 @@ fn check_single_node(
                 return Err(format!(
                     "\n{}:{}: Assertion failed in tree structure\nPath: {} → {}\nExpected {} children, but found {} ({} extra)\n",
                     file,
-                    base_line + expected.line_offset() as u32 + 1,
+                    base_line + expected.line_offset() as usize + 1,
                     path.join(" → "),
                     kind,
                     children.len(),
