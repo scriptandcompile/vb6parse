@@ -130,7 +130,7 @@ macro_rules! validate_syntax_kinds {
 ///
 /// # Example Error Messages
 ///
-/// If you mistype a SyntaxKind like `SubStatment` (missing 'e'), you'll get a compile error:
+/// If you mistype a `SyntaxKind` like `SubStatment` (missing 'e'), you'll get a compile error:
 /// ```text
 /// error[E0599]: no variant named `SubStatment` found for enum `SyntaxKind`
 /// ```
@@ -380,7 +380,7 @@ fn check_nodes(
         let actual = actual_nodes.get(idx).ok_or_else(|| {
             format!(
                 "\n{file}:{}: Assertion failed in tree structure\nPath: {}\nExpected child at index {idx}: {}\nBut node has only {} children\n",
-                base_line + expected.line_offset() as usize + 1,
+                base_line + expected.line_offset() + 1,
                 path.join(" → "),
                 expected.kind(),
                 actual_nodes.len(),
@@ -410,7 +410,7 @@ fn check_single_node(
     if expected_kind_str != actual_kind_str {
         return Err(format!(
             "\n{file}:{}: Assertion failed in tree structure\nPath: {} → [{idx}]\nExpected: {expected_kind_str}\nActual:   {actual_kind_str}\n",
-            base_line + expected.line_offset() as usize + 1,
+            base_line + expected.line_offset() + 1,
             path.join(" → "),
         ));
     }
@@ -424,7 +424,7 @@ fn check_single_node(
             if !actual.is_token() {
                 return Err(format!(
                     "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind} [{idx}]\nExpected a token node with text\nActual:   non-token node\n",
-                    base_line + expected.line_offset() as usize + 1,
+                    base_line + expected.line_offset() + 1,
                     path.join(" → "),
                 ));
             }
@@ -433,7 +433,7 @@ fn check_single_node(
             if expected_text != actual_text {
                 return Err(format!(
                     "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind} [{idx}]\nExpected text: {expected_text:?}\nActual text:   {actual_text:?}\n",
-                    base_line + expected.line_offset() as usize + 1,
+                    base_line + expected.line_offset() + 1,
                     path.join(" → "),
                 ));
             }
@@ -448,7 +448,7 @@ fn check_single_node(
                 let extra_count = actual.children().len() - children.len();
                 return Err(format!(
                     "\n{file}:{}: Assertion failed in tree structure\nPath: {} → {kind}\nExpected {} children, but found {} ({extra_count} extra)\n",
-                    base_line + expected.line_offset() as usize + 1,
+                    base_line + expected.line_offset() + 1,
                     path.join(" → "),
                     children.len(),
                     actual.children().len(),
