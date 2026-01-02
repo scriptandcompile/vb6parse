@@ -243,9 +243,51 @@ Sub Test()
     Debug.Print VarType(x)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("x"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            IntegerKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("x"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -256,9 +298,51 @@ Sub Test()
     Debug.Print VarType(s)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("s"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            StringKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("s"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -269,9 +353,62 @@ Sub Test()
     Debug.Print VarType(arr)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("arr"),
+                            LeftParenthesis,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                            Whitespace,
+                            ToKeyword,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                            RightParenthesis,
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            DoubleKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("arr"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -283,9 +420,64 @@ Sub Test()
     Debug.Print VarType(v)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("v"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            VariantKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("v"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("123"),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("v"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -297,9 +489,72 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("var"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                AndKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbArray"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"It's an array!\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -311,9 +566,66 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("x"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbString"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                EndOfLineComment,
+                                Newline,
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -325,9 +637,66 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("v"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbInteger"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                EndOfLineComment,
+                                Newline,
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -337,9 +706,44 @@ Sub Test()
     Debug.Print "VarType: " & VarType(x)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            StringLiteral ("\"VarType: \""),
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("x"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -349,9 +753,67 @@ Sub Foo(arg As Variant)
     If VarType(arg) <> vbString Then Err.Raise 5
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Foo"),
+                    ParameterList {
+                        LeftParenthesis,
+                        Identifier ("arg"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        VariantKeyword,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("arg"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                InequalityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbString"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Whitespace,
+                            Identifier ("Err"),
+                            PeriodOperator,
+                            Identifier ("Raise"),
+                            Whitespace,
+                            IntegerLiteral ("5"),
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -365,9 +827,90 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("t"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            IntegerKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("t"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("VarType"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("obj"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("t"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbObject"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                EndOfLineComment,
+                                Newline,
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -381,9 +924,99 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("v"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbNull"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                EndOfLineComment,
+                                Newline,
+                                Whitespace,
+                            },
+                            ElseIfClause {
+                                ElseIfKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("VarType"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("v"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("vbEmpty"),
+                                    },
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    EndOfLineComment,
+                                    Newline,
+                                    Whitespace,
+                                },
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -395,9 +1028,89 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            ParenthesizedExpression {
+                                LeftParenthesis,
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("VarType"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("arr"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    AndKeyword,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("vbArray"),
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Array base type: \""),
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    LeftParenthesis,
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    Identifier ("arr"),
+                                    RightParenthesis,
+                                    Whitespace,
+                                    SubtractionOperator,
+                                    Whitespace,
+                                    Identifier ("vbArray"),
+                                    RightParenthesis,
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -411,9 +1124,68 @@ Sub Test()
     Debug.Print VarType(t)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                TypeStatement {
+                    TypeKeyword,
+                    Whitespace,
+                    Identifier ("MyType"),
+                    Newline,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Newline,
+                    EndKeyword,
+                    Whitespace,
+                    TypeKeyword,
+                    Newline,
+                },
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("t"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            Identifier ("MyType"),
+                            Newline,
+                        },
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            Identifier ("VarType"),
+                            LeftParenthesis,
+                            Identifier ("t"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -425,9 +1197,66 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("obj"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbObject"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                EndOfLineComment,
+                                Newline,
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -437,9 +1266,71 @@ Function IsString(val As Variant) As Boolean
     IsString = (VarType(val) = vbString)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                FunctionStatement {
+                    FunctionKeyword,
+                    Whitespace,
+                    Identifier ("IsString"),
+                    ParameterList {
+                        LeftParenthesis,
+                        Identifier ("val"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        VariantKeyword,
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    BooleanKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("IsString"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            ParenthesizedExpression {
+                                LeftParenthesis,
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("VarType"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("val"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("vbString"),
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    FunctionKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -452,9 +1343,121 @@ Sub LogTypes(ParamArray args() As Variant)
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("LogTypes"),
+                    ParameterList {
+                        LeftParenthesis,
+                        ParamArrayKeyword,
+                        Whitespace,
+                        Identifier ("args"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        VariantKeyword,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("i"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            IntegerKeyword,
+                            Newline,
+                        },
+                        ForStatement {
+                            Whitespace,
+                            ForKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LBound"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("args"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            ToKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("UBound"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("args"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Arg \""),
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    Identifier ("i"),
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    StringLiteral ("\": \""),
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    Identifier ("args"),
+                                    LeftParenthesis,
+                                    Identifier ("i"),
+                                    RightParenthesis,
+                                    RightParenthesis,
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                            NextKeyword,
+                            Whitespace,
+                            Identifier ("i"),
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -466,9 +1469,70 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("VarType"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("obj"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("vbObject"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("obj"),
+                                    PeriodOperator,
+                                    Identifier ("SpecialMethod"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 
     #[test]
@@ -482,8 +1546,122 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("VarType"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        
+            assert_tree!(cst, [
+                Newline,
+                SubStatement {
+                    SubKeyword,
+                    Whitespace,
+                    Identifier ("Test"),
+                    ParameterList {
+                        LeftParenthesis,
+                        RightParenthesis,
+                    },
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        DimStatement {
+                            DimKeyword,
+                            Whitespace,
+                            Identifier ("v"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            VariantKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("v"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Array"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("2"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("3"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        IfStatement {
+                            Whitespace,
+                            IfKeyword,
+                            Whitespace,
+                            ParenthesizedExpression {
+                                LeftParenthesis,
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("VarType"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("v"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    AndKeyword,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("vbArray"),
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Variant array\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                            EndKeyword,
+                            Whitespace,
+                            IfKeyword,
+                            Newline,
+                        },
+                    },
+                    EndKeyword,
+                    Whitespace,
+                    SubKeyword,
+                    Newline,
+                },
+            ]);
     }
 }
