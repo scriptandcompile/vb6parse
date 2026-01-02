@@ -1520,6 +1520,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn lbound_elseif() {
         let source = r"
 Sub Test()
@@ -2027,6 +2028,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn lbound_while_wend() {
         let source = r"
 Sub Test()
@@ -2135,6 +2137,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn lbound_do_while() {
         let source = r"
 Sub Test()
@@ -2245,6 +2248,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn lbound_do_until() {
         let source = r"
 Sub Test()
@@ -2441,6 +2445,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn lbound_multi_dimensional() {
         let source = r"
 Sub Test()

@@ -554,6 +554,7 @@ End Sub
             .any(|c| c.kind() == SyntaxKind::Identifier && c.text() == "isEmpty"));
     }
 
+    #[allow(clippy::too_many_lines)]
     #[test]
     fn nested_if_elseif_else() {
         let source = r"Sub Test()

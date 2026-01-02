@@ -277,6 +277,7 @@ End
         assert!(obj_statements[1].text().contains("COMDLG32.OCX"));
     }
 
+    #[allow(clippy::too_many_lines)]
     #[test]
     fn nested_property_group() {
         use crate::files::form::FormFile;

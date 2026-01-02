@@ -930,6 +930,7 @@ mod test {
         assert_eq!(tokens[6], ("'This is a comment.", Token::EndOfLineComment));
     }
 
+    #[allow(clippy::too_many_lines)]
     #[test]
     fn class_file_tokenize() {
         use super::tokenize;
@@ -1103,7 +1104,7 @@ Attribute VB_Exposed = False
     }
 
     #[test]
-
+    #[allow(clippy::too_many_lines)]
     fn class_file_tokenize_without_whitespace() {
         use super::tokenize_without_whitespaces;
         use crate::io::SourceStream;

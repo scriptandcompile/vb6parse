@@ -782,6 +782,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_with_variable() {
         let source = r#"
 Sub Test()
@@ -1286,6 +1287,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_array_access() {
         let source = r#"
 Sub Test()
@@ -1394,6 +1396,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_in_loop() {
         let source = r#"
 Sub Test()
@@ -1706,6 +1709,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_elseif() {
         let source = r#"
 Sub Test()
@@ -1859,6 +1863,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_select_case() {
         let source = r#"
 Sub Test()
@@ -2000,6 +2005,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_do_while() {
         let source = r#"
 Sub Test()
@@ -2130,6 +2136,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_do_until() {
         let source = r#"
 Sub Test()
@@ -2244,6 +2251,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_while_wend() {
         let source = r#"
 Sub Test()
@@ -2372,6 +2380,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_ubound_check() {
         let source = r#"
 Sub Test()
@@ -2493,6 +2502,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_lbound_ubound() {
         let source = r#"
 Sub Test()
@@ -2800,6 +2810,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_join_combination() {
         let source = r#"
 Sub Test()
@@ -2915,6 +2926,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_trim_combination() {
         let source = r#"
 Sub Test()
@@ -3080,6 +3092,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_error_handling() {
         let source = r#"
 Sub Test()
@@ -3203,6 +3216,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_on_error_goto() {
         let source = r#"
 Sub Test()
@@ -3310,6 +3324,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_file_path() {
         let source = r#"
 Sub Test()
@@ -3516,6 +3531,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn split_key_value_parsing() {
         let source = r#"
 Sub Test()

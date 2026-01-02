@@ -1130,6 +1130,7 @@ End Function
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn filter_ubound_check() {
         let source = r"
 matches = Filter(items, searchTerm, True, vbTextCompare)
@@ -1520,6 +1521,7 @@ ErrorHandler:
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn filter_if_statement() {
         let source = r#"
 If Trim(searchTerm) = "" Then
@@ -2052,6 +2054,7 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn filter_instr_comparison() {
         let source = r"
 If InStr(1, records(i).Name, searchTerm, vbTextCompare) > 0 Then
@@ -2345,6 +2348,7 @@ End If
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn filter_smart_case() {
         let source = r"
 If searchTerm <> LCase(searchTerm) Then
@@ -2837,6 +2841,7 @@ Next item
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn filter_select_case() {
         let source = r#"
 Select Case filterType

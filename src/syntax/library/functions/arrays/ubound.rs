@@ -1105,6 +1105,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn ubound_select_case() {
         let source = r#"
 Sub Test()
@@ -1948,6 +1949,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn ubound_error_handling() {
         let source = r"
 Sub Test()
@@ -2434,6 +2436,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn ubound_elseif() {
         let source = r#"
 Sub Test()
@@ -2559,6 +2562,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn ubound_nested_arrays() {
         let source = r"
 Sub Test()
@@ -2750,6 +2754,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn ubound_paramarray() {
         let source = r"
 Function Sum(ParamArray values() As Variant) As Double

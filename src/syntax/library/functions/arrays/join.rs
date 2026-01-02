@@ -1460,6 +1460,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn join_for_loop() {
         let source = r#"
 Sub Test()
@@ -1589,6 +1590,7 @@ End Sub
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn join_elseif() {
         let source = r#"
 Sub Test()
