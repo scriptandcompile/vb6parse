@@ -603,18 +603,41 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::parsers::cst::ConcreteSyntaxTree;
-
     #[test]
     fn monthname_basic() {
         let source = r"
 Dim name As String
 name = MonthName(3)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                NameKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            NameStatement {
+                NameKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                IntegerLiteral ("3"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -623,10 +646,52 @@ name = MonthName(3)
 Dim monthName As String
 monthName = MonthName(Month(Date))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("monthName"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("monthName"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Month"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            DateKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -635,10 +700,50 @@ monthName = MonthName(Month(Date))
 Dim shortName As String
 shortName = MonthName(11, True)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("shortName"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("shortName"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("11"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BooleanLiteralExpression {
+                                TrueKeyword,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -648,10 +753,61 @@ If MonthName(Month(Date)) = "November" Then
     MsgBox "It's November"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Month"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                DateKeyword,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"November\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"It's November\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -661,10 +817,63 @@ Function GetCurrentMonthName() As String
     GetCurrentMonthName = MonthName(Month(Date))
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetCurrentMonthName"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetCurrentMonthName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("MonthName"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Month"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    DateKeyword,
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -673,10 +882,102 @@ End Function
 Dim dateStr As String
 dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("dateStr"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("dateStr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        BinaryExpression {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("MonthName"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("Month"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            DateKeyword,
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                StringLiteralExpression {
+                                    StringLiteral ("\" \""),
+                                },
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Day"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            DateKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\", \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Year"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    DateKeyword,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -684,10 +985,23 @@ dateStr = MonthName(Month(Date)) & " " & Day(Date) & ", " & Year(Date)
         let source = r"
 Debug.Print MonthName(5)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                IntegerLiteral ("5"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -697,10 +1011,66 @@ With reportData
     .MonthDisplay = MonthName(Month(.ReportDate), True)
 End With
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("reportData"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("MonthDisplay"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("MonthName"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        CallExpression {
+                                            Identifier ("Month"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        PeriodOperator,
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    CallStatement {
+                        Identifier ("ReportDate"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -713,10 +1083,95 @@ Select Case MonthName(Month(Date), True)
         MsgBox "Q2"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Month"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            DateKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BooleanLiteralExpression {
+                                TrueKeyword,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Jan\""),
+                    Comma,
+                    Whitespace,
+                    StringLiteral ("\"Feb\""),
+                    Comma,
+                    Whitespace,
+                    StringLiteral ("\"Mar\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Q1\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Apr\""),
+                    Comma,
+                    Whitespace,
+                    StringLiteral ("\"May\""),
+                    Comma,
+                    Whitespace,
+                    StringLiteral ("\"Jun\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Q2\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -728,10 +1183,91 @@ ElseIf MonthName(m) = "December" Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("y"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("MonthName"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"December\""),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -740,10 +1276,38 @@ End If
 Dim name As String
 name = (MonthName(6, False))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                NameKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            NameStatement {
+                NameKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                LeftParenthesis,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                IntegerLiteral ("6"),
+                Comma,
+                Whitespace,
+                FalseKeyword,
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -752,10 +1316,89 @@ name = (MonthName(6, False))
 Dim display As String
 display = IIf(useShort, MonthName(m, True), MonthName(m, False))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("display"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("display"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("useShort"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("MonthName"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("m"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        BooleanLiteralExpression {
+                                            TrueKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("MonthName"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("m"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        BooleanLiteralExpression {
+                                            FalseKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -767,10 +1410,79 @@ Public Sub UpdateMonth()
     m_monthName = MonthName(Month(Now), True)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_monthName"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("UpdateMonth"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_monthName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("MonthName"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Month"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("Now"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    BooleanLiteralExpression {
+                                        TrueKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -778,10 +1490,27 @@ End Sub
         let source = r"
 Call DisplayMonth(MonthName(m, True))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("DisplayMonth"),
+                LeftParenthesis,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                Identifier ("m"),
+                Comma,
+                Whitespace,
+                TrueKeyword,
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -790,10 +1519,56 @@ Call DisplayMonth(MonthName(m, True))
 Set obj = New Calendar
 obj.CurrentMonth = MonthName(Month(Date))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("Calendar"),
+                Newline,
+            },
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    Identifier ("CurrentMonth"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Month"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            DateKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -803,10 +1578,74 @@ Dim monthNames(12) As String
 Dim i As Integer
 monthNames(i) = MonthName(i, True)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("monthNames"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("12"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("monthNames"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BooleanLiteralExpression {
+                                TrueKeyword,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -817,10 +1656,60 @@ For i = 1 To 12
     cboMonth.AddItem MonthName(i)
 Next i
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("12"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("cboMonth"),
+                        PeriodOperator,
+                        Identifier ("AddItem"),
+                        Whitespace,
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -831,10 +1720,65 @@ While m <= 12
     m = m + 1
 Wend
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("m"),
+                    },
+                    Whitespace,
+                    LessThanOrEqualOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        Identifier ("m"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("m"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -845,10 +1789,86 @@ Do While i < 12
     i = i + 1
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("i"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("months"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("MonthName"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -859,10 +1879,70 @@ Do Until i > 12
     i = i + 1
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("i"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("list"),
+                        PeriodOperator,
+                        Identifier ("AddItem"),
+                        Whitespace,
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -870,10 +1950,28 @@ Loop
         let source = r#"
 MsgBox "Current month: " & MonthName(Month(Now))
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Current month: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                Identifier ("Month"),
+                LeftParenthesis,
+                Identifier ("Now"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -883,10 +1981,61 @@ If MonthName(m1) = MonthName(m2) Then
     MsgBox "Same month name"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("m1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("MonthName"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("m2"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Same month name\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -895,10 +2044,59 @@ End If
 Dim upper As String
 upper = UCase(MonthName(3, True))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("upper"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("upper"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("UCase"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("MonthName"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("3"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        BooleanLiteralExpression {
+                                            TrueKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -906,10 +2104,44 @@ upper = UCase(MonthName(3, True))
         let source = r"
 lblMonth.Caption = MonthName(Month(Date))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("lblMonth"),
+                    PeriodOperator,
+                    Identifier ("Caption"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MonthName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Month"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            DateKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -917,10 +2149,26 @@ lblMonth.Caption = MonthName(Month(Date))
         let source = r"
 cboMonths.AddItem MonthName(i, False)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("cboMonths"),
+                PeriodOperator,
+                Identifier ("AddItem"),
+                Whitespace,
+                Identifier ("MonthName"),
+                LeftParenthesis,
+                Identifier ("i"),
+                Comma,
+                Whitespace,
+                FalseKeyword,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -929,10 +2177,118 @@ cboMonths.AddItem MonthName(i, False)
 Dim formatted As String
 formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("formatted"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("formatted"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        BinaryExpression {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("MonthName"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("Month"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("d"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                StringLiteralExpression {
+                                    StringLiteral ("\" \""),
+                                },
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Format"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        CallExpression {
+                                            Identifier ("Day"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        Identifier ("d"),
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"00\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\", \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Year"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("d"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -941,9 +2297,58 @@ formatted = MonthName(Month(d)) & " " & Format(Day(d), "00") & ", " & Year(d)
 Dim firstLetter As String
 firstLetter = Left(MonthName(m), 1)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("MonthName"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("firstLetter"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("firstLetter"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Left"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("MonthName"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("m"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 }
