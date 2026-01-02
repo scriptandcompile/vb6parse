@@ -3301,6 +3301,7 @@ mod tests {
         }
     }
 
+    #[allow(clippy::too_many_lines)]
     #[test]
     fn thread_per_object_negative() {
         let input = r#"Type=Exe
@@ -3484,6 +3485,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn no_startup_selected() {
         let input = r#"Type=Exe
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -3638,6 +3640,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn extra_property_sections() {
         let input = r#"Type=Exe
      Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
