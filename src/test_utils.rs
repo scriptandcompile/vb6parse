@@ -9,6 +9,29 @@
 //! line information from the tree specification and reports precise error
 //! locations when assertions fail.
 //!
+//! ## Compile-Time Validation
+//!
+//! As of version 0.5.1, the `assert_tree!` macro now includes compile-time
+//! validation of `SyntaxKind` identifiers. This means typos or invalid node
+//! kinds will be caught at compile time with helpful error messages.
+//!
+//! ### Example Error Messages
+//!
+//! If you mistype a `SyntaxKind` like `SubStatment` (missing 'e'), you'll get:
+//! ```text
+//! error[E0599]: no variant or associated item named `SubStatment` found for enum `SyntaxKind`
+//!   --> src/your_test.rs:123:9
+//!    |
+//! 123|         SubStatment {
+//!    |         ^^^^^^^^^^^ variant or associated item not found in `SyntaxKind`
+//!    |
+//! help: there is a variant with a similar name
+//!    |
+//! 123-         SubStatment {
+//! 123+         SubStatement {
+//!    |
+//! ```
+//!
 //! # Example
 //! ```rust
 //! use vb6parse::*;
@@ -21,8 +44,7 @@
 //! // This will assert the structure of the CST
 //! // but can only be used within module tests due to its internal visibility.
 //!
-//! // assert_tree!(cst.to_root_node(), [
-//! //    Newline,
+//! // assert_tree!(cst, [
 //! //    SubStatement {
 //! //        SubKeyword,
 //! //        Whitespace (" "),
@@ -33,11 +55,10 @@
 //! //        },
 //! //        Newline,
 //! //    },
-//! //    EndSubStatement {
-//! //        EndSubKeyword,
-//! //        Whitespace (" "),
-//! //        SubKeyword,
-//! //    },
+//! //    EndKeyword,
+//! //    Whitespace (" "),
+//! //    SubKeyword,
+//! //    Newline,
 //! // ]);
 //! ```
 
@@ -47,16 +68,81 @@
 
 use crate::{parsers::cst::CstNode, ConcreteSyntaxTree};
 
+/// Helper macro to validate that a token tree contains valid SyntaxKind identifiers.
+///
+/// This macro validates each identifier in the tree specification against the
+/// `SyntaxKind` enum by attempting to construct the enum variant. If an invalid
+/// identifier is used, this will produce a compile error pointing to the exact
+/// location of the typo.
+#[doc(hidden)]
+#[macro_export]
+macro_rules! validate_syntax_kinds {
+    // Base case: empty
+    () => {};
+
+    // Skip commas
+    (, $($rest:tt)* ) => {
+        $crate::validate_syntax_kinds!($($rest)*);
+    };
+
+    // Match identifier followed by text literal: Kind ("text")
+    ($kind:ident ( $text:literal ) $($rest:tt)* ) => {
+        // Validate this identifier references a SyntaxKind variant
+        const _: () = {
+            let _validation: $crate::parsers::syntaxkind::SyntaxKind = $crate::parsers::syntaxkind::SyntaxKind::$kind;
+        };
+        $crate::validate_syntax_kinds!($($rest)*);
+    };
+
+    // Match identifier followed by children: Kind { ... }
+    ($kind:ident { $($children:tt)* } $($rest:tt)* ) => {
+        // Validate this identifier references a SyntaxKind variant
+        const _: () = {
+            let _validation: $crate::parsers::syntaxkind::SyntaxKind = $crate::parsers::syntaxkind::SyntaxKind::$kind;
+        };
+        // Recursively validate children
+        $crate::validate_syntax_kinds!($($children)*);
+        // Continue with remaining siblings
+        $crate::validate_syntax_kinds!($($rest)*);
+    };
+
+    // Match simple identifier: Kind
+    ($kind:ident $($rest:tt)* ) => {
+        // Validate this identifier references a SyntaxKind variant
+        const _: () = {
+            let _validation: $crate::parsers::syntaxkind::SyntaxKind = $crate::parsers::syntaxkind::SyntaxKind::$kind;
+        };
+        $crate::validate_syntax_kinds!($($rest)*);
+    };
+}
+
 /// Macro to assert the structure of a CST node against an expected pattern.
 ///
 /// This macro uses a hybrid approach: it captures the tree specification as a string
 /// using `stringify!()`, parses it at runtime, and provides detailed error messages
 /// that include the specific line from the tree specification where a mismatch occurred.
 ///
+/// This macro now includes compile-time validation of `SyntaxKind` identifiers, which
+/// means typos in node kinds will be caught at compile time with helpful error messages
+/// pointing to the exact location of the mistake.
+///
 /// This macro is internal to the crate and not exported.
+///
+/// # Example Error Messages
+///
+/// If you mistype a SyntaxKind like `SubStatment` (missing 'e'), you'll get a compile error:
+/// ```text
+/// error[E0599]: no variant named `SubStatment` found for enum `SyntaxKind`
+/// ```
+///
+/// The error will point to the exact line in your test where the typo appears.
 #[macro_export]
 macro_rules! assert_tree {
     ($node:expr, [ $($tree:tt)* ]) => {{
+        // Validate all SyntaxKind identifiers at compile time
+        $crate::validate_syntax_kinds!($($tree)*);
+
+        // Run the actual tree assertion at runtime
         let tree_spec = stringify!($($tree)*);
         if let Err(e) = $crate::test_utils::check_tree(&$node, tree_spec, file!(), line!() as usize) {
             panic!("{}", e);
