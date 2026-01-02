@@ -744,18 +744,42 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn now_basic() {
         let source = r"
 Dim currentTime As Date
 currentTime = Now
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("currentTime"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("currentTime"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -764,10 +788,37 @@ currentTime = Now
 Dim dt As Date
 dt = Now()
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("dt"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("dt"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Now"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -777,10 +828,43 @@ If Now > deadline Then
     MsgBox "Overdue"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("Now"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("deadline"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Overdue\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -790,10 +874,45 @@ Function GetCurrentTime() As Date
     GetCurrentTime = Now
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetCurrentTime"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetCurrentTime"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("Now"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -802,10 +921,42 @@ End Function
 Dim msg As String
 msg = "Current time: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("msg"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("msg"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"Current time: \""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("Now"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -813,10 +964,24 @@ msg = "Current time: " & Now
         let source = r#"
 Debug.Print "Timestamp: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Timestamp: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Now"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -824,10 +989,22 @@ Debug.Print "Timestamp: " & Now
         let source = r#"
 MsgBox "Current time is: " & Now
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Current time is: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Now"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -836,10 +1013,50 @@ MsgBox "Current time is: " & Now
 Dim formatted As String
 formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("formatted"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("formatted"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Format"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"yyyy-mm-dd hh:nn:ss\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -848,10 +1065,57 @@ formatted = Format(Now, "yyyy-mm-dd hh:nn:ss")
 Dim elapsed As Long
 elapsed = DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("elapsed"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("elapsed"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DateDiff"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"s\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("startTime"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -863,10 +1127,54 @@ Public Sub UpdateTimestamp()
     m_timestamp = Now
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_timestamp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("UpdateTimestamp"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_timestamp"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("Now"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -877,10 +1185,60 @@ With currentRecord
     .ModifiedDate = Now
 End With
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("currentRecord"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("CreatedDate"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("ModifiedDate"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -889,10 +1247,48 @@ End With
 Dim timestamps(10) As Date
 timestamps(i) = Now
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("timestamps"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("timestamps"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -901,10 +1297,38 @@ timestamps(i) = Now
 Set obj = New Logger
 obj.Timestamp = Now
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("Logger"),
+                Newline,
+            },
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    Identifier ("Timestamp"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -919,10 +1343,109 @@ Select Case Hour(Now)
         greeting = "Good evening"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Hour"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("0"),
+                    Whitespace,
+                    ToKeyword,
+                    Whitespace,
+                    IntegerLiteral ("11"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("greeting"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Good morning\""),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("12"),
+                    Whitespace,
+                    ToKeyword,
+                    Whitespace,
+                    IntegerLiteral ("17"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("greeting"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Good afternoon\""),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseElseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    ElseKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("greeting"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Good evening\""),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -934,10 +1457,82 @@ ElseIf Now > deadline Then
     y = 2
 End If
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("y"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        IdentifierExpression {
+                            Identifier ("Now"),
+                        },
+                        Whitespace,
+                        GreaterThanOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("deadline"),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -950,10 +1545,84 @@ For i = 1 To 1000
 Next i
 MsgBox "Elapsed: " & DateDiff("s", startTime, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("startTime"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("startTime"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1000"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("DoWork"),
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Elapsed: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("DateDiff"),
+                LeftParenthesis,
+                StringLiteral ("\"s\""),
+                Comma,
+                Whitespace,
+                Identifier ("startTime"),
+                Comma,
+                Whitespace,
+                Identifier ("Now"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -963,10 +1632,39 @@ Do While Now < endTime
     ProcessData
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("Now"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("endTime"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessData"),
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -976,10 +1674,39 @@ Do Until Now >= targetTime
     WaitForEvent
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("Now"),
+                    },
+                    Whitespace,
+                    GreaterThanOrEqualOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetTime"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("WaitForEvent"),
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -989,10 +1716,53 @@ While Now < cutoffTime
     count = count + 1
 Wend
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("Now"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("cutoffTime"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("count"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("count"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1001,10 +1771,65 @@ Wend
 Dim status As String
 status = IIf(Now > deadline, "Late", "On time")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("status"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("status"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("Now"),
+                                },
+                                Whitespace,
+                                GreaterThanOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("deadline"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Late\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"On time\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1014,10 +1839,64 @@ If DateDiff("h", lastUpdate, Now) > 24 Then
     UpdateData
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("DateDiff"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"h\""),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("lastUpdate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("Now"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("24"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("UpdateData"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1025,10 +1904,24 @@ End If
         let source = r#"
 Call LogEvent("User login", Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("LogEvent"),
+                LeftParenthesis,
+                StringLiteral ("\"User login\""),
+                Comma,
+                Whitespace,
+                Identifier ("Now"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1036,10 +1929,56 @@ Call LogEvent("User login", Now)
         let source = r#"
 sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh:nn:ss\#") & ")"
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("sql"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        StringLiteralExpression {
+                            StringLiteral ("\"INSERT INTO Events (Timestamp) VALUES (\""),
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Format"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("Now"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"\\#mm\\/dd\\/yyyy hh:nn:ss\\#\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\")\""),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1048,10 +1987,43 @@ sql = "INSERT INTO Events (Timestamp) VALUES (" & Format(Now, "\#mm\/dd\/yyyy hh
 Dim currentYear As Integer
 currentYear = Year(Now)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("currentYear"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("currentYear"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Year"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1060,10 +2032,43 @@ currentYear = Year(Now)
 Dim currentMonth As Integer
 currentMonth = Month(Now)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("currentMonth"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("currentMonth"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Month"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1072,10 +2077,57 @@ currentMonth = Month(Now)
 Dim futureDate As Date
 futureDate = DateAdd("d", 7, Now)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("futureDate"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("futureDate"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DateAdd"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"d\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("7"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("Now"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1087,9 +2139,59 @@ start = Now
 DoWork
 finish = Now
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Now"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("start"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("finish"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("start"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+            CallStatement {
+                Identifier ("DoWork"),
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("finish"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("Now"),
+                },
+                Newline,
+            },
+        ]);
     }
 }
