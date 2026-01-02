@@ -668,10 +668,43 @@ mod tests {
 Dim result As String
 result = Oct(64)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("result"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("64"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -681,10 +714,45 @@ Dim permissions As Integer
 permissions = 493
 Debug.Print Oct(permissions)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("permissions"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("permissions"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("493"),
+                },
+                Newline,
+            },
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                Identifier ("Oct"),
+                LeftParenthesis,
+                Identifier ("permissions"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -694,10 +762,52 @@ If Oct(value) = "100" Then
     MsgBox "Value is 64 in decimal"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("value"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"100\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Value is 64 in decimal\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -707,10 +817,59 @@ Function GetOctalString(num As Long) As String
     GetOctalString = Oct(num)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetOctalString"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("num"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetOctalString"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Oct"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("num"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -719,10 +878,43 @@ End Function
 Dim octStr As String
 octStr = Oct(511)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("octStr"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("octStr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("511"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -730,10 +922,25 @@ octStr = Oct(511)
         let source = r#"
 MsgBox "Octal: " & Oct(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Octal: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Oct"),
+                LeftParenthesis,
+                Identifier ("value"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -741,10 +948,35 @@ MsgBox "Octal: " & Oct(value)
         let source = r#"
 Debug.Print "Dec: " & num & " Oct: " & Oct(num)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Dec: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("num"),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                StringLiteral ("\" Oct: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Oct"),
+                LeftParenthesis,
+                Identifier ("num"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -759,10 +991,101 @@ Select Case Oct(filePerms)
         msg = "Other permission"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("filePerms"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"755\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("msg"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Standard executable\""),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"644\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("msg"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Read-only file\""),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseElseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    ElseKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("msg"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Other permission\""),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -774,10 +1097,68 @@ Public Sub ConvertValue(num As Long)
     m_octal = Oct(num)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_octal"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("ConvertValue"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("num"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_octal"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Oct"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("num"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -787,10 +1168,54 @@ With converter
     .OctalValue = Oct(.DecimalValue)
 End With
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("converter"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("OctalValue"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Oct"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            PeriodOperator,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    CallStatement {
+                        Identifier ("DecimalValue"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -802,10 +1227,91 @@ ElseIf Oct(x) = "144" Then
     y = 2
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("100"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("y"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Oct"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"144\""),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -815,10 +1321,59 @@ For i = 0 To 15
     Debug.Print i, Oct(i), Hex(i)
 Next i
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("0"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("15"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("Hex"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -828,10 +1383,73 @@ Do While Len(Oct(counter)) < 4
     counter = counter * 8
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        LenKeyword,
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Oct"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("counter"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("4"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("counter"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("counter"),
+                            },
+                            Whitespace,
+                            MultiplicationOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("8"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -841,10 +1459,64 @@ Do Until Oct(val) = targetOctal
     val = val + 1
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("val"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetOctal"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("val"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("val"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -855,10 +1527,91 @@ While num <= 100
     num = num + 1
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("num"),
+                    },
+                    Whitespace,
+                    LessThanOrEqualOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("100"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("octals"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("octals"),
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Oct"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("num"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\" \""),
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("num"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("num"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -867,10 +1620,47 @@ Wend
 Dim result As String
 result = (Oct(value))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("result"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("value"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -879,10 +1669,75 @@ result = (Oct(value))
 Dim display As String
 display = IIf(showOctal, Oct(num), Hex(num))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("display"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("display"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("showOctal"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("Oct"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("num"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("Hex"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("num"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -892,10 +1747,61 @@ If Oct(perms1) = Oct(perms2) Then
     MsgBox "Permissions match"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("perms1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("perms2"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Permissions match\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -904,10 +1810,66 @@ End If
 Dim octValues(10) As String
 octValues(i) = Oct(numbers(i))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("octValues"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("octValues"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("numbers"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -916,10 +1878,49 @@ octValues(i) = Oct(numbers(i))
 Set obj = New BaseConverter
 obj.OctalString = Oct(obj.DecimalValue)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("BaseConverter"),
+                Newline,
+            },
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    Identifier ("OctalString"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            MemberAccessExpression {
+                                Identifier ("obj"),
+                                PeriodOperator,
+                                Identifier ("DecimalValue"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -927,10 +1928,27 @@ obj.OctalString = Oct(obj.DecimalValue)
         let source = r#"
 Call LogValue("Octal", Oct(deviceCode))
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("LogValue"),
+                LeftParenthesis,
+                StringLiteral ("\"Octal\""),
+                Comma,
+                Whitespace,
+                Identifier ("Oct"),
+                LeftParenthesis,
+                Identifier ("deviceCode"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -939,10 +1957,94 @@ Call LogValue("Octal", Oct(deviceCode))
 Dim combined As Long
 combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("combined"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("combined"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("CLng"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"&O\""),
+                                    },
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("Oct"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value1"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    AdditionOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("CLng"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"&O\""),
+                                    },
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("Oct"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value2"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -951,10 +2053,92 @@ combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
 Dim info As String
 info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("info"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("info"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        BinaryExpression {
+                            BinaryExpression {
+                                BinaryExpression {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Dec: \""),
+                                    },
+                                    Whitespace,
+                                    Ampersand,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("num"),
+                                    },
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                StringLiteralExpression {
+                                    StringLiteral ("\" Hex: \""),
+                                },
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Hex"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("num"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\" Oct: \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("num"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -963,10 +2147,51 @@ info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
 Dim formatted As String
 formatted = "&O" & Oct(value)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("formatted"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("formatted"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"&O\""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Oct"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("value"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -975,10 +2200,52 @@ formatted = "&O" & Oct(value)
 Dim digitCount As Integer
 digitCount = Len(Oct(number))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("digitCount"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("digitCount"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    LenKeyword,
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Oct"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("number"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -991,10 +2258,86 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("octStr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Oct"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("inputValue"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Invalid value for octal conversion\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1009,9 +2352,90 @@ ErrorHandler:
     MsgBox "Error converting to octal"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Oct"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ConvertToOctal"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        GotoKeyword,
+                        Whitespace,
+                        Identifier ("ErrorHandler"),
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Oct"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("userInput"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    ExitStatement {
+                        Whitespace,
+                        ExitKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                    LabelStatement {
+                        Identifier ("ErrorHandler"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error converting to octal\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
