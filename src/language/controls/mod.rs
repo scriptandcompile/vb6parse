@@ -1153,7 +1153,7 @@ impl Control {
     /// Sets the name of the control.
     ///
     /// This is primarily used during parsing when the control name needs to be
-    /// updated based on attributes (e.g., VB_Name attribute in forms).
+    /// updated based on attributes (e.g., `VB_Name` attribute in forms).
     pub fn set_name(&mut self, name: String) {
         self.name = name;
     }

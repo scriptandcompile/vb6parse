@@ -136,7 +136,7 @@ End Sub
 
                     println!("\nChild controls:");
                     for child in controls {
-                        print_control_info(&child, 1);
+                        print_control_info(child, 1);
                     }
                 } else {
                     println!("Warning: Parsed control is not a Form");
