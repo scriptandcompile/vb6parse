@@ -643,8 +643,8 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn isnumeric_basic() {
         let source = r"
@@ -652,10 +652,50 @@ Sub Test()
     result = IsNumeric(myVariable)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("myVariable"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -667,10 +707,77 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("numValue"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("CDbl"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("value"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -682,10 +789,66 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            InputKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("MsgBox"),
+                                Whitespace,
+                                StringLiteral ("\"Please enter a number\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -695,10 +858,59 @@ Function IsValidNumber(v As Variant) As Boolean
     IsValidNumber = IsNumeric(v)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("IsValidNumber"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("v"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    VariantKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("IsValidNumber"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("v"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -710,10 +922,111 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("value1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("value2"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("total"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("CDbl"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value1"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("CDbl"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value2"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -725,10 +1038,79 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("field"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            OrKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsDate"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("field"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessValue"),
+                                Whitespace,
+                                Identifier ("field"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -738,10 +1120,82 @@ Sub Test()
     displayValue = IIf(IsNumeric(value), CDbl(value), 0)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("displayValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IIf"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("IsNumeric"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("CDbl"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -751,10 +1205,44 @@ Sub Test()
     Debug.Print "Is numeric: " & IsNumeric(testVar)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Is numeric: \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("IsNumeric"),
+                        LeftParenthesis,
+                        Identifier ("testVar"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -764,10 +1252,42 @@ Sub Test()
     MsgBox "Numeric status: " & IsNumeric(userInput)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Numeric status: \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("IsNumeric"),
+                        LeftParenthesis,
+                        Identifier ("userInput"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -779,10 +1299,69 @@ Sub Test()
     Loop
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            InputKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            InputStatement {
+                                Whitespace,
+                                InputKeyword,
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                Identifier ("InputBox"),
+                                LeftParenthesis,
+                                StringLiteral ("\"Enter a number:\""),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -794,10 +1373,69 @@ Sub Test()
     Loop
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        UntilKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("result"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("result"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("GetNextValue"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -808,10 +1446,61 @@ Sub Test()
     isValid = IsNumeric(dataValue)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("isValid"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        BooleanKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("isValid"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("dataValue"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -821,10 +1510,54 @@ Sub Test()
     obj.IsNumericValue = IsNumeric(obj.Data)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("obj"),
+                            PeriodOperator,
+                            Identifier ("IsNumericValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("obj"),
+                                        PeriodOperator,
+                                        Identifier ("Data"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -834,10 +1567,52 @@ Private Sub Class_Initialize()
     m_isNumeric = IsNumeric(m_value)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_isNumeric"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -849,10 +1624,72 @@ Sub Test()
     End With
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("validation"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("IsValid"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("IsNumeric"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    PeriodOperator,
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            CallStatement {
+                                Identifier ("Value"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -862,10 +1699,43 @@ Sub Test()
     Call ValidateInput(IsNumeric(txtAmount.Text))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    CallStatement {
+                        Whitespace,
+                        CallKeyword,
+                        Whitespace,
+                        Identifier ("ValidateInput"),
+                        LeftParenthesis,
+                        Identifier ("IsNumeric"),
+                        LeftParenthesis,
+                        Identifier ("txtAmount"),
+                        PeriodOperator,
+                        TextKeyword,
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -880,10 +1750,79 @@ Sub Test()
     End Select
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            Identifier ("value"),
+                            RightParenthesis,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("ProcessNumber"),
+                                    Whitespace,
+                                    Identifier ("value"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseElseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("ProcessText"),
+                                    Whitespace,
+                                    Identifier ("value"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -898,10 +1837,151 @@ Sub Test()
     Next i
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("0"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("UBound"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("arr"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("IsNumeric"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("arr"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("i"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        IdentifierExpression {
+                                            Identifier ("total"),
+                                        },
+                                        Whitespace,
+                                        EqualityOperator,
+                                        Whitespace,
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("total"),
+                                            },
+                                            Whitespace,
+                                            AdditionOperator,
+                                            Whitespace,
+                                            CallExpression {
+                                                Identifier ("CDbl"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        CallExpression {
+                                                            Identifier ("arr"),
+                                                            LeftParenthesis,
+                                                            ArgumentList {
+                                                                Argument {
+                                                                    IdentifierExpression {
+                                                                        Identifier ("i"),
+                                                                    },
+                                                                },
+                                                            },
+                                                            RightParenthesis,
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                IfKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -915,10 +1995,91 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsDate"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("data"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessDate"),
+                                Whitespace,
+                                Identifier ("data"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseIfClause {
+                            ElseIfKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("data"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("ProcessNumber"),
+                                    Whitespace,
+                                    Identifier ("data"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -928,10 +2089,58 @@ Sub Test()
     status = "Valid: " & IsNumeric(variable)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("status"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Valid: \""),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("variable"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -941,10 +2150,54 @@ Sub Test()
     result = (IsNumeric(value))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("value"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -954,10 +2207,68 @@ Sub Test()
     checks(i) = IsNumeric(values(i))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("checks"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("values"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("i"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -967,10 +2278,43 @@ Sub Test()
     numericFlags.Add IsNumeric(data(i))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("numericFlags"),
+                        PeriodOperator,
+                        Identifier ("Add"),
+                        Whitespace,
+                        Identifier ("IsNumeric"),
+                        LeftParenthesis,
+                        Identifier ("data"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -982,10 +2326,79 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("var1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("var2"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("MsgBox"),
+                                Whitespace,
+                                StringLiteral ("\"Same type\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -995,10 +2408,59 @@ Sub Test()
     result = CStr(IsNumeric(myVar))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("CStr"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("IsNumeric"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("myVar"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1010,10 +2472,71 @@ Sub Test()
     Wend
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("IsNumeric"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("buffer"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("buffer"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("GetValidInput"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1030,9 +2553,125 @@ Function GetNumber() As Double
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("IsNumeric"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetNumber"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        InputKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    InputStatement {
+                        Whitespace,
+                        InputKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("InputBox"),
+                        LeftParenthesis,
+                        StringLiteral ("\"Enter number:\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    Newline,
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsNumeric"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        InputKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("GetNumber"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("CDbl"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                InputKeyword,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("GetNumber"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 }
