@@ -57,9 +57,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // MkDir statement tests
 
-    // MkDir statement tests
     #[test]
     fn mkdir_simple() {
         let source = r#"
@@ -67,22 +67,50 @@ Sub Test()
     MkDir "NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("MkDirKeyword"));
-        assert!(debug.contains("NewFolder"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"NewFolder\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn mkdir_at_module_level() {
         let source = r#"MkDir "C:\Temp""#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            MkDirStatement {
+                MkDirKeyword,
+                Whitespace,
+                StringLiteral ("\"C:\\Temp\""),
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
     }
@@ -94,11 +122,35 @@ Sub Test()
     MkDir "C:\Program Files\MyApp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("Program Files"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Program Files\\MyApp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -108,20 +160,53 @@ Sub Test()
     MkDir folderPath
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("folderPath"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        Identifier ("folderPath"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn mkdir_preserves_whitespace() {
         let source = "    MkDir    \"MyFolder\"    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "    MkDir    \"MyFolder\"    \n");
-
+        assert_tree!(cst, [
+            Whitespace,
+            MkDirStatement {
+                MkDirKeyword,
+                Whitespace,
+                StringLiteral ("\"MyFolder\""),
+                Whitespace,
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("MkDirStatement"));
     }
@@ -133,11 +218,37 @@ Sub Test()
     MkDir "Logs" ' Create logs directory
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Logs\""),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -149,10 +260,57 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("dirExists"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            MkDirStatement {
+                                Whitespace,
+                                MkDirKeyword,
+                                Whitespace,
+                                StringLiteral ("\"C:\\Data\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -162,10 +320,45 @@ Sub Test()
     If needsDir Then MkDir "Output"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("needsDir"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        MkDirStatement {
+                            MkDirKeyword,
+                            Whitespace,
+                            StringLiteral ("\"Output\""),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -177,11 +370,49 @@ Sub CreateDirs()
     MkDir "C:\Temp\Data"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("MkDirStatement").count();
-        assert_eq!(count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("CreateDirs"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Temp\""),
+                        Newline,
+                    },
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Temp\\Logs\""),
+                        Newline,
+                    },
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Temp\\Data\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -191,11 +422,39 @@ Sub Test()
     MkDir basePath & "\Subfolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("basePath"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        Identifier ("basePath"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"\\Subfolder\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -205,11 +464,35 @@ Sub Test()
     MkDir "\\Server\Share\NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("Server"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"\\\\Server\\Share\\NewFolder\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -219,11 +502,40 @@ Sub Test()
     MkDir App.Path & "\Data"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
-        assert!(debug.contains("App"));
-        assert!(debug.contains("Path"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MkDirStatement {
+                        Whitespace,
+                        MkDirKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Path"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"\\Data\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
