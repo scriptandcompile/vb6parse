@@ -714,18 +714,58 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn right_basic() {
         let source = r#"
 Dim result As String
 result = Right("Hello World", 5)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("result"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Hello World\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -734,10 +774,50 @@ result = Right("Hello World", 5)
 Dim extension As String
 extension = Right(filename, 4)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("extension"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("extension"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("filename"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("4"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -747,10 +827,59 @@ If Right(filename, 4) = ".txt" Then
     MsgBox "Text file"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("filename"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("4"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\".txt\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Text file\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -760,10 +889,66 @@ Function GetLastFour(s As String) As String
     GetLastFour = Right(s, 4)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetLastFour"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("s"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetLastFour"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("s"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("4"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -772,10 +957,50 @@ End Function
 Dim lastChars As String
 lastChars = Right(inputText, charCount)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("lastChars"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("lastChars"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("inputText"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("charCount"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -783,10 +1008,28 @@ lastChars = Right(inputText, charCount)
         let source = r#"
 MsgBox "Last 3 chars: " & Right(text, 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Last 3 chars: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Right"),
+                LeftParenthesis,
+                TextKeyword,
+                Comma,
+                Whitespace,
+                IntegerLiteral ("3"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -794,10 +1037,26 @@ MsgBox "Last 3 chars: " & Right(text, 3)
         let source = r#"
 Debug.Print Right("Testing", 4)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                Identifier ("Right"),
+                LeftParenthesis,
+                StringLiteral ("\"Testing\""),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("4"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -810,10 +1069,70 @@ Select Case Right(filename, 4)
         ProcessDoc
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("filename"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("4"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\".txt\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("ProcessText"),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\".doc\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("ProcessDoc"),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -825,10 +1144,70 @@ Public Sub ExtractSuffix()
     m_suffix = Right(m_text, 10)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_suffix"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("ExtractSuffix"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_suffix"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_text"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("10"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -838,10 +1217,57 @@ With TextBox1
     .Text = Right(.Text, 20)
 End With
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("TextBox1"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                TextKeyword,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Right"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            PeriodOperator,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    CallStatement {
+                        TextKeyword,
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("20"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -853,10 +1279,114 @@ ElseIf Right(s, 4) = ".dll" Then
     fileType = "Library"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("s"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("4"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\".exe\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("fileType"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"Executable\""),
+                        },
+                        Newline,
+                    },
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("s"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("4"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\".dll\""),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("fileType"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Library\""),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -866,10 +1396,85 @@ For i = 1 To 10
     parts(i) = Right(lines(i), 5)
 Next i
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("parts"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("lines"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("i"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -879,10 +1484,74 @@ Do While Right(buffer, 2) <> vbCrLf
     buffer = buffer & ReadChar()
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("buffer"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("2"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("vbCrLf"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("buffer"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("buffer"),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("ReadChar"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -892,10 +1561,74 @@ Do Until Right(data, 1) = ";"
     data = data & GetNextByte()
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("data"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\";\""),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("data"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("data"),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("GetNextByte"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -905,10 +1638,70 @@ While Right(line, 1) = " "
     line = Left(line, Len(line) - 1)
 Wend
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    LineKeyword,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\" \""),
+                    },
+                },
+                Newline,
+                StatementList {
+                    LineInputStatement {
+                        Whitespace,
+                        LineKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Left"),
+                        LeftParenthesis,
+                        LineKeyword,
+                        Comma,
+                        Whitespace,
+                        LenKeyword,
+                        LeftParenthesis,
+                        LineKeyword,
+                        RightParenthesis,
+                        Whitespace,
+                        SubtractionOperator,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -917,10 +1710,54 @@ Wend
 Dim val As String
 val = (Right(input, 10))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("val"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("val"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    InputKeyword,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("10"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -929,10 +1766,73 @@ val = (Right(input, 10))
 Dim ext As String
 ext = IIf(hasExtension, Right(name, 4), ".txt")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("ext"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("ext"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("hasExtension"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("Right"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            NameKeyword,
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("4"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\".txt\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -941,10 +1841,66 @@ ext = IIf(hasExtension, Right(name, 4), ".txt")
 Dim result As String
 result = Right(Right(fullPath, 20), 10)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("result"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Right"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("fullPath"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("20"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -953,10 +1909,73 @@ result = Right(Right(fullPath, 20), 10)
 Dim suffixes(10) As String
 suffixes(i) = Right(words(i), 3)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("suffixes"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("suffixes"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("words"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("3"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -965,10 +1984,54 @@ suffixes(i) = Right(words(i), 3)
 Set obj = New StringHelper
 obj.Suffix = Right(fullString, 15)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("StringHelper"),
+                Newline,
+            },
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    Identifier ("Suffix"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fullString"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("15"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -976,10 +2039,27 @@ obj.Suffix = Right(fullString, 15)
         let source = r"
 Call ProcessExtension(Right(filename, 4))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("ProcessExtension"),
+                LeftParenthesis,
+                Identifier ("Right"),
+                LeftParenthesis,
+                Identifier ("filename"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("4"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -988,10 +2068,58 @@ Call ProcessExtension(Right(filename, 4))
 Dim msg As String
 msg = "Extension: " & Right(file, 3)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("msg"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("msg"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"Extension: \""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("file"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("3"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1001,10 +2129,97 @@ If Right(url, 4) = ".com" Or Right(url, 4) = ".net" Then
     ValidDomain = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("url"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("4"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\".com\""),
+                        },
+                    },
+                    Whitespace,
+                    OrKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("url"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("4"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\".net\""),
+                        },
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ValidDomain"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1013,10 +2228,23 @@ End If
 Dim remaining As String
 remaining = Right(text, Len(text) - 5)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("remaining"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Newline,
+                DimStatement {
+                    DimKeyword,
+                    Whitespace,
+                    RemComment,
+                    Newline,
+                },
+                RemComment,
+                Newline,
+            ]
+        );
     }
 
     #[test]
@@ -1025,10 +2253,59 @@ remaining = Right(text, Len(text) - 5)
 Dim cleaned As String
 cleaned = Right(Trim(input), 10)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("cleaned"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cleaned"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Trim"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            InputKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1040,10 +2317,89 @@ If Err.Number <> 0 Then
     result = ""
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Right"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("userInput"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("count"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"\""),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1058,9 +2414,97 @@ ErrorHandler:
     MsgBox "Error extracting suffix"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Right"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ExtractSuffix"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        GotoKeyword,
+                        Whitespace,
+                        Identifier ("ErrorHandler"),
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("suffix"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("suffix"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Right"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        TextKeyword,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("n"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    ExitStatement {
+                        Whitespace,
+                        ExitKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                    LabelStatement {
+                        Identifier ("ErrorHandler"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error extracting suffix\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
