@@ -30,26 +30,25 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::parsers::{ConcreteSyntaxTree, SyntaxKind};
-
+    use crate::assert_tree;
+    use crate::*;
     #[test]
     fn parse_attribute_statement() {
         let source = "Attribute VB_Name = \"modTest\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1); // AttributeStatement
-        assert_eq!(cst.text(), "Attribute VB_Name = \"modTest\"\n");
-
-        // Use navigation methods
-        assert!(cst.contains_kind(SyntaxKind::AttributeStatement));
-        let attr_statements: Vec<_> = cst
-            .children_by_kind(SyntaxKind::AttributeStatement)
-            .collect();
-        assert_eq!(attr_statements.len(), 1);
-        assert_eq!(
-            attr_statements[0].text(),
-            "Attribute VB_Name = \"modTest\"\n"
-        );
+        assert_tree!(cst, [
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"modTest\""),
+                Newline,
+            },
+        ]);
     }
 }
