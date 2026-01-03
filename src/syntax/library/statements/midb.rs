@@ -54,9 +54,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // MidB statement tests
 
-    // MidB statement tests
     #[test]
     fn midb_simple() {
         let source = r#"
@@ -64,22 +64,72 @@ Sub Test()
     MidB(text, 5, 3) = "abc"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("MidBKeyword"));
-        assert!(debug.contains("text"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        TextKeyword,
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("5"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("3"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"abc\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn midb_at_module_level() {
         let source = r#"MidB(globalStr, 1, 5) = "START""#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            MidBStatement {
+                MidBKeyword,
+                LeftParenthesis,
+                Identifier ("globalStr"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("5"),
+                RightParenthesis,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"START\""),
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
     }
@@ -91,11 +141,43 @@ Sub Test()
     MidB(s, 10) = replacement
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("replacement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("s"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("replacement"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -105,23 +187,90 @@ Sub Test()
     MidB(arr(i), startPos + 1, LenB(newStr)) = newStr
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("startPos"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("arr"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("startPos"),
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("LenB"),
+                        LeftParenthesis,
+                        Identifier ("newStr"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("newStr"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn midb_preserves_whitespace() {
         let source = "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(
-            cst.text(),
-            "    MidB  (  myString  ,  3  ,  2  )  =  \"XX\"    \n"
-        );
-
+        assert_tree!(cst, [
+            Whitespace,
+            MidBStatement {
+                MidBKeyword,
+                Whitespace,
+                LeftParenthesis,
+                Whitespace,
+                Identifier ("myString"),
+                Whitespace,
+                Comma,
+                Whitespace,
+                IntegerLiteral ("3"),
+                Whitespace,
+                Comma,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Whitespace,
+                RightParenthesis,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"XX\""),
+                Whitespace,
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("MidBStatement"));
     }
@@ -133,11 +282,48 @@ Sub Test()
     MidB(buffer, pos, 10) = data ' Replace 10 bytes
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("buffer"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("pos"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("data"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -149,10 +335,64 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("needsUpdate"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            MidBStatement {
+                                Whitespace,
+                                MidBKeyword,
+                                LeftParenthesis,
+                                Identifier ("statusText"),
+                                Comma,
+                                Whitespace,
+                                IntegerLiteral ("1"),
+                                Comma,
+                                Whitespace,
+                                IntegerLiteral ("7"),
+                                RightParenthesis,
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                StringLiteral ("\"UPDATED\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -162,10 +402,56 @@ Sub Test()
     If valid Then MidB(s, 1, 1) = "A"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("valid"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        MidBStatement {
+                            MidBKeyword,
+                            LeftParenthesis,
+                            Identifier ("s"),
+                            Comma,
+                            Whitespace,
+                            IntegerLiteral ("1"),
+                            Comma,
+                            Whitespace,
+                            IntegerLiteral ("1"),
+                            RightParenthesis,
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteral ("\"A\""),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -177,11 +463,79 @@ Sub ReplaceBytes()
     MidB(line3, 2, 4) = "TEST"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("MidBStatement").count();
-        assert_eq!(count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ReplaceBytes"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("line1"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"HELLO\""),
+                        Newline,
+                    },
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("line2"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("3"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"ABC\""),
+                        Newline,
+                    },
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("line3"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("4"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"TEST\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -192,10 +546,57 @@ Sub Test()
     MidB(dbcsStr, 1, 2) = "XX"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("dbcsStr"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("dbcsStr"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"XX\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -205,11 +606,48 @@ Sub Test()
     MidB(obj.Data, 1, 10) = newData
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("Data"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        Identifier ("Data"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("newData"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -219,11 +657,49 @@ Sub Test()
     MidB(fullText, pos, 5) = prefix & suffix
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidBStatement"));
-        assert!(debug.contains("prefix"));
-        assert!(debug.contains("suffix"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    MidBStatement {
+                        Whitespace,
+                        MidBKeyword,
+                        LeftParenthesis,
+                        Identifier ("fullText"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("pos"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("prefix"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("suffix"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
