@@ -41,9 +41,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // Load statement tests
 
-    // Load statement tests
     #[test]
     fn load_simple() {
         let source = r"
@@ -51,22 +51,51 @@ Sub Test()
     Load Form1
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("LoadKeyword"));
-        assert!(debug.contains("Form1"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn load_at_module_level() {
         let source = "Load frmMain\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            LoadStatement {
+                LoadKeyword,
+                Whitespace,
+                Identifier ("frmMain"),
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("LoadStatement"));
     }
@@ -78,11 +107,35 @@ Sub Test()
     Load frmDialog
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("frmDialog"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("frmDialog"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -92,20 +145,56 @@ Sub Test()
     Load txtControl(5)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("txtControl"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("txtControl"),
+                        LeftParenthesis,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn load_preserves_whitespace() {
         let source = "    Load    Form1    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "    Load    Form1    \n");
-
+        assert_tree!(cst, [
+            Whitespace,
+            LoadStatement {
+                LoadKeyword,
+                Whitespace,
+                Identifier ("Form1"),
+                Whitespace,
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("LoadStatement"));
     }
@@ -117,11 +206,37 @@ Sub Test()
     Load frmAbout ' Show about dialog
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("frmAbout"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -133,10 +248,53 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("needsForm"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            LoadStatement {
+                                Whitespace,
+                                LoadKeyword,
+                                Whitespace,
+                                Identifier ("frmSettings"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -146,10 +304,45 @@ Sub Test()
     If showDialog Then Load frmInput
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("showDialog"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        LoadStatement {
+                            LoadKeyword,
+                            Whitespace,
+                            Identifier ("frmInput"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -161,11 +354,49 @@ Sub Test()
     Load Form3
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("LoadStatement").count();
-        assert_eq!(count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        Newline,
+                    },
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("Form2"),
+                        Newline,
+                    },
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("Form3"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -176,11 +407,42 @@ Sub Test()
     frmSplash.Show
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("frmSplash"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("frmSplash"),
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("frmSplash"),
+                        PeriodOperator,
+                        Identifier ("Show"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -194,10 +456,81 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("frmCustom"),
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("Err"),
+                                PeriodOperator,
+                                Identifier ("Number"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("MsgBox"),
+                                Whitespace,
+                                StringLiteral ("\"Error loading form\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -210,11 +543,77 @@ Sub Test()
     Next i
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
-        assert!(debug.contains("lblLabel"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            LoadStatement {
+                                Whitespace,
+                                LoadKeyword,
+                                Whitespace,
+                                Identifier ("lblLabel"),
+                                LeftParenthesis,
+                                Identifier ("i"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -226,9 +625,60 @@ Sub Test()
     frmData.Show
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LoadStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    LoadStatement {
+                        Whitespace,
+                        LoadKeyword,
+                        Whitespace,
+                        Identifier ("frmData"),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            MemberAccessExpression {
+                                Identifier ("frmData"),
+                                PeriodOperator,
+                                Identifier ("txtName"),
+                            },
+                            PeriodOperator,
+                            TextKeyword,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"John\""),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("frmData"),
+                        PeriodOperator,
+                        Identifier ("Show"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
