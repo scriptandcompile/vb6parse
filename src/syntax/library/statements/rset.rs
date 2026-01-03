@@ -1213,9 +1213,61 @@ Public Sub Align(text As String)
     RSet buffer = text
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
-
-        let debug = cst.debug_tree();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        // TODO: This one is definitely incorrect. It looks like it's getting borked up with 'text' and the 'Text' Keyword.
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("buffer"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Whitespace,
+                MultiplicationOperator,
+                Whitespace,
+                IntegerLiteral ("20"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Align"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                RightParenthesis,
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace ("    "),
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        TextKeyword ("text"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
