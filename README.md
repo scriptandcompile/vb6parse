@@ -366,7 +366,7 @@ fn extract_controls(form_path: &str) -> Vec<String> {
 ```rust
 use vb6parse::*;
 
-fn count_function_calls(code: &str, function_name: &str) -> usize {
+fn count_identifiers(code: &str, function_name: &str) -> usize {
     let source = SourceFile::from_string("temp.bas", code);
     let result = tokenize(&source);
     let (tokens, _) = result.unpack();
