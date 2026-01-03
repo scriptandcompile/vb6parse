@@ -628,18 +628,54 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn loc_basic() {
         let source = r"
             Dim pos As Long
             pos = Loc(1)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("pos"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("pos"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -647,10 +683,35 @@ mod tests {
         let source = r"
             currentPos = Loc(fileNum)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("currentPos"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -660,10 +721,55 @@ mod tests {
                 MsgBox "Data written"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Data written\""),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -671,10 +777,64 @@ mod tests {
         let source = r"
             percentComplete = (Loc(1) / LOF(1)) * 100
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("percentComplete"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    ParenthesizedExpression {
+                        LeftParenthesis,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Loc"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            DivisionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LOF"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("100"),
+                    },
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -684,10 +844,68 @@ mod tests {
                 Get #1, , data
             Loop
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("LOF"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+                StatementList {
+                    GetStatement {
+                        Whitespace,
+                        GetKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        Comma,
+                        Whitespace,
+                        Identifier ("data"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                LoopKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -697,10 +915,57 @@ mod tests {
                 GetPosition = Loc(fileNum)
             End Function
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetPosition"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetPosition"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Loc"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("fileNum"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -708,10 +973,29 @@ mod tests {
         let source = r#"
             Debug.Print "Position: " & Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Position: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Loc"),
+                LeftParenthesis,
+                Identifier ("fileNum"),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -723,10 +1007,81 @@ mod tests {
                 MsgBox "Error reading position"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("pos"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error reading position\""),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -736,10 +1091,64 @@ mod tests {
                 MsgBox "At end of file"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOrEqualOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("LOF"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"At end of file\""),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -747,10 +1156,45 @@ mod tests {
         let source = r#"
             lblPosition.Caption = "Record: " & Loc(1)
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("lblPosition"),
+                    PeriodOperator,
+                    Identifier ("Caption"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"Record: \""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -760,10 +1204,54 @@ mod tests {
                 .Position = Loc(fileNum)
             End With
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("fileInfo"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("Position"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Loc"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("fileNum"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -776,10 +1264,70 @@ mod tests {
                     MsgBox "Processing"
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("0"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"No data\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseElseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    ElseKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Processing\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -791,10 +1339,104 @@ mod tests {
                 status = "Progress"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("status"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"Start\""),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Loc"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("fileNum"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        LessThanOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("100"),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("status"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Progress\""),
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -802,10 +1444,39 @@ mod tests {
         let source = r"
             pos = (Loc(fileNum))
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("pos"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -813,10 +1484,66 @@ mod tests {
         let source = r#"
             msg = IIf(Loc(fileNum) > 0, "Data exists", "Empty")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("msg"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("Loc"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("fileNum"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                GreaterThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Data exists\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Empty\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -826,10 +1553,55 @@ mod tests {
                 m_position = Loc(m_fileNum)
             End Sub
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Method"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_position"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Loc"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_fileNum"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -837,10 +1609,26 @@ mod tests {
         let source = r"
             Call UpdateProgress(Loc(fileNum))
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("UpdateProgress"),
+                LeftParenthesis,
+                Identifier ("Loc"),
+                LeftParenthesis,
+                Identifier ("fileNum"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -848,10 +1636,37 @@ mod tests {
         let source = r"
             MyObject.Position = Loc(fileNum)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("MyObject"),
+                    PeriodOperator,
+                    Identifier ("Position"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -859,10 +1674,44 @@ mod tests {
         let source = r"
             positions(i) = Loc(fileNum)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("positions"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -872,10 +1721,57 @@ mod tests {
                 Get #fileNum, , record
             Wend
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("totalRecords"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    GetStatement {
+                        Whitespace,
+                        GetKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        Identifier ("fileNum"),
+                        Comma,
+                        Whitespace,
+                        Comma,
+                        Whitespace,
+                        Identifier ("record"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                WendKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -885,10 +1781,59 @@ mod tests {
                 Get #fileNum, , buffer
             Loop
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOrEqualOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetPosition"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    GetStatement {
+                        Whitespace,
+                        GetKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        Identifier ("fileNum"),
+                        Comma,
+                        Whitespace,
+                        Comma,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                LoopKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -898,10 +1843,57 @@ mod tests {
                 ProcessRecord i
             Next i
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Loc"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fileNum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessRecord"),
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -911,10 +1903,61 @@ mod tests {
                 UpdateProgress
             End If
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Loc"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("fileNum"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        ModKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1024"),
+                        },
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("UpdateProgress"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -922,10 +1965,66 @@ mod tests {
         let source = r"
             ProgressBar1.Value = (Loc(1) / LOF(1)) * 100
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("ProgressBar1"),
+                    PeriodOperator,
+                    Identifier ("Value"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    ParenthesizedExpression {
+                        LeftParenthesis,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Loc"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            DivisionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LOF"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("100"),
+                    },
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -933,10 +2032,27 @@ mod tests {
         let source = r#"
             MsgBox "Current position: " & Loc(fileNum)
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Current position: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Loc"),
+                LeftParenthesis,
+                Identifier ("fileNum"),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -944,10 +2060,53 @@ mod tests {
         let source = r#"
             lblStatus.Caption = Format(Loc(fileNum), "0,000")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("lblStatus"),
+                    PeriodOperator,
+                    Identifier ("Caption"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Format"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Loc"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("fileNum"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"0,000\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -955,9 +2114,51 @@ mod tests {
         let source = r"
             bytesRemaining = LOF(fileNum) - Loc(fileNum)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Loc"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("bytesRemaining"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("LOF"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Loc"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("fileNum"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 }
