@@ -201,8 +201,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn sendkeys_simple() {
         let source = r#"
@@ -210,21 +210,51 @@ Sub Test()
     SendKeys "Hello World"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("SendKeysKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Hello World\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sendkeys_at_module_level() {
         let source = "SendKeys \"Test\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            SendKeysStatement {
+                SendKeysKeyword,
+                Whitespace,
+                StringLiteral ("\"Test\""),
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("SendKeysStatement"));
     }
@@ -236,11 +266,38 @@ Sub Test()
     SendKeys "Text", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("True"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Text\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -250,11 +307,38 @@ Sub Test()
     SendKeys "Text", False
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("False"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Text\""),
+                        Comma,
+                        Whitespace,
+                        FalseKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -264,10 +348,35 @@ Sub Test()
     SendKeys "{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{ENTER}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -277,10 +386,35 @@ Sub Test()
     SendKeys "Username{TAB}Password{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Username{TAB}Password{ENTER}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -290,11 +424,35 @@ Sub Test()
     SendKeys keyString
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("keyString"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        Identifier ("keyString"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -304,11 +462,43 @@ Sub Test()
     SendKeys "Hello " & userName & "{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("userName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Hello \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("userName"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"{ENTER}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -318,10 +508,35 @@ Sub Test()
     SendKeys "%{F4}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"%{F4}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -331,10 +546,35 @@ Sub Test()
     SendKeys "^c"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"^c\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -345,11 +585,45 @@ Sub Test()
     SendKeys "Hello", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("AppActivateStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    AppActivateStatement {
+                        Whitespace,
+                        AppActivateKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Notepad\""),
+                        Newline,
+                    },
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Hello\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -359,10 +633,35 @@ If needKeys Then
     SendKeys "{F5}"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("needKeys"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{F5}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -372,10 +671,45 @@ For i = 1 To 10
     SendKeys "{DOWN}"
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{DOWN}\""),
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -385,20 +719,60 @@ Sub Test()
     SendKeys "{ENTER}", True ' Press Enter
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("' Press Enter"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{ENTER}\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sendkeys_preserves_whitespace() {
         let source = "SendKeys   \"Text\"  ,   True\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            SendKeysStatement {
+                SendKeysKeyword,
+                Whitespace,
+                StringLiteral ("\"Text\""),
+                Whitespace,
+                Comma,
+                Whitespace,
+                TrueKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -410,10 +784,49 @@ Sub Test()
     SendKeys "+{F10}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{F1}\""),
+                        Newline,
+                    },
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{F5}\""),
+                        Newline,
+                    },
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"+{F10}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -423,10 +836,35 @@ Sub Test()
     SendKeys "{RIGHT 5}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{RIGHT 5}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -439,19 +877,79 @@ Select Case action
         SendKeys "{F5}"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("action"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        SendKeysStatement {
+                            Whitespace,
+                            SendKeysKeyword,
+                            Whitespace,
+                            StringLiteral ("\"{F1}\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        SendKeysStatement {
+                            Whitespace,
+                            SendKeysKeyword,
+                            Whitespace,
+                            StringLiteral ("\"{F5}\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sendkeys_multiple_on_same_line() {
         let source = "SendKeys \"A\": SendKeys \"B\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            SendKeysStatement {
+                SendKeysKeyword,
+                Whitespace,
+                StringLiteral ("\"A\""),
+                ColonOperator,
+                Whitespace,
+                SendKeysKeyword,
+                Whitespace,
+                StringLiteral ("\"B\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -461,11 +959,38 @@ Sub Test()
     SendKeys "Text", waitFlag
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("waitFlag"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Text\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("waitFlag"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -475,11 +1000,32 @@ With automation
     SendKeys .keySequence
 End With
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
-        assert!(debug.contains("keySequence"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("automation"),
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("keySequence"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -489,10 +1035,38 @@ Sub SendEnter()
     SendKeys "{ENTER}", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("SendEnter"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{ENTER}\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -503,10 +1077,55 @@ Function AutomateInput() As Boolean
     AutomateInput = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("AutomateInput"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Data{ENTER}\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("AutomateInput"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -517,10 +1136,48 @@ Sub Test()
     SendKeys "s", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"%f\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"s\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -532,10 +1189,51 @@ Public Sub SendData()
     SendKeys keyData, True
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("keyData"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("SendData"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        Identifier ("keyData"),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -546,10 +1244,41 @@ Sub Test()
         "Long text here", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        Underscore,
+                        Newline,
+                        Whitespace,
+                        StringLiteral ("\"Long text here\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -559,10 +1288,38 @@ Sub Test()
     SendKeys "John Doe{TAB}123 Main St{TAB}555-1234{ENTER}", True
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"John Doe{TAB}123 Main St{TAB}555-1234{ENTER}\""),
+                        Comma,
+                        Whitespace,
+                        TrueKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -572,10 +1329,35 @@ Sub Test()
     SendKeys "{DOWN}{DOWN}{ENTER}"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"{DOWN}{DOWN}{ENTER}\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -587,10 +1369,64 @@ If Err.Number <> 0 Then
     MsgBox "SendKeys failed"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SendKeysStatement {
+                SendKeysKeyword,
+                Whitespace,
+                Identifier ("keys"),
+                Comma,
+                Whitespace,
+                TrueKeyword,
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"SendKeys failed\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -600,9 +1436,34 @@ Sub Test()
     SendKeys ""
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SendKeysStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SendKeysStatement {
+                        Whitespace,
+                        SendKeysKeyword,
+                        Whitespace,
+                        StringLiteral ("\"\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
