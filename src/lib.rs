@@ -180,6 +180,9 @@
 //! assert_eq!(project.attributes.name, "frmExampleForm");
 //! ```
 
+// Had to add a larger recursion limit because of particularly large assert_tree requests.
+#![cfg_attr(test, recursion_limit = "256")]
+
 // =============================================================================
 // Layer modules (for advanced users who need full access)
 // =============================================================================
