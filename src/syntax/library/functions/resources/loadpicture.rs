@@ -656,17 +656,36 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn loadpicture_basic() {
         let source = r"
             Set Picture1.Picture = LoadPicture(filename)
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                Identifier ("filename"),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -674,10 +693,37 @@ mod tests {
         let source = r#"
             Picture1.Picture = LoadPicture("C:\Images\logo.bmp")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LoadPicture"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"C:\\Images\\logo.bmp\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -687,10 +733,55 @@ mod tests {
                 Picture1.Picture = LoadPicture(imagePath)
             End If
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("fileExists"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("Picture1"),
+                            PeriodOperator,
+                            Identifier ("Picture"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("LoadPicture"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("imagePath"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -698,10 +789,47 @@ mod tests {
         let source = r#"
             Picture1.Picture = LoadPicture(App.Path & "\logo.bmp")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LoadPicture"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                MemberAccessExpression {
+                                    Identifier ("App"),
+                                    PeriodOperator,
+                                    Identifier ("Path"),
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                StringLiteralExpression {
+                                    StringLiteral ("\"\\logo.bmp\""),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -709,10 +837,37 @@ mod tests {
         let source = r#"
             Picture1.Picture = LoadPicture("")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LoadPicture"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -720,10 +875,27 @@ mod tests {
         let source = r#"
             Set myPic = LoadPicture("image.bmp")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("myPic"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                StringLiteral ("\"image.bmp\""),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -733,10 +905,67 @@ mod tests {
                 Me.Picture = LoadPicture(App.Path & "\bg.bmp")
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Form_Load"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            MeKeyword,
+                            PeriodOperator,
+                            Identifier ("Picture"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("LoadPicture"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        MemberAccessExpression {
+                                            Identifier ("App"),
+                                            PeriodOperator,
+                                            Identifier ("Path"),
+                                        },
+                                        Whitespace,
+                                        Ampersand,
+                                        Whitespace,
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"\\bg.bmp\""),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -744,10 +973,33 @@ mod tests {
         let source = r"
             Set images(i) = LoadPicture(files(i))
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("images"),
+                LeftParenthesis,
+                Identifier ("i"),
+                RightParenthesis,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                Identifier ("files"),
+                LeftParenthesis,
+                Identifier ("i"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -757,10 +1009,66 @@ mod tests {
                 Set frames(i) = LoadPicture("frame" & i & ".bmp")
             Next i
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("frames"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        StringLiteral ("\"frame\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\".bmp\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -770,10 +1078,49 @@ mod tests {
                 Set GetPicture = LoadPicture("default.bmp")
             End Function
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetPicture"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("StdPicture"),
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("GetPicture"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        StringLiteral ("\"default.bmp\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -785,10 +1132,83 @@ mod tests {
                 MsgBox "Error loading picture"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LoadPicture"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("filename"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error loading picture\""),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -798,10 +1218,54 @@ mod tests {
                 .Picture = LoadPicture("logo.bmp")
             End With
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("Picture"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"logo.bmp\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -814,10 +1278,95 @@ mod tests {
                     Picture1.Picture = LoadPicture("icon.ico")
             End Select
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("imageType"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"logo\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            MemberAccessExpression {
+                                Identifier ("Picture1"),
+                                PeriodOperator,
+                                Identifier ("Picture"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"logo.bmp\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"icon\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            MemberAccessExpression {
+                                Identifier ("Picture1"),
+                                PeriodOperator,
+                                Identifier ("Picture"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"icon.ico\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -829,10 +1378,108 @@ mod tests {
                 imgStatus.Picture = LoadPicture("error.ico")
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("status"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"ok\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("imgStatus"),
+                            PeriodOperator,
+                            Identifier ("Picture"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("LoadPicture"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"ok.ico\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        IdentifierExpression {
+                            Identifier ("status"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"error\""),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            MemberAccessExpression {
+                                Identifier ("imgStatus"),
+                                PeriodOperator,
+                                Identifier ("Picture"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"error.ico\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -840,10 +1487,29 @@ mod tests {
         let source = r"
             Set pic = (LoadPicture(filename))
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("pic"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                LeftParenthesis,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                Identifier ("filename"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -851,10 +1517,69 @@ mod tests {
         let source = r#"
             Picture1.Picture = IIf(enabled, LoadPicture("on.bmp"), LoadPicture("off.bmp"))
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("enabled"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"on.bmp\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("LoadPicture"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"off.bmp\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -864,10 +1589,47 @@ mod tests {
                 Set m_defaultPic = LoadPicture("default.bmp")
             End Sub
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("m_defaultPic"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        StringLiteral ("\"default.bmp\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -875,10 +1637,26 @@ mod tests {
         let source = r#"
             Call SetPicture(LoadPicture("image.bmp"))
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("SetPicture"),
+                LeftParenthesis,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                StringLiteral ("\"image.bmp\""),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -886,10 +1664,29 @@ mod tests {
         let source = r#"
             Set MyForm.Picture = LoadPicture("background.bmp")
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("MyForm"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                StringLiteral ("\"background.bmp\""),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -900,10 +1697,60 @@ mod tests {
                 MsgBox "Failed to load"
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("pic"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                Identifier ("filename"),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("pic"),
+                    },
+                    Whitespace,
+                    IsKeyword,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("Nothing"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Failed to load\""),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -914,10 +1761,76 @@ mod tests {
                 index = index + 1
             Wend
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("index"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("maxImages"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("images"),
+                        LeftParenthesis,
+                        Identifier ("index"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        Identifier ("files"),
+                        LeftParenthesis,
+                        Identifier ("index"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("index"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("index"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                WendKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -928,10 +1841,52 @@ mod tests {
                 ProcessPicture currentPic
             Loop
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("hasMore"),
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("currentPic"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        Identifier ("GetNextFile"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessPicture"),
+                        Whitespace,
+                        Identifier ("currentPic"),
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                LoopKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -943,10 +1898,81 @@ mod tests {
                 loaded = (Err.Number = 0)
             Loop
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("loaded"),
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("pic"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("LoadPicture"),
+                        LeftParenthesis,
+                        Identifier ("filename"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("loaded"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                MemberAccessExpression {
+                                    Identifier ("Err"),
+                                    PeriodOperator,
+                                    Identifier ("Number"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                LoopKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -956,10 +1982,72 @@ mod tests {
                 Picture1.Picture = LoadPicture(picPath)
             End If
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Dir"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("picPath"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("Picture1"),
+                            PeriodOperator,
+                            Identifier ("Picture"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("LoadPicture"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("picPath"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -967,10 +2055,28 @@ mod tests {
         let source = r"
             Set Picture1.Picture = LoadPicture()
         ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -978,10 +2084,33 @@ mod tests {
         let source = r#"
             Set pic = LoadPicture("icon.ico", vbLPSmall, vbLPColor)
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("pic"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("LoadPicture"),
+                LeftParenthesis,
+                StringLiteral ("\"icon.ico\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbLPSmall"),
+                Comma,
+                Whitespace,
+                Identifier ("vbLPColor"),
+                RightParenthesis,
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 
     #[test]
@@ -990,9 +2119,47 @@ mod tests {
             MsgBox "Loading: " & filename
             Picture1.Picture = LoadPicture(filename)
         "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("LoadPicture"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Whitespace,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Loading: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("filename"),
+                Newline,
+            },
+            Whitespace,
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("Picture1"),
+                    PeriodOperator,
+                    Identifier ("Picture"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LoadPicture"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("filename"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Whitespace,
+        ]);
     }
 }
