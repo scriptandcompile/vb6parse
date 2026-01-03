@@ -534,17 +534,34 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn command_basic() {
         let source = r"
 args = Command()
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("args"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -553,10 +570,37 @@ args = Command()
 Dim cmdLine As String
 cmdLine = Command()
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("cmdLine"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cmdLine"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -566,10 +610,44 @@ If Command() <> "" Then
     ProcessArgs
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Command"),
+                        LeftParenthesis,
+                        ArgumentList,
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessArgs"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -577,10 +655,36 @@ End If
         let source = r"
 args = Trim(Command())
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("args"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Trim"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -590,10 +694,68 @@ If InStr(Command(), "/debug") > 0 Then
     DebugMode = True
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("InStr"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Command"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"/debug\""),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("DebugMode"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -604,10 +766,55 @@ Sub Main()
     args = Command()
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("args"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("args"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Command"),
+                            LeftParenthesis,
+                            ArgumentList,
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -615,10 +822,24 @@ End Sub
         let source = r#"
 MsgBox "Args: " & Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Args: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Command"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -626,10 +847,36 @@ MsgBox "Args: " & Command()
         let source = r"
 cmdLine = LCase(Command())
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cmdLine"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LCase"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -639,10 +886,48 @@ Function GetArgs() As String
     GetArgs = Command()
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetArgs"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetArgs"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Command"),
+                            LeftParenthesis,
+                            ArgumentList,
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -655,10 +940,57 @@ Select Case Command()
         EnableDebug
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"/help\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("ShowHelp"),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"/debug\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("EnableDebug"),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -668,10 +1000,46 @@ If Command() = "" Then
     MsgBox "No arguments"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Command"),
+                        LeftParenthesis,
+                        ArgumentList,
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"No arguments\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -679,10 +1047,43 @@ End If
         let source = r#"
 args = Split(Command(), " ")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("args"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Split"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\" \""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -692,10 +1093,42 @@ Do While Command() <> ""
     Process
 Loop
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Command"),
+                        LeftParenthesis,
+                        ArgumentList,
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"\""),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Process"),
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -705,10 +1138,60 @@ If Left(Command(), 1) = "/" Then
     ProcessSwitch
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Left"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Command"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"/\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessSwitch"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -716,10 +1199,50 @@ End If
         let source = r#"
 args = Replace(Command(), "/", "-")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("args"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Replace"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"/\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"-\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -729,10 +1252,53 @@ If Len(Command()) > 0 Then
     ParseArgs
 End If
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        LenKeyword,
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Command"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ParseArgs"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -740,10 +1306,45 @@ End If
         let source = r#"
 fullCmd = App.EXEName & " " & Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("fullCmd"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        MemberAccessExpression {
+                            Identifier ("App"),
+                            PeriodOperator,
+                            Identifier ("EXEName"),
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\" \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("Command"),
+                        LeftParenthesis,
+                        ArgumentList,
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -752,10 +1353,42 @@ fullCmd = App.EXEName & " " & Command()
 cmd1 = Command()
 cmd2 = Command()
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cmd1"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cmd2"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -765,10 +1398,89 @@ For i = 1 To Len(Command())
     ch = Mid(Command(), i, 1)
 Next i
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                CallExpression {
+                    LenKeyword,
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ch"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            MidKeyword,
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Command"),
+                                        LeftParenthesis,
+                                        ArgumentList,
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -776,10 +1488,36 @@ Next i
         let source = r"
 cmdUpper = UCase(Command())
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("cmdUpper"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("UCase"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -787,10 +1525,39 @@ cmdUpper = UCase(Command())
         let source = r#"
 result = (Command() = "/auto")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("Command"),
+                            LeftParenthesis,
+                            ArgumentList,
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"/auto\""),
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -800,10 +1567,60 @@ If Right(Command(), 4) = ".txt" Then
     ProcessTextFile
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Right"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Command"),
+                                    LeftParenthesis,
+                                    ArgumentList,
+                                    RightParenthesis,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("4"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\".txt\""),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessTextFile"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -811,10 +1628,50 @@ End If
         let source = r"
 part = Mid(Command(), 2, 5)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("part"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    MidKeyword,
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("Command"),
+                                LeftParenthesis,
+                                ArgumentList,
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -822,10 +1679,29 @@ part = Mid(Command(), 2, 5)
         let source = r"
 args = Command( )
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("args"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Command"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Whitespace,
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -833,9 +1709,22 @@ args = Command( )
         let source = r#"
 Print "Command line: "; Command()
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Command"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Command line: \""),
+                Semicolon,
+                Whitespace,
+                Identifier ("Command"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 }
