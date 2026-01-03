@@ -722,34 +722,149 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn getautoserversettings_basic() {
         let source = r#"settings = GetAutoServerSettings("MyServer.Application", "{12345678-1234-1234-1234-123456789012}", "SERVER01")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"MyServer.Application\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"{12345678-1234-1234-1234-123456789012}\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"SERVER01\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_with_variables() {
         let source = r"result = GetAutoServerSettings(progID, clsID, serverName)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("serverName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_in_if() {
         let source =
             r#"If GetAutoServerSettings(progID, clsID, "SERVER01") <> 0 Then MsgBox "Available""#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("GetAutoServerSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("progID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("clsID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"SERVER01\""),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Available\""),
+            },
+        ]);
     }
 
     #[test]
@@ -757,20 +872,133 @@ mod tests {
         let source = r"Function ValidateServer() As Boolean
     ValidateServer = (GetAutoServerSettings(m_ProgID, m_CLSID, m_Server) <> 0)
 End Function";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("ValidateServer"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ValidateServer"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("GetAutoServerSettings"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("m_ProgID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("m_CLSID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("m_Server"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                InequalityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_assignment() {
         let source = r#"Dim settings As Long
 settings = GetAutoServerSettings("App.Server", "{AAAABBBB-CCCC-DDDD-EEEE-FFFF00001111}", "REMOTE-PC")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("settings"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"App.Server\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"{AAAABBBB-CCCC-DDDD-EEEE-FFFF00001111}\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"REMOTE-PC\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -778,10 +1006,89 @@ settings = GetAutoServerSettings("App.Server", "{AAAABBBB-CCCC-DDDD-EEEE-FFFF000
         let source = r#"If GetAutoServerSettings(progID, clsID, server1) = GetAutoServerSettings(progID, clsID, server2) Then
     Debug.Print "Same settings"
 End If"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("GetAutoServerSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("progID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("clsID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("server1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("GetAutoServerSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("progID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("clsID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("server2"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Same settings\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -789,10 +1096,81 @@ End If"#;
         let source = r"For i = 1 To serverCount
     settings = GetAutoServerSettings(progID, clsID, servers(i))
 Next i";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("serverCount"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("settings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAutoServerSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("progID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("clsID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("servers"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("i"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+            },
+        ]);
     }
 
     #[test]
@@ -801,57 +1179,309 @@ Next i";
     Case Is > 0
         Debug.Print "Configured"
 End Select"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("serverName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IsKeyword,
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    IntegerLiteral ("0"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            StringLiteral ("\"Configured\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_error_handling() {
         let source = r"On Error GoTo ErrorHandler
 settings = GetAutoServerSettings(progID, clsID, serverName)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                Identifier ("ErrorHandler"),
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("serverName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_debug_print() {
         let source =
             r#"Debug.Print "Settings: " & GetAutoServerSettings(progID, clsID, serverName)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Identifier ("Debug"),
+            Unknown,
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Settings: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("GetAutoServerSettings"),
+                LeftParenthesis,
+                Identifier ("progID"),
+                Comma,
+                Whitespace,
+                Identifier ("clsID"),
+                Comma,
+                Whitespace,
+                Identifier ("serverName"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_array_element() {
         let source = r"settings(i) = GetAutoServerSettings(progID, clsID, servers(i))";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("settings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("servers"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_class_member() {
         let source = r"m_Settings = GetAutoServerSettings(m_ProgID, m_CLSID, m_ServerName)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("m_Settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_ProgID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_CLSID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_ServerName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_type_field() {
         let source = r"serverInfo.Settings = GetAutoServerSettings(progID, clsID, serverInfo.Name)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("serverInfo"),
+                    PeriodOperator,
+                    Identifier ("Settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            MemberAccessExpression {
+                                Identifier ("serverInfo"),
+                                PeriodOperator,
+                                NameKeyword,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -860,65 +1490,370 @@ settings = GetAutoServerSettings(progID, clsID, serverName)";
     settings = GetAutoServerSettings(progID, clsID, serverName)
     If settings <> 0 Then Exit Do
 Loop";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("retry"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("maxRetries"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("settings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAutoServerSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("progID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("clsID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("serverName"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("settings"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ExitStatement {
+                            ExitKeyword,
+                            Whitespace,
+                            DoKeyword,
+                            Newline,
+                        },
+                        LoopKeyword,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_local_server() {
         let source = r#"localSettings = GetAutoServerSettings(progID, clsID, ".")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("localSettings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\".\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_concatenation() {
         let source =
             r#"result = "Settings: " & CStr(GetAutoServerSettings(progID, clsID, serverName))"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"Settings: \""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("CStr"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("GetAutoServerSettings"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("progID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("clsID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("serverName"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_msgbox() {
         let source = r#"MsgBox "Settings: " & GetAutoServerSettings(progID, clsID, serverName)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("MsgBox"),
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Identifier("GetAutoServerSettings"),
+                Unknown,
+                Identifier("progID"),
+                Unknown,
+                Whitespace,
+                Identifier("clsID"),
+                Unknown,
+                Whitespace,
+                Identifier("serverName"),
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getautoserversettings_collection() {
         let source = r"results.Add GetAutoServerSettings(progID, clsID, serverName)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("results"),
+                Unknown,
+                Identifier("Add"),
+                Whitespace,
+                Identifier("GetAutoServerSettings"),
+                Unknown,
+                Identifier("progID"),
+                Unknown,
+                Whitespace,
+                Identifier("clsID"),
+                Unknown,
+                Whitespace,
+                Identifier("serverName"),
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getautoserversettings_file_output() {
         let source = r#"Print #fileNum, "Server: " & serverName & " Settings: " & GetAutoServerSettings(progID, clsID, serverName)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                Octothorpe,
+                Identifier ("fileNum"),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Server: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("serverName"),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                StringLiteral ("\" Settings: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("GetAutoServerSettings"),
+                LeftParenthesis,
+                Identifier ("progID"),
+                Comma,
+                Whitespace,
+                Identifier ("clsID"),
+                Comma,
+                Whitespace,
+                Identifier ("serverName"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_iif() {
         let source = r#"status = IIf(GetAutoServerSettings(progID, clsID, serverName) <> 0, "Online", "Offline")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("status"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("GetAutoServerSettings"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("progID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("clsID"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("serverName"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                InequalityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Online\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Offline\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -926,10 +1861,60 @@ Loop";
         let source = r"With serverConfig
     .Settings = GetAutoServerSettings(.ProgID, .CLSID, .ServerName)
 End With";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("serverConfig"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("Settings"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("GetAutoServerSettings"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            PeriodOperator,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    CallStatement {
+                        Identifier ("ProgID"),
+                        Comma,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("CLSID"),
+                        Comma,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("ServerName"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -937,10 +1922,65 @@ End With";
         let source = r"On Error Resume Next
 settings = GetAutoServerSettings(progID, clsID, serverName)
 On Error GoTo 0";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAutoServerSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("progID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("clsID"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("serverName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+            },
+        ]);
     }
 
     #[test]
@@ -948,10 +1988,93 @@ On Error GoTo 0";
         let source = r"If GetAutoServerSettings(progID, clsID, serverName) < minSettings Then
     minSettings = GetAutoServerSettings(progID, clsID, serverName)
 End If";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("GetAutoServerSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("progID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("clsID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("serverName"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("minSettings"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("minSettings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAutoServerSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("progID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("clsID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("serverName"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -959,10 +2082,73 @@ End If";
         let source = r"For Each server In servers
     settings = GetAutoServerSettings(progID, clsID, CStr(server))
 Next server";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForEachStatement {
+                ForKeyword,
+                Whitespace,
+                EachKeyword,
+                Whitespace,
+                Identifier ("server"),
+                Whitespace,
+                InKeyword,
+                Whitespace,
+                Identifier ("servers"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("settings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAutoServerSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("progID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("clsID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("CStr"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("server"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("server"),
+            },
+        ]);
     }
 
     #[test]
@@ -970,27 +2156,158 @@ Next server";
         let source = r"Property Get ServerSettings() As Long
     ServerSettings = GetAutoServerSettings(m_ProgID, m_CLSID, m_ServerName)
 End Property";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("ServerSettings"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ServerSettings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAutoServerSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_ProgID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_CLSID"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_ServerName"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_exit_condition() {
         let source = r"If GetAutoServerSettings(progID, clsID, serverName) = 0 Then Exit Function";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("GetAutoServerSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("progID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("clsID"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("serverName"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                ExitStatement {
+                    ExitKeyword,
+                    Whitespace,
+                    FunctionKeyword,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getautoserversettings_listbox() {
         let source = r#"lstServers.AddItem serverName & " - " & GetAutoServerSettings(progID, clsID, serverName)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAutoServerSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("lstServers"),
+                Unknown,
+                Identifier("AddItem"),
+                Whitespace,
+                Identifier("serverName"),
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Identifier("GetAutoServerSettings"),
+                Unknown,
+                Identifier("progID"),
+                Unknown,
+                Whitespace,
+                Identifier("clsID"),
+                Unknown,
+                Whitespace,
+                Identifier("serverName"),
+                Unknown,
+            ]
+        );
     }
 }
