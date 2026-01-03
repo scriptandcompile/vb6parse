@@ -396,8 +396,8 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn space_dollar_simple() {
         let source = r"
@@ -405,9 +405,50 @@ Sub Main()
     result = Space$(10)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("10"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -418,9 +459,61 @@ Sub Main()
     padding = Space$(5)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("padding"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("padding"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -433,9 +526,85 @@ Sub Main()
     spaces = Space$(count)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("count"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("spaces"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("count"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("20"),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("spaces"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("count"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -449,9 +618,146 @@ Function PadRight(text As String, width As Integer) As String
     End If
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("PadRight"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Comma,
+                Whitespace,
+                WidthKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                LenKeyword,
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            TextKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOrEqualOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                WidthKeyword,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("PadRight"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    TextKeyword,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("PadRight"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            TextKeyword,
+                                        },
+                                        Whitespace,
+                                        Ampersand,
+                                        Whitespace,
+                                        CallExpression {
+                                            Identifier ("Space$"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    BinaryExpression {
+                                                        IdentifierExpression {
+                                                            WidthKeyword,
+                                                        },
+                                                        Whitespace,
+                                                        SubtractionOperator,
+                                                        Whitespace,
+                                                        CallExpression {
+                                                            LenKeyword,
+                                                            LeftParenthesis,
+                                                            ArgumentList {
+                                                                Argument {
+                                                                    IdentifierExpression {
+                                                                        TextKeyword,
+                                                                    },
+                                                                },
+                                                            },
+                                                            RightParenthesis,
+                                                        },
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -463,9 +769,114 @@ Function FormatField(value As String, fieldWidth As Integer) As String
     FormatField = Left$(temp, fieldWidth)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("FormatField"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("value"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("fieldWidth"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("temp"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("temp"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Space$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("fieldWidth"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("FormatField"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Left$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("temp"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("fieldWidth"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -475,9 +886,82 @@ Function IndentText(text As String, level As Integer) As String
     IndentText = Space$(level * 4) & text
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("IndentText"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Comma,
+                Whitespace,
+                Identifier ("level"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("IndentText"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Space$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("level"),
+                                            },
+                                            Whitespace,
+                                            MultiplicationOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("4"),
+                                            },
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            IdentifierExpression {
+                                TextKeyword,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -489,9 +973,81 @@ Sub Main()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                LenKeyword,
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        CallExpression {
+                                            Identifier ("Space$"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        Identifier ("count"),
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                StringLiteral ("\"Has spaces\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -507,9 +1063,198 @@ Function CenterText(text As String, width As Integer) As String
     End If
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CenterText"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Comma,
+                Whitespace,
+                WidthKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("padding"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                LenKeyword,
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            TextKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOrEqualOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                WidthKeyword,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("CenterText"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Left$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                TextKeyword,
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                WidthKeyword,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("padding"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        ParenthesizedExpression {
+                                            LeftParenthesis,
+                                            BinaryExpression {
+                                                IdentifierExpression {
+                                                    WidthKeyword,
+                                                },
+                                                Whitespace,
+                                                SubtractionOperator,
+                                                Whitespace,
+                                                CallExpression {
+                                                    LenKeyword,
+                                                    LeftParenthesis,
+                                                    ArgumentList {
+                                                        Argument {
+                                                            IdentifierExpression {
+                                                                TextKeyword,
+                                                            },
+                                                        },
+                                                    },
+                                                    RightParenthesis,
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                        Whitespace,
+                                        BackwardSlashOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("2"),
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("CenterText"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        CallExpression {
+                                            Identifier ("Space$"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        Identifier ("padding"),
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                        Whitespace,
+                                        Ampersand,
+                                        Whitespace,
+                                        IdentifierExpression {
+                                            TextKeyword,
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -519,9 +1264,59 @@ Function CreateBuffer(size As Integer) As String
     CreateBuffer = Space$(size)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CreateBuffer"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("size"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CreateBuffer"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("size"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -531,9 +1326,59 @@ Sub PrintReport()
     Debug.Print "Name" & Space$(15) & "Age" & Space$(10) & "City"
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("PrintReport"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Name\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Space$"),
+                        LeftParenthesis,
+                        IntegerLiteral ("15"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"Age\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Space$"),
+                        LeftParenthesis,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"City\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -548,9 +1393,98 @@ Sub Main()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        CallExpression {
+                            LenKeyword,
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Space$"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    WidthKeyword,
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("0"),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Empty\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseElseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Has spaces\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -561,9 +1495,77 @@ Sub Main()
     output = "Value:" & Space$(5) & valueStr
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        OutputKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            OutputKeyword,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"Value:\""),
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Space$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("5"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("valueStr"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -575,9 +1577,154 @@ Sub PrintTableRow(col1 As String, col2 As String, col3 As String)
     Debug.Print row
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("PrintTableRow"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("col1"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("col2"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("col3"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("row"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("row"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Left$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("col1"),
+                                            },
+                                            Whitespace,
+                                            Ampersand,
+                                            Whitespace,
+                                            CallExpression {
+                                                Identifier ("Space$"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        NumericLiteralExpression {
+                                                            IntegerLiteral ("20"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("20"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Left$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("col2"),
+                                            },
+                                            Whitespace,
+                                            Ampersand,
+                                            Whitespace,
+                                            CallExpression {
+                                                Identifier ("Space$"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        NumericLiteralExpression {
+                                                            IntegerLiteral ("15"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("15"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("row"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -588,9 +1735,61 @@ Sub Main()
     empty = Space$(0)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        EmptyKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        LiteralExpression {
+                            EmptyKeyword,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -601,9 +1800,78 @@ Sub Main()
     result = Space$(maxWidth - Len(text))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("maxWidth"),
+                                        },
+                                        Whitespace,
+                                        SubtractionOperator,
+                                        Whitespace,
+                                        CallExpression {
+                                            LenKeyword,
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        TextKeyword,
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -615,9 +1883,124 @@ Function FormatAmount(amount As Currency) As String
     FormatAmount = Space$(15 - Len(amountStr)) & amountStr
 End Function
 "##;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("FormatAmount"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("amount"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    CurrencyKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("amountStr"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("amountStr"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Format$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("amount"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"#,##0.00\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("FormatAmount"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Space$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("15"),
+                                            },
+                                            Whitespace,
+                                            SubtractionOperator,
+                                            Whitespace,
+                                            CallExpression {
+                                                LenKeyword,
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("amountStr"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("amountStr"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -627,9 +2010,64 @@ Sub PrintTree(text As String, level As Integer)
     Debug.Print Space$(level * 2) & "- " & text
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("PrintTree"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Comma,
+                Whitespace,
+                Identifier ("level"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                RightParenthesis,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("Space$"),
+                        LeftParenthesis,
+                        Identifier ("level"),
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"- \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        TextKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -642,9 +2080,90 @@ Sub CreatePaddedList()
     Next i
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("CreatePaddedList"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                StringLiteral ("\"Item\""),
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                Identifier ("Space$"),
+                                LeftParenthesis,
+                                IntegerLiteral ("5"),
+                                RightParenthesis,
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                Identifier ("CStr"),
+                                LeftParenthesis,
+                                Identifier ("i"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -654,9 +2173,59 @@ Function GetSpaces(count As Integer) As String
     GetSpaces = Space$(count)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetSpaces"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("count"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetSpaces"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Space$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("count"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -668,8 +2237,113 @@ Function FixedWidth(text As String, width As Integer) As String
     FixedWidth = Left$(temp, width)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Space$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("FixedWidth"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Comma,
+                Whitespace,
+                WidthKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("temp"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("temp"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                TextKeyword,
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Space$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            WidthKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("FixedWidth"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Left$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("temp"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        WidthKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 }
