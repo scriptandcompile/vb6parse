@@ -678,43 +678,270 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn fv_basic() {
         let source = r"result = Fv(0.06 / 12, 120, -100)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                NumericLiteralExpression {
+                                    SingleLiteral,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("120"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("100"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_with_pv() {
         let source = r"futureValue = Fv(rate / 12, years * 12, monthlyDeposit, initialDeposit)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("futureValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("years"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("monthlyDeposit"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("initialDeposit"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_all_parameters() {
         let source =
             r"futureValue = Fv(annualRate / 12, years * 12, monthlyDeposit, initialDeposit, 1)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("futureValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("annualRate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("years"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("monthlyDeposit"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("initialDeposit"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_no_payment() {
         let source = r"futureValue = Fv(0.08 / 12, 5 * 12, 0, lumpSum)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("futureValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                NumericLiteralExpression {
+                                    SingleLiteral,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("5"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("lumpSum"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -722,49 +949,295 @@ mod tests {
         let source = r"Function CalculateSavings() As Double
     CalculateSavings = Fv(monthlyRate, periods, -monthlyAmount)
 End Function";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CalculateSavings"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CalculateSavings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fv"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("monthlyRate"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("periods"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("monthlyAmount"),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn fv_retirement() {
         let source =
             r"retirementValue = Fv(monthlyRate, periods, -monthlyContribution, -currentBalance)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("retirementValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("monthlyRate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periods"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("monthlyContribution"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("currentBalance"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_debug_print() {
         let source = r#"Debug.Print "Future value: " & Fv(0.05 / 12, 10 * 12, -200)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Identifier ("Debug"),
+            Unknown,
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Future value: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Fv"),
+                LeftParenthesis,
+                SingleLiteral,
+                Whitespace,
+                DivisionOperator,
+                Whitespace,
+                IntegerLiteral ("12"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("10"),
+                Whitespace,
+                MultiplicationOperator,
+                Whitespace,
+                IntegerLiteral ("12"),
+                Comma,
+                Whitespace,
+                SubtractionOperator,
+                IntegerLiteral ("200"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn fv_comparison() {
         let source =
             r#"If Fv(0.06 / 12, years * 12, -100) > targetAmount Then MsgBox "Goal reached""#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Fv"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    NumericLiteralExpression {
+                                        SingleLiteral,
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("years"),
+                                    },
+                                    Whitespace,
+                                    MultiplicationOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("100"),
+                                    },
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetAmount"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Goal reached\""),
+            },
+        ]);
     }
 
     #[test]
     fn fv_assignment() {
         let source = r"Dim fv As Double
 fv = Fv(rate, periods, payment)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("fv"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("fv"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periods"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("payment"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -772,47 +1245,387 @@ fv = Fv(rate, periods, payment)";
         let source = r"For i = 1 To maxYears
     projections(i).FutureValue = Fv(monthlyRate, i * 12, -monthlyDeposit, -startingBalance)
 Next i";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("maxYears"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            CallExpression {
+                                Identifier ("projections"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            PeriodOperator,
+                            Identifier ("FutureValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fv"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("monthlyRate"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                        Whitespace,
+                                        MultiplicationOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("12"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("monthlyDeposit"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("startingBalance"),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+            },
+        ]);
     }
 
     #[test]
     fn fv_negative_result() {
         let source = r"balance = Fv(rate / 12, years * 12, payment, -principal)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("balance"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("years"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("payment"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("principal"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_formatcurrency() {
         let source = r#"lblResult.Caption = "Future Value: " & FormatCurrency(Fv(rate, periods, payment), 2)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("lblResult"),
+                    PeriodOperator,
+                    Identifier ("Caption"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"Future Value: \""),
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("FormatCurrency"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("Fv"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("rate"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("periods"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("payment"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("2"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_array_assignment() {
         let source = r"results(i) = Fv(simulatedRate / 12, years * 12, -deposit)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("results"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("simulatedRate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("years"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("deposit"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_error_handling() {
         let source = r"On Error GoTo ErrorHandler
 fv = Fv(rate, nper, pmt, pv, pType)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                Identifier ("ErrorHandler"),
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("fv"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("nper"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("pmt"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("pv"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("pType"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -820,10 +1633,89 @@ fv = Fv(rate, nper, pmt, pv, pType)";
         let source = r"Do While Fv(monthlyRate, periods, -testPayment, -startingBalance) < targetAmount
     testPayment = testPayment + 10
 Loop";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Fv"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("monthlyRate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("periods"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("testPayment"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("startingBalance"),
+                                    },
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetAmount"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("testPayment"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("testPayment"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -832,100 +1724,724 @@ Loop";
     Case 1
         result = Fv(0.06 / 12, years * 12, -100)
 End Select";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("investment"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("result"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Fv"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                SingleLiteral,
+                                            },
+                                            Whitespace,
+                                            DivisionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("years"),
+                                            },
+                                            Whitespace,
+                                            MultiplicationOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        UnaryExpression {
+                                            SubtractionOperator,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("100"),
+                                            },
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn fv_iif() {
         let source = r"fv = IIf(useHighRate, Fv(0.08 / 12, periods, -deposit), Fv(0.05 / 12, periods, -deposit))";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("fv"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("useHighRate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("Fv"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                SingleLiteral,
+                                            },
+                                            Whitespace,
+                                            DivisionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("periods"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        UnaryExpression {
+                                            SubtractionOperator,
+                                            IdentifierExpression {
+                                                Identifier ("deposit"),
+                                            },
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("Fv"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                SingleLiteral,
+                                            },
+                                            Whitespace,
+                                            DivisionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("periods"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        UnaryExpression {
+                                            SubtractionOperator,
+                                            IdentifierExpression {
+                                                Identifier ("deposit"),
+                                            },
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_msgbox() {
         let source =
             r#"MsgBox "Your savings will grow to " & FormatCurrency(Fv(rate, periods, -deposit))"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("MsgBox"),
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Identifier("FormatCurrency"),
+                Unknown,
+                Identifier("Fv"),
+                Unknown,
+                Identifier("rate"),
+                Unknown,
+                Whitespace,
+                Identifier("periods"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Identifier("deposit"),
+                Unknown,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn fv_calculation() {
         let source = r"totalValue = Fv(rate, periods, payment) + bonus";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("totalValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Fv"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("periods"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    AdditionOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("bonus"),
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_type_member() {
         let source = r"investment.FutureValue = Fv(rate, periods, payment, principal)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("investment"),
+                    PeriodOperator,
+                    Identifier ("FutureValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periods"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("payment"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("principal"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_subtraction() {
         let source = r"interestEarned = Fv(rate, periods, payment) - totalContributions";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("interestEarned"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("Fv"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("periods"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("totalContributions"),
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_division() {
         let source = r"monthlyEquivalent = Fv(rate / 12, periods * 12, payment / 12)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("monthlyEquivalent"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("periods"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_with_cdbl() {
         let source = r"result = Fv(CDbl(txtRate.Text) / 100 / 12, CInt(txtYears.Text) * 12, -CDbl(txtDeposit.Text))";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                BinaryExpression {
+                                    CallExpression {
+                                        Identifier ("CDbl"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                MemberAccessExpression {
+                                                    Identifier ("txtRate"),
+                                                    PeriodOperator,
+                                                    TextKeyword,
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("100"),
+                                    },
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("CInt"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            MemberAccessExpression {
+                                                Identifier ("txtYears"),
+                                                PeriodOperator,
+                                                TextKeyword,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                CallExpression {
+                                    Identifier ("CDbl"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            MemberAccessExpression {
+                                                Identifier ("txtDeposit"),
+                                                PeriodOperator,
+                                                TextKeyword,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_quarterly() {
         let source = r"maturityValue = Fv(rate, quarters, -deposit)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("maturityValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("quarters"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("deposit"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_annual() {
         let source = r"fvOrdinary = Fv(rate, periods, -payment, 0, paymentTiming)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("fvOrdinary"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periods"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("paymentTiming"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn fv_compound_interest() {
         let source = r"finalAmount = Fv(periodRate, periods, 0, -principal)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Fv"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("finalAmount"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Fv"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periodRate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("periods"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("principal"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 }
