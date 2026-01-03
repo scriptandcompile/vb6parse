@@ -313,158 +313,746 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn declare_function_simple() {
         // Test simple Declare Function without parameters
         let source = "Declare Function GetTickCount Lib \"kernel32\" () As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("Declare Function GetTickCount"));
-        assert!(cst.text().contains("Lib"));
-        assert!(cst.text().contains("kernel32"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetTickCount"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_sub_simple() {
         // Test simple Declare Sub without parameters
         let source = "Declare Sub Sleep Lib \"kernel32\" (ByVal dwMilliseconds As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("Declare Sub Sleep"));
-        assert!(cst.text().contains("Lib"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Sleep"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("dwMilliseconds"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_public_function() {
         // Test Public Declare Function
         let source = "Public Declare Function BitBlt Lib \"gdi32\" (ByVal hDstDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("Public Declare Function BitBlt"));
-        assert!(cst.text().contains("gdi32"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PublicKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("BitBlt"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"gdi32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hDstDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("nWidth"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("nHeight"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hSrcDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("xSrc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("ySrc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("dwRop"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_private_function() {
         // Test Private Declare Function
         let source = "Private Declare Function GetPixel Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("Private Declare Function GetPixel"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetPixel"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"gdi32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_with_alias() {
         // Test Declare with Alias clause
         let source = "Private Declare Sub CopyMemory Lib \"kernel32\" Alias \"RtlMoveMemory\" (ByRef Dest As Any, ByRef Source As Any, ByVal Bytes As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("CopyMemory"));
-        assert!(cst.text().contains("Alias"));
-        assert!(cst.text().contains("RtlMoveMemory"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("CopyMemory"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                AliasKeyword,
+                Whitespace,
+                StringLiteral ("\"RtlMoveMemory\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("Dest"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("Source"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Bytes"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_with_alias_and_params() {
         // Test Declare with Alias and multiple parameters
         let source = "Private Declare Function SendMessageTimeout Lib \"user32\" Alias \"SendMessageTimeoutA\" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any, ByVal fuFlags As Long, ByVal uTimeout As Long, lpdwResult As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("SendMessageTimeout"));
-        assert!(cst.text().contains("SendMessageTimeoutA"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("SendMessageTimeout"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"user32\""),
+                Whitespace,
+                AliasKeyword,
+                Whitespace,
+                StringLiteral ("\"SendMessageTimeoutA\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hwnd"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("wMsg"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("wParam"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("lParam"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("fuFlags"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("uTimeout"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("lpdwResult"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_lib_with_dll_extension() {
         // Test Declare with .dll extension in library name
         let source = "Private Declare Sub ZeroMemory Lib \"kernel32.dll\" Alias \"RtlZeroMemory\" (ByRef Destination As Any, ByVal Length As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("kernel32.dll"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("ZeroMemory"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32.dll\""),
+                Whitespace,
+                AliasKeyword,
+                Whitespace,
+                StringLiteral ("\"RtlZeroMemory\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("Destination"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Length"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_no_parameters() {
         // Test Declare Function with no parameters
         let source = "Public Declare Function GetLastError Lib \"kernel32\" () As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("GetLastError"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PublicKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetLastError"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_byval_byref_params() {
         // Test Declare with ByVal and ByRef parameters
         let source = "Private Declare Function CallWindowProcW Lib \"user32\" (ByRef lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("ByRef lpPrevWndFunc"));
-        assert!(cst.text().contains("ByVal hwnd"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CallWindowProcW"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"user32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("lpPrevWndFunc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hwnd"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("msg"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("wParam"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("lParam"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_any_type() {
         // Test Declare with Any type parameters
         let source = "Private Declare Sub CopyMemory Lib \"kernel32\" Alias \"RtlMoveMemory\" (Destination As Any, Source As Any, ByVal Length As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("As Any"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("CopyMemory"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                AliasKeyword,
+                Whitespace,
+                StringLiteral ("\"RtlMoveMemory\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("Destination"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    Identifier ("Source"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("Any"),
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Length"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_long_parameters() {
         // Test Declare with many parameters (like StretchBlt)
         let source = "Public Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("StretchBlt"));
-        assert!(cst.text().contains("GDI32"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PublicKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("StretchBlt"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"GDI32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hDestDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("nWidth"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("nHeight"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hSrcDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("xSrc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("ySrc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("ClipX"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("ClipY"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("RasterOp"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -472,235 +1060,658 @@ mod tests {
         // Test Declare Sub doesn't have return type
         let source =
             "Private Declare Sub GdiplusShutdown Lib \"GdiPlus.dll\" (ByVal mtoken As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("Declare Sub"));
-        assert!(cst.text().contains("GdiplusShutdown"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("GdiplusShutdown"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"GdiPlus.dll\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("mtoken"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_function_string_return() {
         // Test Declare Function returning String
         let source = "Public Declare Function GetUserName Lib \"advapi32.dll\" Alias \"GetUserNameA\" (ByVal lpBuffer As String, nSize As Long) As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("As String"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PublicKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetUserName"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"advapi32.dll\""),
+                Whitespace,
+                AliasKeyword,
+                Whitespace,
+                StringLiteral ("\"GetUserNameA\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("lpBuffer"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("nSize"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_multiple_statements() {
         // Test multiple Declare statements in sequence
         let source = "Private Declare Function VirtualProtect Lib \"kernel32\" (ByVal lpAddress As Long, ByVal dwSize As Long, ByVal flNewProtect As Long, ByRef lpflOldProtect As Long) As Long\nPrivate Declare Sub RtlMoveMemory Lib \"ntdll\" (ByVal pDst As Long, ByVal pSrc As Long, ByVal dwLength As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 2);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("VirtualProtect"));
-        assert!(cst.text().contains("RtlMoveMemory"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("VirtualProtect"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"kernel32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("lpAddress"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("dwSize"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("flNewProtect"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("lpflOldProtect"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            DeclareStatement {
+                PrivateKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("RtlMoveMemory"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"ntdll\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("pDst"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("pSrc"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("dwLength"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn declare_uppercase_lib() {
         // Test Declare with uppercase library name
         let source = "Public Declare Function SetPixelV Lib \"gdi32\" (ByVal hDC As Long, ByVal X As Long, ByVal Y As Long, ByVal crColor As Long) As Byte\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DeclareStatement);
-        }
-        assert!(cst.text().contains("As Byte"));
+        assert_tree!(cst, [
+            DeclareStatement {
+                PublicKeyword,
+                Whitespace,
+                DeclareKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("SetPixelV"),
+                Whitespace,
+                LibKeyword,
+                Whitespace,
+                StringLiteral ("\"gdi32\""),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("hDC"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("X"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("crColor"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ByteKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // Event statement tests
+
     #[test]
     fn event_simple() {
         let source = "Event StatusChanged()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Event"));
-        assert!(cst.text().contains("StatusChanged"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("StatusChanged"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_with_parameter() {
         let source = "Event DataReceived(ByVal Data As String)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("DataReceived"));
-        assert!(cst.text().contains("ByVal"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("DataReceived"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Data"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_public() {
         let source = "Public Event Click()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Public"));
-        assert!(cst.text().contains("Click"));
+        assert_tree!(cst, [
+            EventStatement {
+                PublicKeyword,
+                Whitespace,
+                EventKeyword,
+                Whitespace,
+                Identifier ("Click"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_multiple_parameters() {
         let source = "Event ValueChanged(ByVal OldValue As Long, ByVal NewValue As Long)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("OldValue"));
-        assert!(cst.text().contains("NewValue"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("ValueChanged"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("OldValue"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("NewValue"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_with_array_parameter() {
         let source = "Event DataReceived(ByVal Data() As Byte)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Data()"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("DataReceived"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Data"),
+                    LeftParenthesis,
+                    RightParenthesis,
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    ByteKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_no_parameters() {
         let source = "Public Event Initialize()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
+        assert_tree!(cst, [
+            EventStatement {
+                PublicKeyword,
+                Whitespace,
+                EventKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_byref_parameter() {
         let source = "Event Modified(ByRef Cancel As Boolean)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("ByRef"));
-        assert!(cst.text().contains("Cancel"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("Modified"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("Cancel"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    BooleanKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_preserves_whitespace() {
         let source = "    Event    Test    (    )    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "    Event    Test    (    )    \n");
+        assert_tree!(cst, [
+            Whitespace,
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    Whitespace,
+                    RightParenthesis,
+                },
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_complex_parameters() {
         let source = "Public Event ProgressUpdate(ByVal PercentComplete As Integer, ByVal Message As String, ByRef Cancel As Boolean)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("ProgressUpdate"));
-        assert!(cst.text().contains("PercentComplete"));
+        assert_tree!(cst, [
+            EventStatement {
+                PublicKeyword,
+                Whitespace,
+                EventKeyword,
+                Whitespace,
+                Identifier ("ProgressUpdate"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("PercentComplete"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Message"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("Cancel"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    BooleanKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_object_parameter() {
         let source = "Event ItemAdded(ByVal Item As Object)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Object"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("ItemAdded"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Item"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    ObjectKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn multiple_event_declarations() {
         let source = "Event Click()\nEvent DblClick()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 2);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Click"));
-        assert!(cst.text().contains("DblClick"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("Click"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("DblClick"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_variant_parameter() {
         let source = "Event DataChanged(ByVal NewData As Variant)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("Variant"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("DataChanged"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("NewData"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    VariantKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn event_custom_type_parameter() {
         let source = "Event RecordChanged(ByVal Record As CustomerRecord)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::EventStatement);
-        }
-        assert!(cst.text().contains("CustomerRecord"));
+        assert_tree!(cst, [
+            EventStatement {
+                EventKeyword,
+                Whitespace,
+                Identifier ("RecordChanged"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("Record"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("CustomerRecord"),
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn object_statement_single() {
         let source = r#"Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.frm", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::ObjectStatement);
-            assert!(child
-                .text()
-                .contains("831FDD16-0C5C-11D2-A9FC-0000F8754DA1"));
-            assert!(child.text().contains("mscomctl.ocx"));
-        }
+        assert_tree!(cst, [
+            ObjectStatement {
+                ObjectKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\""),
+                Semicolon,
+                Whitespace,
+                StringLiteral ("\"mscomctl.ocx\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -709,34 +1720,75 @@ mod tests {
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.frm", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Should have VersionStatement + 2 ObjectStatements
-        let obj_statements: Vec<_> = cst
-            .children()
-            .into_iter()
-            .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
-            .collect();
-
-        assert_eq!(obj_statements.len(), 2);
-        assert!(obj_statements[0].text().contains("mscomctl.ocx"));
-        assert!(obj_statements[1].text().contains("COMDLG32.OCX"));
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Newline,
+            },
+            ObjectStatement {
+                ObjectKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\""),
+                Semicolon,
+                Whitespace,
+                StringLiteral ("\"mscomctl.ocx\""),
+                Newline,
+            },
+            ObjectStatement {
+                ObjectKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0\""),
+                Semicolon,
+                Whitespace,
+                StringLiteral ("\"COMDLG32.OCX\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn object_statement_with_backslash_g_prefix() {
         let source = "Object = *\\G{00025600-0000-0000-C000-000000000046}#5.2#0; \"stdole2.tlb\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.frm", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::ObjectStatement);
-            // Just verify the statement contains the key parts
-            assert!(child
-                .text()
-                .contains("00025600-0000-0000-C000-000000000046"));
-            assert!(child.text().contains("stdole2.tlb"));
-        }
+        assert_tree!(cst, [
+            ObjectStatement {
+                ObjectKeyword,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                MultiplicationOperator,
+                BackwardSlashOperator,
+                Identifier ("G"),
+                LeftCurlyBrace,
+                IntegerLiteral ("00025600"),
+                SubtractionOperator,
+                IntegerLiteral ("0000"),
+                SubtractionOperator,
+                IntegerLiteral ("0000"),
+                SubtractionOperator,
+                Identifier ("C000"),
+                SubtractionOperator,
+                IntegerLiteral ("000000000046"),
+                RightCurlyBrace,
+                DateLiteral ("#5.2#"),
+                IntegerLiteral ("0"),
+                Semicolon,
+                Whitespace,
+                StringLiteral ("\"stdole2.tlb\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -746,36 +1798,23 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         // VB6 doesn't actually allow regular assignment statements at module level in reality,
         // but the parser should handle keywords as identifiers when followed by =
         let source = "Object = 5\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        println!("Debug tree:\n{}", cst.debug_tree());
-
-        // Should not parse as ObjectStatement since it doesn't match the GUID pattern
-        // Currently this is parsed as: Unknown(Object) + Assignment(= 5)
-        // TODO: Ideally should be a single AssignmentStatement with Object as the lvalue
-        assert!(cst.child_count() > 0);
-
-        // Verify it's not parsed as ObjectStatement
-        let statements: Vec<_> = cst
-            .children()
-            .into_iter()
-            .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
-            .collect();
-
-        assert_eq!(
-            statements.len(),
-            0,
-            "Should not be parsed as ObjectStatement"
-        );
-
-        // Should have an AssignmentStatement
-        let assignments: Vec<_> = cst
-            .children()
-            .into_iter()
-            .filter(|c| c.kind() == SyntaxKind::AssignmentStatement)
-            .collect();
-
-        assert_eq!(assignments.len(), 1, "Should have one AssignmentStatement");
+        assert_tree!(cst, [
+            Unknown,
+            Whitespace,
+            AssignmentStatement {
+                IdentifierExpression {
+                    EqualityOperator,
+                },
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("5"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -783,59 +1822,39 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         // Test that an assignment to a variable named "Object" inside a Sub
         // is parsed as an assignment, NOT an Object statement
         let source = "Sub Test()\n    Object = 5\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        println!("Debug tree:\n{}", cst.debug_tree());
-
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-
-            // Find the statement list inside the Sub
-            let statement_lists: Vec<_> = child
-                .children()
-                .iter()
-                .filter(|c| c.kind() == SyntaxKind::StatementList)
-                .collect();
-
-            assert_eq!(statement_lists.len(), 1);
-
-            println!("Statement list children:");
-            for (i, c) in statement_lists[0].children().iter().enumerate() {
-                println!("  {}: {:?} = {:?}", i, c.kind(), c.text());
-            }
-
-            // Inside the statement list, we should NOT have an ObjectStatement
-            let obj_statements: Vec<_> = statement_lists[0]
-                .children()
-                .iter()
-                .filter(|c| c.kind() == SyntaxKind::ObjectStatement)
-                .collect();
-
-            assert_eq!(
-                obj_statements.len(),
-                0,
-                "Should not have ObjectStatement inside procedure"
-            );
-
-            // Should have an assignment statement
-            let assignments: Vec<_> = statement_lists[0]
-                .children()
-                .iter()
-                .filter(|c| c.kind() == SyntaxKind::AssignmentStatement)
-                .collect();
-
-            assert_eq!(assignments.len(), 1, "Should have one AssignmentStatement");
-
-            println!("Found {} assignments", assignments.len());
-
-            // Note: Currently Object keyword is parsed as Unknown, then followed by AssignmentStatement
-            // This is a limitation of the keyword-as-identifier handling
-            // The assignment will be "= 5" missing the "Object" part
-            // Ideally this should be fixed in the future, but for now we verify:
-            // 1. No ObjectStatement is created ✓
-            // 2. An AssignmentStatement exists ✓
-            println!("Assignment text: {}", assignments[0].text());
-        }
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    Unknown,
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            EqualityOperator,
+                        },
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("5"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
