@@ -99,254 +99,389 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn deftype_defint_single_letter() {
         // Test DefInt with single letter
         let source = "DefInt I\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefInt I"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("I"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defint_range() {
         // Test DefInt with letter range
         let source = "DefInt A-Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefInt A-Z"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("A"),
+                SubtractionOperator,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_deflng_multiple_ranges() {
         // Test DefLng with multiple ranges
         let source = "DefLng L, M-N\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefLng L, M-N"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefLngKeyword,
+                Whitespace,
+                Identifier ("L"),
+                Comma,
+                Whitespace,
+                Identifier ("M"),
+                SubtractionOperator,
+                Identifier ("N"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defstr_single() {
         // Test DefStr with single letter
         let source = "DefStr S\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefStr S"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefStrKeyword,
+                Whitespace,
+                Identifier ("S"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defdbl_range() {
         // Test DefDbl with range
         let source = "DefDbl D-F\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefDbl D-F"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefDblKeyword,
+                Whitespace,
+                Identifier ("D"),
+                SubtractionOperator,
+                Identifier ("F"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defobj_full_range() {
         // Test DefObj A-Z (common pattern)
         let source = "DefObj A-Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefObj A-Z"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefObjKeyword,
+                Whitespace,
+                Identifier ("A"),
+                SubtractionOperator,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defbool() {
         // Test DefBool
         let source = "DefBool B\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefBool"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefBoolKeyword,
+                Whitespace,
+                Identifier ("B"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defbyte() {
         // Test DefByte
         let source = "DefByte B\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefByte"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefByteKeyword,
+                Whitespace,
+                Identifier ("B"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defcur() {
         // Test DefCur
         let source = "DefCur C\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefCur"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefCurKeyword,
+                Whitespace,
+                Identifier ("C"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defsng() {
         // Test DefSng
         let source = "DefSng F-G\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefSng"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefSngKeyword,
+                Whitespace,
+                Identifier ("F"),
+                SubtractionOperator,
+                Identifier ("G"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defdec() {
         // Test DefDec
         let source = "DefDec D\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefDec"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefDecKeyword,
+                Whitespace,
+                Identifier ("D"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defdate() {
         // Test DefDate
         let source = "DefDate D\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefDate"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefDateKeyword,
+                Whitespace,
+                Identifier ("D"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_defvar() {
         // Test DefVar
         let source = "DefVar V-Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("DefVar"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefVarKeyword,
+                Whitespace,
+                Identifier ("V"),
+                SubtractionOperator,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_multiple_single_letters() {
         // Test multiple single letters
         let source = "DefInt A, B, C\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("A, B, C"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("A"),
+                Comma,
+                Whitespace,
+                Identifier ("B"),
+                Comma,
+                Whitespace,
+                Identifier ("C"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_mixed_ranges_and_singles() {
         // Test mixed ranges and single letters
         let source = "DefLng A-C, E, G-Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("A-C, E, G-Z"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefLngKeyword,
+                Whitespace,
+                Identifier ("A"),
+                SubtractionOperator,
+                Identifier ("C"),
+                Comma,
+                Whitespace,
+                Identifier ("E"),
+                Comma,
+                Whitespace,
+                Identifier ("G"),
+                SubtractionOperator,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_multiple_statements() {
         // Test multiple DefType statements
         let source = "DefInt I-N\nDefLng L\nDefStr S\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 3);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        if let Some(child) = cst.child_at(1) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        if let Some(child) = cst.child_at(2) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("I"),
+                SubtractionOperator,
+                Identifier ("N"),
+                Newline,
+            },
+            DefTypeStatement {
+                DefLngKeyword,
+                Whitespace,
+                Identifier ("L"),
+                Newline,
+            },
+            DefTypeStatement {
+                DefStrKeyword,
+                Whitespace,
+                Identifier ("S"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_with_spaces() {
         // Test with various spacing
         let source = "DefInt  A - Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
-        assert!(cst.text().contains("A - Z"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("A"),
+                Whitespace,
+                SubtractionOperator,
+                Whitespace,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_lowercase_range() {
         // Test with lowercase letters (should still work)
         let source = "DefStr a-z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::DefTypeStatement);
-        }
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefStrKeyword,
+                Whitespace,
+                Identifier ("a"),
+                SubtractionOperator,
+                Identifier ("z"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn deftype_partial_alphabet() {
         // Test partial alphabet ranges
         let source = "DefInt A-M\nDefLng N-Z\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 2);
-        assert!(cst.text().contains("A-M"));
-        assert!(cst.text().contains("N-Z"));
+        assert_tree!(cst, [
+            DefTypeStatement {
+                DefIntKeyword,
+                Whitespace,
+                Identifier ("A"),
+                SubtractionOperator,
+                Identifier ("M"),
+                Newline,
+            },
+            DefTypeStatement {
+                DefLngKeyword,
+                Whitespace,
+                Identifier ("N"),
+                SubtractionOperator,
+                Identifier ("Z"),
+                Newline,
+            },
+        ]);
     }
 }
