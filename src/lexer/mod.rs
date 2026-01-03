@@ -823,7 +823,7 @@ fn take_variable_name<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     #[test]

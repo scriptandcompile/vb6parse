@@ -254,7 +254,7 @@ impl Parser<'_> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::*;
 
     #[test]

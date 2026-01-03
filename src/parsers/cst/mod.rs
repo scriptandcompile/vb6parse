@@ -1861,7 +1861,7 @@ impl<'a> Parser<'a> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::Parser;
     use crate::*;
 

@@ -267,7 +267,7 @@
 //! This module serves as documentation and reference for the `Array` function
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::*;
 
     #[test]

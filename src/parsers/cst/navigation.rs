@@ -971,7 +971,7 @@ impl ConcreteSyntaxTree {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::parsers::{ConcreteSyntaxTree, SyntaxKind};
 
     // Navigation method tests

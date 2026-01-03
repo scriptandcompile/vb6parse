@@ -43,7 +43,7 @@ impl Parser<'_> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::*;
 
     // Unlock statement tests

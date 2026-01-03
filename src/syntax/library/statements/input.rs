@@ -39,7 +39,7 @@ impl Parser<'_> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::*;
 
     // Input statement tests

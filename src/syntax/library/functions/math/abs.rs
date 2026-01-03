@@ -205,7 +205,7 @@
 //! This module serves as documentation and reference for the Abs function
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::assert_tree;
     use crate::*;
     #[test]
