@@ -133,8 +133,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn savesetting_simple() {
         let source = r#"
@@ -142,21 +142,69 @@ Sub Test()
     SaveSetting "MyApp", "Startup", "Left", 100
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("SaveSettingKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Startup\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Left\""),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("100"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savesetting_at_module_level() {
         let source = "SaveSetting \"MyApp\", \"Settings\", \"Value\", \"Data\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            SaveSettingStatement {
+                SaveSettingKeyword,
+                Whitespace,
+                StringLiteral ("\"MyApp\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Settings\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Value\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Data\""),
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("SaveSettingStatement"));
     }
@@ -168,14 +216,44 @@ Sub Test()
     SaveSetting appName, sectionName, keyName, value
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("appName"));
-        assert!(debug.contains("sectionName"));
-        assert!(debug.contains("keyName"));
-        assert!(debug.contains("value"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        Identifier ("appName"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("sectionName"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("keyName"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("value"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -185,12 +263,48 @@ Sub Test()
     SaveSetting App.Title, "Position", "Left", Me.Left
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("App"));
-        assert!(debug.contains("Title"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Title"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Position\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Left\""),
+                        Comma,
+                        Whitespace,
+                        MeKeyword,
+                        PeriodOperator,
+                        Identifier ("Left"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -200,11 +314,44 @@ Sub Test()
     SaveSetting "MyApp", "Display", "Width", 800
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("800"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Display\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Width\""),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("800"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -214,10 +361,44 @@ Sub Test()
     SaveSetting "MyApp", "User", "Name", "John Doe"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"User\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Name\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"John Doe\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -227,12 +408,46 @@ Sub Test()
     SaveSetting "MyApp", "Settings", "BackColor", Form1.BackColor
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("Form1"));
-        assert!(debug.contains("BackColor"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"BackColor\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("BackColor"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -242,12 +457,52 @@ Sub Test()
     SaveSetting "MyApp", "User", "FullName", firstName & " " & lastName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("firstName"));
-        assert!(debug.contains("lastName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"User\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"FullName\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("firstName"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\" \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("lastName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -257,11 +512,49 @@ Sub Test()
     SaveSetting "MyApp", "Options", "AutoSave", CStr(chkAutoSave.Value)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("chkAutoSave"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Options\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"AutoSave\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("CStr"),
+                        LeftParenthesis,
+                        Identifier ("chkAutoSave"),
+                        PeriodOperator,
+                        Identifier ("Value"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -271,10 +564,44 @@ If saveSettings Then
     SaveSetting "MyApp", "Prefs", "Theme", "Dark"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("saveSettings"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Prefs\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Theme\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Dark\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -284,10 +611,61 @@ For i = 1 To 10
     SaveSetting "MyApp", "Item" & i, "Value", items(i)
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Item\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Value\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("items"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -297,20 +675,74 @@ Sub Test()
     SaveSetting "MyApp", "Window", "Left", 100 ' Save window position
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("' Save window position"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Window\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Left\""),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("100"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savesetting_preserves_whitespace() {
         let source = "SaveSetting   \"App\"  ,  \"Sec\"  ,  \"Key\"  ,  \"Val\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            SaveSettingStatement {
+                SaveSettingKeyword,
+                Whitespace,
+                StringLiteral ("\"App\""),
+                Whitespace,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Sec\""),
+                Whitespace,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Key\""),
+                Whitespace,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Val\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -321,20 +753,115 @@ Private Sub Form_Unload(Cancel As Integer)
     SaveSetting App.Title, "Position", "Top", Me.Top
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Form_Unload"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("Cancel"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Title"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Position\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Left\""),
+                        Comma,
+                        Whitespace,
+                        MeKeyword,
+                        PeriodOperator,
+                        Identifier ("Left"),
+                        Newline,
+                    },
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Title"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Position\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Top\""),
+                        Comma,
+                        Whitespace,
+                        MeKeyword,
+                        PeriodOperator,
+                        Identifier ("Top"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savesetting_multiple_on_same_line() {
         let source =
             "SaveSetting \"A\", \"S\", \"K1\", \"V1\": SaveSetting \"A\", \"S\", \"K2\", \"V2\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            SaveSettingStatement {
+                SaveSettingKeyword,
+                Whitespace,
+                StringLiteral ("\"A\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"S\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"K1\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"V1\""),
+                ColonOperator,
+                Whitespace,
+                SaveSettingKeyword,
+                Whitespace,
+                StringLiteral ("\"A\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"S\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"K2\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"V2\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -347,10 +874,76 @@ Select Case mode
         SaveSetting "MyApp", "Mode", "Current", "Advanced"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("mode"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        SaveSettingStatement {
+                            Whitespace,
+                            SaveSettingKeyword,
+                            Whitespace,
+                            StringLiteral ("\"MyApp\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Mode\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Current\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Simple\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        SaveSettingStatement {
+                            Whitespace,
+                            SaveSettingKeyword,
+                            Whitespace,
+                            StringLiteral ("\"MyApp\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Mode\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Current\""),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"Advanced\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -360,11 +953,50 @@ Sub Test()
     SaveSetting "MyApp", "DateTime", "LastRun", Format$(Now, "yyyy-mm-dd")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("Now"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"DateTime\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"LastRun\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("Format$"),
+                        LeftParenthesis,
+                        Identifier ("Now"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"yyyy-mm-dd\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -374,11 +1006,46 @@ Sub Test()
     SaveSetting "MyApp", "Options", "Visible", Me.Visible
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("Visible"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Options\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Visible\""),
+                        Comma,
+                        Whitespace,
+                        MeKeyword,
+                        PeriodOperator,
+                        Identifier ("Visible"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -388,11 +1055,41 @@ With Form1
     SaveSetting "MyApp", "Form", "Width", .Width
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("Width"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("Form1"),
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Form\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Width\""),
+                        Comma,
+                        Whitespace,
+                        PeriodOperator,
+                        WidthKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -402,10 +1099,44 @@ Sub SaveUserPreferences()
     SaveSetting "MyApp", "User", "Name", userName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("SaveUserPreferences"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"User\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Name\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("userName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -416,10 +1147,61 @@ Function StoreSettings() As Boolean
     StoreSettings = True
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("StoreSettings"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Config\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Version\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"1.0\""),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("StoreSettings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -429,11 +1211,51 @@ Sub Test()
     SaveSetting "MyApp", "Colors", "Item" & i, colors(i)
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("colors"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Colors\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Item\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("colors"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -445,10 +1267,69 @@ Public Sub SaveConfig(key As String, value As String)
     SaveSetting appName, "Config", key, value
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("appName"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("SaveConfig"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("key"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("value"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        Identifier ("appName"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Config\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("key"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("value"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -458,10 +1339,52 @@ Sub Test()
     SaveSetting "MyApp", "Math", "Result", x + y * 2
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Math\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Result\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("x"),
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        Identifier ("y"),
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -471,12 +1394,46 @@ Sub Test()
     SaveSetting "MyApp", "Input", "UserName", txtUserName.Text
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("txtUserName"));
-        assert!(debug.contains("Text"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Input\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"UserName\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("txtUserName"),
+                        PeriodOperator,
+                        TextKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -487,10 +1444,47 @@ Sub Test()
         "Section", "Key", "Value"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        Underscore,
+                        Newline,
+                        Whitespace,
+                        StringLiteral ("\"Section\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Key\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Value\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -500,11 +1494,46 @@ Sub Test()
     SaveSetting "MyApp", "Window", "State", Me.WindowState
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("WindowState"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Window\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"State\""),
+                        Comma,
+                        Whitespace,
+                        MeKeyword,
+                        PeriodOperator,
+                        Identifier ("WindowState"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -516,10 +1545,70 @@ If Err.Number <> 0 Then
     MsgBox "Error saving settings"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SaveSettingStatement {
+                SaveSettingKeyword,
+                Whitespace,
+                StringLiteral ("\"MyApp\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Settings\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Value\""),
+                Comma,
+                Whitespace,
+                Identifier ("data"),
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error saving settings\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -529,10 +1618,43 @@ Sub Test()
     SaveSetting "MyApp", "Database\Connection", "Server", serverName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SaveSettingStatement"));
-        assert!(debug.contains("serverName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SaveSettingStatement {
+                        Whitespace,
+                        SaveSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Database\\Connection\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Server\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("serverName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
