@@ -81,9 +81,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // RSet statement tests
 
-    // RSet statement tests
     #[test]
     fn rset_simple() {
         let source = r#"
@@ -91,24 +91,59 @@ Sub Test()
     RSet myString = "test"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("RSetKeyword"));
-        assert!(debug.contains("myString"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("myString"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"test\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn rset_at_module_level() {
         let source = "RSet fixedStr = \"VB6\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
+        assert_tree!(cst, [
+            RSetStatement {
+                RSetKeyword,
+                Whitespace,
+                Identifier ("fixedStr"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"VB6\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -118,12 +153,39 @@ Sub Test()
     RSet FixedString = userName
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("FixedString"));
-        assert!(debug.contains("userName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("FixedString"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("userName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -133,12 +195,39 @@ Sub Test()
     RSet myRecord = sourceRecord
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("myRecord"));
-        assert!(debug.contains("sourceRecord"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("myRecord"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("sourceRecord"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -148,12 +237,45 @@ Sub Test()
     RSet buffer = Left$(inputStr, 5)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("buffer"));
-        assert!(debug.contains("inputStr"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Left$"),
+                        LeftParenthesis,
+                        Identifier ("inputStr"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -163,12 +285,41 @@ Sub Test()
     RSet obj.Property = value
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("obj"));
-        assert!(debug.contains("Property"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        PropertyKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("value"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -178,12 +329,43 @@ Sub Test()
     RSet result = prefix & suffix
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("prefix"));
-        assert!(debug.contains("suffix"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("prefix"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("suffix"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -193,11 +375,39 @@ If condition Then
     RSet output = "aligned"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("output"));
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("condition"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        OutputKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"aligned\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -207,11 +417,52 @@ For i = 1 To 10
     RSet buffer = data(i)
 Next i
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("buffer"));
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("data"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -221,22 +472,61 @@ Sub Test()
     RSet aligned = text ' Right-align text
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("' Right-align text"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("aligned"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        TextKeyword,
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn rset_preserves_whitespace() {
         let source = "RSet   target   =   source\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("target"));
-        assert!(debug.contains("source"));
+        assert_tree!(cst, [
+            RSetStatement {
+                RSetKeyword,
+                Whitespace,
+                Identifier ("target"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("source"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -246,12 +536,42 @@ Sub Test()
     RSet arr(index) = value
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("arr"));
-        assert!(debug.contains("index"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("arr"),
+                        LeftParenthesis,
+                        Identifier ("index"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("value"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -261,11 +581,45 @@ Sub Test()
     RSet matrix(row, col) = data
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("matrix"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("matrix"),
+                        LeftParenthesis,
+                        Identifier ("row"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("col"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("data"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -275,13 +629,43 @@ Sub Test()
     RSet obj.Field.Value = newValue
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("obj"));
-        assert!(debug.contains("Field"));
-        assert!(debug.contains("Value"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        Identifier ("Field"),
+                        PeriodOperator,
+                        Identifier ("Value"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("newValue"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -291,12 +675,42 @@ Sub Test()
     RSet buffer = Str$(number)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("buffer"));
-        assert!(debug.contains("number"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Str$"),
+                        LeftParenthesis,
+                        Identifier ("number"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -306,24 +720,71 @@ Sub Test()
     RSet output = RTrim$(input)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("output"));
-        assert!(debug.contains("input"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        OutputKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("RTrim$"),
+                        LeftParenthesis,
+                        InputKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn rset_multiple_on_same_line() {
         let source = "RSet a = x: RSet b = y\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        // Check that both RSet statements are present
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains('a'));
-        assert!(debug.contains('b'));
+        assert_tree!(cst, [
+            RSetStatement {
+                RSetKeyword,
+                Whitespace,
+                Identifier ("a"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("x"),
+                ColonOperator,
+                Whitespace,
+                RSetKeyword,
+                Whitespace,
+                Identifier ("b"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("y"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -333,11 +794,39 @@ Sub Test()
     RSet buffer = ""
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("buffer"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteral ("\"\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -347,12 +836,46 @@ Sub Test()
     RSet padded = Space$(10) & text
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("padded"));
-        assert!(debug.contains("text"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("padded"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Space$"),
+                        LeftParenthesis,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        TextKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -362,11 +885,48 @@ Sub Test()
     RSet display = IIf(flag, "Yes", "No")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("IIf"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("display"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("IIf"),
+                        LeftParenthesis,
+                        Identifier ("flag"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Yes\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"No\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -379,11 +939,66 @@ Select Case mode
         RSet output = "Right"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("output"));
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("mode"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        RSetStatement {
+                            Whitespace,
+                            RSetKeyword,
+                            Whitespace,
+                            OutputKeyword,
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteral ("\"Left\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        RSetStatement {
+                            Whitespace,
+                            RSetKeyword,
+                            Whitespace,
+                            OutputKeyword,
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteral ("\"Right\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -393,12 +1008,36 @@ With recordset
     RSet .Name = newName
 End With
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("Name"));
-        assert!(debug.contains("newName"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("recordset"),
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        PeriodOperator,
+                        NameKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("newName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -408,11 +1047,39 @@ Sub FormatOutput()
     RSet buffer = data
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("buffer"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("FormatOutput"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("buffer"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("data"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -422,11 +1089,48 @@ Function RightJustify(text As String) As String
     RSet RightJustify = text
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.matches("RightJustify").count() >= 2);
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("RightJustify"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("RightJustify"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        TextKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -436,11 +1140,68 @@ Sub Test()
     RSet formatted = Left$(s, 5) & Mid$(s, 6, 3) & Right$(s, 2)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("formatted"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("formatted"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Left$"),
+                        LeftParenthesis,
+                        Identifier ("s"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Mid$"),
+                        LeftParenthesis,
+                        Identifier ("s"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("6"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("3"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Right$"),
+                        LeftParenthesis,
+                        Identifier ("s"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -455,8 +1216,6 @@ End Sub
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
 
         let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.matches("buffer").count() >= 2);
     }
 
     #[test]
@@ -466,12 +1225,45 @@ Sub Test()
     RSet display = Format$(value, "000.00")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("display"));
-        assert!(debug.contains("value"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("display"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Format$"),
+                        LeftParenthesis,
+                        Identifier ("value"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"000.00\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -481,12 +1273,42 @@ Sub Test()
     RSet result = UCase$(input)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("result"));
-        assert!(debug.contains("input"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("UCase$"),
+                        LeftParenthesis,
+                        InputKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -496,11 +1318,48 @@ Sub Test()
     RSet clean = Replace(dirty, " ", "_")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("Replace"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("clean"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Replace"),
+                        LeftParenthesis,
+                        Identifier ("dirty"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\" \""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"_\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -511,10 +1370,41 @@ Sub Test()
         = expression
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RSetStatement"));
-        assert!(debug.contains("longVar"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RSetStatement {
+                        Whitespace,
+                        RSetKeyword,
+                        Whitespace,
+                        Identifier ("longVar"),
+                        Whitespace,
+                        Underscore,
+                        Newline,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("expression"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
