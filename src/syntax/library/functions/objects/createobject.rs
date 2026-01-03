@@ -507,17 +507,32 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn createobject_basic() {
         let source = r#"
 Set obj = CreateObject("Excel.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -525,10 +540,25 @@ Set obj = CreateObject("Excel.Application")
         let source = r#"
 Set fso = CreateObject("Scripting.FileSystemObject")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("fso"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Scripting.FileSystemObject\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -536,10 +566,25 @@ Set fso = CreateObject("Scripting.FileSystemObject")
         let source = r#"
 Set dict = CreateObject("Scripting.Dictionary")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("dict"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Scripting.Dictionary\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -547,10 +592,28 @@ Set dict = CreateObject("Scripting.Dictionary")
         let source = r#"
 Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"MyApp.MyClass\""),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"\\\\ServerName\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -558,10 +621,25 @@ Set obj = CreateObject("MyApp.MyClass", "\\ServerName")
         let source = r#"
 Set conn = CreateObject("ADODB.Connection")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("conn"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"ADODB.Connection\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -569,10 +647,25 @@ Set conn = CreateObject("ADODB.Connection")
         let source = r#"
 Set xmlDoc = CreateObject("MSXML2.DOMDocument")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xmlDoc"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"MSXML2.DOMDocument\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -580,10 +673,25 @@ Set xmlDoc = CreateObject("MSXML2.DOMDocument")
         let source = r#"
 Set shell = CreateObject("WScript.Shell")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("shell"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"WScript.Shell\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -593,10 +701,46 @@ Function GetFileSystem() As Object
     Set GetFileSystem = CreateObject("Scripting.FileSystemObject")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetFileSystem"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ObjectKeyword,
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("GetFileSystem"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("CreateObject"),
+                        LeftParenthesis,
+                        StringLiteral ("\"Scripting.FileSystemObject\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -608,10 +752,68 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -619,10 +821,25 @@ End If
         let source = r#"
 Set wordApp = CreateObject("Word.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("wordApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Word.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -631,10 +848,35 @@ Set wordApp = CreateObject("Word.Application")
 Dim xlApp As Object
 Set xlApp = CreateObject("Excel.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ObjectKeyword,
+                Newline,
+            },
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -642,10 +884,25 @@ Set xlApp = CreateObject("Excel.Application")
         let source = r#"
 Set msg = CreateObject("CDO.Message")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("msg"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"CDO.Message\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -653,10 +910,25 @@ Set msg = CreateObject("CDO.Message")
         let source = r#"
 Set http = CreateObject("MSXML2.XMLHTTP")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("http"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"MSXML2.XMLHTTP\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -666,10 +938,52 @@ If CreateObject("Excel.Application") Is Nothing Then
     MsgBox "Failed"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("CreateObject"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"Excel.Application\""),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    IsKeyword,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("Nothing"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Failed\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -677,10 +991,25 @@ End If
         let source = r#"
 Set accApp = CreateObject("Access.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("accApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Access.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -688,10 +1017,25 @@ Set accApp = CreateObject("Access.Application")
         let source = r#"
 Set outlookApp = CreateObject("Outlook.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("outlookApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Outlook.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -699,10 +1043,25 @@ Set outlookApp = CreateObject("Outlook.Application")
         let source = r#"
 Set rs = CreateObject("ADODB.Recordset")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("rs"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"ADODB.Recordset\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -710,10 +1069,25 @@ Set rs = CreateObject("ADODB.Recordset")
         let source = r#"
 Set xlApp = CreateObject("Excel.Application.16")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Excel.Application.16\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -721,10 +1095,25 @@ Set xlApp = CreateObject("Excel.Application.16")
         let source = r#"
 Set ie = CreateObject("InternetExplorer.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("ie"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"InternetExplorer.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -734,10 +1123,42 @@ Sub Initialize()
     Set obj = CreateObject("Scripting.FileSystemObject")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("CreateObject"),
+                        LeftParenthesis,
+                        StringLiteral ("\"Scripting.FileSystemObject\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -745,10 +1166,25 @@ End Sub
         let source = r#"
 Set shell = CreateObject("Shell.Application")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("shell"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                StringLiteral ("\"Shell.Application\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -759,10 +1195,56 @@ Function SendEmail()
     Set config = CreateObject("CDO.Configuration")
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("SendEmail"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("msg"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("CreateObject"),
+                        LeftParenthesis,
+                        StringLiteral ("\"CDO.Message\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("config"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("CreateObject"),
+                        LeftParenthesis,
+                        StringLiteral ("\"CDO.Configuration\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -775,10 +1257,72 @@ Select Case appType
         Set app = CreateObject("Word.Application")
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("appType"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Excel\""),
+                    Newline,
+                    StatementList {
+                        SetStatement {
+                            Whitespace,
+                            SetKeyword,
+                            Whitespace,
+                            Identifier ("app"),
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            Identifier ("CreateObject"),
+                            LeftParenthesis,
+                            StringLiteral ("\"Excel.Application\""),
+                            RightParenthesis,
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Word\""),
+                    Newline,
+                    StatementList {
+                        SetStatement {
+                            Whitespace,
+                            SetKeyword,
+                            Whitespace,
+                            Identifier ("app"),
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            Identifier ("CreateObject"),
+                            LeftParenthesis,
+                            StringLiteral ("\"Word.Application\""),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -786,10 +1330,48 @@ End Select
         let source = r#"
 result = CreateObject("Scripting.FileSystemObject").FileExists(path)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    MemberAccessExpression {
+                        CallExpression {
+                            Identifier ("CreateObject"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Scripting.FileSystemObject\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        PeriodOperator,
+                        Identifier ("FileExists"),
+                    },
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("path"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -797,9 +1379,26 @@ result = CreateObject("Scripting.FileSystemObject").FileExists(path)
         let source = r#"
 Set obj = CreateObject( "Excel.Application" )
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("CreateObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("CreateObject"),
+                LeftParenthesis,
+                Whitespace,
+                StringLiteral ("\"Excel.Application\""),
+                Whitespace,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 }
