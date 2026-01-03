@@ -224,8 +224,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn setattr_simple() {
         let source = r#"
@@ -233,21 +233,57 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("SetAttrKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn setattr_at_module_level() {
         let source = "SetAttr \"C:\\File.txt\", vbNormal\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            SetAttrStatement {
+                SetAttrKeyword,
+                Whitespace,
+                StringLiteral ("\"C:\\File.txt\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbNormal"),
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("SetAttrStatement"));
     }
@@ -259,11 +295,38 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbReadOnly"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -273,11 +336,38 @@ Sub Test()
     SetAttr "C:\Data\Secret.dat", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbHidden"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Data\\Secret.dat\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbHidden"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -287,12 +377,42 @@ Sub Test()
     SetAttr "C:\Config.ini", vbReadOnly + vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbReadOnly"));
-        assert!(debug.contains("vbHidden"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Config.ini\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        Identifier ("vbHidden"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -302,11 +422,38 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbNormal
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbNormal"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbNormal"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -316,11 +463,38 @@ Sub Test()
     SetAttr "C:\Backup\Data.dat", vbArchive
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbArchive"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Backup\\Data.dat\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbArchive"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -330,12 +504,38 @@ Sub Test()
     SetAttr fileName, attrs
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("fileName"));
-        assert!(debug.contains("attrs"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("fileName"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("attrs"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -345,11 +545,38 @@ Sub Test()
     SetAttr "C:\Windows\system.dat", vbSystem
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("vbSystem"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Windows\\system.dat\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbSystem"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -359,10 +586,38 @@ Sub Test()
     SetAttr "C:\MyFile.txt", 1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -372,10 +627,44 @@ Sub Test()
     SetAttr App.Path & "\Config.ini", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Path"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"\\Config.ini\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbHidden"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -385,10 +674,38 @@ If FileExists Then
     SetAttr filePath, vbReadOnly
 End If
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("FileExists"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("filePath"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -398,10 +715,56 @@ For i = 1 To 10
     SetAttr "C:\Files\File" & i & ".txt", vbReadOnly
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Files\\File\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\".txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -411,20 +774,60 @@ Sub Test()
     SetAttr "C:\MyFile.txt", vbReadOnly ' Make read-only
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("' Make read-only"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn setattr_preserves_whitespace() {
         let source = "SetAttr   \"File.txt\"  ,   vbNormal\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            SetAttrStatement {
+                SetAttrKeyword,
+                Whitespace,
+                StringLiteral ("\"File.txt\""),
+                Whitespace,
+                Comma,
+                Whitespace,
+                Identifier ("vbNormal"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -435,11 +838,64 @@ Sub Test()
     SetAttr filePath, currentAttrs Or vbHidden
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
-        assert!(debug.contains("GetAttr"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("currentAttrs"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAttr"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("filePath"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("filePath"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("currentAttrs"),
+                        Whitespace,
+                        OrKeyword,
+                        Whitespace,
+                        Identifier ("vbHidden"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -452,19 +908,91 @@ Select Case fileType
         SetAttr filePath, vbHidden
 End Select
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("fileType"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        SetAttrStatement {
+                            Whitespace,
+                            SetAttrKeyword,
+                            Whitespace,
+                            Identifier ("filePath"),
+                            Comma,
+                            Whitespace,
+                            Identifier ("vbReadOnly"),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        SetAttrStatement {
+                            Whitespace,
+                            SetAttrKeyword,
+                            Whitespace,
+                            Identifier ("filePath"),
+                            Comma,
+                            Whitespace,
+                            Identifier ("vbHidden"),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn setattr_multiple_on_same_line() {
         let source = "SetAttr \"File1.txt\", vbNormal: SetAttr \"File2.txt\", vbReadOnly\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            SetAttrStatement {
+                SetAttrKeyword,
+                Whitespace,
+                StringLiteral ("\"File1.txt\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbNormal"),
+                ColonOperator,
+                Whitespace,
+                SetAttrKeyword,
+                Whitespace,
+                StringLiteral ("\"File2.txt\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbReadOnly"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -474,10 +1002,35 @@ With fileObj
     SetAttr .Path, vbArchive
 End With
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("fileObj"),
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("Path"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbArchive"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -487,10 +1040,38 @@ Sub MakeReadOnly()
     SetAttr "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("MakeReadOnly"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -501,10 +1082,64 @@ Function SetFileAttributes(path As String) As Boolean
     SetFileAttributes = True
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("SetFileAttributes"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("path"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("path"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        Identifier ("vbArchive"),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("SetFileAttributes"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -514,10 +1149,38 @@ Sub Test()
     SetAttr "\\Server\Share\File.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"\\\\Server\\Share\\File.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -529,10 +1192,51 @@ Public Sub SetReadOnly()
     SetAttr filePath, vbReadOnly
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("filePath"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("SetReadOnly"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Identifier ("filePath"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -543,10 +1247,41 @@ Sub Test()
         "C:\MyFile.txt", vbReadOnly
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        Underscore,
+                        Newline,
+                        Whitespace,
+                        StringLiteral ("\"C:\\MyFile.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -556,10 +1291,39 @@ Sub Test()
     SetAttr "C:\Data\" & fileName & ".txt", vbHidden
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        // TODO: need to fix so it captchers strings correctly. I completely forgot that
+        // VB6 uses twin double qoutes for escaping not backslash. Oopsie!
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Data\\\" & fileName & \""),
+                        PeriodOperator,
+                        Identifier ("txt"),
+                        StringLiteral ("\", vbHidden"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -573,10 +1337,91 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("currentAttrs"),
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("vbReadOnly"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            SetAttrStatement {
+                                Whitespace,
+                                SetAttrKeyword,
+                                Whitespace,
+                                Identifier ("filePath"),
+                                Comma,
+                                Whitespace,
+                                Identifier ("currentAttrs"),
+                                Whitespace,
+                                AndKeyword,
+                                Whitespace,
+                                NotKeyword,
+                                Whitespace,
+                                Identifier ("vbReadOnly"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                SetAttrStatement {
+                                    Whitespace,
+                                    SetAttrKeyword,
+                                    Whitespace,
+                                    Identifier ("filePath"),
+                                    Comma,
+                                    Whitespace,
+                                    Identifier ("currentAttrs"),
+                                    Whitespace,
+                                    OrKeyword,
+                                    Whitespace,
+                                    Identifier ("vbReadOnly"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -588,10 +1433,64 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SetAttrStatement {
+                SetAttrKeyword,
+                Whitespace,
+                StringLiteral ("\"C:\\MyFile.txt\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbReadOnly"),
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -603,10 +1502,73 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Dir"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("filePath"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            SetAttrStatement {
+                                Whitespace,
+                                SetAttrKeyword,
+                                Whitespace,
+                                Identifier ("filePath"),
+                                Comma,
+                                Whitespace,
+                                Identifier ("vbReadOnly"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -618,10 +1580,58 @@ Sub Test()
     SetAttr "File3.txt", vbArchive
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File1.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbReadOnly"),
+                        Newline,
+                    },
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File2.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbHidden"),
+                        Newline,
+                    },
+                    SetAttrStatement {
+                        Whitespace,
+                        SetAttrKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File3.txt\""),
+                        Comma,
+                        Whitespace,
+                        Identifier ("vbArchive"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -635,9 +1645,76 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetAttrStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("FileIsImportant"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            SetAttrStatement {
+                                Whitespace,
+                                SetAttrKeyword,
+                                Whitespace,
+                                Identifier ("filePath"),
+                                Comma,
+                                Whitespace,
+                                Identifier ("vbReadOnly"),
+                                Whitespace,
+                                AdditionOperator,
+                                Whitespace,
+                                Identifier ("vbArchive"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                SetAttrStatement {
+                                    Whitespace,
+                                    SetAttrKeyword,
+                                    Whitespace,
+                                    Identifier ("filePath"),
+                                    Comma,
+                                    Whitespace,
+                                    Identifier ("vbNormal"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
