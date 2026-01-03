@@ -454,8 +454,8 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn trim_dollar_simple() {
         let source = r#"
@@ -463,9 +463,50 @@ Sub Main()
     result = Trim$("  Hello  ")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"  Hello  \""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -476,9 +517,61 @@ Sub Main()
     cleaned = Trim$(userInput)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("cleaned"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("cleaned"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("userInput"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -491,9 +584,85 @@ Sub Main()
     result = Trim$(text)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        TextKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            TextKeyword,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"  Sample  \""),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        TextKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -503,9 +672,59 @@ Function CleanInput(userInput As String) As String
     CleanInput = Trim$(userInput)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CleanInput"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("userInput"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CleanInput"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("userInput"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -515,9 +734,80 @@ Function IsValidInput(input As String) As Boolean
     IsValidInput = (Len(Trim$(input)) > 0)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("IsValidInput"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                InputKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("IsValidInput"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                CallExpression {
+                                    LenKeyword,
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("Trim$"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            InputKeyword,
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                GreaterThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -529,9 +819,72 @@ Sub Main()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Trim$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            InputKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"Expected\""),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                StringLiteral ("\"Match found\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -541,9 +894,87 @@ Function CompareValues(value1 As String, value2 As String) As Boolean
     CompareValues = (Trim$(value1) = Trim$(value2))
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CompareValues"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("value1"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("value2"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CompareValues"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("Trim$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("value1"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Trim$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("value2"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -553,9 +984,59 @@ Function GetFieldValue(fieldValue As String) As String
     GetFieldValue = Trim$(fieldValue)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetFieldValue"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("fieldValue"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetFieldValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("fieldValue"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -568,9 +1049,132 @@ Sub CleanStringArray(arr() As String)
     Next i
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("CleanStringArray"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("arr"),
+                    LeftParenthesis,
+                    RightParenthesis,
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("LBound"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("arr"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("UBound"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("arr"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                CallExpression {
+                                    Identifier ("arr"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("i"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Trim$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("arr"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("i"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -583,9 +1187,98 @@ Sub ProcessForm()
     userEmail = Trim$(txtEmail.Text)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ProcessForm"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("userName"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("userEmail"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("userName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("txtName"),
+                                        PeriodOperator,
+                                        TextKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("userEmail"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("txtEmail"),
+                                        PeriodOperator,
+                                        TextKeyword,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -600,9 +1293,89 @@ Sub Main()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("status"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            StringLiteral ("\"Active\""),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Active record\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            StringLiteral ("\"Inactive\""),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                CallStatement {
+                                    Identifier ("Debug"),
+                                    PeriodOperator,
+                                    PrintKeyword,
+                                    Whitespace,
+                                    StringLiteral ("\"Inactive record\""),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -613,9 +1386,69 @@ Sub Main()
     output = "Name: " & Trim$(nameField)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        OutputKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            OutputKeyword,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Name: \""),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Trim$"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("nameField"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -629,9 +1462,149 @@ Function ParseConfigLine(configLine As String) As String
     End If
 End Function
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("ParseConfigLine"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("configLine"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("equalPos"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("equalPos"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("InStr"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("configLine"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"=\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("equalPos"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("ParseConfigLine"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Trim$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("Mid$"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("configLine"),
+                                                        },
+                                                    },
+                                                    Comma,
+                                                    Whitespace,
+                                                    Argument {
+                                                        BinaryExpression {
+                                                            IdentifierExpression {
+                                                                Identifier ("equalPos"),
+                                                            },
+                                                            Whitespace,
+                                                            AdditionOperator,
+                                                            Whitespace,
+                                                            NumericLiteralExpression {
+                                                                IntegerLiteral ("1"),
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -643,9 +1616,83 @@ Function ReadCleanLine(fileNum As Integer) As String
     ReadCleanLine = Trim$(rawLine)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("ReadCleanLine"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("fileNum"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("rawLine"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    LineInputStatement {
+                        Whitespace,
+                        LineKeyword,
+                        Whitespace,
+                        InputKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        Identifier ("fileNum"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("rawLine"),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ReadCleanLine"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("rawLine"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -657,9 +1704,81 @@ Sub Main()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                LenKeyword,
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        CallExpression {
+                                            Identifier ("Trim$"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        InputKeyword,
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                StringLiteral ("\"Empty or spaces only\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -669,9 +1788,68 @@ Function NormalizeText(text As String) As String
     NormalizeText = UCase$(Trim$(text))
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("NormalizeText"),
+                ParameterList {
+                    LeftParenthesis,
+                },
+                TextKeyword,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("NormalizeText"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("UCase$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Trim$"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    TextKeyword,
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -686,9 +1864,118 @@ Sub ProcessLines()
     Next i
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ProcessLines"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("cleanLine"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("cleanLine"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("Trim$"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            CallExpression {
+                                                Identifier ("lines"),
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        IdentifierExpression {
+                                                            Identifier ("i"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                Identifier ("cleanLine"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -698,9 +1985,59 @@ Function GetCleanValue(value As String) As String
     GetCleanValue = Trim$(value)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetCleanValue"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("value"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetCleanValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -710,9 +2047,59 @@ Function ParseCSVField(field As String) As String
     ParseCSVField = Trim$(field)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("ParseCSVField"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("field"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ParseCSVField"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("field"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -724,8 +2111,82 @@ Function PrepareSearchQuery(query As String) As String
     PrepareSearchQuery = cleaned
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier") && debug.contains("Trim$"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("PrepareSearchQuery"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("query"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("cleaned"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("cleaned"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Trim$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("query"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("PrepareSearchQuery"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("cleaned"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 }
