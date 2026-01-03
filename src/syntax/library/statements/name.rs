@@ -60,9 +60,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // Name statement tests
 
-    // Name statement tests
     #[test]
     fn name_simple() {
         let source = r#"
@@ -70,23 +70,58 @@ Sub Test()
     Name "OLDFILE.TXT" As "NEWFILE.TXT"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("NameKeyword"));
-        assert!(debug.contains("OLDFILE"));
-        assert!(debug.contains("NEWFILE"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"OLDFILE.TXT\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"NEWFILE.TXT\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn name_at_module_level() {
         let source = r#"Name "old.txt" As "new.txt""#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
+        assert_tree!(cst, [
+            NameStatement {
+                NameKeyword,
+                Whitespace,
+                StringLiteral ("\"old.txt\""),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringLiteral ("\"new.txt\""),
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
     }
@@ -98,12 +133,39 @@ Sub Test()
     Name "C:\Data\Report.doc" As "C:\Archive\OldReport.doc"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("Report.doc"));
-        assert!(debug.contains("Archive"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Data\\Report.doc\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Archive\\OldReport.doc\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -113,24 +175,61 @@ Sub Test()
     Name oldName As newName
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("oldName"));
-        assert!(debug.contains("newName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        Identifier ("oldName"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        Identifier ("newName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn name_preserves_whitespace() {
         let source = "    Name    \"old.txt\"    As    \"new.txt\"    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(
-            cst.text(),
-            "    Name    \"old.txt\"    As    \"new.txt\"    \n"
-        );
-
+        assert_tree!(cst, [
+            Whitespace,
+            NameStatement {
+                NameKeyword,
+                Whitespace,
+                StringLiteral ("\"old.txt\""),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringLiteral ("\"new.txt\""),
+                Whitespace,
+                Newline,
+            },
+        ]);
         let debug = cst.debug_tree();
         assert!(debug.contains("NameStatement"));
     }
@@ -142,11 +241,41 @@ Sub Test()
     Name "temp.dat" As "backup.dat" ' Rename temp file
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"temp.dat\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"backup.dat\""),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -158,10 +287,57 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("fileExists"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            NameStatement {
+                                Whitespace,
+                                NameKeyword,
+                                Whitespace,
+                                StringLiteral ("\"old.log\""),
+                                Whitespace,
+                                AsKeyword,
+                                Whitespace,
+                                StringLiteral ("\"archive.log\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -171,10 +347,49 @@ Sub Test()
     If needsRename Then Name oldFile As newFile
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("needsRename"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        NameStatement {
+                            NameKeyword,
+                            Whitespace,
+                            Identifier ("oldFile"),
+                            Whitespace,
+                            AsKeyword,
+                            Whitespace,
+                            Identifier ("newFile"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -186,11 +401,61 @@ Sub RenameFiles()
     Name "File3.txt" As "Backup3.txt"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("NameStatement").count();
-        assert_eq!(count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("RenameFiles"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File1.txt\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Backup1.txt\""),
+                        Newline,
+                    },
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File2.txt\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Backup2.txt\""),
+                        Newline,
+                    },
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"File3.txt\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Backup3.txt\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -200,12 +465,39 @@ Sub Test()
     Name "C:\OldFolder" As "C:\NewFolder"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("OldFolder"));
-        assert!(debug.contains("NewFolder"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\OldFolder\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\NewFolder\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -215,11 +507,47 @@ Sub Test()
     Name basePath & "old.dat" As basePath & "new.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("basePath"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        Identifier ("basePath"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"old.dat\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        Identifier ("basePath"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"new.dat\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -229,11 +557,38 @@ Sub Test()
     Name "C:\Temp\Test.dat" As "C:\Data\Test.dat"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
-        assert!(debug.contains("Temp"));
-        assert!(debug.contains("Data"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Temp\\Test.dat\""),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Data\\Test.dat\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
