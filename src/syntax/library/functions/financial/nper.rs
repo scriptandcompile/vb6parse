@@ -747,18 +747,76 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn nper_basic() {
         let source = r"
 Dim months As Double
 months = NPer(0.08 / 12, -200, 10000)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("months"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("months"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                NumericLiteralExpression {
+                                    SingleLiteral,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("200"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10000"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -767,10 +825,75 @@ months = NPer(0.08 / 12, -200, 10000)
 Dim periods As Double
 periods = NPer(0.06 / 12, -300, 0, 50000)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("periods"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("periods"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                NumericLiteralExpression {
+                                    SingleLiteral,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("300"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("50000"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -779,10 +902,71 @@ periods = NPer(0.06 / 12, -300, 0, 50000)
 Dim n As Double
 n = NPer(rate, pmt, pv, fv, 1)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("n"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("n"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("pmt"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("pv"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("fv"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -792,10 +976,77 @@ If NPer(apr / 12, -payment, balance) > 60 Then
     MsgBox "Payoff will take over 5 years"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("apr"),
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("payment"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("balance"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("60"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Payoff will take over 5 years\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -805,10 +1056,98 @@ Function CalculatePayoffMonths(loan As Double, payment As Double, rate As Double
     CalculatePayoffMonths = NPer(rate / 12, -payment, loan)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CalculatePayoffMonths"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("loan"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("payment"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("rate"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CalculatePayoffMonths"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("NPer"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("rate"),
+                                        },
+                                        Whitespace,
+                                        DivisionOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("12"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("payment"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("loan"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -817,10 +1156,76 @@ End Function
 Dim payoffYears As Double
 payoffYears = NPer(0.05 / 12, -1000, 200000) / 12
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("payoffYears"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("payoffYears"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    NumericLiteralExpression {
+                                        SingleLiteral,
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1000"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("200000"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    DivisionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -828,10 +1233,37 @@ payoffYears = NPer(0.05 / 12, -1000, 200000) / 12
         let source = r#"
 MsgBox "Months to payoff: " & Format(NPer(rate, pmt, pv), "0.0")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Months to payoff: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("Format"),
+                LeftParenthesis,
+                Identifier ("NPer"),
+                LeftParenthesis,
+                Identifier ("rate"),
+                Comma,
+                Whitespace,
+                Identifier ("pmt"),
+                Comma,
+                Whitespace,
+                Identifier ("pv"),
+                RightParenthesis,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"0.0\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -839,10 +1271,33 @@ MsgBox "Months to payoff: " & Format(NPer(rate, pmt, pv), "0.0")
         let source = r#"
 Debug.Print "Periods: " & NPer(interestRate, monthlyPmt, principal)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Periods: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("NPer"),
+                LeftParenthesis,
+                Identifier ("interestRate"),
+                Comma,
+                Whitespace,
+                Identifier ("monthlyPmt"),
+                Comma,
+                Whitespace,
+                Identifier ("principal"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -857,10 +1312,133 @@ Select Case Int(NPer(0.08 / 12, -250, 5000) / 12)
         MsgBox "Long term"
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Int"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("NPer"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            BinaryExpression {
+                                                NumericLiteralExpression {
+                                                    SingleLiteral,
+                                                },
+                                                Whitespace,
+                                                DivisionOperator,
+                                                Whitespace,
+                                                NumericLiteralExpression {
+                                                    IntegerLiteral ("12"),
+                                                },
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            UnaryExpression {
+                                                SubtractionOperator,
+                                                NumericLiteralExpression {
+                                                    IntegerLiteral ("250"),
+                                                },
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("5000"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IsKeyword,
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Short term\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Whitespace,
+                    ToKeyword,
+                    Whitespace,
+                    IntegerLiteral ("5"),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Medium term\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseElseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    ElseKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("MsgBox"),
+                            Whitespace,
+                            StringLiteral ("\"Long term\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -872,10 +1450,88 @@ Public Sub CalculatePeriods()
     m_periods = NPer(m_rate / 12, -m_payment, m_balance)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_periods"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("CalculatePeriods"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_periods"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("NPer"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("m_rate"),
+                                        },
+                                        Whitespace,
+                                        DivisionOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("12"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("m_payment"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_balance"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -885,10 +1541,67 @@ With loanInfo
     .PayoffMonths = NPer(.Rate / 12, -.MonthlyPayment, .Principal)
 End With
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("loanInfo"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("PayoffMonths"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("NPer"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            PeriodOperator,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    CallStatement {
+                        Identifier ("Rate"),
+                        Whitespace,
+                        DivisionOperator,
+                        Whitespace,
+                        IntegerLiteral ("12"),
+                        Comma,
+                        Whitespace,
+                        SubtractionOperator,
+                        PeriodOperator,
+                        Identifier ("MonthlyPayment"),
+                        Comma,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("Principal"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -900,10 +1613,105 @@ ElseIf NPer(r, p, v) < 36 Then
     y = 2
 End If
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("y"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                ElseIfClause {
+                    ElseIfKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("NPer"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("r"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("p"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("v"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        LessThanOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("36"),
+                        },
+                    },
+                    Whitespace,
+                    ThenKeyword,
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -914,10 +1722,103 @@ For payment = 100 To 500 Step 50
     Debug.Print payment, months
 Next payment
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("payment"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("100"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("500"),
+                },
+                Whitespace,
+                StepKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("50"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("months"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("NPer"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        NumericLiteralExpression {
+                                            SingleLiteral,
+                                        },
+                                        Whitespace,
+                                        DivisionOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("12"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        IdentifierExpression {
+                                            Identifier ("payment"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("10000"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("payment"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("months"),
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("payment"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -927,10 +1828,81 @@ Do While NPer(rate, -payment, balance) > targetMonths
     payment = payment + 10
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("payment"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("balance"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("targetMonths"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("payment"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("payment"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -940,10 +1912,89 @@ Do Until NPer(apr / 12, -pmt, bal) <= 12
     pmt = pmt + 50
 Loop
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("apr"),
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("pmt"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("bal"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOrEqualOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("pmt"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("pmt"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("50"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -953,10 +2004,87 @@ While NPer(0.05 / 12, -amount, 50000) > 120
     amount = amount + 25
 Wend
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    NumericLiteralExpression {
+                                        SingleLiteral,
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("amount"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("50000"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("120"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("amount"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("amount"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("25"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -965,10 +2093,61 @@ Wend
 Dim result As Double
 result = (NPer(rate, payment, principal))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("result"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("principal"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -977,10 +2156,88 @@ result = (NPer(rate, payment, principal))
 Dim term As String
 term = IIf(NPer(r, p, v) < 36, "Short", "Long")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("term"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("term"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("NPer"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("r"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("p"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("v"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                LessThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("36"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Short\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Long\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -990,10 +2247,89 @@ If NPer(rate1, pmt, bal) < NPer(rate2, pmt, bal) Then
     MsgBox "Rate 1 is faster"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate1"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("pmt"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("bal"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("rate2"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("pmt"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("bal"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Rate 1 is faster\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1002,10 +2338,91 @@ End If
 Dim payoffTimes(10) As Double
 payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("payoffTimes"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("payoffTimes"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("rates"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("i"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                IdentifierExpression {
+                                    Identifier ("payment"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("balance"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1014,10 +2431,78 @@ payoffTimes(i) = NPer(rates(i) / 12, -payment, balance)
 Set obj = New LoanCalculator
 obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("LoanCalculator"),
+                Newline,
+            },
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    Identifier ("PayoffPeriods"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                MemberAccessExpression {
+                                    Identifier ("obj"),
+                                    PeriodOperator,
+                                    Identifier ("Rate"),
+                                },
+                                Whitespace,
+                                DivisionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            UnaryExpression {
+                                SubtractionOperator,
+                                MemberAccessExpression {
+                                    Identifier ("obj"),
+                                    PeriodOperator,
+                                    Identifier ("Payment"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            MemberAccessExpression {
+                                Identifier ("obj"),
+                                PeriodOperator,
+                                Identifier ("Balance"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1025,10 +2510,35 @@ obj.PayoffPeriods = NPer(obj.Rate / 12, -obj.Payment, obj.Balance)
         let source = r"
 Call DisplayPayoffSchedule(NPer(apr / 12, -monthlyPmt, loanAmount))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("DisplayPayoffSchedule"),
+                LeftParenthesis,
+                Identifier ("NPer"),
+                LeftParenthesis,
+                Identifier ("apr"),
+                Whitespace,
+                DivisionOperator,
+                Whitespace,
+                IntegerLiteral ("12"),
+                Comma,
+                Whitespace,
+                SubtractionOperator,
+                Identifier ("monthlyPmt"),
+                Comma,
+                Whitespace,
+                Identifier ("loanAmount"),
+                RightParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1037,10 +2547,84 @@ Call DisplayPayoffSchedule(NPer(apr / 12, -monthlyPmt, loanAmount))
 Dim formatted As String
 formatted = Format(NPer(0.06 / 12, -500, 25000), "0.00")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("formatted"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("formatted"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Format"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("NPer"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                SingleLiteral,
+                                            },
+                                            Whitespace,
+                                            DivisionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        UnaryExpression {
+                                            SubtractionOperator,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("500"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("25000"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"0.00\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1049,10 +2633,76 @@ formatted = Format(NPer(0.06 / 12, -500, 25000), "0.00")
 Dim years As Double
 years = NPer(rate / 12, -payment, principal) / 12
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("years"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("years"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("NPer"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("rate"),
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("12"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                UnaryExpression {
+                                    SubtractionOperator,
+                                    IdentifierExpression {
+                                        Identifier ("payment"),
+                                    },
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("principal"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    DivisionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("12"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1061,10 +2711,73 @@ years = NPer(rate / 12, -payment, principal) / 12
 Dim msg As String
 msg = "Payoff time: " & NPer(r, p, v) & " months"
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("msg"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("msg"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        StringLiteralExpression {
+                            StringLiteral ("\"Payoff time: \""),
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("NPer"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("r"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("p"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("v"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\" months\""),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1073,10 +2786,77 @@ msg = "Payoff time: " & NPer(r, p, v) & " months"
 Dim wholeMonths As Integer
 wholeMonths = Int(NPer(0.08 / 12, -300, 15000))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("wholeMonths"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("wholeMonths"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Int"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("NPer"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        BinaryExpression {
+                                            NumericLiteralExpression {
+                                                SingleLiteral,
+                                            },
+                                            Whitespace,
+                                            DivisionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("12"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        UnaryExpression {
+                                            SubtractionOperator,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("300"),
+                                            },
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("15000"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1089,9 +2869,99 @@ If Err.Number <> 0 Then
 End If
 On Error GoTo 0
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("NPer"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("n"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("NPer"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("rate"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("payment"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("balance"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Invalid calculation\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+            },
+        ]);
     }
 }
