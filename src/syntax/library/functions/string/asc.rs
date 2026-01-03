@@ -246,7 +246,7 @@
 //! correctly handles `Asc` function calls in various contexts.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::assert_tree;
     use crate::*;
     #[test]
