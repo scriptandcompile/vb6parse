@@ -588,17 +588,61 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn ddb_basic() {
         let source = r"
 depreciation = DDB(10000, 1000, 5, 1)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depreciation"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10000"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1000"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -606,10 +650,61 @@ depreciation = DDB(10000, 1000, 5, 1)
         let source = r"
 depreciation = DDB(10000, 1000, 5, 1, 1.5)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depreciation"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10000"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1000"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                SingleLiteral,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -617,10 +712,54 @@ depreciation = DDB(10000, 1000, 5, 1, 1.5)
         let source = r"
 depr = DDB(cost, salvage, life, period)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("salvage"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("period"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -630,10 +769,87 @@ Function CalculateDepreciation(cost As Double, years As Integer) As Double
     CalculateDepreciation = DDB(cost, 0, years, 1)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("CalculateDepreciation"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("cost"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("years"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("CalculateDepreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("DDB"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("years"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -644,10 +860,102 @@ For period = 1 To life
     total = total + depreciation
 Next period
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("period"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("life"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("depreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("DDB"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("period"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("total"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("total"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("depreciation"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("period"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -655,10 +963,62 @@ Next period
         let source = r"
 bookValue = cost - DDB(cost, salvage, life, period)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("bookValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("cost"),
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("period"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -668,10 +1028,96 @@ If DDB(cost, salvage, life, year) > SLN(cost, salvage, life) Then
     MsgBox "DDB is higher"
 End If
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("SLN"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"DDB is higher\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -679,10 +1125,70 @@ End If
         let source = r"
 schedule(i, 2) = DDB(cost, salvage, life, i)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                CallExpression {
+                    Identifier ("schedule"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("salvage"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -690,10 +1196,70 @@ schedule(i, 2) = DDB(cost, salvage, life, i)
         let source = r#"
 formatted = Format(DDB(cost, salvage, life, period), "Currency")
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("formatted"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Format"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("DDB"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("period"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Currency\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -701,10 +1267,62 @@ formatted = Format(DDB(cost, salvage, life, period), "Currency")
         let source = r"
 monthlyDepr = DDB(cost, salvage, lifeYears * 12, month)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("monthlyDepr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("salvage"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("lifeYears"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("12"),
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("month"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -714,10 +1332,89 @@ For i = 1 To currentPeriod
     accumulated = accumulated + DDB(cost, salvage, life, i)
 Next i
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("currentPeriod"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("accumulated"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("accumulated"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("DDB"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -729,10 +1426,103 @@ If Err.Number <> 0 Then
     result = 0
 End If
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("salvage"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("period"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("0"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -745,10 +1535,123 @@ Select Case method
         depr = SLN(cost, salvage, life)
 End Select
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("method"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"DDB\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("depr"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("DDB"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"SLN\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("depr"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SLN"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -756,10 +1659,36 @@ End Select
         let source = r#"
 Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("Debug"),
+                PeriodOperator,
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Depreciation: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("DDB"),
+                LeftParenthesis,
+                IntegerLiteral ("10000"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1000"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("5"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -767,10 +1696,61 @@ Debug.Print "Depreciation: " & DDB(10000, 1000, 5, 1)
         let source = r"
 depr150 = DDB(cost, salvage, life, period, 1.5)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depr150"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("salvage"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("period"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                SingleLiteral,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -778,10 +1758,92 @@ depr150 = DDB(cost, salvage, life, period, 1.5)
         let source = r"
 totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2Salvage, life, year)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("totalDepr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("asset1Cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("asset1Salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    AdditionOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("asset2Cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("asset2Salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -789,10 +1851,78 @@ totalDepr = DDB(asset1Cost, asset1Salvage, life, year) + DDB(asset2Cost, asset2S
         let source = r"
 depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("cost"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    SingleLiteral,
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            BinaryExpression {
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("currentYear"),
+                                    },
+                                    Whitespace,
+                                    SubtractionOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("purchaseYear"),
+                                    },
+                                },
+                                Whitespace,
+                                AdditionOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -800,10 +1930,62 @@ depr = DDB(cost, cost * 0.1, 5, currentYear - purchaseYear + 1)
         let source = r"
 taxSavings = DDB(cost, salvage, life, year) * taxRate
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("taxSavings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("taxRate"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -811,10 +1993,42 @@ taxSavings = DDB(cost, salvage, life, year) * taxRate
         let source = r#"
 MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Year \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("year"),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                StringLiteral ("\" depreciation: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("DDB"),
+                LeftParenthesis,
+                Identifier ("cost"),
+                Comma,
+                Whitespace,
+                Identifier ("salvage"),
+                Comma,
+                Whitespace,
+                Identifier ("life"),
+                Comma,
+                Whitespace,
+                Identifier ("year"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -822,10 +2036,100 @@ MsgBox "Year " & year & " depreciation: " & DDB(cost, salvage, life, year)
         let source = r"
 depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("depr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IIf"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("useDDB"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("DDB"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("SLN"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -833,10 +2137,84 @@ depr = IIf(useDDB, DDB(cost, salvage, life, year), SLN(cost, salvage, life))
         let source = r#"
 rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            Identifier ("rs"),
+            Unknown,
+            Unknown,
+            AssignmentStatement {
+                IdentifierExpression {
+                    RightParenthesis,
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("DDB"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("rs"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"Cost\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("rs"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"Salvage\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("rs"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"Life\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("currentYear"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -844,10 +2222,74 @@ rs("Depreciation") = DDB(rs("Cost"), rs("Salvage"), rs("Life"), currentYear)
         let source = r"
 partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("partialDepr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("DDB"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("salvage"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("life"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    ParenthesizedExpression {
+                        LeftParenthesis,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("monthsInYear"),
+                            },
+                            Whitespace,
+                            DivisionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("12"),
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -855,10 +2297,97 @@ partialDepr = DDB(cost, salvage, life, 1) * (monthsInYear / 12)
         let source = r"
 maxDepr = Application.Max(DDB(cost, salvage, life, year), SLN(cost, salvage, life))
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("maxDepr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    MemberAccessExpression {
+                        Identifier ("Application"),
+                        PeriodOperator,
+                        Identifier ("Max"),
+                    },
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("DDB"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("SLN"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -868,10 +2397,97 @@ For yr = 1 To assetLife
     cells(yr, 2) = DDB(assetCost, assetSalvage, assetLife, yr)
 Next yr
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("yr"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("assetLife"),
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("cells"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("yr"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("2"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("DDB"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("assetCost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("assetSalvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("assetLife"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("yr"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("yr"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -881,9 +2497,94 @@ If cost > salvage And life > 0 Then
     result = DDB(cost, salvage, life, period)
 End If
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("DDB"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        IdentifierExpression {
+                            Identifier ("cost"),
+                        },
+                        Whitespace,
+                        GreaterThanOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("salvage"),
+                        },
+                    },
+                    Whitespace,
+                    AndKeyword,
+                    Whitespace,
+                    BinaryExpression {
+                        IdentifierExpression {
+                            Identifier ("life"),
+                        },
+                        Whitespace,
+                        GreaterThanOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("0"),
+                        },
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("DDB"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("period"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 }
