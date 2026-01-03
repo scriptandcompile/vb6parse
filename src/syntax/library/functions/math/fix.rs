@@ -334,8 +334,8 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn fix_basic() {
         let source = r"
@@ -343,10 +343,50 @@ Sub Test()
     result = Fix(8.7)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        SingleLiteral,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -356,10 +396,53 @@ Sub Test()
     result = Fix(-8.7)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        NumericLiteralExpression {
+                                            SingleLiteral,
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -369,10 +452,50 @@ Sub Test()
     dollars = Fix(price)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("dollars"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("price"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -384,10 +507,72 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Fix"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("value"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                StringLiteral ("\"Greater than 10\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -397,10 +582,59 @@ Function Truncate(value As Double) As Long
     Truncate = Fix(value)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("Truncate"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("value"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("Truncate"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -412,10 +646,70 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Fix"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("amount"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("expectedAmount"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("MsgBox"),
+                                Whitespace,
+                                StringLiteral ("\"Amount matches\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -430,10 +724,101 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("score"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("100"),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("grade"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"A+\""),
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("90"),
+                            Whitespace,
+                            ToKeyword,
+                            Whitespace,
+                            IntegerLiteral ("99"),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("grade"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"A\""),
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -446,10 +831,85 @@ Sub Test()
     Next i
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        LongKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("maxValue"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                Identifier ("i"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -459,10 +919,44 @@ Sub Test()
     Debug.Print "Whole part: " & Fix(value)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Whole part: \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Fix"),
+                        LeftParenthesis,
+                        Identifier ("value"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -472,10 +966,68 @@ Sub Test()
     wholeNumbers(i) = Fix(decimals(i))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("wholeNumbers"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("decimals"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("i"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -485,10 +1037,54 @@ Sub Test()
     obj.WholePart = Fix(obj.DecimalValue)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("obj"),
+                            PeriodOperator,
+                            Identifier ("WholePart"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("obj"),
+                                        PeriodOperator,
+                                        Identifier ("DecimalValue"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -498,10 +1094,52 @@ Private Sub Class_Initialize()
     m_wholePart = Fix(m_value)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_wholePart"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("m_value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -513,10 +1151,72 @@ Sub Test()
     End With
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("splitter"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("WholePart"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("Fix"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    PeriodOperator,
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            CallStatement {
+                                Identifier ("Value"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -526,10 +1226,41 @@ Sub Test()
     Call ProcessInteger(Fix(value))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    CallStatement {
+                        Whitespace,
+                        CallKeyword,
+                        Whitespace,
+                        Identifier ("ProcessInteger"),
+                        LeftParenthesis,
+                        Identifier ("Fix"),
+                        LeftParenthesis,
+                        Identifier ("value"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -539,10 +1270,58 @@ Sub Test()
     message = "Truncated: " & Fix(number)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("message"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Truncated: \""),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Fix"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("number"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -553,10 +1332,71 @@ Sub Test()
     fractionalPart = value - wholePart
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("wholePart"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("fractionalPart"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                            Whitespace,
+                            SubtractionOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("wholePart"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -566,10 +1406,81 @@ Sub Test()
     result = IIf(Fix(value) > 0, "Positive", "Zero or Negative")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IIf"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        CallExpression {
+                                            Identifier ("Fix"),
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    IdentifierExpression {
+                                                        Identifier ("value"),
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                        Whitespace,
+                                        GreaterThanOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("0"),
+                                        },
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Positive\""),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Zero or Negative\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -579,10 +1490,42 @@ Sub Test()
     MsgBox "Whole value: " & Fix(amount)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Whole value: \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Fix"),
+                        LeftParenthesis,
+                        Identifier ("amount"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -592,10 +1535,43 @@ Sub Test()
     wholeNumbers.Add Fix(values(i))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("wholeNumbers"),
+                        PeriodOperator,
+                        Identifier ("Add"),
+                        Whitespace,
+                        Identifier ("Fix"),
+                        LeftParenthesis,
+                        Identifier ("values"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -605,10 +1581,83 @@ Sub Test()
     isValid = Fix(value) >= minValue And Fix(value) <= maxValue
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("isValid"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("Fix"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("value"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                GreaterThanOrEqualOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("minValue"),
+                                },
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("Fix"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("value"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                LessThanOrEqualOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("maxValue"),
+                                },
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -618,10 +1667,59 @@ Sub Test()
     result = CStr(Fix(value))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("CStr"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Fix"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("value"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -633,10 +1731,82 @@ Sub Test()
     Loop
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("Fix"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("counter"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("limit"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("counter"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("counter"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        SingleLiteral,
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -646,10 +1816,79 @@ Sub Test()
     cents = Fix(Abs((amount - dollars) * 100))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("cents"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("Abs"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                BinaryExpression {
+                                                    ParenthesizedExpression {
+                                                        LeftParenthesis,
+                                                        BinaryExpression {
+                                                            IdentifierExpression {
+                                                                Identifier ("amount"),
+                                                            },
+                                                            Whitespace,
+                                                            SubtractionOperator,
+                                                            Whitespace,
+                                                            IdentifierExpression {
+                                                                Identifier ("dollars"),
+                                                            },
+                                                        },
+                                                        RightParenthesis,
+                                                    },
+                                                    Whitespace,
+                                                    MultiplicationOperator,
+                                                    Whitespace,
+                                                    NumericLiteralExpression {
+                                                        IntegerLiteral ("100"),
+                                                    },
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -660,10 +1899,92 @@ Sub Test()
     cents = Fix((amount - dollars) * 100)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("dollars"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("amount"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("cents"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        ParenthesizedExpression {
+                                            LeftParenthesis,
+                                            BinaryExpression {
+                                                IdentifierExpression {
+                                                    Identifier ("amount"),
+                                                },
+                                                Whitespace,
+                                                SubtractionOperator,
+                                                Whitespace,
+                                                IdentifierExpression {
+                                                    Identifier ("dollars"),
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                        Whitespace,
+                                        MultiplicationOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("100"),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -674,10 +1995,72 @@ Sub Test()
     pixelY = Fix(coordinateY)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("pixelX"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("coordinateX"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("pixelY"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("coordinateY"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -688,10 +2071,80 @@ Sub Test()
     value = items(index)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("index"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Fix"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("ratio"),
+                                        },
+                                        Whitespace,
+                                        MultiplicationOperator,
+                                        Whitespace,
+                                        IdentifierExpression {
+                                            Identifier ("arraySize"),
+                                        },
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("value"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("items"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("index"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -701,9 +2154,53 @@ Sub Test()
     value = (Fix(number))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let text = tree.debug_tree();
-        assert!(text.contains("Fix"));
-        assert!(text.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("value"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            CallExpression {
+                                Identifier ("Fix"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("number"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
