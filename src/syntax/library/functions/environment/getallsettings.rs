@@ -783,42 +783,167 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn getallsettings_basic() {
         let source = r#"allSettings = GetAllSettings("MyApp", "Preferences")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("allSettings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"MyApp\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Preferences\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_with_variable() {
         let source = r"settings = GetAllSettings(appName, sectionName)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("appName"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("sectionName"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_app_title() {
         let source = r#"settings = GetAllSettings(App.Title, "WindowPos")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            MemberAccessExpression {
+                                Identifier ("App"),
+                                PeriodOperator,
+                                Identifier ("Title"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"WindowPos\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_if_check() {
         let source = r#"If IsEmpty(GetAllSettings("MyApp", "Config")) Then MsgBox "No settings""#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IsEmpty"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("GetAllSettings"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"MyApp\""),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        StringLiteralExpression {
+                                            StringLiteral ("\"Config\""),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"No settings\""),
+            },
+        ]);
     }
 
     #[test]
@@ -826,10 +951,61 @@ mod tests {
         let source = r#"Function LoadSettings() As Variant
     LoadSettings = GetAllSettings(App.Title, "General")
 End Function"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("LoadSettings"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                VariantKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("LoadSettings"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("GetAllSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("App"),
+                                        PeriodOperator,
+                                        Identifier ("Title"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"General\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -837,17 +1013,152 @@ End Function"#;
         let source = r"For i = LBound(settings, 1) To UBound(settings, 1)
     Debug.Print settings(i, 0)
 Next i";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("LBound"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("settings"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("UBound"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("settings"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        Identifier ("settings"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("0"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_array_access() {
         let source = r#"value = allSettings(i, 0) & " = " & allSettings(i, 1)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("value"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        CallExpression {
+                            Identifier ("allSettings"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\" = \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("allSettings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -856,124 +1167,665 @@ Next i";
     Case "Theme"
         ApplyTheme allSettings(j, 1)
 End Select"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("allSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("j"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Theme\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("ApplyTheme"),
+                            Whitespace,
+                            Identifier ("allSettings"),
+                            LeftParenthesis,
+                            Identifier ("j"),
+                            Comma,
+                            Whitespace,
+                            IntegerLiteral ("1"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_dim_statement() {
         let source = r#"Dim settings As Variant
 settings = GetAllSettings("MyApp", "Settings")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("settings"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                VariantKeyword,
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"MyApp\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Settings\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_not_isempty() {
         let source = r"If Not IsEmpty(GetAllSettings(appName, section)) Then ProcessSettings";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                UnaryExpression {
+                    NotKeyword,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("IsEmpty"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                CallExpression {
+                                    Identifier ("GetAllSettings"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("appName"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("section"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                Identifier ("ProcessSettings"),
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_debug_print() {
         let source =
             r#"Debug.Print "Settings count: " & (UBound(GetAllSettings(appName, section), 1) + 1)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Identifier ("Debug"),
+            Unknown,
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Settings count: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                LeftParenthesis,
+                Identifier ("UBound"),
+                LeftParenthesis,
+                Identifier ("GetAllSettings"),
+                LeftParenthesis,
+                Identifier ("appName"),
+                Comma,
+                Whitespace,
+                Identifier ("section"),
+                RightParenthesis,
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1"),
+                RightParenthesis,
+                Whitespace,
+                AdditionOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_msgbox() {
         let source =
             r#"MsgBox "Found " & (UBound(GetAllSettings("App", "Section"), 1) + 1) & " settings""#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("MsgBox"),
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Identifier("UBound"),
+                Unknown,
+                Identifier("GetAllSettings"),
+                Unknown,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getallsettings_error_handling() {
         let source = r"On Error GoTo ErrorHandler
 settings = GetAllSettings(appName, section)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                Identifier ("ErrorHandler"),
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("appName"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("section"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_listbox() {
         let source = r#"lst.AddItem allSettings(i, 0) & " = " & allSettings(i, 1)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("lst"),
+                Unknown,
+                Identifier("AddItem"),
+                Whitespace,
+                Identifier("allSettings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                Identifier("allSettings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getallsettings_collection_add() {
         let source = r"prefs.Add settings(i, 1), settings(i, 0)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("prefs"),
+                Unknown,
+                Identifier("Add"),
+                Whitespace,
+                Identifier("settings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Identifier("settings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getallsettings_file_export() {
         let source = r#"Print #fileNum, settings(i, 0) & "=" & settings(i, 1)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                Octothorpe,
+                Identifier ("fileNum"),
+                Comma,
+                Whitespace,
+                Identifier ("settings"),
+                LeftParenthesis,
+                Identifier ("i"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("0"),
+                RightParenthesis,
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                StringLiteral ("\"=\""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("settings"),
+                LeftParenthesis,
+                Identifier ("i"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_comparison() {
         let source = r"If settings1(i, 0) <> settings2(i, 0) Then changed = True";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    CallExpression {
+                        Identifier ("settings1"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("settings2"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression {
+                        Identifier ("changed"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    BooleanLiteralExpression {
+                        TrueKeyword,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_dictionary() {
         let source = r"dict.Add settings(i, 0), settings(i, 1)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("dict"),
+                Unknown,
+                Identifier("Add"),
+                Whitespace,
+                Identifier("settings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Identifier("settings"),
+                Unknown,
+                Identifier("i"),
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
     fn getallsettings_inputbox() {
         let source = r#"newValue = InputBox("Enter new value for: " & settings(i, 0), "Edit Setting", settings(i, 1))"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("newValue"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("InputBox"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            BinaryExpression {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"Enter new value for: \""),
+                                },
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("settings"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("i"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("0"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Edit Setting\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            CallExpression {
+                                Identifier ("settings"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_class_member() {
         let source = r"m_Settings = GetAllSettings(m_AppName, m_Section)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("m_Settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_AppName"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_Section"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_type_field() {
         let source = r"backup.Settings = GetAllSettings(appName, section)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetAllSettings"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                MemberAccessExpression {
+                    Identifier ("backup"),
+                    PeriodOperator,
+                    Identifier ("Settings"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetAllSettings"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("appName"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("section"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -982,40 +1834,312 @@ settings = GetAllSettings(appName, section)";
     ProcessSetting settings(i, 0), settings(i, 1)
     i = i + 1
 Loop";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("i"),
+                    },
+                    Whitespace,
+                    LessThanOrEqualOperator,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("UBound"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("settings"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("ProcessSetting"),
+                        Whitespace,
+                        Identifier ("settings"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("0"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("settings"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_concatenation() {
         let source = r#"msg = "Key: " & settings(i, 0) & " Value: " & settings(i, 1)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("msg"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        BinaryExpression {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Key: \""),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("settings"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("i"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("0"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\" Value: \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("settings"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                            },
+                            Comma,
+                            Whitespace,
+                            Argument {
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_redim() {
         let source = r"ReDim decrypted(LBound(settings, 1) To UBound(settings, 1), 0 To 1)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ReDimStatement {
+                ReDimKeyword,
+                Whitespace,
+                Identifier ("decrypted"),
+                LeftParenthesis,
+                CallExpression {
+                    Identifier ("LBound"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("settings"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("UBound"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("settings"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Comma,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("0"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_savesetting() {
         let source = r"SaveSetting appName, section, settings(i, 0), settings(i, 1)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SaveSettingStatement {
+                SaveSettingKeyword,
+                Whitespace,
+                Identifier ("appName"),
+                Comma,
+                Whitespace,
+                Identifier ("section"),
+                Comma,
+                Whitespace,
+                Identifier ("settings"),
+                LeftParenthesis,
+                Identifier ("i"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("0"),
+                RightParenthesis,
+                Comma,
+                Whitespace,
+                Identifier ("settings"),
+                LeftParenthesis,
+                Identifier ("i"),
+                Comma,
+                Whitespace,
+                IntegerLiteral ("1"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getallsettings_property() {
         let source = r"If IsEmpty(m_Settings) Then SettingCount = 0";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("IsEmpty"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("m_Settings"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Whitespace,
+                ThenKeyword,
+                Whitespace,
+                AssignmentStatement {
+                    IdentifierExpression {
+                        Identifier ("SettingCount"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+            },
+        ]);
     }
 }
