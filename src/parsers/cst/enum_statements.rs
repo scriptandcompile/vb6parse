@@ -152,8 +152,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn enum_simple() {
         let source = r"
@@ -163,12 +163,31 @@ Enum Colors
     Blue
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("EnumKeyword"));
-        assert!(debug.contains("EndKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Colors"),
+                Newline,
+                Whitespace,
+                Identifier ("Red"),
+                Newline,
+                Whitespace,
+                Identifier ("Green"),
+                Newline,
+                Whitespace,
+                Identifier ("Blue"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -180,13 +199,44 @@ Enum SecurityLevel
     SecurityLevel2 = 1
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("IllegalEntry"));
-        assert!(debug.contains("SecurityLevel1"));
-        assert!(debug.contains("SecurityLevel2"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("SecurityLevel"),
+                Newline,
+                Whitespace,
+                Identifier ("IllegalEntry"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                SubtractionOperator,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("SecurityLevel1"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Identifier ("SecurityLevel2"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -197,12 +247,38 @@ Public Enum Status
     Inactive = 0
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("Status"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                PublicKeyword,
+                Whitespace,
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Status"),
+                Newline,
+                Whitespace,
+                Identifier ("Active"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("Inactive"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -214,11 +290,45 @@ Private Enum InternalState
     Complete = 2
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                PrivateKeyword,
+                Whitespace,
+                EnumKeyword,
+                Whitespace,
+                Identifier ("InternalState"),
+                Newline,
+                Whitespace,
+                Identifier ("Pending"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Identifier ("Processing"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("Complete"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -230,13 +340,49 @@ End Enum
     West = 3
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
+        assert_tree!(cst, [
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Direction"),
+                Newline,
+                Whitespace,
+                Identifier ("North"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Identifier ("South"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("East"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                Whitespace,
+                Identifier ("West"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("3"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -248,22 +394,78 @@ Enum Priority
     High = 10    ' Highest priority
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Priority"),
+                Newline,
+                Whitespace,
+                Identifier ("Low"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+                Whitespace,
+                Identifier ("Medium"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("5"),
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+                Whitespace,
+                Identifier ("High"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("10"),
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn enum_preserves_whitespace() {
         let source = "    Enum Test\n        Value1 = 1\n    End Enum\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), source);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
+        assert_tree!(cst, [
+            Whitespace,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                Newline,
+                Whitespace,
+                Identifier ("Value1"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -277,11 +479,62 @@ Enum Flags
     All = &HFF
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("ReadWrite"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Flags"),
+                Newline,
+                Whitespace,
+                Identifier ("None"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                Whitespace,
+                Identifier ("ReadWrite"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Unknown,
+                Whitespace,
+                AdditionOperator,
+                Whitespace,
+                Unknown,
+                Newline,
+                Whitespace,
+                Identifier ("All"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Ampersand,
+                Identifier ("HFF"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -290,10 +543,22 @@ End Enum
 Enum EmptyEnum
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("EmptyEnum"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -311,12 +576,79 @@ Private Enum Size
     Large = 2
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        // Check that we have at least 2 enum statements (there may be whitespace nodes too)
-        let enum_count = debug.matches("EnumStatement").count();
-        assert_eq!(enum_count, 2);
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                PublicKeyword,
+                Whitespace,
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Color"),
+                Newline,
+                Whitespace,
+                Identifier ("Red"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("Green"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                Whitespace,
+                Identifier ("Blue"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("3"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+            Newline,
+            EnumStatement {
+                PrivateKeyword,
+                Whitespace,
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Size"),
+                Newline,
+                Whitespace,
+                Identifier ("Small"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Identifier ("Medium"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("Large"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -329,11 +661,54 @@ Enum FileAttributes
     Archive = &H20
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("FileAttributes"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("FileAttributes"),
+                Newline,
+                Whitespace,
+                Identifier ("ReadOnly"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Ampersand,
+                Identifier ("H1"),
+                Newline,
+                Whitespace,
+                Identifier ("Hidden"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Ampersand,
+                Identifier ("H2"),
+                Newline,
+                Whitespace,
+                Identifier ("System"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Ampersand,
+                Identifier ("H4"),
+                Newline,
+                Whitespace,
+                Identifier ("Archive"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Ampersand,
+                Identifier ("H20"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -349,12 +724,71 @@ Enum DayOfWeek
     Saturday = 7
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("Sunday"));
-        assert!(debug.contains("Saturday"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("DayOfWeek"),
+                Newline,
+                Whitespace,
+                Identifier ("Sunday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+                Whitespace,
+                Identifier ("Monday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Newline,
+                Whitespace,
+                Identifier ("Tuesday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("3"),
+                Newline,
+                Whitespace,
+                Identifier ("Wednesday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("4"),
+                Newline,
+                Whitespace,
+                Identifier ("Thursday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("5"),
+                Newline,
+                Whitespace,
+                Identifier ("Friday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("6"),
+                Newline,
+                Whitespace,
+                Identifier ("Saturday"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("7"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -366,10 +800,43 @@ Enum Temperature
     BoilingPoint = 100
 End Enum
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EnumStatement"));
-        assert!(debug.contains("FreezingPoint"));
+        assert_tree!(cst, [
+            Newline,
+            EnumStatement {
+                EnumKeyword,
+                Whitespace,
+                Identifier ("Temperature"),
+                Newline,
+                Whitespace,
+                Identifier ("FreezingPoint"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                SubtractionOperator,
+                IntegerLiteral ("273"),
+                Newline,
+                Whitespace,
+                Identifier ("Zero"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+                Whitespace,
+                Identifier ("BoilingPoint"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IntegerLiteral ("100"),
+                Newline,
+                EndKeyword,
+                Whitespace,
+                EnumKeyword,
+                Newline,
+            },
+        ]);
     }
 }
