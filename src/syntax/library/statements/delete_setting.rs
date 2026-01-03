@@ -29,8 +29,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn deletesetting_with_section_only() {
         // Test DeleteSetting with appname and section (deletes entire section)
@@ -39,10 +39,38 @@ Sub Test()
     DeleteSetting "MyApp", "Startup"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Startup\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -53,10 +81,41 @@ Sub Test()
     DeleteSetting "MyApp", "Startup", "Left"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Startup\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Left\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -67,10 +126,40 @@ Sub Test()
     DeleteSetting App.ProductName, "FileFilter"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("ProductName"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"FileFilter\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -81,10 +170,41 @@ Sub Test()
     DeleteSetting REGISTRY_KEY, "Settings", "frmPost.Left"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("REGISTRY_KEY"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"frmPost.Left\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -97,10 +217,67 @@ Sub Test()
     DeleteSetting REGISTRY_KEY, "Settings", "frmPost.Height"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.matches("DeleteSettingStatement").count() >= 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("REGISTRY_KEY"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"frmPost.Left\""),
+                        Newline,
+                    },
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("REGISTRY_KEY"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"frmPost.Top\""),
+                        Newline,
+                    },
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("REGISTRY_KEY"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"frmPost.Height\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -115,10 +292,86 @@ Sub Test()
     DeleteSetting appName, sectionName
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("appName"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("sectionName"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("appName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"MyApp\""),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("sectionName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"Settings\""),
+                        },
+                        Newline,
+                    },
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("appName"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("sectionName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -132,10 +385,81 @@ Sub Test()
     Next i
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            DeleteSettingStatement {
+                                Whitespace,
+                                DeleteSettingKeyword,
+                                Whitespace,
+                                StringLiteral ("\"MyApp\""),
+                                Comma,
+                                Whitespace,
+                                StringLiteral ("\"Item\""),
+                                Whitespace,
+                                Ampersand,
+                                Whitespace,
+                                Identifier ("i"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -146,10 +470,49 @@ Sub Test()
     DeleteSetting "MyApp", "Section" & Num, "Key" & Index
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Section\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Num"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Key\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Index"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -162,10 +525,56 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("ResetSettings"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            DeleteSettingStatement {
+                                Whitespace,
+                                DeleteSettingKeyword,
+                                Whitespace,
+                                StringLiteral ("\"MyApp\""),
+                                Comma,
+                                Whitespace,
+                                StringLiteral ("\"Preferences\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -176,10 +585,47 @@ Sub Test()
     DeleteSetting GetAppName(), GetSection(), GetKey()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        Identifier ("GetAppName"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("GetSection"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("GetKey"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -190,10 +636,47 @@ Sub Test()
     DeleteSetting ("MyApp"), ("Settings"), ("WindowState")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        LeftParenthesis,
+                        StringLiteral ("\"MyApp\""),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        LeftParenthesis,
+                        StringLiteral ("\"Settings\""),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        LeftParenthesis,
+                        StringLiteral ("\"WindowState\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -206,9 +689,63 @@ Sub Test()
     If Err Then MsgBox "Error deleting setting"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DeleteSettingStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    DeleteSettingStatement {
+                        Whitespace,
+                        DeleteSettingKeyword,
+                        Whitespace,
+                        StringLiteral ("\"MyApp\""),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Settings\""),
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("Err"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error deleting setting\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
