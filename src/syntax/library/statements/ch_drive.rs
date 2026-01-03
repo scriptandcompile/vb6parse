@@ -16,8 +16,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn chdrive_simple_string_literal() {
         let source = r#"
@@ -25,11 +25,35 @@ Sub Test()
     ChDrive "C:"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -39,11 +63,35 @@ Sub Test()
     ChDrive myDrive
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("myDrive"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -53,11 +101,37 @@ Sub Test()
     ChDrive App.Path
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Path"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -67,11 +141,41 @@ Sub Test()
     ChDrive Left(sInitDir, 1)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("Left"),
+                        LeftParenthesis,
+                        Identifier ("sInitDir"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -81,11 +185,45 @@ Sub Test()
     If driveValid Then ChDrive newDrive
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("driveValid"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ChDriveStatement {
+                            ChDriveKeyword,
+                            Whitespace,
+                            Identifier ("newDrive"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -93,11 +231,18 @@ End Sub
         let source = r#"
 ChDrive "D:"
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            ChDriveStatement {
+                ChDriveKeyword,
+                Whitespace,
+                StringLiteral ("\"D:\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -107,12 +252,37 @@ Sub Test()
     ChDrive driveLetter ' Change to specified drive
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
-        assert!(debug.contains("EndOfLineComment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("driveLetter"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -124,11 +294,49 @@ Sub Test()
     ChDrive originalDrive
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let chdrive_count = debug.matches("ChDriveStatement").count();
-        assert_eq!(chdrive_count, 3, "Expected 3 ChDrive statements");
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\""),
+                        Newline,
+                    },
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        StringLiteral ("\"D:\""),
+                        Newline,
+                    },
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("originalDrive"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -140,11 +348,53 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("driveExists"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            ChDriveStatement {
+                                Whitespace,
+                                ChDriveKeyword,
+                                Whitespace,
+                                Identifier ("targetDrive"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -154,11 +404,43 @@ Sub Test()
     ChDrive (Left$(sInitDir, 1))
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        LeftParenthesis,
+                        Identifier ("Left$"),
+                        LeftParenthesis,
+                        Identifier ("sInitDir"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -168,11 +450,41 @@ Sub Test()
     ChDrive Left(theZtmPath, 1)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        Identifier ("Left"),
+                        LeftParenthesis,
+                        Identifier ("theZtmPath"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -183,12 +495,41 @@ Sub Test()
     ChDir "C:\Windows"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ChDriveStatement"));
-        assert!(debug.contains("ChDriveKeyword"));
-        assert!(debug.contains("ChDirStatement"));
-        assert!(debug.contains("ChDirKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ChDriveStatement {
+                        Whitespace,
+                        ChDriveKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\""),
+                        Newline,
+                    },
+                    ChDirStatement {
+                        Whitespace,
+                        ChDirKeyword,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Windows\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
