@@ -811,33 +811,77 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn getobject_basic() {
         let source = r#"Set xlApp = GetObject("C:\Reports\Sales.xls")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                StringLiteral ("\"C:\\Reports\\Sales.xls\""),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_with_class() {
         let source = r#"Set app = GetObject(, "Excel.Application")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("app"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_both_params() {
         let source = r"Set doc = GetObject(filePath, className)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("doc"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("filePath"),
+                Comma,
+                Whitespace,
+                Identifier ("className"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
@@ -845,10 +889,46 @@ mod tests {
         let source = r#"Function GetExcelInstance() As Object
     Set GetExcelInstance = GetObject(, "Excel.Application")
 End Function"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetExcelInstance"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ObjectKeyword,
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("GetExcelInstance"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Excel.Application\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -856,10 +936,43 @@ End Function"#;
         let source = r#"On Error Resume Next
 Set obj = GetObject("C:\data.xls")
 On Error GoTo 0"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                StringLiteral ("\"C:\\data.xls\""),
+                RightParenthesis,
+                Newline,
+            },
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                GotoKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+            },
+        ]);
     }
 
     #[test]
@@ -867,28 +980,98 @@ On Error GoTo 0"#;
         let source = r#"If Not GetObject(, "Excel.Application") Is Nothing Then
     MsgBox "Excel is running"
 End If"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                UnaryExpression {
+                    NotKeyword,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Comma,
+                                },
+                            },
+                            Whitespace,
+                        },
+                    },
+                },
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                Whitespace,
+                IsKeyword,
+                Whitespace,
+                Identifier ("Nothing"),
+                Whitespace,
+                ThenKeyword,
+                Newline,
+            },
+            Whitespace,
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Excel is running\""),
+                Newline,
+            },
+            Unknown,
+            Whitespace,
+            IfStatement {
+                IfKeyword,
+                IdentifierExpression,
+                StatementList,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_range_notation() {
         let source = r#"Set xlRange = GetObject("C:\Data\Report.xls!Sheet1!R1C1:R10C5")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xlRange"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                StringLiteral ("\"C:\\Data\\Report.xls!Sheet1!R1C1:R10C5\""),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_word_document() {
         let source = r#"Set wordDoc = GetObject("C:\Documents\Letter.doc")"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("wordDoc"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                StringLiteral ("\"C:\\Documents\\Letter.doc\""),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
@@ -896,28 +1079,117 @@ End If"#;
         let source = r"For i = 1 To fileCount
     Set doc = GetObject(files(i))
 Next i";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("fileCount"),
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("doc"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        Identifier ("files"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+            },
+        ]);
     }
 
     #[test]
     fn getobject_is_nothing_check() {
         let source = r"If GetObject(, progID) Is Nothing Then Exit Sub";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("GetObject"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Comma,
+                            },
+                        },
+                        Whitespace,
+                    },
+                },
+                Identifier ("progID"),
+                RightParenthesis,
+                Whitespace,
+                IsKeyword,
+                Whitespace,
+                Identifier ("Nothing"),
+                Whitespace,
+                ThenKeyword,
+                ExitStatement {
+                    Whitespace,
+                    ExitKeyword,
+                    Whitespace,
+                    SubKeyword,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getobject_with_application() {
         let source = r"Set xlApp = GetObject(filePath).Application";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("filePath"),
+                RightParenthesis,
+                PeriodOperator,
+                Identifier ("Application"),
+            },
+        ]);
     }
 
     #[test]
@@ -926,10 +1198,60 @@ Next i";
     Case "Workbook"
         Debug.Print "Excel file"
 End Select"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                CallExpression {
+                    Identifier ("TypeName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("GetObject"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("filePath"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    StringLiteral ("\"Workbook\""),
+                    Newline,
+                    StatementList {
+                        Whitespace,
+                        CallStatement {
+                            Identifier ("Debug"),
+                            PeriodOperator,
+                            PrintKeyword,
+                            Whitespace,
+                            StringLiteral ("\"Excel file\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+            },
+        ]);
     }
 
     #[test]
@@ -937,37 +1259,122 @@ End Select"#;
         let source = r#"Do Until Not GetObject(, "Excel.Application") Is Nothing
     DoEvents
 Loop"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            DoStatement {
+                DoKeyword,
+                Whitespace,
+                UntilKeyword,
+                Whitespace,
+                UnaryExpression {
+                    NotKeyword,
+                    Whitespace,
+                    CallExpression {
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                IdentifierExpression {
+                                    Comma,
+                                },
+                            },
+                            Whitespace,
+                        },
+                    },
+                },
+                StatementList {
+                    Unknown,
+                    Unknown,
+                    Whitespace,
+                    CallStatement {
+                        IsKeyword,
+                        Whitespace,
+                        Identifier ("Nothing"),
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("DoEvents"),
+                        Newline,
+                    },
+                },
+                LoopKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_class_member() {
         let source = r"Set m_Document = GetObject(m_FilePath)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("m_Document"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("m_FilePath"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_type_field() {
         let source = r"Set cached.Document = GetObject(filePath)";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("cached"),
+                PeriodOperator,
+                Identifier ("Document"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("filePath"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_collection_add() {
         let source = r#"m_Instances.Add GetObject(, "Excel.Application"), "Excel""#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("m_Instances"),
+                Unknown,
+                Identifier("Add"),
+                Whitespace,
+                Identifier("GetObject"),
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+                Unknown,
+                Unknown,
+                Whitespace,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
@@ -975,28 +1382,97 @@ Loop"#;
         let source = r#"With GetObject("C:\data.xls")
     .Application.Visible = True
 End With"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                StringLiteral ("\"C:\\data.xls\""),
+                RightParenthesis,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("Application"),
+                                PeriodOperator,
+                                Identifier ("Visible"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            BooleanLiteralExpression {
+                                TrueKeyword,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_debug_print() {
         let source = r#"Debug.Print "Count: " & GetObject(, "Excel.Application").Workbooks.Count"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Identifier ("Debug"),
+            Unknown,
+            PrintStatement {
+                PrintKeyword,
+                Whitespace,
+                StringLiteral ("\"Count: \""),
+                Whitespace,
+                Ampersand,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                PeriodOperator,
+                Identifier ("Workbooks"),
+                PeriodOperator,
+                Identifier ("Count"),
+            },
+        ]);
     }
 
     #[test]
     fn getobject_msgbox() {
         let source = r"MsgBox TypeName(GetObject(filePath))";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("MsgBox"),
+                Whitespace,
+                Identifier("TypeName"),
+                Unknown,
+                Identifier("GetObject"),
+                Unknown,
+                Identifier("filePath"),
+                Unknown,
+                Unknown,
+            ]
+        );
     }
 
     #[test]
@@ -1004,20 +1480,86 @@ End With"#;
         let source = r"Property Get CurrentDocument() As Object
     Set CurrentDocument = GetObject(m_FilePath)
 End Property";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("CurrentDocument"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ObjectKeyword,
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("CurrentDocument"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        Identifier ("m_FilePath"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_concatenation() {
         let source = r#"filePath = "C:\Data\" & fileName & ".xls"
 Set doc = GetObject(filePath)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("filePath"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                MemberAccessExpression {
+                    StringLiteralExpression {
+                        StringLiteral ("\"C:\\Data\\\" & fileName & \""),
+                    },
+                    PeriodOperator,
+                    Identifier ("xls"),
+                },
+            },
+            Unknown,
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("doc"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("filePath"),
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
@@ -1025,54 +1567,240 @@ Set doc = GetObject(filePath)"#;
         let source = r"For Each file In files
     Set doc = GetObject(CStr(file))
 Next file";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            ForEachStatement {
+                ForKeyword,
+                Whitespace,
+                EachKeyword,
+                Whitespace,
+                Identifier ("file"),
+                Whitespace,
+                InKeyword,
+                Whitespace,
+                Identifier ("files"),
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("doc"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        Identifier ("CStr"),
+                        LeftParenthesis,
+                        Identifier ("file"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("file"),
+            },
+        ]);
     }
 
     #[test]
     fn getobject_call_by_name() {
         let source = r#"result = CallByName(GetObject(filePath), "Save", VbMethod)"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("result"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("CallByName"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            CallExpression {
+                                Identifier ("GetObject"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("filePath"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Save\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("VbMethod"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getobject_method_call() {
         let source = r"GetObject(filePath).Save";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(
+            cst,
+            [
+                Identifier("GetObject"),
+                Unknown,
+                Identifier("filePath"),
+                Unknown,
+                Unknown,
+                Identifier("Save"),
+            ]
+        );
     }
 
     #[test]
     fn getobject_nested_property() {
         let source = r#"value = GetObject(filePath).Worksheets(1).Range("A1").Value"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("value"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                MemberAccessExpression {
+                    CallExpression {
+                        MemberAccessExpression {
+                            CallExpression {
+                                MemberAccessExpression {
+                                    CallExpression {
+                                        Identifier ("GetObject"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("filePath"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    PeriodOperator,
+                                    Identifier ("Worksheets"),
+                                },
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            PeriodOperator,
+                            Identifier ("Range"),
+                        },
+                        LeftParenthesis,
+                        ArgumentList {
+                            Argument {
+                                StringLiteralExpression {
+                                    StringLiteral ("\"A1\""),
+                                },
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    PeriodOperator,
+                    Identifier ("Value"),
+                },
+            },
+        ]);
     }
 
     #[test]
     fn getobject_parentheses() {
         let source = r#"Set app = (GetObject(, "Excel.Application"))"#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("app"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                LeftParenthesis,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Excel.Application\""),
+                RightParenthesis,
+                RightParenthesis,
+            },
+        ]);
     }
 
     #[test]
     fn getobject_iif() {
         let source = r"Set obj = IIf(condition, GetObject(file1), GetObject(file2))";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("GetObject"));
-        assert!(debug.contains("Identifier"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("IIf"),
+                LeftParenthesis,
+                Identifier ("condition"),
+                Comma,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("file1"),
+                RightParenthesis,
+                Comma,
+                Whitespace,
+                Identifier ("GetObject"),
+                LeftParenthesis,
+                Identifier ("file2"),
+                RightParenthesis,
+                RightParenthesis,
+            },
+        ]);
     }
 }
