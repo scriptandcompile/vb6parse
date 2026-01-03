@@ -112,8 +112,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn savepicture_simple() {
         let source = r#"
@@ -121,25 +121,61 @@ Sub Test()
     SavePicture Form1.Picture, "output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("SavePictureKeyword"));
-        assert!(debug.contains("Form1"));
-        assert!(debug.contains("Picture"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savepicture_at_module_level() {
         let source = "SavePicture Picture1.Picture, \"image.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            SavePictureStatement {
+                SavePictureKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"image.bmp\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -149,12 +185,40 @@ Sub Test()
     SavePicture Form1.Image, "snapshot.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Form1"));
-        assert!(debug.contains("Image"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"snapshot.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -164,11 +228,40 @@ Sub Test()
     SavePicture Picture1.Picture, "C:\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Picture1"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Images\\output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -178,11 +271,40 @@ Sub Test()
     SavePicture Picture1.Picture, fileName
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("fileName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("fileName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -192,11 +314,44 @@ Sub Test()
     SavePicture Picture1.Image, basePath & "\image.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("basePath"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("basePath"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"\\image.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -206,11 +361,42 @@ Sub Test()
     SavePicture Picture1.Picture, GetFileName()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("GetFileName"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("GetFileName"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -220,11 +406,42 @@ Sub Test()
     SavePicture Clipboard.GetData(), "clipboard.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Clipboard"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Clipboard"),
+                        PeriodOperator,
+                        Identifier ("GetData"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"clipboard.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -234,12 +451,42 @@ Sub Test()
     SavePicture frmMain.picDisplay.Picture, "display.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("frmMain"));
-        assert!(debug.contains("picDisplay"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("frmMain"),
+                        PeriodOperator,
+                        Identifier ("picDisplay"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"display.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -249,11 +496,54 @@ Sub Test()
     SavePicture Picture1.Picture, "Image_" & Format$(Now, "yyyymmdd") & ".bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Picture1"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Image_\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Format$"),
+                        LeftParenthesis,
+                        Identifier ("Now"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"yyyymmdd\""),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\".bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -263,10 +553,40 @@ If saveFlag Then
     SavePicture Picture1.Image, "output.bmp"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("saveFlag"),
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -276,10 +596,61 @@ For i = 1 To 10
     SavePicture Pictures(i).Picture, "Pic" & i & ".bmp"
 Next i
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            ForStatement {
+                ForKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("i"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Pictures"),
+                        LeftParenthesis,
+                        Identifier ("i"),
+                        RightParenthesis,
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Pic\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("i"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\".bmp\""),
+                        Newline,
+                    },
+                },
+                NextKeyword,
+                Whitespace,
+                Identifier ("i"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -289,20 +660,64 @@ Sub Test()
     SavePicture Form1.Image, "snapshot.bmp" ' Save form image
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("' Save form image"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"snapshot.bmp\""),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savepicture_preserves_whitespace() {
         let source = "SavePicture   Picture1.Picture  ,   \"file.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            SavePictureStatement {
+                SavePictureKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Whitespace,
+                Comma,
+                Whitespace,
+                StringLiteral ("\"file.bmp\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -312,12 +727,43 @@ Sub Test()
     SavePicture Pictures(index).Picture, fileName
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Pictures"));
-        assert!(debug.contains("index"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Pictures"),
+                        LeftParenthesis,
+                        Identifier ("index"),
+                        RightParenthesis,
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("fileName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -330,10 +776,68 @@ Select Case format
         SavePicture Picture1.Image, "output2.bmp"
 End Select
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SelectCaseStatement {
+                SelectKeyword,
+                Whitespace,
+                CaseKeyword,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("format"),
+                },
+                Newline,
+                Whitespace,
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("1"),
+                    Newline,
+                    StatementList {
+                        SavePictureStatement {
+                            Whitespace,
+                            SavePictureKeyword,
+                            Whitespace,
+                            Identifier ("Picture1"),
+                            PeriodOperator,
+                            Identifier ("Picture"),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"output1.bmp\""),
+                            Newline,
+                        },
+                        Whitespace,
+                    },
+                },
+                CaseClause {
+                    CaseKeyword,
+                    Whitespace,
+                    IntegerLiteral ("2"),
+                    Newline,
+                    StatementList {
+                        SavePictureStatement {
+                            Whitespace,
+                            SavePictureKeyword,
+                            Whitespace,
+                            Identifier ("Picture1"),
+                            PeriodOperator,
+                            Identifier ("Image"),
+                            Comma,
+                            Whitespace,
+                            StringLiteral ("\"output2.bmp\""),
+                            Newline,
+                        },
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SelectKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -345,10 +849,66 @@ If Err.Number <> 0 Then
     MsgBox "Error"
 End If
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            OnErrorStatement {
+                OnKeyword,
+                Whitespace,
+                ErrorKeyword,
+                Whitespace,
+                ResumeKeyword,
+                Whitespace,
+                NextKeyword,
+                Newline,
+            },
+            SavePictureStatement {
+                SavePictureKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Comma,
+                Whitespace,
+                Identifier ("fileName"),
+                Newline,
+            },
+            IfStatement {
+                IfKeyword,
+                Whitespace,
+                BinaryExpression {
+                    MemberAccessExpression {
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                    },
+                    Whitespace,
+                    InequalityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                },
+                Whitespace,
+                ThenKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Error\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                IfKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -358,22 +918,66 @@ With Picture1
     SavePicture .Picture, "output.bmp"
 End With
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Picture"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("Picture1"),
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn savepicture_multiple_on_same_line() {
         let source = "SavePicture Pic1.Picture, \"a.bmp\": SavePicture Pic2.Picture, \"b.bmp\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("Pic1"));
-        assert!(debug.contains("Pic2"));
+        assert_tree!(cst, [
+            SavePictureStatement {
+                SavePictureKeyword,
+                Whitespace,
+                Identifier ("Pic1"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"a.bmp\""),
+                ColonOperator,
+                Whitespace,
+                SavePictureKeyword,
+                Whitespace,
+                Identifier ("Pic2"),
+                PeriodOperator,
+                Identifier ("Picture"),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"b.bmp\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -383,10 +987,40 @@ Sub Test()
     SavePicture Picture1.Picture, "..\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"..\\Images\\output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -396,10 +1030,40 @@ Sub SaveCurrentImage()
     SavePicture Form1.Image, "current.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("SaveCurrentImage"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"current.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -410,11 +1074,57 @@ Function ExportImage() As Boolean
     ExportImage = True
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("outputPath"));
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("ExportImage"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("outputPath"),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("ExportImage"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -424,12 +1134,46 @@ Sub Test()
     SavePicture Picture1.Picture, App.Path & "\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("App"));
-        assert!(debug.contains("Path"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("App"),
+                        PeriodOperator,
+                        Identifier ("Path"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\"\\output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -439,11 +1183,43 @@ Sub Test()
     SavePicture imgArray(5).Picture, "array_item.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("imgArray"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("imgArray"),
+                        LeftParenthesis,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"array_item.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -455,11 +1231,58 @@ Public Sub ExportPicture(fileName As String)
     SavePicture picData.Picture, fileName
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("picData"));
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("picData"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("PictureBox"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("ExportPicture"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("fileName"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("picData"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("fileName"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -469,10 +1292,40 @@ Sub Test()
     SavePicture Picture1.Image, "C:\Program Files\MyApp\Data\Images\snapshot.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"C:\\Program Files\\MyApp\\Data\\Images\\snapshot.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -483,10 +1336,43 @@ Sub Test()
         "output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        Underscore,
+                        Newline,
+                        Whitespace,
+                        StringLiteral ("\"output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -496,11 +1382,51 @@ Sub Test()
     SavePicture Picture1.Picture, "Image_" & CStr(counter) & ".bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
-        assert!(debug.contains("counter"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Picture1"),
+                        PeriodOperator,
+                        Identifier ("Picture"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"Image_\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("CStr"),
+                        LeftParenthesis,
+                        Identifier ("counter"),
+                        RightParenthesis,
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\".bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -510,9 +1436,39 @@ Sub Test()
     SavePicture Form1.Image, "\\Server\Share\Images\output.bmp"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SavePictureStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SavePictureStatement {
+                        Whitespace,
+                        SavePictureKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        PeriodOperator,
+                        Identifier ("Image"),
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"\\\\Server\\Share\\Images\\output.bmp\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
