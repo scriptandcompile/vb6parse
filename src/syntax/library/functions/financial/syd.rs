@@ -661,8 +661,8 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn syd_basic() {
         let source = r"
@@ -670,9 +670,71 @@ Sub Test()
     depreciation = SYD(10000, 1000, 5, 1)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("depreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("10000"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1000"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -683,10 +745,82 @@ Sub Test()
     yearlyDep = SYD(cost, salvage, life, year)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
-        assert!(debug.contains("cost"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("yearlyDep"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        DoubleKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("yearlyDep"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("year"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -699,9 +833,120 @@ Sub Test()
     Next year
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("year"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("life"),
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("depreciation"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("SYD"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("year"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("total"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("total"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("depreciation"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("year"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -711,9 +956,101 @@ Function GetDepreciation(cost As Double, salvage As Double, life As Integer, per
     GetDepreciation = SYD(cost, salvage, life, period)
 End Function
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetDepreciation"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("cost"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("salvage"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    DoubleKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("life"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("period"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("GetDepreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("period"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -725,9 +1062,89 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("threshold"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessDepreciation"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -737,9 +1154,57 @@ Sub Test()
     MsgBox "Depreciation: $" & Format$(SYD(cost, salvage, life, year), "#,##0.00")
 End Sub
 "##;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Depreciation: $\""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("Format$"),
+                        LeftParenthesis,
+                        Identifier ("SYD"),
+                        LeftParenthesis,
+                        Identifier ("cost"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("salvage"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("life"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("year"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        StringLiteral ("\"#,##0.00\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -754,9 +1219,122 @@ Sub Test()
     End Select
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("period"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IsKeyword,
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            IntegerLiteral ("10000"),
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("category"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"High\""),
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseElseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("category"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Low\""),
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -766,9 +1344,80 @@ Sub Test()
     schedule(i) = SYD(cost, salvage, life, i)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        CallExpression {
+                            Identifier ("schedule"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -778,9 +1427,50 @@ Sub Test()
     Call ProcessDepreciation(SYD(cost, salvage, life, year))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    CallStatement {
+                        Whitespace,
+                        CallKeyword,
+                        Whitespace,
+                        Identifier ("ProcessDepreciation"),
+                        LeftParenthesis,
+                        Identifier ("SYD"),
+                        LeftParenthesis,
+                        Identifier ("cost"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("salvage"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("life"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("year"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -792,9 +1482,120 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SLN"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("useAccelerated"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BooleanLiteralExpression {
+                                    TrueKeyword,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -804,9 +1605,61 @@ Sub Test()
     Debug.Print "Year " & year & ": " & SYD(cost, salvage, life, year)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"Year \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("year"),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteral ("\": \""),
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        Identifier ("SYD"),
+                        LeftParenthesis,
+                        Identifier ("cost"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("salvage"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("life"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("year"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -819,9 +1672,124 @@ Sub Test()
     Loop
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("year"),
+                            },
+                            Whitespace,
+                            LessThanOrEqualOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("total"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("total"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("SYD"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("cost"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("salvage"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("life"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("year"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("year"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -834,9 +1802,116 @@ Sub Test()
     Loop
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        UntilKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("year"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("depreciation"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("SYD"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("year"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("year"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("year"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -849,9 +1924,123 @@ Sub Test()
     Wend
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("period"),
+                            },
+                            Whitespace,
+                            LessThanOrEqualOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("life"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                CallExpression {
+                                    Identifier ("values"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("period"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("SYD"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("period"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("period"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("period"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -861,9 +2050,117 @@ Sub Test()
     method = IIf(useAccelerated, SYD(cost, salvage, life, year), SLN(cost, salvage, life))
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("method"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IIf"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("useAccelerated"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("SYD"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("cost"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("salvage"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("life"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("year"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("SLN"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("cost"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("salvage"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("life"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -875,9 +2172,84 @@ Sub Test()
     End With
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("assetInfo"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Depreciation"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("SYD"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    PeriodOperator,
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            CallStatement {
+                                Identifier ("Cost"),
+                                Comma,
+                                Whitespace,
+                                PeriodOperator,
+                                Identifier ("Salvage"),
+                                Comma,
+                                Whitespace,
+                                PeriodOperator,
+                                Identifier ("Life"),
+                                Comma,
+                                Whitespace,
+                                PeriodOperator,
+                                Identifier ("Year"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -887,9 +2259,83 @@ Sub Test()
     result = (SYD(cost, salvage, life, year) * taxRate)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                CallExpression {
+                                    Identifier ("SYD"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("year"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                MultiplicationOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("taxRate"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -903,9 +2349,123 @@ Sub Test()
     End If
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("depreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("year"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("Err"),
+                                PeriodOperator,
+                                Identifier ("Number"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("depreciation"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -915,9 +2475,79 @@ Sub Test()
     obj.AnnualDepreciation = SYD(obj.Cost, obj.Salvage, obj.Life, currentYear)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("obj"),
+                            PeriodOperator,
+                            Identifier ("AnnualDepreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("obj"),
+                                        PeriodOperator,
+                                        Identifier ("Cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("obj"),
+                                        PeriodOperator,
+                                        Identifier ("Salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    MemberAccessExpression {
+                                        Identifier ("obj"),
+                                        PeriodOperator,
+                                        Identifier ("Life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("currentYear"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -927,9 +2557,79 @@ Sub Test()
     report = "Depreciation: " & SYD(cost, salvage, life, year)
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("report"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            StringLiteralExpression {
+                                StringLiteral ("\"Depreciation: \""),
+                            },
+                            Whitespace,
+                            Ampersand,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -939,9 +2639,117 @@ Sub Test()
     bookValue = cost - SYD(cost, salvage, life, 1) - SYD(cost, salvage, life, 2)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("bookValue"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("cost"),
+                                },
+                                Whitespace,
+                                SubtractionOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("SYD"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("1"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                            },
+                            Whitespace,
+                            SubtractionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("2"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -951,9 +2759,51 @@ Sub Test()
     Print #1, SYD(cost, salvage, life, period)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    PrintStatement {
+                        Whitespace,
+                        PrintKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        IntegerLiteral ("1"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("SYD"),
+                        LeftParenthesis,
+                        Identifier ("cost"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("salvage"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("life"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("period"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -964,9 +2814,86 @@ Sub Test()
     asset.YearlyDepreciation = SYD(cost, salvage, life, year)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("asset"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("DepreciationCalculator"),
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        MemberAccessExpression {
+                            Identifier ("asset"),
+                            PeriodOperator,
+                            Identifier ("YearlyDepreciation"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("SYD"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("cost"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("salvage"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("life"),
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("year"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -976,9 +2903,79 @@ Sub Test()
     accumulated = accumulated + SYD(cost, salvage, life, period)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("accumulated"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("accumulated"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("period"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -992,9 +2989,161 @@ Sub Test()
     End If
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("method"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"DDB\""),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("dep"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("DDB"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("cost"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("salvage"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("life"),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("period"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseIfClause {
+                            ElseIfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("method"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                StringLiteralExpression {
+                                    StringLiteral ("\"SYD\""),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("dep"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    CallExpression {
+                                        Identifier ("SYD"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("cost"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("salvage"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("life"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("period"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1004,9 +3153,109 @@ Sub Test()
     totalDep = SYD(cost1, salvage1, life1, year) + SYD(cost2, salvage2, life2, year)
 End Sub
 ";
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("totalDep"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost1"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage1"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life1"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("SYD"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("cost2"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("salvage2"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("life2"),
+                                        },
+                                    },
+                                    Comma,
+                                    Whitespace,
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("year"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1016,8 +3265,86 @@ Sub Test()
     formatted = Format$(SYD(cost, salvage, life, year), "$#,##0.00")
 End Sub
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
-        assert!(debug.contains("SYD"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("formatted"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Format$"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    CallExpression {
+                                        Identifier ("SYD"),
+                                        LeftParenthesis,
+                                        ArgumentList {
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("cost"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("salvage"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("life"),
+                                                },
+                                            },
+                                            Comma,
+                                            Whitespace,
+                                            Argument {
+                                                IdentifierExpression {
+                                                    Identifier ("year"),
+                                                },
+                                            },
+                                        },
+                                        RightParenthesis,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"$#,##0.00\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
