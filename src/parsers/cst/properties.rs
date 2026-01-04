@@ -303,14 +303,11 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::io::SourceStream;
-    use crate::lexer::tokenize;
-    use crate::parsers::cst::parse;
-    use crate::parsers::SyntaxKind;
-
+    use crate::assert_tree;
+    use crate::*;
     #[test]
     fn class_parsing() {
-        let input = r#"VERSION 1.0 CLASS
+        let source = r#"VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
   Persistable = 0  'NotPersistable
@@ -331,46 +328,205 @@ Public Sub Test()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("Class1.cls", input);
-        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
-        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let cst = parse(token_stream);
-
-        // Check structure
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-
-        // Check for VersionStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::VersionStatement),
-            "Should contain VersionStatement"
-        );
-
-        // Check for PropertiesBlock
-        assert!(
-            cst.contains_kind(SyntaxKind::PropertiesBlock),
-            "Should contain PropertiesBlock"
-        );
-
-        // Check for AttributeStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::AttributeStatement),
-            "Should contain AttributeStatement"
-        );
-
-        // Check for SubStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::SubStatement),
-            "Should contain SubStatement"
-        );
-
-        // Check text preservation
-        assert_eq!(cst.text(), input);
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Whitespace,
+                ClassKeyword,
+                Newline,
+            },
+            PropertiesBlock {
+                BeginKeyword,
+                Newline,
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("MultiUse"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        SubtractionOperator,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("Persistable"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        IntegerLiteral ("0"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("DataBindingBehavior"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        IntegerLiteral ("0"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("DataSourceBehavior"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        IntegerLiteral ("0"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("MTSTransactionMode"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        IntegerLiteral ("0"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                EndKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"Class1\""),
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_GlobalNameSpace"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Creatable"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                TrueKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_PredeclaredId"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Exposed"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("x"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn form_parsing() {
-        let input = r#"VERSION 5.00
+        let source = r#"VERSION 5.00
 Begin VB.Form Form1 
    Caption         =   "Form1"
    ClientHeight    =   3195
@@ -390,40 +546,173 @@ Private Sub Command1_Click()
 End Sub
 "#;
 
-        let mut source_stream = SourceStream::new("Form1.frm", input);
-        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
-        let token_stream = token_stream_opt.expect("Tokenization failed");
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let cst = parse(token_stream);
-
-        // Check structure
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-
-        // Check for VersionStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::VersionStatement),
-            "Should contain VersionStatement"
-        );
-
-        // Check for PropertiesBlock
-        assert!(
-            cst.contains_kind(SyntaxKind::PropertiesBlock),
-            "Should contain PropertiesBlock"
-        );
-
-        // Check for AttributeStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::AttributeStatement),
-            "Should contain AttributeStatement"
-        );
-
-        // Check for SubStatement
-        assert!(
-            cst.contains_kind(SyntaxKind::SubStatement),
-            "Should contain SubStatement"
-        );
-
-        // Check text preservation
-        assert_eq!(cst.text(), input);
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Newline,
+            },
+            PropertiesBlock {
+                BeginKeyword,
+                Whitespace,
+                PropertiesType {
+                    Identifier ("VB"),
+                    PeriodOperator,
+                    Identifier ("Form"),
+                },
+                Whitespace,
+                PropertiesName {
+                    Identifier ("Form1"),
+                },
+                Whitespace,
+                Newline,
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("Caption"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        StringLiteral ("\"Form1\""),
+                    },
+                    Newline,
+                },
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("ClientHeight"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        IntegerLiteral ("3195"),
+                    },
+                    Newline,
+                },
+                Whitespace,
+                PropertiesBlock {
+                    BeginKeyword,
+                    Whitespace,
+                    PropertiesType {
+                        Identifier ("VB"),
+                        PeriodOperator,
+                        Identifier ("CommandButton"),
+                    },
+                    Whitespace,
+                    PropertiesName {
+                        Identifier ("Command1"),
+                    },
+                    Whitespace,
+                    Newline,
+                    Whitespace,
+                    Property {
+                        PropertyKey {
+                            Identifier ("Caption"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        PropertyValue {
+                            StringLiteral ("\"Command1\""),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    EndKeyword,
+                    Newline,
+                },
+                EndKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"Form1\""),
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_GlobalNameSpace"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Creatable"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_PredeclaredId"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                TrueKeyword,
+                Newline,
+            },
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Exposed"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                FalseKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Command1_Click"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        StringLiteral ("\"Hello\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
