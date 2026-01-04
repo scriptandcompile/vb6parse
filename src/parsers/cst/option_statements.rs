@@ -176,143 +176,282 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::parsers::{ConcreteSyntaxTree, SyntaxKind};
-
     #[test]
     fn parse_option_explicit_on() {
         let source = "Option Explicit On\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Option Explicit On\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Whitespace,
+                OnKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn parse_option_explicit_off() {
         let source = "Option Explicit Off\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Option Explicit Off\n");
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Whitespace,
+                Identifier ("Off"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parse_option_explicit() {
         let source = "Option Explicit\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Option Explicit\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn parse_option_base_0() {
         let source = "Option Base 0\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("BaseKeyword"));
-        assert_eq!(cst.text(), "Option Base 0\n");
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parse_option_base_1() {
         let source = "Option Base 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("BaseKeyword"));
-        assert_eq!(cst.text(), "Option Base 1\n");
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_at_module_level() {
         let source = "Option Base 1\n\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
-        assert!(debug.contains("SubStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_with_whitespace() {
         let source = "Option  Base  1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
-        assert_eq!(cst.text(), "Option  Base  1\n");
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_with_comment() {
         let source = "Option Base 0 ' Set default array base\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_preserves_whitespace() {
         let source = "Option Base 1  \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "Option Base 1  \n");
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn multiple_option_statements() {
         let source = "Option Explicit\nOption Base 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert_eq!(cst.child_count(), 2);
-        assert!(debug.contains("ExplicitKeyword"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_case_insensitive() {
         let source = "OPTION BASE 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_with_line_continuation() {
         let source = "Option _\nBase 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                Underscore,
+                Newline,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_before_declarations() {
         let source = "Option Base 1\nDim arr(10) As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("arr"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -320,145 +459,313 @@ mod tests {
         let source = r#"Attribute VB_Name = "Module1"
 Option Base 1
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("AttributeStatement"));
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"Module1\""),
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_base_0_default() {
         let source = "Option Base 0\nDim x(5) As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("0"),
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("x"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("5"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parse_option_compare_binary() {
         let source = "Option Compare Binary\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("BinaryKeyword"));
-        assert_eq!(cst.text(), "Option Compare Binary\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn parse_option_compare_text() {
         let source = "Option Compare Text\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("TextKeyword"));
-        assert_eq!(cst.text(), "Option Compare Text\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn parse_option_compare_database() {
         let source = "Option Compare Database\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("DatabaseKeyword"));
-        assert_eq!(cst.text(), "Option Compare Database\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                DatabaseKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_at_module_level() {
         let source = "Option Compare Text\n\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("SubStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_compare_with_whitespace() {
         let source = "Option  Compare  Binary\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
-        assert_eq!(cst.text(), "Option  Compare  Binary\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_with_comment() {
         let source = "Option Compare Text ' Case-insensitive\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_preserves_whitespace() {
         let source = "Option Compare Binary  \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "Option Compare Binary  \n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Whitespace,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn multiple_option_statements_with_compare() {
         let source = "Option Explicit\nOption Compare Text\nOption Base 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert_eq!(cst.child_count(), 3);
-        assert!(debug.contains("ExplicitKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_compare_case_insensitive() {
         let source = "OPTION COMPARE BINARY\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_with_line_continuation() {
         let source = "Option _\nCompare Text\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                Underscore,
+                Newline,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_before_declarations() {
         let source = "Option Compare Binary\nDim str As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("str"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -466,151 +773,326 @@ Option Base 1
         let source = r#"Attribute VB_Name = "Module1"
 Option Compare Text
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("AttributeStatement"));
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("CompareKeyword"));
+        assert_tree!(cst, [
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"Module1\""),
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_compare_text_case_insensitive_behavior() {
         let source = "Option Compare Text\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("TextKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                TextKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_binary_default() {
         let source = "Option Compare Binary\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("BinaryKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_compare_database_access_only() {
         let source = "Option Compare Database\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("DatabaseKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                DatabaseKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn all_three_option_statements() {
         let source = "Option Explicit\nOption Compare Binary\nOption Base 1\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert_eq!(cst.child_count(), 3);
-        assert!(debug.contains("ExplicitKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("BinaryKeyword"));
-        assert!(debug.contains("BaseKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parse_option_private_module() {
         let source = "Option Private Module\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("OptionKeyword"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("ModuleKeyword"));
-        assert_eq!(cst.text(), "Option Private Module\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_private_at_module_level() {
         let source = "Option Private Module\n\nSub Test()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("SubStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn option_private_with_whitespace() {
         let source = "Option  Private  Module\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert_eq!(cst.text(), "Option  Private  Module\n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_private_with_comment() {
         let source = "Option Private Module ' Make this module private\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Whitespace,
+                EndOfLineComment,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_private_preserves_whitespace() {
         let source = "Option Private Module  \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "Option Private Module  \n");
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Whitespace,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn multiple_options_with_private() {
         let source = "Option Explicit\nOption Private Module\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert_eq!(cst.child_count(), 2);
-        assert!(debug.contains("ExplicitKeyword"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(
+            cst,
+            [
+                OptionStatement {
+                    OptionKeyword,
+                    Whitespace,
+                    ExplicitKeyword,
+                    Newline,
+                },
+                OptionStatement {
+                    OptionKeyword,
+                    Whitespace,
+                    PrivateKeyword,
+                    Whitespace,
+                    ModuleKeyword,
+                    Newline,
+                },
+            ]
+        );
     }
 
     #[test]
     fn option_private_case_insensitive() {
         let source = "OPTION PRIVATE MODULE\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_private_with_line_continuation() {
         let source = "Option _\nPrivate Module\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(
+            cst,
+            [OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                Underscore,
+                Newline,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },]
+        );
     }
 
     #[test]
     fn option_private_before_declarations() {
         let source = "Option Private Module\nDim x As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("x"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -621,11 +1103,49 @@ Option Private Module
 Public Function Test() As String
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Whitespace,
+                ClassKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+            Newline,
+            FunctionStatement {
+                PublicKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -633,26 +1153,70 @@ End Function
         let source = r#"Attribute VB_Name = "Module1"
 Option Private Module
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("AttributeStatement"));
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(cst, [
+            AttributeStatement {
+                AttributeKeyword,
+                Whitespace,
+                Identifier ("VB_Name"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"Module1\""),
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn all_four_option_statements() {
         let source =
             "Option Explicit\nOption Compare Binary\nOption Base 1\nOption Private Module\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert_eq!(cst.child_count(), 4);
-        assert!(debug.contains("ExplicitKeyword"));
-        assert!(debug.contains("CompareKeyword"));
-        assert!(debug.contains("BaseKeyword"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                ExplicitKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                CompareKeyword,
+                Whitespace,
+                BinaryKeyword,
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                BaseKeyword,
+                Whitespace,
+                IntegerLiteral ("1"),
+                Newline,
+            },
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -663,11 +1227,54 @@ Public Function InternalHelper() As String
     InternalHelper = "Internal use only"
 End Function
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("OptionStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("FunctionStatement"));
+        assert_tree!(cst, [
+            OptionStatement {
+                OptionKeyword,
+                Whitespace,
+                PrivateKeyword,
+                Whitespace,
+                ModuleKeyword,
+                Newline,
+            },
+            Newline,
+            FunctionStatement {
+                PublicKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("InternalHelper"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("InternalHelper"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\"Internal use only\""),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 }
