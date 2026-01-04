@@ -174,1850 +174,926 @@ attributes:
 cst:
   root:
     kind: Root
-    text: "'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\n'This gives us the hWnd (window handle) of the screen\r\nPrivate Declare Function GetDesktopWindow Lib \"user32\" () As Long\r\n\r\n'This assigns an hDC (device context handle) from an hWnd\r\nPrivate Declare Function GetDC Lib \"user32\" (ByVal hWnd As Long) As Long\r\n\r\n'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)\r\nPrivate Declare Function BitBlt Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long) As Long\r\n\r\n'ReleaseDC is used to free the hDC we generate for the screen capture.\r\nPrivate Declare Function ReleaseDC Lib \"user32\" (ByVal hWnd As Long, ByVal hDC As Long) As Long\r\n\r\n'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)\r\nPrivate Sub Form_Load()\r\n\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\nEnd Sub\r\n\r\n"
-    is_token: false
     children:
       - kind: EndOfLineComment
         text: "'***************************************************************************"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'Copyright 2018 by Tanner Helland"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' www.tannerhelland.com"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'The source code in this project is licensed under a Simplified BSD license."
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'***************************************************************************"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'This gives us the hWnd (window handle) of the screen"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DeclareStatement
-        text: "Private Declare Function GetDesktopWindow Lib \"user32\" () As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: GetDesktopWindow
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"user32\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: ()
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'This assigns an hDC (device context handle) from an hWnd"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DeclareStatement
-        text: "Private Declare Function GetDC Lib \"user32\" (ByVal hWnd As Long) As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: GetDC
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"user32\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: (ByVal hWnd As Long)
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hWnd
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'BitBlt lets us draw an image from a hDC to another hDC (in our case, from an hDC of the screen capture to the hDC of a VB picture box)"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DeclareStatement
-        text: "Private Declare Function BitBlt Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long) As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: BitBlt
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"gdi32\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: "(ByVal hDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal opCode As Long)"
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hDC
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: x
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: y
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: nWidth
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: nHeight
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hSrcDC
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: xSrc
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: ySrc
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: opCode
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'ReleaseDC is used to free the hDC we generate for the screen capture."
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DeclareStatement
-        text: "Private Declare Function ReleaseDC Lib \"user32\" (ByVal hWnd As Long, ByVal hDC As Long) As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: ReleaseDC
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"user32\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: "(ByVal hWnd As Long, ByVal hDC As Long)"
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hWnd
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hDC
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'This sample project copies the screen when the form loads; you could also place this code in a command button (or any other input)"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: SubStatement
-        text: "Private Sub Form_Load()\r\n\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\nEnd Sub\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: Form_Load
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: ()
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "\r\n    'First, minimize this window\r\n    Me.WindowState = vbMinimized\r\n    \r\n    'Get the hWnd of the screen\r\n    Dim scrHwnd As Long\r\n    scrHwnd = GetDesktopWindow\r\n    \r\n    'Now, assign an hDC to the hWnd we generated\r\n    Dim shDC As Long\r\n    shDC = GetDC(scrHwnd)\r\n    \r\n    'Determine the size of the screen\r\n    Dim screenWidth As Long, screenHeight As Long\r\n    screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n    screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n        \r\n    'Copy the pixel data from the screen into our form\r\n    BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n        \r\n    'Release our hold on the screen DC\r\n    ReleaseDC scrHwnd, shDC\r\n    \r\n    Me.Picture = Me.Image\r\n    \r\n    'Restore the window\r\n    Me.WindowState = vbNormal\r\n    \r\n"
-            is_token: false
             children:
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'First, minimize this window"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "Me.WindowState = vbMinimized\r\n"
-                is_token: false
                 children:
                   - kind: MemberAccessExpression
-                    text: Me.WindowState
-                    is_token: false
                     children:
                       - kind: MeKeyword
                         text: Me
-                        is_token: true
-                        children: []
                       - kind: PeriodOperator
                         text: "."
-                        is_token: true
-                        children: []
                       - kind: Identifier
                         text: WindowState
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
-                    text: vbMinimized
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: vbMinimized
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Get the hWnd of the screen"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim scrHwnd As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: scrHwnd
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "scrHwnd = GetDesktopWindow\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: scrHwnd
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: scrHwnd
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
-                    text: GetDesktopWindow
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: GetDesktopWindow
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Now, assign an hDC to the hWnd we generated"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim shDC As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: shDC
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "shDC = GetDC(scrHwnd)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: shDC
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: shDC
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: GetDC(scrHwnd)
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: GetDC
-                        is_token: true
-                        children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: scrHwnd
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: scrHwnd
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: scrHwnd
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: scrHwnd
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Determine the size of the screen"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim screenWidth As Long, screenHeight As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: screenWidth
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: screenHeight
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "screenWidth = Screen.Width \\ Screen.TwipsPerPixelX\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: screenWidth
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: screenWidth
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: BinaryExpression
-                    text: "Screen.Width \\ Screen.TwipsPerPixelX"
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: Screen.Width
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: Screen
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: WidthKeyword
                             text: Width
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: BackwardSlashOperator
                         text: "\\"
-                        is_token: true
-                        children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: MemberAccessExpression
-                        text: Screen.TwipsPerPixelX
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: Screen
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: TwipsPerPixelX
-                            is_token: true
-                            children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "screenHeight = Screen.Height \\ Screen.TwipsPerPixelY\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: screenHeight
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: screenHeight
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: BinaryExpression
-                    text: "Screen.Height \\ Screen.TwipsPerPixelY"
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: Screen.Height
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: Screen
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: Height
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: BackwardSlashOperator
                         text: "\\"
-                        is_token: true
-                        children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: MemberAccessExpression
-                        text: Screen.TwipsPerPixelY
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: Screen
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: TwipsPerPixelY
-                            is_token: true
-                            children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "        "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Copy the pixel data from the screen into our form"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "BitBlt Me.hDC, 0, 0, screenWidth, screenHeight, shDC, 0, 0, vbSrcCopy\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: BitBlt
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: MeKeyword
                     text: Me
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: hDC
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IntegerLiteral
                     text: "0"
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IntegerLiteral
                     text: "0"
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: screenWidth
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: screenHeight
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: shDC
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IntegerLiteral
                     text: "0"
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IntegerLiteral
                     text: "0"
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: vbSrcCopy
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "        "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Release our hold on the screen DC"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "ReleaseDC scrHwnd, shDC\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: ReleaseDC
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: scrHwnd
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: shDC
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "Me.Picture = Me.Image\r\n"
-                is_token: false
                 children:
                   - kind: MemberAccessExpression
-                    text: Me.Picture
-                    is_token: false
                     children:
                       - kind: MeKeyword
                         text: Me
-                        is_token: true
-                        children: []
                       - kind: PeriodOperator
                         text: "."
-                        is_token: true
-                        children: []
                       - kind: Identifier
                         text: Picture
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: MemberAccessExpression
-                    text: Me.Image
-                    is_token: false
                     children:
                       - kind: MeKeyword
                         text: Me
-                        is_token: true
-                        children: []
                       - kind: PeriodOperator
                         text: "."
-                        is_token: true
-                        children: []
                       - kind: Identifier
                         text: Image
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Restore the window"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "Me.WindowState = vbNormal\r\n"
-                is_token: false
                 children:
                   - kind: MemberAccessExpression
-                    text: Me.WindowState
-                    is_token: false
                     children:
                       - kind: MeKeyword
                         text: Me
-                        is_token: true
-                        children: []
                       - kind: PeriodOperator
                         text: "."
-                        is_token: true
-                        children: []
                       - kind: Identifier
                         text: WindowState
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
-                    text: vbNormal
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: vbNormal
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
