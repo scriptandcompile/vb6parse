@@ -233,8 +233,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn inline_if_then_goto() {
         let source = r#"
@@ -245,12 +245,74 @@ Positive:
     Debug.Print "positive"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("GotoStatement"));
-        assert!(debug.contains("ThenKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        GotoStatement {
+                            GotoKeyword,
+                            Whitespace,
+                            Identifier ("Positive"),
+                            Newline,
+                        },
+                        Whitespace,
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintStatement {
+                            PrintKeyword,
+                            Whitespace,
+                            StringLiteral ("\"negative or zero\""),
+                            Newline,
+                        },
+                        Identifier ("Positive"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintKeyword,
+                        Whitespace,
+                        StringLiteral ("\"positive\""),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -260,11 +322,45 @@ Sub Test()
     If enabled Then Call DoSomething
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("CallStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("enabled"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        CallStatement {
+                            CallKeyword,
+                            Whitespace,
+                            Identifier ("DoSomething"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -274,11 +370,59 @@ Sub Test()
     If x > 10 Then result = "large"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("AssignmentStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("result"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"large\""),
+                            },
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -288,11 +432,59 @@ Sub Test()
     If obj Is Nothing Then Set obj = New MyClass
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("SetStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("obj"),
+                            },
+                            Whitespace,
+                            IsKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("Nothing"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        SetStatement {
+                            SetKeyword,
+                            Whitespace,
+                            Identifier ("obj"),
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NewKeyword,
+                            Whitespace,
+                            Identifier ("MyClass"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -303,11 +495,54 @@ Sub Test()
     Debug.Print "continuing"
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("ExitKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("errorOccurred"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ExitStatement {
+                            ExitKeyword,
+                            Whitespace,
+                            SubKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        Identifier ("Debug"),
+                        PeriodOperator,
+                        PrintStatement {
+                            PrintKeyword,
+                            Whitespace,
+                            StringLiteral ("\"continuing\""),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -317,15 +552,64 @@ Sub Test()
     If condition Then x = 1: y = 2
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        let count = debug.matches("AssignmentStatement").count();
-        assert_eq!(
-            count, 2,
-            "Expected 2 assignment statements separated by colon"
-        );
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("condition"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        ColonOperator,
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -337,12 +621,69 @@ Label1:
     x = 1
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("Whitespace"));
-        assert!(debug.contains("Newline"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        GotoStatement {
+                            GotoKeyword,
+                            Whitespace,
+                            Identifier ("Label1"),
+                            Newline,
+                        },
+                        Identifier ("Label1"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -354,12 +695,71 @@ Positive:
     result = x
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("GotoStatement"));
-        assert!(debug.contains("EndOfLineComment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        GotoStatement {
+                            GotoKeyword,
+                            Whitespace,
+                            Identifier ("Positive"),
+                            Whitespace,
+                            EndOfLineComment,
+                            Newline,
+                        },
+                        Identifier ("Positive"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("result"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -369,11 +769,54 @@ Sub Test()
     If ready Then Call Process(x, y, z)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("CallStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("ready"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        CallStatement {
+                            CallKeyword,
+                            Whitespace,
+                            Identifier ("Process"),
+                            LeftParenthesis,
+                            Identifier ("x"),
+                            Comma,
+                            Whitespace,
+                            Identifier ("y"),
+                            Comma,
+                            Whitespace,
+                            Identifier ("z"),
+                            RightParenthesis,
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -383,11 +826,68 @@ Sub Test()
     If value > 0 Then result = Calculate(value)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("AssignmentStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("result"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("Calculate"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("value"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -399,11 +899,77 @@ Valid:
     Process
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("GotoStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                GreaterThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("y"),
+                                },
+                                Whitespace,
+                                LessThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("10"),
+                                },
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        GotoStatement {
+                            GotoKeyword,
+                            Whitespace,
+                            Identifier ("Valid"),
+                            Newline,
+                        },
+                        Identifier ("Valid"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("Process"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -413,11 +979,49 @@ Sub Test()
     If Not IsValid Then Exit Sub
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("IfStatement"));
-        assert!(debug.contains("ExitKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("IsValid"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ExitStatement {
+                            ExitKeyword,
+                            Whitespace,
+                            SubKeyword,
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -427,66 +1031,53 @@ End Sub
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Navigate the tree structure
-        let children = cst.children();
-
-        // Find the SubStatement node
-        let sub_statement = children
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::SubStatement)
-            .expect("Should have a SubStatement node");
-
-        // The SubStatement should contain a StatementList
-        let parse_statement_list = sub_statement
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::StatementList)
-            .expect("SubStatement should contain a StatementList");
-
-        // The StatementList should contain an IfStatement
-        let if_statement = parse_statement_list
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::IfStatement)
-            .expect("StatementList should contain an IfStatement");
-
-        // The IfStatement should contain a BinaryExpression
-        let binary_conditional = if_statement
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::BinaryExpression)
-            .expect("IfStatement should contain a BinaryExpression");
-
-        // Verify the BinaryExpression structure
-        assert_eq!(binary_conditional.kind(), SyntaxKind::BinaryExpression);
-        assert!(
-            !binary_conditional.is_token(),
-            "BinaryExpression should be a node, not a token"
-        );
-
-        // Verify the BinaryExpression contains the expected elements:
-        // whitespace, identifier "x", whitespace, "=", whitespace, number "5", whitespace
-        assert!(binary_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IdentifierExpression && c.text() == "x"));
-        assert!(binary_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::EqualityOperator));
-
-        let literal_expr = binary_conditional
-            .children()
-            .iter()
-            .find(|c| c.kind() == SyntaxKind::NumericLiteralExpression)
-            .expect("BinaryExpression should contain a NumericLiteralExpression");
-
-        assert!(literal_expr
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IntegerLiteral && c.text() == "5"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -496,62 +1087,58 @@ End Sub
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Navigate the tree structure
-        let children = cst.children();
-
-        // Find the SubStatement node
-        let sub_statement = children
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::SubStatement)
-            .expect("Should have a SubStatement node");
-
-        // The SubStatement should contain a StatementList
-        let statement_list = sub_statement
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::StatementList)
-            .expect("SubStatement should contain a StatementList");
-
-        // The StatementList should contain an IfStatement
-        let if_statement = statement_list
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::IfStatement)
-            .expect("StatementList should contain an IfStatement");
-
-        // The IfStatement should contain a UnaryExpression
-        let unary_conditional = if_statement
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::UnaryExpression)
-            .expect("IfStatement should contain a UnaryExpression");
-
-        // Verify the UnaryExpression structure
-        assert_eq!(unary_conditional.kind(), SyntaxKind::UnaryExpression);
-        assert!(
-            !unary_conditional.is_token(),
-            "UnaryExpression should be a node, not a token"
-        );
-
-        // Verify the UnaryExpression contains the expected elements:
-        // whitespace, Not keyword, whitespace, CallExpression
-        assert!(unary_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::NotKeyword));
-
-        let call_expr = unary_conditional
-            .children()
-            .iter()
-            .find(|c| c.kind() == SyntaxKind::CallExpression)
-            .expect("UnaryExpression should contain a CallExpression");
-
-        assert!(call_expr
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::Identifier && c.text() == "isEmpty"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("isEmpty"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("x"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[allow(clippy::too_many_lines)]
@@ -568,135 +1155,134 @@ End Sub
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Navigate the tree structure
-        let children = cst.children();
-
-        // Find the SubStatement node
-        let sub_statement = children
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::SubStatement)
-            .expect("Should have a SubStatement node");
-
-        // The SubStatement should contain a StatementList
-        let statement_list = sub_statement
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::StatementList)
-            .expect("SubStatement should contain a StatementList");
-
-        // Find the outer IfStatement in the StatementList
-        let outer_if = statement_list
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::IfStatement)
-            .expect("StatementList should contain an outer IfStatement");
-
-        // Verify outer If has a BinaryExpression (x > 0)
-        let outer_conditional = outer_if
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::BinaryExpression)
-            .expect("Outer IfStatement should contain a BinaryExpression");
-        assert!(outer_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IdentifierExpression && c.text() == "x"));
-        assert!(outer_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::GreaterThanOperator));
-
-        // Find the StatementList inside the outer If
-        let outer_statement_list = outer_if
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::StatementList)
-            .expect("Outer IfStatement should contain a StatementList");
-
-        // Find the inner IfStatement (nested within the outer If's StatementList)
-        let inner_if = outer_statement_list
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::IfStatement)
-            .expect("Outer StatementList should contain a nested IfStatement");
-        // Verify inner If has a BinaryExpression (y > 0)
-        let inner_conditional = inner_if
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::BinaryExpression)
-            .expect("Inner IfStatement should contain a BinaryExpression");
-        assert!(inner_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IdentifierExpression && c.text() == "y"));
-        assert!(inner_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::GreaterThanOperator));
-
-        // Verify inner If has ElseIf clause
-        let inner_elseif = inner_if
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::ElseIfClause)
-            .expect("Inner IfStatement should contain an ElseIfClause");
-
-        // Verify inner ElseIf has a BinaryExpression (y < 0)
-        let inner_elseif_conditional = inner_elseif
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::BinaryExpression)
-            .expect("Inner ElseIfClause should contain a BinaryExpression");
-        assert!(inner_elseif_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IdentifierExpression && c.text() == "y"));
-        assert!(inner_elseif_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::LessThanOperator));
-
-        // Verify inner If has Else clause
-        assert!(
-            inner_if
-                .children()
-                .iter()
-                .any(|child| child.kind() == SyntaxKind::ElseClause),
-            "Inner IfStatement should contain an ElseClause"
-        );
-
-        // Verify outer If has ElseIf clause
-        let outer_elseif = outer_if
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::ElseIfClause)
-            .expect("Outer IfStatement should contain an ElseIfClause");
-
-        // Verify outer ElseIf has a BinaryExpression (x < 0)
-        let outer_elseif_conditional = outer_elseif
-            .children()
-            .iter()
-            .find(|child| child.kind() == SyntaxKind::BinaryExpression)
-            .expect("Outer ElseIfClause should contain a BinaryExpression");
-
-        assert!(outer_elseif_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::IdentifierExpression && c.text() == "x"));
-        assert!(outer_elseif_conditional
-            .children()
-            .iter()
-            .any(|c| c.kind() == SyntaxKind::LessThanOperator));
-
-        // Verify outer If has Else clause
-        assert!(
-            outer_if
-                .children()
-                .iter()
-                .any(|child| child.kind() == SyntaxKind::ElseClause),
-            "Outer IfStatement should contain an ElseClause"
-        );
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("y"),
+                                    },
+                                    Whitespace,
+                                    GreaterThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("0"),
+                                    },
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                },
+                                ElseIfClause {
+                                    ElseIfKeyword,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("y"),
+                                        },
+                                        Whitespace,
+                                        LessThanOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("0"),
+                                        },
+                                    },
+                                    Whitespace,
+                                    ThenKeyword,
+                                    Newline,
+                                    StatementList {
+                                        Whitespace,
+                                    },
+                                },
+                                ElseClause {
+                                    ElseKeyword,
+                                    Newline,
+                                    StatementList {
+                                        Whitespace,
+                                    },
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                IfKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseIfClause {
+                            ElseIfKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                LessThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            Whitespace,
+                            ThenKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                            },
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
