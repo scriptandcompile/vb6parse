@@ -23,2658 +23,1330 @@ header:
 cst:
   root:
     kind: Root
-    text: "'Display a system color selection dialog\r\n' Adopted from a reference implementation at http://www.devx.com/vb2themax/Tip/19257, originally by Marco Bellinaso\r\n' See also the MSDN documentation for ChooseColor at https://msdn.microsoft.com/en-us/library/windows/desktop/ms646912%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396\r\n\r\nOption Explicit\r\n\r\nPrivate Type ChooseColorStruct\r\n    lStructSize As Long\r\n    hwndOwner As Long\r\n    hInstance As Long\r\n    rgbResult As Long\r\n    lpCustColors As Long\r\n    flags As Long\r\n    lCustData As Long\r\n    lpfnHook As Long\r\n    lpTemplateName As String\r\nEnd Type\r\n\r\nPrivate Declare Function ChooseColor Lib \"comdlg32.dll\" Alias \"ChooseColorA\" (lpChooseColor As ChooseColorStruct) As Long\r\nPrivate Declare Function OleTranslateColor Lib \"oleaut32.dll\" (ByVal lOleColor As Long, ByVal lHPalette As Long, lColorRef As Long) As Long\r\n    \r\nPrivate Const CC_RGBINIT = &H1&\r\nPrivate Const CC_FULLOPEN = &H2&\r\nPrivate Const CC_PREVENTFULLOPEN = &H4&\r\nPrivate Const CC_SHOWHELP = &H8&\r\nPrivate Const CC_ENABLEHOOK = &H10&\r\nPrivate Const CC_ENABLETEMPLATE = &H20&\r\nPrivate Const CC_ENABLETEMPLATEHANDLE = &H40&\r\nPrivate Const CC_SOLIDCOLOR = &H80&\r\nPrivate Const CC_ANYCOLOR = &H100&\r\nPrivate Const CLR_INVALID = &HFFFF\r\n\r\n' Show the common dialog for choosing a color.\r\n' Returns TRUE if OK was selected; FALSE otherwise\r\n'\r\n' dstColor holds the return value; this value is nonsense if the function returns FALSE\r\n' hParent is the handle (hWnd) of the parent form\r\n' showFullDialog specifies whether the dialog will show both selection panels by default\r\n' initColor is the color initially selected when the dialog is open\r\n\r\n' Example:\r\n'    Dim oleNewColor As OLE_COLOR\r\n'    If ShowColorsDialog(oleNewColor, Me.hwnd, True, vbRed) Then Me.BackColor = oleNewColor\r\nFunction ShowColorDialog(ByRef dstColor As Long, Optional ByVal hParent As Long = 0&, Optional ByVal showFullDialog As Boolean, Optional ByVal initColor As OLE_COLOR) As Boolean\r\n    \r\n    Dim cc As ChooseColorStruct\r\n    Dim aColorRef(15) As Long\r\n    Dim lInitColor As Long\r\n  \r\n    ' Translate the initial OLE color to a long value\r\n    If (initColor <> 0) Then\r\n        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-    is_token: false
     children:
       - kind: EndOfLineComment
         text: "'Display a system color selection dialog"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' Adopted from a reference implementation at http://www.devx.com/vb2themax/Tip/19257, originally by Marco Bellinaso"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' See also the MSDN documentation for ChooseColor at https://msdn.microsoft.com/en-us/library/windows/desktop/ms646912%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: OptionStatement
-        text: "Option Explicit\r\n"
-        is_token: false
         children:
           - kind: OptionKeyword
             text: Option
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ExplicitKeyword
             text: Explicit
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: TypeStatement
-        text: "Private Type ChooseColorStruct\r\n    lStructSize As Long\r\n    hwndOwner As Long\r\n    hInstance As Long\r\n    rgbResult As Long\r\n    lpCustColors As Long\r\n    flags As Long\r\n    lCustData As Long\r\n    lpfnHook As Long\r\n    lpTemplateName As String\r\nEnd Type\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: TypeKeyword
             text: Type
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: ChooseColorStruct
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: lStructSize
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: hwndOwner
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: hInstance
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: rgbResult
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: lpCustColors
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: flags
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: lCustData
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: lpfnHook
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: Whitespace
             text: "    "
-            is_token: true
-            children: []
           - kind: Identifier
             text: lpTemplateName
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringKeyword
             text: String
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: TypeKeyword
             text: Type
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DeclareStatement
-        text: "Private Declare Function ChooseColor Lib \"comdlg32.dll\" Alias \"ChooseColorA\" (lpChooseColor As ChooseColorStruct) As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: ChooseColor
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"comdlg32.dll\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AliasKeyword
             text: Alias
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"ChooseColorA\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: (lpChooseColor As ChooseColorStruct)
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: Identifier
                 text: lpChooseColor
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: ChooseColorStruct
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DeclareStatement
-        text: "Private Declare Function OleTranslateColor Lib \"oleaut32.dll\" (ByVal lOleColor As Long, ByVal lHPalette As Long, lColorRef As Long) As Long\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: DeclareKeyword
             text: Declare
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: OleTranslateColor
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LibKeyword
             text: Lib
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: StringLiteral
             text: "\"oleaut32.dll\""
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: "(ByVal lOleColor As Long, ByVal lHPalette As Long, lColorRef As Long)"
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: lOleColor
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: lHPalette
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: lColorRef
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: LongKeyword
             text: Long
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Whitespace
         text: "    "
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: DimStatement
-        text: "Private Const CC_RGBINIT = &H1&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_RGBINIT
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H1
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_FULLOPEN = &H2&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_FULLOPEN
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H2
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_PREVENTFULLOPEN = &H4&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_PREVENTFULLOPEN
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H4
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_SHOWHELP = &H8&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_SHOWHELP
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H8
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_ENABLEHOOK = &H10&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_ENABLEHOOK
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H10
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_ENABLETEMPLATE = &H20&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_ENABLETEMPLATE
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H20
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_ENABLETEMPLATEHANDLE = &H40&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_ENABLETEMPLATEHANDLE
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H40
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_SOLIDCOLOR = &H80&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_SOLIDCOLOR
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H80
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CC_ANYCOLOR = &H100&\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CC_ANYCOLOR
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: H100
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: DimStatement
-        text: "Private Const CLR_INVALID = &HFFFF\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: ConstKeyword
             text: Const
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: CLR_INVALID
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: EqualityOperator
             text: "="
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Ampersand
             text: "&"
-            is_token: true
-            children: []
           - kind: Identifier
             text: HFFFF
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' Show the common dialog for choosing a color."
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' Returns TRUE if OK was selected; FALSE otherwise"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' dstColor holds the return value; this value is nonsense if the function returns FALSE"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' hParent is the handle (hWnd) of the parent form"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' showFullDialog specifies whether the dialog will show both selection panels by default"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' initColor is the color initially selected when the dialog is open"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' Example:"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'    Dim oleNewColor As OLE_COLOR"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'    If ShowColorsDialog(oleNewColor, Me.hwnd, True, vbRed) Then Me.BackColor = oleNewColor"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: FunctionStatement
-        text: "Function ShowColorDialog(ByRef dstColor As Long, Optional ByVal hParent As Long = 0&, Optional ByVal showFullDialog As Boolean, Optional ByVal initColor As OLE_COLOR) As Boolean\r\n    \r\n    Dim cc As ChooseColorStruct\r\n    Dim aColorRef(15) As Long\r\n    Dim lInitColor As Long\r\n  \r\n    ' Translate the initial OLE color to a long value\r\n    If (initColor <> 0) Then\r\n        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-        is_token: false
         children:
           - kind: FunctionKeyword
             text: Function
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: ShowColorDialog
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: "(ByRef dstColor As Long, Optional ByVal hParent As Long = 0&, Optional ByVal showFullDialog As Boolean, Optional ByVal initColor As OLE_COLOR)"
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: ByRefKeyword
                 text: ByRef
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: dstColor
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: OptionalKeyword
                 text: Optional
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: hParent
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: LongKeyword
                 text: Long
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: EqualityOperator
                 text: "="
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: NumericLiteralExpression
-                text: 0&
-                is_token: false
                 children:
                   - kind: LongLiteral
                     text: 0&
-                    is_token: true
-                    children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: OptionalKeyword
                 text: Optional
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: showFullDialog
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: BooleanKeyword
                 text: Boolean
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: OptionalKeyword
                 text: Optional
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: initColor
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: OLE_COLOR
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: AsKeyword
             text: As
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: BooleanKeyword
             text: Boolean
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "    \r\n    Dim cc As ChooseColorStruct\r\n    Dim aColorRef(15) As Long\r\n    Dim lInitColor As Long\r\n  \r\n    ' Translate the initial OLE color to a long value\r\n    If (initColor <> 0) Then\r\n        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-            is_token: false
             children:
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim cc As ChooseColorStruct\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: cc
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: ChooseColorStruct
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim aColorRef(15) As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: aColorRef
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "15"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "15"
-                        is_token: true
-                        children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim lInitColor As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: lInitColor
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "  "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "' Translate the initial OLE color to a long value"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: IfStatement
-                text: "    If (initColor <> 0) Then\r\n        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-                is_token: false
                 children:
                   - kind: Whitespace
                     text: "    "
-                    is_token: true
-                    children: []
                   - kind: IfKeyword
                     text: If
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ParenthesizedExpression
-                    text: (initColor <> 0)
-                    is_token: false
                     children:
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: BinaryExpression
-                        text: initColor <> 0
-                        is_token: false
                         children:
                           - kind: IdentifierExpression
-                            text: initColor
-                            is_token: false
                             children:
                               - kind: Identifier
                                 text: initColor
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: InequalityOperator
                             text: "<>"
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: NumericLiteralExpression
-                            text: "0"
-                            is_token: false
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                                is_token: true
-                                children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ThenKeyword
                     text: Then
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
                   - kind: StatementList
-                    text: "        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-                    is_token: false
                     children:
                       - kind: IfStatement
-                        text: "        If OleTranslateColor(initColor, 0, lInitColor) Then lInitColor = CLR_INVALID\r\n    End If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-                        is_token: false
                         children:
                           - kind: Whitespace
                             text: "        "
-                            is_token: true
-                            children: []
                           - kind: IfKeyword
                             text: If
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: CallExpression
-                            text: "OleTranslateColor(initColor, 0, lInitColor)"
-                            is_token: false
                             children:
                               - kind: Identifier
                                 text: OleTranslateColor
-                                is_token: true
-                                children: []
                               - kind: LeftParenthesis
                                 text: (
-                                is_token: true
-                                children: []
                               - kind: ArgumentList
-                                text: "initColor, 0, lInitColor"
-                                is_token: false
                                 children:
                                   - kind: Argument
-                                    text: initColor
-                                    is_token: false
                                     children:
                                       - kind: IdentifierExpression
-                                        text: initColor
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: initColor
-                                            is_token: true
-                                            children: []
                                   - kind: Comma
                                     text: ","
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: Argument
-                                    text: "0"
-                                    is_token: false
                                     children:
                                       - kind: NumericLiteralExpression
-                                        text: "0"
-                                        is_token: false
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                                            is_token: true
-                                            children: []
                                   - kind: Comma
                                     text: ","
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: Argument
-                                    text: lInitColor
-                                    is_token: false
                                     children:
                                       - kind: IdentifierExpression
-                                        text: lInitColor
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: lInitColor
-                                            is_token: true
-                                            children: []
                               - kind: RightParenthesis
                                 text: )
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: ThenKeyword
                             text: Then
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: AssignmentStatement
-                            text: "lInitColor = CLR_INVALID\r\n"
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: lInitColor
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: lInitColor
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: EqualityOperator
                                 text: "="
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: IdentifierExpression
-                                text: CLR_INVALID
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: CLR_INVALID
-                                    is_token: true
-                                    children: []
                               - kind: Newline
                                 text: "\r\n"
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: "    "
-                            is_token: true
-                            children: []
                           - kind: EndKeyword
                             text: End
-                            is_token: true
-                            children: []
                           - kind: IfStatement
-                            text: " If\r\n    \r\n    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-                            is_token: false
                             children:
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: IfKeyword
                                 text: If
-                                is_token: true
-                                children: []
                               - kind: IdentifierExpression
-                                text: "\r\n"
-                                is_token: false
                                 children:
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "    "
-                                is_token: true
-                                children: []
                               - kind: Newline
                                 text: "\r\n"
-                                is_token: true
-                                children: []
                               - kind: StatementList
-                                text: "    ' Fill the ChooseColorStruct struct\r\n    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n    \r\n    ' Show the dialog and return the result (if any)\r\n    ShowColorDialog = CBool(ChooseColor(cc))\r\n    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\nEnd Function\r\n\r\n"
-                                is_token: false
                                 children:
                                   - kind: Whitespace
                                     text: "    "
-                                    is_token: true
-                                    children: []
                                   - kind: EndOfLineComment
                                     text: "' Fill the ChooseColorStruct struct"
-                                    is_token: true
-                                    children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                                   - kind: WithStatement
-                                    text: "    With cc\r\n        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    End With\r\n"
-                                    is_token: false
                                     children:
                                       - kind: Whitespace
                                         text: "    "
-                                        is_token: true
-                                        children: []
                                       - kind: WithKeyword
                                         text: With
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: Identifier
                                         text: cc
-                                        is_token: true
-                                        children: []
                                       - kind: Newline
                                         text: "\r\n"
-                                        is_token: true
-                                        children: []
                                       - kind: StatementList
-                                        text: "        .lStructSize = Len(cc)\r\n        .hwndOwner = hParent\r\n        .lpCustColors = VarPtr(aColorRef(0))\r\n        .rgbResult = initColor\r\n        .flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n    "
-                                        is_token: false
                                         children:
                                           - kind: Whitespace
                                             text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".lStructSize = Len(cc)\r\n"
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: "."
-                                                is_token: false
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                                    is_token: true
-                                                    children: []
                                               - kind: BinaryExpression
-                                                text: lStructSize = Len(cc)
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: lStructSize
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: lStructSize
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: EqualityOperator
                                                     text: "="
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: CallExpression
-                                                    text: Len(cc)
-                                                    is_token: false
                                                     children:
                                                       - kind: LenKeyword
                                                         text: Len
-                                                        is_token: true
-                                                        children: []
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                        is_token: true
-                                                        children: []
                                                       - kind: ArgumentList
-                                                        text: cc
-                                                        is_token: false
                                                         children:
                                                           - kind: Argument
-                                                            text: cc
-                                                            is_token: false
                                                             children:
                                                               - kind: IdentifierExpression
-                                                                text: cc
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: cc
-                                                                    is_token: true
-                                                                    children: []
                                                       - kind: RightParenthesis
                                                         text: )
-                                                        is_token: true
-                                                        children: []
                                               - kind: Newline
                                                 text: "\r\n"
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".hwndOwner = hParent\r\n"
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: "."
-                                                is_token: false
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                                    is_token: true
-                                                    children: []
                                               - kind: BinaryExpression
-                                                text: hwndOwner = hParent
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: hwndOwner
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: hwndOwner
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: EqualityOperator
                                                     text: "="
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: IdentifierExpression
-                                                    text: hParent
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: hParent
-                                                        is_token: true
-                                                        children: []
                                               - kind: Newline
                                                 text: "\r\n"
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".lpCustColors = VarPtr(aColorRef(0))\r\n"
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: "."
-                                                is_token: false
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                                    is_token: true
-                                                    children: []
                                               - kind: BinaryExpression
-                                                text: lpCustColors = VarPtr(aColorRef(0))
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: lpCustColors
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: lpCustColors
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: EqualityOperator
                                                     text: "="
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: CallExpression
-                                                    text: VarPtr(aColorRef(0))
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: VarPtr
-                                                        is_token: true
-                                                        children: []
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                        is_token: true
-                                                        children: []
                                                       - kind: ArgumentList
-                                                        text: aColorRef(0)
-                                                        is_token: false
                                                         children:
                                                           - kind: Argument
-                                                            text: aColorRef(0)
-                                                            is_token: false
                                                             children:
                                                               - kind: CallExpression
-                                                                text: aColorRef(0)
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: aColorRef
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: LeftParenthesis
                                                                     text: (
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: ArgumentList
-                                                                    text: "0"
-                                                                    is_token: false
                                                                     children:
                                                                       - kind: Argument
-                                                                        text: "0"
-                                                                        is_token: false
                                                                         children:
                                                                           - kind: NumericLiteralExpression
-                                                                            text: "0"
-                                                                            is_token: false
                                                                             children:
                                                                               - kind: IntegerLiteral
                                                                                 text: "0"
-                                                                                is_token: true
-                                                                                children: []
                                                                   - kind: RightParenthesis
                                                                     text: )
-                                                                    is_token: true
-                                                                    children: []
                                                       - kind: RightParenthesis
                                                         text: )
-                                                        is_token: true
-                                                        children: []
                                               - kind: Newline
                                                 text: "\r\n"
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".rgbResult = initColor\r\n"
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: "."
-                                                is_token: false
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                                    is_token: true
-                                                    children: []
                                               - kind: BinaryExpression
-                                                text: rgbResult = initColor
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: rgbResult
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: rgbResult
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: EqualityOperator
                                                     text: "="
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: IdentifierExpression
-                                                    text: initColor
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: initColor
-                                                        is_token: true
-                                                        children: []
                                               - kind: Newline
                                                 text: "\r\n"
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: "        "
-                                            is_token: true
-                                            children: []
                                           - kind: AssignmentStatement
-                                            text: ".flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)\r\n"
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: "."
-                                                is_token: false
                                                 children:
                                                   - kind: PeriodOperator
                                                     text: "."
-                                                    is_token: true
-                                                    children: []
                                               - kind: BinaryExpression
-                                                text: "flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT Or IIf(showFullDialog, CC_FULLOPEN, 0)"
-                                                is_token: false
                                                 children:
                                                   - kind: BinaryExpression
-                                                    text: flags = CC_SOLIDCOLOR Or CC_ANYCOLOR Or CC_RGBINIT
-                                                    is_token: false
                                                     children:
                                                       - kind: BinaryExpression
-                                                        text: flags = CC_SOLIDCOLOR Or CC_ANYCOLOR
-                                                        is_token: false
                                                         children:
                                                           - kind: BinaryExpression
-                                                            text: flags = CC_SOLIDCOLOR
-                                                            is_token: false
                                                             children:
                                                               - kind: IdentifierExpression
-                                                                text: flags
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: flags
-                                                                    is_token: true
-                                                                    children: []
                                                               - kind: Whitespace
                                                                 text: " "
-                                                                is_token: true
-                                                                children: []
                                                               - kind: EqualityOperator
                                                                 text: "="
-                                                                is_token: true
-                                                                children: []
                                                               - kind: Whitespace
                                                                 text: " "
-                                                                is_token: true
-                                                                children: []
                                                               - kind: IdentifierExpression
-                                                                text: CC_SOLIDCOLOR
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: CC_SOLIDCOLOR
-                                                                    is_token: true
-                                                                    children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: OrKeyword
                                                             text: Or
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: IdentifierExpression
-                                                            text: CC_ANYCOLOR
-                                                            is_token: false
                                                             children:
                                                               - kind: Identifier
                                                                 text: CC_ANYCOLOR
-                                                                is_token: true
-                                                                children: []
                                                       - kind: Whitespace
                                                         text: " "
-                                                        is_token: true
-                                                        children: []
                                                       - kind: OrKeyword
                                                         text: Or
-                                                        is_token: true
-                                                        children: []
                                                       - kind: Whitespace
                                                         text: " "
-                                                        is_token: true
-                                                        children: []
                                                       - kind: IdentifierExpression
-                                                        text: CC_RGBINIT
-                                                        is_token: false
                                                         children:
                                                           - kind: Identifier
                                                             text: CC_RGBINIT
-                                                            is_token: true
-                                                            children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: OrKeyword
                                                     text: Or
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: CallExpression
-                                                    text: "IIf(showFullDialog, CC_FULLOPEN, 0)"
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: IIf
-                                                        is_token: true
-                                                        children: []
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                        is_token: true
-                                                        children: []
                                                       - kind: ArgumentList
-                                                        text: "showFullDialog, CC_FULLOPEN, 0"
-                                                        is_token: false
                                                         children:
                                                           - kind: Argument
-                                                            text: showFullDialog
-                                                            is_token: false
                                                             children:
                                                               - kind: IdentifierExpression
-                                                                text: showFullDialog
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: showFullDialog
-                                                                    is_token: true
-                                                                    children: []
                                                           - kind: Comma
                                                             text: ","
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Argument
-                                                            text: CC_FULLOPEN
-                                                            is_token: false
                                                             children:
                                                               - kind: IdentifierExpression
-                                                                text: CC_FULLOPEN
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: CC_FULLOPEN
-                                                                    is_token: true
-                                                                    children: []
                                                           - kind: Comma
                                                             text: ","
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Argument
-                                                            text: "0"
-                                                            is_token: false
                                                             children:
                                                               - kind: NumericLiteralExpression
-                                                                text: "0"
-                                                                is_token: false
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "0"
-                                                                    is_token: true
-                                                                    children: []
                                                       - kind: RightParenthesis
                                                         text: )
-                                                        is_token: true
-                                                        children: []
                                               - kind: Newline
                                                 text: "\r\n"
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: "    "
-                                            is_token: true
-                                            children: []
                                       - kind: EndKeyword
                                         text: End
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: WithKeyword
                                         text: With
-                                        is_token: true
-                                        children: []
                                       - kind: Newline
                                         text: "\r\n"
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: "    "
-                                    is_token: true
-                                    children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: "    "
-                                    is_token: true
-                                    children: []
                                   - kind: EndOfLineComment
                                     text: "' Show the dialog and return the result (if any)"
-                                    is_token: true
-                                    children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: "    "
-                                    is_token: true
-                                    children: []
                                   - kind: AssignmentStatement
-                                    text: "ShowColorDialog = CBool(ChooseColor(cc))\r\n"
-                                    is_token: false
                                     children:
                                       - kind: IdentifierExpression
-                                        text: ShowColorDialog
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: ShowColorDialog
-                                            is_token: true
-                                            children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: EqualityOperator
                                         text: "="
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: CallExpression
-                                        text: CBool(ChooseColor(cc))
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: CBool
-                                            is_token: true
-                                            children: []
                                           - kind: LeftParenthesis
                                             text: (
-                                            is_token: true
-                                            children: []
                                           - kind: ArgumentList
-                                            text: ChooseColor(cc)
-                                            is_token: false
                                             children:
                                               - kind: Argument
-                                                text: ChooseColor(cc)
-                                                is_token: false
                                                 children:
                                                   - kind: CallExpression
-                                                    text: ChooseColor(cc)
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: ChooseColor
-                                                        is_token: true
-                                                        children: []
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                        is_token: true
-                                                        children: []
                                                       - kind: ArgumentList
-                                                        text: cc
-                                                        is_token: false
                                                         children:
                                                           - kind: Argument
-                                                            text: cc
-                                                            is_token: false
                                                             children:
                                                               - kind: IdentifierExpression
-                                                                text: cc
-                                                                is_token: false
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: cc
-                                                                    is_token: true
-                                                                    children: []
                                                       - kind: RightParenthesis
                                                         text: )
-                                                        is_token: true
-                                                        children: []
                                           - kind: RightParenthesis
                                             text: )
-                                            is_token: true
-                                            children: []
                                       - kind: Newline
                                         text: "\r\n"
-                                        is_token: true
-                                        children: []
                                   - kind: IfStatement
-                                    text: "    If ShowColorDialog Then dstColor = cc.rgbResult\r\n    \r\n"
-                                    is_token: false
                                     children:
                                       - kind: Whitespace
                                         text: "    "
-                                        is_token: true
-                                        children: []
                                       - kind: IfKeyword
                                         text: If
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: IdentifierExpression
-                                        text: ShowColorDialog
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: ShowColorDialog
-                                            is_token: true
-                                            children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: ThenKeyword
                                         text: Then
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: AssignmentStatement
-                                        text: "dstColor = cc.rgbResult\r\n"
-                                        is_token: false
                                         children:
                                           - kind: IdentifierExpression
-                                            text: dstColor
-                                            is_token: false
                                             children:
                                               - kind: Identifier
                                                 text: dstColor
-                                                is_token: true
-                                                children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: EqualityOperator
                                             text: "="
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: MemberAccessExpression
-                                            text: cc.rgbResult
-                                            is_token: false
                                             children:
                                               - kind: Identifier
                                                 text: cc
-                                                is_token: true
-                                                children: []
                                               - kind: PeriodOperator
                                                 text: "."
-                                                is_token: true
-                                                children: []
                                               - kind: Identifier
                                                 text: rgbResult
-                                                is_token: true
-                                                children: []
                                           - kind: Newline
                                             text: "\r\n"
-                                            is_token: true
-                                            children: []
                                       - kind: Whitespace
                                         text: "    "
-                                        is_token: true
-                                        children: []
                                       - kind: Newline
                                         text: "\r\n"
-                                        is_token: true
-                                        children: []
                                   - kind: Unknown
                                     text: End
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: Unknown
                                     text: Function
-                                    is_token: true
-                                    children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []

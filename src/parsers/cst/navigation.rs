@@ -181,14 +181,15 @@
 //! - [`CstNode`] - Individual node type
 //! - [`SyntaxKind`] - Enum of all possible node/token types
 
-use crate::parsers::SyntaxKind;
+use serde::ser::{Serialize, SerializeStruct, Serializer};
 
 use super::{ConcreteSyntaxTree, VB6Language};
+use crate::parsers::SyntaxKind;
 
 /// Represents a node in the Concrete Syntax Tree
 ///
 /// This can be either a structural node (like `SubStatement`) or a token (like Identifier).
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct CstNode {
     /// The kind of syntax element this node represents
     kind: SyntaxKind,
@@ -198,6 +199,24 @@ pub struct CstNode {
     is_token: bool,
     /// The children of this node (empty for tokens)
     children: Vec<CstNode>,
+}
+
+impl Serialize for CstNode {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut state = serializer.serialize_struct("CstNode", 2)?;
+        state.serialize_field("kind", &self.kind)?;
+
+        if self.is_token == true {
+            state.serialize_field("text", &self.text)?;
+        } else {
+            state.serialize_field("children", &self.children)?;
+        }
+
+        state.end()
+    }
 }
 
 impl CstNode {

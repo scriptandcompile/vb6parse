@@ -385,4126 +385,2064 @@ attributes:
 cst:
   root:
     kind: Root
-    text: "'***************************************************************************\r\n'Copyright 2018 by Tanner Helland\r\n' www.tannerhelland.com\r\n'\r\n'Documentation for this project can be found at https://tannerhelland.com/code/\r\n'\r\n'The source code in this project is licensed under a Simplified BSD license.\r\n' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/\r\n'\r\n'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland\r\n'\r\n'***************************************************************************\r\n\r\nPrivate Sub Form_Load()\r\n    'When the program starts, combine the two images at 50% transparency\r\n    DrawTransparency Picture1, Picture2, Picture3, 50\r\nEnd Sub\r\n\r\n'When the scrollbar is used, change transparency accordingly\r\nPrivate Sub hScroll1_Change()\r\n    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\nEnd Sub\r\n\r\nPrivate Sub hScroll1_Scroll()\r\n    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\nEnd Sub\r\n\r\n'Draw an alpha blend from two source picture boxes into a destination picture box.\r\n'The transparency value is a simple percentage from 1 to 100\r\nPublic Sub DrawTransparency(srcPic1 As PictureBox, srcPic2 As PictureBox, dstPic As PictureBox, ByVal lvlTransparency As Byte)\r\n    \r\n    'These arrays will hold both image's pixel data\r\n    Dim imageDataSrc1() As Byte, imageDataSrc2() As Byte, imageDataDst() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the first source image's data\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic1)\r\n    iHeight = fDraw.GetImageHeight(srcPic1)\r\n    fDraw.GetImageData2D srcPic1, imageDataSrc1()\r\n    \r\n    'Now do it for the second source image\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D srcPic2, imageDataSrc2()\r\n    \r\n    'Last but not least, do it for the destination picturebox\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D dstPic, imageDataDst()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    Dim r2 As Byte, g2 As Byte, b2 As Byte\r\n    \r\n    'Build a look-up table to increase speed\r\n    Dim lookUp(0 To 255, 0 To 255) As Byte\r\n    Dim invTransparency As Byte\r\n    invTransparency = 100 - lvlTransparency\r\n    For x = 0 To 255\r\n    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D Picture3, iWidth, iHeight, imageDataDst()\r\n    \r\nEnd Sub\r\n\r\n"
-    is_token: false
     children:
       - kind: EndOfLineComment
         text: "'***************************************************************************"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'Copyright 2018 by Tanner Helland"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' www.tannerhelland.com"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'Documentation for this project can be found at https://tannerhelland.com/code/"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'The source code in this project is licensed under a Simplified BSD license."
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "' For more information, please review LICENSE.md at https://github.com/tannerhelland/thdc-code/"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'If you find this code useful, please consider a small donation to https://www.paypal.me/TannerHelland"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'***************************************************************************"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: SubStatement
-        text: "Private Sub Form_Load()\r\n    'When the program starts, combine the two images at 50% transparency\r\n    DrawTransparency Picture1, Picture2, Picture3, 50\r\nEnd Sub\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: Form_Load
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: ()
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "    'When the program starts, combine the two images at 50% transparency\r\n    DrawTransparency Picture1, Picture2, Picture3, 50\r\n"
-            is_token: false
             children:
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'When the program starts, combine the two images at 50% transparency"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "DrawTransparency Picture1, Picture2, Picture3, 50\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: DrawTransparency
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture1
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture2
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture3
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IntegerLiteral
                     text: "50"
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'When the scrollbar is used, change transparency accordingly"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: SubStatement
-        text: "Private Sub hScroll1_Change()\r\n    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\nEnd Sub\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: hScroll1_Change
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: ()
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\n"
-            is_token: false
             children:
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: DrawTransparency
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture1
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture2
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture3
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: hScroll1
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Value
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: SubStatement
-        text: "Private Sub hScroll1_Scroll()\r\n    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\nEnd Sub\r\n"
-        is_token: false
         children:
           - kind: PrivateKeyword
             text: Private
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: hScroll1_Scroll
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: ()
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "    DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\n"
-            is_token: false
             children:
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "DrawTransparency Picture1, Picture2, Picture3, hScroll1.Value\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: DrawTransparency
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture1
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture2
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture3
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: hScroll1
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Value
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'Draw an alpha blend from two source picture boxes into a destination picture box."
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: EndOfLineComment
         text: "'The transparency value is a simple percentage from 1 to 100"
-        is_token: true
-        children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
       - kind: SubStatement
-        text: "Public Sub DrawTransparency(srcPic1 As PictureBox, srcPic2 As PictureBox, dstPic As PictureBox, ByVal lvlTransparency As Byte)\r\n    \r\n    'These arrays will hold both image's pixel data\r\n    Dim imageDataSrc1() As Byte, imageDataSrc2() As Byte, imageDataDst() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the first source image's data\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic1)\r\n    iHeight = fDraw.GetImageHeight(srcPic1)\r\n    fDraw.GetImageData2D srcPic1, imageDataSrc1()\r\n    \r\n    'Now do it for the second source image\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D srcPic2, imageDataSrc2()\r\n    \r\n    'Last but not least, do it for the destination picturebox\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D dstPic, imageDataDst()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    Dim r2 As Byte, g2 As Byte, b2 As Byte\r\n    \r\n    'Build a look-up table to increase speed\r\n    Dim lookUp(0 To 255, 0 To 255) As Byte\r\n    Dim invTransparency As Byte\r\n    invTransparency = 100 - lvlTransparency\r\n    For x = 0 To 255\r\n    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D Picture3, iWidth, iHeight, imageDataDst()\r\n    \r\nEnd Sub\r\n"
-        is_token: false
         children:
           - kind: PublicKeyword
             text: Public
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: Identifier
             text: DrawTransparency
-            is_token: true
-            children: []
           - kind: ParameterList
-            text: "(srcPic1 As PictureBox, srcPic2 As PictureBox, dstPic As PictureBox, ByVal lvlTransparency As Byte)"
-            is_token: false
             children:
               - kind: LeftParenthesis
                 text: (
-                is_token: true
-                children: []
               - kind: Identifier
                 text: srcPic1
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: PictureBox
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: srcPic2
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: PictureBox
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: dstPic
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: PictureBox
-                is_token: true
-                children: []
               - kind: Comma
                 text: ","
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByValKeyword
                 text: ByVal
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: Identifier
                 text: lvlTransparency
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: AsKeyword
                 text: As
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: " "
-                is_token: true
-                children: []
               - kind: ByteKeyword
                 text: Byte
-                is_token: true
-                children: []
               - kind: RightParenthesis
                 text: )
-                is_token: true
-                children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
           - kind: StatementList
-            text: "    \r\n    'These arrays will hold both image's pixel data\r\n    Dim imageDataSrc1() As Byte, imageDataSrc2() As Byte, imageDataDst() As Byte\r\n    \r\n    'Coordinate variables\r\n    Dim x As Long, y As Long\r\n    \r\n    'Image dimensions\r\n    Dim iWidth As Long, iHeight As Long\r\n    \r\n    'Instantiate a FastDrawing class and gather the first source image's data\r\n    Dim fDraw As New FastDrawing\r\n    iWidth = fDraw.GetImageWidth(srcPic1)\r\n    iHeight = fDraw.GetImageHeight(srcPic1)\r\n    fDraw.GetImageData2D srcPic1, imageDataSrc1()\r\n    \r\n    'Now do it for the second source image\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D srcPic2, imageDataSrc2()\r\n    \r\n    'Last but not least, do it for the destination picturebox\r\n    iWidth = fDraw.GetImageWidth(srcPic2)\r\n    iHeight = fDraw.GetImageHeight(srcPic2)\r\n    fDraw.GetImageData2D dstPic, imageDataDst()\r\n    \r\n    'These variables will hold temporary pixel color values\r\n    Dim r As Byte, g As Byte, b As Byte\r\n    Dim r2 As Byte, g2 As Byte, b2 As Byte\r\n    \r\n    'Build a look-up table to increase speed\r\n    Dim lookUp(0 To 255, 0 To 255) As Byte\r\n    Dim invTransparency As Byte\r\n    invTransparency = 100 - lvlTransparency\r\n    For x = 0 To 255\r\n    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n    Next x\r\n    \r\n    'Now run a quick loop through the image, adjusting pixel values with the look-up tables\r\n    Dim quickX As Long\r\n    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n    Next x\r\n    \r\n    'Draw the new image data to the screen\r\n    fDraw.SetImageData2D Picture3, iWidth, iHeight, imageDataDst()\r\n    \r\n"
-            is_token: false
             children:
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'These arrays will hold both image's pixel data"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim imageDataSrc1() As Byte, imageDataSrc2() As Byte, imageDataDst() As Byte\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataSrc1
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataSrc2
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataDst
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Coordinate variables"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim x As Long, y As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: x
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: y
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Image dimensions"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim iWidth As Long, iHeight As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: iWidth
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: iHeight
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Instantiate a FastDrawing class and gather the first source image's data"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim fDraw As New FastDrawing\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: fDraw
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NewKeyword
                     text: New
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: FastDrawing
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iWidth = fDraw.GetImageWidth(srcPic1)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iWidth
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iWidth
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageWidth(srcPic1)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageWidth
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageWidth
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic1
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic1
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic1
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic1
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iHeight = fDraw.GetImageHeight(srcPic1)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iHeight
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iHeight
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageHeight(srcPic1)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageHeight
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageHeight
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic1
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic1
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic1
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic1
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "fDraw.GetImageData2D srcPic1, imageDataSrc1()\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: fDraw
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: GetImageData2D
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: srcPic1
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataSrc1
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Now do it for the second source image"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iWidth = fDraw.GetImageWidth(srcPic2)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iWidth
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iWidth
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageWidth(srcPic2)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageWidth
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageWidth
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic2
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic2
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic2
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic2
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iHeight = fDraw.GetImageHeight(srcPic2)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iHeight
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iHeight
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageHeight(srcPic2)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageHeight
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageHeight
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic2
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic2
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic2
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic2
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "fDraw.GetImageData2D srcPic2, imageDataSrc2()\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: fDraw
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: GetImageData2D
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: srcPic2
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataSrc2
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Last but not least, do it for the destination picturebox"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iWidth = fDraw.GetImageWidth(srcPic2)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iWidth
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iWidth
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageWidth(srcPic2)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageWidth
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageWidth
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic2
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic2
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic2
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic2
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "iHeight = fDraw.GetImageHeight(srcPic2)\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: iHeight
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: iHeight
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: CallExpression
-                    text: fDraw.GetImageHeight(srcPic2)
-                    is_token: false
                     children:
                       - kind: MemberAccessExpression
-                        text: fDraw.GetImageHeight
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: fDraw
-                            is_token: true
-                            children: []
                           - kind: PeriodOperator
                             text: "."
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: GetImageHeight
-                            is_token: true
-                            children: []
                       - kind: LeftParenthesis
                         text: (
-                        is_token: true
-                        children: []
                       - kind: ArgumentList
-                        text: srcPic2
-                        is_token: false
                         children:
                           - kind: Argument
-                            text: srcPic2
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: srcPic2
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: srcPic2
-                                    is_token: true
-                                    children: []
                       - kind: RightParenthesis
                         text: )
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "fDraw.GetImageData2D dstPic, imageDataDst()\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: fDraw
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: GetImageData2D
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: dstPic
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataDst
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'These variables will hold temporary pixel color values"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim r As Byte, g As Byte, b As Byte\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: r
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: g
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: b
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim r2 As Byte, g2 As Byte, b2 As Byte\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: r2
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: g2
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: b2
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Build a look-up table to increase speed"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim lookUp(0 To 255, 0 To 255) As Byte\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: lookUp
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "0"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "0"
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ToKeyword
                     text: To
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "255"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "255"
-                        is_token: true
-                        children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "0"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "0"
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ToKeyword
                     text: To
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "255"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "255"
-                        is_token: true
-                        children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim invTransparency As Byte\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: invTransparency
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ByteKeyword
                     text: Byte
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: AssignmentStatement
-                text: "invTransparency = 100 - lvlTransparency\r\n"
-                is_token: false
                 children:
                   - kind: IdentifierExpression
-                    text: invTransparency
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: invTransparency
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: BinaryExpression
-                    text: 100 - lvlTransparency
-                    is_token: false
                     children:
                       - kind: NumericLiteralExpression
-                        text: "100"
-                        is_token: false
                         children:
                           - kind: IntegerLiteral
                             text: "100"
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: SubtractionOperator
                         text: "-"
-                        is_token: true
-                        children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: IdentifierExpression
-                        text: lvlTransparency
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: lvlTransparency
-                            is_token: true
-                            children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: ForStatement
-                text: "    For x = 0 To 255\r\n    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n    Next x\r\n"
-                is_token: false
                 children:
                   - kind: Whitespace
                     text: "    "
-                    is_token: true
-                    children: []
                   - kind: ForKeyword
                     text: For
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
-                    text: x
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: x
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "0"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "0"
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ToKeyword
                     text: To
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "255"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "255"
-                        is_token: true
-                        children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
                   - kind: StatementList
-                    text: "    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n    "
-                    is_token: false
                     children:
                       - kind: ForStatement
-                        text: "    For y = 0 To 255\r\n        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    Next y\r\n"
-                        is_token: false
                         children:
                           - kind: Whitespace
                             text: "    "
-                            is_token: true
-                            children: []
                           - kind: ForKeyword
                             text: For
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
-                            text: y
-                            is_token: false
                             children:
                               - kind: Identifier
                                 text: y
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: EqualityOperator
                             text: "="
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: NumericLiteralExpression
-                            text: "0"
-                            is_token: false
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: ToKeyword
                             text: To
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: NumericLiteralExpression
-                            text: "255"
-                            is_token: false
                             children:
                               - kind: IntegerLiteral
                                 text: "255"
-                                is_token: true
-                                children: []
                           - kind: Newline
                             text: "\r\n"
-                            is_token: true
-                            children: []
                           - kind: StatementList
-                            text: "        'Mix all possible color values based on simple weighted averaging\r\n        lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n    "
-                            is_token: false
                             children:
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: EndOfLineComment
                                 text: "'Mix all possible color values based on simple weighted averaging"
-                                is_token: true
-                                children: []
                               - kind: Newline
                                 text: "\r\n"
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "lookUp(x, y) = CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)\r\n"
-                                is_token: false
                                 children:
                                   - kind: CallExpression
-                                    text: "lookUp(x, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: lookUp
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "x, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: x
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: x
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: x
-                                                    is_token: true
-                                                    children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "CByte(((invTransparency * x) + (lvlTransparency * y)) \\ 100)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: CByte
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "((invTransparency * x) + (lvlTransparency * y)) \\ 100"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: "((invTransparency * x) + (lvlTransparency * y)) \\ 100"
-                                            is_token: false
                                             children:
                                               - kind: BinaryExpression
-                                                text: "((invTransparency * x) + (lvlTransparency * y)) \\ 100"
-                                                is_token: false
                                                 children:
                                                   - kind: ParenthesizedExpression
-                                                    text: ((invTransparency * x) + (lvlTransparency * y))
-                                                    is_token: false
                                                     children:
                                                       - kind: LeftParenthesis
                                                         text: (
-                                                        is_token: true
-                                                        children: []
                                                       - kind: BinaryExpression
-                                                        text: (invTransparency * x) + (lvlTransparency * y)
-                                                        is_token: false
                                                         children:
                                                           - kind: ParenthesizedExpression
-                                                            text: (invTransparency * x)
-                                                            is_token: false
                                                             children:
                                                               - kind: LeftParenthesis
                                                                 text: (
-                                                                is_token: true
-                                                                children: []
                                                               - kind: BinaryExpression
-                                                                text: invTransparency * x
-                                                                is_token: false
                                                                 children:
                                                                   - kind: IdentifierExpression
-                                                                    text: invTransparency
-                                                                    is_token: false
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: invTransparency
-                                                                        is_token: true
-                                                                        children: []
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: MultiplicationOperator
                                                                     text: "*"
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: IdentifierExpression
-                                                                    text: x
-                                                                    is_token: false
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: x
-                                                                        is_token: true
-                                                                        children: []
                                                               - kind: RightParenthesis
                                                                 text: )
-                                                                is_token: true
-                                                                children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: AdditionOperator
                                                             text: +
-                                                            is_token: true
-                                                            children: []
                                                           - kind: Whitespace
                                                             text: " "
-                                                            is_token: true
-                                                            children: []
                                                           - kind: ParenthesizedExpression
-                                                            text: (lvlTransparency * y)
-                                                            is_token: false
                                                             children:
                                                               - kind: LeftParenthesis
                                                                 text: (
-                                                                is_token: true
-                                                                children: []
                                                               - kind: BinaryExpression
-                                                                text: lvlTransparency * y
-                                                                is_token: false
                                                                 children:
                                                                   - kind: IdentifierExpression
-                                                                    text: lvlTransparency
-                                                                    is_token: false
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: lvlTransparency
-                                                                        is_token: true
-                                                                        children: []
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: MultiplicationOperator
                                                                     text: "*"
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                                    is_token: true
-                                                                    children: []
                                                                   - kind: IdentifierExpression
-                                                                    text: y
-                                                                    is_token: false
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: y
-                                                                        is_token: true
-                                                                        children: []
                                                               - kind: RightParenthesis
                                                                 text: )
-                                                                is_token: true
-                                                                children: []
                                                       - kind: RightParenthesis
                                                         text: )
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: BackwardSlashOperator
                                                     text: "\\"
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: NumericLiteralExpression
-                                                    text: "100"
-                                                    is_token: false
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "100"
-                                                        is_token: true
-                                                        children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "    "
-                                is_token: true
-                                children: []
                           - kind: NextKeyword
                             text: Next
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: y
-                            is_token: true
-                            children: []
                           - kind: Newline
                             text: "\r\n"
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: "    "
-                        is_token: true
-                        children: []
                   - kind: NextKeyword
                     text: Next
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: x
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Now run a quick loop through the image, adjusting pixel values with the look-up tables"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: DimStatement
-                text: "Dim quickX As Long\r\n"
-                is_token: false
                 children:
                   - kind: DimKeyword
                     text: Dim
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: quickX
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: AsKeyword
                     text: As
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: LongKeyword
                     text: Long
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: ForStatement
-                text: "    For x = 0 To iWidth - 1\r\n        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n    Next x\r\n"
-                is_token: false
                 children:
                   - kind: Whitespace
                     text: "    "
-                    is_token: true
-                    children: []
                   - kind: ForKeyword
                     text: For
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: IdentifierExpression
-                    text: x
-                    is_token: false
                     children:
                       - kind: Identifier
                         text: x
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: EqualityOperator
                     text: "="
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: NumericLiteralExpression
-                    text: "0"
-                    is_token: false
                     children:
                       - kind: IntegerLiteral
                         text: "0"
-                        is_token: true
-                        children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: ToKeyword
                     text: To
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: BinaryExpression
-                    text: iWidth - 1
-                    is_token: false
                     children:
                       - kind: IdentifierExpression
-                        text: iWidth
-                        is_token: false
                         children:
                           - kind: Identifier
                             text: iWidth
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: SubtractionOperator
                         text: "-"
-                        is_token: true
-                        children: []
                       - kind: Whitespace
                         text: " "
-                        is_token: true
-                        children: []
                       - kind: NumericLiteralExpression
-                        text: "1"
-                        is_token: false
                         children:
                           - kind: IntegerLiteral
                             text: "1"
-                            is_token: true
-                            children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
                   - kind: StatementList
-                    text: "        quickX = x * 3\r\n    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n    "
-                    is_token: false
                     children:
                       - kind: Whitespace
                         text: "        "
-                        is_token: true
-                        children: []
                       - kind: AssignmentStatement
-                        text: "quickX = x * 3\r\n"
-                        is_token: false
                         children:
                           - kind: IdentifierExpression
-                            text: quickX
-                            is_token: false
                             children:
                               - kind: Identifier
                                 text: quickX
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: EqualityOperator
                             text: "="
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: BinaryExpression
-                            text: x * 3
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: x
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: x
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: MultiplicationOperator
                                 text: "*"
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: NumericLiteralExpression
-                                text: "3"
-                                is_token: false
                                 children:
                                   - kind: IntegerLiteral
                                     text: "3"
-                                    is_token: true
-                                    children: []
                           - kind: Newline
                             text: "\r\n"
-                            is_token: true
-                            children: []
                       - kind: ForStatement
-                        text: "    For y = 0 To iHeight - 1\r\n        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    Next y\r\n"
-                        is_token: false
                         children:
                           - kind: Whitespace
                             text: "    "
-                            is_token: true
-                            children: []
                           - kind: ForKeyword
                             text: For
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: IdentifierExpression
-                            text: y
-                            is_token: false
                             children:
                               - kind: Identifier
                                 text: y
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: EqualityOperator
                             text: "="
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: NumericLiteralExpression
-                            text: "0"
-                            is_token: false
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                                is_token: true
-                                children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: ToKeyword
                             text: To
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: BinaryExpression
-                            text: iHeight - 1
-                            is_token: false
                             children:
                               - kind: IdentifierExpression
-                                text: iHeight
-                                is_token: false
                                 children:
                                   - kind: Identifier
                                     text: iHeight
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: SubtractionOperator
                                 text: "-"
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: NumericLiteralExpression
-                                text: "1"
-                                is_token: false
                                 children:
                                   - kind: IntegerLiteral
                                     text: "1"
-                                    is_token: true
-                                    children: []
                           - kind: Newline
                             text: "\r\n"
-                            is_token: true
-                            children: []
                           - kind: StatementList
-                            text: "        'Grab red, green, and blue from the source images\r\n        r = imageDataSrc1(quickX + 2, y)\r\n        g = imageDataSrc1(quickX + 1, y)\r\n        b = imageDataSrc1(quickX, y)\r\n        r2 = imageDataSrc2(quickX + 2, y)\r\n        g2 = imageDataSrc2(quickX + 1, y)\r\n        b2 = imageDataSrc2(quickX, y)\r\n        'Use our source values to calculate a new, transparent color\r\n        imageDataDst(quickX + 2, y) = lookUp(r, r2)\r\n        imageDataDst(quickX + 1, y) = lookUp(g, g2)\r\n        imageDataDst(quickX, y) = lookUp(b, b2)\r\n    "
-                            is_token: false
                             children:
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: EndOfLineComment
                                 text: "'Grab red, green, and blue from the source images"
-                                is_token: true
-                                children: []
                               - kind: Newline
                                 text: "\r\n"
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "r = imageDataSrc1(quickX + 2, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: r
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: r
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc1(quickX + 2, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc1
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX + 2, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX + 2
-                                            is_token: false
                                             children:
                                               - kind: BinaryExpression
-                                                text: quickX + 2
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: quickX
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: quickX
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: AdditionOperator
                                                     text: +
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: NumericLiteralExpression
-                                                    text: "2"
-                                                    is_token: false
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "2"
-                                                        is_token: true
-                                                        children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "g = imageDataSrc1(quickX + 1, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: g
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: g
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc1(quickX + 1, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc1
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX + 1, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX + 1
-                                            is_token: false
                                             children:
                                               - kind: BinaryExpression
-                                                text: quickX + 1
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: quickX
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: quickX
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: AdditionOperator
                                                     text: +
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: NumericLiteralExpression
-                                                    text: "1"
-                                                    is_token: false
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "1"
-                                                        is_token: true
-                                                        children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "b = imageDataSrc1(quickX, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: b
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: b
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc1(quickX, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc1
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: quickX
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: quickX
-                                                    is_token: true
-                                                    children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "r2 = imageDataSrc2(quickX + 2, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: r2
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: r2
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc2(quickX + 2, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc2
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX + 2, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX + 2
-                                            is_token: false
                                             children:
                                               - kind: BinaryExpression
-                                                text: quickX + 2
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: quickX
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: quickX
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: AdditionOperator
                                                     text: +
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: NumericLiteralExpression
-                                                    text: "2"
-                                                    is_token: false
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "2"
-                                                        is_token: true
-                                                        children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "g2 = imageDataSrc2(quickX + 1, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: g2
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: g2
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc2(quickX + 1, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc2
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX + 1, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX + 1
-                                            is_token: false
                                             children:
                                               - kind: BinaryExpression
-                                                text: quickX + 1
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: quickX
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: quickX
-                                                        is_token: true
-                                                        children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: AdditionOperator
                                                     text: +
-                                                    is_token: true
-                                                    children: []
                                                   - kind: Whitespace
                                                     text: " "
-                                                    is_token: true
-                                                    children: []
                                                   - kind: NumericLiteralExpression
-                                                    text: "1"
-                                                    is_token: false
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "1"
-                                                        is_token: true
-                                                        children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "b2 = imageDataSrc2(quickX, y)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: b2
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: b2
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "imageDataSrc2(quickX, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataSrc2
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: quickX
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: quickX
-                                                    is_token: true
-                                                    children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: EndOfLineComment
                                 text: "'Use our source values to calculate a new, transparent color"
-                                is_token: true
-                                children: []
                               - kind: Newline
                                 text: "\r\n"
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: imageDataDst
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: (
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: quickX
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: +
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "2,"
-                                is_token: false
                                 children:
                                   - kind: NumericLiteralExpression
-                                    text: "2"
-                                    is_token: false
                                     children:
                                       - kind: IntegerLiteral
                                         text: "2"
-                                        is_token: true
-                                        children: []
                                   - kind: IdentifierExpression
-                                    text: ","
-                                    is_token: false
                                     children:
                                       - kind: Comma
                                         text: ","
-                                        is_token: true
-                                        children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "y) = lookUp(r, r2)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: y
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: y
-                                        is_token: true
-                                        children: []
                                   - kind: BinaryExpression
-                                    text: ") = lookUp(r, r2)"
-                                    is_token: false
                                     children:
                                       - kind: IdentifierExpression
-                                        text: )
-                                        is_token: false
                                         children:
                                           - kind: RightParenthesis
                                             text: )
-                                            is_token: true
-                                            children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: EqualityOperator
                                         text: "="
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: CallExpression
-                                        text: "lookUp(r, r2)"
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: lookUp
-                                            is_token: true
-                                            children: []
                                           - kind: LeftParenthesis
                                             text: (
-                                            is_token: true
-                                            children: []
                                           - kind: ArgumentList
-                                            text: "r, r2"
-                                            is_token: false
                                             children:
                                               - kind: Argument
-                                                text: r
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: r
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: r
-                                                        is_token: true
-                                                        children: []
                                               - kind: Comma
                                                 text: ","
-                                                is_token: true
-                                                children: []
                                               - kind: Whitespace
                                                 text: " "
-                                                is_token: true
-                                                children: []
                                               - kind: Argument
-                                                text: r2
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: r2
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: r2
-                                                        is_token: true
-                                                        children: []
                                           - kind: RightParenthesis
                                             text: )
-                                            is_token: true
-                                            children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: imageDataDst
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: (
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: quickX
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: Unknown
                                 text: +
-                                is_token: true
-                                children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "1,"
-                                is_token: false
                                 children:
                                   - kind: NumericLiteralExpression
-                                    text: "1"
-                                    is_token: false
                                     children:
                                       - kind: IntegerLiteral
                                         text: "1"
-                                        is_token: true
-                                        children: []
                                   - kind: IdentifierExpression
-                                    text: ","
-                                    is_token: false
                                     children:
                                       - kind: Comma
                                         text: ","
-                                        is_token: true
-                                        children: []
                               - kind: Whitespace
                                 text: " "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "y) = lookUp(g, g2)\r\n"
-                                is_token: false
                                 children:
                                   - kind: IdentifierExpression
-                                    text: y
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: y
-                                        is_token: true
-                                        children: []
                                   - kind: BinaryExpression
-                                    text: ") = lookUp(g, g2)"
-                                    is_token: false
                                     children:
                                       - kind: IdentifierExpression
-                                        text: )
-                                        is_token: false
                                         children:
                                           - kind: RightParenthesis
                                             text: )
-                                            is_token: true
-                                            children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: EqualityOperator
                                         text: "="
-                                        is_token: true
-                                        children: []
                                       - kind: Whitespace
                                         text: " "
-                                        is_token: true
-                                        children: []
                                       - kind: CallExpression
-                                        text: "lookUp(g, g2)"
-                                        is_token: false
                                         children:
                                           - kind: Identifier
                                             text: lookUp
-                                            is_token: true
-                                            children: []
                                           - kind: LeftParenthesis
                                             text: (
-                                            is_token: true
-                                            children: []
                                           - kind: ArgumentList
-                                            text: "g, g2"
-                                            is_token: false
                                             children:
                                               - kind: Argument
-                                                text: g
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: g
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: g
-                                                        is_token: true
-                                                        children: []
                                               - kind: Comma
                                                 text: ","
-                                                is_token: true
-                                                children: []
                                               - kind: Whitespace
                                                 text: " "
-                                                is_token: true
-                                                children: []
                                               - kind: Argument
-                                                text: g2
-                                                is_token: false
                                                 children:
                                                   - kind: IdentifierExpression
-                                                    text: g2
-                                                    is_token: false
                                                     children:
                                                       - kind: Identifier
                                                         text: g2
-                                                        is_token: true
-                                                        children: []
                                           - kind: RightParenthesis
                                             text: )
-                                            is_token: true
-                                            children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "        "
-                                is_token: true
-                                children: []
                               - kind: AssignmentStatement
-                                text: "imageDataDst(quickX, y) = lookUp(b, b2)\r\n"
-                                is_token: false
                                 children:
                                   - kind: CallExpression
-                                    text: "imageDataDst(quickX, y)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: imageDataDst
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "quickX, y"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: quickX
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: quickX
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: quickX
-                                                    is_token: true
-                                                    children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: y
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: y
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: y
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: EqualityOperator
                                     text: "="
-                                    is_token: true
-                                    children: []
                                   - kind: Whitespace
                                     text: " "
-                                    is_token: true
-                                    children: []
                                   - kind: CallExpression
-                                    text: "lookUp(b, b2)"
-                                    is_token: false
                                     children:
                                       - kind: Identifier
                                         text: lookUp
-                                        is_token: true
-                                        children: []
                                       - kind: LeftParenthesis
                                         text: (
-                                        is_token: true
-                                        children: []
                                       - kind: ArgumentList
-                                        text: "b, b2"
-                                        is_token: false
                                         children:
                                           - kind: Argument
-                                            text: b
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: b
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: b
-                                                    is_token: true
-                                                    children: []
                                           - kind: Comma
                                             text: ","
-                                            is_token: true
-                                            children: []
                                           - kind: Whitespace
                                             text: " "
-                                            is_token: true
-                                            children: []
                                           - kind: Argument
-                                            text: b2
-                                            is_token: false
                                             children:
                                               - kind: IdentifierExpression
-                                                text: b2
-                                                is_token: false
                                                 children:
                                                   - kind: Identifier
                                                     text: b2
-                                                    is_token: true
-                                                    children: []
                                       - kind: RightParenthesis
                                         text: )
-                                        is_token: true
-                                        children: []
                                   - kind: Newline
                                     text: "\r\n"
-                                    is_token: true
-                                    children: []
                               - kind: Whitespace
                                 text: "    "
-                                is_token: true
-                                children: []
                           - kind: NextKeyword
                             text: Next
-                            is_token: true
-                            children: []
                           - kind: Whitespace
                             text: " "
-                            is_token: true
-                            children: []
                           - kind: Identifier
                             text: y
-                            is_token: true
-                            children: []
                           - kind: Newline
                             text: "\r\n"
-                            is_token: true
-                            children: []
                       - kind: Whitespace
                         text: "    "
-                        is_token: true
-                        children: []
                   - kind: NextKeyword
                     text: Next
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: x
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: EndOfLineComment
                 text: "'Draw the new image data to the screen"
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: CallStatement
-                text: "fDraw.SetImageData2D Picture3, iWidth, iHeight, imageDataDst()\r\n"
-                is_token: false
                 children:
                   - kind: Identifier
                     text: fDraw
-                    is_token: true
-                    children: []
                   - kind: PeriodOperator
                     text: "."
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: SetImageData2D
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: Picture3
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: iWidth
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: iHeight
-                    is_token: true
-                    children: []
                   - kind: Comma
                     text: ","
-                    is_token: true
-                    children: []
                   - kind: Whitespace
                     text: " "
-                    is_token: true
-                    children: []
                   - kind: Identifier
                     text: imageDataDst
-                    is_token: true
-                    children: []
                   - kind: LeftParenthesis
                     text: (
-                    is_token: true
-                    children: []
                   - kind: RightParenthesis
                     text: )
-                    is_token: true
-                    children: []
                   - kind: Newline
                     text: "\r\n"
-                    is_token: true
-                    children: []
               - kind: Whitespace
                 text: "    "
-                is_token: true
-                children: []
               - kind: Newline
                 text: "\r\n"
-                is_token: true
-                children: []
           - kind: EndKeyword
             text: End
-            is_token: true
-            children: []
           - kind: Whitespace
             text: " "
-            is_token: true
-            children: []
           - kind: SubKeyword
             text: Sub
-            is_token: true
-            children: []
           - kind: Newline
             text: "\r\n"
-            is_token: true
-            children: []
       - kind: Newline
         text: "\r\n"
-        is_token: true
-        children: []
