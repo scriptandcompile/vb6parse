@@ -305,6 +305,7 @@ impl Parser<'_> {
 mod tests {
     use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn class_parsing() {
         let source = r#"VERSION 1.0 CLASS
