@@ -327,8 +327,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
     #[test]
     fn redim_simple_array() {
         let source = r"
@@ -336,11 +336,38 @@ Sub Test()
     ReDim myArray(10)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        LeftParenthesis,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -350,12 +377,44 @@ Sub Test()
     ReDim Preserve argv(argc - 1&)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
-        assert!(debug.contains("PreserveKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("argv"),
+                        LeftParenthesis,
+                        Identifier ("argc"),
+                        Whitespace,
+                        SubtractionOperator,
+                        Whitespace,
+                        LongLiteral,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -365,12 +424,46 @@ Sub Test()
     ReDim ICI(1 To num) As ImageCodecInfo
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
-        assert!(debug.contains("AsKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("ICI"),
+                        LeftParenthesis,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        Identifier ("num"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        Identifier ("ImageCodecInfo"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -380,13 +473,44 @@ Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
-        assert!(debug.contains("PreserveKeyword"));
-        assert!(debug.contains("AsKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("fileNameArray"),
+                        LeftParenthesis,
+                        Identifier ("rdIconMaximum"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -396,11 +520,38 @@ Sub Test()
     ReDim argv(0&)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("argv"),
+                        LeftParenthesis,
+                        LongLiteral,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -410,12 +561,54 @@ Sub Test()
     ReDim hIcon(lIconIndex To lIconIndex + nIcons * 2 - 1)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
-        assert!(debug.contains("ToKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("hIcon"),
+                        LeftParenthesis,
+                        Identifier ("lIconIndex"),
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        Identifier ("lIconIndex"),
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        Identifier ("nIcons"),
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        IntegerLiteral ("2"),
+                        Whitespace,
+                        SubtractionOperator,
+                        Whitespace,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -425,11 +618,54 @@ Sub Test()
     ReDim arr1(10), arr2(20), arr3(30)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("arr1"),
+                        LeftParenthesis,
+                        IntegerLiteral ("10"),
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("arr2"),
+                        LeftParenthesis,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("20"),
+                        },
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("arr3"),
+                        LeftParenthesis,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("30"),
+                        },
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -439,11 +675,50 @@ Sub Test()
     If needResize Then ReDim myArray(newSize)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("needResize"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ReDimStatement {
+                            ReDimKeyword,
+                            Whitespace,
+                            Identifier ("myArray"),
+                            LeftParenthesis,
+                            IdentifierExpression {
+                                Identifier ("newSize"),
+                            },
+                            RightParenthesis,
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -453,12 +728,46 @@ Sub Test()
     ReDim Preserve fileNameArray(rdIconMaximum) As String ' the file location of the original icons
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
-        assert!(debug.contains("EndOfLineComment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("fileNameArray"),
+                        LeftParenthesis,
+                        Identifier ("rdIconMaximum"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -470,11 +779,76 @@ Sub Test()
     ReDim Preserve namesListArray(rdIconMaximum) As String
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let redim_count = debug.matches("ReDimStatement").count();
-        assert_eq!(redim_count, 3, "Expected 3 ReDim statements");
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("fileNameArray"),
+                        LeftParenthesis,
+                        Identifier ("rdIconMaximum"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("dictionaryLocationArray"),
+                        LeftParenthesis,
+                        Identifier ("rdIconMaximum"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        PreserveKeyword,
+                        Whitespace,
+                        Identifier ("namesListArray"),
+                        LeftParenthesis,
+                        Identifier ("rdIconMaximum"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        StringKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -486,11 +860,58 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("arraysNeedResize"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            ReDimStatement {
+                                Whitespace,
+                                ReDimKeyword,
+                                Whitespace,
+                                PreserveKeyword,
+                                Whitespace,
+                                Identifier ("myArray"),
+                                LeftParenthesis,
+                                Identifier ("newSize"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -500,11 +921,46 @@ Sub Test()
     ReDim Buffer(1 To Size) As Byte
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("Buffer"),
+                        LeftParenthesis,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        Identifier ("Size"),
+                        RightParenthesis,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        ByteKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -512,11 +968,23 @@ End Sub
         let source = r"
 ReDim globalArray(100)
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
-        assert!(debug.contains("ReDimKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            ReDimStatement {
+                ReDimKeyword,
+                Whitespace,
+                Identifier ("globalArray"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("100"),
+                },
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -526,111 +994,197 @@ Sub Test()
     ReDim matrix(10, 20)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ReDimStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("matrix"),
+                        LeftParenthesis,
+                        IntegerLiteral ("10"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("20"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // Dim statement tests
+
     #[test]
     fn dim_simple_declaration() {
         let source = "Dim x As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Dim x As Integer\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("x"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_private_declaration() {
         let source = "Private m_value As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private m_value As Long\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_value"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_public_declaration() {
         let source = "Public g_config As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Public g_config As String\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                Identifier ("g_config"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_multiple_variables() {
         let source = "Dim x, y, z As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Dim x, y, z As Integer\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
+        assert_tree!(cst, [
+            DimStatement {
+                DimKeyword,
+                Whitespace,
+                Identifier ("x"),
+                Comma,
+                Whitespace,
+                Identifier ("y"),
+                Comma,
+                Whitespace,
+                Identifier ("z"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_const_declaration() {
         let source = "Const MAX_SIZE = 100\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Const MAX_SIZE = 100\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("ConstKeyword"));
+        assert_tree!(cst, [
+            DimStatement {
+                ConstKeyword,
+                Whitespace,
+                Identifier ("MAX_SIZE"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("100"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_private_const() {
         let source = "Private Const MODULE_NAME = \"MyModule\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private Const MODULE_NAME = \"MyModule\"\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("ConstKeyword"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                ConstKeyword,
+                Whitespace,
+                Identifier ("MODULE_NAME"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteral ("\"MyModule\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dim_static_declaration() {
         let source = "Static counter As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Static counter As Long\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("StaticKeyword"));
+        assert_tree!(cst, [
+            DimStatement {
+                StaticKeyword,
+                Whitespace,
+                Identifier ("counter"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // Erase statement tests
+
     #[test]
     fn erase_simple_array() {
         let source = r"
@@ -638,11 +1192,35 @@ Sub Test()
     Erase myArray
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
-        assert!(debug.contains("EraseKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -652,36 +1230,75 @@ Sub Test()
     Erase array1, array2, array3
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
-        assert!(debug.contains("array1"));
-        assert!(debug.contains("array2"));
-        assert!(debug.contains("array3"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("array1"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("array2"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("array3"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn erase_at_module_level() {
         let source = "Erase globalArray\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            EraseStatement {
+                EraseKeyword,
+                Whitespace,
+                Identifier ("globalArray"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn erase_preserves_whitespace() {
         let source = "    Erase    myArray    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "    Erase    myArray    \n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Whitespace,
+            EraseStatement {
+                EraseKeyword,
+                Whitespace,
+                Identifier ("myArray"),
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -691,11 +1308,37 @@ Sub Test()
     Erase tempArray ' Free up memory
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("tempArray"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -707,10 +1350,53 @@ Sub Cleanup()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Cleanup"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("shouldClear"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            EraseStatement {
+                                Whitespace,
+                                EraseKeyword,
+                                Whitespace,
+                                Identifier ("dataArray"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -720,10 +1406,45 @@ Sub Test()
     If resetFlag Then Erase buffer
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("resetFlag"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        EraseStatement {
+                            EraseKeyword,
+                            Whitespace,
+                            Identifier ("buffer"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -735,10 +1456,66 @@ Sub Test()
     Next i
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            EraseStatement {
+                                Whitespace,
+                                EraseKeyword,
+                                Whitespace,
+                                Identifier ("tempArrays"),
+                                LeftParenthesis,
+                                Identifier ("i"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -748,10 +1525,37 @@ Sub Test()
     Erase myArray()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -763,11 +1567,47 @@ Sub Test()
     Erase array2
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let erase_count = debug.matches("EraseStatement").count();
-        assert_eq!(erase_count, 2);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("array1"),
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("DoSomething"),
+                        Newline,
+                    },
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("array2"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -781,10 +1621,81 @@ Sub Test()
     End If
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("dynamicArray"),
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("Err"),
+                                PeriodOperator,
+                                Identifier ("Number"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("MsgBox"),
+                                Whitespace,
+                                StringLiteral ("\"Error erasing array\""),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -796,11 +1707,48 @@ Sub Test()
     Erase myArray
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
-        assert!(debug.contains("ReDimStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ReDimStatement {
+                        Whitespace,
+                        ReDimKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        LeftParenthesis,
+                        IntegerLiteral ("100"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    Whitespace,
+                    EndOfLineComment,
+                    Newline,
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -810,213 +1758,432 @@ Sub Test()
     Erase buffer1, buffer2, cache(), tempData
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("EraseStatement"));
-        assert!(debug.contains("buffer1"));
-        assert!(debug.contains("cache"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    EraseStatement {
+                        Whitespace,
+                        EraseKeyword,
+                        Whitespace,
+                        Identifier ("buffer1"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("buffer2"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("cache"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Comma,
+                        Whitespace,
+                        Identifier ("tempData"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // Private variable declaration tests
+
     #[test]
     fn private_variable_simple() {
         let source = "Private m_name As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private m_name As String\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("m_name"));
-        assert!(debug.contains("String"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_name"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_integer() {
         let source = "Private m_count As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("Integer"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_count"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_long() {
         let source = "Private m_id As Long\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("Long"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_id"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_variant() {
         let source = "Private m_data As Variant\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Variant"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_data"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                VariantKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_object() {
         let source = "Private m_connection As ADODB.Connection\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("Connection"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_connection"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ADODB"),
+                PeriodOperator,
+                Identifier ("Connection"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_array() {
         let source = "Private m_items() As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("m_items"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_items"),
+                LeftParenthesis,
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_array_with_bounds() {
         let source = "Private m_matrix(1 To 10, 1 To 10) As Double\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("m_matrix"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_matrix"),
+                LeftParenthesis,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                Comma,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("1"),
+                },
+                Whitespace,
+                ToKeyword,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("10"),
+                },
+                RightParenthesis,
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_multiple_declarations() {
         let source = "Private m_x, m_y, m_z As Integer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("m_x"));
-        assert!(debug.contains("m_y"));
-        assert!(debug.contains("m_z"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_x"),
+                Comma,
+                Whitespace,
+                Identifier ("m_y"),
+                Comma,
+                Whitespace,
+                Identifier ("m_z"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                IntegerKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_new_keyword() {
         let source = "Private m_collection As New Collection\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("NewKeyword"));
-        assert!(debug.contains("Collection"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_collection"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("Collection"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_custom_type() {
         let source = "Private m_person As PersonType\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PersonType"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_person"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("PersonType"),
+                Newline,
+            },
+        ]);
     }
 
     // WithEvents tests
+
     #[test]
     fn private_withevents_simple() {
         let source = "Private WithEvents m_button As Button\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Private WithEvents m_button As Button\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("m_button"));
-        assert!(debug.contains("Button"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_button"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Button"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_form() {
         let source = "Private WithEvents m_form As Form\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Form"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_form"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Form"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_adodb_connection() {
         let source = "Private WithEvents m_conn As ADODB.Connection\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("m_conn"));
-        assert!(debug.contains("Connection"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_conn"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ADODB"),
+                PeriodOperator,
+                Identifier ("Connection"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_custom_class() {
         let source = "Private WithEvents m_worker As WorkerClass\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("WorkerClass"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_worker"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("WorkerClass"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_preserves_whitespace() {
         let source = "    Private    WithEvents    m_obj    As    MyClass    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(
-            cst.text(),
-            "    Private    WithEvents    m_obj    As    MyClass    \n"
-        );
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
+        assert_tree!(cst, [
+            Whitespace,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_obj"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("MyClass"),
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_multiple_declarations() {
         let source = "Private WithEvents m_btn1 As Button\nPrivate WithEvents m_btn2 As Button\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 2);
-
-        let debug = cst.debug_tree();
-        let dim_count = debug.matches("DimStatement").count();
-        assert_eq!(dim_count, 2);
-        let withevents_count = debug.matches("WithEventsKeyword").count();
-        assert_eq!(withevents_count, 2);
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_btn1"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Button"),
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_btn2"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Button"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1031,264 +2198,592 @@ Private Sub m_timer_Tick()
     ' Handle timer event
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("m_timer"));
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Whitespace,
+                ClassKeyword,
+                Newline,
+            },
+            PropertiesBlock {
+                BeginKeyword,
+                Newline,
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("MultiUse"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        SubtractionOperator,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                EndKeyword,
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_timer"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Timer"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("m_timer_Tick"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    EndOfLineComment,
+                    Newline,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_mixed_with_regular() {
         let source = "Private m_value As Long\nPrivate WithEvents m_control As Control\nPrivate m_name As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 3);
-
-        let debug = cst.debug_tree();
-        let dim_count = debug.matches("DimStatement").count();
-        assert_eq!(dim_count, 3);
-        let withevents_count = debug.matches("WithEventsKeyword").count();
-        assert_eq!(withevents_count, 1);
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_value"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_control"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Control"),
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_name"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_excel_application() {
         let source = "Private WithEvents m_excelApp As Excel.Application\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Application"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_excelApp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Excel"),
+                PeriodOperator,
+                Identifier ("Application"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_textbox() {
         let source = "Private WithEvents txtInput As TextBox\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("txtInput"));
-        assert!(debug.contains("TextBox"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("txtInput"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("TextBox"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_combobox() {
         let source = "Private WithEvents cboList As ComboBox\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("ComboBox"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("cboList"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ComboBox"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_winsock() {
         let source = "Private WithEvents m_socket As Winsock\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Winsock"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_socket"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Winsock"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_mscomm() {
         let source = "Private WithEvents m_comm As MSComm\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("MSComm"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_comm"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("MSComm"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_withevents_at_module_level() {
         let source = "Private WithEvents m_db As Database\n\nSub Test()\n    Set m_db = OpenDatabase(\"test.mdb\")\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Database"));
-        assert!(debug.contains("SubStatement"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_db"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DatabaseKeyword,
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("m_db"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("OpenDatabase"),
+                        LeftParenthesis,
+                        StringLiteral ("\"test.mdb\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_no_type() {
         let source = "Private m_temp\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("m_temp"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_temp"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_boolean() {
         let source = "Private m_isValid As Boolean\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Boolean"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_isValid"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                BooleanKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_byte() {
         let source = "Private m_flags As Byte\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Byte"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_flags"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ByteKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_currency() {
         let source = "Private m_price As Currency\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Currency"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_price"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                CurrencyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_date() {
         let source = "Private m_startDate As Date\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Date"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_startDate"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DateKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_single() {
         let source = "Private m_ratio As Single\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Single"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_ratio"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                SingleKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn private_variable_double() {
         let source = "Private m_pi As Double\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("Double"));
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_pi"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                DoubleKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // Public WithEvents tests
+
     #[test]
     fn public_withevents_simple() {
         let source = "Public WithEvents g_app As Application\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-        assert_eq!(cst.text(), "Public WithEvents g_app As Application\n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("g_app"));
-        assert!(debug.contains("Application"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_app"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Application"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_form() {
         let source = "Public WithEvents MainForm As Form\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Form"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("MainForm"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Form"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_excel_application() {
         let source = "Public WithEvents xlApp As Excel.Application\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("xlApp"));
-        assert!(debug.contains("Application"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("xlApp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Excel"),
+                PeriodOperator,
+                Identifier ("Application"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_adodb_connection() {
         let source = "Public WithEvents dbConn As ADODB.Connection\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Connection"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("dbConn"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ADODB"),
+                PeriodOperator,
+                Identifier ("Connection"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_custom_class() {
         let source = "Public WithEvents TaskManager As TaskProcessor\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("TaskProcessor"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("TaskManager"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("TaskProcessor"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_preserves_whitespace() {
         let source = "    Public    WithEvents    g_obj    As    CustomClass    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(
-            cst.text(),
-            "    Public    WithEvents    g_obj    As    CustomClass    \n"
-        );
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
+        assert_tree!(cst, [
+            Whitespace,
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_obj"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("CustomClass"),
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_multiple_declarations() {
         let source = "Public WithEvents g_ctrl1 As Control\nPublic WithEvents g_ctrl2 As Control\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 2);
-
-        let debug = cst.debug_tree();
-        let dim_count = debug.matches("DimStatement").count();
-        assert_eq!(dim_count, 2);
-        let withevents_count = debug.matches("WithEventsKeyword").count();
-        assert_eq!(withevents_count, 2);
-        let public_count = debug.matches("PublicKeyword").count();
-        assert_eq!(public_count, 2);
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_ctrl1"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Control"),
+                Newline,
+            },
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_ctrl2"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Control"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1303,151 +2798,374 @@ Private Sub g_worker_Complete()
     ' Handle completion event
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("g_worker"));
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Whitespace,
+                ClassKeyword,
+                Newline,
+            },
+            PropertiesBlock {
+                BeginKeyword,
+                Newline,
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("MultiUse"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        SubtractionOperator,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                EndKeyword,
+                Newline,
+            },
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_worker"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("BackgroundWorker"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("g_worker_Complete"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    EndOfLineComment,
+                    Newline,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_mixed_with_private() {
         let source = "Private WithEvents m_local As Control\nPublic WithEvents g_shared As Control\nPrivate m_data As String\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 3);
-
-        let debug = cst.debug_tree();
-        let dim_count = debug.matches("DimStatement").count();
-        assert_eq!(dim_count, 3);
-        let withevents_count = debug.matches("WithEventsKeyword").count();
-        assert_eq!(withevents_count, 2);
-        let private_count = debug.matches("PrivateKeyword").count();
-        assert_eq!(private_count, 2);
-        let public_count = debug.matches("PublicKeyword").count();
-        assert_eq!(public_count, 1);
+        assert_tree!(cst, [
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("m_local"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Control"),
+                Newline,
+            },
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("g_shared"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Control"),
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_data"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_word_application() {
         let source = "Public WithEvents wdApp As Word.Application\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Application"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("wdApp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Word"),
+                PeriodOperator,
+                Identifier ("Application"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_outlook_application() {
         let source = "Public WithEvents olApp As Outlook.Application\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("olApp"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("olApp"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Outlook"),
+                PeriodOperator,
+                Identifier ("Application"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_chart() {
         let source = "Public WithEvents ChartObject As Chart\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Chart"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("ChartObject"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Chart"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_worksheet() {
         let source = "Public WithEvents ws As Worksheet\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Worksheet"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("ws"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Worksheet"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_recordset() {
         let source = "Public WithEvents rs As ADODB.Recordset\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Recordset"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("rs"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ADODB"),
+                PeriodOperator,
+                Identifier ("Recordset"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_at_module_level() {
         let source = "Public WithEvents ServerSocket As Winsock\n\nSub Initialize()\n    Set ServerSocket = New Winsock\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Winsock"));
-        assert!(debug.contains("SubStatement"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("ServerSocket"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Winsock"),
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("ServerSocket"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("Winsock"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_commandbutton() {
         let source = "Public WithEvents cmdSubmit As CommandButton\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("CommandButton"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("cmdSubmit"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("CommandButton"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_listbox() {
         let source = "Public WithEvents lstItems As ListBox\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("ListBox"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("lstItems"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ListBox"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_timer() {
         let source = "Public WithEvents tmrMain As Timer\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("Timer"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("tmrMain"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("Timer"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn public_withevents_class_factory() {
         let source = "Public WithEvents Factory As ClassFactory\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DimStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("WithEventsKeyword"));
-        assert!(debug.contains("ClassFactory"));
+        assert_tree!(cst, [
+            DimStatement {
+                PublicKeyword,
+                Whitespace,
+                WithEventsKeyword,
+                Whitespace,
+                Identifier ("Factory"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("ClassFactory"),
+                Newline,
+            },
+        ]);
     }
 }
