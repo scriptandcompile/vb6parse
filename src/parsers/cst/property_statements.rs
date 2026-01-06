@@ -112,8 +112,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::parsers::ConcreteSyntaxTree;
-
     #[test]
     fn property_get_simple() {
         let source = r"
@@ -121,12 +121,43 @@ Property Get Name() As String
     Name = m_name
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PropertyKeyword"));
-        assert!(debug.contains("GetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Name"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("m_name"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -136,12 +167,50 @@ Property Let Name(ByVal newName As String)
     m_name = newName
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PropertyKeyword"));
-        assert!(debug.contains("LetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("Name"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("newName"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_name"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("newName"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -151,12 +220,46 @@ Property Set Container(glistNN As gList)
     Set glistN = glistNN
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PropertyKeyword"));
-        assert!(debug.contains("SetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                SetKeyword,
+                Whitespace,
+                Identifier ("Container"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("glistNN"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("gList"),
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("glistN"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("glistNN"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -166,12 +269,48 @@ Property Set Callback(ByRef newObj As InterPress)
     Set mCallback = newObj
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("SetKeyword"));
-        assert!(debug.contains("SetStatement")); // Set statement inside the property
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                SetKeyword,
+                Whitespace,
+                Identifier ("Callback"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByRefKeyword,
+                    Whitespace,
+                    Identifier ("newObj"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("InterPress"),
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("mCallback"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("newObj"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -181,12 +320,49 @@ Public Property Get Value() As Long
     Value = m_value
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("GetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Value"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("Value"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("m_value"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -196,12 +372,52 @@ Private Property Let Count(ByVal newCount As Integer)
     m_count = newCount
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PrivateKeyword"));
-        assert!(debug.contains("LetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PrivateKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("Count"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("newCount"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_count"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("newCount"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -211,12 +427,48 @@ Friend Property Set objref(RHS As Object)
     Set m_objref = RHS
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("FriendKeyword"));
-        assert!(debug.contains("SetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                FriendKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                SetKeyword,
+                Whitespace,
+                Identifier ("objref"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("RHS"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    ObjectKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("m_objref"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("RHS"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -226,12 +478,63 @@ Public Property Get Item(index As Long) As Variant
     Item = m_items(index)
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("GetKeyword"));
-        assert!(debug.contains("ParameterList"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Item"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("index"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                VariantKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("Item"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("m_items"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("index"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -241,12 +544,58 @@ Public Property Set item(curitem As Long, item As Variant)
     Set m_items(curitem) = item
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("SetKeyword"));
-        assert!(debug.contains("ParameterList"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                SetKeyword,
+                Whitespace,
+                Identifier ("item"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("curitem"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("item"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    VariantKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("m_items"),
+                        LeftParenthesis,
+                        Identifier ("curitem"),
+                        RightParenthesis,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("item"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -261,12 +610,149 @@ Public Property Get CustomColor(i As Integer) As Long
     End If
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("GetKeyword"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("CustomColor"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("i"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("fNotFirst"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            BooleanLiteralExpression {
+                                FalseKeyword,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        Identifier ("InitColors"),
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                GreaterThanOrEqualOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                LessThanOrEqualOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("15"),
+                                },
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("CustomColor"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("alCustom"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("i"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("CustomColor"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    UnaryExpression {
+                                        SubtractionOperator,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -279,12 +765,129 @@ Public Property Let CustomColor(i As Integer, iValue As Long)
     End If
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("LetKeyword"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("CustomColor"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("i"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Comma,
+                    Whitespace,
+                    Identifier ("iValue"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("fNotFirst"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            BooleanLiteralExpression {
+                                FalseKeyword,
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        Identifier ("InitColors"),
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                GreaterThanOrEqualOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                LessThanOrEqualOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("15"),
+                                },
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                CallExpression {
+                                    Identifier ("alCustom"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("i"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("iValue"),
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -294,11 +897,47 @@ Property Get APIReturn() As Long
     APIReturn = m_lApiReturn
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("GetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("APIReturn"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("APIReturn"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("m_lApiReturn"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -308,11 +947,49 @@ Property   Set   Container  (  glistNN   As   gList  )
     Set glistN = glistNN
 End   Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("Whitespace"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                SetKeyword,
+                Whitespace,
+                Identifier ("Container"),
+                Whitespace,
+                ParameterList {
+                    LeftParenthesis,
+                    Whitespace,
+                    Identifier ("glistNN"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    Identifier ("gList"),
+                    Whitespace,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("glistN"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("glistNN"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -337,11 +1014,186 @@ Public Property Let Value(ByVal newValue As Long)
     m_value = newValue
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let property_count = debug.matches("PropertyStatement").count();
-        assert_eq!(property_count, 4);
+        assert_tree!(cst, [
+            Newline,
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_name"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+            },
+            DimStatement {
+                PrivateKeyword,
+                Whitespace,
+                Identifier ("m_value"),
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+            },
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Name"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    NameStatement {
+                        Whitespace,
+                        NameKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("m_name"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("Name"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("newName"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_name"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("newName"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Value"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("Value"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("m_value"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("Value"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("newValue"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    LongKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("m_value"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("newValue"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -351,12 +1203,45 @@ Property Get Callback() As InterPress
     Set Callback = mCallback
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("GetKeyword"));
-        assert!(debug.contains("SetStatement")); // Set used for object return
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Callback"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                Identifier ("InterPress"),
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("Callback"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("mCallback"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -367,12 +1252,72 @@ Property Get Test() As String
     Test = m_value
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("ExitStatement"));
-        assert!(debug.contains("ExitKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                StringKeyword,
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("m_value"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        ExitStatement {
+                            ExitKeyword,
+                            Whitespace,
+                            PropertyKeyword,
+                            Newline,
+                        },
+                        Whitespace,
+                        AssignmentStatement {
+                            IdentifierExpression {
+                                Identifier ("Test"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("m_value"),
+                            },
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        PropertyKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -384,12 +1329,83 @@ Public Static Property Get Counter() As Long
     Counter = count
 End Property
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("PublicKeyword"));
-        assert!(debug.contains("StaticKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                StaticKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                GetKeyword,
+                Whitespace,
+                Identifier ("Counter"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                LongKeyword,
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        StaticKeyword,
+                        Whitespace,
+                        Identifier ("count"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        LongKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("count"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("count"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("Counter"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("count"),
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -407,11 +1423,173 @@ Public Property Let Caption(myCap As String)
     End If
 End Property
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PropertyStatement"));
-        assert!(debug.contains("LetKeyword"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            PropertyStatement {
+                PublicKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Whitespace,
+                LetKeyword,
+                Whitespace,
+                Identifier ("Caption"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("myCap"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("mCaptext"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("myCap"),
+                        },
+                        Newline,
+                    },
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("glistN"),
+                                },
+                                Whitespace,
+                                IsKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("Nothing"),
+                                },
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                MemberAccessExpression {
+                                    Identifier ("glistN"),
+                                    PeriodOperator,
+                                    Identifier ("CenterText"),
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        CallExpression {
+                                            MemberAccessExpression {
+                                                Identifier ("glistN"),
+                                                PeriodOperator,
+                                                Identifier ("list"),
+                                            },
+                                            LeftParenthesis,
+                                            ArgumentList {
+                                                Argument {
+                                                    NumericLiteralExpression {
+                                                        IntegerLiteral ("0"),
+                                                    },
+                                                },
+                                            },
+                                            RightParenthesis,
+                                        },
+                                        Whitespace,
+                                        EqualityOperator,
+                                        Whitespace,
+                                        IdentifierExpression {
+                                            Identifier ("mCaptext"),
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                ElseClause {
+                                    ElseKeyword,
+                                    Newline,
+                                    StatementList {
+                                        Whitespace,
+                                        AssignmentStatement {
+                                            CallExpression {
+                                                MemberAccessExpression {
+                                                    Identifier ("glistN"),
+                                                    PeriodOperator,
+                                                    Identifier ("list"),
+                                                },
+                                                LeftParenthesis,
+                                                ArgumentList {
+                                                    Argument {
+                                                        NumericLiteralExpression {
+                                                            IntegerLiteral ("0"),
+                                                        },
+                                                    },
+                                                },
+                                                RightParenthesis,
+                                            },
+                                            Whitespace,
+                                            EqualityOperator,
+                                            Whitespace,
+                                            BinaryExpression {
+                                                StringLiteralExpression {
+                                                    StringLiteral ("\"  \""),
+                                                },
+                                                Whitespace,
+                                                AdditionOperator,
+                                                Whitespace,
+                                                IdentifierExpression {
+                                                    Identifier ("mCaptext"),
+                                                },
+                                            },
+                                            Newline,
+                                        },
+                                        Whitespace,
+                                    },
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                IfKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("glistN"),
+                                PeriodOperator,
+                                Identifier ("ShowMe"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                PropertyKeyword,
+                Newline,
+            },
+        ]);
     }
 }
