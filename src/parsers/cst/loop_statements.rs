@@ -187,9 +187,9 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // While...Wend statement tests
 
-    // While...Wend statement tests
     #[test]
     fn while_simple() {
         let source = r"
@@ -199,12 +199,71 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
-        assert!(debug.contains("WhileKeyword"));
-        assert!(debug.contains("WendKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -214,10 +273,53 @@ While x < 5
     x = x + 1
 Wend
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("5"),
+                    },
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                WendKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -229,10 +331,55 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("inputText"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessInput"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -244,10 +391,68 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("EOF"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            LineInputStatement {
+                                Whitespace,
+                                LineKeyword,
+                                Whitespace,
+                                InputKeyword,
+                                Whitespace,
+                                Octothorpe,
+                                IntegerLiteral ("1"),
+                                Comma,
+                                Whitespace,
+                                Identifier ("textLine"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -262,11 +467,114 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("WhileStatement").count();
-        assert_eq!(count, 2);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            WhileStatement {
+                                Whitespace,
+                                WhileKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("j"),
+                                    },
+                                    Whitespace,
+                                    LessThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        IdentifierExpression {
+                                            Identifier ("j"),
+                                        },
+                                        Whitespace,
+                                        EqualityOperator,
+                                        Whitespace,
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("j"),
+                                            },
+                                            Whitespace,
+                                            AdditionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("1"),
+                                            },
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                WendKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -279,10 +587,88 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    GreaterThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("100"),
+                                    },
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Whitespace,
+                                ExitStatement {
+                                    ExitKeyword,
+                                    Whitespace,
+                                    DoKeyword,
+                                    Newline,
+                                },
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("x"),
+                                        },
+                                        Whitespace,
+                                        AdditionOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                                WendKeyword,
+                                Newline,
+                            },
+                            Unknown,
+                            Whitespace,
+                            Unknown,
+                            Newline,
+                        },
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -294,11 +680,75 @@ Sub Test()
     Wend ' End of loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("count"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("limit"),
+                            },
+                        },
+                        StatementList {
+                            Whitespace,
+                            EndOfLineComment,
+                            Newline,
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("count"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("count"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                    },
+                    Whitespace,
+                    EndOfLineComment,
+                    Newline,
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -310,10 +760,91 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            ParenthesizedExpression {
+                                LeftParenthesis,
+                                BinaryExpression {
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("x"),
+                                        },
+                                        Whitespace,
+                                        LessThanOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("10"),
+                                        },
+                                    },
+                                    Whitespace,
+                                    AndKeyword,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("y"),
+                                        },
+                                        Whitespace,
+                                        GreaterThanOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("0"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            OrKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("z"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("5"),
+                                },
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Process"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -325,10 +856,58 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("IsValid"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("data"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessData"),
+                                Whitespace,
+                                Identifier ("data"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -340,10 +919,59 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("rs"),
+                                PeriodOperator,
+                                Identifier ("EOF"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            BooleanLiteralExpression {
+                                FalseKeyword,
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("rs"),
+                                PeriodOperator,
+                                Identifier ("MoveNext"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -354,10 +982,42 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("condition"),
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -370,10 +1030,52 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("processing"),
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("DoEvents"),
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("CheckStatus"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -385,10 +1087,88 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                LenKeyword,
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            TextKeyword,
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    TextKeyword,
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    MidKeyword,
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            IdentifierExpression {
+                                                TextKeyword,
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("2"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -400,10 +1180,80 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            CallExpression {
+                                Identifier ("arr"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        IdentifierExpression {
+                                            Identifier ("index"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("index"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("index"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -417,11 +1267,65 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("active"),
+                        },
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("condition"),
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    CallStatement {
+                                        Identifier ("Process"),
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                IfKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -438,10 +1342,86 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("running"),
+                        },
+                        Newline,
+                        StatementList {
+                            SelectCaseStatement {
+                                Whitespace,
+                                SelectKeyword,
+                                Whitespace,
+                                CaseKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("action"),
+                                },
+                                Newline,
+                                Whitespace,
+                                CaseClause {
+                                    CaseKeyword,
+                                    Whitespace,
+                                    IntegerLiteral ("1"),
+                                    Newline,
+                                    StatementList {
+                                        Whitespace,
+                                        CallStatement {
+                                            Identifier ("DoAction1"),
+                                            Newline,
+                                        },
+                                        Whitespace,
+                                    },
+                                },
+                                CaseClause {
+                                    CaseKeyword,
+                                    Whitespace,
+                                    IntegerLiteral ("2"),
+                                    Newline,
+                                    StatementList {
+                                        Whitespace,
+                                        CallStatement {
+                                            Identifier ("DoAction2"),
+                                            Newline,
+                                        },
+                                        Whitespace,
+                                    },
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                SelectKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -455,11 +1435,77 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
-        assert!(debug.contains("ForStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("outerCondition"),
+                        },
+                        Newline,
+                        StatementList {
+                            ForStatement {
+                                Whitespace,
+                                ForKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                                Whitespace,
+                                ToKeyword,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("10"),
+                                },
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    CallStatement {
+                                        Identifier ("Process"),
+                                        Whitespace,
+                                        Identifier ("i"),
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                NextKeyword,
+                                Whitespace,
+                                Identifier ("i"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -477,11 +1523,157 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("WhileStatement").count();
-        assert_eq!(count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("a"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            WhileStatement {
+                                Whitespace,
+                                WhileKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("b"),
+                                    },
+                                    Whitespace,
+                                    LessThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                                Newline,
+                                StatementList {
+                                    WhileStatement {
+                                        Whitespace,
+                                        WhileKeyword,
+                                        Whitespace,
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("c"),
+                                            },
+                                            Whitespace,
+                                            LessThanOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("3"),
+                                            },
+                                        },
+                                        Newline,
+                                        StatementList {
+                                            Whitespace,
+                                            AssignmentStatement {
+                                                IdentifierExpression {
+                                                    Identifier ("c"),
+                                                },
+                                                Whitespace,
+                                                EqualityOperator,
+                                                Whitespace,
+                                                BinaryExpression {
+                                                    IdentifierExpression {
+                                                        Identifier ("c"),
+                                                    },
+                                                    Whitespace,
+                                                    AdditionOperator,
+                                                    Whitespace,
+                                                    NumericLiteralExpression {
+                                                        IntegerLiteral ("1"),
+                                                    },
+                                                },
+                                                Newline,
+                                            },
+                                            Whitespace,
+                                        },
+                                        WendKeyword,
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        IdentifierExpression {
+                                            Identifier ("b"),
+                                        },
+                                        Whitespace,
+                                        EqualityOperator,
+                                        Whitespace,
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("b"),
+                                            },
+                                            Whitespace,
+                                            AdditionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("1"),
+                                            },
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                WendKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("a"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("a"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -493,10 +1685,71 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                            Whitespace,
+                            LessThanOrEqualOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("maxValue"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("value"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                    Whitespace,
+                                    MultiplicationOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("2"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -508,10 +1761,59 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BooleanLiteralExpression {
+                            TrueKeyword,
+                        },
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("userQuit"),
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Whitespace,
+                                ExitStatement {
+                                    ExitKeyword,
+                                    Whitespace,
+                                    SubKeyword,
+                                    Newline,
+                                },
+                                Whitespace,
+                                WendKeyword,
+                                Newline,
+                            },
+                            Unknown,
+                            Whitespace,
+                            Unknown,
+                            Newline,
+                        },
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -526,10 +1828,120 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("counter"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("100"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("counter"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("counter"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("sum"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("sum"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("counter"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("average"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("sum"),
+                                    },
+                                    Whitespace,
+                                    DivisionOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("counter"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Display"),
+                                Whitespace,
+                                Identifier ("average"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -544,10 +1956,99 @@ Sub ReadFile()
     Close #1
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("ReadFile"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OpenStatement {
+                        Whitespace,
+                        OpenKeyword,
+                        Whitespace,
+                        StringLiteral ("\"data.txt\""),
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        InputKeyword,
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        IntegerLiteral ("1"),
+                        Newline,
+                    },
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            CallExpression {
+                                Identifier ("EOF"),
+                                LeftParenthesis,
+                                ArgumentList {
+                                    Argument {
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                },
+                                RightParenthesis,
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            LineInputStatement {
+                                Whitespace,
+                                LineKeyword,
+                                Whitespace,
+                                InputKeyword,
+                                Whitespace,
+                                Octothorpe,
+                                IntegerLiteral ("1"),
+                                Comma,
+                                Whitespace,
+                                Identifier ("dataLine"),
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessLine"),
+                                Whitespace,
+                                Identifier ("dataLine"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                    CloseStatement {
+                        Whitespace,
+                        CloseKeyword,
+                        Whitespace,
+                        Octothorpe,
+                        IntegerLiteral ("1"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -559,10 +2060,75 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("counter"),
+                                },
+                                Whitespace,
+                                LessThanOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("limit"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("counter"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("counter"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -577,10 +2143,89 @@ Sub Test()
     rs.Close
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("rs"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("db"),
+                        PeriodOperator,
+                        Identifier ("OpenRecordset"),
+                        LeftParenthesis,
+                        StringLiteral ("\"Table1\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            MemberAccessExpression {
+                                Identifier ("rs"),
+                                PeriodOperator,
+                                Identifier ("EOF"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Debug"),
+                                PeriodOperator,
+                                PrintKeyword,
+                                Whitespace,
+                                Identifier ("rs"),
+                                ExclamationMark,
+                                Identifier ("FieldName"),
+                                Newline,
+                            },
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("rs"),
+                                PeriodOperator,
+                                Identifier ("MoveNext"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("rs"),
+                        PeriodOperator,
+                        CloseKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -593,10 +2238,76 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("startTime"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("Timer"),
+                        },
+                        Newline,
+                    },
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("Timer"),
+                                },
+                                Whitespace,
+                                SubtractionOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("startTime"),
+                                },
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("5"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("DoEvents"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -609,10 +2320,84 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("confirm"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("vbYes"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("Process"),
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("confirm"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("MsgBox"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            StringLiteralExpression {
+                                                StringLiteral ("\"Continue?\""),
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("vbYesNo"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -624,10 +2409,59 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            MemberAccessExpression {
+                                Identifier ("col"),
+                                PeriodOperator,
+                                Identifier ("Count"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("col"),
+                                PeriodOperator,
+                                RemComment,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -641,10 +2475,92 @@ Sub Test()
     Wend
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("fileName"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("Dir"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"*.txt\""),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("fileName"),
+                            },
+                            Whitespace,
+                            InequalityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("ProcessFile"),
+                                Whitespace,
+                                Identifier ("fileName"),
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("fileName"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("Dir"),
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -658,23 +2574,189 @@ Sub Test()
     Wend
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("position"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        CallExpression {
+                            Identifier ("InStr"),
+                            LeftParenthesis,
+                            ArgumentList {
+                                Argument {
+                                    IdentifierExpression {
+                                        TextKeyword,
+                                    },
+                                },
+                                Comma,
+                                Whitespace,
+                                Argument {
+                                    IdentifierExpression {
+                                        Identifier ("searchTerm"),
+                                    },
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Newline,
+                    },
+                    WhileStatement {
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("position"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            CallStatement {
+                                Identifier ("FoundAt"),
+                                Whitespace,
+                                Identifier ("position"),
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("position"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                CallExpression {
+                                    Identifier ("InStr"),
+                                    LeftParenthesis,
+                                    ArgumentList {
+                                        Argument {
+                                            BinaryExpression {
+                                                IdentifierExpression {
+                                                    Identifier ("position"),
+                                                },
+                                                Whitespace,
+                                                AdditionOperator,
+                                                Whitespace,
+                                                NumericLiteralExpression {
+                                                    IntegerLiteral ("1"),
+                                                },
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                TextKeyword,
+                                            },
+                                        },
+                                        Comma,
+                                        Whitespace,
+                                        Argument {
+                                            IdentifierExpression {
+                                                Identifier ("searchTerm"),
+                                            },
+                                        },
+                                    },
+                                    RightParenthesis,
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        WendKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn while_preserves_whitespace() {
         let source = "    While    x <    10    \n        x = x + 1\n    Wend    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert!(cst.text().contains("While    x <    10"));
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WhileStatement"));
+        assert_tree!(cst, [
+            Whitespace,
+            WhileStatement {
+                WhileKeyword,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("x"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("10"),
+                    },
+                },
+                StatementList {
+                    Whitespace,
+                    Newline,
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                },
+                WendKeyword,
+            },
+            Whitespace,
+            Newline,
+        ]);
     }
 
     // Do...Loop statement tests
+
     #[test]
     fn do_while_loop() {
         let source = r"
@@ -684,12 +2766,73 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("WhileKeyword"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -701,12 +2844,73 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("UntilKeyword"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        UntilKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOrEqualOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -718,12 +2922,73 @@ Sub Test()
     Loop While x < 10
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("WhileKeyword"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -735,12 +3000,73 @@ Sub Test()
     Loop Until x >= 10
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("UntilKeyword"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Whitespace,
+                        UntilKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            GreaterThanOrEqualOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -753,11 +3079,84 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    GreaterThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("10"),
+                                    },
+                                },
+                                Whitespace,
+                                ThenKeyword,
+                                Whitespace,
+                                ExitStatement {
+                                    ExitKeyword,
+                                    Whitespace,
+                                    DoKeyword,
+                                    Newline,
+                                },
+                                Whitespace,
+                                AssignmentStatement {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    BinaryExpression {
+                                        IdentifierExpression {
+                                            Identifier ("x"),
+                                        },
+                                        Whitespace,
+                                        AdditionOperator,
+                                        Whitespace,
+                                        NumericLiteralExpression {
+                                            IntegerLiteral ("1"),
+                                        },
+                                    },
+                                    Newline,
+                                },
+                                Whitespace,
+                                LoopKeyword,
+                                Newline,
+                            },
+                            Unknown,
+                            Whitespace,
+                            Unknown,
+                            Newline,
+                        },
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -772,12 +3171,118 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        // Should have two DoStatements
-        let do_count = debug.matches("DoStatement").count();
-        assert_eq!(do_count, 2);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("i"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            DoStatement {
+                                Whitespace,
+                                DoKeyword,
+                                Whitespace,
+                                WhileKeyword,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("j"),
+                                    },
+                                    Whitespace,
+                                    LessThanOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("5"),
+                                    },
+                                },
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        IdentifierExpression {
+                                            Identifier ("j"),
+                                        },
+                                        Whitespace,
+                                        EqualityOperator,
+                                        Whitespace,
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("j"),
+                                            },
+                                            Whitespace,
+                                            AdditionOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("1"),
+                                            },
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                LoopKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("i"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -790,12 +3295,110 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        assert!(debug.contains("WhileKeyword"));
-        assert!(debug.contains("LoopKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                LessThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("10"),
+                                },
+                            },
+                            Whitespace,
+                            AndKeyword,
+                            Whitespace,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("y"),
+                                },
+                                Whitespace,
+                                GreaterThanOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("0"),
+                                },
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("y"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("y"),
+                                    },
+                                    Whitespace,
+                                    SubtractionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -807,12 +3410,87 @@ Sub Test()
     Loop  While  y > 0
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("DoStatement"));
-        // Check that whitespace is preserved
-        assert!(debug.contains("Whitespace"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("10"),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("x"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("x"),
+                                    },
+                                    Whitespace,
+                                    AdditionOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("y"),
+                            },
+                            Whitespace,
+                            GreaterThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -823,14 +3501,34 @@ Loop
 End Function
 ";
 
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Check if "End" appears as Unknown in the tree
-        let tree_str = cst.debug_tree();
-        assert!(
-            !tree_str.contains("Unknown"),
-            "Should not have any Unknown tokens\n{tree_str}"
-        );
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        DoKeyword,
+                        Newline,
+                        StatementList,
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -842,13 +3540,61 @@ Loop
 End Function
 "#;
 
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // Check if "End" appears as Unknown in the tree
-        let tree_str = cst.debug_tree();
-        assert!(
-            !tree_str.contains("Unknown"),
-            "Should not have any Unknown tokens\n{tree_str}"
-        );
+        assert_tree!(cst, [
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        DoKeyword,
+                        Whitespace,
+                        UntilKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            StringLiteralExpression {
+                                StringLiteral ("\"\""),
+                            },
+                        },
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    Identifier ("y"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("z"),
+                                },
+                                Newline,
+                            },
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 }
