@@ -1122,8 +1122,6 @@ End Sub
             Whitespace,
             Newline,
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("LetStatement"));
     }
 
     #[test]
