@@ -176,8 +176,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
-    use crate::parsers::{ConcreteSyntaxTree, SyntaxKind};
+    use crate::*;
+
     #[test]
     fn parse_option_explicit_on() {
         let source = "Option Explicit On\n";
