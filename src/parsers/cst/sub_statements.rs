@@ -119,168 +119,483 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
-    #[test]
-    fn sub_all_modifier_combinations() {
-        // Test all valid sub modifier combinations
-        let test_cases = vec![
-            ("Public Sub Test()\nEnd Sub\n", SyntaxKind::SubStatement),
-            ("Private Sub Test()\nEnd Sub\n", SyntaxKind::SubStatement),
-            ("Friend Sub Test()\nEnd Sub\n", SyntaxKind::SubStatement),
-            ("Static Sub Test()\nEnd Sub\n", SyntaxKind::SubStatement),
-            (
-                "Public Static Sub Test()\nEnd Sub\n",
-                SyntaxKind::SubStatement,
-            ),
-            (
-                "Private Static Sub Test()\nEnd Sub\n",
-                SyntaxKind::SubStatement,
-            ),
-            (
-                "Friend Static Sub Test()\nEnd Sub\n",
-                SyntaxKind::SubStatement,
-            ),
-        ];
-
-        for (source, expected_kind) in test_cases {
-            let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-
-            assert_eq!(cst.child_count(), 1, "Code: {source}");
-            if let Some(child) = cst.child_at(0) {
-                assert_eq!(child.kind(), expected_kind, "Code: {source}");
-            }
-        }
-    }
-
     #[test]
     fn sub_public_static() {
-        // Test Public Static Sub
         let source = "Public Static Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Public Static Sub Initialize"));
+        assert_tree!(cst, [
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                StaticKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_public() {
-        // Test Public Sub
         let source = "Public Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Public Sub Initialize"));
+        assert_tree!(cst, [
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_private() {
-        // Test Private Sub
         let source = "Private Sub Initialize()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Private Sub Initialize"));
+        assert_tree!(cst, [
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
+    }
+
+    #[test]
+    fn sub_private_static() {
+        let source = "Private Static Sub Initialize()\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                StaticKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
+    }
+
+    #[test]
+    fn sub_friend() {
+        let source = "Friend Sub Initialize()\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SubStatement {
+                FriendKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
+    }
+
+    #[test]
+    fn sub_friend_static() {
+        let source = "Friend Static Sub Initialize()\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SubStatement {
+                FriendKeyword,
+                Whitespace,
+                StaticKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_simple_no_params() {
         // Test simple sub with no parameters
         let source = "Sub DoSomething()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("DoSomething"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_with_params() {
         // Test sub with parameters
         let source = "Sub SetValue(ByVal x As Integer, ByVal y As Integer)\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("ByVal x As Integer"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("SetValue"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Comma,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_with_exit_sub() {
         // Test sub with Exit Sub statement
         let source = "Sub Validate(x As Integer)\n    If x < 0 Then\n        Exit Sub\n    End If\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Exit Sub"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Validate"),
+                ParameterList {
+                    LeftParenthesis,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("x"),
+                            },
+                            Whitespace,
+                            LessThanOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("0"),
+                            },
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            ExitStatement {
+                                Whitespace,
+                                ExitKeyword,
+                                Whitespace,
+                                SubKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_friend_modifier() {
         // Test Friend Sub
         let source = "Friend Sub ProcessData()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Friend Sub"));
+        assert_tree!(cst, [
+            SubStatement {
+                FriendKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("ProcessData"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_static_modifier() {
         // Test Static Sub
         let source = "Static Sub Counter()\n    Dim count As Integer\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Static Sub"));
+        assert_tree!(cst, [
+            SubStatement {
+                StaticKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Counter"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("count"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_with_body() {
         // Test sub with body statements
         let source = "Sub Calculate()\n    Dim x As Integer\n    x = 10\n    MsgBox x\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Dim x As Integer"));
-        assert!(cst.text().contains("x = 10"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Calculate"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    Whitespace,
+                    DimStatement {
+                        DimKeyword,
+                        Whitespace,
+                        Identifier ("x"),
+                        Whitespace,
+                        AsKeyword,
+                        Whitespace,
+                        IntegerKeyword,
+                        Newline,
+                    },
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            Identifier ("x"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                    },
+                    Whitespace,
+                    CallStatement {
+                        Identifier ("MsgBox"),
+                        Whitespace,
+                        Identifier ("x"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn sub_with_optional_params() {
         // Test sub with optional parameters
         let source = "Sub Process(ByVal x As Integer, Optional ByVal y As Integer = 0)\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::SubStatement);
-        }
-        assert!(cst.text().contains("Optional"));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Process"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("x"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Comma,
+                    Whitespace,
+                    OptionalKeyword,
+                    Whitespace,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("y"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    IntegerKeyword,
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("0"),
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -288,11 +603,25 @@ mod tests {
         let source = r"Sub Text()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SubStatement"));
-        // "Text" keyword should be converted to Identifier when used as procedure name
-        assert!(debug.contains("Identifier@4..8 \"Text\""));
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Text"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList,
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
