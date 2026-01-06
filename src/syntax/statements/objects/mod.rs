@@ -323,233 +323,384 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use crate::assert_tree;
+    use crate::*; // Call statement tests
 
-    // Call statement tests
     #[test]
     fn call_statement_simple() {
         let source = "Call MySubroutine()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("MySubroutine"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_with_arguments() {
         let source = "Call ProcessData(x, y, z)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert!(cst.text().contains("Call ProcessData"));
-        assert!(cst.text().contains("x, y, z"));
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("ProcessData"),
+                LeftParenthesis,
+                Identifier ("x"),
+                Comma,
+                Whitespace,
+                Identifier ("y"),
+                Comma,
+                Whitespace,
+                Identifier ("z"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_preserves_whitespace() {
         let source = "Call  MyFunction (  arg1 ,  arg2  )\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("MyFunction"),
+                Whitespace,
+                LeftParenthesis,
+                Whitespace,
+                Identifier ("arg1"),
+                Whitespace,
+                Comma,
+                Whitespace,
+                Identifier ("arg2"),
+                Whitespace,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_in_sub() {
         let source = "Sub Main()\nCall DoSomething()\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(sub_statement) = cst.child_at(0) {
-            assert_eq!(sub_statement.kind(), SyntaxKind::SubStatement);
-            assert!(sub_statement.text().contains("Call DoSomething"));
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Main"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    CallStatement {
+                        CallKeyword,
+                        Whitespace,
+                        Identifier ("DoSomething"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_no_parentheses() {
         let source = "Call MySubroutine\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("MySubroutine"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn multiple_call_statements() {
         let source = "Call First()\nCall Second()\nCall Third()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 3);
-
-        for i in 0..3 {
-            if let Some(child) = cst.child_at(i) {
-                assert_eq!(child.kind(), SyntaxKind::CallStatement);
-            }
-        }
-
-        assert!(cst.text().contains("Call First"));
-        assert!(cst.text().contains("Call Second"));
-        assert!(cst.text().contains("Call Third"));
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("First"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("Second"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("Third"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_with_string_arguments() {
         let source = "Call ShowMessage(\"Hello, World!\")\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert!(cst.text().contains("\"Hello, World!\""));
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("ShowMessage"),
+                LeftParenthesis,
+                StringLiteral ("\"Hello, World!\""),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn call_statement_with_complex_expressions() {
         let source = "Call Calculate(x + y, z * 2, (a - b) / c)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert!(cst.text().contains("x + y"));
-        assert!(cst.text().contains("z * 2"));
+        assert_tree!(cst, [
+            CallStatement {
+                CallKeyword,
+                Whitespace,
+                Identifier ("Calculate"),
+                LeftParenthesis,
+                Identifier ("x"),
+                Whitespace,
+                AdditionOperator,
+                Whitespace,
+                Identifier ("y"),
+                Comma,
+                Whitespace,
+                Identifier ("z"),
+                Whitespace,
+                MultiplicationOperator,
+                Whitespace,
+                IntegerLiteral ("2"),
+                Comma,
+                Whitespace,
+                LeftParenthesis,
+                Identifier ("a"),
+                Whitespace,
+                SubtractionOperator,
+                Whitespace,
+                Identifier ("b"),
+                RightParenthesis,
+                Whitespace,
+                DivisionOperator,
+                Whitespace,
+                Identifier ("c"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     // Procedure call tests (without Call keyword)
+
     #[test]
     fn procedure_call_no_arguments() {
         let source = "InitializeRandomDNA\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                Identifier ("InitializeRandomDNA"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn procedure_call_with_parentheses() {
         let source = "DoSomething()\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                Identifier ("DoSomething"),
+                LeftParenthesis,
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn procedure_call_with_arguments_no_parentheses() {
         let source = "MsgBox \"Hello\", vbInformation, \"Title\"\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert!(cst.text().contains("MsgBox"));
+        assert_tree!(cst, [
+            CallStatement {
+                Identifier ("MsgBox"),
+                Whitespace,
+                StringLiteral ("\"Hello\""),
+                Comma,
+                Whitespace,
+                Identifier ("vbInformation"),
+                Comma,
+                Whitespace,
+                StringLiteral ("\"Title\""),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn procedure_call_with_arguments_with_parentheses() {
         let source = "ProcessData(x, y, z)\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert!(cst.text().contains("ProcessData"));
+        assert_tree!(cst, [
+            CallStatement {
+                Identifier ("ProcessData"),
+                LeftParenthesis,
+                Identifier ("x"),
+                Comma,
+                Whitespace,
+                Identifier ("y"),
+                Comma,
+                Whitespace,
+                Identifier ("z"),
+                RightParenthesis,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn multiple_procedure_calls_in_sub() {
         let source = "Sub Test()\nInitializeRandomDNA\nGetInitialSize\nGetInitialSpeed\nEnd Sub\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(sub_statement) = cst.child_at(0) {
-            assert_eq!(sub_statement.kind(), SyntaxKind::SubStatement);
-
-            // Check that the debug tree contains CallStatements
-            let debug = cst.debug_tree();
-            assert!(debug.contains("CallStatement"));
-
-            // Count CallStatements - there should be at least 3
-            let call_count = debug
-                .lines()
-                .filter(|line| line.contains("CallStatement@"))
-                .count();
-            assert!(
-                call_count >= 3,
-                "Expected at least 3 CallStatements, found {call_count}"
-            );
-        }
+        assert_tree!(cst, [
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    CallStatement {
+                        Identifier ("InitializeRandomDNA"),
+                        Newline,
+                    },
+                    CallStatement {
+                        Identifier ("GetInitialSize"),
+                        Newline,
+                    },
+                    CallStatement {
+                        Identifier ("GetInitialSpeed"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn procedure_call_preserves_whitespace() {
         let source = "MySub  arg1 ,  arg2\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::CallStatement);
-        }
-
-        assert_eq!(cst.text(), source);
+        assert_tree!(cst, [
+            CallStatement {
+                Identifier ("MySub"),
+                Whitespace,
+                Identifier ("arg1"),
+                Whitespace,
+                Comma,
+                Whitespace,
+                Identifier ("arg2"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn procedure_call_vs_assignment() {
         // This should be an assignment, not a procedure call
         let source = "x = 5\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.child_count(), 1);
-
-        if let Some(child) = cst.child_at(0) {
-            assert_eq!(child.kind(), SyntaxKind::AssignmentStatement);
-        }
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("5"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     // Set statement tests
+
     #[test]
     fn set_statement_simple() {
         let source = r"
@@ -558,11 +709,39 @@ Sub Test()
 End Sub
 ";
 
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
-        assert!(debug.contains("SetKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("myObject"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -573,14 +752,41 @@ Sub Test()
 End Sub
 ";
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
-        let token_stream = token_stream_opt.expect("Tokenization failed");
-        let cst = parse(token_stream);
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
-        assert!(debug.contains("NewKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("MyClass"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -591,13 +797,39 @@ Sub Test()
 End Sub
 ";
 
-        let mut source_stream = SourceStream::new("test.bas", source);
-        let (token_stream_opt, _failures) = tokenize(&mut source_stream).unpack();
-        let token_stream = token_stream_opt.expect("Tokenization failed");
-        let cst = parse(token_stream);
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Nothing"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -607,11 +839,41 @@ Sub Test()
     Set myObj.Property = otherObj
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
-        assert!(debug.contains("PeriodOperator"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("myObj"),
+                        PeriodOperator,
+                        PropertyKeyword,
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("otherObj"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -621,10 +883,42 @@ Sub Test()
     Set result = GetObject("WinMgmts:")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("result"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        StringLiteral ("\"WinMgmts:\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -634,10 +928,44 @@ Sub Test()
     Set item = collection.Item(1)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("item"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("collection"),
+                        PeriodOperator,
+                        Identifier ("Item"),
+                        LeftParenthesis,
+                        IntegerLiteral ("1"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -649,11 +977,65 @@ Sub Test()
     Set obj3 = Nothing
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let set_count = debug.matches("SetStatement").count();
-        assert_eq!(set_count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj1"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("Class1"),
+                        Newline,
+                    },
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj2"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("Class2"),
+                        Newline,
+                    },
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj3"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        Identifier ("Nothing"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -663,11 +1045,41 @@ Sub Test()
     Set   obj   =   New   MyClass
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
-        assert!(debug.contains("Whitespace"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("MyClass"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -677,11 +1089,45 @@ Function GetObject() As Object
     Set GetObject = New MyClass
 End Function
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
-        assert!(debug.contains("FunctionStatement"));
+        assert_tree!(cst, [
+            Newline,
+            FunctionStatement {
+                FunctionKeyword,
+                Whitespace,
+                Identifier ("GetObject"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Whitespace,
+                AsKeyword,
+                Whitespace,
+                ObjectKeyword,
+                Newline,
+                StatementList {
+                    SetStatement {
+                        Whitespace,
+                        SetKeyword,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("MyClass"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                FunctionKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -689,13 +1135,28 @@ End Function
         let source = r"
 Set globalObj = New MyClass
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("SetStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("globalObj"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("MyClass"),
+                Newline,
+            },
+        ]);
     }
 
     // With statement tests
+
     #[test]
     fn with_statement_simple() {
         let source = r#"
@@ -706,12 +1167,78 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("WithKeyword"));
-        assert!(debug.contains("myObject"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("myObject"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Property1"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"value\""),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Property2"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("123"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -723,11 +1250,62 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("SubObject"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        Identifier ("SubObject"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("42"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -740,11 +1318,66 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("Form1"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("Form1"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            Unknown,
+                            CallStatement {
+                                Identifier ("Show"),
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Caption"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Title\""),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -759,11 +1392,93 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("WithStatement").count();
-        assert_eq!(count, 2, "Expected 2 With statements (nested)");
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("outer"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value1"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            WithStatement {
+                                Whitespace,
+                                WithKeyword,
+                                Whitespace,
+                                PeriodOperator,
+                                Identifier ("Inner"),
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    AssignmentStatement {
+                                        IdentifierExpression {
+                                            PeriodOperator,
+                                        },
+                                        BinaryExpression {
+                                            IdentifierExpression {
+                                                Identifier ("Value2"),
+                                            },
+                                            Whitespace,
+                                            EqualityOperator,
+                                            Whitespace,
+                                            NumericLiteralExpression {
+                                                IntegerLiteral ("2"),
+                                            },
+                                        },
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                EndKeyword,
+                                Whitespace,
+                                WithKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -778,11 +1493,114 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("employee"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("employee"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("FirstName"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"John\""),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("LastName"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Doe\""),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Age"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("30"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Salary"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("50000"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -796,11 +1614,73 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Newline,
+                        StatementList {
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                Identifier ("IsValid"),
+                                Whitespace,
+                                ThenKeyword,
+                                Newline,
+                            },
+                            Whitespace,
+                            Unknown,
+                            CallStatement {
+                                Identifier ("Process"),
+                                Newline,
+                            },
+                            Whitespace,
+                            Unknown,
+                            IfStatement {
+                                Whitespace,
+                                IfKeyword,
+                                IdentifierExpression {
+                                    Newline,
+                                },
+                                Whitespace,
+                                EndKeyword,
+                                WithStatement {
+                                    Whitespace,
+                                    WithKeyword,
+                                    Newline,
+                                    StatementList {
+                                        Unknown,
+                                        Whitespace,
+                                        Unknown,
+                                        Newline,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -814,11 +1694,82 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("ForStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("collection"),
+                        Newline,
+                        StatementList {
+                            ForStatement {
+                                Whitespace,
+                                ForKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("i"),
+                                },
+                                Whitespace,
+                                EqualityOperator,
+                                Whitespace,
+                                NumericLiteralExpression {
+                                    IntegerLiteral ("1"),
+                                },
+                                Whitespace,
+                                ToKeyword,
+                                Whitespace,
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                Identifier ("Count"),
+                                Newline,
+                                StatementList {
+                                    Whitespace,
+                                    Unknown,
+                                    CallStatement {
+                                        Identifier ("Item"),
+                                        LeftParenthesis,
+                                        Identifier ("i"),
+                                        RightParenthesis,
+                                        PeriodOperator,
+                                        Identifier ("Process"),
+                                        Newline,
+                                    },
+                                    Whitespace,
+                                },
+                                NextKeyword,
+                                Whitespace,
+                                Identifier ("i"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -831,11 +1782,81 @@ Sub Test()
     End With
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("myArray"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("myArray"),
+                        LeftParenthesis,
+                        IntegerLiteral ("5"),
+                        RightParenthesis,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        NameKeyword,
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    StringLiteralExpression {
+                                        StringLiteral ("\"Test\""),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("100"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -847,11 +1868,62 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("GetObject"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("GetObject"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        PropertyKeyword,
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    IdentifierExpression {
+                                        Identifier ("value"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -862,10 +1934,42 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("obj"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -880,11 +1984,92 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let count = debug.matches("WithStatement").count();
-        assert_eq!(count, 2, "Expected 2 sequential With statements");
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("obj1"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("1"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("obj2"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("2"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -894,11 +2079,42 @@ With obj
     .Property = value
 End With
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("Whitespace"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("obj"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                PropertyKeyword,
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -911,11 +2127,68 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("NewKeyword"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        NewKeyword,
+                        Whitespace,
+                        Identifier ("MyClass"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            Unknown,
+                            CallStatement {
+                                Identifier ("Initialize"),
+                                Newline,
+                            },
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("42"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -925,14 +2198,46 @@ With GlobalObject
     .Config = value
 End With
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("WithStatement"));
-        assert!(debug.contains("GlobalObject"));
+        assert_tree!(cst, [
+            Newline,
+            WithStatement {
+                WithKeyword,
+                Whitespace,
+                Identifier ("GlobalObject"),
+                Newline,
+                StatementList {
+                    Whitespace,
+                    AssignmentStatement {
+                        IdentifierExpression {
+                            PeriodOperator,
+                        },
+                        BinaryExpression {
+                            IdentifierExpression {
+                                Identifier ("Config"),
+                            },
+                            Whitespace,
+                            EqualityOperator,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("value"),
+                            },
+                        },
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                WithKeyword,
+                Newline,
+            },
+        ]);
     }
 
     // RaiseEvent statement tests
+
     #[test]
     fn raiseevent_simple() {
         let source = r"
@@ -940,12 +2245,35 @@ Sub Test()
     RaiseEvent DataReceived
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("RaiseEventKeyword"));
-        assert!(debug.contains("DataReceived"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("DataReceived"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -955,12 +2283,38 @@ Sub Test()
     RaiseEvent StatusChanged(newStatus)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("StatusChanged"));
-        assert!(debug.contains("newStatus"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("StatusChanged"),
+                        LeftParenthesis,
+                        Identifier ("newStatus"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -970,36 +2324,84 @@ Sub Test()
     RaiseEvent DataChanged(oldValue, newValue, timestamp)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("oldValue"));
-        assert!(debug.contains("newValue"));
-        assert!(debug.contains("timestamp"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("DataChanged"),
+                        LeftParenthesis,
+                        Identifier ("oldValue"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("newValue"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("timestamp"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn raiseevent_at_module_level() {
         let source = "RaiseEvent ProcessComplete\n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.root_kind(), SyntaxKind::Root);
-        assert_eq!(cst.child_count(), 1);
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
+        assert_tree!(cst, [
+            RaiseEventStatement {
+                RaiseEventKeyword,
+                Whitespace,
+                Identifier ("ProcessComplete"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn raiseevent_preserves_whitespace() {
         let source = "    RaiseEvent    DataReady  (  value  )    \n";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        assert_eq!(cst.text(), "    RaiseEvent    DataReady  (  value  )    \n");
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
+        assert_tree!(cst, [
+            Whitespace,
+            RaiseEventStatement {
+                RaiseEventKeyword,
+                Whitespace,
+                Identifier ("DataReady"),
+                Whitespace,
+                LeftParenthesis,
+                Whitespace,
+                Identifier ("value"),
+                Whitespace,
+                RightParenthesis,
+                Whitespace,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1009,11 +2411,37 @@ Sub Test()
     RaiseEvent Updated ' Notify listeners
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("Comment"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("Updated"),
+                        Whitespace,
+                        EndOfLineComment,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1025,11 +2453,56 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("IfStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("dataReady"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            RaiseEventStatement {
+                                Whitespace,
+                                RaiseEventKeyword,
+                                Whitespace,
+                                Identifier ("DataAvailable"),
+                                LeftParenthesis,
+                                Identifier ("data"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1039,10 +2512,45 @@ Sub Test()
     If condition Then RaiseEvent EventFired
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("condition"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Whitespace,
+                        RaiseEventStatement {
+                            RaiseEventKeyword,
+                            Whitespace,
+                            Identifier ("EventFired"),
+                            Newline,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                },
+            },
+        ]);
     }
 
     #[test]
@@ -1054,11 +2562,66 @@ Sub Test()
     Next i
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("ForStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    ForStatement {
+                        Whitespace,
+                        ForKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("i"),
+                        },
+                        Whitespace,
+                        EqualityOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("1"),
+                        },
+                        Whitespace,
+                        ToKeyword,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Newline,
+                        StatementList {
+                            RaiseEventStatement {
+                                Whitespace,
+                                RaiseEventKeyword,
+                                Whitespace,
+                                Identifier ("Progress"),
+                                LeftParenthesis,
+                                Identifier ("i"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        NextKeyword,
+                        Whitespace,
+                        Identifier ("i"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1068,11 +2631,38 @@ Sub Test()
     RaiseEvent MessageSent("Hello, World!")
 End Sub
 "#;
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("Hello"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("MessageSent"),
+                        LeftParenthesis,
+                        StringLiteral ("\"Hello, World!\""),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1082,12 +2672,41 @@ Sub Test()
     RaiseEvent PositionChanged(100, 200)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("100"));
-        assert!(debug.contains("200"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("PositionChanged"),
+                        LeftParenthesis,
+                        IntegerLiteral ("100"),
+                        Comma,
+                        Whitespace,
+                        IntegerLiteral ("200"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1097,12 +2716,40 @@ Sub Test()
     RaiseEvent ValueChanged(obj.Property)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("obj"));
-        assert!(debug.contains("Property"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("ValueChanged"),
+                        LeftParenthesis,
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        PropertyKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1112,11 +2759,41 @@ Sub Test()
     RaiseEvent DataProcessed(ProcessData(input))
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("ProcessData"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("DataProcessed"),
+                        LeftParenthesis,
+                        Identifier ("ProcessData"),
+                        LeftParenthesis,
+                        InputKeyword,
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1133,11 +2810,92 @@ Sub Test()
     End Select
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let raiseevent_count = debug.matches("RaiseEventStatement").count();
-        assert_eq!(raiseevent_count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    SelectCaseStatement {
+                        Whitespace,
+                        SelectKeyword,
+                        Whitespace,
+                        CaseKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("status"),
+                        },
+                        Newline,
+                        Whitespace,
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("0"),
+                            Newline,
+                            StatementList {
+                                RaiseEventStatement {
+                                    Whitespace,
+                                    RaiseEventKeyword,
+                                    Whitespace,
+                                    Identifier ("StatusIdle"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("1"),
+                            Newline,
+                            StatementList {
+                                RaiseEventStatement {
+                                    Whitespace,
+                                    RaiseEventKeyword,
+                                    Whitespace,
+                                    Identifier ("StatusBusy"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        CaseClause {
+                            CaseKeyword,
+                            Whitespace,
+                            IntegerLiteral ("2"),
+                            Newline,
+                            StatementList {
+                                RaiseEventStatement {
+                                    Whitespace,
+                                    RaiseEventKeyword,
+                                    Whitespace,
+                                    Identifier ("StatusError"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        SelectKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1149,11 +2907,52 @@ Sub Test()
     RaiseEvent AfterUpdate
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let raiseevent_count = debug.matches("RaiseEventStatement").count();
-        assert_eq!(raiseevent_count, 3);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("BeforeUpdate"),
+                        Newline,
+                    },
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("Update"),
+                        LeftParenthesis,
+                        Identifier ("data"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("AfterUpdate"),
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1163,11 +2962,38 @@ Sub Test()
     RaiseEvent BeforeClose(Cancel)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("Cancel"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("BeforeClose"),
+                        LeftParenthesis,
+                        Identifier ("Cancel"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1180,11 +3006,68 @@ ErrorHandler:
     RaiseEvent ErrorOccurred(Err.Number, Err.Description)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("ErrorOccurred"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        GotoKeyword,
+                        Whitespace,
+                        Identifier ("ErrorHandler"),
+                        Newline,
+                    },
+                    ExitStatement {
+                        Whitespace,
+                        ExitKeyword,
+                        Whitespace,
+                        SubKeyword,
+                        Newline,
+                    },
+                    LabelStatement {
+                        Identifier ("ErrorHandler"),
+                        ColonOperator,
+                        Newline,
+                    },
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("ErrorOccurred"),
+                        LeftParenthesis,
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Number"),
+                        Comma,
+                        Whitespace,
+                        Identifier ("Err"),
+                        PeriodOperator,
+                        Identifier ("Description"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1194,11 +3077,41 @@ Sub Test()
     RaiseEvent ItemSelected(items(index))
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("items"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("ItemSelected"),
+                        LeftParenthesis,
+                        Identifier ("items"),
+                        LeftParenthesis,
+                        Identifier ("index"),
+                        RightParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1208,12 +3121,48 @@ Sub Test()
     RaiseEvent ProgressChanged((current / total) * 100)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("current"));
-        assert!(debug.contains("total"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("ProgressChanged"),
+                        LeftParenthesis,
+                        LeftParenthesis,
+                        Identifier ("current"),
+                        Whitespace,
+                        DivisionOperator,
+                        Whitespace,
+                        Identifier ("total"),
+                        RightParenthesis,
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        IntegerLiteral ("100"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1225,11 +3174,51 @@ Sub Test()
     Loop
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("DoStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    DoStatement {
+                        Whitespace,
+                        DoKeyword,
+                        Whitespace,
+                        WhileKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("processing"),
+                        },
+                        Newline,
+                        StatementList {
+                            RaiseEventStatement {
+                                Whitespace,
+                                RaiseEventKeyword,
+                                Whitespace,
+                                Identifier ("Processing"),
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        LoopKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1242,11 +3231,71 @@ Sub Test()
     End With
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("WithStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    WithStatement {
+                        Whitespace,
+                        WithKeyword,
+                        Whitespace,
+                        Identifier ("myObject"),
+                        Newline,
+                        StatementList {
+                            Whitespace,
+                            AssignmentStatement {
+                                IdentifierExpression {
+                                    PeriodOperator,
+                                },
+                                BinaryExpression {
+                                    IdentifierExpression {
+                                        Identifier ("Value"),
+                                    },
+                                    Whitespace,
+                                    EqualityOperator,
+                                    Whitespace,
+                                    NumericLiteralExpression {
+                                        IntegerLiteral ("100"),
+                                    },
+                                },
+                                Newline,
+                            },
+                            RaiseEventStatement {
+                                Whitespace,
+                                RaiseEventKeyword,
+                                Whitespace,
+                                Identifier ("ValueUpdated"),
+                                LeftParenthesis,
+                                PeriodOperator,
+                                Identifier ("Value"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        WithKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1261,11 +3310,96 @@ Public Sub UpdateStatus(ByVal status As String)
     RaiseEvent StatusChanged(status)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("EventStatement"));
+        assert_tree!(cst, [
+            VersionStatement {
+                VersionKeyword,
+                Whitespace,
+                SingleLiteral,
+                Whitespace,
+                ClassKeyword,
+                Newline,
+            },
+            PropertiesBlock {
+                BeginKeyword,
+                Newline,
+                Whitespace,
+                Property {
+                    PropertyKey {
+                        Identifier ("MultiUse"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    PropertyValue {
+                        SubtractionOperator,
+                        IntegerLiteral ("1"),
+                        Whitespace,
+                        EndOfLineComment,
+                    },
+                    Newline,
+                },
+                EndKeyword,
+                Newline,
+            },
+            EventStatement {
+                PublicKeyword,
+                Whitespace,
+                EventKeyword,
+                Whitespace,
+                Identifier ("StatusChanged"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("newStatus"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            Newline,
+            SubStatement {
+                PublicKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("UpdateStatus"),
+                ParameterList {
+                    LeftParenthesis,
+                    ByValKeyword,
+                    Whitespace,
+                    Identifier ("status"),
+                    Whitespace,
+                    AsKeyword,
+                    Whitespace,
+                    StringKeyword,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("StatusChanged"),
+                        LeftParenthesis,
+                        Identifier ("status"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1275,11 +3409,38 @@ Sub Test()
     RaiseEvent ValidationComplete(True)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("True"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("ValidationComplete"),
+                        LeftParenthesis,
+                        TrueKeyword,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1289,10 +3450,38 @@ Sub Test()
     RaiseEvent DateChanged(#1/1/2025#)
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("DateChanged"),
+                        LeftParenthesis,
+                        DateLiteral ("#1/1/2025#"),
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1306,11 +3495,70 @@ Sub Test()
     End If
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        let raiseevent_count = debug.matches("RaiseEventStatement").count();
-        assert_eq!(raiseevent_count, 2);
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    IfStatement {
+                        Whitespace,
+                        IfKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("shouldNotify"),
+                        },
+                        Whitespace,
+                        ThenKeyword,
+                        Newline,
+                        StatementList {
+                            RaiseEventStatement {
+                                Whitespace,
+                                RaiseEventKeyword,
+                                Whitespace,
+                                Identifier ("Notification"),
+                                LeftParenthesis,
+                                Identifier ("message"),
+                                RightParenthesis,
+                                Newline,
+                            },
+                            Whitespace,
+                        },
+                        ElseClause {
+                            ElseKeyword,
+                            Newline,
+                            StatementList {
+                                RaiseEventStatement {
+                                    Whitespace,
+                                    RaiseEventKeyword,
+                                    Whitespace,
+                                    Identifier ("SilentUpdate"),
+                                    Newline,
+                                },
+                                Whitespace,
+                            },
+                        },
+                        EndKeyword,
+                        Whitespace,
+                        IfKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
@@ -1320,10 +3568,36 @@ Sub Test()
     RaiseEvent Complete()
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RaiseEventStatement"));
-        assert!(debug.contains("Complete"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                SubKeyword,
+                Whitespace,
+                Identifier ("Test"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RaiseEventStatement {
+                        Whitespace,
+                        RaiseEventKeyword,
+                        Whitespace,
+                        Identifier ("Complete"),
+                        LeftParenthesis,
+                        RightParenthesis,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 }
