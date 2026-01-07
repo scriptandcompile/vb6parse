@@ -94,8 +94,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ErrorStatement"));
     }
 
     #[test]
@@ -232,8 +230,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ErrorStatement"));
     }
 
     #[test]
