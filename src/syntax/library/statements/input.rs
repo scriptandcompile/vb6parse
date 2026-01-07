@@ -106,8 +106,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("InputStatement"));
     }
 
     #[test]
@@ -234,8 +232,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("InputStatement"));
     }
 
     #[test]

@@ -226,8 +226,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("UnloadStatement"));
     }
 
     #[test]
@@ -365,8 +363,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("UnloadStatement"));
     }
 
     #[test]

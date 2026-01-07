@@ -313,8 +313,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("TimeStatement"));
     }
 
     #[test]

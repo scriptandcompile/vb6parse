@@ -111,8 +111,6 @@ End Sub
                 StringLiteral ("\"C:\\Temp\""),
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
     }
 
     #[test]
@@ -207,8 +205,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MkDirStatement"));
     }
 
     #[test]

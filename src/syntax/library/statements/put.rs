@@ -117,8 +117,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PutStatement"));
     }
 
     #[test]
@@ -277,8 +275,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("PutStatement"));
     }
 
     #[test]
