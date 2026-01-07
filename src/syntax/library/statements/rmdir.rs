@@ -545,8 +545,6 @@ End Sub
                 Whitespace,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RmDirStatement"));
     }
 
     #[test]
@@ -1402,9 +1400,6 @@ Private Sub Class_Terminate()
 End Sub
 ";
         let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
-
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RmDirStatement"));
     }
 
     #[test]

@@ -74,8 +74,6 @@ End Sub
                 Newline,
             },]
         );
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ResetStatement"));
     }
 
     #[test]
@@ -151,8 +149,6 @@ End Sub
                 },
             ]
         );
-        let debug = cst.debug_tree();
-        assert!(debug.contains("ResetStatement"));
     }
 
     #[test]

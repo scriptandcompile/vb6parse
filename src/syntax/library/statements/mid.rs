@@ -128,8 +128,6 @@ End Sub
                 StringLiteral ("\"START\""),
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidStatement"));
     }
 
     #[test]
@@ -269,8 +267,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("MidStatement"));
     }
 
     #[test]

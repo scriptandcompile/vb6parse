@@ -122,8 +122,6 @@ End Sub
                 StringLiteral ("\"new.txt\""),
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
     }
 
     #[test]
@@ -230,8 +228,6 @@ End Sub
                 Newline,
             },
         ]);
-        let debug = cst.debug_tree();
-        assert!(debug.contains("NameStatement"));
     }
 
     #[test]
