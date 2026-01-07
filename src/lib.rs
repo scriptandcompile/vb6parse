@@ -221,4 +221,4 @@ pub use crate::errors::{
 // =============================================================================
 
 #[macro_use]
-pub(crate) mod test_utils;
+pub mod test_utils;

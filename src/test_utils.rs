@@ -337,7 +337,7 @@ impl TreeParser {
 
 /// Check a CST node against the expected tree specification
 #[allow(clippy::cast_possible_truncation)]
-pub(crate) fn check_tree(
+pub fn check_tree(
     tree: &ConcreteSyntaxTree,
     tree_spec: &str,
     file: &str,
