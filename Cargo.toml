@@ -79,8 +79,8 @@ phf = { version = "0.13.1", features = ["macros"] }
 rowan = "0.16.1"
 
 [dev-dependencies]
-criterion = { version = "0.7.0", features = ["html_reports"] }
-insta = { version = "1.44.0", features = ["yaml"] }
+criterion = { version = "0.8.1", features = ["html_reports"] }
+insta = { version = "1.46.0", features = ["yaml"] }
 
 [[bench]]
 name = "bulk_parser_load"
