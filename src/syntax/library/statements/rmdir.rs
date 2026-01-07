@@ -75,7 +75,7 @@ impl Parser<'_> {
 #[cfg(test)]
 mod tests {
     use crate::assert_tree;
-    use crate::*; // RmDir statement tests
+    use crate::*;
 
     #[test]
     fn rmdir_simple() {
@@ -1399,7 +1399,48 @@ Private Sub Class_Terminate()
     RmDir m_tempDirectory
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Terminate"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    OnErrorStatement {
+                        Whitespace,
+                        OnKeyword,
+                        Whitespace,
+                        ErrorKeyword,
+                        Whitespace,
+                        ResumeKeyword,
+                        Whitespace,
+                        NextKeyword,
+                        Newline,
+                    },
+                    RmDirStatement {
+                        Whitespace,
+                        RmDirKeyword,
+                        Whitespace,
+                        Identifier ("m_tempDirectory"),
+                        Newline,
+                    }
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline
+            },
+        ]);
     }
 
     #[test]

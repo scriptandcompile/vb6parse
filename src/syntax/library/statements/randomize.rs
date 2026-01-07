@@ -52,6 +52,7 @@ impl Parser<'_> {
 mod tests {
     use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn randomize_simple() {
         let source = r"
@@ -446,8 +447,6 @@ End Sub
                 },
             ]
         );
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RandomizeStatement"));
     }
 
     #[test]
@@ -1135,10 +1134,35 @@ Private Sub Class_Initialize()
     Randomize
 End Sub
 ";
-        let cst = ConcreteSyntaxTree::from_text("test.cls", source).unwrap();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        let debug = cst.debug_tree();
-        assert!(debug.contains("RandomizeStatement"));
+        assert_tree!(cst, [
+            Newline,
+            SubStatement {
+                PrivateKeyword,
+                Whitespace,
+                SubKeyword,
+                Whitespace,
+                Identifier ("Class_Initialize"),
+                ParameterList {
+                    LeftParenthesis,
+                    RightParenthesis,
+                },
+                Newline,
+                StatementList {
+                    RandomizeStatement {
+                        Whitespace,
+                        RandomizeKeyword,
+                        Newline,
+                    },
+                },
+                EndKeyword,
+                Whitespace,
+                SubKeyword,
+                Newline,
+            },
+        ]);
     }
 
     #[test]
