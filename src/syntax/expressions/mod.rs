@@ -922,356 +922,1223 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
+    use crate::assert_tree;
     use crate::*;
-
-    /// Helper function to create a CST from source and get debug output
-    fn parse_expression_test(source: &str) -> String {
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        tree.debug_tree()
-    }
-
     #[test]
     fn numeric_literal() {
         let source = "x = 42\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("NumericLiteralExpression"));
-        assert!(debug.contains("42"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("42"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn numeric_literal_with_type_suffix() {
         let source = "x = 42%\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("NumericLiteralExpression"));
-        assert!(debug.contains("42"));
-        assert!(debug.contains('%'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NumericLiteralExpression {
+                    IntegerLiteral ("42%"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn string_literal() {
         let source = "x = \"Hello, World!\"\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("StringLiteralExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                StringLiteralExpression {
+                    StringLiteral ("\"Hello, World!\""),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn boolean_literal_true() {
         let source = "x = True\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BooleanLiteralExpression"));
-        assert!(debug.contains("True"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BooleanLiteralExpression {
+                    TrueKeyword,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn boolean_literal_false() {
         let source = "x = False\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BooleanLiteralExpression"));
-        assert!(debug.contains("False"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BooleanLiteralExpression {
+                    FalseKeyword,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn identifier_expression() {
         let source = "x = myVariable\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("IdentifierExpression"));
-        assert!(debug.contains("myVariable"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("myVariable"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn simple_addition() {
         let source = "x = 2 + 3\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('2'));
-        assert!(debug.contains('+'));
-        assert!(debug.contains('3'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("2"),
+                    },
+                    Whitespace,
+                    AdditionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("3"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn simple_subtraction() {
         let source = "x = 10 - 5\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("10"));
-        assert!(debug.contains('-'));
-        assert!(debug.contains('5'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("10"),
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("5"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn simple_multiplication() {
         let source = "x = 4 * 5\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('4'));
-        assert!(debug.contains('*'));
-        assert!(debug.contains('5'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("4"),
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("5"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn simple_division() {
         let source = "x = 20 / 4\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("20"));
-        assert!(debug.contains('/'));
-        assert!(debug.contains('4'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("20"),
+                    },
+                    Whitespace,
+                    DivisionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("4"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn operator_precedence_multiplication_before_addition() {
         let source = "x = 2 + 3 * 4\n";
-        let debug = parse_expression_test(source);
-        // Should parse as 2 + (3 * 4)
-        assert!(debug.contains("BinaryExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("2"),
+                    },
+                    Whitespace,
+                    AdditionOperator,
+                    Whitespace,
+                    BinaryExpression {
+                        NumericLiteralExpression {
+                            IntegerLiteral ("3"),
+                        },
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("4"),
+                        },
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn operator_precedence_left_associativity() {
         let source = "x = 10 - 5 - 2\n";
-        let debug = parse_expression_test(source);
-        // Should parse as (10 - 5) - 2
-        assert!(debug.contains("BinaryExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        NumericLiteralExpression {
+                            IntegerLiteral ("10"),
+                        },
+                        Whitespace,
+                        SubtractionOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("5"),
+                        },
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("2"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn unary_negation() {
         let source = "x = -5\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("UnaryExpression"));
-        assert!(debug.contains('-'));
-        assert!(debug.contains('5'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                UnaryExpression {
+                    SubtractionOperator,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("5"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn logical_not() {
         let source = "x = Not True\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("UnaryExpression"));
-        assert!(debug.contains("Not"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                UnaryExpression {
+                    NotKeyword,
+                    Whitespace,
+                    BooleanLiteralExpression {
+                        TrueKeyword,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn logical_and() {
         let source = "x = True And False\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("And"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BooleanLiteralExpression {
+                        TrueKeyword,
+                    },
+                    Whitespace,
+                    AndKeyword,
+                    Whitespace,
+                    BooleanLiteralExpression {
+                        FalseKeyword,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn logical_or() {
         let source = "x = True Or False\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("Or"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BooleanLiteralExpression {
+                        TrueKeyword,
+                    },
+                    Whitespace,
+                    OrKeyword,
+                    Whitespace,
+                    BooleanLiteralExpression {
+                        FalseKeyword,
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn comparison_equal() {
         let source = "x = a = b\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("a"),
+                    },
+                    Whitespace,
+                    EqualityOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("b"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn comparison_less_than() {
         let source = "x = a < b\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('<'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("a"),
+                    },
+                    Whitespace,
+                    LessThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("b"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn comparison_greater_than() {
         let source = "x = a > b\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('>'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    IdentifierExpression {
+                        Identifier ("a"),
+                    },
+                    Whitespace,
+                    GreaterThanOperator,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("b"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parenthesized_expression() {
         let source = "x = (5 + 3)\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("ParenthesizedExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                ParenthesizedExpression {
+                    LeftParenthesis,
+                    BinaryExpression {
+                        NumericLiteralExpression {
+                            IntegerLiteral ("5"),
+                        },
+                        Whitespace,
+                        AdditionOperator,
+                        Whitespace,
+                        NumericLiteralExpression {
+                            IntegerLiteral ("3"),
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn parenthesized_changes_precedence() {
         let source = "x = (2 + 3) * 4\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("ParenthesizedExpression"));
-        assert!(debug.contains("BinaryExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    ParenthesizedExpression {
+                        LeftParenthesis,
+                        BinaryExpression {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                            Whitespace,
+                            AdditionOperator,
+                            Whitespace,
+                            NumericLiteralExpression {
+                                IntegerLiteral ("3"),
+                            },
+                        },
+                        RightParenthesis,
+                    },
+                    Whitespace,
+                    MultiplicationOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("4"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn member_access() {
         let source = "x = obj.property\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("MemberAccessExpression"));
-        assert!(debug.contains("obj"));
-        assert!(debug.contains("property"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                MemberAccessExpression {
+                    Identifier ("obj"),
+                    PeriodOperator,
+                    PropertyKeyword,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn chained_member_access() {
         let source = "x = obj.prop1.prop2\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("MemberAccessExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                MemberAccessExpression {
+                    MemberAccessExpression {
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        Identifier ("prop1"),
+                    },
+                    PeriodOperator,
+                    Identifier ("prop2"),
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn function_call_no_args() {
         let source = "x = MyFunction()\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("CallExpression"));
-        assert!(debug.contains("MyFunction"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MyFunction"),
+                    LeftParenthesis,
+                    ArgumentList,
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn function_call_one_arg() {
         let source = "x = MyFunction(42)\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("CallExpression"));
-        assert!(debug.contains("ArgumentList"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MyFunction"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("42"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn function_call_multiple_args() {
         let source = "x = MyFunction(1, 2, 3)\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("CallExpression"));
-        assert!(debug.contains("ArgumentList"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("MyFunction"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("1"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("3"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn method_call() {
         let source = "x = obj.Method(arg)\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("MemberAccessExpression"));
-        assert!(debug.contains("CallExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    MemberAccessExpression {
+                        Identifier ("obj"),
+                        PeriodOperator,
+                        Identifier ("Method"),
+                    },
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            IdentifierExpression {
+                                Identifier ("arg"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn new_expression() {
         let source = "Set x = New MyClass\n";
-        let debug = parse_expression_test(source);
-        // In assignment context, "New MyClass" would be parsed differently
-        // For now, just verify it parses without error
-        assert!(debug.contains("MyClass"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("x"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                NewKeyword,
+                Whitespace,
+                Identifier ("MyClass"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn addressof_expression() {
         let source = "x = AddressOf MyProc\n";
-        let debug = parse_expression_test(source);
-        // AddressOf in assignment is parsed as identifier
-        assert!(debug.contains("AddressOf"));
-        assert!(debug.contains("MyProc"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                IdentifierExpression {
+                    Identifier ("AddressOf"),
+                },
+            },
+            Whitespace,
+            CallStatement {
+                Identifier ("MyProc"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn string_concatenation() {
         let source = "x = \"Hello\" & \" \" & \"World\"\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('&'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        StringLiteralExpression {
+                            StringLiteral ("\"Hello\""),
+                        },
+                        Whitespace,
+                        Ampersand,
+                        Whitespace,
+                        StringLiteralExpression {
+                            StringLiteral ("\" \""),
+                        },
+                    },
+                    Whitespace,
+                    Ampersand,
+                    Whitespace,
+                    StringLiteralExpression {
+                        StringLiteral ("\"World\""),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn modulo_operator() {
         let source = "x = 10 Mod 3\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("Mod"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("10"),
+                    },
+                    Whitespace,
+                    ModKeyword,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("3"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn integer_division() {
         let source = "x = 10 \\ 3\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('\\'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("10"),
+                    },
+                    Whitespace,
+                    BackwardSlashOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("3"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn exponentiation() {
         let source = "x = 2 ^ 8\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains('^'));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    NumericLiteralExpression {
+                        IntegerLiteral ("2"),
+                    },
+                    Whitespace,
+                    ExponentiationOperator,
+                    Whitespace,
+                    NumericLiteralExpression {
+                        IntegerLiteral ("8"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn complex_arithmetic() {
         let source = "x = (a + b) * c - d / e\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("BinaryExpression"));
-        assert!(debug.contains("ParenthesizedExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        ParenthesizedExpression {
+                            LeftParenthesis,
+                            BinaryExpression {
+                                IdentifierExpression {
+                                    Identifier ("a"),
+                                },
+                                Whitespace,
+                                AdditionOperator,
+                                Whitespace,
+                                IdentifierExpression {
+                                    Identifier ("b"),
+                                },
+                            },
+                            RightParenthesis,
+                        },
+                        Whitespace,
+                        MultiplicationOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("c"),
+                        },
+                    },
+                    Whitespace,
+                    SubtractionOperator,
+                    Whitespace,
+                    BinaryExpression {
+                        IdentifierExpression {
+                            Identifier ("d"),
+                        },
+                        Whitespace,
+                        DivisionOperator,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("e"),
+                        },
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn complex_logical() {
         let source = "x = Not a And b Or c\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("UnaryExpression"));
-        assert!(debug.contains("BinaryExpression"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                BinaryExpression {
+                    BinaryExpression {
+                        UnaryExpression {
+                            NotKeyword,
+                            Whitespace,
+                            IdentifierExpression {
+                                Identifier ("a"),
+                            },
+                        },
+                        Whitespace,
+                        AndKeyword,
+                        Whitespace,
+                        IdentifierExpression {
+                            Identifier ("b"),
+                        },
+                    },
+                    Whitespace,
+                    OrKeyword,
+                    Whitespace,
+                    IdentifierExpression {
+                        Identifier ("c"),
+                    },
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn nothing_literal() {
         let source = "Set x = Nothing\n";
-        let debug = parse_expression_test(source);
-        // Nothing is tokenized but in assignment context appears as identifier
-        assert!(debug.contains("Nothing"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            SetStatement {
+                SetKeyword,
+                Whitespace,
+                Identifier ("x"),
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                Identifier ("Nothing"),
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn null_literal() {
         let source = "x = Null\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("LiteralExpression"));
-        assert!(debug.contains("Null"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                LiteralExpression {
+                    NullKeyword,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn empty_literal() {
         let source = "x = Empty\n";
-        let debug = parse_expression_test(source);
-        assert!(debug.contains("LiteralExpression"));
-        assert!(debug.contains("Empty"));
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        assert_tree!(cst, [
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                LiteralExpression {
+                    EmptyKeyword,
+                },
+                Newline,
+            },
+        ]);
     }
 
     #[test]
     fn dollar_sign_functions_merged() {
-        // Verify that dollar-sign library functions are properly recognized
-        // as single identifiers (e.g., Chr$, UCase$, Left$, etc.)
         let source = r#"
 x = Chr$(65)
 y = UCase$("hello")
 z = Left$("test", 2)
 "#;
-        let tree = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-        let debug = tree.debug_tree();
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
 
-        // All three dollar-sign functions should appear as single merged identifiers
-        assert!(debug.contains("Chr$"), "Chr$ should be a single identifier");
-        assert!(
-            debug.contains("UCase$"),
-            "UCase$ should be a single identifier"
-        );
-        assert!(
-            debug.contains("Left$"),
-            "Left$ should be a single identifier"
-        );
-
-        // Should NOT contain separate DollarSign tokens in these contexts
-        let _ = debug.find("Chr$").expect("Chr$ should exist");
-        let _ = debug.find("UCase$").expect("UCase$ should exist");
-        let _ = debug.find("Left$").expect("Left$ should exist");
-
-        // Verify these are in Identifier nodes
-        assert!(debug.contains("Identifier@"));
+        assert_tree!(cst, [
+            Newline,
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("x"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Chr$"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("65"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("y"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("UCase$"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"hello\""),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+            AssignmentStatement {
+                IdentifierExpression {
+                    Identifier ("z"),
+                },
+                Whitespace,
+                EqualityOperator,
+                Whitespace,
+                CallExpression {
+                    Identifier ("Left$"),
+                    LeftParenthesis,
+                    ArgumentList {
+                        Argument {
+                            StringLiteralExpression {
+                                StringLiteral ("\"test\""),
+                            },
+                        },
+                        Comma,
+                        Whitespace,
+                        Argument {
+                            NumericLiteralExpression {
+                                IntegerLiteral ("2"),
+                            },
+                        },
+                    },
+                    RightParenthesis,
+                },
+                Newline,
+            },
+        ]);
     }
 }
