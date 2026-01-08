@@ -27,6 +27,10 @@ fn artificial_life_form_load() {
 
     let form_file = form_result.unwrap();
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -54,7 +58,10 @@ fn blacklight_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -83,7 +90,10 @@ fn brightness_effect_part_1_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -113,7 +123,10 @@ fn brightness_effect_part_2_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -142,7 +155,10 @@ fn brightness_effect_part_3_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -172,7 +188,10 @@ fn brightness_effect_part_4_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -200,7 +219,10 @@ fn color_shift_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -228,7 +250,10 @@ fn colorize_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -256,7 +281,10 @@ fn contrast_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -284,6 +312,10 @@ fn curves_form_load() {
     }
 
     let form_file = form_result.unwrap();
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -311,7 +343,10 @@ fn custom_image_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -339,7 +374,10 @@ fn diffuse_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -367,7 +405,10 @@ fn edge_detection_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -395,7 +436,10 @@ fn emboss_engrave_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -423,7 +467,10 @@ fn fill_image_region_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -451,7 +498,10 @@ fn fire_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -479,7 +529,10 @@ fn game_physics_basic_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -507,7 +560,10 @@ fn gradient_2d_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -535,7 +591,10 @@ fn grayscale_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -563,7 +622,10 @@ fn hidden_markov_model_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -591,7 +653,10 @@ fn histograms_advanced_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -619,7 +684,10 @@ fn histograms_basic_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -647,7 +715,10 @@ fn levels_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -675,7 +746,10 @@ fn mandelbrot_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -703,7 +777,10 @@ fn map_editor_2d_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -731,7 +808,10 @@ fn nature_effects_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -759,7 +839,10 @@ fn randomize_effects_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -787,7 +870,10 @@ fn scanner_twain_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -815,7 +901,10 @@ fn screen_capture_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -843,7 +932,10 @@ fn sepia_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -871,7 +963,10 @@ fn threshold_effect_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
 
@@ -899,6 +994,9 @@ fn transparency_2d_form_load() {
     }
 
     let form_file = form_result.unwrap();
-
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/form");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(form_file);
 }
