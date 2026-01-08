@@ -183,18 +183,13 @@ mod tests {
         let source = "Option Explicit On\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Whitespace,
-                OnKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -202,17 +197,13 @@ mod tests {
         let source = "Option Explicit Off\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Whitespace,
-                Identifier ("Off"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -220,16 +211,13 @@ mod tests {
         let source = "Option Explicit\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -237,17 +225,13 @@ mod tests {
         let source = "Option Base 0\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -255,17 +239,13 @@ mod tests {
         let source = "Option Base 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -273,33 +253,13 @@ mod tests {
         let source = "Option Base 1\n\nSub Test()\nEnd Sub\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList,
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -307,17 +267,13 @@ mod tests {
         let source = "Option  Base  1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -325,19 +281,13 @@ mod tests {
         let source = "Option Base 0 ' Set default array base\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -345,18 +295,13 @@ mod tests {
         let source = "Option Base 1  \n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Whitespace,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -364,23 +309,13 @@ mod tests {
         let source = "Option Explicit\nOption Base 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -388,17 +323,13 @@ mod tests {
         let source = "OPTION BASE 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -406,19 +337,13 @@ mod tests {
         let source = "Option _\nBase 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                Underscore,
-                Newline,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -426,32 +351,13 @@ mod tests {
         let source = "Option Base 1\nDim arr(10) As Integer\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("arr"),
-                LeftParenthesis,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10"),
-                },
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -461,27 +367,13 @@ Option Base 1
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AttributeStatement {
-                AttributeKeyword,
-                Whitespace,
-                Identifier ("VB_Name"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"Module1\""),
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -489,32 +381,13 @@ Option Base 1
         let source = "Option Base 0\nDim x(5) As Integer\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-            },
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("x"),
-                LeftParenthesis,
-                NumericLiteralExpression {
-                    IntegerLiteral ("5"),
-                },
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -522,18 +395,13 @@ Option Base 1
         let source = "Option Compare Binary\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -541,18 +409,13 @@ Option Base 1
         let source = "Option Compare Text\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -560,18 +423,13 @@ Option Base 1
         let source = "Option Compare Database\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                DatabaseKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -579,33 +437,13 @@ Option Base 1
         let source = "Option Compare Text\n\nSub Test()\nEnd Sub\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList,
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -613,18 +451,13 @@ Option Base 1
         let source = "Option  Compare  Binary\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -632,20 +465,13 @@ Option Base 1
         let source = "Option Compare Text ' Case-insensitive\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -653,19 +479,13 @@ Option Base 1
         let source = "Option Compare Binary  \n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Whitespace,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -673,31 +493,13 @@ Option Base 1
         let source = "Option Explicit\nOption Compare Text\nOption Base 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -705,18 +507,13 @@ Option Base 1
         let source = "OPTION COMPARE BINARY\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -724,20 +521,13 @@ Option Base 1
         let source = "Option _\nCompare Text\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                Underscore,
-                Newline,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -745,27 +535,13 @@ Option Base 1
         let source = "Option Compare Binary\nDim str As String\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("str"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -775,27 +551,13 @@ Option Compare Text
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AttributeStatement {
-                AttributeKeyword,
-                Whitespace,
-                Identifier ("VB_Name"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"Module1\""),
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -803,18 +565,13 @@ Option Compare Text
         let source = "Option Compare Text\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                TextKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -822,18 +579,13 @@ Option Compare Text
         let source = "Option Compare Binary\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -841,18 +593,13 @@ Option Compare Text
         let source = "Option Compare Database\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                DatabaseKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -860,31 +607,13 @@ Option Compare Text
         let source = "Option Explicit\nOption Compare Binary\nOption Base 1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -892,18 +621,13 @@ Option Compare Text
         let source = "Option Private Module\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -911,33 +635,13 @@ Option Compare Text
         let source = "Option Private Module\n\nSub Test()\nEnd Sub\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList,
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -945,18 +649,13 @@ Option Compare Text
         let source = "Option  Private  Module\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -964,20 +663,13 @@ Option Compare Text
         let source = "Option Private Module ' Make this module private\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -985,19 +677,13 @@ Option Compare Text
         let source = "Option Private Module  \n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Whitespace,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1005,26 +691,13 @@ Option Compare Text
         let source = "Option Explicit\nOption Private Module\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [
-                OptionStatement {
-                    OptionKeyword,
-                    Whitespace,
-                    ExplicitKeyword,
-                    Newline,
-                },
-                OptionStatement {
-                    OptionKeyword,
-                    Whitespace,
-                    PrivateKeyword,
-                    Whitespace,
-                    ModuleKeyword,
-                    Newline,
-                },
-            ]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1032,18 +705,13 @@ Option Compare Text
         let source = "OPTION PRIVATE MODULE\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1051,20 +719,13 @@ Option Compare Text
         let source = "Option _\nPrivate Module\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                Underscore,
-                Newline,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },]
-        );
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1072,27 +733,13 @@ Option Compare Text
         let source = "Option Private Module\nDim x As Integer\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("x"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1105,47 +752,13 @@ End Function
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            VersionStatement {
-                VersionKeyword,
-                Whitespace,
-                SingleLiteral,
-                Whitespace,
-                ClassKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-            Newline,
-            FunctionStatement {
-                PublicKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList,
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1155,27 +768,13 @@ Option Private Module
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AttributeStatement {
-                AttributeKeyword,
-                Whitespace,
-                Identifier ("VB_Name"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"Module1\""),
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1184,39 +783,13 @@ Option Private Module
             "Option Explicit\nOption Compare Binary\nOption Base 1\nOption Private Module\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                ExplicitKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                CompareKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                BaseKeyword,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1229,52 +802,12 @@ End Function
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OptionStatement {
-                OptionKeyword,
-                Whitespace,
-                PrivateKeyword,
-                Whitespace,
-                ModuleKeyword,
-                Newline,
-            },
-            Newline,
-            FunctionStatement {
-                PublicKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("InternalHelper"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("InternalHelper"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"Internal use only\""),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/option_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
