@@ -1,0 +1,37 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: EventStatement
+      children:
+        - kind: EventKeyword
+          text: Event
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: RecordChanged
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Record
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: CustomerRecord
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

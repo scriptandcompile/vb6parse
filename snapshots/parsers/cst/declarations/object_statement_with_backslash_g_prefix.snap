@@ -1,0 +1,57 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: ObjectStatement
+      children:
+        - kind: ObjectKeyword
+          text: Object
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: BackwardSlashOperator
+          text: "\\"
+        - kind: Identifier
+          text: G
+        - kind: LeftCurlyBrace
+          text: "{"
+        - kind: IntegerLiteral
+          text: "00025600"
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "0000"
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "0000"
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: C000
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "000000000046"
+        - kind: RightCurlyBrace
+          text: "}"
+        - kind: DateLiteral
+          text: "#5.2#"
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: Semicolon
+          text: ;
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"stdole2.tlb\""
+        - kind: Newline
+          text: "\n"
