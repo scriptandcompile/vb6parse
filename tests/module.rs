@@ -26,6 +26,10 @@ fn artificial_life_module_load() {
         panic!("Failed to parse '{file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(module_file);
 }
 
@@ -54,6 +58,10 @@ fn game_physics_basic_module_load() {
         panic!("Failed to parse '{file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(module_file);
 }
 
@@ -81,6 +89,10 @@ fn histograms_advanced_module_load() {
         panic!("Failed to parse '{file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(module_file);
 }
 
@@ -108,6 +120,10 @@ fn histograms_basic_module_load() {
         panic!("Failed to parse '{file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(module_file);
 }
 
@@ -135,6 +151,10 @@ fn levels_effect_module_load() {
         panic!("Failed to parse '{file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(module_file);
 }
 
@@ -190,6 +210,10 @@ fn map_editor_2d_module_load() {
         panic!("Failed to parse '{declaration_file_path}' module file");
     };
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/module");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(subs_module_file);
     insta::assert_yaml_snapshot!(declaration_module_file);
 }
