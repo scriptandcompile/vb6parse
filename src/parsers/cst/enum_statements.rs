@@ -152,8 +152,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn enum_simple() {
         let source = r"
@@ -165,29 +165,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Colors"),
-                Newline,
-                Whitespace,
-                Identifier ("Red"),
-                Newline,
-                Whitespace,
-                Identifier ("Green"),
-                Newline,
-                Whitespace,
-                Identifier ("Blue"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -201,42 +185,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("SecurityLevel"),
-                Newline,
-                Whitespace,
-                Identifier ("IllegalEntry"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                SubtractionOperator,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("SecurityLevel1"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Identifier ("SecurityLevel2"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -249,36 +204,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                PublicKeyword,
-                Whitespace,
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Status"),
-                Newline,
-                Whitespace,
-                Identifier ("Active"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("Inactive"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -292,43 +224,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                PrivateKeyword,
-                Whitespace,
-                EnumKeyword,
-                Whitespace,
-                Identifier ("InternalState"),
-                Newline,
-                Whitespace,
-                Identifier ("Pending"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Identifier ("Processing"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("Complete"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -342,47 +244,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Direction"),
-                Newline,
-                Whitespace,
-                Identifier ("North"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Identifier ("South"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("East"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                Whitespace,
-                Identifier ("West"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("3"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -396,47 +264,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Priority"),
-                Newline,
-                Whitespace,
-                Identifier ("Low"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("Medium"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("5"),
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("High"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("10"),
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -444,28 +278,13 @@ End Enum
         let source = "    Enum Test\n        Value1 = 1\n    End Enum\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Whitespace,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                Newline,
-                Whitespace,
-                Identifier ("Value1"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -481,60 +300,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Flags"),
-                Newline,
-                Whitespace,
-                Identifier ("None"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                Whitespace,
-                Identifier ("ReadWrite"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                AdditionOperator,
-                Whitespace,
-                Unknown,
-                Newline,
-                Whitespace,
-                Identifier ("All"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Ampersand,
-                Identifier ("HFF"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -545,20 +317,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("EmptyEnum"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -578,77 +343,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                PublicKeyword,
-                Whitespace,
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Color"),
-                Newline,
-                Whitespace,
-                Identifier ("Red"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("Green"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                Whitespace,
-                Identifier ("Blue"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("3"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-            Newline,
-            EnumStatement {
-                PrivateKeyword,
-                Whitespace,
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Size"),
-                Newline,
-                Whitespace,
-                Identifier ("Small"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Identifier ("Medium"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("Large"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -663,52 +364,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("FileAttributes"),
-                Newline,
-                Whitespace,
-                Identifier ("ReadOnly"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Ampersand,
-                Identifier ("H1"),
-                Newline,
-                Whitespace,
-                Identifier ("Hidden"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Ampersand,
-                Identifier ("H2"),
-                Newline,
-                Whitespace,
-                Identifier ("System"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Ampersand,
-                Identifier ("H4"),
-                Newline,
-                Whitespace,
-                Identifier ("Archive"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Ampersand,
-                Identifier ("H20"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -726,69 +388,13 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("DayOfWeek"),
-                Newline,
-                Whitespace,
-                Identifier ("Sunday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-                Whitespace,
-                Identifier ("Monday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Newline,
-                Whitespace,
-                Identifier ("Tuesday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("3"),
-                Newline,
-                Whitespace,
-                Identifier ("Wednesday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("4"),
-                Newline,
-                Whitespace,
-                Identifier ("Thursday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("5"),
-                Newline,
-                Whitespace,
-                Identifier ("Friday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("6"),
-                Newline,
-                Whitespace,
-                Identifier ("Saturday"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("7"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -802,41 +408,12 @@ End Enum
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            EnumStatement {
-                EnumKeyword,
-                Whitespace,
-                Identifier ("Temperature"),
-                Newline,
-                Whitespace,
-                Identifier ("FreezingPoint"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                SubtractionOperator,
-                IntegerLiteral ("273"),
-                Newline,
-                Whitespace,
-                Identifier ("Zero"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Newline,
-                Whitespace,
-                Identifier ("BoilingPoint"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IntegerLiteral ("100"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                EnumKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/enum_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
