@@ -1,0 +1,71 @@
+---
+source: src/parsers/cst/enum_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: EnumStatement
+      children:
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Temperature
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: FreezingPoint
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "273"
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Zero
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: BoilingPoint
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: Newline
+          text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Newline
+          text: "\n"
