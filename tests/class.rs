@@ -24,6 +24,10 @@ fn artificial_life_organism_class_load() {
 
     let class = result.unwrap();
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/class");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(class);
 }
 
@@ -51,6 +55,10 @@ fn blacklight_effect_class_load() {
 
     let class1 = result1.unwrap();
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/class");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(class1);
 
     let file_path2 = "./tests/data/vb6-code/Blacklight-effect/pdOpenSaveDialog.cls";
@@ -102,6 +110,10 @@ fn gradient_2d_class_load() {
 
     let class = result.unwrap();
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/class");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(class);
 }
 
@@ -129,5 +141,9 @@ fn hidden_markov_model_class_load() {
 
     let class = result.unwrap();
 
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/class");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(class);
 }
