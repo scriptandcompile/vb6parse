@@ -1,0 +1,41 @@
+---
+source: src/parsers/cst/deftype_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DefTypeStatement
+      children:
+        - kind: DefIntKeyword
+          text: DefInt
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: I
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: N
+        - kind: Newline
+          text: "\n"
+    - kind: DefTypeStatement
+      children:
+        - kind: DefLngKeyword
+          text: DefLng
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: L
+        - kind: Newline
+          text: "\n"
+    - kind: DefTypeStatement
+      children:
+        - kind: DefStrKeyword
+          text: DefStr
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: S
+        - kind: Newline
+          text: "\n"
