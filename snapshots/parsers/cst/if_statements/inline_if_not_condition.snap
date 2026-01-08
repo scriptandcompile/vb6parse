@@ -1,0 +1,69 @@
+---
+source: src/parsers/cst/if_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: IsValid
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Whitespace
+                  text: " "
+                - kind: ExitStatement
+                  children:
+                    - kind: ExitKeyword
+                      text: Exit
+                    - kind: Whitespace
+                      text: " "
+                    - kind: SubKeyword
+                      text: Sub
+                    - kind: Newline
+                      text: "\n"
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+                - kind: Newline
+                  text: "\n"
