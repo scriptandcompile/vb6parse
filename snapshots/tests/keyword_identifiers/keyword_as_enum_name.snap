@@ -1,0 +1,37 @@
+---
+source: tests/keyword_identifiers.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: EnumStatement
+      children:
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Random
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Value1
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Value2
+        - kind: Newline
+          text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Newline
+          text: "\n"
