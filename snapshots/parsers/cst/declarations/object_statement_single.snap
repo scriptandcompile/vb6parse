@@ -1,0 +1,27 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: ObjectStatement
+      children:
+        - kind: ObjectKeyword
+          text: Object
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\""
+        - kind: Semicolon
+          text: ;
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"mscomctl.ocx\""
+        - kind: Newline
+          text: "\n"

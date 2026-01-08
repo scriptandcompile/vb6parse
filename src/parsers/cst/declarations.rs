@@ -313,38 +313,21 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn declare_function_simple() {
         // Test simple Declare Function without parameters
         let source = "Declare Function GetTickCount Lib \"kernel32\" () As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetTickCount"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -353,33 +336,13 @@ mod tests {
         let source = "Declare Sub Sleep Lib \"kernel32\" (ByVal dwMilliseconds As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("Sleep"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("dwMilliseconds"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -388,111 +351,13 @@ mod tests {
         let source = "Public Declare Function BitBlt Lib \"gdi32\" (ByVal hDstDC As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PublicKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("BitBlt"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"gdi32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hDstDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("x"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("y"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("nWidth"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("nHeight"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hSrcDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("xSrc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("ySrc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("dwRop"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -501,57 +366,13 @@ mod tests {
         let source = "Private Declare Function GetPixel Lib \"gdi32\" (ByVal hDC As Long, ByVal x As Long, ByVal y As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetPixel"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"gdi32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("x"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("y"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -560,57 +381,13 @@ mod tests {
         let source = "Private Declare Sub CopyMemory Lib \"kernel32\" Alias \"RtlMoveMemory\" (ByRef Dest As Any, ByRef Source As Any, ByVal Bytes As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("CopyMemory"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                AliasKeyword,
-                Whitespace,
-                StringLiteral ("\"RtlMoveMemory\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("Dest"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("Source"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Bytes"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -619,93 +396,13 @@ mod tests {
         let source = "Private Declare Function SendMessageTimeout Lib \"user32\" Alias \"SendMessageTimeoutA\" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any, ByVal fuFlags As Long, ByVal uTimeout As Long, lpdwResult As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("SendMessageTimeout"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"user32\""),
-                Whitespace,
-                AliasKeyword,
-                Whitespace,
-                StringLiteral ("\"SendMessageTimeoutA\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hwnd"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("wMsg"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("wParam"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("lParam"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("fuFlags"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("uTimeout"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("lpdwResult"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -714,48 +411,13 @@ mod tests {
         let source = "Private Declare Sub ZeroMemory Lib \"kernel32.dll\" Alias \"RtlZeroMemory\" (ByRef Destination As Any, ByVal Length As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("ZeroMemory"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32.dll\""),
-                Whitespace,
-                AliasKeyword,
-                Whitespace,
-                StringLiteral ("\"RtlZeroMemory\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("Destination"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Length"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -764,32 +426,13 @@ mod tests {
         let source = "Public Declare Function GetLastError Lib \"kernel32\" () As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PublicKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetLastError"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -798,75 +441,13 @@ mod tests {
         let source = "Private Declare Function CallWindowProcW Lib \"user32\" (ByRef lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("CallWindowProcW"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"user32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("lpPrevWndFunc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hwnd"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("msg"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("wParam"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("lParam"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -875,53 +456,13 @@ mod tests {
         let source = "Private Declare Sub CopyMemory Lib \"kernel32\" Alias \"RtlMoveMemory\" (Destination As Any, Source As Any, ByVal Length As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("CopyMemory"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                AliasKeyword,
-                Whitespace,
-                StringLiteral ("\"RtlMoveMemory\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("Destination"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    Identifier ("Source"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("Any"),
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Length"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -930,129 +471,13 @@ mod tests {
         let source = "Public Declare Function StretchBlt Lib \"GDI32\" (ByVal hDestDC As Long, ByVal x As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal ClipX As Long, ByVal ClipY As Long, ByVal RasterOp As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PublicKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("StretchBlt"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"GDI32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hDestDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("x"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Y"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("nWidth"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("nHeight"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hSrcDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("xSrc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("ySrc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("ClipX"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("ClipY"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("RasterOp"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1062,35 +487,13 @@ mod tests {
             "Private Declare Sub GdiplusShutdown Lib \"GdiPlus.dll\" (ByVal mtoken As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("GdiplusShutdown"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"GdiPlus.dll\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("mtoken"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1099,50 +502,13 @@ mod tests {
         let source = "Public Declare Function GetUserName Lib \"advapi32.dll\" Alias \"GetUserNameA\" (ByVal lpBuffer As String, nSize As Long) As Long\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PublicKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetUserName"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"advapi32.dll\""),
-                Whitespace,
-                AliasKeyword,
-                Whitespace,
-                StringLiteral ("\"GetUserNameA\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("lpBuffer"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("nSize"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1151,110 +517,13 @@ mod tests {
         let source = "Private Declare Function VirtualProtect Lib \"kernel32\" (ByVal lpAddress As Long, ByVal dwSize As Long, ByVal flNewProtect As Long, ByRef lpflOldProtect As Long) As Long\nPrivate Declare Sub RtlMoveMemory Lib \"ntdll\" (ByVal pDst As Long, ByVal pSrc As Long, ByVal dwLength As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("VirtualProtect"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"kernel32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("lpAddress"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("dwSize"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("flNewProtect"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("lpflOldProtect"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-            DeclareStatement {
-                PrivateKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("RtlMoveMemory"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"ntdll\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("pDst"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("pSrc"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("dwLength"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1263,66 +532,13 @@ mod tests {
         let source = "Public Declare Function SetPixelV Lib \"gdi32\" (ByVal hDC As Long, ByVal X As Long, ByVal Y As Long, ByVal crColor As Long) As Byte\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DeclareStatement {
-                PublicKeyword,
-                Whitespace,
-                DeclareKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("SetPixelV"),
-                Whitespace,
-                LibKeyword,
-                Whitespace,
-                StringLiteral ("\"gdi32\""),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("hDC"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("X"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Y"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("crColor"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ByteKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     // Event statement tests
@@ -1332,19 +548,13 @@ mod tests {
         let source = "Event StatusChanged()\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("StatusChanged"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1352,26 +562,13 @@ mod tests {
         let source = "Event DataReceived(ByVal Data As String)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("DataReceived"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Data"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1379,21 +576,13 @@ mod tests {
         let source = "Public Event Click()\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                PublicKeyword,
-                Whitespace,
-                EventKeyword,
-                Whitespace,
-                Identifier ("Click"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1401,35 +590,13 @@ mod tests {
         let source = "Event ValueChanged(ByVal OldValue As Long, ByVal NewValue As Long)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("ValueChanged"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("OldValue"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("NewValue"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1437,28 +604,13 @@ mod tests {
         let source = "Event DataReceived(ByVal Data() As Byte)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("DataReceived"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Data"),
-                    LeftParenthesis,
-                    RightParenthesis,
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    ByteKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1466,21 +618,13 @@ mod tests {
         let source = "Public Event Initialize()\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                PublicKeyword,
-                Whitespace,
-                EventKeyword,
-                Whitespace,
-                Identifier ("Initialize"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1488,26 +632,13 @@ mod tests {
         let source = "Event Modified(ByRef Cancel As Boolean)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("Modified"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("Cancel"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    BooleanKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1515,23 +646,13 @@ mod tests {
         let source = "    Event    Test    (    )    \n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Whitespace,
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    Whitespace,
-                    RightParenthesis,
-                },
-                Whitespace,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1539,46 +660,13 @@ mod tests {
         let source = "Public Event ProgressUpdate(ByVal PercentComplete As Integer, ByVal Message As String, ByRef Cancel As Boolean)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                PublicKeyword,
-                Whitespace,
-                EventKeyword,
-                Whitespace,
-                Identifier ("ProgressUpdate"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("PercentComplete"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    Comma,
-                    Whitespace,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Message"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("Cancel"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    BooleanKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1586,26 +674,13 @@ mod tests {
         let source = "Event ItemAdded(ByVal Item As Object)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("ItemAdded"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Item"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    ObjectKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1613,29 +688,13 @@ mod tests {
         let source = "Event Click()\nEvent DblClick()\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("Click"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("DblClick"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1643,26 +702,13 @@ mod tests {
         let source = "Event DataChanged(ByVal NewData As Variant)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("DataChanged"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("NewData"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    VariantKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1670,26 +716,13 @@ mod tests {
         let source = "Event RecordChanged(ByVal Record As CustomerRecord)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            EventStatement {
-                EventKeyword,
-                Whitespace,
-                Identifier ("RecordChanged"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("Record"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("CustomerRecord"),
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1698,20 +731,13 @@ mod tests {
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            ObjectStatement {
-                ObjectKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\""),
-                Semicolon,
-                Whitespace,
-                StringLiteral ("\"mscomctl.ocx\""),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1722,37 +748,13 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            VersionStatement {
-                VersionKeyword,
-                Whitespace,
-                SingleLiteral,
-                Newline,
-            },
-            ObjectStatement {
-                ObjectKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0\""),
-                Semicolon,
-                Whitespace,
-                StringLiteral ("\"mscomctl.ocx\""),
-                Newline,
-            },
-            ObjectStatement {
-                ObjectKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0\""),
-                Semicolon,
-                Whitespace,
-                StringLiteral ("\"COMDLG32.OCX\""),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1760,35 +762,13 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let source = "Object = *\\G{00025600-0000-0000-C000-000000000046}#5.2#0; \"stdole2.tlb\"\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.frm", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            ObjectStatement {
-                ObjectKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                MultiplicationOperator,
-                BackwardSlashOperator,
-                Identifier ("G"),
-                LeftCurlyBrace,
-                IntegerLiteral ("00025600"),
-                SubtractionOperator,
-                IntegerLiteral ("0000"),
-                SubtractionOperator,
-                IntegerLiteral ("0000"),
-                SubtractionOperator,
-                Identifier ("C000"),
-                SubtractionOperator,
-                IntegerLiteral ("000000000046"),
-                RightCurlyBrace,
-                DateLiteral ("#5.2#"),
-                IntegerLiteral ("0"),
-                Semicolon,
-                Whitespace,
-                StringLiteral ("\"stdole2.tlb\""),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1800,21 +780,13 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let source = "Object = 5\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Unknown,
-            Whitespace,
-            AssignmentStatement {
-                IdentifierExpression {
-                    EqualityOperator,
-                },
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("5"),
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1824,37 +796,12 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let source = "Sub Test()\n    Object = 5\nEnd Sub\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    Unknown,
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            EqualityOperator,
-                        },
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("5"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

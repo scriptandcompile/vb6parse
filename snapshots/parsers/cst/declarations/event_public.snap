@@ -1,0 +1,27 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: EventStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: EventKeyword
+          text: Event
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Click
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
