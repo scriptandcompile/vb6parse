@@ -30,25 +30,19 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn parse_attribute_statement() {
         let source = "Attribute VB_Name = \"modTest\"\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AttributeStatement {
-                AttributeKeyword,
-                Whitespace,
-                Identifier ("VB_Name"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"modTest\""),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/attribute_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
