@@ -1,0 +1,75 @@
+---
+source: src/parsers/cst/assignment.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: condition
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Whitespace
+                  text: " "
+                - kind: LetStatement
+                  children:
+                    - kind: LetKeyword
+                      text: Let
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: x
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "5"
+                    - kind: Newline
+                      text: "\n"
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+                - kind: Newline
+                  text: "\n"
