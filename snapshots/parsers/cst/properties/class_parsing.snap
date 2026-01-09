@@ -1,0 +1,325 @@
+---
+source: src/parsers/cst/properties.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: VersionStatement
+      children:
+        - kind: VersionKeyword
+          text: VERSION
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "1.0"
+        - kind: Whitespace
+          text: " "
+        - kind: ClassKeyword
+          text: CLASS
+        - kind: Newline
+          text: "\n"
+    - kind: PropertiesBlock
+      children:
+        - kind: BeginKeyword
+          text: BEGIN
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: MultiUse
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: SubtractionOperator
+                  text: "-"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'True"
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: Persistable
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'NotPersistable"
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: DataBindingBehavior
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'vbNone"
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: DataSourceBehavior
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'vbNone"
+            - kind: Newline
+              text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: MTSTransactionMode
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'NotAnMTSObject"
+            - kind: Newline
+              text: "\n"
+        - kind: EndKeyword
+          text: END
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Name
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Class1\""
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_GlobalNameSpace
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Creatable
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: TrueKeyword
+          text: "True"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_PredeclaredId
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: AttributeStatement
+      children:
+        - kind: AttributeKeyword
+          text: Attribute
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: VB_Exposed
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: Newline
+          text: "\n"
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: Option
+        - kind: Whitespace
+          text: " "
+        - kind: ExplicitKeyword
+          text: Explicit
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: x
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerKeyword
+                  text: Integer
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: x
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "1"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
