@@ -1,0 +1,223 @@
+---
+source: src/parsers/cst/select_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: age
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IsKeyword
+                      text: Is
+                    - kind: Whitespace
+                      text: " "
+                    - kind: LessThanOperator
+                      text: "<"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "13"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: category
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"child\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IsKeyword
+                      text: Is
+                    - kind: Whitespace
+                      text: " "
+                    - kind: LessThanOperator
+                      text: "<"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "20"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: category
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"teen\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IsKeyword
+                      text: Is
+                    - kind: Whitespace
+                      text: " "
+                    - kind: LessThanOperator
+                      text: "<"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "65"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: category
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"adult\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: category
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"senior\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
