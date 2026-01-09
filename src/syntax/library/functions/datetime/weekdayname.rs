@@ -502,8 +502,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn weekdayname_basic() {
         let source = r"
@@ -513,48 +513,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("dayName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -567,49 +534,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    NameStatement {
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("dayNumber"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -621,55 +554,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("shortName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("3"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -681,44 +574,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    NameStatement {
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        IntegerLiteral ("2"),
-                        Comma,
-                        Whitespace,
-                        FalseKeyword,
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbMonday"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -730,57 +594,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("todayName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("Weekday"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    DateKeyword,
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -794,66 +616,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("7"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Debug"),
-                                PeriodOperator,
-                                PrintKeyword,
-                                Whitespace,
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                Identifier ("i"),
-                                RightParenthesis,
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -865,43 +636,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Today is \""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("Weekday"),
-                        LeftParenthesis,
-                        DateKeyword,
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -913,57 +656,15 @@ End Function
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetDayName"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("dayNum"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetDayName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("dayNum"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -975,64 +676,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("dayNames"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1044,87 +696,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("header"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("WeekdayName"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("1"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            BooleanLiteralExpression {
-                                                TrueKeyword,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("vbTab"),
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("2"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        BooleanLiteralExpression {
-                                            TrueKeyword,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1136,39 +716,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    CallStatement {
-                        Whitespace,
-                        CallKeyword,
-                        Whitespace,
-                        Identifier ("DisplayDay"),
-                        LeftParenthesis,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("dayNum"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1180,38 +736,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("vbMonday"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1228,88 +761,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("Weekday"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("dt"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"Monday\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("DoMonday"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"Friday\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("DoFriday"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1323,83 +783,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Weekday"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("dt"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"Saturday\""),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("IsWeekend"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                BooleanLiteralExpression {
-                                    TrueKeyword,
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1413,75 +805,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("day1"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("day2"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("SameDay"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1493,89 +825,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("formatted"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("WeekdayName"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("Weekday"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("dt"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\", \""),
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Format$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("dt"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"mmmm d, yyyy\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1587,52 +845,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("obj"),
-                            PeriodOperator,
-                            Identifier ("DayName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    MemberAccessExpression {
-                                        Identifier ("obj"),
-                                        PeriodOperator,
-                                        Identifier ("DayNumber"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1646,74 +867,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WithStatement {
-                        Whitespace,
-                        WithKeyword,
-                        Whitespace,
-                        Identifier ("dateInfo"),
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    PeriodOperator,
-                                },
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        NameKeyword,
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    CallExpression {
-                                        Identifier ("WeekdayName"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    PeriodOperator,
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            CallStatement {
-                                Identifier ("DayNumber"),
-                                Comma,
-                                Whitespace,
-                                PeriodOperator,
-                                Identifier ("Abbreviate"),
-                                RightParenthesis,
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        WithKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1725,52 +887,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("dayNum"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1786,86 +911,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        ResumeKeyword,
-                        Whitespace,
-                        NextKeyword,
-                        Newline,
-                    },
-                    NameStatement {
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("userInput"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            MemberAccessExpression {
-                                Identifier ("Err"),
-                                PeriodOperator,
-                                Identifier ("Number"),
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            NameStatement {
-                                Whitespace,
-                                NameKeyword,
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                StringLiteral ("\"Invalid\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1877,43 +931,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    PrintStatement {
-                        Whitespace,
-                        PrintKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        TrueKeyword,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1926,74 +952,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("formatter"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NewKeyword,
-                        Whitespace,
-                        Identifier ("DateFormatter"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("formatter"),
-                            PeriodOperator,
-                            Identifier ("DayName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("WeekdayName"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("Weekday"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                MemberAccessExpression {
-                                                    Identifier ("formatter"),
-                                                    PeriodOperator,
-                                                    Identifier ("TargetDate"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2009,117 +976,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("x"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("y"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        ElseIfClause {
-                            ElseIfKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("WeekdayName"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("Weekday"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("dt"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Monday\""),
-                                },
-                            },
-                            Whitespace,
-                            ThenKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                AssignmentStatement {
-                                    IdentifierExpression {
-                                        Identifier ("y"),
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("2"),
-                                    },
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2133,96 +998,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("WeekdayName"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Weekday"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("dt"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        BooleanLiteralExpression {
-                                            TrueKeyword,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"Mon\""),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("dt"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("dt"),
-                                    },
-                                    Whitespace,
-                                    AdditionOperator,
-                                    Whitespace,
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2234,71 +1018,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("initial"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Left$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("WeekdayName"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("dayNum"),
-                                                },
-                                            },
-                                            Comma,
-                                            Whitespace,
-                                            Argument {
-                                                BooleanLiteralExpression {
-                                                    TrueKeyword,
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("1"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2310,57 +1038,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("upperName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("UCase$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("WeekdayName"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("dayNum"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2372,94 +1058,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("display"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("IIf"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("abbreviated"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("WeekdayName"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("day"),
-                                                },
-                                            },
-                                            Comma,
-                                            Whitespace,
-                                            Argument {
-                                                BooleanLiteralExpression {
-                                                    TrueKeyword,
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("WeekdayName"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("day"),
-                                                },
-                                            },
-                                            Comma,
-                                            Whitespace,
-                                            Argument {
-                                                BooleanLiteralExpression {
-                                                    FalseKeyword,
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2471,43 +1078,14 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("days"),
-                        PeriodOperator,
-                        Identifier ("Add"),
-                        Whitespace,
-                        Identifier ("WeekdayName"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Comma,
-                        Whitespace,
-                        Identifier ("CStr"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/weekdayname",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
