@@ -352,8 +352,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn timevalue_basic() {
         let source = r#"
@@ -363,48 +363,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"14:30:00\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -416,48 +383,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("noon"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"12:00 PM\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -470,59 +404,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("myTime"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DateKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("myTime"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"8:15\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -534,57 +424,15 @@ End Function
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ParseTime"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("s"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DateKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("ParseTime"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("s"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -596,79 +444,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("newTime"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"10:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeSerial"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("30"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -682,75 +466,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"15:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"12:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Afternoon"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -762,40 +486,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Parsed: \""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("TimeValue"),
-                        LeftParenthesis,
-                        StringLiteral ("\"7:45 AM\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -807,38 +506,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("TimeValue"),
-                        LeftParenthesis,
-                        StringLiteral ("\"23:59:59\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -850,64 +526,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("formatted"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Format$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("TimeValue"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                StringLiteralExpression {
-                                                    StringLiteral ("\"18:30\""),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"hh:mm AM/PM\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -921,75 +548,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"6:00 PM\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"12:00 PM\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Evening"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1006,131 +573,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"8:00\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            IsKeyword,
-                            Whitespace,
-                            LessThanOperator,
-                            Whitespace,
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            StringLiteral ("\"12:00\""),
-                            RightParenthesis,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("Morning"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        CaseElseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            ElseKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("Afternoon"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
-    }
-
-    #[test]
-    fn timevalue_function_argument() {
-        let source = r#"
-Sub Test()
-    Call SetStartTime(obj, "9:00 AM")
-End Sub
-"#;
-        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    CallStatement {
-                        Whitespace,
-                        CallKeyword,
-                        Whitespace,
-                        Identifier ("SetStartTime"),
-                        LeftParenthesis,
-                        Identifier ("obj"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"9:00 AM\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
-        // The function SetStartTime uses TimeValue internally
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1142,50 +593,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("obj"),
-                            PeriodOperator,
-                            TimeKeyword,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"13:45\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1200,94 +616,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WithStatement {
-                        Whitespace,
-                        WithKeyword,
-                        Whitespace,
-                        Identifier ("schedule"),
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    PeriodOperator,
-                                },
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("Start"),
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    CallExpression {
-                                        Identifier ("TimeValue"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                StringLiteralExpression {
-                                                    StringLiteral ("\"8:00\""),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    PeriodOperator,
-                                },
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        EndKeyword,
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    CallExpression {
-                                        Identifier ("TimeValue"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                StringLiteralExpression {
-                                                    StringLiteral ("\"17:00\""),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        WithKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1299,66 +636,15 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("times"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("timeStrings"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("i"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1370,40 +656,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    PrintStatement {
-                        Whitespace,
-                        PrintKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("TimeValue"),
-                        LeftParenthesis,
-                        StringLiteral ("\"10:15:30\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1419,117 +680,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("x"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("y"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        ElseIfClause {
-                            ElseIfKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("TimeValue"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"18:00\""),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("TimeValue"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"12:00\""),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            ThenKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                AssignmentStatement {
-                                    IdentifierExpression {
-                                        Identifier ("y"),
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("2"),
-                                    },
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1543,73 +702,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"15:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"12:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Process"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1623,73 +724,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        UntilKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"8:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOrEqualOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"17:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Wait"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1703,71 +746,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WhileStatement {
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"9:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            LessThanOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"17:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Work"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        WendKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1779,88 +766,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("greeting"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("IIf"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        CallExpression {
-                                            Identifier ("TimeValue"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    StringLiteralExpression {
-                                                        StringLiteral ("\"8:00\""),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                        Whitespace,
-                                        LessThanOperator,
-                                        Whitespace,
-                                        CallExpression {
-                                            Identifier ("TimeValue"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    StringLiteralExpression {
-                                                        StringLiteral ("\"12:00\""),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Morning\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Afternoon\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1872,124 +786,15 @@ End Sub
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            CallExpression {
-                                Identifier ("TimeValue"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"12:00\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
-    }
-
-    #[test]
-    fn timevalue_class_usage() {
-        let source = r#"
-Sub Test()
-    Set parser = New TimeParser
-    t = parser.Parse("14:30")
-End Sub
-"#;
-        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
-        let cst = cst_opt.expect("CST should be parsed");
-
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("parser"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NewKeyword,
-                        Whitespace,
-                        Identifier ("TimeParser"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            MemberAccessExpression {
-                                Identifier ("parser"),
-                                PeriodOperator,
-                                Identifier ("Parse"),
-                            },
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"14:30\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
-        // The Parse method uses TimeValue internally
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2001,47 +806,14 @@ End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("t"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("TimeValue"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        SingleLiteral,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/timevalue",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
