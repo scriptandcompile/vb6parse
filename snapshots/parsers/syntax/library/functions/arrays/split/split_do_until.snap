@@ -1,0 +1,163 @@
+---
+source: src/syntax/library/functions/arrays/split.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: DoStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: DoKeyword
+                  text: Do
+                - kind: Whitespace
+                  text: " "
+                - kind: UntilKeyword
+                  text: Until
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: EOF
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: DimStatement
+                      children:
+                        - kind: DimKeyword
+                          text: Dim
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: data
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: RightParenthesis
+                          text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: AsKeyword
+                          text: As
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringKeyword
+                          text: String
+                        - kind: Newline
+                          text: "\n"
+                    - kind: LineInputStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: LineKeyword
+                          text: Line
+                        - kind: Whitespace
+                          text: " "
+                        - kind: InputKeyword
+                          text: Input
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Octothorpe
+                          text: "#"
+                        - kind: IntegerLiteral
+                          text: "1"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: currentLine
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: AssignmentStatement
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: data
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Split
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: currentLine
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\",\""
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
