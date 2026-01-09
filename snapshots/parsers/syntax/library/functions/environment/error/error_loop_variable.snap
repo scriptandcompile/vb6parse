@@ -1,0 +1,169 @@
+---
+source: src/syntax/library/functions/environment/error.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: i
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "3"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1000"
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: msg
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: ErrorKeyword
+                      text: Error
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: InStr
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: msg
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Application-defined\""
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: Debug
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: PrintKeyword
+                          text: Print
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: i
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: msg
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"

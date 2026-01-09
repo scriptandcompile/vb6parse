@@ -1,0 +1,89 @@
+---
+source: src/syntax/library/functions/environment/error.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: logEntry
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: BinaryExpression
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Format
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: Now
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"yyyy-mm-dd\""
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\" | \""
+            - kind: Whitespace
+              text: " "
+            - kind: Ampersand
+              text: "&"
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: Err
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Number
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"
