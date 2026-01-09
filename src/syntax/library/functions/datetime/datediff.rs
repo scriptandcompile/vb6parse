@@ -575,7 +575,7 @@ days = DateDiff("d", startDate, endDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -593,7 +593,7 @@ years = DateDiff("yyyy", birthDate, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -611,7 +611,7 @@ months = DateDiff("m", #1/1/2025#, #6/1/2025#)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -629,7 +629,7 @@ quarters = DateDiff("q", startDate, endDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -647,7 +647,7 @@ weeks = DateDiff("ww", lastMeeting, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -665,7 +665,7 @@ hours = DateDiff("h", startTime, endTime)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -683,7 +683,7 @@ minutes = DateDiff("n", startTime, endTime)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -701,7 +701,7 @@ seconds = DateDiff("s", startTime, Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -721,7 +721,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -739,7 +739,7 @@ weeks = DateDiff("ww", startDate, endDate, vbMonday)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -757,7 +757,7 @@ weeks = DateDiff("ww", startDate, endDate, vbMonday, vbFirstFourDays)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -777,7 +777,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -795,7 +795,7 @@ diff = DateDiff("d", endDate, startDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -813,7 +813,7 @@ diff = Abs(DateDiff("d", date1, date2))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -838,7 +838,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -856,7 +856,7 @@ days = DateDiff("y", startDate, endDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -874,7 +874,7 @@ days = DateDiff("w", startDate, endDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -894,7 +894,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -914,7 +914,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -932,7 +932,7 @@ minutes = DateDiff("n", startTime, endTime) Mod 60
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -950,7 +950,7 @@ MsgBox "Days: " & DateDiff("d", startDate, endDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -969,7 +969,7 @@ minutes = DateDiff("n", startTime, endTime) - (hours * 60)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -987,7 +987,7 @@ elapsed = DateDiff("s", startTime, Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1005,7 +1005,7 @@ diff = DateDiff("d", Date, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -1023,7 +1023,7 @@ total = DateDiff("d", startDate, endDate) * rate
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadiff",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadiff",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

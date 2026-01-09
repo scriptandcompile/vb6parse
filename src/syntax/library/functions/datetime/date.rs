@@ -486,7 +486,7 @@ today = Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -505,7 +505,7 @@ currentDate = Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -523,7 +523,7 @@ MsgBox "Today is: " & Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -543,7 +543,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -561,7 +561,7 @@ futureDate = Date + 30
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -579,7 +579,7 @@ daysPassed = Date - startDate
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -597,7 +597,7 @@ currentYear = Year(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -615,7 +615,7 @@ currentMonth = Month(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -633,7 +633,7 @@ currentDay = Day(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -651,7 +651,7 @@ formatted = Format(Date, "yyyy-mm-dd")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -671,7 +671,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -689,7 +689,7 @@ lastDay = DateSerial(Year(Date), Month(Date) + 1, 0)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -712,7 +712,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -734,7 +734,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -752,7 +752,7 @@ fileName = "Report_" & Date & ".txt"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -772,7 +772,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -790,7 +790,7 @@ dayOfWeek = Weekday(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -809,7 +809,7 @@ rs.Update
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -829,7 +829,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -852,7 +852,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -872,7 +872,7 @@ range = endDate - startDate
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -890,7 +890,7 @@ today = CDate(Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -908,7 +908,7 @@ Print #1, Date() & " - Log entry"
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -927,7 +927,7 @@ value = Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -945,7 +945,7 @@ result = DateSerial(Year(Date), 12, 31) - Date
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/date",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/date",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();

@@ -520,7 +520,7 @@ result = DateAdd("d", 30, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -538,7 +538,7 @@ nextYear = DateAdd("yyyy", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -556,7 +556,7 @@ nextMonth = DateAdd("m", 1, startDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -574,7 +574,7 @@ pastDate = DateAdd("d", -7, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -592,7 +592,7 @@ later = DateAdd("h", 6, Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -610,7 +610,7 @@ later = DateAdd("n", 90, Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -628,7 +628,7 @@ later = DateAdd("s", 3600, Now)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -646,7 +646,7 @@ nextWeek = DateAdd("ww", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -664,7 +664,7 @@ nextQuarter = DateAdd("q", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -684,7 +684,7 @@ End Function
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -702,7 +702,7 @@ result = DateAdd("m", 6, #1/1/2025#)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -720,7 +720,7 @@ result = DateAdd("d", -1, DateAdd("m", 3, startDate))
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -740,7 +740,7 @@ End If
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -760,7 +760,7 @@ result = DateAdd(interval, 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -780,7 +780,7 @@ Next i
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -803,7 +803,7 @@ End Select
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -821,7 +821,7 @@ formatted = Format(DateAdd("d", 7, Date), "yyyy-mm-dd")
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -839,7 +839,7 @@ result = DateAdd("y", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -857,7 +857,7 @@ result = DateAdd("w", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -876,7 +876,7 @@ dates(1) = DateAdd("m", 1, startDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -895,7 +895,7 @@ finish = DateAdd("m", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -913,7 +913,7 @@ MsgBox "Next week: " & DateAdd("ww", 1, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -931,7 +931,7 @@ result = DateAdd("d", days * 2, startDate)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -949,7 +949,7 @@ result = DateAdd("d", 0, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
@@ -967,7 +967,7 @@ result = DateAdd("d", 365, Date)
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path(
-            "../../../../../snapshots/parsers/syntax/library/functions/conversion/dateadd",
+            "../../../../../snapshots/parsers/syntax/library/functions/datetime/dateadd",
         );
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
