@@ -303,8 +303,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn type_simple() {
         let source = r"
@@ -315,34 +315,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Point"),
-                Newline,
-                Whitespace,
-                Identifier ("x"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("y"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -358,55 +337,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Employee"),
-                Newline,
-                Whitespace,
-                Identifier ("EmployeeID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("FirstName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("LastName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("HireDate"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DateKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Salary"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                CurrencyKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -421,50 +358,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                PublicKeyword,
-                Whitespace,
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Rectangle"),
-                Newline,
-                Whitespace,
-                Identifier ("Left"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Top"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Right"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Bottom"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -477,36 +377,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                PrivateKeyword,
-                Whitespace,
-                TypeKeyword,
-                Whitespace,
-                Identifier ("InternalData"),
-                Newline,
-                Whitespace,
-                Identifier ("Buffer"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Length"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -520,49 +397,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("CustomerRecord"),
-                Newline,
-                Whitespace,
-                Identifier ("CustomerID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("CustomerName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("50"),
-                Newline,
-                Whitespace,
-                Identifier ("Address"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("100"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -575,41 +416,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("SalesData"),
-                Newline,
-                Whitespace,
-                Identifier ("SalesPersonID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("MonthlySales"),
-                LeftParenthesis,
-                IntegerLiteral ("1"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("12"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                CurrencyKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -621,41 +434,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Matrix"),
-                Newline,
-                Whitespace,
-                Identifier ("Data"),
-                LeftParenthesis,
-                IntegerLiteral ("1"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("10"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("10"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -668,36 +453,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("DynamicBuffer"),
-                Newline,
-                Whitespace,
-                Identifier ("Items"),
-                LeftParenthesis,
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Count"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -719,97 +481,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("AllTypes"),
-                Newline,
-                Whitespace,
-                Identifier ("ByteField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ByteKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("BoolField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                BooleanKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("IntField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("LongField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("CurrField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                CurrencyKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("SingleField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("DoubleField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("DateField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DateKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("StringField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("ObjectField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ObjectKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("VariantField"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -827,59 +505,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Address"),
-                Newline,
-                Whitespace,
-                Identifier ("Street"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("City"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Person"),
-                Newline,
-                Whitespace,
-                NameKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("HomeAddress"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Identifier ("Address"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -894,48 +526,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Employee"),
-                Newline,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("EmployeeID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("FirstName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("LastName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -946,20 +543,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("EmptyType"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -971,27 +561,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("SimpleType"),
-                Newline,
-                Whitespace,
-                Identifier ("Value"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1003,34 +579,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("BoundedArray"),
-                Newline,
-                Whitespace,
-                Identifier ("Items"),
-                LeftParenthesis,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("99"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1042,35 +597,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("NegativeBounds"),
-                Newline,
-                Whitespace,
-                Identifier ("Values"),
-                LeftParenthesis,
-                SubtractionOperator,
-                IntegerLiteral ("10"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("10"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1085,48 +618,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("RECT"),
-                Newline,
-                Whitespace,
-                Identifier ("Left"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Top"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Right"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Bottom"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1142,45 +640,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Type1"),
-                Newline,
-                Whitespace,
-                Identifier ("Field1"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Type2"),
-                Newline,
-                Whitespace,
-                Identifier ("Field2"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1193,34 +659,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("DataContainer"),
-                Newline,
-                Whitespace,
-                Identifier ("RecordSet"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ObjectKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Connection"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ObjectKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1233,34 +678,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("FlexibleData"),
-                Newline,
-                Whitespace,
-                Identifier ("DataType"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("DataValue"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1273,69 +697,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("ComplexArrays"),
-                Newline,
-                Whitespace,
-                Identifier ("Matrix2D"),
-                LeftParenthesis,
-                IntegerLiteral ("1"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("5"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("5"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Matrix3D"),
-                LeftParenthesis,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("2"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1349,41 +717,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("KeywordFields"),
-                Newline,
-                Whitespace,
-                NameKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1396,38 +736,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("FileRecord"),
-                Newline,
-                Whitespace,
-                Identifier ("FileName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("255"),
-                Newline,
-                Whitespace,
-                Identifier ("FileSize"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1442,64 +757,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("ContactInfo"),
-                Newline,
-                Whitespace,
-                Identifier ("FirstName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("30"),
-                Newline,
-                Whitespace,
-                Identifier ("LastName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("30"),
-                Newline,
-                Whitespace,
-                Identifier ("Phone"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("15"),
-                Newline,
-                Whitespace,
-                Identifier ("Email"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("50"),
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1512,38 +776,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Config"),
-                Newline,
-                Whitespace,
-                Identifier ("MaxConnections"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("TimeoutSeconds"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1558,40 +797,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("Data"),
-                Newline,
-                Whitespace,
-                RemComment,
-                Newline,
-                Whitespace,
-                Identifier ("ID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                RemComment,
-                Newline,
-                Whitespace,
-                NameKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1605,41 +817,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("PROCESSENTRY32"),
-                Newline,
-                Whitespace,
-                Identifier ("dwSize"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("cntUsage"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("th32ProcessID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1653,41 +837,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("MixedCase"),
-                Newline,
-                Whitespace,
-                Identifier ("firstName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("LastName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("EMPLOYEE_ID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1700,41 +856,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("BinaryData"),
-                Newline,
-                Whitespace,
-                Identifier ("Buffer"),
-                LeftParenthesis,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("255"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ByteKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Length"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1763,135 +891,13 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                PublicKeyword,
-                Whitespace,
-                TypeKeyword,
-                Whitespace,
-                Identifier ("CustomerRecord"),
-                Newline,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("CustomerID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("AccountNumber"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("20"),
-                Newline,
-                Whitespace,
-                Newline,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("FirstName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("50"),
-                Newline,
-                Whitespace,
-                Identifier ("LastName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("50"),
-                Newline,
-                Whitespace,
-                Identifier ("Email"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Whitespace,
-                MultiplicationOperator,
-                Whitespace,
-                IntegerLiteral ("100"),
-                Newline,
-                Whitespace,
-                Newline,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("Balance"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                CurrencyKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("CreditLimit"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                CurrencyKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("TransactionHistory"),
-                LeftParenthesis,
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                Whitespace,
-                Newline,
-                Whitespace,
-                EndOfLineComment,
-                Newline,
-                Whitespace,
-                Identifier ("CreatedDate"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DateKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("LastModified"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DateKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("IsActive"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                BooleanKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1904,40 +910,12 @@ End Type
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            TypeStatement {
-                TypeKeyword,
-                Whitespace,
-                Identifier ("ZeroBasedData"),
-                Newline,
-                Whitespace,
-                Identifier ("Items"),
-                LeftParenthesis,
-                IntegerLiteral ("0"),
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IntegerLiteral ("9"),
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                Whitespace,
-                Identifier ("Count"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                EndKeyword,
-                Whitespace,
-                TypeKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/type_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
