@@ -1,0 +1,59 @@
+---
+source: src/syntax/library/functions/datetime/second.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WhileStatement
+      children:
+        - kind: WhileKeyword
+          text: While
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Second
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: Now
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "45"
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Wait
+                - kind: Newline
+                  text: "\n"
+        - kind: WendKeyword
+          text: Wend
+        - kind: Newline
+          text: "\n"
