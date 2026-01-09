@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/conversion/oct.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: LogValue
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"Octal\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Oct
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: deviceCode
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
