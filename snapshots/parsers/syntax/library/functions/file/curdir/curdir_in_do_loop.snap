@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/functions/file/curdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: WhileKeyword
+          text: While
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: CurDir
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children: []
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: InequalityOperator
+              text: "<>"
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteralExpression
+              children:
+                - kind: StringLiteral
+                  text: "\"C:\\\""
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: ChDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ChDirKeyword
+                  text: ChDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"..\""
+                - kind: Newline
+                  text: "\n"
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"
