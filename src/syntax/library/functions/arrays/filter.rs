@@ -802,28 +802,15 @@ filtered = Filter(fruits, "e")
         let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression { Identifier ("filtered") },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument { IdentifierExpression { Identifier ("fruits") } },
-                        Comma,
-                        Whitespace,
-                        Argument { StringLiteralExpression { StringLiteral ("\"e\"") } },
-                    },
-                    RightParenthesis
-                },
-                Newline
-            }
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -834,45 +821,15 @@ filtered = Filter(fruits, "e", False)
         let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filtered")
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("fruits")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"e\"")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                FalseKeyword
-                            }
-                        }
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            }
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -883,52 +840,15 @@ filtered = Filter(fruits, "a", True, vbTextCompare)
         let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filtered")
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("fruits")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"a\"")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare")
-                            }
-                        }
-                    },
-                    RightParenthesis
-                },
-                Newline,
-            }
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -939,52 +859,15 @@ result = Filter(names, "J", True, vbBinaryCompare)
         let (cst_opt, _failure) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result")
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("names")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"J\"")
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword
-                            }
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbBinaryCompare")
-                            }
-                        }
-                    },
-                    RightParenthesis
-                },
-                Newline
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -994,45 +877,15 @@ textFiles = Filter(files, ".bak", False)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("textFiles"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("files"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\".bak\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1044,89 +897,15 @@ End Function
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("SearchList"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("items"),
-                    LeftParenthesis,
-                    RightParenthesis,
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("searchTerm"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                LeftParenthesis,
-                RightParenthesis,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("SearchList"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Filter"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("items"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("searchTerm"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbTextCompare"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1140,115 +919,15 @@ End If
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("matches"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchTerm"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("UBound"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("matches"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    GreaterThanOrEqualOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("count"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("UBound"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("matches"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1259,73 +938,15 @@ result = temp
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("temp"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("filters"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("i"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("temp"),
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1338,85 +959,15 @@ Next i
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filtered"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("sourceArray"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"test\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("0"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("UBound"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("filtered"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("lstBox"),
-                        PeriodOperator,
-                        Identifier ("AddItem"),
-                        Whitespace,
-                        Identifier ("filtered"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1430,94 +981,15 @@ ErrorHandler:
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                GotoKeyword,
-                Whitespace,
-                Identifier ("ErrorHandler"),
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filtered"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("sourceArray"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchText"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            ExitStatement {
-                ExitKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-            LabelStatement {
-                Identifier ("ErrorHandler"),
-                ColonOperator,
-                Newline,
-            },
-            Whitespace,
-            ReDimStatement {
-                ReDimKeyword,
-                Whitespace,
-                Identifier ("filtered"),
-                LeftParenthesis,
-                NumericLiteralExpression {
-                    IntegerLiteral ("0"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                UnaryExpression {
-                    SubtractionOperator,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1"),
-                    },
-                },
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1532,105 +1004,15 @@ End If
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("Trim"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("searchTerm"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("results"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("items"),
-                        },
-                        Newline,
-                    },
-                },
-                ElseClause {
-                    ElseKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("results"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Filter"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("items"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("searchTerm"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        BooleanLiteralExpression {
-                                            TrueKeyword,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbTextCompare"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1640,52 +1022,15 @@ txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("txtFiles"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("allFiles"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\".txt\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1697,76 +1042,15 @@ result = Filter(sourceData, pattern, includeMatches, searchMode)
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("searchMode"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("vbTextCompare"),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("includeMatches"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BooleanLiteralExpression {
-                    TrueKeyword,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("sourceData"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("pattern"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("includeMatches"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchMode"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1777,89 +1061,15 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("levelTag"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        StringLiteralExpression {
-                            StringLiteral ("\"[\""),
-                        },
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("UCase"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("level"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"]\""),
-                    },
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("logEntries"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("levelTag"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1870,94 +1080,15 @@ temp = Filter(temp, excludeText, False, vbTextCompare)
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("temp"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("includeText"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("temp"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("temp"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("excludeText"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1967,35 +1098,15 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("Debug"),
-                PeriodOperator,
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"Found: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("UBound"),
-                LeftParenthesis,
-                Identifier ("Filter"),
-                LeftParenthesis,
-                Identifier ("items"),
-                Comma,
-                Whitespace,
-                Identifier ("searchTerm"),
-                RightParenthesis,
-                RightParenthesis,
-                Whitespace,
-                AdditionOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2005,52 +1116,15 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("matchedNames"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("names"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchTerm"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2063,120 +1137,15 @@ End If
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("InStr"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                MemberAccessExpression {
-                                    CallExpression {
-                                        Identifier ("records"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("i"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                    PeriodOperator,
-                                    NameKeyword,
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("searchTerm"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("vbTextCompare"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("matches"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Filter"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("names"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("searchTerm"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbTextCompare"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2187,64 +1156,15 @@ cachedResults = filtered
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filtered"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("cachedResults"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("currentSearch"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("cachedResults"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("filtered"),
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2257,94 +1177,15 @@ End If
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("results"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchTerm"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("UBound"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("results"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        StringLiteral ("\"No matches\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2360,117 +1201,15 @@ result = Filter(items, searchTerm, True, compareMode)
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("searchTerm"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("LCase"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("searchTerm"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("compareMode"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("vbBinaryCompare"),
-                        },
-                        Newline,
-                    },
-                },
-                ElseClause {
-                    ElseKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("compareMode"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchTerm"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("compareMode"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2482,82 +1221,15 @@ End If
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("IsNull"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("items"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Filter"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("items"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("searchTerm"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbTextCompare"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2569,78 +1241,15 @@ End If
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IsArray"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("filtered"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Filter"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("items"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("searchTerm"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    BooleanLiteralExpression {
-                                        TrueKeyword,
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbTextCompare"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2652,96 +1261,15 @@ elapsedMs = (Timer - startTime) * 1000
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("startTime"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Timer"),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("results"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("items"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("searchTerm"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("elapsedMs"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    ParenthesizedExpression {
-                        LeftParenthesis,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("Timer"),
-                            },
-                            Whitespace,
-                            SubtractionOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("startTime"),
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1000"),
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2755,89 +1283,15 @@ Next item
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("item"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("matches"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Filter"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("sourceArray"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("pattern"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTextCompare"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            ForEachStatement {
-                ForKeyword,
-                Whitespace,
-                EachKeyword,
-                Whitespace,
-                Identifier ("item"),
-                Whitespace,
-                InKeyword,
-                Whitespace,
-                Identifier ("matches"),
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("item"),
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("item"),
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2853,127 +1307,14 @@ End Select
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("filterType"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"include\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Filter"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("items"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("term"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        BooleanLiteralExpression {
-                                            TrueKeyword,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbTextCompare"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"exclude\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Filter"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("items"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("term"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        BooleanLiteralExpression {
-                                            FalseKeyword,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbTextCompare"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/arrays/filter",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
