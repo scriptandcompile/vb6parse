@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/datetime/datepart.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Quarter: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: DatePart
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"q\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: DateKeyword
+          text: Date
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
