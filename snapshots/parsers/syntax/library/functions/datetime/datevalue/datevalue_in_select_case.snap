@@ -1,0 +1,97 @@
+---
+source: src/syntax/library/functions/datetime/datevalue.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: DateValue
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: inputDate
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: DateKeyword
+              text: Date
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Today\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseElseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: ElseKeyword
+              text: Else
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: CallStatement
+                  children:
+                    - kind: Identifier
+                      text: MsgBox
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Other day\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"
