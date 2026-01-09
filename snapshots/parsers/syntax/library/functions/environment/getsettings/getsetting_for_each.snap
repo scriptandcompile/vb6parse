@@ -1,0 +1,157 @@
+---
+source: src/syntax/library/functions/environment/getsetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: ctrl
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Control
+                - kind: Newline
+                  text: "\n"
+            - kind: ForEachStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: EachKeyword
+                  text: Each
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: ctrl
+                - kind: Whitespace
+                  text: " "
+                - kind: InKeyword
+                  text: In
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Controls
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: AssignmentStatement
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: ctrl
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Tag
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: GetSetting
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"MyApp\""
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"Controls\""
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: MemberAccessExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: ctrl
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: NameKeyword
+                                          text: Name
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: StringLiteralExpression
+                                      children:
+                                        - kind: StringLiteral
+                                          text: "\"\""
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
