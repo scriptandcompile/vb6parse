@@ -1,0 +1,57 @@
+---
+source: src/syntax/library/functions/environment/getallsettings.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: lst
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: AddItem
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: allSettings
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "0"
+    - kind: Unknown
+      text: )
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\" = \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: allSettings
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "1"
+    - kind: Unknown
+      text: )

@@ -783,43 +783,22 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn getallsettings_basic() {
         let source = r#"allSettings = GetAllSettings("MyApp", "Preferences")"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("allSettings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"MyApp\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Preferences\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -827,36 +806,15 @@ mod tests {
         let source = r"settings = GetAllSettings(appName, sectionName)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("appName"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("sectionName"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -864,38 +822,15 @@ mod tests {
         let source = r#"settings = GetAllSettings(App.Title, "WindowPos")"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            MemberAccessExpression {
-                                Identifier ("App"),
-                                PeriodOperator,
-                                Identifier ("Title"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"WindowPos\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -903,47 +838,15 @@ mod tests {
         let source = r#"If IsEmpty(GetAllSettings("MyApp", "Config")) Then MsgBox "No settings""#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IsEmpty"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("GetAllSettings"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"MyApp\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"Config\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                Identifier ("MsgBox"),
-                Whitespace,
-                StringLiteral ("\"No settings\""),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -953,59 +856,15 @@ mod tests {
 End Function"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("LoadSettings"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("LoadSettings"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("GetAllSettings"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    MemberAccessExpression {
-                                        Identifier ("App"),
-                                        PeriodOperator,
-                                        Identifier ("Title"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"General\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1015,81 +874,15 @@ End Function"#;
 Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LBound"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("settings"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("UBound"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("settings"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("settings"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("0"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1097,68 +890,15 @@ Next i";
         let source = r#"value = allSettings(i, 0) & " = " & allSettings(i, 1)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        CallExpression {
-                            Identifier ("allSettings"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("0"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\" = \""),
-                        },
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("allSettings"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1169,60 +909,15 @@ Next i";
 End Select"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("allSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("j"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"Theme\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("ApplyTheme"),
-                            Whitespace,
-                            Identifier ("allSettings"),
-                            LeftParenthesis,
-                            Identifier ("j"),
-                            Comma,
-                            Whitespace,
-                            IntegerLiteral ("1"),
-                            RightParenthesis,
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1231,46 +926,15 @@ End Select"#;
 settings = GetAllSettings("MyApp", "Settings")"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("settings"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"MyApp\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Settings\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1278,49 +942,15 @@ settings = GetAllSettings("MyApp", "Settings")"#;
         let source = r"If Not IsEmpty(GetAllSettings(appName, section)) Then ProcessSettings";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("IsEmpty"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                CallExpression {
-                                    Identifier ("GetAllSettings"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("appName"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("section"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                Identifier ("ProcessSettings"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1329,38 +959,15 @@ settings = GetAllSettings("MyApp", "Settings")"#;
             r#"Debug.Print "Settings count: " & (UBound(GetAllSettings(appName, section), 1) + 1)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Identifier ("Debug"),
-            Unknown,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"Settings count: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                LeftParenthesis,
-                Identifier ("UBound"),
-                LeftParenthesis,
-                Identifier ("GetAllSettings"),
-                LeftParenthesis,
-                Identifier ("appName"),
-                Comma,
-                Whitespace,
-                Identifier ("section"),
-                RightParenthesis,
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                RightParenthesis,
-                Whitespace,
-                AdditionOperator,
-                Whitespace,
-                IntegerLiteral ("1"),
-                RightParenthesis,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1369,41 +976,15 @@ settings = GetAllSettings("MyApp", "Settings")"#;
             r#"MsgBox "Found " & (UBound(GetAllSettings("App", "Section"), 1) + 1) & " settings""#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("MsgBox"),
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Identifier("UBound"),
-                Unknown,
-                Identifier("GetAllSettings"),
-                Unknown,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-            ]
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1412,46 +993,15 @@ settings = GetAllSettings("MyApp", "Settings")"#;
 settings = GetAllSettings(appName, section)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                GotoKeyword,
-                Whitespace,
-                Identifier ("ErrorHandler"),
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("appName"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("section"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1459,37 +1009,15 @@ settings = GetAllSettings(appName, section)";
         let source = r#"lst.AddItem allSettings(i, 0) & " = " & allSettings(i, 1)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("lst"),
-                Unknown,
-                Identifier("AddItem"),
-                Whitespace,
-                Identifier("allSettings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("allSettings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1497,32 +1025,15 @@ settings = GetAllSettings(appName, section)";
         let source = r"prefs.Add settings(i, 1), settings(i, 0)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("prefs"),
-                Unknown,
-                Identifier("Add"),
-                Whitespace,
-                Identifier("settings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Identifier("settings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1530,38 +1041,15 @@ settings = GetAllSettings(appName, section)";
         let source = r#"Print #fileNum, settings(i, 0) & "=" & settings(i, 1)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-                Comma,
-                Whitespace,
-                Identifier ("settings"),
-                LeftParenthesis,
-                Identifier ("i"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                RightParenthesis,
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                StringLiteral ("\"=\""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("settings"),
-                LeftParenthesis,
-                Identifier ("i"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                RightParenthesis,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1569,70 +1057,15 @@ settings = GetAllSettings(appName, section)";
         let source = r"If settings1(i, 0) <> settings2(i, 0) Then changed = True";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("settings1"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("settings2"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("changed"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    BooleanLiteralExpression {
-                        TrueKeyword,
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1640,32 +1073,15 @@ settings = GetAllSettings(appName, section)";
         let source = r"dict.Add settings(i, 0), settings(i, 1)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("dict"),
-                Unknown,
-                Identifier("Add"),
-                Whitespace,
-                Identifier("settings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Identifier("settings"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1673,83 +1089,15 @@ settings = GetAllSettings(appName, section)";
         let source = r#"newValue = InputBox("Enter new value for: " & settings(i, 0), "Edit Setting", settings(i, 1))"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("newValue"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("InputBox"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Enter new value for: \""),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("settings"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("i"),
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("0"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Edit Setting\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("settings"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("i"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1757,36 +1105,15 @@ settings = GetAllSettings(appName, section)";
         let source = r"m_Settings = GetAllSettings(m_AppName, m_Section)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("m_Settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("m_AppName"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("m_Section"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1794,38 +1121,15 @@ settings = GetAllSettings(appName, section)";
         let source = r"backup.Settings = GetAllSettings(appName, section)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("backup"),
-                    PeriodOperator,
-                    Identifier ("Settings"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetAllSettings"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("appName"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("section"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1836,89 +1140,15 @@ settings = GetAllSettings(appName, section)";
 Loop";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("i"),
-                    },
-                    Whitespace,
-                    LessThanOrEqualOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("UBound"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("settings"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessSetting"),
-                        Whitespace,
-                        Identifier ("settings"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("0"),
-                        RightParenthesis,
-                        Comma,
-                        Whitespace,
-                        Identifier ("settings"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("1"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("i"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1926,76 +1156,15 @@ Loop";
         let source = r#"msg = "Key: " & settings(i, 0) & " Value: " & settings(i, 1)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("msg"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        BinaryExpression {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Key: \""),
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("settings"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("i"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\" Value: \""),
-                        },
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("settings"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2003,68 +1172,15 @@ Loop";
         let source = r"ReDim decrypted(LBound(settings, 1) To UBound(settings, 1), 0 To 1)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            ReDimStatement {
-                ReDimKeyword,
-                Whitespace,
-                Identifier ("decrypted"),
-                LeftParenthesis,
-                CallExpression {
-                    Identifier ("LBound"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("settings"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("UBound"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("settings"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Comma,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("0"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                RightParenthesis,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2072,35 +1188,15 @@ Loop";
         let source = r"SaveSetting appName, section, settings(i, 0), settings(i, 1)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SaveSettingStatement {
-                SaveSettingKeyword,
-                Whitespace,
-                Identifier ("appName"),
-                Comma,
-                Whitespace,
-                Identifier ("section"),
-                Comma,
-                Whitespace,
-                Identifier ("settings"),
-                LeftParenthesis,
-                Identifier ("i"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                RightParenthesis,
-                Comma,
-                Whitespace,
-                Identifier ("settings"),
-                LeftParenthesis,
-                Identifier ("i"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                RightParenthesis,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2108,38 +1204,14 @@ Loop";
         let source = r"If IsEmpty(m_Settings) Then SettingCount = 0";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IsEmpty"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("m_Settings"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("SettingCount"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/environment/getallsettings",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

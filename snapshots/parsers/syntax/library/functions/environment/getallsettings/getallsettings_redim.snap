@@ -1,0 +1,95 @@
+---
+source: src/syntax/library/functions/environment/getallsettings.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: ReDimStatement
+      children:
+        - kind: ReDimKeyword
+          text: ReDim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: decrypted
+        - kind: LeftParenthesis
+          text: (
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LBound
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: settings
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "1"
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: UBound
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: settings
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "1"
+            - kind: RightParenthesis
+              text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "0"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: RightParenthesis
+          text: )
