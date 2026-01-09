@@ -1,0 +1,69 @@
+---
+source: src/syntax/library/functions/arrays/filter.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: result
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Filter
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: names
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"J\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: BooleanLiteralExpression
+                      children:
+                        - kind: TrueKeyword
+                          text: "True"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: vbBinaryCompare
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
