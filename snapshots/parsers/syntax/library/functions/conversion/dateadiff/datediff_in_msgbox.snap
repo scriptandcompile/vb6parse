@@ -1,0 +1,45 @@
+---
+source: src/syntax/library/functions/datetime/datediff.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Days: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: DateDiff
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"d\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: startDate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: endDate
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
