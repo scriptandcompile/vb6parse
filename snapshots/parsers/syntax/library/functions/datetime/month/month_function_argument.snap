@@ -1,0 +1,31 @@
+---
+source: src/syntax/library/functions/datetime/month.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessMonth
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Month
+        - kind: LeftParenthesis
+          text: (
+        - kind: DateKeyword
+          text: Date
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
