@@ -1,0 +1,131 @@
+---
+source: src/parsers/cst/parameters.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Process
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Whitespace
+              text: " "
+            - kind: Underscore
+              text: _
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "  "
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Switch
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Underscore
+              text: _
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "  "
+            - kind: OptionalKeyword
+              text: Optional
+            - kind: Whitespace
+              text: " "
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Position
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Underscore
+              text: _
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "  "
+            - kind: OptionalKeyword
+              text: Optional
+            - kind: Whitespace
+              text: " "
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: UseWildcard
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: BooleanKeyword
+              text: Boolean
+            - kind: Whitespace
+              text: " "
+            - kind: Underscore
+              text: _
+            - kind: Newline
+              text: "\n"
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children: []
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

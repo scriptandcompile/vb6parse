@@ -1,0 +1,57 @@
+---
+source: src/parsers/cst/parameters.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: PropertyStatement
+      children:
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Whitespace
+          text: " "
+        - kind: GetKeyword
+          text: Get
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Item
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: index
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: VariantKeyword
+          text: Variant
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children: []
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Newline
+          text: "\n"
