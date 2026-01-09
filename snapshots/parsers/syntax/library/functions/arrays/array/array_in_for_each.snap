@@ -1,0 +1,101 @@
+---
+source: src/syntax/library/functions/arrays/array.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: ForEachStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: EachKeyword
+                  text: Each
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: item
+                - kind: Whitespace
+                  text: " "
+                - kind: InKeyword
+                  text: In
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Array
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "2"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "3"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: Process
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: item
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: item
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
