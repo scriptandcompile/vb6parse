@@ -1,0 +1,95 @@
+---
+source: src/syntax/library/functions/datetime/year.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: analyzer
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NewKeyword
+                  text: New
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: YearAnalyzer
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: MemberAccessExpression
+                  children:
+                    - kind: Identifier
+                      text: analyzer
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: CurrentYear
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Year
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: DateKeyword
+                                  text: Date
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
