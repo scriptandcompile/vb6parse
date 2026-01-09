@@ -1,0 +1,101 @@
+---
+source: src/syntax/library/functions/datetime/minute.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: i
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: count
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "                "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: m
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Minute
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: appointments
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
