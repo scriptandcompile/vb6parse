@@ -1,0 +1,47 @@
+---
+source: src/syntax/library/functions/environment/getallsettings.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: prefs
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: Add
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: settings
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "1"
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: settings
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "0"
+    - kind: Unknown
+      text: )
