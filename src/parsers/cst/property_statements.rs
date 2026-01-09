@@ -112,8 +112,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
-    use crate::parsers::ConcreteSyntaxTree;
+    use crate::*;
+
     #[test]
     fn property_get_simple() {
         let source = r"
@@ -123,41 +123,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Name"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    NameStatement {
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("m_name"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -169,48 +141,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("Name"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("newName"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_name"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("newName"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -222,44 +159,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                SetKeyword,
-                Whitespace,
-                Identifier ("Container"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("glistNN"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("gList"),
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("glistN"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("glistNN"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -271,46 +177,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                SetKeyword,
-                Whitespace,
-                Identifier ("Callback"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByRefKeyword,
-                    Whitespace,
-                    Identifier ("newObj"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("InterPress"),
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("mCallback"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("newObj"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -322,47 +195,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Value"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("Value"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("m_value"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -374,50 +213,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PrivateKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("Count"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("newCount"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_count"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("newCount"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -429,46 +231,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                FriendKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                SetKeyword,
-                Whitespace,
-                Identifier ("objref"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("RHS"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    ObjectKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("m_objref"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("RHS"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -480,61 +249,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Item"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("index"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                VariantKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("Item"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("m_items"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("index"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -546,56 +267,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                SetKeyword,
-                Whitespace,
-                Identifier ("item"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("curitem"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("item"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    VariantKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("m_items"),
-                        LeftParenthesis,
-                        Identifier ("curitem"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("item"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -612,147 +290,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("CustomColor"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("i"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("fNotFirst"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("InitColors"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                GreaterThanOrEqualOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            Whitespace,
-                            AndKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                LessThanOrEqualOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("15"),
-                                },
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("CustomColor"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("alCustom"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("i"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        ElseClause {
-                            ElseKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                AssignmentStatement {
-                                    IdentifierExpression {
-                                        Identifier ("CustomColor"),
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -767,127 +311,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("CustomColor"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("i"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("iValue"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("fNotFirst"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        Identifier ("InitColors"),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                GreaterThanOrEqualOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            Whitespace,
-                            AndKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("i"),
-                                },
-                                Whitespace,
-                                LessThanOrEqualOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("15"),
-                                },
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                CallExpression {
-                                    Identifier ("alCustom"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("i"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("iValue"),
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -899,45 +329,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("APIReturn"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("APIReturn"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("m_lApiReturn"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -949,47 +347,13 @@ End   Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                SetKeyword,
-                Whitespace,
-                Identifier ("Container"),
-                Whitespace,
-                ParameterList {
-                    LeftParenthesis,
-                    Whitespace,
-                    Identifier ("glistNN"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    Identifier ("gList"),
-                    Whitespace,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("glistN"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("glistNN"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1016,184 +380,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                PrivateKeyword,
-                Whitespace,
-                Identifier ("m_name"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-            DimStatement {
-                PrivateKeyword,
-                Whitespace,
-                Identifier ("m_value"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-            },
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Name"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    NameStatement {
-                        Whitespace,
-                        NameKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("m_name"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("Name"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("newName"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_name"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("newName"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Value"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("Value"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("m_value"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("Value"),
-                ParameterList {
-                    LeftParenthesis,
-                    ByValKeyword,
-                    Whitespace,
-                    Identifier ("newValue"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_value"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("newValue"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1205,43 +398,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Callback"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Identifier ("InterPress"),
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("Callback"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("mCallback"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1254,70 +417,13 @@ End Property
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("m_value"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"\""),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        ExitStatement {
-                            ExitKeyword,
-                            Whitespace,
-                            PropertyKeyword,
-                            Newline,
-                        },
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("Test"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("m_value"),
-                            },
-                            Newline,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        PropertyKeyword,
-                        Newline,
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1331,81 +437,13 @@ End Property
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                StaticKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("Counter"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                LongKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        StaticKeyword,
-                        Whitespace,
-                        Identifier ("count"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        LongKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("count"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("count"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("Counter"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("count"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1425,171 +463,12 @@ End Property
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            PropertyStatement {
-                PublicKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Whitespace,
-                LetKeyword,
-                Whitespace,
-                Identifier ("Caption"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("myCap"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("mCaptext"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("myCap"),
-                        },
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        UnaryExpression {
-                            NotKeyword,
-                            Whitespace,
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("glistN"),
-                                },
-                                Whitespace,
-                                IsKeyword,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("Nothing"),
-                                },
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            IfStatement {
-                                Whitespace,
-                                IfKeyword,
-                                Whitespace,
-                                MemberAccessExpression {
-                                    Identifier ("glistN"),
-                                    PeriodOperator,
-                                    Identifier ("CenterText"),
-                                },
-                                Whitespace,
-                                ThenKeyword,
-                                Newline,
-                                StatementList {
-                                    Whitespace,
-                                    AssignmentStatement {
-                                        CallExpression {
-                                            MemberAccessExpression {
-                                                Identifier ("glistN"),
-                                                PeriodOperator,
-                                                Identifier ("list"),
-                                            },
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    NumericLiteralExpression {
-                                                        IntegerLiteral ("0"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                        Whitespace,
-                                        EqualityOperator,
-                                        Whitespace,
-                                        IdentifierExpression {
-                                            Identifier ("mCaptext"),
-                                        },
-                                        Newline,
-                                    },
-                                    Whitespace,
-                                },
-                                ElseClause {
-                                    ElseKeyword,
-                                    Newline,
-                                    StatementList {
-                                        Whitespace,
-                                        AssignmentStatement {
-                                            CallExpression {
-                                                MemberAccessExpression {
-                                                    Identifier ("glistN"),
-                                                    PeriodOperator,
-                                                    Identifier ("list"),
-                                                },
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        NumericLiteralExpression {
-                                                            IntegerLiteral ("0"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                            Whitespace,
-                                            EqualityOperator,
-                                            Whitespace,
-                                            BinaryExpression {
-                                                StringLiteralExpression {
-                                                    StringLiteral ("\"  \""),
-                                                },
-                                                Whitespace,
-                                                AdditionOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("mCaptext"),
-                                                },
-                                            },
-                                            Newline,
-                                        },
-                                        Whitespace,
-                                    },
-                                },
-                                EndKeyword,
-                                Whitespace,
-                                IfKeyword,
-                                Newline,
-                            },
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("glistN"),
-                                PeriodOperator,
-                                Identifier ("ShowMe"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/property_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
