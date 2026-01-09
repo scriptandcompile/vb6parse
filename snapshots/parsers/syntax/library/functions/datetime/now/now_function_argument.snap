@@ -1,0 +1,31 @@
+---
+source: src/syntax/library/functions/datetime/now.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: LogEvent
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"User login\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Now
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

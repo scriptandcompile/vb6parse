@@ -1,0 +1,163 @@
+---
+source: src/syntax/library/functions/datetime/now.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Hour
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: Now
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "0"
+            - kind: Whitespace
+              text: " "
+            - kind: ToKeyword
+              text: To
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "11"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: greeting
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Good morning\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "12"
+            - kind: Whitespace
+              text: " "
+            - kind: ToKeyword
+              text: To
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "17"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: greeting
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Good afternoon\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseElseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: ElseKeyword
+              text: Else
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: greeting
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Good evening\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"
