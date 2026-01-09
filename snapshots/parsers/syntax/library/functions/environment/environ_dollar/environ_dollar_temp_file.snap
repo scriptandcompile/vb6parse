@@ -1,0 +1,109 @@
+---
+source: src/syntax/library/functions/environment/environ_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Main
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: tempFile
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Environ$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"TEMP\""
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"\\data.tmp\""
+                - kind: Newline
+                  text: "\n"
+            - kind: OpenStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OpenKeyword
+                  text: Open
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: tempFile
+                - kind: Whitespace
+                  text: " "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: OutputKeyword
+                  text: Output
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
