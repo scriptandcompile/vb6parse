@@ -604,6 +604,53 @@ cargo bench bulk_parser_load
 
 **See also:** [benches/](benches/)
 
+## Code Coverage
+
+VB6Parse uses `cargo-llvm-cov` to track test coverage and ensure comprehensive testing across all modules.
+
+### Installation
+
+```bash
+# Install cargo-llvm-cov
+cargo install cargo-llvm-cov
+```
+
+### Running Coverage
+
+```bash
+# Generate coverage report (terminal output)
+cargo llvm-cov
+
+# Generate HTML report
+cargo llvm-cov --html
+# Open target/llvm-cov/html/index.html in your browser
+
+# Generate coverage with open HTML report
+cargo llvm-cov --open
+
+# Generate detailed coverage for specific packages
+cargo llvm-cov --package vb6parse
+
+# Include tests in coverage
+cargo llvm-cov --all-targets
+
+# Generate LCOV format (for CI/CD integration)
+cargo llvm-cov --lcov --output-path lcov.info
+```
+
+### Coverage Reports
+
+Coverage reports are saved to:
+- **HTML reports:** `target/llvm-cov/html/`
+- **Terminal summary:** Displays percentage coverage after running `cargo llvm-cov`
+- **LCOV files:** `lcov.info` (when using `--lcov` flag)
+
+**Current Coverage:**
+- **Library tests:** 5,467 tests covering VB6 library functions
+- **Integration tests:** 31 tests with real-world VB6 projects
+- **Documentation tests:** 83 tests ensuring examples work
+- **Coverage focus:** Parsers, tokenization, error handling, and file format support
+
 ## Contributing to VB6Parse
 
 Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
