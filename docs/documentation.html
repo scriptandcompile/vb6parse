@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Documentation - API reference and technical specifications">
+    <title>Documentation - VB6Parse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="theme-switcher.js"></script>
+    <script src="stats.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="index.html">VB6Parse</a> / Documentation</h1>
+            <p class="tagline">API Reference & Technical Specifications</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <a href="documentation.html" class="active">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container" style="padding: 60px 20px;">
+        <section id="overview">
+            <h2>Documentation Overview</h2>
+            <p>
+                VB6Parse provides comprehensive documentation for both API usage and the internal workings 
+                of the VB6 file format parsers. Whether you're using the library or contributing to it, 
+                you'll find the information you need here.
+            </p>
+        </section>
+
+        <section id="api-docs" style="margin-top: 60px;">
+            <h2>API Documentation</h2>
+            <div class="doc-links" id="api-doc-links">
+                <a href="getting-started.html" class="doc-link">
+                    <h3>🚀 Getting Started</h3>
+                    <p>Step-by-step tutorial covering installation, basic parsing, error handling, and common use cases.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Installation and setup</li>
+                        <li>Your first parse</li>
+                        <li>Error handling patterns</li>
+                        <li>CST navigation examples</li>
+                        <li>Common use cases</li>
+                    </ul>
+                </a>
+
+                <a href="https://docs.rs/vb6parse" class="doc-link" target="_blank">
+                    <h3>📖 API Reference (docs.rs)</h3>
+                    <p>Complete Rust API documentation with examples for all public types, functions, and modules. 
+                    Generated from inline documentation comments.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>All public APIs documented</li>
+                        <li>Usage examples</li>
+                        <li>Type signatures and traits</li>
+                        <li>Module organization</li>
+                    </ul>
+                </a>
+                
+                <a href="https://github.com/scriptandcompile/vb6parse/tree/main/examples" class="doc-link" target="_blank">
+                    <h3>💡 Code Examples</h3>
+                    <p>Practical examples demonstrating how to use VB6Parse for common tasks.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Parsing projects, forms, and modules</li>
+                        <li>Tokenization and CST navigation</li>
+                        <li>Working with controls and properties</li>
+                        <li>Resource file handling</li>
+                    </ul>
+                </a>
+
+                <a href="https://crates.io/crates/vb6parse" class="doc-link" target="_blank">
+                    <h3>📦 Crates.io Package</h3>
+                    <p>Official package page with version history, dependencies, and installation instructions.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Version history and downloads</li>
+                        <li>Dependency information</li>
+                        <li>README and quick start</li>
+                        <li>License and metadata</li>
+                    </ul>
+                </a>
+            </div>
+        </section>
+
+        <section id="technical-docs" style="margin-top: 80px;">
+            <h2>Technical Documentation</h2>
+            <p>
+                Deep-dive technical specifications and architecture documentation for understanding 
+                VB6 file formats and the parser implementation.
+            </p>
+
+            <div class="doc-links" style="margin-top: 30px;">
+                <a href="technical/frx-format.html" class="doc-link">
+                    <h3>📄 FRX Format Specification</h3>
+                    <p>Complete specification of the Visual Basic 6 Form Resource file format (.frx).</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Binary file structure and entry types</li>
+                        <li>Header formats (12-byte, 4-byte, 3-byte, 1-byte)</li>
+                        <li>Detection algorithms</li>
+                        <li>Property data storage and encoding</li>
+                        <li>Cross-referencing with .frm files</li>
+                        <li>Parsing considerations and edge cases</li>
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Topics covered:</strong> Windows-1252 encoding, little-endian byte order, 
+                        VB6 IDE bugs, icon/image storage, ListBox items, text data formats
+                    </div>
+                </a>
+
+                <a href="technical/frm-format.html" class="doc-link">
+                    <h3>🏗️ Form File Parsing Architecture</h3>
+                    <p>In-depth explanation of the FormFile parser architecture and design decisions.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Hybrid parsing strategy</li>
+                        <li>Direct extraction vs CST building</li>
+                        <li>Performance optimization techniques</li>
+                        <li>Control hierarchy and property mapping</li>
+                        <li>Error handling and partial success model</li>
+                        <li>Design philosophy and trade-offs</li>
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Topics covered:</strong> Multi-layer parsing pipeline,
+                        type-safe controls, property groups, menu controls, future improvements
+                    </div>
+                </a>
+
+                <a href="technical/antlr4-spec.html" class="doc-link">
+                    <h3>📐 ANTLR4 Grammar Specification</h3>
+                    <p>Reference documentation for the Visual Basic 6.0 ANTLR4 grammar specification.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Complete VB6 grammar rules</li>
+                        <li>Module structure and organization</li>
+                        <li>Statement types and control flow</li>
+                        <li>Expression parsing and operators</li>
+                        <li>Lexer rules and token definitions</li>
+                        <li>Comparison with VB6Parse implementation</li>
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Topics covered:</strong> ProLeap VB6 Parser, ANTLR4 vs custom parser, 
+                        grammar rules, keywords, literals, type hints, AST vs CST
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="testing-performance" style="margin-top: 80px;">
+            <h2>Testing & Performance</h2>
+            <p>
+                Comprehensive testing and performance metrics demonstrating code quality and parser efficiency.
+            </p>
+
+            <div class="doc-links" style="margin-top: 30px; grid-template-columns: repeat(2, 1fr);">
+                <a href="coverage.html" class="doc-link">
+                    <h3>📊 Test Coverage Report</h3>
+                    <p>Comprehensive test coverage metrics generated from <span class="test-count">5,676</span> tests.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Line, function, and region coverage percentages</li>
+                        <li>File-by-file coverage breakdown</li>
+                        <li>Interactive coverage explorer</li>
+                        <li>Real-time filtering and search</li>
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Topics covered:</strong> Coverage metrics from cargo llvm-cov,
+                        unit tests, integration tests, library tests, documentation tests
+                    </div>
+                </a>
+
+                <a href="benchmarks.html" class="doc-link">
+                    <h3>⚡ Performance Benchmarks</h3>
+                    <p>Criterion benchmark results showing parser performance metrics.</p>
+                    <ul style="margin-top: 10px; color: #666;">
+                        <li>Mean, median, and standard deviation</li>
+                        <li>Benchmark comparison and rankings</li>
+                        <li>Interactive benchmark explorer</li>
+                        <li>Real-time filtering and search</li>
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Topics covered:</strong> Performance metrics from criterion,
+                        parser throughput, bulk loading benchmarks, timing statistics
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="contributing" style="margin-top: 80px;">
+            <h2>Contributing</h2>
+            <div class="doc-links">
+                <a href="https://github.com/scriptandcompile/vb6parse/blob/main/CONTRIBUTING.md" class="doc-link" target="_blank">
+                    <h3>🤝 Contributing Guide</h3>
+                    <p>Guidelines for contributing to VB6Parse including code style, testing, and PR process.</p>
+                </a>
+
+                <a href="https://github.com/scriptandcompile/vb6parse/blob/main/CHANGELOG.md" class="doc-link" target="_blank">
+                    <h3>📝 Changelog</h3>
+                    <p>Detailed version history with all changes, additions, and fixes.</p>
+                </a>
+
+                <a href="https://github.com/scriptandcompile/vb6parse/issues" class="doc-link" target="_blank">
+                    <h3>🐛 Issues & Support</h3>
+                    <p>Report bugs, request features, or ask questions on GitHub Issues.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="additional-resources" style="margin-top: 80px;">
+            <h2>Additional Resources</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📚 VB6 Library Reference</h3>
+                    <p>Documentation of 160+ built-in VB6 library functions and 42 statements organized 
+                    by category (array, string, math, file I/O, etc.)</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🎨 Control Types</h3>
+                    <p>Reference for 50+ VB6 control types including all properties, supported in the 
+                    type-safe control system.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🧪 Testing Guide</h3>
+                    <p>Information about the <span class="test-count-rounded">5,600</span>+ test suite including unit tests, integration tests, 
+                    snapshot testing, and fuzz testing.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>⚡ Benchmarking</h3>
+                    <p>Performance benchmarks and optimization guidelines for parsing VB6 projects at scale.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+</body>
+</html>
