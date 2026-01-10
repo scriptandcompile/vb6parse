@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/file/dir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"First file: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Dir
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"*.txt\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
