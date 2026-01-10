@@ -1,0 +1,123 @@
+---
+source: src/syntax/library/functions/file/seek.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: i
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: LongKeyword
+                  text: Long
+                - kind: Newline
+                  text: "\n"
+            - kind: ForStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: i
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "1"
+                - kind: Whitespace
+                  text: " "
+                - kind: ToKeyword
+                  text: To
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "10"
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: Debug
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: PrintKeyword
+                          text: Print
+                        - kind: Whitespace
+                          text: " "
+                        - kind: SeekKeyword
+                          text: Seek
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: IntegerLiteral
+                          text: "1"
+                        - kind: RightParenthesis
+                          text: )
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: i
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
