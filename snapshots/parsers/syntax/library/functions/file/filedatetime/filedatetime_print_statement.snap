@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/file/filedatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: PrintStatement
+      children:
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: Identifier
+          text: reportNum
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: fileName
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FileDateTime
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: fullPath
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
