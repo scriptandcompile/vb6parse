@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Test Coverage Report - Comprehensive test coverage metrics">
+    <title>Test Coverage - VB6Parse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="docs-style.css">
+    <link rel="stylesheet" href="coverage.css">
+    <script src="theme-switcher.js"></script>
+    <script src="stats.js"></script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="index.html">VB6Parse</a> / <a href="documentation.html">Documentation</a> / Coverage Report</h1>
+            <p class="tagline">Test Coverage Metrics for <span id="test-count-header">5,676</span> Tests</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container" style="padding: 60px 20px;">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading coverage data...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h2>Failed to load coverage data</h2>
+            <p id="error-message"></p>
+        </div>
+
+        <div id="coverage-content" style="display: none;">
+            <div class="coverage-summary">
+                <div class="coverage-card">
+                    <h3>Line Coverage</h3>
+                    <div class="coverage-percent" id="line-percent">--%</div>
+                    <div class="coverage-bar">
+                        <div class="coverage-bar-fill" id="line-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="coverage-details" id="line-details">- / - lines</div>
+                    <p class="coverage-explanation">Percentage of executable code lines that were executed during testing</p>
+                </div>
+
+                <div class="coverage-card">
+                    <h3>Function Coverage</h3>
+                    <div class="coverage-percent" id="function-percent">--%</div>
+                    <div class="coverage-bar">
+                        <div class="coverage-bar-fill" id="function-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="coverage-details" id="function-details">- / - functions</div>
+                    <p class="coverage-explanation">Percentage of functions and methods that were called at least once</p>
+                </div>
+
+                <div class="coverage-card">
+                    <h3>Region Coverage</h3>
+                    <div class="coverage-percent" id="region-percent">--%</div>
+                    <div class="coverage-bar">
+                        <div class="coverage-bar-fill" id="region-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="coverage-details" id="region-details">- / - regions</div>
+                    <p class="coverage-explanation">Percentage of code regions (branches, conditionals) that were tested</p>
+                </div>
+            </div>
+
+            <div id="stats-loading" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 3rem 2rem; text-align: center; margin: 2rem 0;">
+                <div style="width: 48px; height: 48px; border: 4px solid var(--border-color); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+                <p style="color: var(--text-secondary); margin: 0;">Test statistics being generated...</p>
+                <style>
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                </style>
+            </div>
+            <div class="stats-grid" id="stats-grid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="lib_tests"></div>
+                    <div class="stat-label">Library Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="doc_tests"></div>
+                    <div class="stat-label">Doc Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="integration_tests"></div>
+                    <div class="stat-label">Integration Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-stat="fuzz_targets"></div>
+                    <div class="stat-label">Fuzz Targets</div>
+                </div>
+            </div>
+            <p class="testing-info">
+                VB6Parse uses comprehensive testing including unit tests, snapshot testing with 
+                <a href="https://docs.rs/insta" target="_blank">insta</a>, benchmarking with 
+                <a href="https://github.com/bheisler/criterion.rs" target="_blank">criterion</a>, 
+                and fuzz testing with <a href="https://github.com/rust-fuzz/cargo-fuzz" target="_blank">cargo-fuzz</a>.
+            </p>
+
+            <div class="file-list">
+                <h2>File Coverage Details</h2>
+                <div class="file-filter">
+                    <input type="text" id="file-search" placeholder="Filter files by name...">
+                </div>
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Lines</th>
+                            <th>Functions</th>
+                            <th>Regions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="file-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Load and display coverage data
+        async function loadCoverage() {
+            try {
+                const response = await fetch('coverage.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                displayCoverage(data);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        function displayCoverage(data) {
+            const totals = data.data[0].totals;
+            const files = data.data[0].files;
+
+            // Display summary
+            displaySummary('line', totals.lines);
+            displaySummary('function', totals.functions);
+            displaySummary('region', totals.regions);
+
+            // Display file table
+            displayFiles(files);
+
+            // Show content, hide loading
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('coverage-content').style.display = 'block';
+        }
+
+        function displaySummary(type, data) {
+            const percent = data.percent.toFixed(2);
+            document.getElementById(`${type}-percent`).textContent = `${percent}%`;
+            document.getElementById(`${type}-details`).textContent = 
+                `${data.covered.toLocaleString()} / ${data.count.toLocaleString()} ${type}s`;
+            
+            // Animate bar
+            setTimeout(() => {
+                document.getElementById(`${type}-bar`).style.width = `${percent}%`;
+            }, 100);
+        }
+
+        function getCoverageBadge(percent) {
+            const p = parseFloat(percent);
+            let className = 'coverage-poor';
+            if (p >= 80) className = 'coverage-excellent';
+            else if (p >= 60) className = 'coverage-good';
+            return `<span class="coverage-badge ${className}">${p.toFixed(1)}%</span>`;
+        }
+
+        function displayFiles(files) {
+            const tbody = document.getElementById('file-table-body');
+            const allFiles = [];
+
+            files.forEach(file => {
+                const fileName = file.filename.replace(/^.*\/src\//, 'src/');
+                const lines = file.summary.lines;
+                const functions = file.summary.functions;
+                const regions = file.summary.regions;
+
+                allFiles.push({
+                    name: fileName,
+                    lines: lines,
+                    functions: functions,
+                    regions: regions
+                });
+            });
+
+            // Sort by file name
+            allFiles.sort((a, b) => a.name.localeCompare(b.name));
+
+            // Render rows
+            allFiles.forEach(file => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="file-name">${file.name}</td>
+                    <td>${getCoverageBadge(file.lines.percent)}</td>
+                    <td>${getCoverageBadge(file.functions.percent)}</td>
+                    <td>${getCoverageBadge(file.regions.percent)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Add search functionality
+            document.getElementById('file-search').addEventListener('input', (e) => {
+                const search = e.target.value.toLowerCase();
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const fileName = row.querySelector('.file-name').textContent.toLowerCase();
+                    row.style.display = fileName.includes(search) ? '' : 'none';
+                });
+            });
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error-message').textContent = message;
+        }
+
+        // Load coverage on page load
+        loadCoverage();
+    </script>
+</body>
+</html>

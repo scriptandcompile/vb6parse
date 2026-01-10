@@ -1,0 +1,306 @@
+{
+  "benchmarks": [
+    {
+      "name": "load multiple bas modules",
+      "mean": 1009741.3920095556,
+      "median": 1009585.1421365519,
+      "std_dev": 3846.0204168244736,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_2",
+      "mean": 253696.63199059927,
+      "median": 253053.12613636363,
+      "std_dev": 3612.840550226833,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_3",
+      "mean": 255440.55878760057,
+      "median": 255267.87193287036,
+      "std_dev": 1473.3204259256402,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_4",
+      "mean": 750276.465465642,
+      "median": 741643.4752435065,
+      "std_dev": 20285.131292601603,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_5",
+      "mean": 85907.5485297295,
+      "median": 85724.50381562882,
+      "std_dev": 832.9512331866797,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_6",
+      "mean": 256130.11178377338,
+      "median": 254406.70289039038,
+      "std_dev": 3927.6602753060383,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple bas modules_7",
+      "mean": 124833.31817207119,
+      "median": 125208.30666666667,
+      "std_dev": 965.8963167287458,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple classes",
+      "mean": 1188850.208812612,
+      "median": 1185178.8138888888,
+      "std_dev": 26738.594294289687,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple classes_2",
+      "mean": 2911700.513529413,
+      "median": 2910212.823529412,
+      "std_dev": 11980.09375764014,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple classes_3",
+      "mean": 6795456.70125,
+      "median": 6785742.6875,
+      "std_dev": 52037.65182892117,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple classes_4",
+      "mean": 634812.8999256674,
+      "median": 633772.7384141157,
+      "std_dev": 5646.481289834874,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple forms",
+      "mean": 56363954.97,
+      "median": 56273887.5,
+      "std_dev": 265269.20553970407,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects",
+      "mean": 5886.600377758619,
+      "median": 5888.792388323751,
+      "std_dev": 50.52338101638036,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_10",
+      "mean": 5765.224052656936,
+      "median": 5763.692789543563,
+      "std_dev": 26.24781499510262,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_11",
+      "mean": 5745.978720201238,
+      "median": 5742.846813094405,
+      "std_dev": 46.54481311707461,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_12",
+      "mean": 5713.184512542574,
+      "median": 5710.306284458815,
+      "std_dev": 19.996621367367386,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_13",
+      "mean": 5940.010307418624,
+      "median": 5893.283872296184,
+      "std_dev": 123.99590937263089,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_14",
+      "mean": 5463.240695028949,
+      "median": 5414.888754955535,
+      "std_dev": 116.05072195851753,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_15",
+      "mean": 5492.086496892833,
+      "median": 5483.834844117717,
+      "std_dev": 42.09679879995422,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_16",
+      "mean": 5556.780660546248,
+      "median": 5547.244873404477,
+      "std_dev": 22.83693363172695,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_17",
+      "mean": 5565.149446009827,
+      "median": 5569.3603287020105,
+      "std_dev": 32.25090111641682,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_18",
+      "mean": 5777.654394784218,
+      "median": 5714.913186720593,
+      "std_dev": 295.8308042588003,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_19",
+      "mean": 5460.888038641121,
+      "median": 5448.070986504388,
+      "std_dev": 43.57036514851245,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_2",
+      "mean": 5666.192129757364,
+      "median": 5640.568949545079,
+      "std_dev": 68.09764072582475,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_20",
+      "mean": 5930.717842469312,
+      "median": 5900.89691501481,
+      "std_dev": 90.26686343537781,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_21",
+      "mean": 5907.56418113412,
+      "median": 5903.086355905999,
+      "std_dev": 21.911165807111598,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_22",
+      "mean": 5922.459345294496,
+      "median": 5918.104790419162,
+      "std_dev": 44.72028129883596,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_23",
+      "mean": 5614.833750844115,
+      "median": 5606.883512544802,
+      "std_dev": 25.023553127942467,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_24",
+      "mean": 5872.009560322193,
+      "median": 5842.98867247425,
+      "std_dev": 70.45101403626832,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_25",
+      "mean": 5671.220015638978,
+      "median": 5666.027490996399,
+      "std_dev": 35.03818466866021,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_26",
+      "mean": 5739.626713509965,
+      "median": 5741.799454684262,
+      "std_dev": 21.58565303261444,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_27",
+      "mean": 5291.734475236161,
+      "median": 5256.920677361853,
+      "std_dev": 94.01964153177236,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_28",
+      "mean": 5778.860154556859,
+      "median": 5737.537489677952,
+      "std_dev": 102.36455260482431,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_29",
+      "mean": 5659.604277256368,
+      "median": 5638.357516515709,
+      "std_dev": 72.19874445716698,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_3",
+      "mean": 5475.002724070215,
+      "median": 5479.180791245792,
+      "std_dev": 29.38047793292677,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_30",
+      "mean": 5821.340279254954,
+      "median": 5784.576799229393,
+      "std_dev": 91.66492247910035,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_31",
+      "mean": 5867.401015790841,
+      "median": 5840.306784201828,
+      "std_dev": 90.97545440188712,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_4",
+      "mean": 5518.928120616723,
+      "median": 5482.348178673179,
+      "std_dev": 84.45886526188195,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_5",
+      "mean": 5682.8803292774355,
+      "median": 5655.846607811525,
+      "std_dev": 76.78422408139032,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_6",
+      "mean": 5589.415106483805,
+      "median": 5588.818484848485,
+      "std_dev": 12.786116369147638,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_7",
+      "mean": 5735.475921065994,
+      "median": 5720.70965995235,
+      "std_dev": 74.91659489842311,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_8",
+      "mean": 5757.102789555311,
+      "median": 5708.0780562539285,
+      "std_dev": 88.83800254463385,
+      "unit": "ns"
+    },
+    {
+      "name": "load multiple projects_9",
+      "mean": 5661.649006698742,
+      "median": 5639.170588349893,
+      "std_dev": 87.19833468677439,
+      "unit": "ns"
+    }
+  ],
+  "count": 43
+}
