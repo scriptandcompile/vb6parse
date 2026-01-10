@@ -11,5 +11,4 @@ pub mod freefile;
 pub mod getattr;
 pub mod loc;
 pub mod lof;
-/// VB6 `Seek` function - returns the current file position.
 pub mod seek;
