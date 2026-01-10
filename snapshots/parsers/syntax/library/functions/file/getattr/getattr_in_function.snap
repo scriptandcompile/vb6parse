@@ -1,0 +1,111 @@
+---
+source: src/syntax/library/functions/file/getattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: IsDirectory
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: path
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: BooleanKeyword
+          text: Boolean
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: IsDirectory
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: GetAttr
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: path
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AndKeyword
+                              text: And
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbDirectory
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: InequalityOperator
+                      text: "<>"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
