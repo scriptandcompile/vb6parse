@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/functions/file/freefile.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: FreeFile
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "255"
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"High range\""
