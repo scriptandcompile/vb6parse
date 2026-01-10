@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/file/filedatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Last modified: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FileDateTime
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: filePath
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
