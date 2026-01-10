@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/file/fileattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FileAttr
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: fileNum
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
