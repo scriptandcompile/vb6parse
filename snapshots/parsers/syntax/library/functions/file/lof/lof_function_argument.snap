@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/file/lof.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessFileSize
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: LOF
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: fileNum
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
