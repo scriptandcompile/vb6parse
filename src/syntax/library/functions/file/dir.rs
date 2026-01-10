@@ -701,8 +701,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn dir_basic() {
         let source = r#"
@@ -710,31 +710,15 @@ fileName = Dir("*.txt")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -744,31 +728,15 @@ fileName = Dir("C:\Data\*.txt")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C:\\Data\\*.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -778,38 +746,15 @@ fileName = Dir("*.*", vbDirectory)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbDirectory"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -819,22 +764,15 @@ fileName = Dir
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Dir"),
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -848,75 +786,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("fileName"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -928,59 +806,15 @@ End If
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        LenKeyword,
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                CallExpression {
-                                    Identifier ("Dir"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            StringLiteralExpression {
-                                                StringLiteral ("\"C:\\file.txt\""),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"File exists\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -990,30 +824,15 @@ volumeLabel = Dir("C:\", vbVolume)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("volumeLabel"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C:\\\", vbVolume)"),
-                            },
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1025,78 +844,15 @@ End Function
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("FileExists"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("filePath"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                BooleanKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("FileExists"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            BinaryExpression {
-                                CallExpression {
-                                    LenKeyword,
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("Dir"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("filePath"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1106,38 +862,15 @@ fileName = Dir("*.*", vbHidden)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbHidden"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1147,46 +880,15 @@ fileName = Dir("*.*", vbHidden + vbSystem)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("vbHidden"),
-                                },
-                                Whitespace,
-                                AdditionOperator,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("vbSystem"),
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1197,43 +899,15 @@ fileName = Dir(pattern)
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("pattern"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteralExpression {
-                    StringLiteral ("\"*.doc\""),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("pattern"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1243,39 +917,15 @@ fileName = Dir(folderPath & "\*.txt")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("folderPath"),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\"\\*.txt\""),
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1290,99 +940,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("count"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("0"),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("count"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("count"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1396,88 +962,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("files"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("count"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1491,77 +984,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.tmp\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        Identifier ("folderPath"),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteral ("\"\\\" & fileName"),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1575,96 +1006,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("totalSize"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("totalSize"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("FileLen"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("fileName"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1678,74 +1028,15 @@ End If
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C:\\NonExistent\\*.*\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    MemberAccessExpression {
-                        Identifier ("Err"),
-                        PeriodOperator,
-                        Identifier ("Number"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Error accessing directory\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1760,90 +1051,15 @@ End Select
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("UCase"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("Right"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Dir"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    StringLiteralExpression {
-                                                        StringLiteral ("\"*.*\""),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("3"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"TXT\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("MsgBox"),
-                            Whitespace,
-                            StringLiteral ("\"Text file\""),
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"DOC\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("MsgBox"),
-                            Whitespace,
-                            StringLiteral ("\"Word file\""),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1859,117 +1075,15 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbDirectory"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("GetAttr"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("fileName"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            AndKeyword,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("vbDirectory"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Debug"),
-                                PeriodOperator,
-                                PrintKeyword,
-                                Whitespace,
-                                Identifier ("fileName"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1979,23 +1093,15 @@ MsgBox "First file: " & Dir("*.txt")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("MsgBox"),
-                Whitespace,
-                StringLiteral ("\"First file: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("Dir"),
-                LeftParenthesis,
-                StringLiteral ("\"*.txt\""),
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2005,25 +1111,15 @@ fileName = Dir()
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2033,31 +1129,15 @@ fileName = Dir("C:\Users\Documents\Reports\*.pdf")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C:\\Users\\Documents\\Reports\\*.pdf\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2067,31 +1147,15 @@ fileName = Dir("test?.txt")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"test?.txt\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2101,31 +1165,15 @@ fileName = Dir("*.*")
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2141,107 +1189,14 @@ Loop
 "#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Dir"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"*.*\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileName"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"\""),
-                    },
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("FileDateTime"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("fileName"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("cutoffDate"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("ProcessFile"),
-                                Whitespace,
-                                Identifier ("fileName"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Dir"),
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/dir",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
