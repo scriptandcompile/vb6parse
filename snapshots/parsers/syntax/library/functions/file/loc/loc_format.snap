@@ -1,0 +1,69 @@
+---
+source: src/syntax/library/functions/file/loc.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: AssignmentStatement
+      children:
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: lblStatus
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: Caption
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Format
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Loc
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: fileNum
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"0,000\""
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
