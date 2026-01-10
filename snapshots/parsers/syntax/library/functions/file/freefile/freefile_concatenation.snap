@@ -1,0 +1,59 @@
+---
+source: src/syntax/library/functions/file/freefile.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: msg
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: BinaryExpression
+              children:
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"File: \""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: filename
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\" Num: \""
+            - kind: Whitespace
+              text: " "
+            - kind: Ampersand
+              text: "&"
+            - kind: Whitespace
+              text: " "
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: FreeFile

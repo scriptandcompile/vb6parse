@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/file/freefile.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OpenStatement
+      children:
+        - kind: OpenKeyword
+          text: Open
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"data.txt\""
+        - kind: Whitespace
+          text: " "
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: OutputKeyword
+          text: Output
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: Identifier
+          text: FreeFile

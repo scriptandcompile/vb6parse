@@ -632,27 +632,22 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn freefile_basic() {
         let source = r"fileNum = FreeFile";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -660,23 +655,15 @@ mod tests {
         let source = r"fileNum = FreeFile()";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FreeFile"),
-                    LeftParenthesis,
-                    ArgumentList,
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -684,29 +671,15 @@ mod tests {
         let source = r"fileNum = FreeFile(1)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FreeFile"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -714,29 +687,15 @@ mod tests {
         let source = r"fileNum = FreeFile(0)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FreeFile"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -744,23 +703,15 @@ mod tests {
         let source = r#"Open "data.txt" For Output As #FreeFile"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                StringLiteral ("\"data.txt\""),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                OutputKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("FreeFile"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -769,30 +720,15 @@ mod tests {
 fileNum = FreeFile";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("fileNum"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -801,32 +737,15 @@ fileNum = FreeFile";
 outputFile = FreeFile";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("inputFile"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("outputFile"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -837,52 +756,15 @@ outputFile = FreeFile";
 End Function";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ReadFile"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("fileNum"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileNum"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -894,64 +776,15 @@ End Function";
 End Sub"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("WriteLog"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("fileNum"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileNum"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                    OpenStatement {
-                        Whitespace,
-                        OpenKeyword,
-                        Whitespace,
-                        StringLiteral ("\"log.txt\""),
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        AppendKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        Identifier ("fileNum"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -960,35 +793,15 @@ End Sub"#;
 Open filename For Input As #fileNum";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                Identifier ("filename"),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                InputKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -997,35 +810,15 @@ Open filename For Input As #fileNum";
 Open filename For Binary As #fileNum";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                Identifier ("filename"),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1035,45 +828,15 @@ fileNum = FreeFile
 Open filename For Input As #fileNum";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                GotoKeyword,
-                Whitespace,
-                Identifier ("ErrorHandler"),
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                Identifier ("filename"),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                InputKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1083,56 +846,15 @@ Open filename For Input As #fileNum";
 Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("3"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("files"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1140,38 +862,15 @@ Next i";
         let source = r"m_FilePool(i) = FreeFile(1)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                CallExpression {
-                    Identifier ("m_FilePool"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("i"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FreeFile"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1179,22 +878,15 @@ Next i";
         let source = r"writer.FileNumber = FreeFile";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("writer"),
-                    PeriodOperator,
-                    Identifier ("FileNumber"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1202,38 +894,15 @@ Next i";
         let source = r"If fileNum = 0 Then fileNum = FreeFile";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("fileNum"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("fileNum"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("FreeFile"),
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1241,30 +910,15 @@ Next i";
         let source = r#"If FreeFile > 255 Then MsgBox "High range""#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("FreeFile"),
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("255"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                Identifier ("MsgBox"),
-                Whitespace,
-                StringLiteral ("\"High range\""),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1272,20 +926,15 @@ Next i";
         let source = r#"Debug.Print "File number: " & FreeFile"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            Identifier ("Debug"),
-            Unknown,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"File number: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("FreeFile"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1295,39 +944,15 @@ Next i";
 End Sub";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SubStatement {
-                PrivateKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("Class_Initialize"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_FileNumber"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1337,42 +962,15 @@ Open "data.txt" For Input As #fileNum
 Close #fileNum"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                StringLiteral ("\"data.txt\""),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                InputKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-                Newline,
-            },
-            CloseStatement {
-                CloseKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1385,82 +983,15 @@ Loop
 Close #fileNum";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                Identifier ("filename"),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                InputKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-                Newline,
-            },
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("EOF"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("fileNum"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-                StatementList {
-                    LineInputStatement {
-                        Whitespace,
-                        LineKeyword,
-                        Whitespace,
-                        InputKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        Identifier ("fileNum"),
-                        Comma,
-                        Whitespace,
-                        LineKeyword,
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-            CloseStatement {
-                CloseKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1472,60 +1003,15 @@ Close #fileNum";
 End Select"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("mode"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"read\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("fileNum"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("FreeFile"),
-                            },
-                            Newline,
-                        },
-                        OpenStatement {
-                            Whitespace,
-                            OpenKeyword,
-                            Whitespace,
-                            Identifier ("filename"),
-                            Whitespace,
-                            ForKeyword,
-                            Whitespace,
-                            InputKeyword,
-                            Whitespace,
-                            AsKeyword,
-                            Whitespace,
-                            Octothorpe,
-                            Identifier ("fileNum"),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1535,41 +1021,15 @@ End Select"#;
 End Function";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetFileNum"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetFileNum"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1577,44 +1037,15 @@ End Function";
         let source = r#"msg = "File: " & filename & " Num: " & FreeFile"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("msg"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        BinaryExpression {
-                            StringLiteralExpression {
-                                StringLiteral ("\"File: \""),
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("filename"),
-                            },
-                        },
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\" Num: \""),
-                        },
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("FreeFile"),
-                    },
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1624,56 +1055,15 @@ Open filename For Binary As #fileNum
 fileSize = LOF(fileNum)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("FreeFile"),
-                },
-                Newline,
-            },
-            OpenStatement {
-                OpenKeyword,
-                Whitespace,
-                Identifier ("filename"),
-                Whitespace,
-                ForKeyword,
-                Whitespace,
-                BinaryKeyword,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Octothorpe,
-                Identifier ("fileNum"),
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("fileSize"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LOF"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("fileNum"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1684,55 +1074,14 @@ Function CreateTempFile() As Integer
 End Function";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("tempFile"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("CreateTempFile"),
-                    LeftParenthesis,
-                    ArgumentList,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("CreateTempFile"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("CreateTempFile"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("FreeFile"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-            },
-        ]);
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/parsers/syntax/library/functions/file/freefile",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

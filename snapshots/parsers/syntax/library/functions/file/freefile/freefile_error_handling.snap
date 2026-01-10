@@ -1,0 +1,69 @@
+---
+source: src/syntax/library/functions/file/freefile.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: GotoKeyword
+          text: GoTo
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ErrorHandler
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: fileNum
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: FreeFile
+        - kind: Newline
+          text: "\n"
+    - kind: OpenStatement
+      children:
+        - kind: OpenKeyword
+          text: Open
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: filename
+        - kind: Whitespace
+          text: " "
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: InputKeyword
+          text: Input
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: Identifier
+          text: fileNum
