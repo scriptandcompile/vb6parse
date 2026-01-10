@@ -843,8 +843,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn filedatetime_basic() {
         let source = r#"
