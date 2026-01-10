@@ -1,0 +1,57 @@
+---
+source: src/syntax/library/functions/file/filelen.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: isValid
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: ParenthesizedExpression
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: BinaryExpression
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: FileLen
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: filePath
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: expectedSize
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
