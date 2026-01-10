@@ -13,11 +13,8 @@ Bytes/String/File → SourceFile → SourceStream → TokenStream → CST → Ob
 **Layers:**
 1. **I/O Layer** (`io/`): Character decoding and stream access (SourceFile, SourceStream)
 2. **Lexer Layer** (`lexer/`): Tokenization with keyword lookup tables (phf-based), creates TokenStream
-3. **Syntax Layer** (`syntax/`): VB6 language constructs - 160+ library functions (14 categories) and 42 statements (9 categories)
-4. **Parsers Layer** (`parsers/`): CST construction from tokens, wraps rowan's red-green tree
-5. **Files Layer** (`files/`): High-level file format parsers (ProjectFile, ClassFile, ModuleFile, FormFile, FormResource)
-6. **Language Layer** (`language/`): VB6 types, colors (24 predefined), controls (50+ types)
-7. **Errors Layer** (`errors/`): Comprehensive error types for each layer
+4. **Parser Layer** (`parsers/`): CST construction from tokens, wraps rowan's red-green tree
+5. **VB6 Language Layer** (`files/`): High-level file format parsers (ProjectFile, ClassFile, ModuleFile, FormFile, FormResource)
 
 ## Error Handling Pattern
 
