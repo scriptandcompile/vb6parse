@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/functions/string/mid.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: MidKeyword
+          text: Mid
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: errorMessage
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "50"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

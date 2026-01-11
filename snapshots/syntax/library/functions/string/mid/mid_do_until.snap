@@ -1,0 +1,157 @@
+---
+source: src/syntax/library/functions/string/mid.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: UntilKeyword
+          text: Until
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: pos
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: LenKeyword
+                  text: Len
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: TextKeyword
+                              text: text
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "                "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: token
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: MidKeyword
+                      text: Mid
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: TextKeyword
+                                  text: text
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: pos
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: delimPos
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: SubtractionOperator
+                                  text: "-"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: pos
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "                "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: pos
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: delimPos
+                    - kind: Whitespace
+                      text: " "
+                    - kind: AdditionOperator
+                      text: +
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "1"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
