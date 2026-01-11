@@ -1,0 +1,155 @@
+---
+source: src/syntax/statements/objects/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: VersionStatement
+      children:
+        - kind: VersionKeyword
+          text: VERSION
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "1.0"
+        - kind: Whitespace
+          text: " "
+        - kind: ClassKeyword
+          text: CLASS
+        - kind: Newline
+          text: "\n"
+    - kind: PropertiesBlock
+      children:
+        - kind: BeginKeyword
+          text: BEGIN
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: MultiUse
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: SubtractionOperator
+                  text: "-"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'True"
+            - kind: Newline
+              text: "\n"
+        - kind: EndKeyword
+          text: END
+        - kind: Newline
+          text: "\n"
+    - kind: EventStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: EventKeyword
+          text: Event
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: StatusChanged
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: newStatus
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: UpdateStatus
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: status
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: RaiseEventStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RaiseEventKeyword
+                  text: RaiseEvent
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: StatusChanged
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: status
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,67 @@
+---
+source: src/syntax/statements/objects/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetObject
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: ObjectKeyword
+          text: Object
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: GetObject
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NewKeyword
+                  text: New
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: MyClass
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
