@@ -206,8 +206,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn abs_simple_negative() {
         let source = r"
@@ -218,50 +218,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("50"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -274,47 +237,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("25"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -327,47 +256,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("0"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -380,47 +275,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("value"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -433,55 +294,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("diff"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        IdentifierExpression {
-                                            Identifier ("x"),
-                                        },
-                                        Whitespace,
-                                        SubtractionOperator,
-                                        Whitespace,
-                                        IdentifierExpression {
-                                            Identifier ("y"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -494,50 +313,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("distance"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            SingleLiteral,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -551,61 +333,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("x"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("100"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -620,65 +354,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Abs"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("value"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("100"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("ProcessLargeValue"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -693,73 +375,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Abs"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        BinaryExpression {
-                                            IdentifierExpression {
-                                                Identifier ("x"),
-                                            },
-                                            Whitespace,
-                                            SubtractionOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("y"),
-                                            },
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            LessThanOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("tolerance"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("DoSomething"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -772,50 +394,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("GetValue"),
-                                        LeftParenthesis,
-                                        ArgumentList,
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -830,100 +415,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("a"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("10"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("b"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("20"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("c"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("30"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -936,59 +434,13 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetDistance"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetDistance"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        IdentifierExpression {
-                                            Identifier ("x2"),
-                                        },
-                                        Whitespace,
-                                        SubtractionOperator,
-                                        Whitespace,
-                                        IdentifierExpression {
-                                            Identifier ("x1"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1003,93 +455,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("10"),
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                CallExpression {
-                                    Identifier ("arr"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("i"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("Abs"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("arr"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("i"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1102,56 +474,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("values"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("index"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1164,49 +493,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("total"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    MemberAccessExpression {
-                                        Identifier ("obj"),
-                                        PeriodOperator,
-                                        Identifier ("Value"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1221,100 +514,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("ABS"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("50"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("y"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("25"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("z"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("AbS"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("10"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1327,38 +533,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("Abs"),
-                        LeftParenthesis,
-                        SubtractionOperator,
-                        IntegerLiteral ("42"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1376,82 +557,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("value"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            IsKeyword,
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            IntegerLiteral ("100"),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("ProcessLarge"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        CaseElseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            ElseKeyword,
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("ProcessSmall"),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1464,67 +576,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        ParenthesizedExpression {
-                                            LeftParenthesis,
-                                            BinaryExpression {
-                                                IdentifierExpression {
-                                                    Identifier ("x"),
-                                                },
-                                                Whitespace,
-                                                AdditionOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("y"),
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                        Whitespace,
-                                        MultiplicationOperator,
-                                        Whitespace,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("2"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1539,63 +597,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Abs"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("delta"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Adjust"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1610,100 +618,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("100%"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("y"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            LongLiteral,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("z"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            DoubleLiteral,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1718,67 +639,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WhileStatement {
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("Abs"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        BinaryExpression {
-                                            IdentifierExpression {
-                                                Identifier ("current"),
-                                            },
-                                            Whitespace,
-                                            SubtractionOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("target"),
-                                            },
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            GreaterThanOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("threshold"),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            Unknown,
-                            Newline,
-                            Whitespace,
-                        },
-                        WendKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1791,79 +658,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        BinaryExpression {
-                                            IdentifierExpression {
-                                                Identifier ("a"),
-                                            },
-                                            Whitespace,
-                                            AdditionOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("b"),
-                                            },
-                                        },
-                                        Whitespace,
-                                        SubtractionOperator,
-                                        Whitespace,
-                                        BinaryExpression {
-                                            BinaryExpression {
-                                                IdentifierExpression {
-                                                    Identifier ("c"),
-                                                },
-                                                Whitespace,
-                                                MultiplicationOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("d"),
-                                                },
-                                            },
-                                            Whitespace,
-                                            DivisionOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("e"),
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1878,69 +679,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    WithStatement {
-                        Whitespace,
-                        WithKeyword,
-                        Whitespace,
-                        Identifier ("myObject"),
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    PeriodOperator,
-                                },
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("Value"),
-                                    },
-                                    Whitespace,
-                                    EqualityOperator,
-                                    Whitespace,
-                                    CallExpression {
-                                        Identifier ("Abs"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    PeriodOperator,
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            CallStatement {
-                                Identifier ("Delta"),
-                                RightParenthesis,
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        WithKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1953,50 +698,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("amount"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            DecimalLiteral,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2009,39 +717,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    CallStatement {
-                        Whitespace,
-                        CallKeyword,
-                        Whitespace,
-                        Identifier ("ProcessValue"),
-                        LeftParenthesis,
-                        Identifier ("Abs"),
-                        LeftParenthesis,
-                        SubtractionOperator,
-                        IntegerLiteral ("50"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2054,81 +736,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("Abs"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("x"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                AdditionOperator,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("Abs"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("y"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            SubtractionOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Abs"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("z"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2139,33 +753,13 @@ Const MAX_VALUE = Abs(-1000)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                ConstKeyword,
-                Whitespace,
-                Identifier ("MAX_VALUE"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Abs"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            UnaryExpression {
-                                SubtractionOperator,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1000"),
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2179,87 +773,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        IdentifierExpression {
-                                            Identifier ("x"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("y"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        ParenthesizedExpression {
-                                            LeftParenthesis,
-                                            BinaryExpression {
-                                                IdentifierExpression {
-                                                    Identifier ("a"),
-                                                },
-                                                Whitespace,
-                                                AdditionOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("b"),
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2272,52 +792,12 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Abs"),
-                            Whitespace,
-                            LeftParenthesis,
-                            ArgumentList {
-                                Whitespace,
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("50"),
-                                        },
-                                    },
-                                },
-                                Whitespace,
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/abs");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
