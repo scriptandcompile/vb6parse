@@ -215,10 +215,3 @@ pub use crate::errors::{
     ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
     PropertyError, ResourceErrorKind, SourceFileErrorKind,
 };
-
-// =============================================================================
-// Test utilities (macros available for testing - internal only)
-// =============================================================================
-
-#[macro_use]
-pub mod test_utils;
