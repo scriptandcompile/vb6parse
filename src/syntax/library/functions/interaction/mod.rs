@@ -6,5 +6,4 @@ pub mod doevents;
 pub mod input;
 pub mod inputbox;
 pub mod msgbox;
-/// VB6 `Shell` function - executes a program.
 pub mod shell;
