@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/statements/savepicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SavePictureStatement
+      children:
+        - kind: SavePictureKeyword
+          text: SavePicture
+        - kind: Whitespace
+          text: "   "
+        - kind: Identifier
+          text: Picture1
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Picture
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "   "
+        - kind: StringLiteral
+          text: "\"file.bmp\""
+        - kind: Newline
+          text: "\n"
