@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/objects/createobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SetStatement
+      children:
+        - kind: SetKeyword
+          text: Set
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: wordApp
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CreateObject
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"Word.Application\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
