@@ -1,0 +1,185 @@
+---
+source: src/syntax/library/functions/string/chrw.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetGreeting
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: language
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: language
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"chinese\""
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: GetGreeting
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: BinaryExpression
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: ChrW
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "20320"
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Ampersand
+                                  text: "&"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: ChrW
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "22909"
+                                    - kind: RightParenthesis
+                                      text: )
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: AssignmentStatement
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: GetGreeting
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Hello\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
