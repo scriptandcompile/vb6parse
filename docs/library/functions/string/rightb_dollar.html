@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - rightb_dollar - String">
+    <title>rightb_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / rightb_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="rightb-function"><code>RightB$</code> Function</h1>
+<p>The <code>RightB$</code> function in Visual Basic 6 returns a string containing a specified number of
+bytes from the right side (end) of a string. Unlike <code>Right$</code> which works with characters,
+<code>RightB$</code> operates at the byte level, making it essential for binary data processing and
+working with DBCS (Double-Byte Character Set) strings.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">RightB$(string, length)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Required. String expression from which the rightmost bytes are returned.
+If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+<li><code>length</code> - Required. Numeric expression indicating how many bytes to return. If 0,
+a zero-length string ("") is returned. If greater than or equal to the number of bytes
+in <code>string</code>, the entire string is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the rightmost <code>length</code> bytes of <code>string</code>.</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="byte-vs-character-operation">Byte vs. Character Operation</h3>
+<ul>
+<li><code>RightB$</code> counts bytes, not characters</li>
+<li>In VB6, each character is stored as 2 bytes (UCS-2/Unicode)</li>
+<li>Extracting an odd number of bytes from Unicode text may split a character</li>
+<li>DBCS characters (e.g., Japanese, Chinese) may require 2 bytes per character</li>
+</ul>
+<h3 id="length-handling">Length Handling</h3>
+<ul>
+<li>If <code>length</code> = 0: Returns an empty string ("")</li>
+<li>If <code>length</code> &gt;= <code>LenB(string)</code>: Returns the entire string</li>
+<li>If <code>length</code> &lt; 0: Generates a runtime error (Invalid procedure call or argument)</li>
+<li>If <code>string</code> is empty (""): Returns an empty string regardless of <code>length</code></li>
+</ul>
+<h3 id="character-set-considerations">Character Set Considerations</h3>
+<ul>
+<li>VB6 stores strings internally as Unicode (UCS-2)</li>
+<li>Each character typically occupies 2 bytes</li>
+<li>Extracting an odd number of bytes can result in incomplete characters</li>
+<li>Use <code>Right$</code> for character-based extraction in most cases</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-extract-binary-data-suffix">1. Extract Binary Data Suffix</h3>
+<pre><code class="language-vbnet">Function GetBinarySuffix(data As String, numBytes As Integer) As String
+GetBinarySuffix = RightB$(data, numBytes)
+End Function
+
+Dim suffix As String
+suffix = GetBinarySuffix(binaryData, 4)  &#x27; Get last 4 bytes</code></pre>
+<h3 id="2-read-file-trailer">2. Read File Trailer</h3>
+<pre><code class="language-vbnet">Function ReadFileTrailer(fileData As String) As String
+&#x27; Get last 8 bytes of file (e.g., signature or checksum)
+ReadFileTrailer = RightB$(fileData, 8)
+End Function</code></pre>
+<h3 id="3-extract-protocol-footer">3. Extract Protocol Footer</h3>
+<pre><code class="language-vbnet">Function GetProtocolFooter(packet As String) As String
+&#x27; Get 2-byte footer from network packet
+GetProtocolFooter = RightB$(packet, 2)
+End Function</code></pre>
+<h3 id="4-process-binary-structures">4. Process Binary Structures</h3>
+<pre><code class="language-vbnet">Type FileHeader
+signature As String * 4
+version As String * 2
+End Type
+
+Function GetVersion(headerData As String) As String
+&#x27; Extract last 2 bytes as version info
+GetVersion = RightB$(headerData, 2)
+End Function</code></pre>
+<h3 id="5-network-packet-checksum">5. Network Packet Checksum</h3>
+<pre><code class="language-vbnet">Function ExtractChecksum(packet As String) As String
+&#x27; Network packets often have 2-4 byte checksums at end
+ExtractChecksum = RightB$(packet, 4)
+End Function</code></pre>
+<h3 id="6-guiduuid-component-extraction">6. GUID/UUID Component Extraction</h3>
+<pre><code class="language-vbnet">Function GetGuidSuffix(guidData As String) As String
+&#x27; Extract last 6 bytes of GUID (node portion)
+GetGuidSuffix = RightB$(guidData, 6)
+End Function</code></pre>
+<h3 id="7-file-format-magic-bytes-trailer">7. File Format Magic Bytes (Trailer)</h3>
+<pre><code class="language-vbnet">Function CheckFileTrailer(fileData As String, expectedTrailer As String) As Boolean
+Dim trailer As String
+trailer = RightB$(fileData, LenB(expectedTrailer))
+CheckFileTrailer = (trailer = expectedTrailer)
+End Function</code></pre>
+<h3 id="8-extract-record-suffix">8. Extract Record Suffix</h3>
+<pre><code class="language-vbnet">Function GetRecordSuffix(record As String) As String
+&#x27; Fixed-length binary record with 4-byte suffix
+GetRecordSuffix = RightB$(record, 4)
+End Function</code></pre>
+<h3 id="9-image-data-footer">9. Image Data Footer</h3>
+<pre><code class="language-vbnet">Function GetImageFooter(imageData As String) As String
+&#x27; Some image formats have trailers (e.g., JPEG end marker)
+GetImageFooter = RightB$(imageData, 2)
+End Function</code></pre>
+<h3 id="10-database-record-alignment">10. Database Record Alignment</h3>
+<pre><code class="language-vbnet">Function AlignRecordEnd(record As String, alignment As Integer) As String
+&#x27; Get aligned portion from end of record
+Dim alignedSize As Integer
+alignedSize = (LenB(record) \ alignment) * alignment
+If alignedSize &gt; 0 Then
+AlignRecordEnd = RightB$(record, alignedSize)
+Else
+AlignRecordEnd = record
+End If
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Right$()</code> - Returns a specified number of characters from the right (character-based)</li>
+<li><code>LeftB$()</code> - Returns a specified number of bytes from the left side of a string</li>
+<li><code>MidB$()</code> - Returns a specified number of bytes from any position in a string</li>
+<li><code>LenB()</code> - Returns the number of bytes used to represent a string in memory</li>
+<li><code>RightB()</code> - Variant version that can return <code>Null</code></li>
+<li><code>InStrB()</code> - Finds the byte position of a substring</li>
+<li><code>AscB()</code> - Returns the byte value of the first byte in a string</li>
+<li><code>ChrB$()</code> - Returns a string containing a single-byte character</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-rightb-vs-right">When to Use <code>RightB$</code> vs <code>Right$</code></h3>
+<pre><code class="language-vbnet">&#x27; Use Right$ for text/character operations
+Dim fileExt As String
+fileExt = Right$(fileName, 3)  &#x27; Get last 3 characters
+
+&#x27; Use RightB$ for binary data operations
+Dim checksum As String
+checksum = RightB$(binaryData, 4)  &#x27; Get last 4 bytes</code></pre>
+<h3 id="validate-byte-count">Validate Byte Count</h3>
+<pre><code class="language-vbnet">Function SafeRightB(data As String, numBytes As Integer) As String
+If numBytes &lt; 0 Then
+SafeRightB = &quot;&quot;
+ElseIf numBytes &gt;= LenB(data) Then
+SafeRightB = data
+Else
+SafeRightB = RightB$(data, numBytes)
+End If
+End Function</code></pre>
+<h3 id="use-with-lenb-for-byte-counting">Use with <code>LenB</code> for Byte Counting</h3>
+<pre><code class="language-vbnet">&#x27; Always use LenB when working with RightB$
+Dim totalBytes As Long
+Dim footer As String
+totalBytes = LenB(binaryData)
+footer = RightB$(binaryData, 8)</code></pre>
+<h3 id="combine-with-ascb-for-byte-values">Combine with <code>AscB</code> for Byte Values</h3>
+<pre><code class="language-vbnet">Function GetLastByte(data As String) As Byte
+Dim lastByte As String
+lastByte = RightB$(data, 1)
+GetLastByte = AscB(lastByte)
+End Function</code></pre>
+<h3 id="binary-structure-parsing">Binary Structure Parsing</h3>
+<pre><code class="language-vbnet">&#x27; Extract multiple fields from end of structure
+Dim checksum As String
+Dim version As String
+checksum = RightB$(structData, 4)
+version = RightB$(LeftB$(structData, LenB(structData) - 4), 2)</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>RightB$</code> is efficient for binary data operations</li>
+<li>Slightly faster than <code>Right$</code> for byte-aligned operations</li>
+<li>Avoid using in tight loops with string concatenation</li>
+<li>Consider byte arrays for large binary data processing</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Less efficient: multiple RightB$ calls
+For i = 1 To 1000
+result = result &amp; RightB$(data, 4)
+Next i
+
+&#x27; More efficient: single operation or byte array
+Dim parts() As String
+ReDim parts(1 To 1000)
+For i = 1 To 1000
+parts(i) = RightB$(data, 4)
+Next i
+result = Join(parts, &quot;&quot;)</code></pre>
+<h2 id="character-encoding-and-vb6">Character Encoding and VB6</h2>
+<h3 id="unicode-string-storage">Unicode String Storage</h3>
+<p>VB6 stores strings internally as Unicode (UCS-2):</p>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;AB&quot;
+Debug.Print Len(text)   &#x27; Prints 2 (characters)
+Debug.Print LenB(text)  &#x27; Prints 4 (bytes: 2 bytes per character)
+
+Dim lastChar As String
+lastChar = Right$(text, 1)   &#x27; Returns &quot;B&quot; (1 character)
+Dim lastTwoBytes As String
+lastTwoBytes = RightB$(text, 2)  &#x27; Returns &quot;B&quot; (last 2 bytes = 1 character)</code></pre>
+<h3 id="dbcs-considerations">DBCS Considerations</h3>
+<p>When working with Double-Byte Character Sets:</p>
+<pre><code class="language-vbnet">&#x27; Be careful with DBCS text - extracting odd number of bytes
+&#x27; can split multi-byte characters
+Dim japaneseText As String
+japaneseText = &quot;こんにちは&quot;
+
+&#x27; Right$ extracts by characters (safe)
+Dim lastChar As String
+lastChar = Right$(japaneseText, 1)  &#x27; Gets last character properly
+
+&#x27; RightB$ extracts by bytes (may split characters)
+Dim lastByte As String
+lastByte = RightB$(japaneseText, 1)  &#x27; May get incomplete character!</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-confusing-bytes-with-characters">1. Confusing Bytes with Characters</h3>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;Hello&quot;
+
+&#x27; Wrong: thinking RightB$ works like Right$
+result = RightB$(text, 3)  &#x27; Gets last 3 BYTES (not characters)
+&#x27; With Unicode, 3 bytes = 1.5 characters (1 complete + half of another)
+
+&#x27; Correct: use Right$ for character operations
+result = Right$(text, 3)  &#x27; Gets &quot;llo&quot;</code></pre>
+<h3 id="2-odd-byte-counts-with-unicode">2. Odd Byte Counts with Unicode</h3>
+<pre><code class="language-vbnet">&#x27; Problematic: odd number of bytes splits Unicode characters
+Dim text As String
+text = &quot;Test&quot;
+Dim partial As String
+partial = RightB$(text, 3)  &#x27; 3 bytes = 1 character + half a character
+&#x27; Result may be unexpected or corrupted
+
+&#x27; Better: use even byte counts for Unicode
+Dim proper As String
+proper = RightB$(text, 4)  &#x27; 4 bytes = 2 complete characters</code></pre>
+<h3 id="3-not-using-lenb-for-length">3. Not Using <code>LenB</code> for Length</h3>
+<pre><code class="language-vbnet">&#x27; Wrong: using Len instead of LenB
+If RightB$(data, Len(data) - 4) Then  &#x27; Incorrect!
+
+&#x27; Correct: use LenB for byte operations
+If RightB$(data, LenB(data) - 4) Then</code></pre>
+<h3 id="4-negative-length-values">4. Negative Length Values</h3>
+<pre><code class="language-vbnet">&#x27; Runtime error: Invalid procedure call or argument
+result = RightB$(&quot;Hello&quot;, -1)  &#x27; ERROR!
+
+&#x27; Validate first
+If numBytes &gt;= 0 Then
+result = RightB$(data, numBytes)
+End If</code></pre>
+<h3 id="5-assuming-asciiansi-encoding">5. Assuming ASCII/ANSI Encoding</h3>
+<pre><code class="language-vbnet">&#x27; Wrong: assuming 1 byte = 1 character
+Dim data As String
+data = &quot;ABCD&quot;
+Dim lastByte As String
+lastByte = RightB$(data, 1)  &#x27; Gets 1 byte, not last character
+&#x27; In Unicode, this is half of the last character
+
+&#x27; Correct: use Right$ or account for 2 bytes per character
+Dim lastChar As String
+lastChar = Right$(data, 1)   &#x27; Gets &quot;D&quot;
+&#x27; OR
+lastChar = RightB$(data, 2)  &#x27; Gets last 2 bytes = &quot;D&quot;</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot handle <code>Null</code> values (use <code>RightB</code> variant function instead)</li>
+<li>Works with bytes, not characters (can split multi-byte characters)</li>
+<li>Negative <code>length</code> values cause runtime errors</li>
+<li>Limited usefulness for Unicode text (use <code>Right$</code> instead)</li>
+<li>No built-in validation for character boundaries</li>
+<li>Extracting odd byte counts from Unicode strings can produce invalid characters</li>
+<li>Less intuitive than <code>Right$</code> for general string processing</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

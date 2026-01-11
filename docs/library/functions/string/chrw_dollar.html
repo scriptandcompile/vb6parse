@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - chrw_dollar - String">
+    <title>chrw_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / chrw_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="chrw-function"><code>ChrW$</code> Function</h1>
+<p>Returns a <code>String</code> containing the Unicode character associated with the specified character code.
+The dollar sign suffix (<code>$</code>) explicitly indicates that this function returns a <code>String</code> type
+(not a <code>Variant</code>), and the "W" suffix indicates this is the wide (Unicode) version.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">ChrW$(charcode)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong><code>charcode</code></strong>: Required. <code>Long</code> value that identifies a Unicode character. Valid values are
+-32768 to 65535. The range 0-65535 represents Unicode characters. Negative values are treated
+as unsigned values (e.g., -1 becomes 65535).</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the single Unicode character corresponding to the specified character
+code. The return value is always a <code>String</code> type (never <code>Variant</code>), and represents a Unicode
+character (2 bytes).</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>The <code>ChrW$</code> function combines the behavior of <code>ChrW</code> (Unicode character) with the <code>$</code> suffix
+(explicit <code>String</code> return type).</li>
+<li>Valid range: -32768 to 65535 (values outside this range may cause errors).</li>
+<li><code>ChrW$</code> returns Unicode characters, allowing access to the full Unicode Basic Multilingual Plane (BMP).</li>
+<li>For values 0-127, <code>ChrW$</code> and <code>Chr$</code> return the same ASCII characters.</li>
+<li>For values 128-255, <code>ChrW$</code> returns Unicode characters while <code>Chr$</code> returns ANSI characters.</li>
+<li>For values above 255, only <code>ChrW$</code> can be used (not <code>Chr$</code> or <code>ChrB$</code>).</li>
+<li><code>ChrW$(0)</code> returns a null character (<code>vbNullChar</code>).</li>
+<li><code>ChrW$(13)</code> returns carriage return (<code>vbCr</code>).</li>
+<li><code>ChrW$(10)</code> returns line feed (<code>vbLf</code>).</li>
+<li><code>ChrW$(9)</code> returns tab character (<code>vbTab</code>).</li>
+<li>The inverse function is <code>AscW</code>, which returns the Unicode character code of a character.</li>
+<li>For better performance when you know the result is a string, use <code>ChrW$</code> instead of <code>ChrW</code>.</li>
+</ul>
+<h2 id="common-character-codes">Common Character Codes</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Character</th>
+<th>Constant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>(null)</td>
+<td><code>vbNullChar</code></td>
+<td>Null character</td>
+</tr>
+<tr>
+<td>9</td>
+<td>\t</td>
+<td><code>vbTab</code></td>
+<td>Horizontal tab</td>
+</tr>
+<tr>
+<td>10</td>
+<td>\n</td>
+<td><code>vbLf</code></td>
+<td>Line feed</td>
+</tr>
+<tr>
+<td>13</td>
+<td>\r</td>
+<td><code>vbCr</code></td>
+<td>Carriage return</td>
+</tr>
+<tr>
+<td>32</td>
+<td>(space)</td>
+<td>-</td>
+<td>Space character</td>
+</tr>
+<tr>
+<td>34</td>
+<td>"</td>
+<td>-</td>
+<td>Double quote</td>
+</tr>
+<tr>
+<td>39</td>
+<td>'</td>
+<td>-</td>
+<td>Single quote</td>
+</tr>
+<tr>
+<td>65</td>
+<td>A</td>
+<td>-</td>
+<td>Uppercase A</td>
+</tr>
+<tr>
+<td>97</td>
+<td>a</td>
+<td>-</td>
+<td>Lowercase a</td>
+</tr>
+<tr>
+<td>169</td>
+<td>©</td>
+<td>-</td>
+<td>Copyright symbol</td>
+</tr>
+<tr>
+<td>8364</td>
+<td>€</td>
+<td>-</td>
+<td>Euro sign</td>
+</tr>
+</tbody>
+</table>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Unicode characters</strong> - Access characters beyond the ANSI range</li>
+<li><strong>International text</strong> - Work with non-English characters</li>
+<li><strong>Special symbols</strong> - Insert mathematical, currency, and other Unicode symbols</li>
+<li><strong>Line breaks</strong> - Insert carriage returns and line feeds</li>
+<li><strong>Emoji and symbols</strong> - Access Unicode symbols (within BMP range)</li>
+<li><strong>Cross-platform text</strong> - Generate Unicode text for better compatibility</li>
+<li><strong>Web content</strong> - Create Unicode strings for web applications</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Get character from code
+Dim ch As String
+ch = ChrW$(65)  &#x27; Returns &quot;A&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Unicode character beyond ANSI
+Dim euro As String
+euro = ChrW$(8364)  &#x27; Returns &quot;€&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Copyright symbol
+Dim copyright As String
+copyright = ChrW$(169)  &#x27; Returns &quot;©&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Line break
+Dim msg As String
+msg = &quot;Line 1&quot; &amp; ChrW$(13) &amp; ChrW$(10) &amp; &quot;Line 2&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="multi-line-strings">Multi-line Strings</h3>
+<pre><code class="language-vbnet">Function CreateMultiLine() As String
+Dim result As String
+result = &quot;First Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+result = result &amp; &quot;Second Line&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+result = result &amp; &quot;Third Line&quot;
+CreateMultiLine = result
+End Function</code></pre>
+<h3 id="unicode-symbols">Unicode Symbols</h3>
+<pre><code class="language-vbnet">Function CreateCopyrightNotice(year As String, company As String) As String
+CreateCopyrightNotice = &quot;Copyright &quot; &amp; ChrW$(169) &amp; &quot; &quot; &amp; year &amp; &quot; &quot; &amp; company
+End Function</code></pre>
+<h3 id="currency-symbols">Currency Symbols</h3>
+<pre><code class="language-vbnet">Function FormatPrice(amount As Double, currency As String) As String
+Dim symbol As String
+Select Case currency
+Case &quot;EUR&quot;
+symbol = ChrW$(8364)  &#x27; €
+Case &quot;GBP&quot;
+symbol = ChrW$(163)   &#x27; £
+Case &quot;YEN&quot;
+symbol = ChrW$(165)   &#x27; ¥
+Case Else
+symbol = &quot;$&quot;
+End Select
+FormatPrice = symbol &amp; Format(amount, &quot;0.00&quot;)
+End Function</code></pre>
+<h3 id="international-characters">International Characters</h3>
+<pre><code class="language-vbnet">Function GetGreeting(language As String) As String
+Select Case language
+Case &quot;German&quot;
+GetGreeting = &quot;Gr&quot; &amp; ChrW$(252) &amp; ChrW$(223) &amp; &quot; Gott&quot;  &#x27; Grüß Gott
+Case &quot;French&quot;
+GetGreeting = &quot;Fran&quot; &amp; ChrW$(231) &amp; &quot;ais&quot;  &#x27; Français
+Case &quot;Spanish&quot;
+GetGreeting = &quot;Espa&quot; &amp; ChrW$(241) &amp; &quot;ol&quot;   &#x27; Español
+Case Else
+GetGreeting = &quot;Hello&quot;
+End Select
+End Function</code></pre>
+<h3 id="mathematical-symbols">Mathematical Symbols</h3>
+<pre><code class="language-vbnet">Function CreateMathExpression() As String
+Dim result As String
+result = &quot;x &quot; &amp; ChrW$(8804) &amp; &quot; 10&quot;  &#x27; x ≤ 10
+result = result &amp; &quot; &quot; &amp; ChrW$(8743) &amp; &quot; &quot;  &#x27; ∧ (and)
+result = result &amp; &quot;x &quot; &amp; ChrW$(8805) &amp; &quot; 0&quot;  &#x27; x ≥ 0
+CreateMathExpression = result
+End Function</code></pre>
+<h3 id="tab-separated-values">Tab-Separated Values</h3>
+<pre><code class="language-vbnet">Function CreateTSV(col1 As String, col2 As String, col3 As String) As String
+CreateTSV = col1 &amp; ChrW$(9) &amp; col2 &amp; ChrW$(9) &amp; col3
+End Function</code></pre>
+<h3 id="quote-in-string">Quote in String</h3>
+<pre><code class="language-vbnet">Function AddQuotes(text As String) As String
+AddQuotes = ChrW$(34) &amp; text &amp; ChrW$(34)
+End Function</code></pre>
+<h3 id="bullet-points">Bullet Points</h3>
+<pre><code class="language-vbnet">Function CreateBulletList() As String
+Dim result As String
+Dim bullet As String
+bullet = ChrW$(8226)  &#x27; •
+result = bullet &amp; &quot; First item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+result = result &amp; bullet &amp; &quot; Second item&quot; &amp; ChrW$(13) &amp; ChrW$(10)
+result = result &amp; bullet &amp; &quot; Third item&quot;
+CreateBulletList = result
+End Function</code></pre>
+<h3 id="null-terminated-string">Null-Terminated String</h3>
+<pre><code class="language-vbnet">Function CreateNullTerminated(text As String) As String
+CreateNullTerminated = text &amp; ChrW$(0)
+End Function</code></pre>
+<h3 id="generate-alphabet">Generate Alphabet</h3>
+<pre><code class="language-vbnet">Function GenerateAlphabet() As String
+Dim i As Integer
+Dim result As String
+For i = 65 To 90
+result = result &amp; ChrW$(i)
+Next i
+GenerateAlphabet = result  &#x27; Returns &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>ChrW</code>: Returns Unicode character as <code>Variant</code> instead of <code>String</code></li>
+<li><code>Chr$</code>: Returns ANSI/system character (limited to 0-255)</li>
+<li><code>ChrB$</code>: Returns byte character (limited to 0-255)</li>
+<li><code>AscW</code>: Returns Unicode character code (inverse of <code>ChrW$</code>)</li>
+<li><code>Asc</code>: Returns ANSI character code</li>
+<li><code>AscB</code>: Returns byte value</li>
+</ul>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeChrW(code As Long) As String
+On Error Resume Next
+SafeChrW = ChrW$(code)
+If Err.Number &lt;&gt; 0 Then
+SafeChrW = &quot;&quot;
+Err.Clear
+End If
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>ChrW$</code> is slightly more efficient than <code>ChrW</code> because it avoids <code>Variant</code> overhead</li>
+<li>For building strings from many characters, consider using arrays and <code>Join</code></li>
+<li>Concatenating many <code>ChrW$</code> calls can be slow; use buffers for better performance</li>
+<li>Unicode strings may take more memory than ANSI strings</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use named constants for common characters instead of magic numbers</li>
+<li>Use <code>ChrW$</code> for Unicode characters, <code>Chr$</code> for ANSI-only characters</li>
+<li>Document character codes with comments showing the actual character</li>
+<li>Validate character codes are in valid range before calling <code>ChrW$</code></li>
+<li>Use <code>vbCrLf</code> constant instead of <code>ChrW$(13) &amp; ChrW$(10)</code> when possible</li>
+<li>Prefer <code>ChrW$</code> over <code>ChrW</code> when you need a <code>String</code> result</li>
+<li>Consider internationalization when working with Unicode characters</li>
+</ol>
+<h2 id="unicode-ranges">Unicode Ranges</h2>
+<ul>
+<li>0-127: ASCII characters (same as ANSI)</li>
+<li>128-255: Latin-1 Supplement</li>
+<li>256-383: Latin Extended-A</li>
+<li>384-591: Latin Extended-B</li>
+<li>8192-8303: General Punctuation</li>
+<li>8352-8399: Currency Symbols</li>
+<li>8448-8527: Letterlike Symbols</li>
+<li>8592-8703: Arrows</li>
+<li>8704-8959: Mathematical Operators</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited to Unicode BMP (Basic Multilingual Plane) - codes 0-65535</li>
+<li>Cannot directly create characters from supplementary planes (codes &gt; 65535)</li>
+<li>VB6 uses UCS-2 encoding, not full UTF-16</li>
+<li>Some Unicode characters may not display correctly depending on font support</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - midb_dollar - String">
+    <title>midb_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / midb_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="midb-function"><code>MidB$</code> Function</h1>
+<p>Returns a <code>String</code> containing a specified number of bytes from a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">MidB$(string, start[, length])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code>: Required. String expression from which bytes are returned. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+<li><code>start</code>: Required. Byte position in <code>string</code> at which the part to be taken begins. If <code>start</code> is greater than the number of bytes in <code>string</code>, <code>MidB$</code> returns a zero-length string ("").</li>
+<li><code>length</code>: Optional. Number of bytes to return. If omitted or if there are fewer than <code>length</code> bytes in the text (including the byte at <code>start</code>), all bytes from <code>start</code> to the end of the string are returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the specified number of bytes from <code>string</code>, starting at the byte position <code>start</code>. If <code>length</code> is omitted, returns all bytes from <code>start</code> to the end. Returns an empty string if <code>start</code> is greater than the byte length of the string.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>MidB$</code> function is used with byte data contained in a string. Instead of specifying character positions and counts, <code>start</code> and <code>length</code> specify byte positions and byte counts.</p>
+<p>This function is particularly useful when working with:
+- Binary data stored in strings
+- ANSI strings requiring byte-level manipulation
+- Double-byte character set (DBCS) strings
+- Fixed-position binary protocols
+- File format parsing at byte level
+- Network packet extraction</p>
+<p><code>MidB$</code> is the byte-oriented version of <code>Mid$</code>. While <code>Mid$</code> counts characters, <code>MidB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.</p>
+<p>The <code>MidB$</code> function always returns a <code>String</code>. The <code>MidB</code> function returns a <code>Variant</code>.</p>
+<p>Note: Byte positions are 1-based, not 0-based. The first byte is at position 1.</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<h3 id="example-1-extracting-binary-field">Example 1: Extracting Binary Field</h3>
+<pre><code class="language-vbnet">Dim record As String
+record = GetBinaryRecord()
+field = MidB$(record, 5, 4)  &#x27; Get 4 bytes starting at byte 5</code></pre>
+<h3 id="example-2-parsing-protocol-header">Example 2: Parsing Protocol Header</h3>
+<pre><code class="language-vbnet">Dim packet As String
+packet = ReceivePacket()
+version = MidB$(packet, 1, 2)   &#x27; First 2 bytes
+msgType = MidB$(packet, 3, 1)   &#x27; Third byte</code></pre>
+<h3 id="example-3-reading-fixed-position-data">Example 3: Reading Fixed-Position Data</h3>
+<pre><code class="language-vbnet">Dim data As String
+data = binaryData
+id = MidB$(data, 1, 8)      &#x27; Bytes 1-8: ID
+name = MidB$(data, 9, 32)   &#x27; Bytes 9-40: Name</code></pre>
+<h3 id="example-4-extracting-guid-components">Example 4: Extracting GUID Components</h3>
+<pre><code class="language-vbnet">Dim guidBytes As String
+guidBytes = GetGUID()
+data1 = MidB$(guidBytes, 1, 4)   &#x27; First DWORD
+data2 = MidB$(guidBytes, 5, 2)   &#x27; First WORD
+data3 = MidB$(guidBytes, 7, 2)   &#x27; Second WORD</code></pre>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="parsing-binary-structure">Parsing Binary Structure</h3>
+<pre><code class="language-vbnet">Dim buffer As String
+buffer = GetBinaryData()
+magic = MidB$(buffer, 1, 4)        &#x27; Magic number
+version = MidB$(buffer, 5, 2)      &#x27; Version
+flags = MidB$(buffer, 7, 1)        &#x27; Flags byte
+dataLen = MidB$(buffer, 8, 4)      &#x27; Data length</code></pre>
+<h3 id="reading-file-header">Reading File Header</h3>
+<pre><code class="language-vbnet">Dim fileData As String
+Open fileName For Binary As #1
+fileData = Input$(100, #1)
+Close #1
+signature = MidB$(fileData, 1, 4)
+If signature = &quot;RIFF&quot; Then
+fileSize = MidB$(fileData, 5, 4)
+End If</code></pre>
+<h3 id="processing-network-packet">Processing Network Packet</h3>
+<pre><code class="language-vbnet">Dim packet As String
+packet = Socket.Receive()
+header = MidB$(packet, 1, 16)
+payload = MidB$(packet, 17)  &#x27; Rest of packet</code></pre>
+<h3 id="extracting-length-prefixed-string">Extracting Length-Prefixed String</h3>
+<pre><code class="language-vbnet">Dim message As String
+message = buffer
+lenByte = MidB$(message, 1, 1)
+strLen = AscB(lenByte)
+text = MidB$(message, 2, strLen)</code></pre>
+<h3 id="reading-bmp-image-data">Reading BMP Image Data</h3>
+<pre><code class="language-vbnet">Dim bmpData As String
+Open &quot;image.bmp&quot; For Binary As #1
+bmpData = Input$(LOF(1), #1)
+Close #1
+fileType = MidB$(bmpData, 1, 2)     &#x27; &quot;BM&quot;
+fileSize = MidB$(bmpData, 3, 4)     &#x27; File size
+offset = MidB$(bmpData, 11, 4)      &#x27; Pixel data offset</code></pre>
+<h3 id="chunked-binary-processing">Chunked Binary Processing</h3>
+<pre><code class="language-vbnet">Dim data As String, chunk As String
+Dim pos As Long
+data = GetBinaryData()
+pos = 1
+Do While pos &lt;= LenB(data)
+chunk = MidB$(data, pos, 512)
+ProcessChunk chunk
+pos = pos + 512
+Loop</code></pre>
+<h3 id="extracting-record-fields">Extracting Record Fields</h3>
+<pre><code class="language-vbnet">Dim record As String
+record = ReadBinaryRecord()
+&#x27; Fixed-position record layout
+customerID = MidB$(record, 1, 10)
+orderDate = MidB$(record, 11, 8)
+amount = MidB$(record, 19, 8)</code></pre>
+<h3 id="parsing-ipv4-address-bytes">Parsing IPv4 Address Bytes</h3>
+<pre><code class="language-vbnet">Dim ipBytes As String
+ipBytes = GetIPv4Bytes()
+octet1 = AscB(MidB$(ipBytes, 1, 1))
+octet2 = AscB(MidB$(ipBytes, 2, 1))
+octet3 = AscB(MidB$(ipBytes, 3, 1))
+octet4 = AscB(MidB$(ipBytes, 4, 1))</code></pre>
+<h3 id="reading-bitmap-header-fields">Reading Bitmap Header Fields</h3>
+<pre><code class="language-vbnet">Dim dibHeader As String
+dibHeader = MidB$(bmpData, 15, 40)  &#x27; DIB header
+width = MidB$(dibHeader, 5, 4)
+height = MidB$(dibHeader, 9, 4)
+bitsPerPixel = MidB$(dibHeader, 15, 2)</code></pre>
+<h3 id="protocol-message-parsing">Protocol Message Parsing</h3>
+<pre><code class="language-vbnet">Dim msg As String
+msg = ReceiveMessage()
+msgID = MidB$(msg, 1, 4)
+timestamp = MidB$(msg, 5, 8)
+sender = MidB$(msg, 13, 16)
+payload = MidB$(msg, 29)  &#x27; Remaining bytes</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>MidB</code>: Variant version that returns a <code>Variant</code></li>
+<li><code>Mid$</code>: Character-based version that counts characters</li>
+<li><code>LeftB$</code>: Returns bytes from the left side of a string</li>
+<li><code>RightB$</code>: Returns bytes from the right side of a string</li>
+<li><code>LenB</code>: Returns the number of bytes in a string</li>
+<li><code>InStrB</code>: Finds byte position of a substring</li>
+<li><code>AscB</code>: Returns the byte value at a position</li>
+<li><code>ChrB$</code>: Returns a string containing a single byte</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use <code>MidB$</code> when working with binary data or byte-oriented protocols</li>
+<li>Be careful with DBCS strings - splitting may corrupt multi-byte characters</li>
+<li>Always validate byte positions and lengths before extraction</li>
+<li>Use <code>LenB</code> to get byte length, not <code>Len</code></li>
+<li>Remember that byte positions are 1-based, not 0-based</li>
+<li>Prefer <code>MidB$</code> over <code>Mid$</code> for binary file operations</li>
+<li>Combine with <code>AscB</code> and <code>ChrB$</code> for byte-level manipulation</li>
+<li>Document byte offsets and field sizes for binary structures</li>
+<li>Test DBCS string operations on appropriate language systems</li>
+<li>Use constants for magic numbers and field offsets</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>MidB$</code> is slightly faster than <code>Mid$</code> for binary data</li>
+<li>No performance penalty for requesting bytes beyond string end</li>
+<li>Direct byte extraction is faster than loops with <code>AscB</code></li>
+<li>Extracting large byte ranges is efficient</li>
+<li>Minimal overhead compared to <code>Mid$</code> in SBCS environments</li>
+</ul>
+<h2 id="character-set-behavior">Character Set Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Bytes per Char</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>English Windows</td>
+<td>1 byte</td>
+<td><code>MidB$</code> and <code>Mid$</code> behave identically</td>
+</tr>
+<tr>
+<td>DBCS Windows</td>
+<td>1-2 bytes</td>
+<td><code>MidB$</code> may split multi-byte characters</td>
+</tr>
+<tr>
+<td>Unicode VB6</td>
+<td>2 bytes</td>
+<td>Internal strings are Unicode but converted</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td>N/A</td>
+<td><code>MidB$</code> treats data as raw bytes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Using <code>MidB$</code> on DBCS strings without checking character boundaries</li>
+<li>Confusing byte positions with character positions</li>
+<li>Using 0-based indexing (VB6 strings are 1-based)</li>
+<li>Not handling <code>Null</code> string values (causes runtime error)</li>
+<li>Passing negative or zero start position (causes runtime error)</li>
+<li>Using <code>MidB$</code> for text processing (use <code>Mid$</code> instead)</li>
+<li>Forgetting that VB6 strings are internally Unicode</li>
+<li>Assuming one byte equals one character in all locales</li>
+<li>Not validating that <code>start</code> position is within bounds</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>May corrupt DBCS characters if not used carefully</li>
+<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
+<li>Start position must be positive (1 or greater)</li>
+<li>Length parameter cannot be negative</li>
+<li>Not suitable for modern Unicode string processing</li>
+<li>Limited to VB6's internal string representation</li>
+<li>May produce unexpected results with emoji or complex Unicode</li>
+<li>Cannot modify the original string (read-only operation)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

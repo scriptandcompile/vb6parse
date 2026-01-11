@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - error_dollar - Environment">
+    <title>error_dollar - Environment - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/environment/index.html">Environment</a> / error_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>Error$</code> Function</p>
+<p>The <code>Error$</code> function returns the error message string corresponding to a given error number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Error$([errornumber])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>errornumber</code>: Optional. A numeric expression representing an error number. If omitted, returns the error message for the most recent error (<code>Err.Number</code>).</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> containing the error message associated with the error number.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>Error$</code> returns a <code>String</code>, while <code>Error</code> (without the $) returns a <code>Variant</code>.</li>
+<li>If <code>errornumber</code> is omitted, returns the message for the current error (<code>Err.Number</code>).</li>
+<li>If the error number is not recognized, returns "Application-defined or object-defined error".</li>
+<li>System errors (1-1000) return predefined messages.</li>
+<li>User-defined errors typically start at vbObjectError.</li>
+<li>Does not raise or clear errors, only retrieves messages.</li>
+<li>Can be used to display error messages to users.</li>
+<li>Related to the <code>Err</code> object and <code>Error</code> statement.</li>
+<li>Returns an empty string if error number is 0.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li>Display error messages in message boxes</li>
+<li>Log error messages to files or debug output</li>
+<li>Format custom error messages</li>
+<li>Retrieve predefined system error messages</li>
+<li>Build error reporting systems</li>
+<li>Test error handling code</li>
+<li>Document expected errors</li>
+<li>Create user-friendly error dialogs</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-get-current-error-message">Example 1: Get current error message</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+x = 1 / 0
+MsgBox Error$()</code></pre>
+<h3 id="example-2-get-specific-error-message">Example 2: Get specific error message</h3>
+<pre><code class="language-vbnet">MsgBox Error$(11) &#x27; &quot;Division by zero&quot;</code></pre>
+<h3 id="example-3-display-error-in-handler">Example 3: Display error in handler</h3>
+<pre><code class="language-vbnet">On Error GoTo ErrHandler
+&#x27; code
+Exit Sub
+ErrHandler:
+MsgBox &quot;Error: &quot; &amp; Error$()</code></pre>
+<h3 id="example-4-log-error-message">Example 4: Log error message</h3>
+<pre><code class="language-vbnet">Debug.Print &quot;Error occurred: &quot; &amp; Error$()</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-display-formatted-error">Pattern 1: Display formatted error</h3>
+<pre><code class="language-vbnet">MsgBox &quot;An error occurred: &quot; &amp; Error$()</code></pre>
+<h3 id="pattern-2-log-error-with-number">Pattern 2: Log error with number</h3>
+<pre><code class="language-vbnet">Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Error$()</code></pre>
+<h3 id="pattern-3-custom-error-message">Pattern 3: Custom error message</h3>
+<pre><code class="language-vbnet">If Err.Number &lt;&gt; 0 Then
+msg = &quot;Operation failed: &quot; &amp; Error$()
+End If</code></pre>
+<h3 id="pattern-4-get-specific-error-text">Pattern 4: Get specific error text</h3>
+<pre><code class="language-vbnet">errMsg = Error$(53) &#x27; &quot;File not found&quot;</code></pre>
+<h3 id="pattern-5-error-handler-logging">Pattern 5: Error handler logging</h3>
+<pre><code class="language-vbnet">On Error GoTo ErrHandler
+&#x27; code
+Exit Sub
+ErrHandler:
+Open &quot;errors.log&quot; For Append As #1
+Print #1, Now &amp; &quot;: &quot; &amp; Error$()
+Close #1</code></pre>
+<h3 id="pattern-6-compare-error-messages">Pattern 6: Compare error messages</h3>
+<pre><code class="language-vbnet">If Error$() = Error$(11) Then
+&#x27; Handle division by zero
+End If</code></pre>
+<h3 id="pattern-7-build-error-report">Pattern 7: Build error report</h3>
+<pre><code class="language-vbnet">report = &quot;Error Number: &quot; &amp; Err.Number &amp; vbCrLf
+report = report &amp; &quot;Description: &quot; &amp; Error$() &amp; vbCrLf</code></pre>
+<h3 id="pattern-8-test-error-messages">Pattern 8: Test error messages</h3>
+<pre><code class="language-vbnet">For i = 1 To 100
+Debug.Print i &amp; &quot;: &quot; &amp; Error$(i)
+Next i</code></pre>
+<h3 id="pattern-9-user-friendly-error-dialog">Pattern 9: User-friendly error dialog</h3>
+<pre><code class="language-vbnet">MsgBox &quot;Sorry, an error occurred:&quot; &amp; vbCrLf &amp; Error$(), vbExclamation</code></pre>
+<h3 id="pattern-10-conditional-error-handling">Pattern 10: Conditional error handling</h3>
+<pre><code class="language-vbnet">If InStr(Error$(), &quot;File&quot;) &gt; 0 Then
+&#x27; Handle file-related errors
+End If</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-comprehensive-error-logger">Example 1: Comprehensive error logger</h3>
+<pre><code class="language-vbnet">Sub LogError()
+Dim msg As String
+msg = &quot;Error &quot; &amp; Err.Number &amp; &quot; at &quot; &amp; Now &amp; vbCrLf
+msg = msg &amp; &quot;Description: &quot; &amp; Error$() &amp; vbCrLf
+msg = msg &amp; &quot;Source: &quot; &amp; Err.Source &amp; vbCrLf
+Debug.Print msg
+End Sub</code></pre>
+<h3 id="example-2-error-message-translator">Example 2: Error message translator</h3>
+<pre><code class="language-vbnet">Function GetFriendlyError() As String
+Select Case Err.Number
+Case 11
+GetFriendlyError = &quot;Cannot divide by zero&quot;
+Case 53
+GetFriendlyError = &quot;The file was not found&quot;
+Case Else
+GetFriendlyError = Error$()
+End Select
+End Function</code></pre>
+<h3 id="example-3-error-documentation-generator">Example 3: Error documentation generator</h3>
+<pre><code class="language-vbnet">Sub DocumentErrors()
+Dim i As Integer
+Open &quot;errors.txt&quot; For Output As #1
+For i = 1 To 1000
+If Error$(i) &lt;&gt; &quot;&quot; Then
+Print #1, i &amp; vbTab &amp; Error$(i)
+End If
+Next i
+Close #1
+End Sub</code></pre>
+<h3 id="example-4-error-testing-utility">Example 4: Error testing utility</h3>
+<pre><code class="language-vbnet">Function TestError(errNum As Integer) As String
+On Error Resume Next
+Err.Raise errNum
+TestError = Error$()
+Err.Clear
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<ul>
+<li>Returns empty string for error number 0.</li>
+<li>Returns "Application-defined or object-defined error" for unrecognized errors.</li>
+<li>Does not raise or clear errors itself.</li>
+<li>Safe to call at any time.</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Fast, constant time O(1) lookup.</li>
+<li>No side effects on error state.</li>
+<li>Safe for repeated calls.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use with error handlers for user-friendly messages.</li>
+<li>Combine with <code>Err.Number</code> for complete error info.</li>
+<li>Log <code>Error$()</code> output for debugging.</li>
+<li>Don't rely on exact message text (use error numbers).</li>
+<li>Provide context with error messages.</li>
+<li>Use for displaying errors to users.</li>
+<li>Document which errors your code may encounter.</li>
+<li>Test error paths with <code>Error$()</code> logging.</li>
+<li>Prefer <code>Error$()</code> over <code>Error</code> for <code>String</code> variables.</li>
+<li>Clear errors after handling with <code>Err.Clear</code>.</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function/Statement</th>
+<th>Purpose</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Error$</code></td>
+<td>Get error message string</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td><code>Error</code></td>
+<td>Get error message variant</td>
+<td><code>Variant</code></td>
+</tr>
+<tr>
+<td><code>Err.Description</code></td>
+<td>Current error description</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td><code>Err.Number</code></td>
+<td>Current error number</td>
+<td><code>Long</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6 and VBA.</li>
+<li>Error messages are in English by default.</li>
+<li>Some error messages may be locale-specific.</li>
+<li><code>VBScript</code> uses <code>Err.Description</code> instead.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns English messages (may not be localized).</li>
+<li>Cannot customize built-in error messages.</li>
+<li>Limited to VB6's predefined error numbers.</li>
+<li>Does not provide error source or context.</li>
+<li>Message text may change between VB versions.</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Environment</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

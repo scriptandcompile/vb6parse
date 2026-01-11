@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - vartype - Conversion">
+    <title>vartype - Conversion - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/conversion/index.html">Conversion</a> / vartype</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>VarType</code> Function</p>
+<p>The <code>VarType</code> function returns an integer constant indicating the subtype of a Variant variable or expression.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">VarType(varname)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>varname</code>: Required. Name of a variable or expression whose Variant subtype is to be determined.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns an <code>Integer</code> constant representing the Variant subtype. Common return values:
+- 0: vbEmpty (uninitialized)
+- 1: vbNull (Null)
+- 2: vbInteger
+- 3: vbLong
+- 4: vbSingle
+- 5: vbDouble
+- 6: vbCurrency
+- 7: vbDate
+- 8: vbString
+- 9: vbObject
+- 10: vbError
+- 11: vbBoolean
+- 12: vbVariant (for arrays)
+- 13: vbDataObject
+- 17: vbByte
+- 8192: vbArray (bitwise OR with base type)
+- ...and others (see documentation)</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>Returns a numeric constant, not a string.</li>
+<li>For arrays, returns vbArray (8192) bitwise OR'd with the base type (e.g., vbArray + vbInteger = 8194).</li>
+<li>For objects, returns vbObject (9) or vbDataObject (13).</li>
+<li>For user-defined types, returns vbUserDefinedType (36).</li>
+<li>For Empty, returns vbEmpty (0); for Null, returns vbNull (1).</li>
+<li>For non-Variant variables, returns the corresponding type constant.</li>
+<li>Useful for type checking, debugging, and generic code.</li>
+<li>Use with <code>TypeName</code> for string representation.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li>Type checking in generic code</li>
+<li>Handling Variant variables</li>
+<li>Debugging and logging</li>
+<li>Validating function arguments</li>
+<li>Detecting arrays and base types</li>
+<li>Reflection-like operations</li>
+<li>Error handling and reporting</li>
+<li>Working with COM objects</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-get-vartype-of-integer">Example 1: Get <code>VarType</code> of Integer</h3>
+<pre><code class="language-vbnet">Dim x As Integer
+Debug.Print VarType(x) &#x27; 2 (vbInteger)</code></pre>
+<h3 id="example-2-get-vartype-of-string">Example 2: Get <code>VarType</code> of String</h3>
+<pre><code class="language-vbnet">Dim s As String
+Debug.Print VarType(s) &#x27; 8 (vbString)</code></pre>
+<h3 id="example-3-get-vartype-of-array">Example 3: Get <code>VarType</code> of Array</h3>
+<pre><code class="language-vbnet">Dim arr(1 To 5) As Double
+Debug.Print VarType(arr) &#x27; 8205 (vbArray + vbDouble)</code></pre>
+<h3 id="example-4-get-vartype-of-variant">Example 4: Get <code>VarType</code> of Variant</h3>
+<pre><code class="language-vbnet">Dim v As Variant
+v = 123
+Debug.Print VarType(v) &#x27; 2 (vbInteger)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-check-for-array">Pattern 1: Check for array</h3>
+<pre><code class="language-vbnet">If VarType(var) And vbArray Then
+Debug.Print &quot;It&#x27;s an array!&quot;
+End If</code></pre>
+<h3 id="pattern-2-check-for-string">Pattern 2: Check for string</h3>
+<pre><code class="language-vbnet">If VarType(x) = vbString Then
+&#x27; Handle string
+End If</code></pre>
+<h3 id="pattern-3-handle-variant-types">Pattern 3: Handle Variant types</h3>
+<pre><code class="language-vbnet">If VarType(v) = vbInteger Then
+&#x27; Handle integer
+End If</code></pre>
+<h3 id="pattern-4-log-variable-types">Pattern 4: Log variable types</h3>
+<pre><code class="language-vbnet">Debug.Print &quot;VarType: &quot; &amp; VarType(x)</code></pre>
+<h3 id="pattern-5-validate-argument-type">Pattern 5: Validate argument type</h3>
+<pre><code class="language-vbnet">Sub Foo(arg As Variant)
+If VarType(arg) &lt;&gt; vbString Then Err.Raise 5
+End Sub</code></pre>
+<h3 id="pattern-6-reflection-like-usage">Pattern 6: Reflection-like usage</h3>
+<pre><code class="language-vbnet">Dim t As Integer
+t = VarType(obj)
+If t = vbObject Then
+&#x27; Do something
+End If</code></pre>
+<h3 id="pattern-7-handle-null-and-empty">Pattern 7: Handle Null and Empty</h3>
+<pre><code class="language-vbnet">If VarType(v) = vbNull Then
+&#x27; Handle Null
+ElseIf VarType(v) = vbEmpty Then
+&#x27; Handle Empty
+End If</code></pre>
+<h3 id="pattern-8-array-type-detection">Pattern 8: Array type detection</h3>
+<pre><code class="language-vbnet">If (VarType(arr) And vbArray) Then
+Debug.Print &quot;Array base type: &quot; &amp; (VarType(arr) - vbArray)
+End If</code></pre>
+<h3 id="pattern-9-user-defined-type">Pattern 9: User-defined type</h3>
+<pre><code class="language-vbnet">Type MyType
+x As Integer
+End Type
+Dim t As MyType
+Debug.Print VarType(t) &#x27; 36 (vbUserDefinedType)</code></pre>
+<h3 id="pattern-10-class-type-detection">Pattern 10: Class type detection</h3>
+<pre><code class="language-vbnet">If VarType(obj) = vbObject Then
+&#x27; Handle object
+End If</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-type-checking-in-generic-function">Example 1: Type checking in generic function</h3>
+<pre><code class="language-vbnet">Function IsString(val As Variant) As Boolean
+IsString = (VarType(val) = vbString)
+End Function</code></pre>
+<h3 id="example-2-logging-all-argument-types">Example 2: Logging all argument types</h3>
+<pre><code class="language-vbnet">Sub LogTypes(ParamArray args() As Variant)
+Dim i As Integer
+For i = LBound(args) To UBound(args)
+Debug.Print &quot;Arg &quot; &amp; i &amp; &quot;: &quot; &amp; VarType(args(i))
+Next i
+End Sub</code></pre>
+<h3 id="example-3-reflection-for-class-methods">Example 3: Reflection for class methods</h3>
+<pre><code class="language-vbnet">If VarType(obj) = vbObject Then
+obj.SpecialMethod
+End If</code></pre>
+<h3 id="example-4-variant-array-detection">Example 4: Variant array detection</h3>
+<pre><code class="language-vbnet">Dim v As Variant
+v = Array(1, 2, 3)
+If (VarType(v) And vbArray) Then
+Debug.Print &quot;Variant array&quot;
+End If</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<ul>
+<li>Returns vbError (10) for error values.</li>
+<li>Returns vbUnknown (0) for unsupported types.</li>
+<li>Returns vbEmpty (0) for uninitialized variables.</li>
+<li>Returns vbNull (1) for Null values.</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Fast, constant time O(1).</li>
+<li>No side effects.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use for debugging and logging.</li>
+<li>Use bitwise AND with vbArray to detect arrays.</li>
+<li>Use with <code>TypeName</code> for string representation.</li>
+<li>Handle vbNull, vbEmpty, and vbError cases.</li>
+<li>Use for generic code and utilities.</li>
+<li>Document expected type constants.</li>
+<li>Use for runtime checks, not compile-time.</li>
+<li>Combine with <code>TypeName</code> for more detail.</li>
+<li>Use for Variant and object variables.</li>
+<li>Avoid using as a substitute for type declarations.</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Input</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VarType</code></td>
+<td>Get type as constant</td>
+<td>variable</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>TypeName</code></td>
+<td>Get type as string</td>
+<td>variable</td>
+<td>String</td>
+</tr>
+<tr>
+<td><code>IsObject</code></td>
+<td>Check if is object</td>
+<td>variable</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td><code>IsArray</code></td>
+<td>Check if is array</td>
+<td>variable</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, <code>VBScript</code></li>
+<li>Consistent across platforms</li>
+<li>Returns type constants in English</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns only type constant as integer</li>
+<li>Not locale-sensitive</li>
+<li>Returns vbUnknown (0) for unsupported types</li>
+<li>Not for compile-time type checking</li>
+<li>May return user-defined type/class constants</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Conversion</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

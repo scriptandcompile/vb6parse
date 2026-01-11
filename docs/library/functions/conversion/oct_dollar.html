@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - oct_dollar - Conversion">
+    <title>oct_dollar - Conversion - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/conversion/index.html">Conversion</a> / oct_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="oct-function"><code>Oct$</code> Function</h1>
+<p>The <code>Oct$</code> function in Visual Basic 6 returns a string representing the octal (base-8) value
+of a number. The function name stands for "Octal String".</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Oct$(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. Any valid numeric expression. If <code>number</code> is not a whole number, it is
+rounded to the nearest whole number before being evaluated.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> representing the octal value of the number. The returned string contains
+only the digits 0-7, without a leading "0" or "&amp;O" prefix.</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="data-type-handling">Data Type Handling</h3>
+<ul>
+<li>Accepts any numeric type: <code>Byte</code>, <code>Integer</code>, <code>Long</code>, <code>Single</code>, <code>Double</code>, <code>Currency</code></li>
+<li>Floating-point values are rounded to the nearest integer before conversion</li>
+<li>Negative numbers are represented using two's complement notation</li>
+<li>Returns unsigned octal representation for the underlying bit pattern</li>
+</ul>
+<h3 id="range-considerations">Range Considerations</h3>
+<ul>
+<li><code>Integer</code> values: Returns 1-6 octal digits (range: 0 to 177777 for positive, 100000-177777 for negative)</li>
+<li><code>Long</code> values: Returns 1-11 octal digits (range: 0 to 17777777777 for positive)</li>
+<li><code>Byte</code> values: Returns 1-3 octal digits (range: 0 to 377)</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-basic-octal-conversion">1. Basic Octal Conversion</h3>
+<pre><code class="language-vbnet">Dim octStr As String
+octStr = Oct$(64)  &#x27; Returns &quot;100&quot;
+octStr = Oct$(8)   &#x27; Returns &quot;10&quot;
+octStr = Oct$(511) &#x27; Returns &quot;777&quot;</code></pre>
+<h3 id="2-converting-negative-numbers">2. Converting Negative Numbers</h3>
+<pre><code class="language-vbnet">Dim octStr As String
+octStr = Oct$(-1)  &#x27; Returns &quot;177777&quot; (Integer range, two&#x27;s complement)</code></pre>
+<h3 id="3-file-permission-representation">3. File Permission Representation</h3>
+<pre><code class="language-vbnet">Function FormatPermissions(permissions As Integer) As String
+&#x27; Unix-style file permissions (e.g., 755, 644)
+FormatPermissions = Oct$(permissions)
+End Function
+
+Dim perms As String
+perms = FormatPermissions(&amp;H1ED)  &#x27; Returns &quot;755&quot;</code></pre>
+<h3 id="4-bit-mask-display">4. Bit Mask Display</h3>
+<pre><code class="language-vbnet">Dim flags As Integer
+Dim octDisplay As String
+flags = &amp;H1FF
+octDisplay = &quot;Flags: &quot; &amp; Oct$(flags)  &#x27; &quot;Flags: 777&quot;</code></pre>
+<h3 id="5-color-component-extraction-octal">5. Color Component Extraction (Octal)</h3>
+<pre><code class="language-vbnet">Dim colorValue As Long
+Dim component As Integer
+colorValue = &amp;HFF8040
+component = (colorValue And &amp;HFF)
+Debug.Print Oct$(component)  &#x27; Shows octal representation</code></pre>
+<h3 id="6-data-structure-field-values">6. Data Structure Field Values</h3>
+<pre><code class="language-vbnet">Type SystemFlags
+ReadWrite As Integer
+Execute As Integer
+End Type
+
+Dim sysFlags As SystemFlags
+sysFlags.ReadWrite = &amp;O644  &#x27; Octal literal
+Debug.Print &quot;RW: &quot; &amp; Oct$(sysFlags.ReadWrite)</code></pre>
+<h3 id="7-debugging-bit-patterns">7. Debugging Bit Patterns</h3>
+<pre><code class="language-vbnet">Sub ShowBitPattern(value As Integer)
+Debug.Print &quot;Decimal: &quot; &amp; value
+Debug.Print &quot;Octal: &quot; &amp; Oct$(value)
+Debug.Print &quot;Hex: &quot; &amp; Hex$(value)
+End Sub</code></pre>
+<h3 id="8-network-protocol-values">8. Network Protocol Values</h3>
+<pre><code class="language-vbnet">Dim socketMode As Integer
+socketMode = &amp;O666  &#x27; Read/write for all
+Debug.Print &quot;Mode: &quot; &amp; Oct$(socketMode)</code></pre>
+<h3 id="9-conversion-table-generation">9. Conversion Table Generation</h3>
+<pre><code class="language-vbnet">Sub GenerateOctalTable()
+Dim i As Integer
+For i = 0 To 64
+Debug.Print i &amp; &quot; = &quot; &amp; Oct$(i)
+Next i
+End Sub</code></pre>
+<h3 id="10-configuration-value-formatting">10. Configuration Value Formatting</h3>
+<pre><code class="language-vbnet">Function SaveConfigValue(value As Integer) As String
+&#x27; Store configuration as octal string
+SaveConfigValue = &quot;CONFIG=&quot; &amp; Oct$(value)
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Hex$()</code> - Converts a number to hexadecimal (base-16) string representation</li>
+<li><code>Str$()</code> - Converts a number to decimal string representation</li>
+<li><code>Val()</code> - Converts a string to a numeric value (doesn't parse octal)</li>
+<li><code>CLng()</code> - Converts an expression to a <code>Long</code> integer</li>
+<li><code>CInt()</code> - Converts an expression to an <code>Integer</code></li>
+<li><code>Format$()</code> - Provides custom number formatting options</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-oct">When to Use <code>Oct$</code></h3>
+<ol>
+<li><strong>Unix-style Permissions</strong>: Representing file or directory permissions (e.g., 755, 644)</li>
+<li><strong>Bit Pattern Analysis</strong>: When examining data in groups of 3 bits</li>
+<li><strong>Legacy System Integration</strong>: Working with systems that use octal notation</li>
+<li><strong>Debugging</strong>: Displaying bit patterns in a more compact form than binary</li>
+<li><strong>Configuration Files</strong>: Storing numeric values in octal format</li>
+</ol>
+<h3 id="formatting-output">Formatting Output</h3>
+<pre><code class="language-vbnet">&#x27; Add prefix for clarity
+Debug.Print &quot;Octal: &amp;O&quot; &amp; Oct$(value)
+
+&#x27; Pad with leading zeros
+Debug.Print Right$(&quot;000&quot; &amp; Oct$(value), 3)</code></pre>
+<h3 id="type-safety">Type Safety</h3>
+<pre><code class="language-vbnet">&#x27; Explicitly convert to ensure correct range
+Dim longValue As Long
+longValue = 1000000
+Debug.Print Oct$(longValue)  &#x27; Uses Long range</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Oct$</code> is a lightweight function with minimal overhead</li>
+<li>String concatenation in loops should use a <code>String</code> buffer or array for better performance</li>
+<li>For frequent conversions, consider caching results if the same values are converted repeatedly</li>
+</ul>
+<h2 id="octal-literals-in-vb6">Octal Literals in VB6</h2>
+<p>VB6 supports octal literals using the <code>&amp;O</code> prefix:</p>
+<pre><code class="language-vbnet">Dim octValue As Integer
+octValue = &amp;O777  &#x27; Octal literal (equals 511 decimal)
+Debug.Print Oct$(octValue)  &#x27; Returns &quot;777&quot;</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-no-direct-reverse-function">1. No Direct Reverse Function</h3>
+<p>VB6's <code>Val()</code> function does not parse octal strings. You need a custom function:</p>
+<pre><code class="language-vbnet">Function OctVal(octStr As String) As Long
+Dim i As Integer
+Dim result As Long
+For i = 1 To Len(octStr)
+result = result * 8 + Val(Mid$(octStr, i, 1))
+Next i
+OctVal = result
+End Function</code></pre>
+<h3 id="2-twos-complement-representation">2. Two's Complement Representation</h3>
+<p>Negative numbers produce two's complement octal strings:</p>
+<pre><code class="language-vbnet">Debug.Print Oct$(-1)   &#x27; &quot;177777&quot; (for Integer)
+Debug.Print Oct$(-100) &#x27; Not intuitive without understanding two&#x27;s complement</code></pre>
+<h3 id="3-floating-point-rounding">3. Floating-Point Rounding</h3>
+<pre><code class="language-vbnet">Debug.Print Oct$(8.5)  &#x27; &quot;10&quot; (rounds to 8)
+Debug.Print Oct$(8.6)  &#x27; &quot;11&quot; (rounds to 9)</code></pre>
+<h3 id="4-leading-zeros-not-included">4. Leading Zeros Not Included</h3>
+<pre><code class="language-vbnet">Debug.Print Oct$(8)  &#x27; &quot;10&quot;, not &quot;010&quot;
+&#x27; Pad manually if needed
+Debug.Print Right$(&quot;000&quot; &amp; Oct$(8), 3)  &#x27; &quot;010&quot;</code></pre>
+<h3 id="5-no-prefix-in-output">5. No Prefix in Output</h3>
+<p>Unlike some languages, VB6's <code>Oct$</code> doesn't include the <code>&amp;O</code> prefix:</p>
+<pre><code class="language-vbnet">Debug.Print Oct$(64)  &#x27; &quot;100&quot;, not &quot;&amp;O100&quot;</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>No built-in function to convert octal strings back to numbers (must implement manually)</li>
+<li>Cannot specify minimum width or padding (must format manually)</li>
+<li>Limited usefulness in modern applications (hexadecimal is more common)</li>
+<li>No validation that a string contains valid octal digits</li>
+<li>Returns unsigned representation for negative numbers (two's complement)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Conversion</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

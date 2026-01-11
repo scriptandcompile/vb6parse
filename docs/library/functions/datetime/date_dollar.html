@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - date_dollar - Datetime">
+    <title>date_dollar - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / date_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="date-function"><code>Date$</code> Function</h1>
+<p>Returns the current system date as a <code>String</code>. The dollar sign suffix (<code>$</code>) explicitly
+indicates that this function returns a <code>String</code> type (not a <code>Variant</code>).</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Date$</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. The <code>Date$</code> function takes no parameters.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the current system date. The format depends on the system's
+regional settings (typically "mm/dd/yyyy" in US or "dd/mm/yyyy" in other regions). The
+return value is always a <code>String</code> type (never <code>Variant</code>).</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>The <code>Date$</code> function always returns a <code>String</code>, while <code>Date</code> (without <code>$</code>) returns a <code>Variant</code> of subtype <code>Date</code>.</li>
+<li>Returns only the date portion (no time information).</li>
+<li>Uses system date from computer's clock.</li>
+<li>Date format depends on system locale/regional settings.</li>
+<li>Common formats: "mm/dd/yyyy" (US), "dd/mm/yyyy" (Europe), "yyyy/mm/dd" (ISO).</li>
+<li>The string representation may include leading zeros (e.g., "01/05/2025").</li>
+<li>For better performance when you need a string, use <code>Date$</code> instead of <code>Date</code>.</li>
+<li>Cannot be used to set the system date (unlike <code>Date</code> statement).</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Date stamping</strong> - Add date stamps to log entries, files, or records</li>
+<li><strong>Display formatting</strong> - Show current date to users</li>
+<li><strong>File naming</strong> - Include date in filenames</li>
+<li><strong>Logging</strong> - Record when events occurred</li>
+<li><strong>Report generation</strong> - Add date headers to reports</li>
+<li><strong>Audit trails</strong> - Track when data was created or modified</li>
+<li><strong>String concatenation</strong> - Combine date with other text</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Get current date as string
+Dim dateStr As String
+dateStr = Date$</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Display current date
+MsgBox &quot;Today is: &quot; &amp; Date$</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Create date stamp
+Dim stamp As String
+stamp = &quot;Report generated on &quot; &amp; Date$</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Simple assignment
+currentDate = Date$</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="file-naming-with-date">File Naming with Date</h3>
+<pre><code class="language-vbnet">Function CreateDateStampedFilename(baseName As String) As String
+Dim dateStr As String
+Dim cleanDate As String
+
+&#x27; Get date and remove slashes
+dateStr = Date$
+cleanDate = Replace$(dateStr, &quot;/&quot;, &quot;&quot;)
+
+CreateDateStampedFilename = baseName &amp; &quot;_&quot; &amp; cleanDate &amp; &quot;.txt&quot;
+End Function</code></pre>
+<h3 id="log-entry-with-date">Log Entry with Date</h3>
+<pre><code class="language-vbnet">Sub WriteLogEntry(message As String)
+Dim logFile As Integer
+Dim logEntry As String
+
+logFile = FreeFile
+Open &quot;application.log&quot; For Append As #logFile
+
+logEntry = Date$ &amp; &quot; - &quot; &amp; message
+Print #logFile, logEntry
+
+Close #logFile
+End Sub</code></pre>
+<h3 id="date-based-conditional-logic">Date-Based Conditional Logic</h3>
+<pre><code class="language-vbnet">Sub CheckDate()
+Dim todayStr As String
+todayStr = Date$
+
+&#x27; Simple string comparison (locale-dependent)
+If todayStr = &quot;12/25/2025&quot; Then
+MsgBox &quot;Merry Christmas!&quot;
+End If
+End Sub</code></pre>
+<h3 id="report-header">Report Header</h3>
+<pre><code class="language-vbnet">Function CreateReportHeader(title As String) As String
+Dim header As String
+header = String$(60, &quot;=&quot;) &amp; vbCrLf
+header = header &amp; title &amp; vbCrLf
+header = header &amp; &quot;Generated: &quot; &amp; Date$ &amp; vbCrLf
+header = header &amp; String$(60, &quot;=&quot;) &amp; vbCrLf
+CreateReportHeader = header
+End Function</code></pre>
+<h3 id="date-display-in-status-bar">Date Display in Status Bar</h3>
+<pre><code class="language-vbnet">Sub UpdateStatusBar()
+Form1.StatusBar.Panels(1).Text = &quot;Date: &quot; &amp; Date$
+End Sub</code></pre>
+<h3 id="backup-file-naming">Backup File Naming</h3>
+<pre><code class="language-vbnet">Function GetBackupFilename(originalFile As String) As String
+Dim baseName As String
+Dim extension As String
+Dim dotPos As Integer
+Dim dateStr As String
+
+dotPos = InStrRev(originalFile, &quot;.&quot;)
+If dotPos &gt; 0 Then
+baseName = Left$(originalFile, dotPos - 1)
+extension = Mid$(originalFile, dotPos)
+Else
+baseName = originalFile
+extension = &quot;&quot;
+End If
+
+&#x27; Clean date string for filename
+dateStr = Replace$(Date$, &quot;/&quot;, &quot;-&quot;)
+
+GetBackupFilename = baseName &amp; &quot;_backup_&quot; &amp; dateStr &amp; extension
+End Function</code></pre>
+<h3 id="daily-log-file">Daily Log File</h3>
+<pre><code class="language-vbnet">Function GetDailyLogFilename() As String
+Dim dateStr As String
+dateStr = Replace$(Date$, &quot;/&quot;, &quot;&quot;)
+GetDailyLogFilename = &quot;log_&quot; &amp; dateStr &amp; &quot;.txt&quot;
+End Function</code></pre>
+<h3 id="date-validation-simple">Date Validation (Simple)</h3>
+<pre><code class="language-vbnet">Function IsToday(dateStr As String) As Boolean
+IsToday = (dateStr = Date$)
+End Function</code></pre>
+<h3 id="combining-date-and-time">Combining Date and Time</h3>
+<pre><code class="language-vbnet">Function GetDateTimeStamp() As String
+GetDateTimeStamp = Date$ &amp; &quot; &quot; &amp; Time$
+End Function</code></pre>
+<h3 id="data-export-header">Data Export Header</h3>
+<pre><code class="language-vbnet">Sub ExportData()
+Dim exportFile As Integer
+
+exportFile = FreeFile
+Open &quot;export.csv&quot; For Output As #exportFile
+
+&#x27; Write header with date
+Print #exportFile, &quot;Data Export - &quot; &amp; Date$
+Print #exportFile, &quot;Name,Value,Status&quot;
+
+&#x27; Export data...
+
+Close #exportFile
+End Sub</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Date</code>: Returns current date as <code>Variant</code> instead of <code>String</code></li>
+<li><code>Now</code>: Returns current date and time</li>
+<li><code>Time$</code>: Returns current time as <code>String</code></li>
+<li><code>Format$</code>: Formats dates with custom patterns</li>
+<li><code>Year</code>: Extracts year from date</li>
+<li><code>Month</code>: Extracts month from date</li>
+<li><code>Day</code>: Extracts day from date</li>
+<li><code>DateSerial</code>: Creates date from year, month, day</li>
+<li><code>DateValue</code>: Converts string to date</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use <code>Format$</code> instead of <code>Date$</code> when you need specific date formats</li>
+<li>Be aware that <code>Date$</code> format depends on system locale settings</li>
+<li>For file naming, clean the date string (remove or replace slashes)</li>
+<li>Use <code>Date$</code> instead of <code>Date</code> when you need a string result</li>
+<li>For date comparisons, use <code>Date</code> (Variant) instead of <code>Date$</code> (String)</li>
+<li>Don't assume a specific date format - it varies by locale</li>
+<li>For consistent formatting, use <code>Format$(Date, "yyyy-mm-dd")</code></li>
+<li>Test with different regional settings if your app is international</li>
+<li>Store dates in consistent format (ISO 8601 recommended)</li>
+<li>Use <code>DateValue</code> to parse date strings reliably</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Date$</code> is slightly more efficient than <code>Date</code> when you need a string</li>
+<li>System date/time calls are fast but not free</li>
+<li>Cache the result if you need it multiple times in quick succession</li>
+<li>For high-frequency logging, consider caching the date string</li>
+</ul>
+<h2 id="locale-considerations">Locale Considerations</h2>
+<p>The format of <code>Date$</code> varies by system locale:</p>
+<table>
+<thead>
+<tr>
+<th>Locale</th>
+<th>Example Format</th>
+<th>Sample Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US (English)</td>
+<td>mm/dd/yyyy</td>
+<td>"12/25/2025"</td>
+</tr>
+<tr>
+<td>UK (English)</td>
+<td>dd/mm/yyyy</td>
+<td>"25/12/2025"</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td>dd.mm.yyyy</td>
+<td>"25.12.2025"</td>
+</tr>
+<tr>
+<td>Japan</td>
+<td>yyyy/mm/dd</td>
+<td>"2025/12/25"</td>
+</tr>
+<tr>
+<td>France</td>
+<td>dd/mm/yyyy</td>
+<td>"25/12/2025"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ol>
+<li><strong>String Comparison</strong>: Comparing <code>Date$</code> strings directly is locale-dependent and unreliable</li>
+</ol>
+<pre><code class="language-vbnet">&#x27; BAD - locale-dependent
+If Date$ = &quot;12/25/2025&quot; Then
+
+&#x27; GOOD - use Date variants
+If Date = #12/25/2025# Then</code></pre>
+<ol>
+<li><strong>Date Parsing</strong>: Don't parse <code>Date$</code> manually - use <code>DateValue</code> instead</li>
+</ol>
+<pre><code class="language-vbnet">&#x27; BAD - fragile parsing
+parts = Split(Date$, &quot;/&quot;)
+
+&#x27; GOOD - use built-in functions
+currentYear = Year(Date)
+currentMonth = Month(Date)</code></pre>
+<ol>
+<li><strong>Filename Safety</strong>: Date strings may contain invalid filename characters</li>
+</ol>
+<pre><code class="language-vbnet">&#x27; BAD - slashes invalid in filenames
+filename = &quot;report_&quot; &amp; Date$ &amp; &quot;.txt&quot;
+
+&#x27; GOOD - replace invalid characters
+filename = &quot;report_&quot; &amp; Replace$(Date$, &quot;/&quot;, &quot;-&quot;) &amp; &quot;.txt&quot;</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot be used to set the system date (use <code>Date</code> statement for that)</li>
+<li>Format is system-dependent and cannot be directly controlled</li>
+<li>No time information included (use <code>Now</code> or <code>Time$</code> for time)</li>
+<li>String comparison of dates is unreliable across locales</li>
+<li>Cannot specify date format (use <code>Format$</code> for custom formats)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - imestatus - Environment">
+    <title>imestatus - Environment - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/environment/index.html">Environment</a> / imestatus</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="imestatus-function"><code>IMEStatus</code> Function</h1>
+<p>Returns an <code>Integer</code> indicating the current <code>Input Method Editor</code> (<code>IME</code>) mode of Microsoft Windows.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">IMEStatus()</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> representing the current <code>IME</code> mode:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vbIMENoOp</td>
+<td>0</td>
+<td>No <code>IME</code> installed or <code>IME</code> is disabled</td>
+</tr>
+<tr>
+<td>vbIMEOn</td>
+<td>1</td>
+<td><code>IME</code> is on (active)</td>
+</tr>
+<tr>
+<td>vbIMEOff</td>
+<td>2</td>
+<td><code>IME</code> is off (inactive)</td>
+</tr>
+<tr>
+<td>vbIMEDisable</td>
+<td>3</td>
+<td><code>IME</code> is disabled</td>
+</tr>
+<tr>
+<td>vbIMEHiragana</td>
+<td>4</td>
+<td>Double-byte Hiragana mode</td>
+</tr>
+<tr>
+<td>vbIMEKatakanHalf</td>
+<td>5</td>
+<td>Single-byte Katakana mode</td>
+</tr>
+<tr>
+<td>vbIMEKatakanaFull</td>
+<td>6</td>
+<td>Double-byte Katakana mode</td>
+</tr>
+<tr>
+<td>vbIMEAlphaHalf</td>
+<td>7</td>
+<td>Single-byte Alphanumeric mode</td>
+</tr>
+<tr>
+<td>vbIMEAlphaFull</td>
+<td>8</td>
+<td>Double-byte Alphanumeric mode</td>
+</tr>
+<tr>
+<td>vbIMEHangulHalf</td>
+<td>9</td>
+<td>Single-byte Hangul mode</td>
+</tr>
+<tr>
+<td>vbIMEHangulFull</td>
+<td>10</td>
+<td>Double-byte Hangul mode</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>IMEStatus</code> function provides information about the <code>Input Method Editor</code>:</p>
+<ul>
+<li>Returns the current state of the <code>IME</code> for the active window</li>
+<li><code>IME</code> is used primarily for Asian language input (Japanese, Chinese, Korean)</li>
+<li>Only meaningful on systems with <code>IME</code> support installed</li>
+<li>Returns <code>vbIMENoOp</code> (0) if no <code>IME</code> is installed or available</li>
+<li>The return value reflects the <code>IME</code> state at the moment the function is called</li>
+<li>Can be used to detect if the user is in native language input mode</li>
+<li>Useful for applications that need to work with multibyte character sets</li>
+<li>The actual modes available depend on the installed <code>IME</code> and Windows version</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>IME Detection</strong>: Check if an <code>IME</code> is installed and active</li>
+<li><strong>Input Mode Validation</strong>: Verify the user is in the correct input mode</li>
+<li><strong>Localization</strong>: Adjust application behavior based on <code>IME</code> state</li>
+<li><strong>Data Entry</strong>: Ensure proper input mode for specific fields</li>
+<li><strong>User Guidance</strong>: Provide instructions based on current <code>IME</code> mode</li>
+<li><strong>Form Validation</strong>: Check input mode before processing data</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Check if IME is available
+Sub CheckIME()
+If IMEStatus() = vbIMENoOp Then
+MsgBox &quot;No IME is installed&quot;
+Else
+MsgBox &quot;IME is available&quot;
+End If
+End Sub
+
+&#x27; Example 2: Check if IME is active
+Sub CheckIMEActive()
+If IMEStatus() = vbIMEOn Then
+MsgBox &quot;IME is currently on&quot;
+Else
+MsgBox &quot;IME is currently off&quot;
+End If
+End Sub
+
+&#x27; Example 3: Display current IME mode
+Sub DisplayIMEMode()
+Dim mode As Integer
+mode = IMEStatus()
+Debug.Print &quot;Current IME mode: &quot; &amp; mode
+End Sub
+
+&#x27; Example 4: Detect Japanese input mode
+Function IsJapaneseInput() As Boolean
+Dim status As Integer
+status = IMEStatus()
+IsJapaneseInput = (status = vbIMEHiragana Or _
+status = vbIMEKatakanHalf Or _
+status = vbIMEKatakanaFull)
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Check if IME is enabled
+Function IsIMEEnabled() As Boolean
+IsIMEEnabled = (IMEStatus() &lt;&gt; vbIMENoOp And IMEStatus() &lt;&gt; vbIMEDisable)
+End Function
+
+&#x27; Pattern 2: Determine if using double-byte characters
+Function IsDoubleByte() As Boolean
+Dim status As Integer
+status = IMEStatus()
+
+Select Case status
+Case vbIMEHiragana, vbIMEKatakanaFull, vbIMEAlphaFull, vbIMEHangulFull
+IsDoubleByte = True
+Case Else
+IsDoubleByte = False
+End Select
+End Function
+
+&#x27; Pattern 3: Get IME mode description
+Function GetIMEModeDescription() As String
+Select Case IMEStatus()
+Case vbIMENoOp
+GetIMEModeDescription = &quot;No IME&quot;
+Case vbIMEOn
+GetIMEModeDescription = &quot;IME On&quot;
+Case vbIMEOff
+GetIMEModeDescription = &quot;IME Off&quot;
+Case vbIMEDisable
+GetIMEModeDescription = &quot;IME Disabled&quot;
+Case vbIMEHiragana
+GetIMEModeDescription = &quot;Hiragana&quot;
+Case vbIMEKatakanHalf
+GetIMEModeDescription = &quot;Half-width Katakana&quot;
+Case vbIMEKatakanaFull
+GetIMEModeDescription = &quot;Full-width Katakana&quot;
+Case vbIMEAlphaHalf
+GetIMEModeDescription = &quot;Half-width Alphanumeric&quot;
+Case vbIMEAlphaFull
+GetIMEModeDescription = &quot;Full-width Alphanumeric&quot;
+Case vbIMEHangulHalf
+GetIMEModeDescription = &quot;Half-width Hangul&quot;
+Case vbIMEHangulFull
+GetIMEModeDescription = &quot;Full-width Hangul&quot;
+Case Else
+GetIMEModeDescription = &quot;Unknown mode&quot;
+End Select
+End Function
+
+&#x27; Pattern 4: Validate input mode for specific field
+Function ValidateInputMode(expectedMode As Integer) As Boolean
+ValidateInputMode = (IMEStatus() = expectedMode)
+End Function
+
+&#x27; Pattern 5: Detect Asian language input
+Function IsAsianLanguageInput() As Boolean
+Dim status As Integer
+status = IMEStatus()
+
+&#x27; Check for Japanese or Korean modes
+IsAsianLanguageInput = (status &gt;= vbIMEHiragana And status &lt;= vbIMEHangulFull)
+End Function
+
+&#x27; Pattern 6: Check for alphanumeric mode
+Function IsAlphanumericMode() As Boolean
+Dim status As Integer
+status = IMEStatus()
+IsAlphanumericMode = (status = vbIMEAlphaHalf Or status = vbIMEAlphaFull)
+End Function
+
+&#x27; Pattern 7: Determine input width
+Function GetInputWidth() As String
+Select Case IMEStatus()
+Case vbIMEKatakanHalf, vbIMEAlphaHalf, vbIMEHangulHalf
+GetInputWidth = &quot;Half-width&quot;
+Case vbIMEHiragana, vbIMEKatakanaFull, vbIMEAlphaFull, vbIMEHangulFull
+GetInputWidth = &quot;Full-width&quot;
+Case Else
+GetInputWidth = &quot;N/A&quot;
+End Select
+End Function
+
+&#x27; Pattern 8: Check if IME is in active input mode
+Function IsActiveInputMode() As Boolean
+Dim status As Integer
+status = IMEStatus()
+&#x27; Active modes are those actively converting input
+IsActiveInputMode = (status &gt;= vbIMEHiragana And status &lt;= vbIMEHangulFull)
+End Function
+
+&#x27; Pattern 9: Detect Katakana mode
+Function IsKatakanaMode() As Boolean
+Dim status As Integer
+status = IMEStatus()
+IsKatakanaMode = (status = vbIMEKatakanHalf Or status = vbIMEKatakanaFull)
+End Function
+
+&#x27; Pattern 10: Check for Korean input
+Function IsKoreanInput() As Boolean
+Dim status As Integer
+status = IMEStatus()
+IsKoreanInput = (status = vbIMEHangulHalf Or status = vbIMEHangulFull)
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: IME mode monitor
+Public Class IMEMonitor
+Private m_lastStatus As Integer
+
+Public Sub Initialize()
+m_lastStatus = IMEStatus()
+End Sub
+
+Public Function HasChanged() As Boolean
+Dim currentStatus As Integer
+currentStatus = IMEStatus()
+
+If currentStatus &lt;&gt; m_lastStatus Then
+m_lastStatus = currentStatus
+HasChanged = True
+Else
+HasChanged = False
+End If
+End Function
+
+Public Function GetCurrentMode() As String
+GetCurrentMode = GetIMEModeDescription()
+End Function
+End Class
+
+&#x27; Example 2: TextBox IME validator
+Private Sub txtName_GotFocus()
+&#x27; For name field, we want half-width alphanumeric or Katakana
+If IMEStatus() &lt;&gt; vbIMEAlphaHalf And _
+IMEStatus() &lt;&gt; vbIMEKatakanHalf And _
+IMEStatus() &lt;&gt; vbIMEOff Then
+MsgBox &quot;Please switch to half-width alphanumeric or Katakana mode&quot;, _
+vbInformation, &quot;Input Mode&quot;
+End If
+End Sub
+
+&#x27; Example 3: Language-aware input handler
+Function ProcessInput(userInput As String) As String
+Dim imeMode As Integer
+imeMode = IMEStatus()
+
+Select Case imeMode
+Case vbIMEHiragana, vbIMEKatakanaFull, vbIMEKatakanHalf
+&#x27; Japanese input - special processing
+ProcessInput = ProcessJapaneseText(userInput)
+
+Case vbIMEHangulHalf, vbIMEHangulFull
+&#x27; Korean input - special processing
+ProcessInput = ProcessKoreanText(userInput)
+
+Case Else
+&#x27; Standard processing
+ProcessInput = userInput
+End Select
+End Function
+
+&#x27; Example 4: Form-wide IME status display
+Private Sub tmrIMEStatus_Timer()
+&#x27; Update status bar with current IME mode
+Dim status As Integer
+status = IMEStatus()
+
+StatusBar1.Panels(1).Text = &quot;IME: &quot; &amp; GetIMEModeDescription()
+
+&#x27; Change indicator color based on mode
+If status = vbIMENoOp Or status = vbIMEOff Then
+StatusBar1.Panels(1).Picture = LoadPicture(App.Path &amp; &quot;\imeoff.ico&quot;)
+Else
+StatusBar1.Panels(1).Picture = LoadPicture(App.Path &amp; &quot;\imeon.ico&quot;)
+End If
+End Sub
+
+&#x27; Example 5: Data validation with IME awareness
+Function ValidateNameField(fieldValue As String) As Boolean
+Dim imeMode As Integer
+imeMode = IMEStatus()
+
+&#x27; For Japanese systems, allow Katakana or alphanumeric
+If imeMode = vbIMEHiragana Then
+MsgBox &quot;Please use Katakana or alphanumeric for names&quot;, vbExclamation
+ValidateNameField = False
+Exit Function
+End If
+
+&#x27; Additional validation
+If Len(Trim$(fieldValue)) = 0 Then
+ValidateNameField = False
+Else
+ValidateNameField = True
+End If
+End Function
+
+&#x27; Example 6: IME-aware search
+Function PerformSearch(searchTerm As String) As Collection
+Dim results As New Collection
+Dim searchMode As String
+
+&#x27; Determine search strategy based on IME mode
+Select Case IMEStatus()
+Case vbIMEHiragana, vbIMEKatakanaFull, vbIMEKatakanHalf
+searchMode = &quot;Japanese&quot;
+&#x27; Use Japanese-specific search algorithm
+Set results = SearchJapanese(searchTerm)
+
+Case vbIMEHangulHalf, vbIMEHangulFull
+searchMode = &quot;Korean&quot;
+&#x27; Use Korean-specific search algorithm
+Set results = SearchKorean(searchTerm)
+
+Case Else
+searchMode = &quot;Standard&quot;
+&#x27; Use standard search
+Set results = SearchStandard(searchTerm)
+End Select
+
+Set PerformSearch = results
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>IMEStatus</code> function rarely raises errors:</p>
+<ul>
+<li>Returns <code>vbIMENoOp</code> (0) on systems without <code>IME</code> support</li>
+<li>Does not raise errors if <code>IME</code> is not available</li>
+<li>Always returns a valid <code>Integer</code> value</li>
+<li>No error handling typically required</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Safe to call without error handling
+Dim status As Integer
+status = IMEStatus()</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: <code>IMEStatus</code> is a very fast system query</li>
+<li><strong>No Overhead</strong>: Minimal performance impact even when called frequently</li>
+<li><strong>Real-time Monitoring</strong>: Safe to call in timer events for status updates</li>
+<li><strong>No Caching Needed</strong>: The function is efficient enough to call directly</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>System Compatibility</strong>: Always check for <code>vbIMENoOp</code> before assuming <code>IME</code> functionality</li>
+<li><strong>User Guidance</strong>: Provide clear instructions when specific <code>IME</code> modes are required</li>
+<li><strong>Non-intrusive</strong>: Don't force <code>IME</code> mode changes; suggest them to the user</li>
+<li><strong>Status Display</strong>: Show current <code>IME</code> mode in status bars for user awareness</li>
+<li><strong>Localization</strong>: Use <code>IMEStatus</code> to adapt UI for different language inputs</li>
+<li><strong>Testing</strong>: Test on both <code>IME</code>-enabled and non-<code>IME</code> systems</li>
+<li><strong>Documentation</strong>: Document <code>IME</code> mode requirements for specific fields</li>
+</ol>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Returns meaningful values only on Windows with <code>IME</code> support</li>
+<li><code>IME</code> modes depend on installed Windows language packs</li>
+<li>Japanese Windows: Hiragana, Katakana modes available</li>
+<li>Korean Windows: Hangul modes available</li>
+<li>Chinese Windows: May have different mode constants</li>
+<li>Western Windows without <code>IME</code>: Typically returns <code>vbIMENoOp</code></li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only detects <code>IME</code> state, cannot change it (use <code>SendKeys</code> or Windows API for that)</li>
+<li>Return values depend on installed <code>IME</code> and language packs</li>
+<li>Some <code>IME</code> modes may not be available on all systems</li>
+<li>Does not detect which specific <code>IME</code> software is being used</li>
+<li>Limited to Windows <code>IME</code> implementation</li>
+<li>Cannot distinguish between different Chinese <code>IME</code> modes</li>
+<li>Return value reflects system state at call time (may change immediately after)</li>
+</ul>
+<h2 id="related-functions-and-properties">Related Functions and Properties</h2>
+<ul>
+<li><code>IMEMode</code> property: Sets/gets the <code>IME</code> mode for controls</li>
+<li><code>SendKeys</code>: Can be used to change <code>IME</code> mode via keyboard shortcuts</li>
+<li>Windows API functions for <code>IME</code> control (<code>ImmGetContext</code>, etc.)</li>
+</ul>
+<h2 id="ime-mode-constants-reference"><code>IME</code> Mode Constants Reference</h2>
+<pre><code class="language-vbnet">Public Const vbIMENoOp = 0         &#x27; No IME
+Public Const vbIMEOn = 1           &#x27; IME On
+Public Const vbIMEOff = 2          &#x27; IME Off
+Public Const vbIMEDisable = 3      &#x27; IME Disabled
+Public Const vbIMEHiragana = 4     &#x27; Hiragana
+Public Const vbIMEKatakanHalf = 5  &#x27; Half Katakana
+Public Const vbIMEKatakanaFull = 6 &#x27; Full Katakana
+Public Const vbIMEAlphaHalf = 7    &#x27; Half Alphanumeric
+Public Const vbIMEAlphaFull = 8    &#x27; Full Alphanumeric
+Public Const vbIMEHangulHalf = 9   &#x27; Half Hangul
+Public Const vbIMEHangulFull = 10  &#x27; Full Hangul</code></pre>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Environment</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

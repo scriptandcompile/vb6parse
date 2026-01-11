@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - log - Math">
+    <title>log - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / log</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="log-function">Log Function</h1>
+<p>Returns a Double specifying the natural logarithm of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Log(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> (Required): Double or any valid numeric expression greater than zero</li>
+<li>Must be positive (&gt; 0)</li>
+<li>Cannot be zero or negative</li>
+<li>Error 5 "Invalid procedure call or argument" if number &lt;= 0</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Double:
+- Natural logarithm (base e) of the number
+- Also known as ln(x) in mathematics
+- Result can be positive, negative, or zero
+- Log(1) = 0
+- Log(e) = 1 where e ≈ 2.71828182845905
+- For values 0 &lt; x &lt; 1, result is negative
+- For values x &gt; 1, result is positive</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Log function returns the natural logarithm:</p>
+<ul>
+<li>Natural logarithm uses base e (Euler's number)</li>
+<li>e ≈ 2.71828182845905</li>
+<li>Also written as ln(x) in mathematical notation</li>
+<li>Inverse operation of Exp function</li>
+<li>Log(Exp(x)) = x</li>
+<li>Exp(Log(x)) = x (for x &gt; 0)</li>
+<li>To calculate logarithms with other bases, use change of base formula</li>
+<li>Log base 10: Log(x) / Log(10)</li>
+<li>Log base 2: Log(x) / Log(2)</li>
+<li>Log base n: Log(x) / Log(n)</li>
+<li>Error 5 if argument is zero or negative</li>
+<li>Used in scientific and engineering calculations</li>
+<li>Common in exponential growth/decay problems</li>
+<li>Essential for statistical calculations</li>
+<li>Used in information theory (entropy, information content)</li>
+<li>Financial calculations (continuous compounding)</li>
+<li>Physics (radioactive decay, sound levels)</li>
+<li>Can be used to solve exponential equations</li>
+<li>Part of VB6's math function library</li>
+<li>Available in all VB versions</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Natural Logarithm</strong></li>
+</ol>
+<pre><code class="language-vbnet">result = Log(10)</code></pre>
+<ol>
+<li><strong>Base 10 Logarithm</strong></li>
+</ol>
+<pre><code class="language-vbnet">log10 = Log(x) / Log(10)</code></pre>
+<ol>
+<li><strong>Base 2 Logarithm</strong></li>
+</ol>
+<pre><code class="language-vbnet">log2 = Log(x) / Log(2)</code></pre>
+<ol>
+<li><strong>Exponential Decay</strong></li>
+</ol>
+<pre><code class="language-vbnet">timeConstant = -1 / Log(decayRate)</code></pre>
+<ol>
+<li><strong>Solve for Exponent</strong></li>
+</ol>
+<pre><code class="language-vbnet">exponent = Log(result / initial) / Log(base)</code></pre>
+<ol>
+<li><strong>Information Content</strong></li>
+</ol>
+<pre><code class="language-vbnet">bits = -Log(probability) / Log(2)</code></pre>
+<ol>
+<li><strong>pH Calculation</strong></li>
+</ol>
+<pre><code class="language-vbnet">pH = -Log(hydrogenIonConcentration) / Log(10)</code></pre>
+<ol>
+<li><strong>Continuous Compounding</strong></li>
+</ol>
+<pre><code class="language-vbnet">rate = Log(finalValue / initialValue) / time</code></pre>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-natural-logarithm">Example 1: Natural Logarithm</h3>
+<pre><code class="language-vbnet">Dim result As Double
+
+result = Log(1)        &#x27; Returns 0
+result = Log(2.71828)  &#x27; Returns ~1 (ln(e) = 1)
+result = Log(10)       &#x27; Returns ~2.302585
+result = Log(100)      &#x27; Returns ~4.605170</code></pre>
+<h3 id="example-2-base-10-logarithm">Example 2: Base 10 Logarithm</h3>
+<pre><code class="language-vbnet">Function Log10(ByVal x As Double) As Double
+Log10 = Log(x) / Log(10)
+End Function
+
+&#x27; Usage
+Dim result As Double
+result = Log10(100)    &#x27; Returns 2
+result = Log10(1000)   &#x27; Returns 3
+result = Log10(10)     &#x27; Returns 1</code></pre>
+<h3 id="example-3-exponential-growth">Example 3: Exponential Growth</h3>
+<pre><code class="language-vbnet">&#x27; Calculate doubling time
+Function DoublingTime(ByVal growthRate As Double) As Double
+&#x27; growthRate is the rate per time period (e.g., 0.05 = 5%)
+DoublingTime = Log(2) / Log(1 + growthRate)
+End Function
+
+&#x27; Usage
+Dim years As Double
+years = DoublingTime(0.07)  &#x27; 7% annual growth
+MsgBox &quot;Doubling time: &quot; &amp; Format(years, &quot;0.0&quot;) &amp; &quot; years&quot;</code></pre>
+<h3 id="example-4-solve-exponential-equation">Example 4: Solve Exponential Equation</h3>
+<pre><code class="language-vbnet">&#x27; Solve: base^exponent = result for exponent
+Function SolveExponent(ByVal base As Double, _
+ByVal result As Double) As Double
+If base &gt; 0 And base &lt;&gt; 1 And result &gt; 0 Then
+SolveExponent = Log(result) / Log(base)
+Else
+SolveExponent = 0
+End If
+End Function
+
+&#x27; Usage: Solve 2^x = 32
+Dim x As Double
+x = SolveExponent(2, 32)  &#x27; Returns 5
+MsgBox &quot;2^&quot; &amp; x &amp; &quot; = 32&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-log10-base-10-logarithm">Pattern 1: Log10 (Base 10 Logarithm)</h3>
+<pre><code class="language-vbnet">Function Log10(ByVal x As Double) As Double
+If x &gt; 0 Then
+Log10 = Log(x) / Log(10)
+Else
+Err.Raise 5, , &quot;Invalid argument&quot;
+End If
+End Function</code></pre>
+<h3 id="pattern-2-log2-base-2-logarithm">Pattern 2: Log2 (Base 2 Logarithm)</h3>
+<pre><code class="language-vbnet">Function Log2(ByVal x As Double) As Double
+If x &gt; 0 Then
+Log2 = Log(x) / Log(2)
+Else
+Err.Raise 5, , &quot;Invalid argument&quot;
+End If
+End Function</code></pre>
+<h3 id="pattern-3-logn-logarithm-with-any-base">Pattern 3: <code>LogN</code> (Logarithm with Any Base)</h3>
+<pre><code class="language-vbnet">Function LogN(ByVal x As Double, ByVal base As Double) As Double
+If x &gt; 0 And base &gt; 0 And base &lt;&gt; 1 Then
+LogN = Log(x) / Log(base)
+Else
+Err.Raise 5, , &quot;Invalid arguments&quot;
+End If
+End Function</code></pre>
+<h3 id="pattern-4-safelog">Pattern 4: <code>SafeLog</code></h3>
+<pre><code class="language-vbnet">Function SafeLog(ByVal x As Double, _
+Optional ByVal defaultValue As Double = 0) As Double
+On Error Resume Next
+SafeLog = Log(x)
+If Err.Number &lt;&gt; 0 Then
+SafeLog = defaultValue
+Err.Clear
+End If
+End Function</code></pre>
+<h3 id="pattern-5-calculateentropy">Pattern 5: <code>CalculateEntropy</code></h3>
+<pre><code class="language-vbnet">Function CalculateEntropy(probabilities() As Double) As Double
+Dim i As Integer
+Dim entropy As Double
+Dim p As Double
+
+entropy = 0
+For i = LBound(probabilities) To UBound(probabilities)
+p = probabilities(i)
+If p &gt; 0 Then
+entropy = entropy - p * (Log(p) / Log(2))
+End If
+Next i
+
+CalculateEntropy = entropy
+End Function</code></pre>
+<h3 id="pattern-6-calculatehalflife">Pattern 6: <code>CalculateHalfLife</code></h3>
+<pre><code class="language-vbnet">Function CalculateHalfLife(ByVal decayConstant As Double) As Double
+If decayConstant &gt; 0 Then
+CalculateHalfLife = Log(2) / decayConstant
+Else
+CalculateHalfLife = 0
+End If
+End Function</code></pre>
+<h3 id="pattern-7-calculatedoublingtime">Pattern 7: <code>CalculateDoublingTime</code></h3>
+<pre><code class="language-vbnet">Function CalculateDoublingTime(ByVal growthRate As Double) As Double
+If growthRate &gt; 0 Then
+CalculateDoublingTime = Log(2) / Log(1 + growthRate)
+Else
+CalculateDoublingTime = 0
+End If
+End Function</code></pre>
+<h3 id="pattern-8-solvefortime-exponential-growth">Pattern 8: <code>SolveForTime</code> (Exponential Growth)</h3>
+<pre><code class="language-vbnet">Function SolveForTime(ByVal initialValue As Double, _
+ByVal finalValue As Double, _
+ByVal rate As Double) As Double
+If initialValue &gt; 0 And finalValue &gt; 0 And rate &lt;&gt; 0 Then
+SolveForTime = Log(finalValue / initialValue) / rate
+Else
+SolveForTime = 0
+End If
+End Function</code></pre>
+<h3 id="pattern-9-calculatedecibels">Pattern 9: <code>CalculateDecibels</code></h3>
+<pre><code class="language-vbnet">Function CalculateDecibels(ByVal power As Double, _
+ByVal referencePower As Double) As Double
+If power &gt; 0 And referencePower &gt; 0 Then
+CalculateDecibels = 10 * (Log(power / referencePower) / Log(10))
+Else
+CalculateDecibels = 0
+End If
+End Function</code></pre>
+<h3 id="pattern-10-calculateph">Pattern 10: <code>CalculatePH</code></h3>
+<pre><code class="language-vbnet">Function CalculatePH(ByVal hydrogenIonConcentration As Double) As Double
+If hydrogenIonConcentration &gt; 0 Then
+CalculatePH = -(Log(hydrogenIonConcentration) / Log(10))
+Else
+CalculatePH = 7  &#x27; Neutral pH
+End If
+End Function</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="example-1-logarithm-calculator">Example 1: Logarithm Calculator</h3>
+<pre><code class="language-vbnet">&#x27; Module: LogarithmCalculator
+
+Public Function NaturalLog(ByVal x As Double) As Double
+If x &lt;= 0 Then
+Err.Raise 5, &quot;LogarithmCalculator&quot;, _
+&quot;Argument must be positive&quot;
+End If
+NaturalLog = Log(x)
+End Function
+
+Public Function Log10(ByVal x As Double) As Double
+If x &lt;= 0 Then
+Err.Raise 5, &quot;LogarithmCalculator&quot;, _
+&quot;Argument must be positive&quot;
+End If
+Log10 = Log(x) / Log(10)
+End Function
+
+Public Function Log2(ByVal x As Double) As Double
+If x &lt;= 0 Then
+Err.Raise 5, &quot;LogarithmCalculator&quot;, _
+&quot;Argument must be positive&quot;
+End If
+Log2 = Log(x) / Log(2)
+End Function
+
+Public Function LogBase(ByVal x As Double, _
+ByVal base As Double) As Double
+If x &lt;= 0 Or base &lt;= 0 Or base = 1 Then
+Err.Raise 5, &quot;LogarithmCalculator&quot;, _
+&quot;Invalid arguments&quot;
+End If
+LogBase = Log(x) / Log(base)
+End Function
+
+Public Function Antilog(ByVal x As Double) As Double
+&#x27; Returns e^x (inverse of Log)
+Antilog = Exp(x)
+End Function
+
+Public Function Antilog10(ByVal x As Double) As Double
+&#x27; Returns 10^x (inverse of Log10)
+Antilog10 = 10 ^ x
+End Function</code></pre>
+<h3 id="example-2-exponential-growth-analyzer">Example 2: Exponential Growth Analyzer</h3>
+<pre><code class="language-vbnet">&#x27; Class: GrowthAnalyzer
+Private m_initialValue As Double
+Private m_currentValue As Double
+Private m_timeElapsed As Double
+
+Public Sub Initialize(ByVal initialValue As Double)
+m_initialValue = initialValue
+m_currentValue = initialValue
+m_timeElapsed = 0
+End Sub
+
+Public Property Let CurrentValue(ByVal value As Double)
+m_currentValue = value
+End Property
+
+Public Property Let TimeElapsed(ByVal time As Double)
+m_timeElapsed = time
+End Property
+
+Public Property Get GrowthRate() As Double
+If m_timeElapsed &gt; 0 And m_initialValue &gt; 0 And m_currentValue &gt; 0 Then
+GrowthRate = Log(m_currentValue / m_initialValue) / m_timeElapsed
+Else
+GrowthRate = 0
+End If
+End Property
+
+Public Property Get DoublingTime() As Double
+Dim rate As Double
+rate = GrowthRate
+
+If rate &gt; 0 Then
+DoublingTime = Log(2) / rate
+Else
+DoublingTime = 0
+End If
+End Property
+
+Public Function ProjectValue(ByVal futureTime As Double) As Double
+Dim rate As Double
+rate = GrowthRate
+
+If rate &lt;&gt; 0 Then
+ProjectValue = m_initialValue * Exp(rate * futureTime)
+Else
+ProjectValue = m_initialValue
+End If
+End Function
+
+Public Function TimeToReach(ByVal targetValue As Double) As Double
+Dim rate As Double
+rate = GrowthRate
+
+If rate &gt; 0 And m_initialValue &gt; 0 And targetValue &gt; 0 Then
+TimeToReach = Log(targetValue / m_initialValue) / rate
+Else
+TimeToReach = 0
+End If
+End Function</code></pre>
+<h3 id="example-3-sound-level-calculator">Example 3: Sound Level Calculator</h3>
+<pre><code class="language-vbnet">&#x27; Module: SoundLevelCalculator
+Private Const REFERENCE_PRESSURE As Double = 0.00002  &#x27; 20 micropascals
+
+Public Function CalculateDecibels(ByVal pressure As Double) As Double
+If pressure &gt; 0 Then
+CalculateDecibels = 20 * (Log(pressure / REFERENCE_PRESSURE) / Log(10))
+Else
+CalculateDecibels = 0
+End If
+End Function
+
+Public Function CombineSoundLevels(levels() As Double) As Double
+Dim i As Integer
+Dim sumPressures As Double
+Dim pressure As Double
+
+sumPressures = 0
+For i = LBound(levels) To UBound(levels)
+&#x27; Convert dB to pressure, sum, then convert back
+pressure = REFERENCE_PRESSURE * Exp(levels(i) * Log(10) / 20)
+sumPressures = sumPressures + pressure * pressure
+Next i
+
+If sumPressures &gt; 0 Then
+CombineSoundLevels = 10 * (Log(sumPressures) / Log(10)) + _
+20 * (Log(REFERENCE_PRESSURE) / Log(10))
+Else
+CombineSoundLevels = 0
+End If
+End Function
+
+Public Function CalculateDistance(ByVal soundLevelAtSource As Double, _
+ByVal soundLevelAtDistance As Double, _
+ByVal knownDistance As Double) As Double
+Dim ratio As Double
+
+&#x27; Sound decreases by 6 dB when distance doubles
+ratio = (soundLevelAtSource - soundLevelAtDistance) / 6
+CalculateDistance = knownDistance * (2 ^ ratio)
+End Function</code></pre>
+<h3 id="example-4-financial-calculator">Example 4: Financial Calculator</h3>
+<pre><code class="language-vbnet">&#x27; Module: FinancialCalculator
+
+Public Function CalculateContinuousGrowthRate(ByVal initialValue As Double, _
+ByVal finalValue As Double, _
+ByVal years As Double) As Double
+If initialValue &gt; 0 And finalValue &gt; 0 And years &gt; 0 Then
+CalculateContinuousGrowthRate = Log(finalValue / initialValue) / years
+Else
+CalculateContinuousGrowthRate = 0
+End If
+End Function
+
+Public Function YearsToDouble(ByVal annualRate As Double) As Double
+If annualRate &gt; 0 Then
+YearsToDouble = Log(2) / Log(1 + annualRate)
+Else
+YearsToDouble = 0
+End If
+End Function
+
+Public Function EffectiveRate(ByVal nominalRate As Double, _
+ByVal compoundingPeriods As Integer) As Double
+If compoundingPeriods &gt; 0 Then
+EffectiveRate = Exp(compoundingPeriods * _
+Log(1 + nominalRate / compoundingPeriods)) - 1
+Else
+EffectiveRate = 0
+End If
+End Function
+
+Public Function CalculateAPY(ByVal principal As Double, _
+ByVal finalAmount As Double, _
+ByVal years As Double) As Double
+If principal &gt; 0 And finalAmount &gt; 0 And years &gt; 0 Then
+CalculateAPY = Exp(Log(finalAmount / principal) / years) - 1
+Else
+CalculateAPY = 0
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">&#x27; Error 5: Invalid procedure call or argument
+On Error Resume Next
+result = Log(0)
+If Err.Number = 5 Then
+MsgBox &quot;Cannot take log of zero!&quot;
+End If
+
+result = Log(-10)
+If Err.Number = 5 Then
+MsgBox &quot;Cannot take log of negative number!&quot;
+End If
+
+&#x27; Safe log function
+Function SafeLog(ByVal x As Double) As Variant
+On Error Resume Next
+SafeLog = Log(x)
+If Err.Number &lt;&gt; 0 Then
+SafeLog = Null
+Err.Clear
+End If
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: Log is a built-in processor instruction</li>
+<li><strong>Cache Constants</strong>: Store Log(10), Log(2) if used repeatedly</li>
+<li><strong>Avoid Division by Zero</strong>: Always validate arguments</li>
+<li><strong>Use Exp for Inverse</strong>: Exp(Log(x)) = x is optimized</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Always validate</strong> that argument is positive</li>
+<li><strong>Use error handling</strong> for user input</li>
+<li><strong>Cache frequently used</strong> logarithms (Log(10), Log(2))</li>
+<li><strong>Document the base</strong> when using change of base formula</li>
+<li><strong>Use descriptive names</strong> for logarithm wrapper functions</li>
+<li><strong>Consider precision</strong> for very large or small numbers</li>
+<li><strong>Check for overflow</strong> in calculations</li>
+<li><strong>Use constants</strong> for common values (e, pi, etc.)</li>
+<li><strong>Validate results</strong> for domain-specific constraints</li>
+<li><strong>Comment formulas</strong> explaining mathematical relationships</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Base</th>
+<th>Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Log</strong></td>
+<td>Natural logarithm</td>
+<td>e (2.718...)</td>
+<td>x &gt; 0</td>
+</tr>
+<tr>
+<td><strong>Exp</strong></td>
+<td>Exponential (e^x)</td>
+<td>e</td>
+<td>All reals</td>
+</tr>
+<tr>
+<td><strong>Log10</strong></td>
+<td>Common logarithm</td>
+<td>10</td>
+<td>x &gt; 0</td>
+</tr>
+<tr>
+<td><strong>Log2</strong></td>
+<td>Binary logarithm</td>
+<td>2</td>
+<td>x &gt; 0</td>
+</tr>
+<tr>
+<td><strong>^</strong> (power)</td>
+<td>Exponentiation</td>
+<td>Variable</td>
+<td>Depends</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-logarithm-identities">Common Logarithm Identities</h2>
+<pre><code class="language-vbnet">&#x27; Log properties
+Log(x * y) = Log(x) + Log(y)
+Log(x / y) = Log(x) - Log(y)
+Log(x ^ y) = y * Log(x)
+Log(1) = 0
+Log(e) = 1
+
+&#x27; Change of base
+Log_b(x) = Log(x) / Log(b)
+
+&#x27; Inverse relationship
+Exp(Log(x)) = x  (for x &gt; 0)
+Log(Exp(x)) = x</code></pre>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Part of VBA core library</li>
+<li>Uses IEEE 754 double-precision floating point</li>
+<li>Precision: approximately 15-16 significant digits</li>
+<li>Range: 4.94065645841247E-324 to 1.79769313486232E+308</li>
+<li>Behavior identical across Windows versions</li>
+<li>CPU-level implementation (very fast)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Positive Arguments Only</strong>: Cannot compute log of zero or negative numbers</li>
+<li><strong>Floating Point Precision</strong>: Subject to rounding errors</li>
+<li><strong>Very Small Numbers</strong>: May lose precision near zero</li>
+<li><strong>Very Large Numbers</strong>: May overflow in calculations</li>
+<li><strong>No Base Parameter</strong>: Must use change of base formula for other bases</li>
+<li><strong>Error for Invalid Input</strong>: Raises Error 5 instead of returning special value</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Exp</code>: Returns e raised to a power (inverse of Log)</li>
+<li><code>Sqr</code>: Returns square root</li>
+<li><code>^</code>: Exponentiation operator</li>
+<li><code>Abs</code>: Returns absolute value</li>
+<li><code>Sgn</code>: Returns sign of number</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

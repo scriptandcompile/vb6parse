@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - trim_dollar - String">
+    <title>trim_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / trim_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="trim-function"><code>Trim$</code> Function</h1>
+<p>The <code>Trim$</code> function in Visual Basic 6 returns a string with both leading and trailing spaces
+removed. The dollar sign (<code>$</code>) suffix indicates that this function always returns a <code>String</code>
+type, never a <code>Variant</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Trim$(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Required. Any valid string expression. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> with all leading and trailing space characters (ASCII 32) removed from <code>string</code>.</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="space-removal">Space Removal</h3>
+<ul>
+<li>Removes both leading (left-side) and trailing (right-side) spaces</li>
+<li>Only removes space characters (ASCII character 32)</li>
+<li>Does not remove tabs, newlines, or other whitespace characters</li>
+<li>If the string contains only spaces, returns an empty string ("")</li>
+<li>Preserves spaces in the middle of the string</li>
+</ul>
+<h3 id="type-differences-trim-vs-trim">Type Differences: <code>Trim$</code> vs <code>Trim</code></h3>
+<ul>
+<li><code>Trim$</code>: Always returns <code>String</code> type (never <code>Variant</code>)</li>
+<li><code>Trim</code>: Returns <code>Variant</code> (can propagate <code>Null</code> values)</li>
+<li>Use <code>Trim$</code> when you need guaranteed <code>String</code> return type</li>
+<li>Use <code>Trim</code> when working with potentially <code>Null</code> values</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-clean-user-input">1. Clean User Input</h3>
+<pre><code class="language-vbnet">Function CleanInput(userInput As String) As String
+CleanInput = Trim$(userInput)
+End Function
+
+Dim cleaned As String
+cleaned = CleanInput(&quot;  Hello World  &quot;)  &#x27; Returns &quot;Hello World&quot;</code></pre>
+<h3 id="2-process-text-file-lines">2. Process Text File Lines</h3>
+<pre><code class="language-vbnet">Function ReadCleanLine(fileNum As Integer) As String
+Dim rawLine As String
+Line Input #fileNum, rawLine
+ReadCleanLine = Trim$(rawLine)
+End Function</code></pre>
+<h3 id="3-validate-non-empty-input">3. Validate Non-Empty Input</h3>
+<pre><code class="language-vbnet">Function IsValidInput(input As String) As Boolean
+IsValidInput = (Len(Trim$(input)) &gt; 0)
+End Function
+
+If IsValidInput(txtName.Text) Then
+&#x27; Process the input
+Else
+MsgBox &quot;Please enter a value&quot;
+End If</code></pre>
+<h3 id="4-string-comparison">4. String Comparison</h3>
+<pre><code class="language-vbnet">Function CompareValues(value1 As String, value2 As String) As Boolean
+&#x27; Compare strings ignoring leading/trailing spaces
+CompareValues = (Trim$(value1) = Trim$(value2))
+End Function</code></pre>
+<h3 id="5-database-field-cleaning">5. Database Field Cleaning</h3>
+<pre><code class="language-vbnet">Function GetFieldValue(rs As Recordset, fieldName As String) As String
+If Not IsNull(rs.Fields(fieldName).Value) Then
+GetFieldValue = Trim$(rs.Fields(fieldName).Value &amp; &quot;&quot;)
+Else
+GetFieldValue = &quot;&quot;
+End If
+End Function</code></pre>
+<h3 id="6-configuration-file-parsing">6. Configuration File Parsing</h3>
+<pre><code class="language-vbnet">Function ParseConfigLine(configLine As String) As String
+Dim equalPos As Integer
+equalPos = InStr(configLine, &quot;=&quot;)
+If equalPos &gt; 0 Then
+ParseConfigLine = Trim$(Mid$(configLine, equalPos + 1))
+Else
+ParseConfigLine = &quot;&quot;
+End If
+End Function</code></pre>
+<h3 id="7-clean-array-elements">7. Clean Array Elements</h3>
+<pre><code class="language-vbnet">Sub CleanStringArray(arr() As String)
+Dim i As Integer
+For i = LBound(arr) To UBound(arr)
+arr(i) = Trim$(arr(i))
+Next i
+End Sub</code></pre>
+<h3 id="8-form-input-processing">8. Form Input Processing</h3>
+<pre><code class="language-vbnet">Sub ProcessForm()
+Dim userName As String
+Dim userEmail As String
+
+userName = Trim$(txtName.Text)
+userEmail = Trim$(txtEmail.Text)
+
+If Len(userName) &gt; 0 And Len(userEmail) &gt; 0 Then
+SaveUserData userName, userEmail
+End If
+End Sub</code></pre>
+<h3 id="9-csv-field-processing">9. CSV Field Processing</h3>
+<pre><code class="language-vbnet">Function ParseCSVField(field As String) As String
+&#x27; Remove quotes and trim spaces
+Dim cleaned As String
+cleaned = field
+If Left$(cleaned, 1) = &quot;&quot;&quot;&quot; Then cleaned = Mid$(cleaned, 2)
+If Right$(cleaned, 1) = &quot;&quot;&quot;&quot; Then cleaned = Left$(cleaned, Len(cleaned) - 1)
+ParseCSVField = Trim$(cleaned)
+End Function</code></pre>
+<h3 id="10-search-query-preparation">10. Search Query Preparation</h3>
+<pre><code class="language-vbnet">Function PrepareSearchQuery(query As String) As String
+Dim cleaned As String
+cleaned = Trim$(query)
+&#x27; Remove multiple spaces
+While InStr(cleaned, &quot;  &quot;) &gt; 0
+cleaned = Replace$(cleaned, &quot;  &quot;, &quot; &quot;)
+Wend
+PrepareSearchQuery = cleaned
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Trim()</code> - Returns a <code>Variant</code> with leading and trailing spaces removed (can handle <code>Null</code>)</li>
+<li><code>LTrim$()</code> - Removes only leading (left-side) spaces from a string</li>
+<li><code>RTrim$()</code> - Removes only trailing (right-side) spaces from a string</li>
+<li><code>Left$()</code> - Returns a specified number of characters from the left side</li>
+<li><code>Right$()</code> - Returns a specified number of characters from the right side</li>
+<li><code>Len()</code> - Returns the length of a string</li>
+<li><code>Space$()</code> - Creates a string consisting of the specified number of spaces</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-trim-vs-ltrim-vs-rtrim">When to Use <code>Trim$</code> vs <code>LTrim$</code> vs <code>RTrim$</code></h3>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;  Hello  &quot;
+
+Debug.Print Trim$(text)   &#x27; &quot;Hello&quot; (both sides trimmed)
+Debug.Print LTrim$(text)  &#x27; &quot;Hello  &quot; (left side only)
+Debug.Print RTrim$(text)  &#x27; &quot;  Hello&quot; (right side only)</code></pre>
+<h3 id="use-for-user-input-validation">Use for User Input Validation</h3>
+<pre><code class="language-vbnet">Function ValidateInput(input As String) As Boolean
+&#x27; Check if input is meaningful after trimming
+Dim cleaned As String
+cleaned = Trim$(input)
+
+If Len(cleaned) = 0 Then
+MsgBox &quot;Input cannot be empty or only spaces&quot;
+ValidateInput = False
+Else
+ValidateInput = True
+End If
+End Function</code></pre>
+<h3 id="combine-with-other-string-functions">Combine with Other String Functions</h3>
+<pre><code class="language-vbnet">Function NormalizeText(text As String) As String
+Dim result As String
+result = Trim$(text)
+result = UCase$(result)  &#x27; Convert to uppercase
+NormalizeText = result
+End Function</code></pre>
+<h3 id="handle-null-values-safely">Handle Null Values Safely</h3>
+<pre><code class="language-vbnet">Function SafeTrim(value As Variant) As String
+If IsNull(value) Then
+SafeTrim = &quot;&quot;
+Else
+SafeTrim = Trim$(CStr(value))
+End If
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Trim$</code> is very efficient and lightweight</li>
+<li>Performs a single pass from both ends of the string</li>
+<li>More efficient than calling <code>LTrim$</code> and <code>RTrim$</code> separately</li>
+<li>No performance penalty for strings without leading/trailing spaces</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Efficient: single Trim$ call
+Dim cleaned As String
+cleaned = Trim$(input)
+
+&#x27; Less efficient: two function calls
+cleaned = LTrim$(RTrim$(input))
+
+&#x27; Use Trim$ instead of the above</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-only-removes-spaces-ascii-32">1. Only Removes Spaces (ASCII 32)</h3>
+<pre><code class="language-vbnet">Dim text As String
+text = vbTab &amp; &quot;Hello&quot; &amp; vbTab  &#x27; Tabs at both ends
+
+&#x27; Trim$ does NOT remove tabs
+Debug.Print Trim$(text)  &#x27; Still has tabs!
+
+&#x27; To remove all whitespace, use custom function
+Function TrimAllWhitespace(s As String) As String
+Dim i As Integer, j As Integer
+
+&#x27; Trim from left
+For i = 1 To Len(s)
+Select Case Mid$(s, i, 1)
+Case &quot; &quot;, vbTab, vbCr, vbLf
+&#x27; Continue
+Case Else
+Exit For
+End Select
+Next i
+
+&#x27; Trim from right
+For j = Len(s) To 1 Step -1
+Select Case Mid$(s, j, 1)
+Case &quot; &quot;, vbTab, vbCr, vbLf
+&#x27; Continue
+Case Else
+Exit For
+End Select
+Next j
+
+If i &lt;= j Then
+TrimAllWhitespace = Mid$(s, i, j - i + 1)
+Else
+TrimAllWhitespace = &quot;&quot;
+End If
+End Function</code></pre>
+<h3 id="2-null-value-handling">2. Null Value Handling</h3>
+<pre><code class="language-vbnet">&#x27; Trim$ with Null causes runtime error
+Dim result As String
+result = Trim$(nullValue)  &#x27; ERROR if nullValue is Null
+
+&#x27; Protect against Null
+If Not IsNull(value) Then
+result = Trim$(value)
+Else
+result = &quot;&quot;
+End If</code></pre>
+<h3 id="3-empty-string-vs-spaces-only-string">3. Empty String vs Spaces-Only String</h3>
+<pre><code class="language-vbnet">Dim input As String
+input = &quot;     &quot;  &#x27; Only spaces
+
+&#x27; Trim$ returns empty string
+Debug.Print Len(Trim$(input))  &#x27; 0
+
+&#x27; Check for meaningful content
+If Len(Trim$(input)) = 0 Then
+Debug.Print &quot;No content&quot;
+End If</code></pre>
+<h3 id="4-database-field-assumptions">4. Database Field Assumptions</h3>
+<pre><code class="language-vbnet">&#x27; Wrong: not handling Null
+value = Trim$(rs!TextField)  &#x27; May error if field is Null
+
+&#x27; Better: handle Null explicitly
+If IsNull(rs!TextField) Then
+value = &quot;&quot;
+Else
+value = Trim$(rs!TextField &amp; &quot;&quot;)
+End If</code></pre>
+<h3 id="5-case-sensitivity">5. Case Sensitivity</h3>
+<pre><code class="language-vbnet">&#x27; Trim$ does not change case
+Debug.Print Trim$(&quot;  HELLO  &quot;)  &#x27; &quot;HELLO&quot; (not &quot;hello&quot;)
+
+&#x27; Combine with case conversion if needed
+Debug.Print UCase$(Trim$(&quot;  hello  &quot;))  &#x27; &quot;HELLO&quot;
+Debug.Print LCase$(Trim$(&quot;  HELLO  &quot;))  &#x27; &quot;hello&quot;</code></pre>
+<h3 id="6-non-breaking-spaces">6. Non-Breaking Spaces</h3>
+<pre><code class="language-vbnet">&#x27; Trim$ only removes regular spaces (ASCII 32)
+&#x27; Non-breaking spaces (Chr$(160)) are NOT removed
+Dim text As String
+text = Chr$(160) &amp; &quot;Hello&quot; &amp; Chr$(160)
+Debug.Print Trim$(text)  &#x27; Still has Chr$(160) at both ends</code></pre>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="processing-ini-file-values">Processing INI File Values</h3>
+<pre><code class="language-vbnet">Function GetINIValue(section As String, key As String, fileName As String) As String
+Dim fileNum As Integer
+Dim currentLine As String
+Dim inSection As Boolean
+Dim equalPos As Integer
+Dim lineKey As String
+
+fileNum = FreeFile
+Open fileName For Input As #fileNum
+
+While Not EOF(fileNum)
+Line Input #fileNum, currentLine
+currentLine = Trim$(currentLine)
+
+If currentLine = &quot;[&quot; &amp; section &amp; &quot;]&quot; Then
+inSection = True
+ElseIf Left$(currentLine, 1) = &quot;[&quot; Then
+inSection = False
+ElseIf inSection Then
+equalPos = InStr(currentLine, &quot;=&quot;)
+If equalPos &gt; 0 Then
+lineKey = Trim$(Left$(currentLine, equalPos - 1))
+If lineKey = key Then
+GetINIValue = Trim$(Mid$(currentLine, equalPos + 1))
+Close #fileNum
+Exit Function
+End If
+End If
+End If
+Wend
+
+Close #fileNum
+GetINIValue = &quot;&quot;
+End Function</code></pre>
+<h3 id="form-validation">Form Validation</h3>
+<pre><code class="language-vbnet">Function ValidateForm() As Boolean
+Dim errors As String
+
+If Len(Trim$(txtName.Text)) = 0 Then
+errors = errors &amp; &quot;Name is required&quot; &amp; vbCrLf
+End If
+
+If Len(Trim$(txtEmail.Text)) = 0 Then
+errors = errors &amp; &quot;Email is required&quot; &amp; vbCrLf
+End If
+
+If Len(errors) &gt; 0 Then
+MsgBox errors, vbExclamation
+ValidateForm = False
+Else
+ValidateForm = True
+End If
+End Function</code></pre>
+<h3 id="clean-data-import">Clean Data Import</h3>
+<pre><code class="language-vbnet">Sub ImportCSVData(fileName As String)
+Dim fileNum As Integer
+Dim currentLine As String
+Dim fields() As String
+Dim i As Integer
+
+fileNum = FreeFile
+Open fileName For Input As #fileNum
+
+While Not EOF(fileNum)
+Line Input #fileNum, currentLine
+fields = Split(currentLine, &quot;,&quot;)
+
+&#x27; Clean all fields
+For i = LBound(fields) To UBound(fields)
+fields(i) = Trim$(fields(i))
+Next i
+
+&#x27; Process cleaned fields
+ProcessRecord fields
+Wend
+
+Close #fileNum
+End Sub</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only removes space characters (ASCII 32), not other whitespace</li>
+<li>Cannot handle <code>Null</code> values (use <code>Trim</code> variant function instead)</li>
+<li>Does not remove non-breaking spaces (character 160) or Unicode whitespace</li>
+<li>No option to specify custom characters to remove</li>
+<li>Works with strings only, not byte arrays</li>
+<li>Does not change character case (use with <code>UCase$</code> or <code>LCase$</code> if needed)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

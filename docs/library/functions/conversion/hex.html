@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - hex - Conversion">
+    <title>hex - Conversion - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/conversion/index.html">Conversion</a> / hex</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="hex-function"><code>Hex</code> Function</h1>
+<p>Returns a <code>String</code> representing the hexadecimal value of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Hex(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> (Required): Any valid numeric expression or string expression. If <code>number</code> is not already a whole number, it is rounded to the nearest whole number before being evaluated.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> representing the hexadecimal value of the number. The return value contains hexadecimal digits (0-9, A-F) without the "&amp;H" prefix.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Hex</code> function converts a decimal number to its hexadecimal (base 16) string representation:</p>
+<ul>
+<li>If <code>number</code> is <code>Null</code>, <code>Hex</code> returns <code>Null</code></li>
+<li>If <code>number</code> is <code>Empty</code>, <code>Hex</code> returns "0"</li>
+<li>Negative numbers are represented in two's complement form</li>
+<li>For Byte values: Returns up to 2 hexadecimal digits</li>
+<li>For Integer values: Returns up to 4 hexadecimal digits</li>
+<li>For Long values: Returns up to 8 hexadecimal digits</li>
+<li>Fractional values are rounded to the nearest integer before conversion</li>
+<li>The result does not include the "&amp;H" prefix (use "&amp;H" &amp; <code>Hex(n)</code> to include it)</li>
+<li>Leading zeros are not included in the result (e.g., 15 returns "F", not "0F")</li>
+<li>For hexadecimal to decimal conversion, use the <code>CLng</code> or <code>CInt</code> functions with "&amp;H" prefix</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Color Values</strong>: Convert RGB color values to hexadecimal for HTML/CSS</li>
+<li><strong>Memory Addresses</strong>: Display memory addresses in hexadecimal format</li>
+<li><strong>Debugging</strong>: Show binary data in readable hexadecimal format</li>
+<li><strong>Low-Level Programming</strong>: Work with hardware registers and bit patterns</li>
+<li><strong>File I/O</strong>: Display byte values when working with binary files</li>
+<li><strong>Cryptography</strong>: Show hash values and checksums in hex format</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple conversion
+Debug.Print Hex(255)        &#x27; Prints: FF
+Debug.Print Hex(16)         &#x27; Prints: 10
+Debug.Print Hex(0)          &#x27; Prints: 0
+
+&#x27; Example 2: Color conversion
+Dim red As Long
+red = RGB(255, 0, 0)
+Debug.Print Hex(red)        &#x27; Prints: FF (on little-endian systems)
+
+&#x27; Example 3: Negative numbers (two&#x27;s complement)
+Debug.Print Hex(-1)         &#x27; Prints: FFFFFFFF (Long)
+Debug.Print Hex(-256)       &#x27; Prints: FFFFFF00
+
+&#x27; Example 4: With &quot;&amp;H&quot; prefix
+Dim value As Long
+value = 42
+Debug.Print &quot;&amp;H&quot; &amp; Hex(value)  &#x27; Prints: &amp;H2A</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: RGB to hex color string
+Function RGBToHex(r As Integer, g As Integer, b As Integer) As String
+RGBToHex = Right$(&quot;0&quot; &amp; Hex(r), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex(g), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex(b), 2)
+End Function
+
+&#x27; Pattern 2: Pad hex string to specific length
+Function HexPad(value As Long, length As Integer) As String
+HexPad = Right$(String$(length, &quot;0&quot;) &amp; Hex(value), length)
+End Function
+
+&#x27; Pattern 3: Display memory dump
+Sub ShowMemoryDump(bytes() As Byte)
+Dim i As Long
+Dim line As String
+For i = LBound(bytes) To UBound(bytes)
+line = line &amp; Right$(&quot;0&quot; &amp; Hex(bytes(i)), 2) &amp; &quot; &quot;
+If (i + 1) Mod 16 = 0 Then
+Debug.Print line
+line = &quot;&quot;
+End If
+Next i
+If Len(line) &gt; 0 Then Debug.Print line
+End Sub
+
+&#x27; Pattern 4: Format address with hex
+Function FormatAddress(addr As Long) As String
+FormatAddress = &quot;0x&quot; &amp; Right$(&quot;00000000&quot; &amp; Hex(addr), 8)
+End Function
+
+&#x27; Pattern 5: Convert byte array to hex string
+Function BytesToHex(bytes() As Byte) As String
+Dim result As String
+Dim i As Long
+For i = LBound(bytes) To UBound(bytes)
+result = result &amp; Right$(&quot;0&quot; &amp; Hex(bytes(i)), 2)
+Next i
+BytesToHex = result
+End Function
+
+&#x27; Pattern 6: Parse hex string back to number
+Function HexToLong(hexStr As String) As Long
+If Left$(hexStr, 2) = &quot;&amp;H&quot; Then
+HexToLong = CLng(hexStr)
+Else
+HexToLong = CLng(&quot;&amp;H&quot; &amp; hexStr)
+End If
+End Function
+
+&#x27; Pattern 7: Show bit pattern
+Sub ShowBitPattern(value As Long)
+Debug.Print &quot;Hex: &quot; &amp; Hex(value)
+Debug.Print &quot;Dec: &quot; &amp; value
+End Sub
+
+&#x27; Pattern 8: Color component extraction
+Function GetRedComponent(color As Long) As Integer
+GetRedComponent = color And &amp;HFF
+Debug.Print &quot;Red: &quot; &amp; Hex(GetRedComponent)
+End Function
+
+&#x27; Pattern 9: Build lookup table
+Dim hexLookup(0 To 255) As String
+Sub InitHexLookup()
+Dim i As Long
+For i = 0 To 255
+hexLookup(i) = Right$(&quot;0&quot; &amp; Hex(i), 2)
+Next i
+End Sub
+
+&#x27; Pattern 10: Format hex with separator
+Function HexWithSeparator(value As Long, separator As String) As String
+Dim hexStr As String
+Dim i As Integer
+hexStr = Right$(&quot;00000000&quot; &amp; Hex(value), 8)
+For i = 1 To 7 Step 2
+HexWithSeparator = HexWithSeparator &amp; Mid$(hexStr, i, 2)
+If i &lt; 7 Then HexWithSeparator = HexWithSeparator &amp; separator
+Next i
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Hex dump utility class
+Public Class HexDumper
+Private Const BYTES_PER_LINE As Integer = 16
+
+Public Function DumpToString(data() As Byte) As String
+Dim result As String
+Dim i As Long
+Dim offset As Long
+Dim hexPart As String
+Dim asciiPart As String
+Dim b As Byte
+
+For i = LBound(data) To UBound(data)
+If i Mod BYTES_PER_LINE = 0 Then
+If i &gt; 0 Then
+result = result &amp; hexPart &amp; &quot;  &quot; &amp; asciiPart &amp; vbCrLf
+End If
+hexPart = Right$(&quot;00000000&quot; &amp; Hex(i), 8) &amp; &quot;: &quot;
+asciiPart = &quot;&quot;
+End If
+
+b = data(i)
+hexPart = hexPart &amp; Right$(&quot;0&quot; &amp; Hex(b), 2) &amp; &quot; &quot;
+
+If b &gt;= 32 And b &lt;= 126 Then
+asciiPart = asciiPart &amp; Chr$(b)
+Else
+asciiPart = asciiPart &amp; &quot;.&quot;
+End If
+Next i
+
+&#x27; Pad last line
+If Len(hexPart) &gt; 10 Then
+hexPart = hexPart &amp; String$((BYTES_PER_LINE - Len(asciiPart)) * 3, &quot; &quot;)
+result = result &amp; hexPart &amp; &quot;  &quot; &amp; asciiPart
+End If
+
+DumpToString = result
+End Function
+End Class
+
+&#x27; Example 2: HTML color converter
+Public Class ColorConverter
+Public Function VBColorToHTML(vbColor As Long) As String
+Dim r As Integer, g As Integer, b As Integer
+r = vbColor And &amp;HFF
+g = (vbColor \ &amp;H100) And &amp;HFF
+b = (vbColor \ &amp;H10000) And &amp;HFF
+
+VBColorToHTML = &quot;#&quot; &amp; _
+Right$(&quot;0&quot; &amp; Hex(r), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex(g), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex(b), 2)
+End Function
+
+Public Function HTMLToVBColor(htmlColor As String) As Long
+Dim r As Long, g As Long, b As Long
+If Left$(htmlColor, 1) = &quot;#&quot; Then htmlColor = Mid$(htmlColor, 2)
+
+r = CLng(&quot;&amp;H&quot; &amp; Mid$(htmlColor, 1, 2))
+g = CLng(&quot;&amp;H&quot; &amp; Mid$(htmlColor, 3, 2))
+b = CLng(&quot;&amp;H&quot; &amp; Mid$(htmlColor, 5, 2))
+
+HTMLToVBColor = RGB(r, g, b)
+End Function
+End Class
+
+&#x27; Example 3: Checksum calculator
+Public Function CalculateChecksum(data() As Byte) As String
+Dim checksum As Long
+Dim i As Long
+
+For i = LBound(data) To UBound(data)
+checksum = checksum Xor data(i)
+checksum = ((checksum And &amp;H7FFFFFFF) * 2) Or (checksum And &amp;H80000000) \ &amp;H80000000
+Next i
+
+CalculateChecksum = Right$(&quot;00000000&quot; &amp; Hex(checksum), 8)
+End Function
+
+&#x27; Example 4: Binary file viewer
+Public Class BinaryFileViewer
+Public Function LoadAndDisplayFile(filePath As String) As String
+Dim fileNum As Integer
+Dim fileData() As Byte
+Dim fileSize As Long
+Dim result As String
+Dim i As Long
+
+fileNum = FreeFile
+Open filePath For Binary As #fileNum
+fileSize = LOF(fileNum)
+ReDim fileData(0 To fileSize - 1)
+Get #fileNum, , fileData
+Close #fileNum
+
+For i = 0 To UBound(fileData)
+If i Mod 16 = 0 Then
+result = result &amp; vbCrLf &amp; Right$(&quot;00000000&quot; &amp; Hex(i), 8) &amp; &quot;: &quot;
+End If
+result = result &amp; Right$(&quot;0&quot; &amp; Hex(fileData(i)), 2) &amp; &quot; &quot;
+Next i
+
+LoadAndDisplayFile = result
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The Hex function generally doesn't raise errors, but type conversion can:</p>
+<ul>
+<li><strong>Type Mismatch (Error 13)</strong>: If the argument cannot be converted to a number</li>
+<li><strong>Overflow (Error 6)</strong>: If the value exceeds Long range before conversion</li>
+<li><strong>Null Propagation</strong>: If the argument is Null, Hex returns Null</li>
+</ul>
+<pre><code class="language-vbnet">On Error Resume Next
+Dim result As String
+result = Hex(someValue)
+If Err.Number &lt;&gt; 0 Then
+Debug.Print &quot;Error converting to hex: &quot; &amp; Err.Description
+Err.Clear
+End If
+On Error GoTo 0</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: Hex conversion is a fast, native operation</li>
+<li><strong>String Building</strong>: When converting many values, use string builder pattern to avoid repeated concatenation</li>
+<li><strong>Lookup Tables</strong>: For repeated conversions of small numbers (0-255), consider pre-building a lookup table</li>
+<li><strong>Memory</strong>: The returned string length depends on the magnitude of the number</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Padding</strong>: Use Right$() or Format$() to pad hex values to fixed width</li>
+<li><strong>Prefixes</strong>: Add "&amp;H" prefix when the value will be parsed back to numeric</li>
+<li><strong>Case</strong>: VB6 Hex returns uppercase (A-F); convert to lowercase if needed</li>
+<li><strong>Validation</strong>: Validate input before conversion to avoid type mismatch errors</li>
+<li><strong>Documentation</strong>: Document whether hex strings include prefixes ("0x", "&amp;H")</li>
+<li><strong>Null Handling</strong>: Check for Null before calling Hex if working with Variants</li>
+</ol>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hex</td>
+<td>Decimal to hexadecimal string</td>
+<td>Hex(255) → "FF"</td>
+</tr>
+<tr>
+<td>Oct</td>
+<td>Decimal to octal string</td>
+<td>Oct(8) → "10"</td>
+</tr>
+<tr>
+<td>Str</td>
+<td>Number to decimal string</td>
+<td>Str(255) → " 255"</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>Number to formatted string</td>
+<td>Format(255, "00") → "255"</td>
+</tr>
+<tr>
+<td>CLng("&amp;H...")</td>
+<td>Hexadecimal string to Long</td>
+<td>CLng("&amp;HFF") → 255</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Behavior consistent across Windows platforms</li>
+<li>Integer size (2 bytes) and Long size (4 bytes) are fixed</li>
+<li>Two's complement representation for negative numbers is standard</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot directly convert Currency or Decimal types (convert to Long first)</li>
+<li>No built-in support for padding with leading zeros (use Right$ or Format$)</li>
+<li>Returns uppercase letters only (A-F, not a-f)</li>
+<li>No control over prefix inclusion (always excludes "&amp;H")</li>
+<li>Maximum value is Long range (−2,147,483,648 to 2,147,483,647)</li>
+<li>Fractional parts are rounded, not truncated</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Oct</code>: Returns a String representing the octal value of a number</li>
+<li><code>Str</code>: Returns a String representation of a number</li>
+<li><code>Format</code>: Returns a Variant (String) formatted according to instructions</li>
+<li><code>CLng</code>: Converts an expression to a Long</li>
+<li><code>CInt</code>: Converts an expression to an Integer</li>
+<li><code>Val</code>: Returns the numbers contained in a string as a numeric value</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Conversion</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - time - Runtime State">
+    <title>time - Runtime State - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/runtime_state/index.html">Runtime State</a> / time</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="time-statement">Time Statement</h1>
+<p>Sets the system time.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Time = time</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>time</strong>: Required. Any numeric expression, string expression, or any combination that can represent a time.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>System Time</strong>: The Time statement sets the computer's system time to the specified time value.</li>
+<li><strong>Time Format</strong>: Accepts times in various formats including "HH:MM:SS", "HH:MM", or numeric values representing time.</li>
+<li><strong>24-Hour Format</strong>: You can use 24-hour format (e.g., "13:30" for 1:30 PM) or 12-hour format with AM/PM.</li>
+<li><strong>Permissions</strong>: Changing the system time may require administrator privileges on some operating systems.</li>
+<li><strong>String Expression</strong>: When using a string, it should be in a valid time format that VB6 can interpret.</li>
+<li><strong>Numeric Expression</strong>: Numeric values represent the fractional portion of a day (e.g., 0.5 = noon).</li>
+<li><strong>Current Date Preserved</strong>: Setting the time does not affect the system date.</li>
+<li><strong>Time Function</strong>: Use the Time function (without assignment) to retrieve the current system time.</li>
+<li><strong>Now Function</strong>: The Now function returns both date and time; Time$ returns only the time portion.</li>
+<li><strong>Error Handling</strong>: Invalid time values will generate a run-time error.</li>
+</ul>
+<h2 id="common-uses">Common Uses</h2>
+<ul>
+<li><strong>Time Synchronization</strong>: Set system time from network time server</li>
+<li><strong>Testing</strong>: Set specific times for testing time-dependent code</li>
+<li><strong>Kiosk Applications</strong>: Reset time for demo or kiosk systems</li>
+<li><strong>Simulation</strong>: Simulate different times of day for testing</li>
+<li><strong>Time Adjustment</strong>: Correct system time drift</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="set-time-to-specific-hour-and-minute">Set Time to Specific Hour and Minute</h3>
+<pre><code class="language-vbnet">Time = &quot;14:30:00&quot;  &#x27; Set to 2:30 PM</code></pre>
+<h3 id="set-time-using-string">Set Time Using String</h3>
+<pre><code class="language-vbnet">Time = &quot;9:15 AM&quot;</code></pre>
+<h3 id="set-time-to-midnight">Set Time to Midnight</h3>
+<pre><code class="language-vbnet">Time = &quot;00:00:00&quot;</code></pre>
+<h3 id="set-time-to-noon">Set Time to Noon</h3>
+<pre><code class="language-vbnet">Time = &quot;12:00:00&quot;</code></pre>
+<h3 id="set-time-using-variable">Set Time Using Variable</h3>
+<pre><code class="language-vbnet">Dim newTime As String
+newTime = &quot;15:45:30&quot;
+Time = newTime</code></pre>
+<h3 id="set-time-using-timevalue-function">Set Time Using <code>TimeValue</code> Function</h3>
+<pre><code class="language-vbnet">Time = TimeValue(&quot;3:30 PM&quot;)</code></pre>
+<h3 id="set-time-using-current-time-plus-offset">Set Time Using Current Time Plus Offset</h3>
+<pre><code class="language-vbnet">Time = Time + TimeValue(&quot;00:15:00&quot;)  &#x27; Add 15 minutes</code></pre>
+<h3 id="set-time-from-user-input">Set Time from User Input</h3>
+<pre><code class="language-vbnet">Dim userTime As String
+userTime = InputBox(&quot;Enter new time (HH:MM:SS):&quot;)
+If IsDate(userTime) Then
+Time = userTime
+Else
+MsgBox &quot;Invalid time format&quot;
+End If</code></pre>
+<h3 id="set-time-with-error-handling">Set Time with Error Handling</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+Time = &quot;10:30:00&quot;
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Failed to set time: &quot; &amp; Err.Description
+End If
+On Error GoTo 0</code></pre>
+<h3 id="set-time-using-now-function">Set Time Using Now Function</h3>
+<pre><code class="language-vbnet">Time = Now  &#x27; Sets time to current time (redundant but valid)</code></pre>
+<h3 id="set-time-in-sub">Set Time in Sub</h3>
+<pre><code class="language-vbnet">Sub SetApplicationTime()
+Time = &quot;08:00:00&quot;  &#x27; Set to 8 AM
+End Sub</code></pre>
+<h3 id="set-time-conditionally">Set Time Conditionally</h3>
+<pre><code class="language-vbnet">If Hour(Time) &gt; 17 Then
+Time = &quot;08:00:00&quot;  &#x27; Reset to morning
+End If</code></pre>
+<h3 id="set-time-using-timeserial">Set Time Using <code>TimeSerial</code></h3>
+<pre><code class="language-vbnet">Time = TimeSerial(14, 30, 0)  &#x27; 2:30 PM</code></pre>
+<h3 id="set-time-with-concatenation">Set Time with Concatenation</h3>
+<pre><code class="language-vbnet">Dim hours As String
+Dim minutes As String
+hours = &quot;09&quot;
+minutes = &quot;45&quot;
+Time = hours &amp; &quot;:&quot; &amp; minutes &amp; &quot;:00&quot;</code></pre>
+<h3 id="set-time-for-testing">Set Time for Testing</h3>
+<pre><code class="language-vbnet">&#x27; Set specific time for testing time-dependent code
+Time = &quot;23:59:59&quot;  &#x27; One second before midnight
+TestMidnightRollover</code></pre>
+<h3 id="set-time-in-class-module">Set Time in Class Module</h3>
+<pre><code class="language-vbnet">Private Sub Class_Initialize()
+Time = &quot;12:00:00&quot;  &#x27; Reset to noon on initialization
+End Sub</code></pre>
+<h3 id="set-time-using-format">Set Time Using Format</h3>
+<pre><code class="language-vbnet">Dim timeStr As String
+timeStr = Format(Now, &quot;hh:mm:ss&quot;)
+Time = timeStr</code></pre>
+<h3 id="set-time-in-loop">Set Time in Loop</h3>
+<pre><code class="language-vbnet">For i = 0 To 23
+Time = TimeSerial(i, 0, 0)
+ProcessHourlyTask
+Next i</code></pre>
+<h3 id="set-time-with-validation">Set Time with Validation</h3>
+<pre><code class="language-vbnet">Function SetSystemTime(newTime As String) As Boolean
+On Error GoTo ErrorHandler
+
+If IsDate(newTime) Then
+Time = newTime
+SetSystemTime = True
+Else
+SetSystemTime = False
+End If
+
+Exit Function
+
+ErrorHandler:
+SetSystemTime = False
+End Function</code></pre>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li><strong>Administrator Rights</strong>: Setting system time may require elevated permissions</li>
+<li><strong>System Impact</strong>: Changing system time affects all applications and scheduled tasks</li>
+<li><strong>Time Zones</strong>: Time is set in local time zone, not UTC</li>
+<li><strong>Date Unchanged</strong>: Only the time portion is modified; the date remains unchanged</li>
+<li><strong>Validation</strong>: Always validate user input before setting system time</li>
+<li><strong>Error Handling</strong>: Use error handling as time setting can fail due to permissions</li>
+<li><strong>Testing Only</strong>: In production, avoid changing system time; use application-level time variables instead</li>
+<li><strong>Numeric Values</strong>: 0 = midnight, 0.5 = noon, 0.75 = 6 PM</li>
+</ul>
+<h2 id="time-formats-accepted">Time Formats Accepted</h2>
+<ul>
+<li>"HH:MM:SS" - Full time with seconds (e.g., "14:30:45")</li>
+<li>"HH:MM" - Hour and minute (e.g., "14:30")</li>
+<li>"HH:MM AM/PM" - 12-hour format (e.g., "2:30 PM")</li>
+<li>Numeric - Fractional day value (e.g., 0.5 for noon)</li>
+<li>TimeSerial(hour, minute, second) - Function result</li>
+<li>TimeValue(string) - Converted string</li>
+</ul>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 5</strong>: Invalid procedure call or argument - occurs with invalid time format</li>
+<li><strong>Error 70</strong>: Permission denied - occurs without sufficient privileges</li>
+<li><strong>Error 13</strong>: Type mismatch - occurs with incompatible data types</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Always use error handling when setting system time</li>
+<li>Validate time strings before assignment using <code>IsDate()</code></li>
+<li>Use <code>TimeSerial</code> or <code>TimeValue</code> for programmatic time construction</li>
+<li>Consider using application-level time variables instead of changing system time</li>
+<li>Document why system time is being changed in production code</li>
+<li>Test time-setting code with various formats and edge cases</li>
+<li>Be aware of time zone and daylight saving time implications</li>
+<li>Consider user permissions and UAC on modern Windows systems</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>Time</code> function (retrieve current system time)</li>
+<li><code>Date</code> statement (set system date)</li>
+<li><code>Now</code> function (get current date and time)</li>
+<li><code>TimeSerial</code> function (create time from components)</li>
+<li><code>TimeValue</code> function (convert string to time)</li>
+<li><code>Hour</code>, <code>Minute</code>, <code>Second</code> functions (extract time components)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/time-statement">Time Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Runtime State</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - tan - Math">
+    <title>tan - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / tan</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>Tan</code> Function</p>
+<p>The <code>Tan</code> function returns the tangent of an angle specified in radians.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Tan(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code>: Required. A numeric expression representing an angle in radians.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>Double</code> representing the tangent of the angle.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>The argument must be in radians, not degrees. To convert degrees to radians, multiply by <code>Pi/180</code>.</li>
+<li>Returns a <code>Double</code> value.</li>
+<li>If the argument is a multiple of π/2 (except 0), the result is undefined (overflow error).</li>
+<li>Returns Null if the argument is Null.</li>
+<li>Use <code>Atn</code> to get the arctangent (inverse tangent).</li>
+<li>The tangent function is periodic with period π.</li>
+<li>For very large or very small arguments, floating-point rounding may affect results.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li>Trigonometric calculations</li>
+<li>Geometry and graphics</li>
+<li>Physics and engineering formulas</li>
+<li>Calculating slopes and angles</li>
+<li>Animation and simulation</li>
+<li>Signal processing</li>
+<li>Scientific computation</li>
+<li>Converting between coordinate systems</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-tangent-of-45-degrees">Example 1: Tangent of 45 degrees</h3>
+<pre><code class="language-vbnet">result = Tan(45 * 3.14159265358979 / 180)
+&#x27; result = 1</code></pre>
+<h3 id="example-2-tangent-of-pi4-radians">Example 2: Tangent of Pi/4 radians</h3>
+<pre><code class="language-vbnet">result = Tan(3.14159265358979 / 4)
+&#x27; result = 1</code></pre>
+<h3 id="example-3-using-with-atn">Example 3: Using with Atn</h3>
+<pre><code class="language-vbnet">angle = Atn(1)
+result = Tan(angle)
+&#x27; result = 1</code></pre>
+<h3 id="example-4-handling-null">Example 4: Handling Null</h3>
+<pre><code class="language-vbnet">result = Tan(Null)
+&#x27; result = Null</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-convert-degrees-to-radians">Pattern 1: Convert degrees to radians</h3>
+<pre><code class="language-vbnet">Function DegreesToRadians(degrees As Double) As Double
+DegreesToRadians = degrees * 3.14159265358979 / 180
+End Function
+result = Tan(DegreesToRadians(60))</code></pre>
+<h3 id="pattern-2-calculate-slope-from-angle">Pattern 2: Calculate slope from angle</h3>
+<pre><code class="language-vbnet">Function SlopeFromAngle(angleRadians As Double) As Double
+SlopeFromAngle = Tan(angleRadians)
+End Function</code></pre>
+<h3 id="pattern-3-use-in-triangle-calculations">Pattern 3: Use in triangle calculations</h3>
+<pre><code class="language-vbnet">Function OppositeFromAdjacent(adjacent As Double, angleRadians As Double) As Double
+OppositeFromAdjacent = adjacent * Tan(angleRadians)
+End Function</code></pre>
+<h3 id="pattern-4-animation-rotation">Pattern 4: Animation rotation</h3>
+<pre><code class="language-vbnet">angle = t * 3.14159265358979 / 180
+y = Tan(angle) * x</code></pre>
+<h3 id="pattern-5-periodic-function">Pattern 5: Periodic function</h3>
+<pre><code class="language-vbnet">For i = 0 To 360 Step 45
+Debug.Print Tan(i * 3.14159265358979 / 180)
+Next i</code></pre>
+<h3 id="pattern-6-error-handling-for-undefined-values">Pattern 6: Error handling for undefined values</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+result = Tan(3.14159265358979 / 2)
+If Err.Number &lt;&gt; 0 Then
+Debug.Print &quot;Overflow error&quot;
+End If
+On Error GoTo 0</code></pre>
+<h3 id="pattern-7-use-with-arrays">Pattern 7: Use with arrays</h3>
+<pre><code class="language-vbnet">For i = LBound(arr) To UBound(arr)
+arr(i) = Tan(arr(i))
+Next i</code></pre>
+<h3 id="pattern-8-inverse-calculation">Pattern 8: Inverse calculation</h3>
+<pre><code class="language-vbnet">angle = Atn(Tan(x))</code></pre>
+<h3 id="pattern-9-normalize-angle">Pattern 9: Normalize angle</h3>
+<pre><code class="language-vbnet">angle = angle Mod (2 * 3.14159265358979)
+result = Tan(angle)</code></pre>
+<h3 id="pattern-10-use-in-coordinate-conversion">Pattern 10: Use in coordinate conversion</h3>
+<pre><code class="language-vbnet">y = r * Tan(theta)</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-trigonometric-table">Example 1: Trigonometric Table</h3>
+<pre><code class="language-vbnet">For i = 0 To 90 Step 15
+Debug.Print &quot;Tan(&quot; &amp; i &amp; &quot;) = &quot; &amp; Tan(i * 3.14159265358979 / 180)
+Next i</code></pre>
+<h3 id="example-2-slope-calculation">Example 2: Slope Calculation</h3>
+<pre><code class="language-vbnet">Function Slope(degrees As Double) As Double
+Slope = Tan(degrees * 3.14159265358979 / 180)
+End Function</code></pre>
+<h3 id="example-3-handling-undefined-values">Example 3: Handling Undefined Values</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+result = Tan(3.14159265358979 / 2)
+If Err.Number &lt;&gt; 0 Then
+result = Null
+End If
+On Error GoTo 0</code></pre>
+<h3 id="example-4-use-in-physics-formula">Example 4: Use in Physics Formula</h3>
+<pre><code class="language-vbnet">&#x27; Calculate projectile height
+height = distance * Tan(angleRadians)</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<ul>
+<li>Returns Null if argument is Null.</li>
+<li>Overflow error if argument is a multiple of π/2 (except 0).</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Fast, constant time O(1).</li>
+<li>Floating-point rounding may affect results for large/small arguments.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Always use radians, not degrees.</li>
+<li>Convert degrees to radians as needed.</li>
+<li>Handle possible overflow for undefined values.</li>
+<li>Use error handling for edge cases.</li>
+<li>Test with a range of values.</li>
+<li>Use with Atn for inverse calculations.</li>
+<li>Document expected input range.</li>
+<li>Avoid using with multiples of π/2.</li>
+<li>Use with arrays for batch calculations.</li>
+<li>Normalize angles for periodicity.</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Input</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Tan</code></td>
+<td>Tangent</td>
+<td>radians</td>
+<td>Double</td>
+</tr>
+<tr>
+<td><code>Atn</code></td>
+<td>Arctangent</td>
+<td>number</td>
+<td>Double</td>
+</tr>
+<tr>
+<td><code>Sin</code></td>
+<td>Sine</td>
+<td>radians</td>
+<td>Double</td>
+</tr>
+<tr>
+<td><code>Cos</code></td>
+<td>Cosine</td>
+<td>radians</td>
+<td>Double</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, <code>VBScript</code></li>
+<li>Consistent across platforms</li>
+<li>Returns Double</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Argument must be in radians</li>
+<li>Undefined for odd multiples of π/2 (except 0)</li>
+<li>Returns Null for Null input</li>
+<li>No support for complex numbers</li>
+<li>Floating-point rounding errors possible</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

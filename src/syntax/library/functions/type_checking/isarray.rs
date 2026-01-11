@@ -10,7 +10,7 @@
 //!
 //! ## Parameters
 //!
-//! - `varname` (Required): Variable name to test
+//! `varname` (Required): Variable name to test
 //!
 //! ## Return Value
 //!
@@ -23,7 +23,6 @@
 //! ## Remarks
 //!
 //! The `IsArray` function is used to determine whether a variable is an array:
-//!
 //! - Returns `True` for any array variable, regardless of dimensions
 //! - Returns `True` for dynamic arrays even before they're allocated with `ReDim`
 //! - Returns `False` for all non-array variables
@@ -37,14 +36,14 @@
 //!
 //! ## Typical Uses
 //!
-//! 1. **Parameter Validation**: Verify that a `Variant` parameter contains an array
-//! 2. **Data Type Detection**: Determine if a `Variant` holds array data
-//! 3. **`ParamArray` Handling**: Check individual elements of `ParamArray`
-//! 4. **Dynamic Programming**: Handle different data types in generic routines
-//! 5. **Array Processing**: Validate data before array operations
-//! 6. **Error Prevention**: Avoid runtime errors by checking array status
-//! 7. **Flexible Functions**: Create functions that accept both single values and arrays
-//! 8. **Type Checking**: Part of comprehensive type validation routines
+//! **Parameter Validation**: Verify that a `Variant` parameter contains an array
+//! **Data Type Detection**: Determine if a `Variant` holds array data
+//! **`ParamArray` Handling**: Check individual elements of `ParamArray`
+//! **Dynamic Programming**: Handle different data types in generic routines
+//! **Array Processing**: Validate data before array operations
+//! **Error Prevention**: Avoid runtime errors by checking array status
+//! **Flexible Functions**: Create functions that accept both single values and arrays
+//! **Type Checking**: Part of comprehensive type validation routines
 //!
 //! ## Basic Usage Examples
 //!
@@ -62,7 +61,9 @@
 //! Else
 //!     Debug.Print "myValue is not an array"  ' This prints
 //! End If
+//! ```
 //!
+//! ```vb
 //! ' Example 2: Checking Variant contents
 //! Dim myVariant As Variant
 //!
@@ -77,14 +78,18 @@
 //! Else
 //!     Debug.Print "Variant does not contain an array"  ' This prints
 //! End If
+//! ```
 //!
+//! ```vb
 //! ' Example 3: Dynamic array before ReDim
 //! Dim dynamicArray() As String
 //!
 //! If IsArray(dynamicArray) Then
 //!     Debug.Print "Dynamic array variable is an array"  ' This prints even before ReDim
 //! End If
+//! ```
 //!
+//! ```vb
 //! ' Example 4: Validating function parameters
 //! Function ProcessData(data As Variant) As Long
 //!     If IsArray(data) Then
@@ -120,7 +125,9 @@
 //!     
 //!     SumValues = total
 //! End Function
+//! ```
 //!
+//! ```vb
 //! ' Pattern 2: Handle single value or array
 //! Sub DisplayData(data As Variant)
 //!     Dim i As Long
@@ -133,7 +140,9 @@
 //!         Debug.Print "Single value: " & data
 //!     End If
 //! End Sub
+//! ```
 //!
+//! ```vb
 //! ' Pattern 3: Convert single value to array if needed
 //! Function EnsureArray(value As Variant) As Variant
 //!     If IsArray(value) Then
@@ -143,6 +152,7 @@
 //!     End If
 //! End Function
 //!
+//! ```vb
 //! ' Pattern 4: Count array elements safely
 //! Function GetElementCount(data As Variant) As Long
 //!     If IsArray(data) Then
@@ -151,7 +161,9 @@
 //!         GetElementCount = 1
 //!     End If
 //! End Function
+//! ```
 //!
+//! ```vb
 //! ' Pattern 5: Validate before array operation
 //! Function GetFirstElement(arr As Variant) As Variant
 //!     If Not IsArray(arr) Then
@@ -165,7 +177,9 @@
 //!         GetFirstElement = Null
 //!     End If
 //! End Function
+//! ```
 //!
+//! ```vb
 //! ' Pattern 6: Type checking with IsArray
 //! Function DescribeVariable(v As Variant) As String
 //!     If IsArray(v) Then
@@ -182,7 +196,9 @@
 //!         DescribeVariable = "String or object: " & v
 //!     End If
 //! End Function
+//! ```
 //!
+//! ```vb
 //! ' Pattern 7: ParamArray validation
 //! Sub ProcessItems(ParamArray items() As Variant)
 //!     Dim i As Long
@@ -195,7 +211,9 @@
 //!         End If
 //!     Next i
 //! End Sub
+//! ```
 //!
+//! ```vb
 //! ' Pattern 8: Safely iterate over data
 //! Sub SafeIterate(data As Variant)
 //!     Dim i As Long
@@ -208,7 +226,9 @@
 //!         ProcessValue data
 //!     End If
 //! End Sub
+//! ```
 //!
+//! ```vb
 //! ' Pattern 9: Flatten nested arrays
 //! Function FlattenArray(arr As Variant) As Variant
 //!     Dim result() As Variant
@@ -240,7 +260,9 @@
 //!     ReDim Preserve result(0 To count - 1)
 //!     FlattenArray = result
 //! End Function
+//! ```
 //!
+//! ```vb
 //! ' Pattern 10: Conditional array processing
 //! Function ApplyOperation(data As Variant, operation As String) As Variant
 //!     Dim i As Long
@@ -320,7 +342,9 @@
 //!         End If
 //!     End Sub
 //! End Class
+//! ```
 //!
+//! ```vb
 //! ' Example 2: Generic collection converter
 //! Public Class CollectionConverter
 //!     Public Function ToArray(source As Variant) As Variant
@@ -362,7 +386,9 @@
 //!         Set ToCollection = result
 //!     End Function
 //! End Class
+//! ```
 //!
+//! ```vb
 //! ' Example 3: Safe array utilities module
 //! Public Module ArrayUtils
 //!     Public Function SafeUBound(arr As Variant, Optional dimension As Integer = 1) As Long
@@ -445,7 +471,9 @@
 //!         CombineArrays = result
 //!     End Function
 //! End Module
+//! ```
 //!
+//! ```vb
 //! ' Example 4: Flexible function that handles multiple input types
 //! Function CalculateTotal(values As Variant, Optional taxRate As Double = 0) As Double
 //!     Dim i As Long

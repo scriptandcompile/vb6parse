@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - fix - Math">
+    <title>fix - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / fix</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="fix-function">Fix Function</h1>
+<p>Returns the integer portion of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Fix(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> (Required): Any valid numeric expression. If number contains Null, Null is returned</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns the integer portion of a number:
+- For positive numbers: Returns the largest integer less than or equal to number
+- For negative numbers: Returns the first negative integer greater than or equal to number
+- If number is Null: Returns Null
+- Return type matches the input type (Integer, Long, Single, Double, Currency, Decimal)</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Fix function truncates toward zero:</p>
+<ul>
+<li>Removes the fractional part of a number</li>
+<li>Always truncates toward zero (removes decimal without rounding)</li>
+<li>For positive numbers, behaves like <code>Int</code> (same result)</li>
+<li>For negative numbers, different from <code>Int</code> (<code>Int</code> rounds down, <code>Fix</code> truncates)</li>
+<li><code>Fix</code>(-8.4) returns -8, <code>Int</code>(-8.4) returns -9</li>
+<li><code>Fix</code>(8.4) returns 8, <code>Int</code>(8.4) returns 8</li>
+<li>Does not round to nearest integer (use <code>Round</code> for rounding)</li>
+<li>The return type preserves the input numeric type</li>
+<li>More intuitive for most developers (truncation toward zero)</li>
+<li>Commonly used when you want to discard fractional parts</li>
+<li>For financial calculations, consider using <code>Round</code> or <code>CCur</code> instead</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Truncate Decimals</strong>: Remove fractional part without rounding</li>
+<li><strong>Integer Conversion</strong>: Convert floating-point to integer values</li>
+<li><strong>Financial Calculations</strong>: Remove cents from currency values</li>
+<li><strong>Data Normalization</strong>: Ensure whole number values</li>
+<li><strong>Display Formatting</strong>: Show only whole number portion</li>
+<li><strong>Loop Bounds</strong>: Convert float bounds to integers</li>
+<li><strong>Array Indices</strong>: Ensure valid integer indices</li>
+<li><strong>Coordinate Processing</strong>: Truncate pixel coordinates</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Truncate positive number
+Dim result As Integer
+result = Fix(8.7)
+Debug.Print result  &#x27; Prints: 8
+
+&#x27; Example 2: Truncate negative number
+Dim result As Integer
+result = Fix(-8.7)
+Debug.Print result  &#x27; Prints: -8 (truncates toward zero, not down)
+
+&#x27; Example 3: Remove cents from currency
+Dim price As Currency
+Dim dollars As Currency
+price = 19.99
+dollars = Fix(price)
+Debug.Print dollars  &#x27; Prints: 19
+
+&#x27; Example 4: Ensure integer for array index
+Dim index As Long
+Dim ratio As Double
+ratio = 4.7
+index = Fix(ratio)
+value = items(index)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Truncate toward zero
+Function Truncate(value As Double) As Long
+Truncate = Fix(value)
+End Function
+
+&#x27; Pattern 2: Get whole dollars from currency
+Function GetWholeDollars(amount As Currency) As Long
+GetWholeDollars = Fix(amount)
+End Function
+
+&#x27; Pattern 3: Get cents from currency
+Function GetCents(amount As Currency) As Long
+Dim wholeDollars As Currency
+wholeDollars = Fix(amount)
+GetCents = Fix((amount - wholeDollars) * 100)
+End Function
+
+&#x27; Pattern 4: Split number into whole and fractional parts
+Sub SplitNumber(value As Double, ByRef wholePart As Long, ByRef fractionalPart As Double)
+wholePart = Fix(value)
+fractionalPart = value - wholePart
+End Sub
+
+&#x27; Pattern 5: Ensure positive truncation
+Function TruncatePositive(value As Double) As Long
+&#x27; Fix truncates toward zero
+&#x27; For negative values, this gives different result than Int
+TruncatePositive = Fix(Abs(value)) * Sgn(value)
+End Function
+
+&#x27; Pattern 6: Convert to integer without rounding
+Function ToIntegerNoRound(value As Double) As Long
+ToIntegerNoRound = Fix(value)
+End Function
+
+&#x27; Pattern 7: Remove decimal places for display
+Function FormatWholeNumber(value As Double) As String
+FormatWholeNumber = CStr(Fix(value))
+End Function
+
+&#x27; Pattern 8: Calculate whole units
+Function GetWholeUnits(quantity As Double) As Long
+GetWholeUnits = Fix(quantity)
+End Function
+
+&#x27; Pattern 9: Truncate time to hours
+Function GetWholeHours(timeValue As Double) As Long
+Dim hours As Double
+hours = timeValue * 24  &#x27; Convert days to hours
+GetWholeHours = Fix(hours)
+End Function
+
+&#x27; Pattern 10: Floor for positive, ceiling for negative
+Function TruncateTowardZero(value As Double) As Long
+&#x27; Fix already does this
+TruncateTowardZero = Fix(value)
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Currency formatter class
+Public Class CurrencyFormatter
+Public Function FormatAsDollarsAndCents(amount As Currency) As String
+Dim dollars As Long
+Dim cents As Long
+
+dollars = Fix(amount)
+cents = Fix(Abs((amount - dollars) * 100))
+
+FormatAsDollarsAndCents = &quot;$&quot; &amp; dollars &amp; &quot;.&quot; &amp; _
+Format$(cents, &quot;00&quot;)
+End Function
+
+Public Function GetDollarPart(amount As Currency) As Long
+GetDollarPart = Fix(amount)
+End Function
+
+Public Function GetCentPart(amount As Currency) As Long
+Dim dollars As Currency
+dollars = Fix(amount)
+GetCentPart = Fix(Abs((amount - dollars) * 100))
+End Function
+
+Public Function RoundToDollars(amount As Currency) As Currency
+RoundToDollars = Fix(amount)
+End Function
+End Class
+
+&#x27; Example 2: Number splitter utility
+Public Class NumberSplitter
+Private m_wholePart As Long
+Private m_fractionalPart As Double
+
+Public Sub Split(value As Double)
+m_wholePart = Fix(value)
+m_fractionalPart = value - m_wholePart
+End Sub
+
+Public Property Get WholePart() As Long
+WholePart = m_wholePart
+End Property
+
+Public Property Get FractionalPart() As Double
+FractionalPart = m_fractionalPart
+End Property
+
+Public Property Get HasFraction() As Boolean
+HasFraction = (m_fractionalPart &lt;&gt; 0)
+End Property
+
+Public Function Reconstruct() As Double
+Reconstruct = m_wholePart + m_fractionalPart
+End Function
+End Class
+
+&#x27; Example 3: Data truncator for normalization
+Public Class DataTruncator
+Public Function TruncateArray(values() As Double) As Long()
+Dim result() As Long
+Dim i As Long
+
+ReDim result(LBound(values) To UBound(values))
+
+For i = LBound(values) To UBound(values)
+result(i) = Fix(values(i))
+Next i
+
+TruncateArray = result
+End Function
+
+Public Function TruncateToInteger(value As Double) As Long
+TruncateToInteger = Fix(value)
+End Function
+
+Public Function TruncateCollection(values As Collection) As Collection
+Dim result As New Collection
+Dim value As Variant
+
+For Each value In values
+If IsNumeric(value) Then
+result.Add Fix(CDbl(value))
+Else
+result.Add value
+End If
+Next value
+
+Set TruncateCollection = result
+End Function
+End Class
+
+&#x27; Example 4: Coordinate truncator
+Public Class CoordinateTruncator
+Public Sub TruncatePoint(x As Double, y As Double, _
+ByRef truncX As Long, ByRef truncY As Long)
+truncX = Fix(x)
+truncY = Fix(y)
+End Sub
+
+Public Function TruncateRectangle(left As Double, top As Double, _
+right As Double, bottom As Double) As Variant
+Dim coords(0 To 3) As Long
+
+coords(0) = Fix(left)
+coords(1) = Fix(top)
+coords(2) = Fix(right)
+coords(3) = Fix(bottom)
+
+TruncateRectangle = coords
+End Function
+
+Public Function GetPixelCoordinate(value As Double) As Long
+GetPixelCoordinate = Fix(value)
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The Fix function can raise errors or return Null:</p>
+<ul>
+<li><strong>Type Mismatch (Error 13)</strong>: If number is not a numeric expression</li>
+<li><strong>Invalid use of Null (Error 94)</strong>: If number is Null and result is assigned to non-Variant</li>
+<li><strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</li>
+</ul>
+<pre><code class="language-vbnet">On Error GoTo ErrorHandler
+Dim result As Long
+Dim value As Double
+
+value = -12.75
+result = Fix(value)
+
+Debug.Print &quot;Truncated value: &quot; &amp; result  &#x27; Prints: -12
+Exit Sub
+
+ErrorHandler:
+MsgBox &quot;Error in Fix: &quot; &amp; Err.Description, vbCritical</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: Fix is a very fast built-in function</li>
+<li><strong>Type Preservation</strong>: Return type matches input type</li>
+<li><strong>No Rounding</strong>: Faster than Round (simple truncation)</li>
+<li><strong>Alternative</strong>: For floor operation, use Int (rounds down)</li>
+<li><strong>Currency</strong>: More intuitive than Int for currency truncation</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Understand Difference</strong>: Know that Fix truncates toward zero, Int rounds down</li>
+<li><strong>Negative Numbers</strong>: Be aware Fix(-8.7) = -8, Int(-8.7) = -9</li>
+<li><strong>Currency Operations</strong>: Fix is more intuitive for removing cents</li>
+<li><strong>Type Awareness</strong>: Be aware of return type matching input type</li>
+<li><strong>Null Handling</strong>: Use Variant if input might be Null</li>
+<li><strong>No Rounding</strong>: Use Round if you need rounding, not truncation</li>
+<li><strong>Documentation</strong>: Comment when Fix vs Int choice matters</li>
+</ol>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Behavior with -8.7</th>
+<th>Behavior with 8.7</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Fix</code></td>
+<td>-8</td>
+<td>8</td>
+<td>Truncates toward zero</td>
+</tr>
+<tr>
+<td><code>Int</code></td>
+<td>-9</td>
+<td>8</td>
+<td>Rounds down (floor)</td>
+</tr>
+<tr>
+<td><code>Round</code></td>
+<td>-9</td>
+<td>9</td>
+<td>Rounds to nearest</td>
+</tr>
+<tr>
+<td><code>CLng</code></td>
+<td>-9</td>
+<td>9</td>
+<td>Converts to <code>Long</code> with rounding</td>
+</tr>
+<tr>
+<td><code>CInt</code></td>
+<td>-9</td>
+<td>9</td>
+<td>Converts to <code>Integer</code> with rounding</td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>N/A</td>
+<td>N/A</td>
+<td><code>Integer</code> division operator</td>
+</tr>
+<tr>
+<td>## Platform and Version Notes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across platforms</li>
+<li>Return type matches input numeric type</li>
+<li>Truncates toward zero (like C/C++/Java integer truncation)</li>
+<li>More intuitive than Int for most developers from other languages</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Does not round to nearest (use <code>Round</code> for that)</li>
+<li>Behavior with negative numbers differs from <code>Int</code></li>
+<li>Return type depends on input type (can cause overflow)</li>
+<li>Cannot specify decimal places (always removes all decimals)</li>
+<li>No control over rounding direction (always toward zero)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Int</code>: Returns <code>Integer</code> portion, rounding down (floor)</li>
+<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
+<li><code>CInt</code>: Converts to <code>Integer</code> with rounding</li>
+<li><code>CLng</code>: Converts to <code>Long</code> with rounding</li>
+<li><code>Abs</code>: Absolute value (often used with <code>Fix</code>)</li>
+<li><code>Sgn</code>: Sign of number (often used with <code>Fix</code>)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

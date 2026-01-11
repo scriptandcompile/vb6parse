@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - leftb - String">
+    <title>leftb - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / leftb</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="leftb-function">LeftB Function</h1>
+<p>Returns a Variant (String) containing a specified number of bytes from the left side of a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">LeftB(string, length)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> (Required): String expression from which leftmost bytes are returned</li>
+<li>If string contains Null, Null is returned</li>
+<li><code>length</code> (Required): Numeric expression indicating how many bytes to return</li>
+<li>If 0, empty string ("") is returned</li>
+<li>If greater than or equal to number of bytes in string, entire string is returned</li>
+<li>Must be non-negative (negative values cause error)</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Variant containing a String:
+- Contains the specified number of bytes from the left side of the string
+- Returns empty string if length is 0
+- Returns entire string if length &gt;= LenB(string)
+- Returns Null if string argument is Null
+- Returns Variant type (LeftB$ variant returns String type directly)</p>
+<h2 id="remarks">Remarks</h2>
+<p>The LeftB function extracts bytes from the beginning of a string:</p>
+<ul>
+<li>Returns leftmost bytes up to specified length</li>
+<li>Operates on byte level, not character level</li>
+<li>Particularly useful with double-byte character sets (DBCS)</li>
+<li>Complements RightB function (which returns rightmost bytes)</li>
+<li>Works with MidB function for complete byte-level substring extraction</li>
+<li>Zero-based extraction: LeftB("ABC", 2) returns first 2 bytes</li>
+<li>Safe with lengths exceeding string byte length (returns full string)</li>
+<li>Null propagates through the function</li>
+<li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
+<li>Common for extracting binary data, protocol headers, file signatures</li>
+<li>More efficient than MidB(string, 1, length) for left extraction</li>
+<li>LeftB$ variant returns String type (not Variant) for slight performance gain</li>
+<li>Cannot extract from right side (use RightB for that)</li>
+<li>Cannot skip bytes (use MidB for that)</li>
+<li>Does not modify original string (strings are immutable)</li>
+</ul>
+<h2 id="differences-from-left-function">Differences from Left Function</h2>
+<ul>
+<li>Left operates on characters, LeftB operates on bytes</li>
+<li>In single-byte character sets (SBCS), they are equivalent</li>
+<li>In double-byte character sets (DBCS), one character may be multiple bytes</li>
+<li>LeftB is essential for binary data manipulation</li>
+<li>LeftB is used with LenB (byte length) rather than Len (character length)</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Binary Data</strong>: Extract bytes from binary strings</li>
+<li><strong>Protocol Headers</strong>: Parse network protocol headers</li>
+<li><strong>File Signatures</strong>: Identify file types by magic bytes</li>
+<li><strong>DBCS Strings</strong>: Work with Japanese, Chinese, Korean text at byte level</li>
+<li><strong>Fixed Byte Records</strong>: Parse fixed-width binary records</li>
+<li><strong>Byte Validation</strong>: Check byte prefixes in data</li>
+<li><strong>Binary Structures</strong>: Extract fields from binary structures</li>
+<li><strong>Network Data</strong>: Process raw network packet data</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Basic byte extraction
+Dim data As String
+data = Chr$(65) &amp; Chr$(66) &amp; Chr$(67)  &#x27; &quot;ABC&quot;
+
+Debug.Print LeftB(data, 2)            &#x27; First 2 bytes
+Debug.Print LeftB(data, 1)            &#x27; First byte
+
+&#x27; Example 2: File signature checking
+Dim fileData As String
+Open &quot;test.exe&quot; For Binary As #1
+fileData = Input$(2, #1)
+Close #1
+
+If LeftB(fileData, 2) = &quot;MZ&quot; Then
+Debug.Print &quot;DOS/Windows executable&quot;
+End If
+
+&#x27; Example 3: Protocol header extraction
+Dim packet As String
+packet = ReceiveNetworkData()
+
+Dim header As String
+header = LeftB(packet, 16)  &#x27; 16-byte header
+
+&#x27; Example 4: DBCS text handling
+Dim japaneseText As String
+japaneseText = LoadJapaneseText()  &#x27; Load Japanese text
+
+Dim firstBytes As String
+firstBytes = LeftB(japaneseText, 4)  &#x27; First 4 bytes (may be 2 DBCS chars)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Extract binary header
+Function GetBinaryHeader(data As String, headerSize As Long) As String
+If LenB(data) &lt; headerSize Then
+GetBinaryHeader = data
+Else
+GetBinaryHeader = LeftB(data, headerSize)
+End If
+End Function
+
+&#x27; Pattern 2: Validate magic bytes
+Function ValidateMagicBytes(data As String, magic As String) As Boolean
+ValidateMagicBytes = (LeftB(data, LenB(magic)) = magic)
+End Function
+
+&#x27; Pattern 3: Extract record ID
+Function GetRecordID(record As String) As String
+&#x27; First 8 bytes contain record ID
+GetRecordID = LeftB(record, 8)
+End Function
+
+&#x27; Pattern 4: Parse network packet
+Sub ParsePacket(packet As String)
+Dim header As String
+Dim payload As String
+
+header = LeftB(packet, 20)  &#x27; 20-byte header
+payload = MidB(packet, 21)  &#x27; Remaining bytes
+
+&#x27; Process header and payload
+End Sub</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>LeftB$</code>: String-returning variant of LeftB</li>
+<li><code>RightB</code>: Returns rightmost bytes from string</li>
+<li><code>RightB$</code>: String-returning variant of RightB</li>
+<li><code>MidB</code>: Returns bytes from middle of string</li>
+<li><code>MidB$</code>: String-returning variant of MidB</li>
+<li><code>LenB</code>: Returns byte length of string</li>
+<li><code>Left</code>: Character-based left extraction</li>
+<li><code>Right</code>: Character-based right extraction</li>
+<li><code>Mid</code>: Character-based middle extraction</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

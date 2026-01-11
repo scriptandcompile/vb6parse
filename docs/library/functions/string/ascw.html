@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - ascw - String">
+    <title>ascw - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / ascw</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="ascw-function"><code>AscW</code> Function</h1>
+<p>Returns an <code>Integer</code> representing the Unicode character code of the first character in a string.
+The "W" suffix indicates this is the wide (Unicode) version of the <code>Asc</code> function.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">AscW(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>string</strong>: Required. Any valid string expression. If the string contains no characters,
+a runtime error occurs (Error 5: Invalid procedure call or argument).</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns an <code>Integer</code> representing the Unicode code point (0-65535) of the first character in the string.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>AscW</code> returns the Unicode (UTF-16) code point of the first character in a string.</li>
+<li>The W suffix stands for "Wide", distinguishing it from the ANSI <code>AscB</code> function.</li>
+<li>Return values range from 0 to 65535, covering the Basic Multilingual Plane (BMP) of Unicode.</li>
+<li>For ASCII characters (0-127), <code>AscW</code> and <code>Asc</code> return the same values.</li>
+<li>For characters in the extended ASCII range (128-255), results match the Latin-1 supplement in Unicode.</li>
+<li>If the string is empty (<code>""</code>), a runtime error occurs (Error 5).</li>
+<li><code>AscW</code> is essential for working with international text and Unicode characters.</li>
+<li>The inverse function is <code>ChrW</code>, which converts a Unicode code point back to a character.</li>
+<li>Characters outside the BMP (above 65535) are represented as surrogate pairs in VB6.</li>
+<li>Surrogate pair characters will return the code of the high surrogate (0xD800-0xDBFF).</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>International text processing</strong> - Work with characters from various languages</li>
+<li><strong>Unicode character analysis</strong> - Examine Unicode code points in strings</li>
+<li><strong>Character validation</strong> - Validate characters are in expected Unicode ranges</li>
+<li><strong>Text encoding operations</strong> - Convert between different character encodings</li>
+<li><strong>Symbol detection</strong> - Identify mathematical symbols, currency, arrows, etc.</li>
+<li><strong>Character range checking</strong> - Determine if characters belong to specific scripts</li>
+<li><strong>Multilingual sorting</strong> - Implement custom sort orders based on Unicode values</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple ASCII character
+Dim code As Integer
+code = AscW(&quot;A&quot;)  &#x27; Returns 65</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Euro symbol
+Dim euroCode As Integer
+euroCode = AscW(&quot;€&quot;)  &#x27; Returns 8364</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Greek letter
+Dim alphaCode As Integer
+alphaCode = AscW(&quot;α&quot;)  &#x27; Returns 945</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Chinese character
+Dim hanziCode As Integer
+hanziCode = AscW(&quot;中&quot;)  &#x27; Returns 20013</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="check-unicode-range">Check Unicode Range</h3>
+<pre><code class="language-vbnet">Function IsInUnicodeRange(char As String, rangeStart As Long, rangeEnd As Long) As Boolean
+If Len(char) = 0 Then Exit Function
+Dim code As Long
+code = AscW(char)
+IsInUnicodeRange = (code &gt;= rangeStart And code &lt;= rangeEnd)
+End Function</code></pre>
+<h3 id="detect-character-script">Detect Character Script</h3>
+<pre><code class="language-vbnet">Function GetCharacterScript(char As String) As String
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+Select Case code
+Case 0 To 127
+GetCharacterScript = &quot;ASCII&quot;
+Case 880 To 1023
+GetCharacterScript = &quot;Greek&quot;
+Case 1024 To 1279
+GetCharacterScript = &quot;Cyrillic&quot;
+Case 1424 To 1535
+GetCharacterScript = &quot;Hebrew&quot;
+Case 1536 To 1791
+GetCharacterScript = &quot;Arabic&quot;
+Case 19968 To 40959
+GetCharacterScript = &quot;CJK&quot;
+Case 44032 To 55203
+GetCharacterScript = &quot;Hangul&quot;
+Case Else
+GetCharacterScript = &quot;Other&quot;
+End Select
+End Function</code></pre>
+<h3 id="validate-latin-characters">Validate Latin Characters</h3>
+<pre><code class="language-vbnet">Function IsLatinChar(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+Dim code As Long
+code = AscW(char)
+&#x27; Basic Latin + Latin-1 Supplement + Latin Extended-A and B
+IsLatinChar = (code &gt;= 0 And code &lt;= 591)
+End Function</code></pre>
+<h3 id="check-for-symbol-characters">Check for Symbol Characters</h3>
+<pre><code class="language-vbnet">Function IsSymbol(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; Common symbol ranges
+IsSymbol = (code &gt;= 8192 And code &lt;= 8303) Or _
+(code &gt;= 8352 And code &lt;= 8399) Or _
+(code &gt;= 8448 And code &lt;= 8527) Or _
+(code &gt;= 8704 And code &lt;= 8959) Or _
+(code &gt;= 9632 And code &lt;= 9727)
+End Function</code></pre>
+<h3 id="compare-unicode-values">Compare Unicode Values</h3>
+<pre><code class="language-vbnet">Function CompareUnicode(char1 As String, char2 As String) As Integer
+If Len(char1) = 0 Or Len(char2) = 0 Then Exit Function
+CompareUnicode = AscW(char1) - AscW(char2)
+End Function</code></pre>
+<h3 id="detect-emoji-bmp-only">Detect Emoji (BMP only)</h3>
+<pre><code class="language-vbnet">Function IsEmojiBMP(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; Emoticons and Miscellaneous Symbols
+IsEmojiBMP = (code &gt;= 9728 And code &lt;= 9983) Or _
+(code &gt;= 10084 And code &lt;= 10084) Or _
+(code &gt;= 127744 And code &lt;= 128511)
+End Function</code></pre>
+<h3 id="extract-unicode-array">Extract Unicode Array</h3>
+<pre><code class="language-vbnet">Function GetUnicodeArray(text As String) As Variant
+Dim codes() As Long
+Dim i As Long
+
+If Len(text) = 0 Then Exit Function
+
+ReDim codes(1 To Len(text))
+For i = 1 To Len(text)
+codes(i) = AscW(Mid(text, i, 1))
+Next i
+
+GetUnicodeArray = codes
+End Function</code></pre>
+<h3 id="check-diacritical-marks">Check Diacritical Marks</h3>
+<pre><code class="language-vbnet">Function IsDiacriticalMark(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; Combining Diacritical Marks
+IsDiacriticalMark = (code &gt;= 768 And code &lt;= 879)
+End Function</code></pre>
+<h3 id="validate-email-characters">Validate Email Characters</h3>
+<pre><code class="language-vbnet">Function IsValidEmailChar(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; Alphanumeric, dot, hyphen, underscore, @
+IsValidEmailChar = (code &gt;= 48 And code &lt;= 57) Or _
+(code &gt;= 65 And code &lt;= 90) Or _
+(code &gt;= 97 And code &lt;= 122) Or _
+code = 45 Or code = 46 Or code = 64 Or code = 95
+End Function</code></pre>
+<h3 id="detect-control-characters">Detect Control Characters</h3>
+<pre><code class="language-vbnet">Function IsUnicodeControl(char As String) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; C0 and C1 control characters
+IsUnicodeControl = (code &gt;= 0 And code &lt;= 31) Or _
+(code &gt;= 127 And code &lt;= 159)
+End Function</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="unicode-normalization-check">Unicode Normalization Check</h3>
+<pre><code class="language-vbnet">Function CompareNormalized(str1 As String, str2 As String) As Boolean
+&#x27; Simple comparison ignoring case
+If Len(str1) &lt;&gt; Len(str2) Then
+CompareNormalized = False
+Exit Function
+End If
+
+Dim i As Long
+Dim code1 As Long, code2 As Long
+
+For i = 1 To Len(str1)
+code1 = AscW(Mid(str1, i, 1))
+code2 = AscW(Mid(str2, i, 1))
+
+&#x27; Convert to lowercase if uppercase Latin
+If code1 &gt;= 65 And code1 &lt;= 90 Then code1 = code1 + 32
+If code2 &gt;= 65 And code2 &lt;= 90 Then code2 = code2 + 32
+
+If code1 &lt;&gt; code2 Then
+CompareNormalized = False
+Exit Function
+End If
+Next i
+
+CompareNormalized = True
+End Function</code></pre>
+<h3 id="unicode-to-html-entity">Unicode to HTML Entity</h3>
+<pre><code class="language-vbnet">Function UnicodeToHTMLEntity(char As String) As String
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+&#x27; Create numeric entity
+UnicodeToHTMLEntity = &quot;&amp;#&quot; &amp; code &amp; &quot;;&quot;
+End Function</code></pre>
+<h3 id="multilingual-text-analyzer">Multilingual Text Analyzer</h3>
+<pre><code class="language-vbnet">Function AnalyzeText(text As String) As String
+Dim i As Long
+Dim code As Long
+Dim latinCount As Long
+Dim cjkCount As Long
+Dim arabicCount As Long
+Dim otherCount As Long
+
+For i = 1 To Len(text)
+code = AscW(Mid(text, i, 1))
+
+Select Case code
+Case 0 To 591
+latinCount = latinCount + 1
+Case 19968 To 40959
+cjkCount = cjkCount + 1
+Case 1536 To 1791
+arabicCount = arabicCount + 1
+Case Else
+otherCount = otherCount + 1
+End Select
+Next i
+
+AnalyzeText = &quot;Latin: &quot; &amp; latinCount &amp; &quot;, CJK: &quot; &amp; cjkCount &amp; _
+&quot;, Arabic: &quot; &amp; arabicCount &amp; &quot;, Other: &quot; &amp; otherCount
+End Function</code></pre>
+<h3 id="character-category-validator">Character Category Validator</h3>
+<pre><code class="language-vbnet">Function ValidateCategory(text As String, category As String) As Boolean
+Dim i As Long
+Dim code As Long
+
+For i = 1 To Len(text)
+code = AscW(Mid(text, i, 1))
+
+Select Case category
+Case &quot;Digit&quot;
+If Not (code &gt;= 48 And code &lt;= 57) Then
+ValidateCategory = False
+Exit Function
+End If
+Case &quot;UpperLatin&quot;
+If Not (code &gt;= 65 And code &lt;= 90) Then
+ValidateCategory = False
+Exit Function
+End If
+Case &quot;LowerLatin&quot;
+If Not (code &gt;= 97 And code &lt;= 122) Then
+ValidateCategory = False
+Exit Function
+End If
+Case Else
+ValidateCategory = False
+Exit Function
+End Select
+Next i
+
+ValidateCategory = True
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeAscW(text As String) As Long
+On Error GoTo ErrorHandler
+
+If Len(text) = 0 Then
+SafeAscW = -1  &#x27; Error indicator
+Exit Function
+End If
+
+SafeAscW = AscW(text)
+Exit Function
+
+ErrorHandler:
+SafeAscW = -1
+End Function</code></pre>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>AscW</code> is a very fast operation with minimal overhead</li>
+<li>When processing long strings character-by-character, use <code>Mid</code> function efficiently</li>
+<li>For repeated code point lookups, consider caching results</li>
+<li><code>AscW</code> is faster than string comparison for Unicode operations</li>
+<li>No significant performance difference between <code>Asc</code> and <code>AscW</code> on modern systems</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate input</strong> - Always check for empty strings before calling <code>AscW</code></li>
+<li><strong>Use for Unicode</strong> - Prefer <code>AscW</code> over <code>Asc</code> when working with international text</li>
+<li><strong>Handle errors</strong> - Wrap <code>AscW</code> calls in error handlers when processing untrusted input</li>
+<li><strong>Document ranges</strong> - Use constants or comments to explain Unicode range checks</li>
+<li><strong>Consider normalization</strong> - Be aware that some characters have multiple Unicode representations</li>
+<li><strong>Use with <code>ChrW</code></strong> - Pair with <code>ChrW</code> for Unicode code point conversions</li>
+<li><strong>Test edge cases</strong> - Verify behavior with empty strings, control characters, and non-BMP characters</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+<th>Character Set</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Asc</code></td>
+<td>Integer (0-255 or Unicode)</td>
+<td>System default</td>
+<td>General character codes</td>
+</tr>
+<tr>
+<td><code>AscB</code></td>
+<td>Integer (0-255)</td>
+<td>ANSI byte value</td>
+<td>Byte-level operations</td>
+</tr>
+<tr>
+<td><code>AscW</code></td>
+<td>Integer (0-65535)</td>
+<td>Unicode code point</td>
+<td>International text</td>
+</tr>
+<tr>
+<td><code>ChrW</code></td>
+<td>String (Unicode)</td>
+<td>Unicode (inverse)</td>
+<td>Convert code to character</td>
+</tr>
+</tbody>
+</table>
+<h2 id="unicode-ranges-reference">Unicode Ranges Reference</h2>
+<p>Common Unicode ranges that can be detected with <code>AscW</code>:</p>
+<ul>
+<li><strong>Basic Latin (ASCII)</strong>: 0-127</li>
+<li><strong>Latin-1 Supplement</strong>: 128-255</li>
+<li><strong>Latin Extended-A</strong>: 256-383</li>
+<li><strong>Greek and Coptic</strong>: 880-1023</li>
+<li><strong>Cyrillic</strong>: 1024-1279</li>
+<li><strong>Hebrew</strong>: 1424-1535</li>
+<li><strong>Arabic</strong>: 1536-1791</li>
+<li><strong>Devanagari</strong>: 2304-2431</li>
+<li><strong>Thai</strong>: 3584-3711</li>
+<li><strong>Tibetan</strong>: 3840-4095</li>
+<li><strong>CJK Unified Ideographs</strong>: 19968-40959</li>
+<li><strong>Hangul Syllables</strong>: 44032-55203</li>
+<li><strong>Currency Symbols</strong>: 8352-8399</li>
+<li><strong>Mathematical Operators</strong>: 8704-8959</li>
+<li><strong>Arrows</strong>: 8592-8703</li>
+<li><strong>Box Drawing</strong>: 9472-9599</li>
+<li><strong>Emoticons</strong>: 9728-9983</li>
+</ul>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>VB6 uses UTF-16 internally on Windows NT-based systems for Unicode support</li>
+<li>On Windows 95/98/ME, Unicode support is limited and may not work correctly</li>
+<li>Modern Windows systems (XP and later) have full Unicode support</li>
+<li><code>AscW</code> returns consistent values across different code pages</li>
+<li>For maximum compatibility, test on target platforms with actual Unicode data</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><code>AscW</code> only returns code points in the Basic Multilingual Plane (0-65535)</li>
+<li>Characters outside the BMP require surrogate pairs and special handling</li>
+<li>Combining characters are treated as separate code points</li>
+<li>Some characters may display differently depending on available fonts</li>
+<li>Grapheme clusters (like emoji with modifiers) are not handled as single units</li>
+<li>Runtime error occurs with empty strings</li>
+<li>No built-in normalization (characters with multiple representations)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,19 +1,20 @@
+//! VB6 Date statement syntax:
+//! - Date = dateexpression
+//!
+//! Sets the current system date.
+//!
+//! dateexpression: Required. Any expression that can represent a date.
+//!
+//! Note: The Date statement is used to set the date. To retrieve the current date,
+//! use the Date function.
+//!
+//! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/date-statement)
+
 use crate::parsers::SyntaxKind;
 
 use crate::parsers::cst::Parser;
 
 impl Parser<'_> {
-    // VB6 Date statement syntax:
-    // - Date = dateexpression
-    //
-    // Sets the current system date.
-    //
-    // dateexpression: Required. Any expression that can represent a date.
-    //
-    // Note: The Date statement is used to set the date. To retrieve the current date,
-    // use the Date function.
-    //
-    // [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/date-statement)
     pub(crate) fn parse_date_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::DateStatement);
     }

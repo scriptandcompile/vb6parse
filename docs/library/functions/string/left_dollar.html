@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - left_dollar - String">
+    <title>left_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / left_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="left-function"><code>Left$</code> Function</h1>
+<p>Returns a <code>String</code> containing a specified number of characters from the left side of a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Left$(string, length)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code>: Required. String expression from which the leftmost characters are returned. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+<li><code>length</code>: Required. Numeric expression indicating how many characters to return. If 0, a zero-length string ("") is returned. If greater than or equal to the number of characters in <code>string</code>, the entire string is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the leftmost <code>length</code> characters from <code>string</code>. If <code>length</code> is 0, returns an empty string. If <code>length</code> is greater than or equal to the length of <code>string</code>, returns the entire string.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Left$</code> function returns the specified number of characters from the left (beginning) of a string. It's commonly used for string parsing, extracting prefixes, or taking substrings from the start of a string.</p>
+<p>To determine the number of characters in <code>string</code>, use the <code>Len</code> function.</p>
+<p><code>Left$</code> is the string-specific version that always returns a <code>String</code>. The <code>Left</code> function returns a <code>Variant</code>.</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<h3 id="example-1-extracting-file-extension-prefix">Example 1: Extracting File Extension Prefix</h3>
+<pre><code class="language-vbnet">Dim filename As String
+filename = &quot;document.txt&quot;
+prefix = Left$(filename, 3)  &#x27; &quot;doc&quot;</code></pre>
+<h3 id="example-2-getting-first-characters">Example 2: Getting First Characters</h3>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;Hello, World!&quot;
+greeting = Left$(text, 5)  &#x27; &quot;Hello&quot;</code></pre>
+<h3 id="example-3-extracting-area-code">Example 3: Extracting Area Code</h3>
+<pre><code class="language-vbnet">Dim phone As String
+phone = &quot;5551234567&quot;
+areaCode = Left$(phone, 3)  &#x27; &quot;555&quot;</code></pre>
+<h3 id="example-4-getting-date-components">Example 4: Getting Date Components</h3>
+<pre><code class="language-vbnet">Dim dateStr As String
+dateStr = &quot;2024-01-15&quot;
+year = Left$(dateStr, 4)  &#x27; &quot;2024&quot;</code></pre>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="checking-string-prefix">Checking String Prefix</h3>
+<pre><code class="language-vbnet">If Left$(filename, 4) = &quot;tmp_&quot; Then
+Debug.Print &quot;Temporary file&quot;
+End If</code></pre>
+<h3 id="extracting-initials">Extracting Initials</h3>
+<pre><code class="language-vbnet">Dim name As String
+name = &quot;John Doe&quot;
+initial = Left$(name, 1)  &#x27; &quot;J&quot;</code></pre>
+<h3 id="parsing-fixed-width-data">Parsing Fixed-Width Data</h3>
+<pre><code class="language-vbnet">Dim record As String
+record = &quot;12345John     Smith    &quot;
+id = Left$(record, 5)  &#x27; &quot;12345&quot;</code></pre>
+<h3 id="truncating-long-strings">Truncating Long Strings</h3>
+<pre><code class="language-vbnet">Dim description As String
+description = &quot;Very long description text...&quot;
+If Len(description) &gt; 50 Then
+description = Left$(description, 47) &amp; &quot;...&quot;
+End If</code></pre>
+<h3 id="extracting-drive-letter">Extracting Drive Letter</h3>
+<pre><code class="language-vbnet">Dim path As String
+path = &quot;C:\Windows\System32&quot;
+drive = Left$(path, 1)  &#x27; &quot;C&quot;</code></pre>
+<h3 id="getting-protocol-from-url">Getting Protocol from URL</h3>
+<pre><code class="language-vbnet">Dim url As String
+url = &quot;https://example.com&quot;
+protocol = Left$(url, 5)  &#x27; &quot;https&quot;</code></pre>
+<h3 id="validating-file-type">Validating File Type</h3>
+<pre><code class="language-vbnet">Dim fileName As String
+fileName = &quot;IMG_1234.JPG&quot;
+If Left$(fileName, 4) = &quot;IMG_&quot; Then
+processImage fileName
+End If</code></pre>
+<h3 id="extracting-country-code">Extracting Country Code</h3>
+<pre><code class="language-vbnet">Dim phoneNumber As String
+phoneNumber = &quot;+1-555-1234&quot;
+If Left$(phoneNumber, 1) = &quot;+&quot; Then
+countryCode = Left$(phoneNumber, 2)  &#x27; &quot;+1&quot;
+End If</code></pre>
+<h3 id="creating-abbreviations">Creating Abbreviations</h3>
+<pre><code class="language-vbnet">Dim state As String
+state = &quot;California&quot;
+abbr = UCase$(Left$(state, 2))  &#x27; &quot;CA&quot;</code></pre>
+<h3 id="parsing-csv-first-field">Parsing CSV First Field</h3>
+<pre><code class="language-vbnet">Dim csvLine As String
+csvLine = &quot;John,Doe,555-1234&quot;
+Dim pos As Integer
+pos = InStr(csvLine, &quot;,&quot;)
+If pos &gt; 0 Then
+firstName = Left$(csvLine, pos - 1)  &#x27; &quot;John&quot;
+End If</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Left</code>: Variant version that returns a <code>Variant</code></li>
+<li><code>Right$</code>: Returns characters from the right side of a string</li>
+<li><code>Mid$</code>: Returns characters from the middle of a string</li>
+<li><code>Len</code>: Returns the length of a string</li>
+<li><code>InStr</code>: Finds the position of a substring</li>
+<li><code>LTrim$</code>: Removes leading spaces from a string</li>
+<li><code>Trim$</code>: Removes leading and trailing spaces</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Always validate that <code>length</code> is not negative before calling</li>
+<li>Use <code>Len</code> to check string length before extracting</li>
+<li>Handle empty strings appropriately in your logic</li>
+<li>Consider using <code>InStr</code> with <code>Left$</code> for dynamic parsing</li>
+<li>Remember that <code>Left$(str, 0)</code> returns an empty string</li>
+<li>Use <code>Left$</code> instead of <code>Left</code> when you need a <code>String</code> type explicitly</li>
+<li>Combine with <code>Trim$</code> when dealing with user input</li>
+<li>Be aware that requesting more characters than exist returns the full string</li>
+<li>Use comparison with <code>Left$</code> for prefix checking (faster than <code>InStr</code>)</li>
+<li>Cache the result if using the same <code>Left$</code> call multiple times</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Left$</code> is a very fast operation in VB6</li>
+<li>More efficient than using <code>Mid$</code> for extracting from the beginning</li>
+<li>Faster than string concatenation for prefix operations</li>
+<li>No performance penalty for requesting more characters than available</li>
+<li>Using <code>Left$</code> for prefix comparison is faster than regular expressions</li>
+</ul>
+<h2 id="string-indexing">String Indexing</h2>
+<table>
+<thead>
+<tr>
+<th>Length Value</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Returns empty string ("")</td>
+</tr>
+<tr>
+<td>1 to Len(string)</td>
+<td>Returns that many characters from left</td>
+</tr>
+<tr>
+<td>&gt; Len(string)</td>
+<td>Returns entire string</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td>Runtime error (Invalid procedure call or argument)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Passing negative length values (causes runtime error)</li>
+<li>Assuming <code>Left$</code> will throw an error if length exceeds string length (it doesn't)</li>
+<li>Not handling <code>Null</code> strings (causes runtime error)</li>
+<li>Confusing zero-based vs one-based indexing (VB6 strings are 1-based)</li>
+<li>Using <code>Left$</code> on binary data (use <code>LeftB$</code> instead)</li>
+<li>Forgetting that the length parameter is character count, not position</li>
+<li>Not trimming strings before extraction (may get unwanted spaces)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot extract from right side (use <code>Right$</code> instead)</li>
+<li>Cannot specify starting position (use <code>Mid$</code> instead)</li>
+<li>Does not work with byte arrays directly</li>
+<li>No built-in support for Unicode surrogate pairs</li>
+<li>Length parameter cannot be an expression that evaluates to <code>Null</code></li>
+<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - command - Interaction">
+    <title>command - Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/interaction/index.html">Interaction</a> / command</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="command-function"><code>Command</code> Function</h1>
+<p>Returns the argument portion of the command line used to launch Microsoft Visual Basic or an
+executable program developed with Visual Basic.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Command()</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. The <code>Command</code> function takes no arguments.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a String containing the command-line arguments passed to the program. If no arguments
+were passed, returns an empty string ("").</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Command</code> function provides access to the command-line arguments that were passed when the
+application was started. This is commonly used for:</p>
+<ul>
+<li>Processing startup parameters</li>
+<li>Accepting file paths to open</li>
+<li>Enabling debug or special modes</li>
+<li>Configuring application behavior at launch</li>
+</ul>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns only the arguments, not the executable path</li>
+<li>Arguments are returned as a single string</li>
+<li>Multiple arguments are separated by spaces (unless quoted)</li>
+<li>Quoted strings are preserved but quotes may be included in the result</li>
+<li>Leading and trailing spaces are typically trimmed</li>
+<li>Returns empty string ("") if no arguments provided</li>
+<li>Case is preserved as entered</li>
+</ul>
+<h2 id="command-line-processing">Command Line Processing</h2>
+<p>When an application is launched with:</p>
+<pre><code class="language-text">MyApp.exe /debug file.txt &quot;long filename.doc&quot;</code></pre>
+<p><code>Command()</code> returns:</p>
+<pre><code class="language-text">/debug file.txt &quot;long filename.doc&quot;</code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Get command line arguments
+Sub Main()
+Dim cmdLine As String
+cmdLine = Command()
+
+If cmdLine &lt;&gt; &quot;&quot; Then
+MsgBox &quot;Arguments: &quot; &amp; cmdLine
+Else
+MsgBox &quot;No arguments provided&quot;
+End If
+End Sub</code></pre>
+<h3 id="processing-switches">Processing Switches</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim args As String
+args = Command()
+
+If InStr(args, &quot;/debug&quot;) &gt; 0 Then
+App.LogMode = 1  &#x27; Enable debug logging
+End If
+
+If InStr(args, &quot;/silent&quot;) &gt; 0 Then
+App.SilentMode = True
+End If
+End Sub</code></pre>
+<h3 id="opening-a-file-from-command-line">Opening a File from Command Line</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim filename As String
+filename = Trim(Command())
+
+If filename &lt;&gt; &quot;&quot; Then
+&#x27; Remove quotes if present
+If Left(filename, 1) = Chr(34) Then
+filename = Mid(filename, 2)
+End If
+If Right(filename, 1) = Chr(34) Then
+filename = Left(filename, Len(filename) - 1)
+End If
+
+&#x27; Open the file
+If Dir(filename) &lt;&gt; &quot;&quot; Then
+OpenDocument filename
+End If
+End If
+End Sub</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="parsing-multiple-arguments">Parsing Multiple Arguments</h3>
+<pre><code class="language-vbnet">Function ParseCommandLine() As Collection
+Dim args As New Collection
+Dim cmdLine As String
+Dim arg As String
+Dim pos As Integer
+Dim inQuotes As Boolean
+Dim i As Integer
+Dim ch As String
+
+cmdLine = Trim(Command())
+If cmdLine = &quot;&quot; Then Exit Function
+
+arg = &quot;&quot;
+inQuotes = False
+
+For i = 1 To Len(cmdLine)
+ch = Mid(cmdLine, i, 1)
+
+If ch = Chr(34) Then  &#x27; Quote character
+inQuotes = Not inQuotes
+ElseIf ch = &quot; &quot; And Not inQuotes Then
+If arg &lt;&gt; &quot;&quot; Then
+args.Add arg
+arg = &quot;&quot;
+End If
+Else
+arg = arg &amp; ch
+End If
+Next i
+
+If arg &lt;&gt; &quot;&quot; Then args.Add arg
+
+Set ParseCommandLine = args
+End Function</code></pre>
+<h3 id="named-parameters">Named Parameters</h3>
+<pre><code class="language-vbnet">Function GetParameter(paramName As String) As String
+Dim cmdLine As String
+Dim pos As Integer
+Dim endPos As Integer
+Dim value As String
+
+cmdLine = &quot; &quot; &amp; Command() &amp; &quot; &quot;
+pos = InStr(1, cmdLine, &quot;/&quot; &amp; paramName &amp; &quot;:&quot;, vbTextCompare)
+
+If pos = 0 Then
+pos = InStr(1, cmdLine, &quot;-&quot; &amp; paramName &amp; &quot;:&quot;, vbTextCompare)
+End If
+
+If pos &gt; 0 Then
+pos = InStr(pos, cmdLine, &quot;:&quot;) + 1
+endPos = InStr(pos, cmdLine, &quot; &quot;)
+
+If endPos &gt; pos Then
+value = Mid(cmdLine, pos, endPos - pos)
+GetParameter = Trim(value)
+End If
+End If
+End Function
+
+&#x27; Usage:
+&#x27; MyApp.exe /server:localhost /port:8080
+&#x27; server = GetParameter(&quot;server&quot;)  &#x27; Returns &quot;localhost&quot;
+&#x27; port = GetParameter(&quot;port&quot;)      &#x27; Returns &quot;8080&quot;</code></pre>
+<h3 id="switch-detection">Switch Detection</h3>
+<pre><code class="language-vbnet">Function HasSwitch(switchName As String) As Boolean
+Dim cmdLine As String
+cmdLine = &quot; &quot; &amp; LCase(Command()) &amp; &quot; &quot;
+
+HasSwitch = InStr(cmdLine, &quot; /&quot; &amp; LCase(switchName)) &gt; 0 Or _
+InStr(cmdLine, &quot; -&quot; &amp; LCase(switchName)) &gt; 0
+End Function
+
+&#x27; Usage:
+&#x27; MyApp.exe /debug /verbose
+&#x27; If HasSwitch(&quot;debug&quot;) Then ...</code></pre>
+<h3 id="file-association-handler">File Association Handler</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim filename As String
+
+filename = GetCommandLineFile()
+
+If filename &lt;&gt; &quot;&quot; Then
+&#x27; Application was launched by double-clicking a file
+LoadFile filename
+Else
+&#x27; Application was launched normally
+ShowStartupDialog
+End If
+End Sub
+
+Function GetCommandLineFile() As String
+Dim cmdLine As String
+cmdLine = Trim(Command())
+
+&#x27; Remove surrounding quotes
+If Left(cmdLine, 1) = Chr(34) And Right(cmdLine, 1) = Chr(34) Then
+cmdLine = Mid(cmdLine, 2, Len(cmdLine) - 2)
+End If
+
+&#x27; Check if it&#x27;s a file (not a switch)
+If Left(cmdLine, 1) &lt;&gt; &quot;/&quot; And Left(cmdLine, 1) &lt;&gt; &quot;-&quot; Then
+If Dir(cmdLine) &lt;&gt; &quot;&quot; Then
+GetCommandLineFile = cmdLine
+End If
+End If
+End Function</code></pre>
+<h3 id="configuration-file-loading">Configuration File Loading</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim configFile As String
+
+configFile = GetParameter(&quot;config&quot;)
+
+If configFile = &quot;&quot; Then
+configFile = App.Path &amp; &quot;\default.cfg&quot;
+End If
+
+LoadConfiguration configFile
+End Sub</code></pre>
+<h3 id="debug-mode-activation">Debug Mode Activation</h3>
+<pre><code class="language-vbnet">Public DebugMode As Boolean
+
+Sub Main()
+Dim cmdLine As String
+cmdLine = LCase(Trim(Command()))
+
+DebugMode = (InStr(cmdLine, &quot;/debug&quot;) &gt; 0) Or _
+(InStr(cmdLine, &quot;-debug&quot;) &gt; 0) Or _
+(InStr(cmdLine, &quot;/d&quot;) &gt; 0)
+
+If DebugMode Then
+MsgBox &quot;Debug mode enabled&quot;
+End If
+End Sub</code></pre>
+<h3 id="multiple-file-processing">Multiple File Processing</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim files() As String
+Dim i As Integer
+
+files = GetCommandLineFiles()
+
+For i = LBound(files) To UBound(files)
+ProcessFile files(i)
+Next i
+End Sub
+
+Function GetCommandLineFiles() As String()
+Dim cmdLine As String
+Dim args As Collection
+Dim result() As String
+Dim i As Integer
+Dim count As Integer
+
+Set args = ParseCommandLine()
+
+&#x27; Count files (skip switches)
+For i = 1 To args.Count
+If Left(args(i), 1) &lt;&gt; &quot;/&quot; And Left(args(i), 1) &lt;&gt; &quot;-&quot; Then
+count = count + 1
+End If
+Next i
+
+If count &gt; 0 Then
+ReDim result(1 To count)
+count = 0
+
+For i = 1 To args.Count
+If Left(args(i), 1) &lt;&gt; &quot;/&quot; And Left(args(i), 1) &lt;&gt; &quot;-&quot; Then
+count = count + 1
+result(count) = args(i)
+End If
+Next i
+End If
+
+GetCommandLineFiles = result
+End Function</code></pre>
+<h3 id="automation-mode">Automation Mode</h3>
+<pre><code class="language-vbnet">Sub Main()
+If HasSwitch(&quot;auto&quot;) Or HasSwitch(&quot;batch&quot;) Then
+&#x27; Run in automated mode without UI
+RunBatchProcess
+End
+Else
+&#x27; Show normal UI
+Form1.Show
+End If
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="complex-argument-parser">Complex Argument Parser</h3>
+<pre><code class="language-vbnet">Type CommandLineArg
+Name As String
+Value As String
+IsSwitch As Boolean
+End Type
+
+Function ParseAdvancedCommandLine() As Collection
+Dim args As New Collection
+Dim cmdLine As String
+Dim tokens As Collection
+Dim i As Integer
+Dim token As String
+Dim arg As CommandLineArg
+
+cmdLine = Command()
+Set tokens = ParseCommandLine()
+
+For i = 1 To tokens.Count
+token = tokens(i)
+
+If Left(token, 1) = &quot;/&quot; Or Left(token, 1) = &quot;-&quot; Then
+arg.IsSwitch = True
+
+&#x27; Remove leading / or -
+token = Mid(token, 2)
+
+&#x27; Check for name:value format
+If InStr(token, &quot;:&quot;) &gt; 0 Then
+arg.Name = Left(token, InStr(token, &quot;:&quot;) - 1)
+arg.Value = Mid(token, InStr(token, &quot;:&quot;) + 1)
+ElseIf InStr(token, &quot;=&quot;) &gt; 0 Then
+arg.Name = Left(token, InStr(token, &quot;=&quot;) - 1)
+arg.Value = Mid(token, InStr(token, &quot;=&quot;) + 1)
+Else
+arg.Name = token
+arg.Value = &quot;True&quot;
+End If
+Else
+arg.IsSwitch = False
+arg.Name = &quot;&quot;
+arg.Value = token
+End If
+
+args.Add arg
+Next i
+
+Set ParseAdvancedCommandLine = args
+End Function</code></pre>
+<h3 id="environment-variable-expansion">Environment Variable Expansion</h3>
+<pre><code class="language-vbnet">Function ExpandCommandLine() As String
+Dim cmdLine As String
+Dim startPos As Integer
+Dim endPos As Integer
+Dim varName As String
+Dim varValue As String
+
+cmdLine = Command()
+
+&#x27; Expand %VARIABLE% syntax
+Do
+startPos = InStr(cmdLine, &quot;%&quot;)
+If startPos = 0 Then Exit Do
+
+endPos = InStr(startPos + 1, cmdLine, &quot;%&quot;)
+If endPos = 0 Then Exit Do
+
+varName = Mid(cmdLine, startPos + 1, endPos - startPos - 1)
+varValue = Environ(varName)
+
+cmdLine = Left(cmdLine, startPos - 1) &amp; varValue &amp; Mid(cmdLine, endPos + 1)
+Loop
+
+ExpandCommandLine = cmdLine
+End Function</code></pre>
+<h3 id="help-text-display">Help Text Display</h3>
+<pre><code class="language-vbnet">Sub Main()
+If HasSwitch(&quot;?&quot;) Or HasSwitch(&quot;help&quot;) Then
+ShowHelp
+End
+End If
+
+&#x27; Normal startup
+Form1.Show
+End Sub
+
+Sub ShowHelp()
+Dim helpText As String
+
+helpText = &quot;MyApp - Command Line Options&quot; &amp; vbCrLf &amp; vbCrLf
+helpText = helpText &amp; &quot;/debug        Enable debug mode&quot; &amp; vbCrLf
+helpText = helpText &amp; &quot;/config:file  Load configuration from file&quot; &amp; vbCrLf
+helpText = helpText &amp; &quot;/silent       Run in silent mode&quot; &amp; vbCrLf
+helpText = helpText &amp; &quot;/auto         Run in automated mode&quot; &amp; vbCrLf
+helpText = helpText &amp; &quot;/help or /?   Show this help&quot; &amp; vbCrLf
+
+MsgBox helpText, vbInformation
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeGetCommand() As String
+On Error GoTo ErrorHandler
+
+SafeGetCommand = Command()
+Exit Function
+
+ErrorHandler:
+&#x27; Command() rarely fails, but handle just in case
+SafeGetCommand = &quot;&quot;
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Command()</code> is a fast function with minimal overhead</li>
+<li>Result is cached, so multiple calls don't re-query the OS</li>
+<li>Consider caching the result in a module-level variable if used frequently</li>
+<li>Parsing complex command lines can be expensive; cache parsed results</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="cache-the-result">Cache the Result</h3>
+<pre><code class="language-vbnet">Public g_CommandLine As String
+
+Sub Main()
+g_CommandLine = Command()
+
+&#x27; Use g_CommandLine throughout the application
+If InStr(g_CommandLine, &quot;/debug&quot;) &gt; 0 Then
+&#x27; ...
+End If
+End Sub</code></pre>
+<h3 id="validate-arguments">Validate Arguments</h3>
+<pre><code class="language-vbnet">Sub Main()
+Dim cmdLine As String
+cmdLine = Command()
+
+If cmdLine &lt;&gt; &quot;&quot; Then
+If Not ValidateCommandLine(cmdLine) Then
+MsgBox &quot;Invalid command line arguments&quot;, vbCritical
+End
+End If
+End If
+End Sub</code></pre>
+<h3 id="use-sub-main-for-command-line-apps">Use <code>Sub Main()</code> for Command Line Apps</h3>
+<pre><code class="language-vbnet">Sub Main()
+&#x27; Process command line before showing any UI
+ProcessCommandLine
+
+&#x27; Then show UI or continue processing
+Form1.Show
+End Sub</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns only arguments, not the executable path (use App.Path and App.EXEName instead)</li>
+<li>No built-in parsing; returns raw string</li>
+<li>Quote handling is not automatic</li>
+<li>Limited to approximately 32KB of text on some Windows versions</li>
+<li>No standard format for arguments (application must define its own conventions)</li>
+<li>Different from C/C++ argv[] which provides separate argument array</li>
+</ul>
+<h2 id="related-functions-and-properties">Related Functions and Properties</h2>
+<ul>
+<li><code>App.Path</code>: Returns the path where the application is located</li>
+<li><code>App.EXEName</code>: Returns the executable filename without extension</li>
+<li><code>Environ</code>: Gets environment variable values</li>
+<li><code>Shell</code>: Executes external programs with command lines</li>
+</ul>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Windows: Uses <code>GetCommandLine</code> API internally</li>
+<li>Command line length limits vary by Windows version</li>
+<li>Unicode characters may require special handling</li>
+<li>Some special characters may need escaping in batch files</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Interaction</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

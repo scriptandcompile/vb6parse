@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - date - Datetime">
+    <title>date - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / date</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="date-function"><code>Date</code> Function</h1>
+<p>Returns the current system date as a <code>Variant</code> of subtype <code>Date</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Date</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. The <code>Date</code> function takes no parameters.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> of subtype <code>Date</code> (<code>VarType = 7</code>) containing the current system date.
+The time portion is set to midnight (00:00:00).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Date</code> function returns the current date from the system clock. Unlike <code>Now</code>,
+which returns both date and time, <code>Date</code> returns only the date portion with the
+time set to midnight.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns only the date portion (time is midnight)</li>
+<li>Uses system date from computer's clock</li>
+<li>Can also be used as a statement to set the system date: <code>Date = #1/1/2025#</code></li>
+<li>Date values are stored internally as Double (days since Dec 30, 1899)</li>
+<li><code>VarType</code> of result is 7 (vbDate)</li>
+<li>Locale-aware for display formatting</li>
+<li>Date range: January 1, 100 to December 31, 9999</li>
+</ul>
+<h2 id="date-storage-format">Date Storage Format</h2>
+<p>Internally, dates are stored as Double precision floating-point numbers:
+- Integer part: Number of days since December 30, 1899
+- Fractional part: Time of day (0.0 = midnight, 0.5 = noon, etc.)
+- Date function always returns fractional part as 0.0</p>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Get current date
+Dim today As Date
+today = Date
+MsgBox &quot;Today is: &quot; &amp; today
+
+&#x27; Display in message box
+MsgBox &quot;Current date: &quot; &amp; Date
+
+&#x27; Store in Variant
+Dim currentDate As Variant
+currentDate = Date</code></pre>
+<h3 id="date-calculations">Date Calculations</h3>
+<pre><code class="language-vbnet">&#x27; Calculate days until end of year
+Dim daysLeft As Long
+daysLeft = DateSerial(Year(Date), 12, 31) - Date
+MsgBox daysLeft &amp; &quot; days left in the year&quot;
+
+&#x27; Add 30 days to current date
+Dim futureDate As Date
+futureDate = Date + 30
+MsgBox &quot;30 days from now: &quot; &amp; futureDate
+
+&#x27; Subtract dates to get difference
+Dim startDate As Date
+Dim daysPassed As Long
+startDate = #1/1/2025#
+daysPassed = Date - startDate</code></pre>
+<h3 id="date-comparison">Date Comparison</h3>
+<pre><code class="language-vbnet">&#x27; Check if date is in the past
+Dim deadline As Date
+deadline = #12/31/2025#
+
+If Date &gt; deadline Then
+MsgBox &quot;Deadline has passed!&quot;
+Else
+MsgBox &quot;Still time remaining&quot;
+End If
+
+&#x27; Compare with specific date
+If Date = #1/1/2025# Then
+MsgBox &quot;Happy New Year!&quot;
+End If</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="date-stamping-records">Date Stamping Records</h3>
+<pre><code class="language-vbnet">&#x27; Add timestamp to database record
+rs.AddNew
+rs(&quot;CustomerName&quot;) = txtName.Text
+rs(&quot;OrderDate&quot;) = Date
+rs(&quot;OrderTime&quot;) = Time
+rs.Update
+
+&#x27; File naming with date
+Dim fileName As String
+fileName = &quot;Report_&quot; &amp; Format(Date, &quot;yyyymmdd&quot;) &amp; &quot;.txt&quot;</code></pre>
+<h3 id="date-validation">Date Validation</h3>
+<pre><code class="language-vbnet">Function IsDateInRange(checkDate As Date, startDate As Date, endDate As Date) As Boolean
+IsDateInRange = (checkDate &gt;= startDate And checkDate &lt;= endDate)
+End Function
+
+&#x27; Check if today is within range
+If IsDateInRange(Date, #1/1/2025#, #12/31/2025#) Then
+MsgBox &quot;Date is within 2025&quot;
+End If</code></pre>
+<h3 id="age-calculation">Age Calculation</h3>
+<pre><code class="language-vbnet">Function CalculateAge(birthDate As Date) As Integer
+Dim age As Integer
+age = Year(Date) - Year(birthDate)
+
+&#x27; Adjust if birthday hasn&#x27;t occurred yet this year
+If Month(Date) &lt; Month(birthDate) Or _
+(Month(Date) = Month(birthDate) And Day(Date) &lt; Day(birthDate)) Then
+age = age - 1
+End If
+
+CalculateAge = age
+End Function</code></pre>
+<h3 id="business-days-calculation">Business Days Calculation</h3>
+<pre><code class="language-vbnet">Function IsWeekday(checkDate As Date) As Boolean
+Dim dayOfWeek As Integer
+dayOfWeek = Weekday(checkDate)
+IsWeekday = (dayOfWeek &gt; 1 And dayOfWeek &lt; 7)  &#x27; Not Sunday(1) or Saturday(7)
+End Function
+
+Function AddBusinessDays(startDate As Date, days As Integer) As Date
+Dim currentDate As Date
+Dim daysAdded As Integer
+
+currentDate = startDate
+daysAdded = 0
+
+Do While daysAdded &lt; days
+currentDate = currentDate + 1
+If IsWeekday(currentDate) Then
+daysAdded = daysAdded + 1
+End If
+Loop
+
+AddBusinessDays = currentDate
+End Function</code></pre>
+<h3 id="date-range-reporting">Date Range Reporting</h3>
+<pre><code class="language-vbnet">Sub GenerateMonthlyReport()
+Dim firstDay As Date
+Dim lastDay As Date
+
+&#x27; Get first day of current month
+firstDay = DateSerial(Year(Date), Month(Date), 1)
+
+&#x27; Get last day of current month
+lastDay = DateSerial(Year(Date), Month(Date) + 1, 0)
+
+&#x27; Generate report for date range
+MsgBox &quot;Report period: &quot; &amp; firstDay &amp; &quot; to &quot; &amp; lastDay
+End Sub</code></pre>
+<h3 id="date-based-file-organization">Date-Based File Organization</h3>
+<pre><code class="language-vbnet">Function GetArchiveFolder() As String
+Dim folderPath As String
+folderPath = &quot;C:\Archive\&quot; &amp; Year(Date) &amp; &quot;\&quot; &amp; Format(Date, &quot;mm&quot;)
+
+&#x27; Create folder if it doesn&#x27;t exist
+If Dir(folderPath, vbDirectory) = &quot;&quot; Then
+MkDir folderPath
+End If
+
+GetArchiveFolder = folderPath
+End Function</code></pre>
+<h3 id="expiration-checking">Expiration Checking</h3>
+<pre><code class="language-vbnet">Function IsExpired(expirationDate As Date) As Boolean
+IsExpired = (Date &gt; expirationDate)
+End Function
+
+Function DaysUntilExpiration(expirationDate As Date) As Long
+If IsExpired(expirationDate) Then
+DaysUntilExpiration = 0
+Else
+DaysUntilExpiration = expirationDate - Date
+End If
+End Function</code></pre>
+<h3 id="logging-with-timestamps">Logging with Timestamps</h3>
+<pre><code class="language-vbnet">Sub LogMessage(message As String)
+Dim logFile As Integer
+Dim logFileName As String
+
+&#x27; Create daily log file
+logFileName = &quot;Log_&quot; &amp; Format(Date, &quot;yyyy-mm-dd&quot;) &amp; &quot;.txt&quot;
+
+logFile = FreeFile
+Open logFileName For Append As logFile
+Print #logFile, Date &amp; &quot; &quot; &amp; Time &amp; &quot;: &quot; &amp; message
+Close logFile
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="date-cache-for-performance">Date Cache for Performance</h3>
+<pre><code class="language-vbnet">&#x27; Module-level variables
+Private m_cachedDate As Date
+Private m_cacheValid As Boolean
+
+Function GetTodaysDate() As Date
+&#x27; Cache date to avoid repeated system calls in tight loops
+Static lastCheck As Date
+
+If Not m_cacheValid Or lastCheck &lt;&gt; Date Then
+m_cachedDate = Date
+lastCheck = m_cachedDate
+m_cacheValid = True
+End If
+
+GetTodaysDate = m_cachedDate
+End Function</code></pre>
+<h3 id="fiscal-year-calculations">Fiscal Year Calculations</h3>
+<pre><code class="language-vbnet">Function GetFiscalYear(Optional checkDate As Variant) As Integer
+Dim workDate As Date
+
+&#x27; Use current date if not specified
+If IsMissing(checkDate) Then
+workDate = Date
+Else
+workDate = checkDate
+End If
+
+&#x27; Fiscal year starts April 1
+If Month(workDate) &lt; 4 Then
+GetFiscalYear = Year(workDate) - 1
+Else
+GetFiscalYear = Year(workDate)
+End If
+End Function
+
+Function GetFiscalQuarter(Optional checkDate As Variant) As Integer
+Dim workDate As Date
+Dim fiscalMonth As Integer
+
+If IsMissing(checkDate) Then
+workDate = Date
+Else
+workDate = checkDate
+End If
+
+&#x27; Calculate month in fiscal year (April = 1)
+fiscalMonth = Month(workDate) - 3
+If fiscalMonth &lt;= 0 Then fiscalMonth = fiscalMonth + 12
+
+&#x27; Determine quarter
+GetFiscalQuarter = Int((fiscalMonth - 1) / 3) + 1
+End Function</code></pre>
+<h3 id="date-sequence-generator">Date Sequence Generator</h3>
+<pre><code class="language-vbnet">Function GenerateDateRange(startDate As Date, endDate As Date) As Variant
+Dim dates() As Date
+Dim currentDate As Date
+Dim index As Long
+Dim dayCount As Long
+
+dayCount = endDate - startDate + 1
+ReDim dates(0 To dayCount - 1)
+
+currentDate = startDate
+For index = 0 To dayCount - 1
+dates(index) = currentDate
+currentDate = currentDate + 1
+Next index
+
+GenerateDateRange = dates
+End Function</code></pre>
+<h3 id="date-based-conditional-logic">Date-Based Conditional Logic</h3>
+<pre><code class="language-vbnet">Function GetDiscountRate() As Double
+Dim dayOfMonth As Integer
+dayOfMonth = Day(Date)
+
+Select Case dayOfMonth
+Case 1 To 10
+GetDiscountRate = 0.1   &#x27; 10% early month discount
+Case 11 To 20
+GetDiscountRate = 0.05  &#x27; 5% mid-month discount
+Case Else
+GetDiscountRate = 0     &#x27; No discount
+End Select
+End Function</code></pre>
+<h2 id="date-vs-now-vs-time">Date vs Now vs Time</h2>
+<pre><code class="language-vbnet">&#x27; Date - Returns only date portion (time = midnight)
+Dim d As Date
+d = Date  &#x27; Example: 1/15/2025 12:00:00 AM
+
+&#x27; Now - Returns date and time
+Dim n As Date
+n = Now   &#x27; Example: 1/15/2025 2:30:45 PM
+
+&#x27; Time - Returns only time portion (date = Dec 30, 1899)
+Dim t As Date
+t = Time  &#x27; Example: 12/30/1899 2:30:45 PM
+
+&#x27; Extract components
+Dim today As Date
+today = Date  &#x27; Gets just the date
+Dim dateTime As Date
+dateTime = today + Time  &#x27; Combines current date and time</code></pre>
+<h2 id="setting-the-system-date">Setting the System Date</h2>
+<pre><code class="language-vbnet">&#x27; Date can also be used as a statement (requires admin rights)
+Date = #1/1/2025#  &#x27; Sets system date
+
+&#x27; More common: just read the date
+Dim currentDate As Date
+currentDate = Date  &#x27; Read-only operation</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Date</code> is a system call that reads the system clock</li>
+<li>In tight loops, consider caching if the date won't change during execution</li>
+<li>Faster than <code>Now</code> when you only need the date portion</li>
+<li>Date comparisons are fast (numeric comparison of Double values)</li>
+<li>Format conversions can be slower than raw date operations</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="cache-in-long-running-loops">Cache in Long-Running Loops</h3>
+<pre><code class="language-vbnet">&#x27; Inefficient - calls Date repeatedly
+For i = 1 To 10000
+If records(i).ExpiryDate &lt; Date Then
+&#x27; Process expired record
+End If
+Next i
+
+&#x27; Better - cache the date
+Dim today As Date
+today = Date
+For i = 1 To 10000
+If records(i).ExpiryDate &lt; today Then
+&#x27; Process expired record
+End If
+Next i</code></pre>
+<h3 id="use-appropriate-date-functions">Use Appropriate Date Functions</h3>
+<pre><code class="language-vbnet">&#x27; Good - Use Date for date-only operations
+Dim orderDate As Date
+orderDate = Date
+
+&#x27; Good - Use Now for timestamps
+Dim timestamp As Date
+timestamp = Now
+
+&#x27; Avoid - Don&#x27;t extract date from Now if you just need date
+Dim today As Date
+today = Int(Now)  &#x27; Works but less clear than Date</code></pre>
+<h3 id="store-dates-as-date-type">Store Dates as Date Type</h3>
+<pre><code class="language-vbnet">&#x27; Good - Proper type usage
+Dim birthDate As Date
+birthDate = Date
+
+&#x27; Avoid - String storage loses type safety and comparison capability
+Dim birthDateStr As String
+birthDateStr = CStr(Date)  &#x27; Comparison becomes string-based</code></pre>
+<h2 id="locale-considerations">Locale Considerations</h2>
+<ul>
+<li>Display format depends on system locale settings</li>
+<li>Internal storage is always the same (Double)</li>
+<li>Use <code>Format</code> function for explicit formatting</li>
+<li>Date literals use US format (#MM/DD/YYYY#) regardless of locale</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Display varies by locale
+MsgBox Date  &#x27; US: 1/15/2025, UK: 15/01/2025
+
+&#x27; Explicit formatting
+MsgBox Format(Date, &quot;yyyy-mm-dd&quot;)  &#x27; Always: 2025-01-15</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot directly extract error information from invalid dates</li>
+<li>System date setting requires administrative privileges</li>
+<li>Date range limited to January 1, 100 through December 31, 9999</li>
+<li>Accuracy depends on system clock</li>
+<li>No built-in timezone support</li>
+<li>Daylight saving time handled by system, not VB6</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Now</code>: Returns current date and time</li>
+<li><code>Time</code>: Returns current time (date portion is Dec 30, 1899)</li>
+<li><code>DateSerial</code>: Creates a date from year, month, and day values</li>
+<li><code>DateValue</code>: Converts a string to a date</li>
+<li><code>Year</code>, <code>Month</code>, <code>Day</code>: Extract components from a date</li>
+<li><code>Weekday</code>: Returns day of week (1=Sunday, 7=Saturday)</li>
+<li><code>DateAdd</code>: Adds a time interval to a date</li>
+<li><code>DateDiff</code>: Returns the difference between two dates</li>
+<li><code>DatePart</code>: Returns a specific part of a date</li>
+<li><code>Format</code>: Formats a date as a string</li>
+<li><code>IsDate</code>: Tests if a value can be converted to a date</li>
+<li><code>CDate</code>: Converts an expression to a Date</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

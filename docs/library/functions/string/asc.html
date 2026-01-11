@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - asc - String">
+    <title>asc - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / asc</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="asc-function"><code>Asc</code> Function</h1>
+<p>Returns an <code>Integer</code> representing the character code corresponding to the first letter in a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Asc(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Required. Any valid string expression. If the string contains no characters, a run-time error occurs.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> representing the <code>ANSI</code> character code of the first character in the string.</p>
+<ul>
+<li>For <code>ANSI</code> characters (0-127), returns standard <code>ASCII</code> values</li>
+<li>For extended <code>ANSI</code> characters (128-255), returns extended <code>ASCII</code> values</li>
+<li>Unicode characters are converted to <code>ANSI</code> before the code is returned</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Asc</code> function returns the numeric <code>ANSI</code> character code for the first character in a string.
+This is useful for:
+- Validating input characters
+- Performing character-based operations
+- Converting characters to their numeric representations
+- Character range checking</p>
+<h3 id="important-notes">Important Notes</h3>
+<ol>
+<li><strong>Only First Character</strong>: Only the first character of the string is examined</li>
+<li><strong>Empty String Error</strong>: Passing an empty string results in a run-time error (Error 5: Invalid procedure call or argument)</li>
+<li><strong>ANSI vs. Unicode</strong>: In VB6, <code>Asc</code> returns <code>ANSI</code> codes; <code>AscW</code> returns Unicode values</li>
+<li><strong>Return Type</strong>: Returns <code>Integer</code> (16-bit signed), range -32,768 to 32,767, but character codes are 0-255</li>
+<li><strong>Case Sensitive</strong>: Upper and lowercase letters have different codes (e.g., "A" = 65, "a" = 97)</li>
+</ol>
+<h3 id="character-code-ranges">Character Code Ranges</h3>
+<ul>
+<li><strong>0-31</strong>: Control characters (non-printable)</li>
+<li><strong>32</strong>: Space</li>
+<li><strong>48-57</strong>: Digits '0' through '9'</li>
+<li><strong>65-90</strong>: Uppercase letters 'A' through 'Z'</li>
+<li><strong>97-122</strong>: Lowercase letters 'a' through 'z'</li>
+<li><strong>128-255</strong>: Extended ANSI characters</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim code As Integer
+code = Asc(&quot;A&quot;)          &#x27; Returns 65
+code = Asc(&quot;Apple&quot;)      &#x27; Returns 65 (first character only)
+code = Asc(&quot;a&quot;)          &#x27; Returns 97
+code = Asc(&quot;0&quot;)          &#x27; Returns 48
+code = Asc(&quot; &quot;)          &#x27; Returns 32 (space)</code></pre>
+<h3 id="character-validation">Character Validation</h3>
+<pre><code class="language-vbnet">Function IsDigit(ch As String) As Boolean
+Dim code As Integer
+code = Asc(ch)
+IsDigit = (code &gt;= 48 And code &lt;= 57)
+End Function
+
+Function IsUpperCase(ch As String) As Boolean
+Dim code As Integer
+code = Asc(ch)
+IsUpperCase = (code &gt;= 65 And code &lt;= 90)
+End Function</code></pre>
+<h3 id="case-conversion-offset">Case Conversion Offset</h3>
+<pre><code class="language-vbnet">&#x27; Calculate offset between upper and lower case
+Dim offset As Integer
+offset = Asc(&quot;a&quot;) - Asc(&quot;A&quot;)  &#x27; Returns 32</code></pre>
+<h3 id="character-range-checking">Character Range Checking</h3>
+<pre><code class="language-vbnet">Function IsPrintable(ch As String) As Boolean
+Dim code As Integer
+code = Asc(ch)
+IsPrintable = (code &gt;= 32 And code &lt;= 126)
+End Function</code></pre>
+<h3 id="string-encoding">String Encoding</h3>
+<pre><code class="language-vbnet">Function EncodeString(s As String) As String
+Dim i As Integer
+Dim result As String
+For i = 1 To Len(s)
+If result &lt;&gt; &quot;&quot; Then result = result &amp; &quot;,&quot;
+result = result &amp; CStr(Asc(Mid(s, i, 1)))
+Next i
+EncodeString = result
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="1-input-validation">1. Input Validation</h3>
+<pre><code class="language-vbnet">If Asc(userInput) &gt;= 48 And Asc(userInput) &lt;= 57 Then
+&#x27; First character is a digit
+End If</code></pre>
+<h3 id="2-alphabetic-checking">2. Alphabetic Checking</h3>
+<pre><code class="language-vbnet">Dim code As Integer
+code = Asc(UCase(letter))
+If code &gt;= 65 And code &lt;= 90 Then
+&#x27; It&#x27;s a letter
+End If</code></pre>
+<h3 id="3-csv-parsing-helper">3. CSV Parsing Helper</h3>
+<pre><code class="language-vbnet">If Asc(field) = 34 Then  &#x27; 34 is double quote
+&#x27; Handle quoted field
+End If</code></pre>
+<h3 id="4-character-comparison">4. Character Comparison</h3>
+<pre><code class="language-vbnet">If Asc(char1) &lt; Asc(char2) Then
+&#x27; char1 comes before char2 in ASCII order
+End If</code></pre>
+<h3 id="5-special-character-detection">5. Special Character Detection</h3>
+<pre><code class="language-vbnet">Select Case Asc(ch)
+Case 9      &#x27; Tab
+Case 10     &#x27; Line feed
+Case 13     &#x27; Carriage return
+Case 32     &#x27; Space
+End Select</code></pre>
+<h3 id="6-keyboard-input-processing">6. Keyboard Input Processing</h3>
+<pre><code class="language-vbnet">Private Sub Text1_KeyPress(KeyAscii As Integer)
+If KeyAscii = 13 Then  &#x27; Enter key
+&#x27; Process input
+End If
+End Sub</code></pre>
+<h3 id="7-character-class-testing">7. Character Class Testing</h3>
+<pre><code class="language-vbnet">Function IsControl(ch As String) As Boolean
+Dim code As Integer
+code = Asc(ch)
+IsControl = (code &lt; 32 Or code = 127)
+End Function</code></pre>
+<h3 id="8-simple-encryption">8. Simple Encryption</h3>
+<pre><code class="language-vbnet">Function ROT13Char(ch As String) As String
+Dim code As Integer
+code = Asc(UCase(ch))
+If code &gt;= 65 And code &lt;= 90 Then
+code = ((code - 65 + 13) Mod 26) + 65
+ROT13Char = Chr(code)
+Else
+ROT13Char = ch
+End If
+End Function</code></pre>
+<h2 id="common-character-codes">Common Character Codes</h2>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Null</td>
+<td>0</td>
+<td>Null character</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>9</td>
+<td>Horizontal tab</td>
+</tr>
+<tr>
+<td>LF</td>
+<td>10</td>
+<td>Line feed</td>
+</tr>
+<tr>
+<td>CR</td>
+<td>13</td>
+<td>Carriage return</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>32</td>
+<td>Space</td>
+</tr>
+<tr>
+<td>!</td>
+<td>33</td>
+<td>Exclamation mark</td>
+</tr>
+<tr>
+<td>"</td>
+<td>34</td>
+<td>Double quote</td>
+</tr>
+<tr>
+<td>0</td>
+<td>48</td>
+<td>Digit zero</td>
+</tr>
+<tr>
+<td>9</td>
+<td>57</td>
+<td>Digit nine</td>
+</tr>
+<tr>
+<td>A</td>
+<td>65</td>
+<td>Uppercase A</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>90</td>
+<td>Uppercase Z</td>
+</tr>
+<tr>
+<td>a</td>
+<td>97</td>
+<td>Lowercase a</td>
+</tr>
+<tr>
+<td>z</td>
+<td>122</td>
+<td>Lowercase z</td>
+</tr>
+<tr>
+<td>DEL</td>
+<td>127</td>
+<td>Delete</td>
+</tr>
+</tbody>
+</table>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">On Error Resume Next
+code = Asc(inputString)
+If Err.Number = 5 Then
+&#x27; Empty string error
+MsgBox &quot;String cannot be empty&quot;
+End If</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>AscB</code>: Returns the first byte of a string</li>
+<li><code>AscW</code>: Returns the Unicode character code</li>
+<li><code>Chr</code>: Returns the character for a given character code (inverse of Asc)</li>
+<li><code>ChrB</code>: Returns a byte containing the character</li>
+<li><code>ChrW</code>: Returns a Unicode character</li>
+<li><code>InStr</code>: Finds the position of a character in a string</li>
+<li><code>Mid</code>: Extracts a substring</li>
+<li><code>Left</code>: Gets leftmost characters</li>
+<li><code>Right</code>: Gets rightmost characters</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Asc is a very fast operation (direct character code lookup)</li>
+<li>More efficient than string comparison for single character checks</li>
+<li>Use Asc for character-based validation instead of multiple string comparisons</li>
+<li>In tight loops, cache Asc results if checking the same character repeatedly</li>
+</ul>
+<h2 id="parsing-notes">Parsing Notes</h2>
+<p>The <code>Asc</code> function is not a reserved keyword in VB6. It is parsed as a regular
+function call (<code>CallExpression</code>). This module exists primarily for documentation
+purposes and to provide a comprehensive test suite that validates the parser
+correctly handles <code>Asc</code> function calls in various contexts.</p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

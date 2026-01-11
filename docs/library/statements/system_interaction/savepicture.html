@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - savepicture - System Interaction">
+    <title>savepicture - System Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/system_interaction/index.html">System Interaction</a> / savepicture</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="savepicture-statement"><code>SavePicture</code> Statement</h1>
+<p>Saves a graphical image from a control or form to a file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">SavePicture picture, stringexpression</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>picture</strong>: Required. A property or graphic object from which to save the image. The image
+can be from the <code>Picture</code> property of a Form, <code>PictureBox</code>, or Image control, or from the
+<code>Image</code> property of a <code>PictureBox</code> or Form.</li>
+<li><strong>stringexpression</strong>: Required. String expression specifying the name of the file to which
+the graphic is saved. Can include a drive and path specification.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>File Format</strong>: <code>SavePicture</code> saves graphics in bitmap (.bmp) format. The file created is
+compatible with bitmap files created by other applications.</li>
+<li><strong>Picture Property</strong>: When used with the <code>Picture</code> property, <code>SavePicture</code> saves the persistent
+bitmap from the property. This is the image loaded at design time or assigned at run time via
+<code>LoadPicture</code> or other means.</li>
+<li><strong>Image Property</strong>: When used with the <code>Image</code> property, <code>SavePicture</code> saves the current
+appearance of the form or picture box, including any graphics drawn with graphics methods.
+This creates a snapshot of the visible content.</li>
+<li><strong>File Path</strong>: If no path is specified, the file is saved in the current directory.</li>
+<li><strong>Overwriting</strong>: If a file with the specified name already exists, it is overwritten without
+warning.</li>
+<li><strong>Relative Paths</strong>: You can use relative path specifications (e.g., "..\Images\MyPic.bmp").</li>
+<li><strong>Graphics Methods</strong>: To save graphics created with graphics methods (Line, Circle, <code>PSet</code>,
+etc.), you must use the <code>Image</code> property, not the <code>Picture</code> property.</li>
+<li><strong>Clipboard Graphics</strong>: <code>SavePicture</code> can also be used with graphics from the Clipboard object.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="save-forms-picture-property">Save Form's Picture Property</h3>
+<pre><code class="language-vbnet">&#x27; Save the persistent bitmap from a form
+SavePicture Form1.Picture, &quot;C:\Images\Form1.bmp&quot;</code></pre>
+<h3 id="save-forms-current-appearance">Save Form's Current Appearance</h3>
+<pre><code class="language-vbnet">&#x27; Save the current appearance of a form (including drawn graphics)
+SavePicture Form1.Image, &quot;C:\Images\FormSnapshot.bmp&quot;</code></pre>
+<h3 id="save-picturebox-image">Save <code>PictureBox</code> Image</h3>
+<pre><code class="language-vbnet">&#x27; Save the picture from a PictureBox control
+SavePicture Picture1.Picture, &quot;C:\Temp\MyPicture.bmp&quot;</code></pre>
+<h3 id="save-with-variable-path">Save with Variable Path</h3>
+<pre><code class="language-vbnet">Dim FileName As String
+FileName = &quot;C:\Output\Image_&quot; &amp; Format$(Now, &quot;yyyymmdd_hhnnss&quot;) &amp; &quot;.bmp&quot;
+SavePicture Picture1.Image, FileName</code></pre>
+<h3 id="save-clipboard-image">Save Clipboard Image</h3>
+<pre><code class="language-vbnet">&#x27; Save an image from the clipboard
+SavePicture Clipboard.GetData(), &quot;C:\Temp\ClipImage.bmp&quot;</code></pre>
+<h3 id="error-handling">Error Handling</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+SavePicture Picture1.Picture, &quot;C:\Images\Output.bmp&quot;
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Error saving picture: &quot; &amp; Err.Description
+End If
+On Error GoTo 0</code></pre>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 53</strong>: File not found - the specified path does not exist</li>
+<li><strong>Error 75</strong>: Path/File access error - insufficient permissions or read-only file</li>
+<li><strong>Error 76</strong>: Path not found - invalid directory path</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>LoadPicture</code> function (load images from files)</li>
+<li><code>Picture</code> property (persistent bitmap property)</li>
+<li><code>Image</code> property (current appearance snapshot)</li>
+<li>Graphics methods (<code>Line</code>, <code>Circle</code>, <code>PSet</code>, etc.)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa268097(v=vs.60)">SavePicture Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to System Interaction</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

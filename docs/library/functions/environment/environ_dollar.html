@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - environ_dollar - Environment">
+    <title>environ_dollar - Environment - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/environment/index.html">Environment</a> / environ_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="environ-function"><code>Environ$</code> Function</h1>
+<p>Returns the string value associated with an environment variable.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Environ$(envstring)
+Environ$(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>envstring</code>: A string expression containing the name of an environment variable.</li>
+<li><code>number</code>: A numeric expression corresponding to the numeric order of an environment string in the environment-string table. The number argument can be any numeric expression, but is rounded to a whole number before it is evaluated.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the text assigned to the specified environment variable. If the environment variable doesn't exist, returns an empty string.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Environ$</code> function returns the string assigned to the specified environment variable from the operating system's environment-string table. This function cannot be used on the left side of an assignment statement.</p>
+<p>When using a numeric argument, <code>Environ$</code> returns the string that occupies that numeric position in the environment table. In this case, <code>Environ$</code> returns all the text including the equal sign (=). If there's no environment string at the specified position, <code>Environ$</code> returns a zero-length string.</p>
+<p>When using a string argument, if the environment variable doesn't exist, a zero-length string is returned.</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<h3 id="example-1-getting-system-path">Example 1: Getting System Path</h3>
+<pre><code class="language-vbnet">Dim systemPath As String
+systemPath = Environ$(&quot;PATH&quot;)</code></pre>
+<h3 id="example-2-getting-temp-directory">Example 2: Getting Temp Directory</h3>
+<pre><code class="language-vbnet">Dim tempDir As String
+tempDir = Environ$(&quot;TEMP&quot;)</code></pre>
+<h3 id="example-3-getting-user-name">Example 3: Getting User Name</h3>
+<pre><code class="language-vbnet">Dim userName As String
+userName = Environ$(&quot;USERNAME&quot;)</code></pre>
+<h3 id="example-4-iterating-environment-variables">Example 4: Iterating Environment Variables</h3>
+<pre><code class="language-vbnet">Dim i As Integer
+Dim envVar As String
+i = 1
+Do
+envVar = Environ$(i)
+If envVar &lt;&gt; &quot;&quot; Then Debug.Print envVar
+i = i + 1
+Loop While envVar &lt;&gt; &quot;&quot;</code></pre>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="getting-application-data-path">Getting Application Data Path</h3>
+<pre><code class="language-vbnet">Dim appDataPath As String
+appDataPath = Environ$(&quot;APPDATA&quot;)
+If appDataPath &lt;&gt; &quot;&quot; Then
+appDataPath = appDataPath &amp; &quot;\MyApp\&quot;
+End If</code></pre>
+<h3 id="getting-user-profile-directory">Getting User Profile Directory</h3>
+<pre><code class="language-vbnet">Dim userProfile As String
+userProfile = Environ$(&quot;USERPROFILE&quot;)
+configFile = userProfile &amp; &quot;\config.ini&quot;</code></pre>
+<h3 id="checking-for-development-environment">Checking for Development Environment</h3>
+<pre><code class="language-vbnet">Dim devMode As Boolean
+devMode = (Environ$(&quot;DEV_MODE&quot;) = &quot;1&quot;)
+If devMode Then
+Debug.Print &quot;Running in development mode&quot;
+End If</code></pre>
+<h3 id="building-full-path-with-temp-directory">Building Full Path with Temp Directory</h3>
+<pre><code class="language-vbnet">Dim tempFile As String
+tempFile = Environ$(&quot;TEMP&quot;) &amp; &quot;\tempdata.tmp&quot;
+Open tempFile For Output As #1</code></pre>
+<h3 id="getting-system-drive">Getting System Drive</h3>
+<pre><code class="language-vbnet">Dim systemDrive As String
+systemDrive = Environ$(&quot;SystemDrive&quot;)
+logPath = systemDrive &amp; &quot;\Logs\app.log&quot;</code></pre>
+<h3 id="listing-all-environment-variables">Listing All Environment Variables</h3>
+<pre><code class="language-vbnet">Dim idx As Integer
+Dim envEntry As String
+For idx = 1 To 255
+envEntry = Environ$(idx)
+If envEntry = &quot;&quot; Then Exit For
+List1.AddItem envEntry
+Next idx</code></pre>
+<h3 id="cross-platform-path-separator">Cross-Platform Path Separator</h3>
+<pre><code class="language-vbnet">Dim pathSep As String
+If Environ$(&quot;OS&quot;) Like &quot;Windows*&quot; Then
+pathSep = &quot;\&quot;
+Else
+pathSep = &quot;/&quot;
+End If</code></pre>
+<h3 id="getting-computer-name">Getting Computer Name</h3>
+<pre><code class="language-vbnet">Dim computerName As String
+computerName = Environ$(&quot;COMPUTERNAME&quot;)
+If computerName = &quot;&quot; Then computerName = Environ$(&quot;HOSTNAME&quot;)</code></pre>
+<h3 id="building-log-file-path-with-user-name">Building Log File Path with User Name</h3>
+<pre><code class="language-vbnet">Dim logFile As String
+logFile = &quot;C:\Logs\&quot; &amp; Environ$(&quot;USERNAME&quot;) &amp; &quot;.log&quot;
+Open logFile For Append As #1
+Print #1, Now &amp; &quot; - User logged in&quot;
+Close #1</code></pre>
+<h3 id="checking-if-variable-exists">Checking if Variable Exists</h3>
+<pre><code class="language-vbnet">Dim dbServer As String
+dbServer = Environ$(&quot;DB_SERVER&quot;)
+If dbServer = &quot;&quot; Then
+dbServer = &quot;localhost&quot;  &#x27; Default value
+End If</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Environ</code>: Non-string variant (returns Variant)</li>
+<li><code>Command$</code>: Gets command-line arguments</li>
+<li><code>CurDir$</code>: Gets current directory</li>
+<li><code>GetSetting</code>: Reads application settings from registry</li>
+<li><code>Dir$</code>: Lists files in directory</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Always check if the returned value is empty before using it</li>
+<li>Use string argument form for better code readability</li>
+<li>Cache frequently accessed environment variables</li>
+<li>Be aware of case sensitivity on different platforms</li>
+<li>Avoid modifying environment variables from VB6 (use shell APIs instead)</li>
+<li>Use proper path combining (avoid double backslashes)</li>
+<li>Consider using <code>GetEnvironmentVariable</code> API for more control</li>
+<li>Remember that environment variables persist only for the process lifetime</li>
+<li>Use constants for commonly used environment variable names</li>
+<li>Validate paths returned from environment variables before using them</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Environment variable lookup is relatively fast</li>
+<li>Iterating all variables with numeric index is slower than direct lookup</li>
+<li>Consider caching values if used frequently in loops</li>
+<li>No significant performance difference between <code>Environ$</code> and <code>Environ</code></li>
+</ul>
+<h2 id="platform-differences">Platform Differences</h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 95/98</td>
+<td>Limited environment space (may fail with many variables)</td>
+</tr>
+<tr>
+<td>Windows NT/2000/XP</td>
+<td>Larger environment space, more reliable</td>
+</tr>
+<tr>
+<td>Windows Vista+</td>
+<td>User and system environment variables separated</td>
+</tr>
+<tr>
+<td>Wine/Linux</td>
+<td>May return different variables, case sensitivity differs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-environment-variables">Common Environment Variables</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PATH</code></td>
+<td>System search path for executables</td>
+</tr>
+<tr>
+<td><code>TEMP</code> or <code>TMP</code></td>
+<td>Temporary files directory</td>
+</tr>
+<tr>
+<td><code>APPDATA</code></td>
+<td>Application data folder (Windows)</td>
+</tr>
+<tr>
+<td><code>USERPROFILE</code></td>
+<td>User's home directory (Windows)</td>
+</tr>
+<tr>
+<td><code>USERNAME</code></td>
+<td>Current user's login name</td>
+</tr>
+<tr>
+<td><code>COMPUTERNAME</code></td>
+<td>Computer's network name</td>
+</tr>
+<tr>
+<td><code>SystemDrive</code></td>
+<td>Drive letter of system installation</td>
+</tr>
+<tr>
+<td><code>SystemRoot</code></td>
+<td>Windows installation directory</td>
+</tr>
+<tr>
+<td><code>HOMEDRIVE</code></td>
+<td>User's home drive letter</td>
+</tr>
+<tr>
+<td><code>HOMEPATH</code></td>
+<td>User's home directory path</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Not checking for empty string return values</li>
+<li>Assuming environment variable names are case-insensitive on all platforms</li>
+<li>Using numeric index without checking for empty string to detect end</li>
+<li>Creating paths with double backslashes when concatenating</li>
+<li>Assuming all common variables exist on all systems</li>
+<li>Not handling missing required environment variables gracefully</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot be used to set environment variables (use Windows API)</li>
+<li>Environment changes don't persist beyond process lifetime</li>
+<li>Limited to current process's environment space</li>
+<li>Some variables may be protected or unavailable depending on permissions</li>
+<li>Variable availability differs between operating systems</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Environment</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

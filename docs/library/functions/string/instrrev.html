@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - instrrev - String">
+    <title>instrrev - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / instrrev</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="instrrev-function"><code>InStrRev</code> Function</h1>
+<p>Returns the position of an occurrence of one string within another, from the end of string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">InStrRev(stringcheck, stringmatch[, start[, compare]])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>stringcheck</code> (Required): <code>String</code> expression being searched</li>
+<li><code>stringmatch</code> (Required): <code>String</code> expression to search for</li>
+<li><code>start</code> (Optional): Numeric expression that sets the starting position for each search. If omitted, -1 is used, which means the search begins at the last character position. If start contains Null, an error occurs</li>
+<li><code>compare</code> (Optional): Numeric value indicating the kind of comparison to use when evaluating substrings. If omitted, a binary comparison is performed</li>
+</ul>
+<h3 id="compare-parameter-values">Compare Parameter Values</h3>
+<ul>
+<li><code>vbUseCompareOption</code> (-1): Performs a comparison using the setting of the <code>Option Compare</code> statement</li>
+<li><code>vbBinaryCompare</code> (0): Performs a binary comparison (case-sensitive)</li>
+<li><code>vbTextCompare</code> (1): Performs a textual comparison (case-insensitive)</li>
+<li><code>vbDatabaseCompare</code> (2): Microsoft Access only. Performs a comparison based on information in your database</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Long:
+- If stringcheck is zero-length: Returns 0
+- If stringcheck is <code>Null</code>: Returns <code>Null</code>
+- If stringmatch is zero-length: Returns start
+- If stringmatch is <code>Null</code>: Returns <code>Null</code>
+- If stringmatch is not found: Returns 0
+- If stringmatch is found within stringcheck: Returns position where match begins
+- If start is greater than length of stringcheck: Search begins at the last character position</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>InStrRev</code> function searches from the end of the string backward:</p>
+<ul>
+<li>Searches from right to left (reverse direction)</li>
+<li>Returns the character position of the LAST occurrence (1-based indexing)</li>
+<li>Default start position is -1 (end of string) if omitted</li>
+<li>Search is case-sensitive by default (<code>vbBinaryCompare</code>)</li>
+<li>Use <code>vbTextCompare</code> for case-insensitive searching</li>
+<li>Unlike <code>InStr</code>, start parameter comes after the strings being compared</li>
+<li>The returned position is still counted from the beginning (1-based), not from the end</li>
+<li>Useful for finding file extensions, last delimiters, etc.</li>
+<li>More efficient than repeated <code>InStr</code> calls for finding last occurrence</li>
+<li>The compare parameter affects performance (binary is faster than text)</li>
+<li>Returns 0 if substring not found (test with &gt; 0 for found)</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Find Last Occurrence</strong>: Locate the last instance of a substring</li>
+<li><strong>File Extensions</strong>: Extract file extension by finding last dot</li>
+<li><strong>Path Parsing</strong>: Find last path separator in file paths</li>
+<li><strong>File Names</strong>: Extract filename from full path</li>
+<li><strong>Domain Extraction</strong>: Find last dot in domain names</li>
+<li><strong>String Truncation</strong>: Find last delimiter for truncation</li>
+<li><strong>Reverse Parsing</strong>: Parse from end of string</li>
+<li><strong>Last Word Extraction</strong>: Find last space in sentences</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Find last occurrence
+Dim text As String
+Dim pos As Long
+text = &quot;apple,banana,apple,orange&quot;
+pos = InStrRev(text, &quot;apple&quot;)
+Debug.Print pos  &#x27; Prints: 14 (last apple)
+
+&#x27; Example 2: Get file extension
+Dim fileName As String
+Dim pos As Long
+Dim extension As String
+fileName = &quot;document.backup.txt&quot;
+pos = InStrRev(fileName, &quot;.&quot;)
+extension = Mid$(fileName, pos)
+Debug.Print extension  &#x27; Prints: .txt
+
+&#x27; Example 3: Extract filename from path
+Dim fullPath As String
+Dim pos As Long
+Dim fileName As String
+fullPath = &quot;C:\Projects\MyApp\MainForm.frm&quot;
+pos = InStrRev(fullPath, &quot;\&quot;)
+fileName = Mid$(fullPath, pos + 1)
+Debug.Print fileName  &#x27; Prints: MainForm.frm
+
+&#x27; Example 4: Search with start position
+Dim text As String
+Dim pos As Long
+text = &quot;one,two,three,four&quot;
+pos = InStrRev(text, &quot;,&quot;, 10)  &#x27; Search up to position 10
+Debug.Print pos  &#x27; Prints: 8 (comma after &quot;two&quot;)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Get file extension
+Function GetFileExtension(fileName As String) As String
+Dim pos As Long
+
+pos = InStrRev(fileName, &quot;.&quot;)
+If pos &gt; 0 Then
+GetFileExtension = Mid$(fileName, pos + 1)
+Else
+GetFileExtension = &quot;&quot;
+End If
+End Function
+
+&#x27; Pattern 2: Get filename from path
+Function GetFileNameFromPath(fullPath As String) As String
+Dim pos As Long
+
+pos = InStrRev(fullPath, &quot;\&quot;)
+If pos = 0 Then pos = InStrRev(fullPath, &quot;/&quot;)
+
+If pos &gt; 0 Then
+GetFileNameFromPath = Mid$(fullPath, pos + 1)
+Else
+GetFileNameFromPath = fullPath
+End If
+End Function
+
+&#x27; Pattern 3: Get directory from path
+Function GetDirectoryFromPath(fullPath As String) As String
+Dim pos As Long
+
+pos = InStrRev(fullPath, &quot;\&quot;)
+If pos = 0 Then pos = InStrRev(fullPath, &quot;/&quot;)
+
+If pos &gt; 0 Then
+GetDirectoryFromPath = Left$(fullPath, pos - 1)
+Else
+GetDirectoryFromPath = &quot;&quot;
+End If
+End Function
+
+&#x27; Pattern 4: Remove file extension
+Function RemoveFileExtension(fileName As String) As String
+Dim pos As Long
+
+pos = InStrRev(fileName, &quot;.&quot;)
+If pos &gt; 0 Then
+RemoveFileExtension = Left$(fileName, pos - 1)
+Else
+RemoveFileExtension = fileName
+End If
+End Function
+
+&#x27; Pattern 5: Get last word
+Function GetLastWord(text As String) As String
+Dim pos As Long
+
+text = Trim$(text)
+pos = InStrRev(text, &quot; &quot;)
+
+If pos &gt; 0 Then
+GetLastWord = Mid$(text, pos + 1)
+Else
+GetLastWord = text
+End If
+End Function
+
+&#x27; Pattern 6: Truncate at last delimiter
+Function TruncateAtLastDelimiter(text As String, delimiter As String) As String
+Dim pos As Long
+
+pos = InStrRev(text, delimiter)
+If pos &gt; 0 Then
+TruncateAtLastDelimiter = Left$(text, pos - 1)
+Else
+TruncateAtLastDelimiter = text
+End If
+End Function
+
+&#x27; Pattern 7: Get parent directory
+Function GetParentDirectory(path As String) As String
+Dim pos As Long
+
+&#x27; Remove trailing slash if present
+If Right$(path, 1) = &quot;\&quot; Then
+path = Left$(path, Len(path) - 1)
+End If
+
+pos = InStrRev(path, &quot;\&quot;)
+If pos &gt; 0 Then
+GetParentDirectory = Left$(path, pos - 1)
+Else
+GetParentDirectory = &quot;&quot;
+End If
+End Function
+
+&#x27; Pattern 8: Extract domain without subdomain
+Function GetRootDomain(url As String) As String
+Dim domain As String
+Dim pos As Long
+Dim dotPos As Long
+
+&#x27; Extract domain first (simplified)
+pos = InStr(url, &quot;://&quot;)
+If pos &gt; 0 Then
+domain = Mid$(url, pos + 3)
+Else
+domain = url
+End If
+
+&#x27; Remove path
+pos = InStr(domain, &quot;/&quot;)
+If pos &gt; 0 Then
+domain = Left$(domain, pos - 1)
+End If
+
+&#x27; Find last two parts (domain.tld)
+dotPos = InStrRev(domain, &quot;.&quot;)
+If dotPos &gt; 0 Then
+&#x27; Find second-to-last dot
+pos = InStrRev(domain, &quot;.&quot;, dotPos - 1)
+If pos &gt; 0 Then
+GetRootDomain = Mid$(domain, pos + 1)
+Else
+GetRootDomain = domain
+End If
+Else
+GetRootDomain = domain
+End If
+End Function
+
+&#x27; Pattern 9: Replace last occurrence
+Function ReplaceLastOccurrence(text As String, findText As String, replaceText As String) As String
+Dim pos As Long
+
+pos = InStrRev(text, findText)
+If pos &gt; 0 Then
+ReplaceLastOccurrence = Left$(text, pos - 1) &amp; replaceText &amp; _
+Mid$(text, pos + Len(findText))
+Else
+ReplaceLastOccurrence = text
+End If
+End Function
+
+&#x27; Pattern 10: Get text before last occurrence
+Function GetBeforeLastOccurrence(text As String, delimiter As String) As String
+Dim pos As Long
+
+pos = InStrRev(text, delimiter)
+If pos &gt; 0 Then
+GetBeforeLastOccurrence = Left$(text, pos - 1)
+Else
+GetBeforeLastOccurrence = text
+End If
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Path utilities class
+Public Class PathUtils
+Public Function GetFileName(fullPath As String) As String
+Dim pos As Long
+pos = InStrRev(fullPath, &quot;\&quot;)
+If pos = 0 Then pos = InStrRev(fullPath, &quot;/&quot;)
+
+If pos &gt; 0 Then
+GetFileName = Mid$(fullPath, pos + 1)
+Else
+GetFileName = fullPath
+End If
+End Function
+
+Public Function GetFileNameWithoutExtension(fullPath As String) As String
+Dim fileName As String
+Dim pos As Long
+
+fileName = GetFileName(fullPath)
+pos = InStrRev(fileName, &quot;.&quot;)
+
+If pos &gt; 0 Then
+GetFileNameWithoutExtension = Left$(fileName, pos - 1)
+Else
+GetFileNameWithoutExtension = fileName
+End If
+End Function
+
+Public Function GetExtension(fullPath As String) As String
+Dim pos As Long
+pos = InStrRev(fullPath, &quot;.&quot;)
+
+If pos &gt; 0 Then
+GetExtension = Mid$(fullPath, pos + 1)
+Else
+GetExtension = &quot;&quot;
+End If
+End Function
+
+Public Function GetDirectory(fullPath As String) As String
+Dim pos As Long
+pos = InStrRev(fullPath, &quot;\&quot;)
+If pos = 0 Then pos = InStrRev(fullPath, &quot;/&quot;)
+
+If pos &gt; 0 Then
+GetDirectory = Left$(fullPath, pos - 1)
+Else
+GetDirectory = &quot;&quot;
+End If
+End Function
+
+Public Function ChangeExtension(fullPath As String, newExtension As String) As String
+Dim pos As Long
+pos = InStrRev(fullPath, &quot;.&quot;)
+
+If pos &gt; 0 Then
+ChangeExtension = Left$(fullPath, pos - 1) &amp; &quot;.&quot; &amp; newExtension
+Else
+ChangeExtension = fullPath &amp; &quot;.&quot; &amp; newExtension
+End If
+End Function
+End Class
+
+&#x27; Example 2: URL parser
+Public Class URLParser
+Private m_url As String
+
+Public Sub Parse(url As String)
+m_url = url
+End Sub
+
+Public Function GetProtocol() As String
+Dim pos As Long
+pos = InStr(m_url, &quot;://&quot;)
+
+If pos &gt; 0 Then
+GetProtocol = Left$(m_url, pos - 1)
+Else
+GetProtocol = &quot;&quot;
+End If
+End Function
+
+Public Function GetDomain() As String
+Dim startPos As Long
+Dim endPos As Long
+
+startPos = InStr(m_url, &quot;://&quot;)
+If startPos &gt; 0 Then
+startPos = startPos + 3
+Else
+startPos = 1
+End If
+
+endPos = InStr(startPos, m_url, &quot;/&quot;)
+If endPos &gt; 0 Then
+GetDomain = Mid$(m_url, startPos, endPos - startPos)
+Else
+GetDomain = Mid$(m_url, startPos)
+End If
+End Function
+
+Public Function GetPath() As String
+Dim startPos As Long
+Dim endPos As Long
+
+startPos = InStr(m_url, &quot;://&quot;)
+If startPos &gt; 0 Then
+startPos = InStr(startPos + 3, m_url, &quot;/&quot;)
+Else
+startPos = InStr(m_url, &quot;/&quot;)
+End If
+
+If startPos &gt; 0 Then
+endPos = InStr(startPos, m_url, &quot;?&quot;)
+If endPos &gt; 0 Then
+GetPath = Mid$(m_url, startPos, endPos - startPos)
+Else
+GetPath = Mid$(m_url, startPos)
+End If
+Else
+GetPath = &quot;&quot;
+End If
+End Function
+
+Public Function GetLastPathSegment() As String
+Dim path As String
+Dim pos As Long
+
+path = GetPath()
+
+&#x27; Remove trailing slash
+If Right$(path, 1) = &quot;/&quot; Then
+path = Left$(path, Len(path) - 1)
+End If
+
+pos = InStrRev(path, &quot;/&quot;)
+If pos &gt; 0 Then
+GetLastPathSegment = Mid$(path, pos + 1)
+Else
+GetLastPathSegment = path
+End If
+End Function
+End Class
+
+&#x27; Example 3: String truncation utility
+Function TruncateWithEllipsis(text As String, maxLength As Long, _
+Optional breakAtWord As Boolean = True) As String
+If Len(text) &lt;= maxLength Then
+TruncateWithEllipsis = text
+Exit Function
+End If
+
+If breakAtWord Then
+Dim truncated As String
+Dim pos As Long
+
+truncated = Left$(text, maxLength - 3)
+pos = InStrRev(truncated, &quot; &quot;)
+
+If pos &gt; 0 Then
+TruncateWithEllipsis = Left$(truncated, pos - 1) &amp; &quot;...&quot;
+Else
+TruncateWithEllipsis = truncated &amp; &quot;...&quot;
+End If
+Else
+TruncateWithEllipsis = Left$(text, maxLength - 3) &amp; &quot;...&quot;
+End If
+End Function
+
+&#x27; Example 4: Email domain extractor
+Function GetEmailDomain(email As String) As String
+Dim atPos As Long
+
+atPos = InStrRev(email, &quot;@&quot;)
+If atPos &gt; 0 And atPos &lt; Len(email) Then
+GetEmailDomain = Mid$(email, atPos + 1)
+Else
+GetEmailDomain = &quot;&quot;
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>InStrRev</code> function can raise errors or return <code>Null</code>:</p>
+<ul>
+<li><strong>Type Mismatch (Error 13)</strong>: If arguments are not string-compatible or numeric where expected</li>
+<li><strong>Invalid use of Null (Error 94)</strong>: If <code>stringcheck</code> or <code>stringmatch</code> is <code>Null</code> and result is assigned to non-Variant</li>
+<li><strong>Invalid procedure call (Error 5)</strong>: If start is 0 or negative (except -1)</li>
+</ul>
+<pre><code class="language-vbnet">On Error GoTo ErrorHandler
+Dim pos As Long
+Dim fileName As String
+
+fileName = &quot;document.txt&quot;
+pos = InStrRev(fileName, &quot;.&quot;)
+
+If pos &gt; 0 Then
+Debug.Print &quot;Extension: &quot; &amp; Mid$(fileName, pos + 1)
+Else
+Debug.Print &quot;No extension found&quot;
+End If
+Exit Sub
+
+ErrorHandler:
+MsgBox &quot;Error in InStrRev: &quot; &amp; Err.Description, vbCritical</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Binary vs Text Compare</strong>: Binary comparison (vbBinaryCompare) is faster than text comparison</li>
+<li><strong>String Length</strong>: Performance degrades with very long strings</li>
+<li><strong>Start Position</strong>: Using specific start position can improve performance for partial searches</li>
+<li><strong>Reverse Search</strong>: More efficient than repeated <code>InStr</code> calls to find last occurrence</li>
+<li><strong>Alternative</strong>: For complex pattern matching, consider regular expressions (VBScript.RegExp)</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Test for Found</strong>: Always check if result &gt; 0 before using position</li>
+<li><strong>Default Start</strong>: Use -1 or omit start parameter to search from end</li>
+<li><strong>Path Operations</strong>: Prefer <code>InStrRev</code> for file path operations (finding last separator)</li>
+<li><strong>Extension Extraction</strong>: <code>InStrRev</code> is ideal for getting file extensions</li>
+<li><strong>Null Handling</strong>: Use <code>Variant</code> for result if strings might be <code>Null</code></li>
+<li><strong>Parameter Order</strong>: Remember <code>InStrRev</code> has different parameter order than <code>InStr</code></li>
+<li><strong>Return Value</strong>: Position is still counted from beginning (not from end)</li>
+</ol>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Search Direction</th>
+<th>Start Parameter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InStr</code></td>
+<td>Find substring</td>
+<td>Left to right</td>
+<td>Optional, before strings</td>
+</tr>
+<tr>
+<td><code>InStrRev</code></td>
+<td>Find substring</td>
+<td>Right to left</td>
+<td>Optional, after strings</td>
+</tr>
+<tr>
+<td><code>Like</code></td>
+<td>Pattern matching</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>StrComp</code></td>
+<td>Compare strings</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and VBA (not in earlier VB versions)</li>
+<li>Returns <code>Long</code> (32-bit integer), not <code>Integer</code></li>
+<li>1-based indexing (first character is position 1)</li>
+<li>Position returned is from the start of string, not from the end</li>
+<li>Default start is -1 (search from end)</li>
+<li>Parameter order differs from <code>InStr</code> (strings first, then start)</li>
+<li>Maximum string length is approximately 2GB</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Finds only one occurrence (the last one)</li>
+<li>No built-in regex or wildcard support</li>
+<li>Case-insensitive search (<code>vbTextCompare</code>) is slower</li>
+<li>Different parameter order than <code>InStr</code> can cause confusion</li>
+<li>Cannot search for multiple substrings in single call</li>
+<li>Performance can degrade with very long strings</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>InStr</code>: Search from beginning of string</li>
+<li><code>Mid</code>, <code>Left</code>, <code>Right</code>: Extract substrings</li>
+<li><code>Replace</code>: Find and replace text</li>
+<li><code>Split</code>: Split string into array</li>
+<li><code>StrReverse</code>: Reverse a string</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

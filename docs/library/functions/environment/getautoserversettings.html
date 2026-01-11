@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - getautoserversettings - Environment">
+    <title>getautoserversettings - Environment - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/environment/index.html">Environment</a> / getautoserversettings</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p><code>GetAutoServerSettings</code> Function</p>
+<p>Returns information about the security settings for a <code>DCOM</code> (<code>Distributed Component Object Model</code>) server.</p>
+<h1 id="syntax">Syntax</h1>
+<pre><code class="language-vbnet">GetAutoServerSettings(progid, clsid, machine)</code></pre>
+<h1 id="parameters">Parameters</h1>
+<ul>
+<li><code>progid</code> - Required. String expression that specifies the programmatic identifier (<code>ProgID</code>) of the server.</li>
+<li><code>clsid</code> - Required. String expression that specifies the class identifier (<code>CLSID</code>) of the server.</li>
+<li><code>machine</code> - Required. String expression that specifies the name of the machine where the server is located.</li>
+</ul>
+<h1 id="return-value">Return Value</h1>
+<p>Returns a <code>Long</code> value containing security settings information for the specified <code>DCOM</code> server.</p>
+<h1 id="remarks">Remarks</h1>
+<ul>
+<li>This function is specific to <code>DCOM</code> (<code>Distributed Component Object Model</code>) automation servers.</li>
+<li>Used primarily in distributed computing scenarios.</li>
+<li>Returns security configuration information from the Windows registry.</li>
+<li>The function is part of VB6's <code>DCOM</code> support infrastructure.</li>
+<li>Typically used in enterprise applications with distributed components.</li>
+<li>Requires appropriate <code>DCOM</code> permissions on the target machine.</li>
+<li>The progid and clsid must correspond to a registered <code>COM</code>/<code>DCOM</code> server.</li>
+<li>Machine name can be a <code>NetBIOS</code> name, <code>DNS</code> name, or <code>IP</code> address.</li>
+<li>Returns 0 if the server settings cannot be retrieved.</li>
+</ul>
+<h1 id="typical-uses">Typical Uses</h1>
+<ul>
+<li>Querying DCOM server security configurations</li>
+<li>Validating remote server accessibility</li>
+<li>Auditing distributed component settings</li>
+<li>Troubleshooting DCOM connection issues</li>
+<li>Enterprise application deployment verification</li>
+<li>Remote component diagnostics</li>
+</ul>
+<h1 id="basic-usage-examples">Basic Usage Examples</h1>
+<pre><code class="language-vbnet">&#x27; Check DCOM server settings
+Dim settings As Long
+settings = GetAutoServerSettings(&quot;MyServer.Application&quot;, _
+&quot;{12345678-1234-1234-1234-123456789012}&quot;, _
+&quot;SERVER01&quot;)
+
+If settings &lt;&gt; 0 Then
+Debug.Print &quot;Server settings retrieved: &quot; &amp; settings
+Else
+Debug.Print &quot;Unable to retrieve server settings&quot;
+End If
+
+&#x27; Verify remote component availability
+Dim result As Long
+result = GetAutoServerSettings(&quot;Excel.Application&quot;, _
+&quot;{00024500-0000-0000-C000-000000000046}&quot;, _
+&quot;REMOTE-PC&quot;)
+
+If result &lt;&gt; 0 Then
+MsgBox &quot;Remote Excel server is configured&quot;
+End If
+
+&#x27; Query local server settings
+Dim localSettings As Long
+localSettings = GetAutoServerSettings(&quot;MyApp.Server&quot;, _
+&quot;{ABCDEF01-2345-6789-ABCD-EF0123456789}&quot;, _
+&quot;.&quot;)</code></pre>
+<h1 id="common-patterns">Common Patterns</h1>
+<h2 id="1-dcom-server-validation">1. DCOM Server Validation</h2>
+<pre><code class="language-vbnet">Function ValidateDCOMServer(progID As String, _
+clsID As String, _
+serverName As String) As Boolean
+Dim settings As Long
+
+On Error GoTo ErrorHandler
+
+settings = GetAutoServerSettings(progID, clsID, serverName)
+
+If settings &lt;&gt; 0 Then
+Debug.Print &quot;DCOM server validated on &quot; &amp; serverName
+ValidateDCOMServer = True
+Else
+Debug.Print &quot;DCOM server not accessible on &quot; &amp; serverName
+ValidateDCOMServer = False
+End If
+
+Exit Function
+
+ErrorHandler:
+Debug.Print &quot;Error validating DCOM server: &quot; &amp; Err.Description
+ValidateDCOMServer = False
+End Function</code></pre>
+<h2 id="2-multi-server-configuration-check">2. Multi-Server Configuration Check</h2>
+<pre><code class="language-vbnet">Sub CheckServersConfiguration()
+Dim servers() As String
+Dim i As Long
+Dim settings As Long
+
+servers = Array(&quot;SERVER01&quot;, &quot;SERVER02&quot;, &quot;SERVER03&quot;)
+
+For i = LBound(servers) To UBound(servers)
+settings = GetAutoServerSettings(&quot;MyApp.DataServer&quot;, _
+&quot;{11111111-2222-3333-4444-555555555555}&quot;, _
+servers(i))
+
+If settings &lt;&gt; 0 Then
+Debug.Print servers(i) &amp; &quot; - Configured: &quot; &amp; settings
+Else
+Debug.Print servers(i) &amp; &quot; - Not configured&quot;
+End If
+Next i
+End Sub</code></pre>
+<h2 id="3-server-discovery-and-verification">3. Server Discovery and Verification</h2>
+<pre><code class="language-vbnet">Function FindAvailableServer(progID As String, _
+clsID As String, _
+servers As Collection) As String
+Dim server As Variant
+Dim settings As Long
+
+For Each server In servers
+On Error Resume Next
+settings = GetAutoServerSettings(progID, clsID, CStr(server))
+On Error GoTo 0
+
+If settings &lt;&gt; 0 Then
+FindAvailableServer = CStr(server)
+Exit Function
+End If
+Next server
+
+FindAvailableServer = &quot;&quot;
+End Function
+
+&#x27; Usage
+Dim servers As New Collection
+servers.Add &quot;PRIMARY-SERVER&quot;
+servers.Add &quot;BACKUP-SERVER&quot;
+servers.Add &quot;FAILOVER-SERVER&quot;
+
+Dim activeServer As String
+activeServer = FindAvailableServer(&quot;MyApp.Service&quot;, _
+&quot;{FEDCBA98-7654-3210-FEDC-BA9876543210}&quot;, _
+servers)
+
+If activeServer &lt;&gt; &quot;&quot; Then
+Debug.Print &quot;Using server: &quot; &amp; activeServer
+End If</code></pre>
+<h2 id="4-settings-comparison-across-servers">4. Settings Comparison Across Servers</h2>
+<pre><code class="language-vbnet">Sub CompareServerSettings(progID As String, _
+clsID As String, _
+server1 As String, _
+server2 As String)
+Dim settings1 As Long
+Dim settings2 As Long
+
+settings1 = GetAutoServerSettings(progID, clsID, server1)
+settings2 = GetAutoServerSettings(progID, clsID, server2)
+
+Debug.Print &quot;Server: &quot; &amp; server1 &amp; &quot; - Settings: &quot; &amp; settings1
+Debug.Print &quot;Server: &quot; &amp; server2 &amp; &quot; - Settings: &quot; &amp; settings2
+
+If settings1 = settings2 Then
+Debug.Print &quot;Servers have identical settings&quot;
+Else
+Debug.Print &quot;Warning: Server settings differ&quot;
+End If
+End Sub</code></pre>
+<h2 id="5-dynamic-server-connection">5. Dynamic Server Connection</h2>
+<pre><code class="language-vbnet">Function ConnectToServer(progID As String, _
+clsID As String, _
+preferredServer As String, _
+fallbackServer As String) As Object
+Dim settings As Long
+Dim targetServer As String
+
+&#x27; Try preferred server first
+settings = GetAutoServerSettings(progID, clsID, preferredServer)
+
+If settings &lt;&gt; 0 Then
+targetServer = preferredServer
+Else
+&#x27; Fall back to alternate server
+settings = GetAutoServerSettings(progID, clsID, fallbackServer)
+
+If settings &lt;&gt; 0 Then
+targetServer = fallbackServer
+Else
+Err.Raise vbObjectError + 1000, , &quot;No available servers&quot;
+End If
+End If
+
+Debug.Print &quot;Connecting to: &quot; &amp; targetServer
+Set ConnectToServer = CreateObject(progID, targetServer)
+End Function</code></pre>
+<h2 id="6-server-health-monitoring">6. Server Health Monitoring</h2>
+<pre><code class="language-vbnet">Type ServerStatus
+ServerName As String
+Settings As Long
+LastChecked As Date
+IsAvailable As Boolean
+End Type
+
+Function CheckServerHealth(progID As String, _
+clsID As String, _
+serverName As String) As ServerStatus
+Dim status As ServerStatus
+
+status.ServerName = serverName
+status.LastChecked = Now
+
+On Error Resume Next
+status.Settings = GetAutoServerSettings(progID, clsID, serverName)
+On Error GoTo 0
+
+status.IsAvailable = (status.Settings &lt;&gt; 0)
+
+CheckServerHealth = status
+End Function
+
+Sub MonitorServers()
+Dim servers() As String
+Dim i As Long
+Dim status As ServerStatus
+
+servers = Array(&quot;SERVER-A&quot;, &quot;SERVER-B&quot;, &quot;SERVER-C&quot;)
+
+For i = LBound(servers) To UBound(servers)
+status = CheckServerHealth(&quot;MyApp.Service&quot;, _
+&quot;{12345678-ABCD-EFGH-IJKL-123456789ABC}&quot;, _
+servers(i))
+
+Debug.Print status.ServerName &amp; &quot;: &quot; &amp; _
+IIf(status.IsAvailable, &quot;Online&quot;, &quot;Offline&quot;) &amp; _
+&quot; (&quot; &amp; status.Settings &amp; &quot;)&quot;
+Next i
+End Sub</code></pre>
+<h2 id="7-configuration-auditing">7. Configuration Auditing</h2>
+<pre><code class="language-vbnet">Sub AuditDCOMConfiguration(progID As String, clsID As String)
+Dim servers() As String
+Dim i As Long
+Dim settings As Long
+Dim fileNum As Integer
+
+servers = Array(&quot;PROD-01&quot;, &quot;PROD-02&quot;, &quot;TEST-01&quot;, &quot;DEV-01&quot;)
+
+fileNum = FreeFile
+Open &quot;C:\Audit\DCOM_Audit.txt&quot; For Output As #fileNum
+
+Print #fileNum, &quot;DCOM Configuration Audit Report&quot;
+Print #fileNum, &quot;Date: &quot; &amp; Now
+Print #fileNum, &quot;ProgID: &quot; &amp; progID
+Print #fileNum, &quot;CLSID: &quot; &amp; clsID
+Print #fileNum, String(50, &quot;=&quot;)
+
+For i = LBound(servers) To UBound(servers)
+settings = GetAutoServerSettings(progID, clsID, servers(i))
+
+Print #fileNum, &quot;Server: &quot; &amp; servers(i)
+Print #fileNum, &quot;  Settings Value: &quot; &amp; settings
+Print #fileNum, &quot;  Status: &quot; &amp; IIf(settings &lt;&gt; 0, &quot;Available&quot;, &quot;Unavailable&quot;)
+Print #fileNum, &quot;&quot;
+Next i
+
+Close #fileNum
+Debug.Print &quot;Audit complete&quot;
+End Sub</code></pre>
+<h2 id="8-load-balancing-server-selection">8. Load Balancing Server Selection</h2>
+<pre><code class="language-vbnet">Function SelectLeastLoadedServer(progID As String, _
+clsID As String, _
+servers As Collection) As String
+Dim server As Variant
+Dim settings As Long
+Dim minSettings As Long
+Dim selectedServer As String
+
+minSettings = 2147483647  &#x27; Max Long value
+
+For Each server In servers
+On Error Resume Next
+settings = GetAutoServerSettings(progID, clsID, CStr(server))
+On Error GoTo 0
+
+If settings &lt;&gt; 0 And settings &lt; minSettings Then
+minSettings = settings
+selectedServer = CStr(server)
+End If
+Next server
+
+SelectLeastLoadedServer = selectedServer
+End Function</code></pre>
+<h2 id="9-deployment-verification">9. Deployment Verification</h2>
+<pre><code class="language-vbnet">Function VerifyDeployment(progID As String, _
+clsID As String, _
+targetServers As Variant) As Boolean
+Dim i As Long
+Dim settings As Long
+Dim allConfigured As Boolean
+
+allConfigured = True
+
+For i = LBound(targetServers) To UBound(targetServers)
+settings = GetAutoServerSettings(progID, clsID, targetServers(i))
+
+If settings = 0 Then
+Debug.Print &quot;Deployment failed on: &quot; &amp; targetServers(i)
+allConfigured = False
+Else
+Debug.Print &quot;Deployment verified on: &quot; &amp; targetServers(i)
+End If
+Next i
+
+VerifyDeployment = allConfigured
+End Function
+
+&#x27; Usage in deployment script
+Sub DeploymentCheck()
+Dim productionServers As Variant
+
+productionServers = Array(&quot;WEB-01&quot;, &quot;WEB-02&quot;, &quot;APP-01&quot;, &quot;APP-02&quot;)
+
+If VerifyDeployment(&quot;MyApp.BusinessLogic&quot;, _
+&quot;{AAAABBBB-CCCC-DDDD-EEEE-FFFF00001111}&quot;, _
+productionServers) Then
+MsgBox &quot;Deployment successful on all servers&quot;
+Else
+MsgBox &quot;Deployment incomplete - check logs&quot;
+End If
+End Sub</code></pre>
+<h2 id="10-regional-server-discovery">10. Regional Server Discovery</h2>
+<pre><code class="language-vbnet">Type RegionalServer
+Region As String
+ServerName As String
+Settings As Long
+End Type
+
+Function GetRegionalServer(progID As String, _
+clsID As String, _
+region As String) As String
+Dim regionalServers(1 To 3) As RegionalServer
+Dim i As Long
+
+&#x27; Define regional servers
+regionalServers(1).Region = &quot;US-EAST&quot;
+regionalServers(1).ServerName = &quot;US-EAST-SVR01&quot;
+
+regionalServers(2).Region = &quot;US-WEST&quot;
+regionalServers(2).ServerName = &quot;US-WEST-SVR01&quot;
+
+regionalServers(3).Region = &quot;EUROPE&quot;
+regionalServers(3).ServerName = &quot;EU-SVR01&quot;
+
+&#x27; Check settings for each regional server
+For i = 1 To 3
+regionalServers(i).Settings = GetAutoServerSettings(progID, _
+clsID, _
+regionalServers(i).ServerName)
+Next i
+
+&#x27; Find matching region
+For i = 1 To 3
+If regionalServers(i).Region = region And regionalServers(i).Settings &lt;&gt; 0 Then
+GetRegionalServer = regionalServers(i).ServerName
+Exit Function
+End If
+Next i
+
+GetRegionalServer = &quot;&quot;
+End Function</code></pre>
+<h1 id="advanced-usage">Advanced Usage</h1>
+<h2 id="1-dcom-server-manager-class">1. DCOM Server Manager Class</h2>
+<pre><code class="language-vbnet">&#x27; Class: DCOMServerManager
+Private m_ProgID As String
+Private m_CLSID As String
+Private m_Servers As Collection
+Private m_CurrentServer As String
+
+Public Sub Initialize(progID As String, clsID As String)
+m_ProgID = progID
+m_CLSID = clsID
+Set m_Servers = New Collection
+End Sub
+
+Public Sub AddServer(serverName As String)
+m_Servers.Add serverName
+End Sub
+
+Public Function FindActiveServer() As String
+Dim server As Variant
+Dim settings As Long
+
+For Each server In m_Servers
+On Error Resume Next
+settings = GetAutoServerSettings(m_ProgID, m_CLSID, CStr(server))
+On Error GoTo 0
+
+If settings &lt;&gt; 0 Then
+m_CurrentServer = CStr(server)
+FindActiveServer = m_CurrentServer
+Exit Function
+End If
+Next server
+
+FindActiveServer = &quot;&quot;
+End Function
+
+Public Function GetServerSettings(serverName As String) As Long
+GetServerSettings = GetAutoServerSettings(m_ProgID, m_CLSID, serverName)
+End Function
+
+Public Function ValidateAllServers() As Collection
+Dim results As New Collection
+Dim server As Variant
+Dim settings As Long
+Dim result As String
+
+For Each server In m_Servers
+settings = GetAutoServerSettings(m_ProgID, m_CLSID, CStr(server))
+result = CStr(server) &amp; &quot;:&quot; &amp; CStr(settings)
+results.Add result
+Next server
+
+Set ValidateAllServers = results
+End Function</code></pre>
+<h2 id="2-failover-connection-handler">2. Failover Connection Handler</h2>
+<pre><code class="language-vbnet">Type FailoverConfig
+PrimaryServer As String
+SecondaryServer As String
+TertiaryServer As String
+RetryCount As Integer
+RetryDelay As Long
+End Type
+
+Function ConnectWithFailover(progID As String, _
+clsID As String, _
+config As FailoverConfig) As Object
+Dim servers(1 To 3) As String
+Dim i As Integer
+Dim attempt As Integer
+Dim settings As Long
+
+servers(1) = config.PrimaryServer
+servers(2) = config.SecondaryServer
+servers(3) = config.TertiaryServer
+
+For i = 1 To 3
+For attempt = 1 To config.RetryCount
+On Error Resume Next
+settings = GetAutoServerSettings(progID, clsID, servers(i))
+On Error GoTo 0
+
+If settings &lt;&gt; 0 Then
+Debug.Print &quot;Connected to: &quot; &amp; servers(i)
+Set ConnectWithFailover = CreateObject(progID, servers(i))
+Exit Function
+End If
+
+If attempt &lt; config.RetryCount Then
+Sleep config.RetryDelay
+End If
+Next attempt
+Next i
+
+Err.Raise vbObjectError + 1001, , &quot;All servers unavailable&quot;
+End Function</code></pre>
+<h2 id="3-configuration-cache-manager">3. Configuration Cache Manager</h2>
+<pre><code class="language-vbnet">Type CachedServerInfo
+ServerName As String
+Settings As Long
+CacheTime As Date
+TTL As Long  &#x27; Time to live in seconds
+End Type
+
+Private m_Cache As Collection
+
+Sub InitializeCache()
+Set m_Cache = New Collection
+End Sub
+
+Function GetCachedServerSettings(progID As String, _
+clsID As String, _
+serverName As String, _
+Optional cacheTTL As Long = 300) As Long
+Dim cacheKey As String
+Dim cached As CachedServerInfo
+Dim i As Long
+Dim found As Boolean
+
+cacheKey = serverName
+
+&#x27; Check cache
+For i = 1 To m_Cache.Count
+cached = m_Cache(i)
+If cached.ServerName = cacheKey Then
+If DateDiff(&quot;s&quot;, cached.CacheTime, Now) &lt; cached.TTL Then
+GetCachedServerSettings = cached.Settings
+Exit Function
+Else
+m_Cache.Remove i
+Exit For
+End If
+End If
+Next i
+
+&#x27; Not in cache or expired, fetch fresh
+cached.ServerName = serverName
+cached.Settings = GetAutoServerSettings(progID, clsID, serverName)
+cached.CacheTime = Now
+cached.TTL = cacheTTL
+
+m_Cache.Add cached
+GetCachedServerSettings = cached.Settings
+End Function</code></pre>
+<h2 id="4-server-pool-manager">4. Server Pool Manager</h2>
+<pre><code class="language-vbnet">Type ServerPool
+PoolName As String
+Servers() As String
+ProgID As String
+CLSID As String
+End Type
+
+Function GetHealthyServersFromPool(pool As ServerPool) As Collection
+Dim healthyServers As New Collection
+Dim i As Long
+Dim settings As Long
+
+For i = LBound(pool.Servers) To UBound(pool.Servers)
+On Error Resume Next
+settings = GetAutoServerSettings(pool.ProgID, pool.CLSID, pool.Servers(i))
+On Error GoTo 0
+
+If settings &lt;&gt; 0 Then
+healthyServers.Add pool.Servers(i)
+End If
+Next i
+
+Set GetHealthyServersFromPool = healthyServers
+End Function
+
+Function GetPoolStatistics(pool As ServerPool) As String
+Dim total As Long
+Dim healthy As Long
+Dim i As Long
+Dim settings As Long
+
+total = UBound(pool.Servers) - LBound(pool.Servers) + 1
+healthy = 0
+
+For i = LBound(pool.Servers) To UBound(pool.Servers)
+settings = GetAutoServerSettings(pool.ProgID, pool.CLSID, pool.Servers(i))
+If settings &lt;&gt; 0 Then healthy = healthy + 1
+Next i
+
+GetPoolStatistics = pool.PoolName &amp; &quot;: &quot; &amp; healthy &amp; &quot;/&quot; &amp; total &amp; &quot; servers available&quot;
+End Function</code></pre>
+<h1 id="error-handling">Error Handling</h1>
+<pre><code class="language-vbnet">Function SafeGetAutoServerSettings(progID As String, _
+clsID As String, _
+serverName As String) As Long
+On Error GoTo ErrorHandler
+
+SafeGetAutoServerSettings = GetAutoServerSettings(progID, clsID, serverName)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 429  &#x27; ActiveX component can&#x27;t create object
+Debug.Print &quot;Server not available: &quot; &amp; serverName
+Case 462  &#x27; Remote server machine does not exist
+Debug.Print &quot;Machine not found: &quot; &amp; serverName
+Case 70   &#x27; Permission denied
+Debug.Print &quot;Access denied to server: &quot; &amp; serverName
+Case Else
+Debug.Print &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+End Select
+
+SafeGetAutoServerSettings = 0
+End Function</code></pre>
+<p>Common errors:
+- <strong>Error 429</strong>: <code>ActiveX</code> component can't create object - server not registered or accessible.
+- <strong>Error 462</strong>: Remote server machine does not exist or is unavailable.
+- <strong>Error 70</strong>: Permission denied - insufficient <code>DCOM</code> permissions.
+- <strong>Error 5</strong>: Invalid procedure call - invalid <code>ProgID</code> or <code>CLSID</code> format.</p>
+<h1 id="performance-considerations">Performance Considerations</h1>
+<ul>
+<li>Network latency affects remote server queries</li>
+<li>Consider caching results for frequently checked servers</li>
+<li>Use timeouts for unresponsive servers</li>
+<li>Parallel checks may improve performance for multiple servers</li>
+<li>DCOM configuration on both client and server affects response time</li>
+<li>Firewall settings can cause delays or failures</li>
+</ul>
+<h1 id="best-practices">Best Practices</h1>
+<ol>
+<li><strong>Always use error handling</strong> - network and <code>DCOM</code> issues are common</li>
+<li><strong>Validate <code>ProgID</code> and <code>CLSID</code> format</strong> before calling</li>
+<li><strong>Use descriptive server names</strong> for better diagnostics</li>
+<li><strong>Implement retry logic</strong> for transient failures</li>
+<li><strong>Cache results</strong> to reduce network overhead</li>
+<li><strong>Log all queries</strong> for auditing and troubleshooting</li>
+<li><strong>Test connectivity</strong> before production deployment</li>
+<li><strong>Configure <code>DCOM</code> security</strong> appropriately on all servers</li>
+</ol>
+<h1 id="comparison-with-other-functions">Comparison with Other Functions</h1>
+<h2 id="getautoserversettings-vs-createobject"><code>GetAutoServerSettings</code> vs <code>CreateObject</code></h2>
+<pre><code class="language-vbnet">&#x27; GetAutoServerSettings - Query server settings
+settings = GetAutoServerSettings(progID, clsID, serverName)
+
+&#x27; CreateObject - Actually create server instance
+Set obj = CreateObject(progID, serverName)</code></pre>
+<h2 id="getautoserversettings-vs-getobject"><code>GetAutoServerSettings</code> vs <code>GetObject</code></h2>
+<pre><code class="language-vbnet">&#x27; GetAutoServerSettings - Check DCOM configuration
+settings = GetAutoServerSettings(progID, clsID, serverName)
+
+&#x27; GetObject - Connect to existing instance
+Set obj = GetObject(, progID)</code></pre>
+<h1 id="limitations">Limitations</h1>
+<ul>
+<li>Windows-specific functionality (DCOM is Windows-only)</li>
+<li>Requires DCOM to be enabled and properly configured</li>
+<li>Network connectivity required for remote servers</li>
+<li>Security settings may block access</li>
+<li>Return value interpretation is not well documented</li>
+<li>Limited to COM/DCOM servers</li>
+<li>May not work with modern .NET components</li>
+<li>Deprecated in favor of newer technologies (WCF, REST APIs)</li>
+</ul>
+<h1 id="dcom-configuration">DCOM Configuration</h1>
+<p>For this function to work properly:</p>
+<ol>
+<li><strong>Component Services</strong> (dcomcnfg) must be configured</li>
+<li><strong>DCOM permissions</strong> must allow remote access</li>
+<li><strong>Firewall rules</strong> must permit DCOM traffic</li>
+<li><strong>Authentication level</strong> must be set appropriately</li>
+<li><strong>Launch and activation permissions</strong> must be granted</li>
+</ol>
+<h1 id="related-functions">Related Functions</h1>
+<ul>
+<li><code>CreateObject</code> - Creates an instance of a <code>COM</code> object</li>
+<li><code>GetObject</code> - Returns a reference to an <code>ActiveX</code> object</li>
+<li><code>CallByName</code> - Executes methods on objects dynamically</li>
+<li><code>TypeName</code> - Returns type information about an object</li>
+<li><code>GetSetting</code> - Retrieves application settings from registry</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Environment</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

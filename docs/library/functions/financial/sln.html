@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - sln - Financial">
+    <title>sln - Financial - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/financial/index.html">Financial</a> / sln</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="sln-function">SLN Function</h1>
+<p>Returns a Double specifying the straight-line depreciation of an asset for a single period.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">SLN(cost, salvage, life)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>cost</code> - Required. Double specifying initial cost of the asset.</li>
+<li><code>salvage</code> - Required. Double specifying value of the asset at the end of its useful life.</li>
+<li><code>life</code> - Required. Double specifying length of the useful life of the asset.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Double representing the depreciation of an asset for a single period using the straight-line method.</p>
+<p>The formula is:</p>
+<pre><code class="language-text">SLN = (cost - salvage) / life</code></pre>
+<h2 id="remarks">Remarks</h2>
+<p>The SLN function calculates straight-line depreciation, which is the simplest and most commonly used depreciation method. It assumes that the asset depreciates by the same amount each period over its useful life.</p>
+<p>Key characteristics:
+- Depreciation is constant for each period
+- Total depreciation = cost - salvage value
+- Each period's depreciation = (cost - salvage) / life
+- All three arguments must be positive
+- Life represents the number of periods (years, months, etc.)
+- Units must be consistent (if life is in years, result is yearly depreciation)</p>
+<p>Straight-line depreciation is used when:
+- Asset provides uniform benefit over its life
+- Simple, easy-to-understand method is preferred
+- Tax regulations require or allow straight-line method
+- Asset doesn't become obsolete quickly
+- Usage is relatively constant over time</p>
+<p>The straight-line method is one of several depreciation methods:
+- <strong>SLN</strong>: Straight-line (this function) - constant depreciation
+- <strong>DDB</strong>: Double-declining balance - accelerated depreciation
+- <strong>SYD</strong>: Sum-of-years digits - accelerated depreciation</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Asset Depreciation</strong>: Calculate annual depreciation expense</li>
+<li><strong>Financial Planning</strong>: Project future asset values</li>
+<li><strong>Tax Calculations</strong>: Determine tax deductions</li>
+<li><strong>Budgeting</strong>: Estimate replacement costs</li>
+<li><strong>Accounting</strong>: Prepare financial statements</li>
+<li><strong>Asset Management</strong>: Track asset value over time</li>
+<li><strong>Cost Analysis</strong>: Calculate total ownership cost</li>
+<li><strong>Investment Analysis</strong>: Evaluate asset investments</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Calculate yearly depreciation for equipment
+Dim equipmentCost As Double
+Dim salvageValue As Double
+Dim usefulLife As Double
+Dim yearlyDepreciation As Double
+
+equipmentCost = 50000      &#x27; $50,000 initial cost
+salvageValue = 5000        &#x27; $5,000 salvage value
+usefulLife = 5             &#x27; 5 years useful life
+
+yearlyDepreciation = SLN(equipmentCost, salvageValue, usefulLife)
+&#x27; Returns 9000 ($9,000 per year)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Calculate monthly depreciation
+Dim cost As Double
+Dim salvage As Double
+Dim months As Double
+Dim monthlyDepreciation As Double
+
+cost = 24000
+salvage = 2000
+months = 36  &#x27; 3 years = 36 months
+
+monthlyDepreciation = SLN(cost, salvage, months)
+&#x27; Returns 611.11 (approximately)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Calculate book value after n periods
+Dim initialCost As Double
+Dim salvage As Double
+Dim life As Double
+Dim periods As Integer
+Dim annualDepreciation As Double
+Dim bookValue As Double
+
+initialCost = 100000
+salvage = 10000
+life = 10
+periods = 3  &#x27; After 3 years
+
+annualDepreciation = SLN(initialCost, salvage, life)
+bookValue = initialCost - (annualDepreciation * periods)
+&#x27; bookValue = 73000</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Display depreciation schedule
+Dim cost As Double
+Dim salvage As Double
+Dim life As Integer
+Dim depreciation As Double
+Dim i As Integer
+
+cost = 30000
+salvage = 3000
+life = 5
+depreciation = SLN(cost, salvage, life)
+
+For i = 1 To life
+Debug.Print &quot;Year &quot; &amp; i &amp; &quot;: $&quot; &amp; depreciation
+Next i</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-calculatebookvalue">Pattern 1: <code>CalculateBookValue</code></h3>
+<p>Calculate asset book value after specified periods</p>
+<pre><code class="language-vbnet">Function CalculateBookValue(cost As Double, salvage As Double, _
+life As Double, periodsElapsed As Integer) As Double
+Dim annualDepreciation As Double
+Dim totalDepreciation As Double
+
+annualDepreciation = SLN(cost, salvage, life)
+totalDepreciation = annualDepreciation * periodsElapsed
+
+&#x27; Ensure book value doesn&#x27;t go below salvage value
+If totalDepreciation &gt; (cost - salvage) Then
+CalculateBookValue = salvage
+Else
+CalculateBookValue = cost - totalDepreciation
+End If
+End Function</code></pre>
+<h3 id="pattern-2-generatedepreciationschedule">Pattern 2: <code>GenerateDepreciationSchedule</code></h3>
+<p>Create complete depreciation schedule</p>
+<pre><code class="language-vbnet">Sub GenerateDepreciationSchedule(cost As Double, salvage As Double, _
+life As Integer)
+Dim depreciation As Double
+Dim bookValue As Double
+Dim i As Integer
+
+depreciation = SLN(cost, salvage, life)
+bookValue = cost
+
+Debug.Print &quot;Year&quot; &amp; vbTab &amp; &quot;Depreciation&quot; &amp; vbTab &amp; &quot;Book Value&quot;
+Debug.Print &quot;0&quot; &amp; vbTab &amp; &quot;0&quot; &amp; vbTab &amp; bookValue
+
+For i = 1 To life
+bookValue = bookValue - depreciation
+Debug.Print i &amp; vbTab &amp; depreciation &amp; vbTab &amp; bookValue
+Next i
+End Sub</code></pre>
+<h3 id="pattern-3-comparedepreciationmethods">Pattern 3: <code>CompareDepreciationMethods</code></h3>
+<p>Compare straight-line with other methods</p>
+<pre><code class="language-vbnet">Sub CompareDepreciationMethods(cost As Double, salvage As Double, _
+life As Integer, year As Integer)
+Dim slnDepreciation As Double
+Dim ddbDepreciation As Double
+
+slnDepreciation = SLN(cost, salvage, life)
+ddbDepreciation = DDB(cost, salvage, life, year)
+
+Debug.Print &quot;Year &quot; &amp; year
+Debug.Print &quot;Straight-Line: $&quot; &amp; Format(slnDepreciation, &quot;#,##0.00&quot;)
+Debug.Print &quot;Double-Declining: $&quot; &amp; Format(ddbDepreciation, &quot;#,##0.00&quot;)
+End Sub</code></pre>
+<h3 id="pattern-4-calculatetotaldepreciation">Pattern 4: <code>CalculateTotalDepreciation</code></h3>
+<p>Calculate total depreciation over asset life</p>
+<pre><code class="language-vbnet">Function CalculateTotalDepreciation(cost As Double, salvage As Double) As Double
+CalculateTotalDepreciation = cost - salvage
+End Function</code></pre>
+<h3 id="pattern-5-validatedepreciationinputs">Pattern 5: <code>ValidateDepreciationInputs</code></h3>
+<p>Validate inputs before calculating depreciation</p>
+<pre><code class="language-vbnet">Function ValidateDepreciationInputs(cost As Double, salvage As Double, _
+life As Double) As Boolean
+ValidateDepreciationInputs = False
+
+If cost &lt;= 0 Then
+MsgBox &quot;Cost must be positive&quot;, vbExclamation
+Exit Function
+End If
+
+If salvage &lt; 0 Then
+MsgBox &quot;Salvage value cannot be negative&quot;, vbExclamation
+Exit Function
+End If
+
+If salvage &gt;= cost Then
+MsgBox &quot;Salvage value must be less than cost&quot;, vbExclamation
+Exit Function
+End If
+
+If life &lt;= 0 Then
+MsgBox &quot;Life must be positive&quot;, vbExclamation
+Exit Function
+End If
+
+ValidateDepreciationInputs = True
+End Function</code></pre>
+<h3 id="pattern-6-calculatemonthlydepreciation">Pattern 6: <code>CalculateMonthlyDepreciation</code></h3>
+<p>Convert annual to monthly depreciation</p>
+<pre><code class="language-vbnet">Function CalculateMonthlyDepreciation(cost As Double, salvage As Double, _
+yearsLife As Double) As Double
+Dim annualDepreciation As Double
+
+annualDepreciation = SLN(cost, salvage, yearsLife)
+CalculateMonthlyDepreciation = annualDepreciation / 12
+End Function</code></pre>
+<h3 id="pattern-7-calculatedepreciationrate">Pattern 7: <code>CalculateDepreciationRate</code></h3>
+<p>Calculate depreciation rate as percentage</p>
+<pre><code class="language-vbnet">Function CalculateDepreciationRate(cost As Double, salvage As Double, _
+life As Double) As Double
+Dim annualDepreciation As Double
+
+annualDepreciation = SLN(cost, salvage, life)
+CalculateDepreciationRate = (annualDepreciation / cost) * 100
+End Function</code></pre>
+<h3 id="pattern-8-calculatereplacementyear">Pattern 8: <code>CalculateReplacementYear</code></h3>
+<p>Determine when asset should be replaced</p>
+<pre><code class="language-vbnet">Function CalculateReplacementYear(cost As Double, salvage As Double, _
+life As Double, _
+minimumValue As Double) As Integer
+Dim depreciation As Double
+Dim bookValue As Double
+Dim year As Integer
+
+depreciation = SLN(cost, salvage, life)
+bookValue = cost
+
+For year = 1 To life
+bookValue = bookValue - depreciation
+If bookValue &lt;= minimumValue Then
+CalculateReplacementYear = year
+Exit Function
+End If
+Next year
+
+CalculateReplacementYear = life
+End Function</code></pre>
+<h3 id="pattern-9-calculateaccumulateddepreciation">Pattern 9: <code>CalculateAccumulatedDepreciation</code></h3>
+<p>Calculate accumulated depreciation at specific period</p>
+<pre><code class="language-vbnet">Function CalculateAccumulatedDepreciation(cost As Double, salvage As Double, _
+life As Double, _
+period As Integer) As Double
+Dim annualDepreciation As Double
+
+annualDepreciation = SLN(cost, salvage, life)
+
+If period &gt;= life Then
+CalculateAccumulatedDepreciation = cost - salvage
+Else
+CalculateAccumulatedDepreciation = annualDepreciation * period
+End If
+End Function</code></pre>
+<h3 id="pattern-10-formatdepreciationreport">Pattern 10: <code>FormatDepreciationReport</code></h3>
+<p>Format depreciation information for display</p>
+<pre><code class="language-vbnet">Function FormatDepreciationReport(cost As Double, salvage As Double, _
+life As Double, year As Integer) As String
+Dim depreciation As Double
+Dim accumulated As Double
+Dim bookValue As Double
+Dim report As String
+
+depreciation = SLN(cost, salvage, life)
+accumulated = depreciation * year
+bookValue = cost - accumulated
+
+report = &quot;Depreciation Report - Year &quot; &amp; year &amp; vbCrLf
+report = report &amp; &quot;Initial Cost: $&quot; &amp; Format(cost, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Annual Depreciation: $&quot; &amp; Format(depreciation, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Accumulated Depreciation: $&quot; &amp; Format(accumulated, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Book Value: $&quot; &amp; Format(bookValue, &quot;#,##0.00&quot;) &amp; vbCrLf
+
+FormatDepreciationReport = report
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-assetdepreciationtracker-class">Example 1: <code>AssetDepreciationTracker</code> Class</h3>
+<p>Track depreciation for multiple assets</p>
+<pre><code class="language-vbnet">&#x27; Class: AssetDepreciationTracker
+Private Type AssetInfo
+AssetName As String
+Cost As Double
+Salvage As Double
+Life As Double
+PurchaseDate As Date
+AnnualDepreciation As Double
+End Type
+
+Private m_assets() As AssetInfo
+Private m_assetCount As Integer
+
+Private Sub Class_Initialize()
+m_assetCount = 0
+ReDim m_assets(0 To 9)
+End Sub
+
+Public Sub AddAsset(assetName As String, cost As Double, _
+salvage As Double, life As Double, _
+purchaseDate As Date)
+If m_assetCount &gt; UBound(m_assets) Then
+ReDim Preserve m_assets(0 To m_assetCount * 2)
+End If
+
+With m_assets(m_assetCount)
+.AssetName = assetName
+.Cost = cost
+.Salvage = salvage
+.Life = life
+.PurchaseDate = purchaseDate
+.AnnualDepreciation = SLN(cost, salvage, life)
+End With
+
+m_assetCount = m_assetCount + 1
+End Sub
+
+Public Function GetAssetBookValue(assetIndex As Integer, _
+asOfDate As Date) As Double
+Dim yearsElapsed As Double
+Dim totalDepreciation As Double
+Dim bookValue As Double
+
+If assetIndex &lt; 0 Or assetIndex &gt;= m_assetCount Then
+GetAssetBookValue = 0
+Exit Function
+End If
+
+With m_assets(assetIndex)
+yearsElapsed = DateDiff(&quot;d&quot;, .PurchaseDate, asOfDate) / 365.25
+
+If yearsElapsed &gt;= .Life Then
+GetAssetBookValue = .Salvage
+Else
+totalDepreciation = .AnnualDepreciation * yearsElapsed
+bookValue = .Cost - totalDepreciation
+
+If bookValue &lt; .Salvage Then
+GetAssetBookValue = .Salvage
+Else
+GetAssetBookValue = bookValue
+End If
+End If
+End With
+End Function
+
+Public Function GetTotalBookValue(asOfDate As Date) As Double
+Dim i As Integer
+Dim total As Double
+
+total = 0
+For i = 0 To m_assetCount - 1
+total = total + GetAssetBookValue(i, asOfDate)
+Next i
+
+GetTotalBookValue = total
+End Function
+
+Public Function GetAnnualDepreciationExpense() As Double
+Dim i As Integer
+Dim total As Double
+
+total = 0
+For i = 0 To m_assetCount - 1
+total = total + m_assets(i).AnnualDepreciation
+Next i
+
+GetAnnualDepreciationExpense = total
+End Function
+
+Public Function GetAssetCount() As Integer
+GetAssetCount = m_assetCount
+End Function</code></pre>
+<h3 id="example-2-depreciationschedulegenerator-module">Example 2: <code>DepreciationScheduleGenerator</code> Module</h3>
+<p>Generate detailed depreciation schedules</p>
+<pre><code class="language-vbnet">&#x27; Module: DepreciationScheduleGenerator
+
+Public Function GenerateScheduleArray(cost As Double, salvage As Double, _
+life As Integer) As Variant
+Dim schedule() As Variant
+Dim depreciation As Double
+Dim bookValue As Double
+Dim accumulated As Double
+Dim i As Integer
+
+ReDim schedule(0 To life, 0 To 4)
+
+&#x27; Headers
+schedule(0, 0) = &quot;Year&quot;
+schedule(0, 1) = &quot;Beginning Value&quot;
+schedule(0, 2) = &quot;Depreciation&quot;
+schedule(0, 3) = &quot;Accumulated&quot;
+schedule(0, 4) = &quot;Ending Value&quot;
+
+depreciation = SLN(cost, salvage, life)
+bookValue = cost
+accumulated = 0
+
+For i = 1 To life
+schedule(i, 0) = i
+schedule(i, 1) = bookValue
+schedule(i, 2) = depreciation
+accumulated = accumulated + depreciation
+schedule(i, 3) = accumulated
+bookValue = cost - accumulated
+schedule(i, 4) = bookValue
+Next i
+
+GenerateScheduleArray = schedule
+End Function
+
+Public Sub ExportScheduleToCSV(cost As Double, salvage As Double, _
+life As Integer, filePath As String)
+Dim schedule As Variant
+Dim fileNum As Integer
+Dim i As Integer
+Dim j As Integer
+Dim line As String
+
+schedule = GenerateScheduleArray(cost, salvage, life)
+
+fileNum = FreeFile
+Open filePath For Output As #fileNum
+
+For i = 0 To life
+line = &quot;&quot;
+For j = 0 To 4
+If j &gt; 0 Then line = line &amp; &quot;,&quot;
+line = line &amp; schedule(i, j)
+Next j
+Print #fileNum, line
+Next i
+
+Close #fileNum
+End Sub
+
+Public Function CalculateQuarterlyDepreciation(cost As Double, salvage As Double, _
+yearsLife As Integer) As Double()
+Dim annualDepreciation As Double
+Dim quarterlyDepreciation As Double
+Dim quarters() As Double
+Dim i As Integer
+
+annualDepreciation = SLN(cost, salvage, yearsLife)
+quarterlyDepreciation = annualDepreciation / 4
+
+ReDim quarters(1 To yearsLife * 4)
+
+For i = 1 To yearsLife * 4
+quarters(i) = quarterlyDepreciation
+Next i
+
+CalculateQuarterlyDepreciation = quarters
+End Function</code></pre>
+<h3 id="example-3-depreciationcomparison-class">Example 3: <code>DepreciationComparison</code> Class</h3>
+<p>Compare different depreciation methods</p>
+<pre><code class="language-vbnet">&#x27; Class: DepreciationComparison
+Private m_cost As Double
+Private m_salvage As Double
+Private m_life As Integer
+
+Public Sub Initialize(cost As Double, salvage As Double, life As Integer)
+m_cost = cost
+m_salvage = salvage
+m_life = life
+End Sub
+
+Public Function GetStraightLineDepreciation(year As Integer) As Double
+GetStraightLineDepreciation = SLN(m_cost, m_salvage, m_life)
+End Function
+
+Public Function GetDoubleDecliningDepreciation(year As Integer) As Double
+GetDoubleDecliningDepreciation = DDB(m_cost, m_salvage, m_life, year)
+End Function
+
+Public Function GetStraightLineBookValue(year As Integer) As Double
+Dim depreciation As Double
+depreciation = SLN(m_cost, m_salvage, m_life)
+GetStraightLineBookValue = m_cost - (depreciation * year)
+End Function
+
+Public Function GetTotalDifference(year As Integer) As Double
+Dim slnTotal As Double
+Dim ddbTotal As Double
+Dim i As Integer
+
+slnTotal = 0
+ddbTotal = 0
+
+For i = 1 To year
+slnTotal = slnTotal + GetStraightLineDepreciation(i)
+ddbTotal = ddbTotal + GetDoubleDecliningDepreciation(i)
+Next i
+
+GetTotalDifference = ddbTotal - slnTotal
+End Function
+
+Public Function GenerateComparisonReport(maxYears As Integer) As String
+Dim report As String
+Dim i As Integer
+
+report = &quot;Depreciation Method Comparison&quot; &amp; vbCrLf
+report = report &amp; &quot;Cost: $&quot; &amp; Format(m_cost, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Salvage: $&quot; &amp; Format(m_salvage, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Life: &quot; &amp; m_life &amp; &quot; years&quot; &amp; vbCrLf &amp; vbCrLf
+
+report = report &amp; &quot;Year&quot; &amp; vbTab &amp; &quot;SLN&quot; &amp; vbTab &amp; &quot;DDB&quot; &amp; vbCrLf
+
+For i = 1 To maxYears
+report = report &amp; i &amp; vbTab
+report = report &amp; Format(GetStraightLineDepreciation(i), &quot;#,##0&quot;) &amp; vbTab
+report = report &amp; Format(GetDoubleDecliningDepreciation(i), &quot;#,##0&quot;) &amp; vbCrLf
+Next i
+
+GenerateComparisonReport = report
+End Function</code></pre>
+<h3 id="example-4-financialplanner-module">Example 4: <code>FinancialPlanner</code> Module</h3>
+<p>Financial planning with depreciation</p>
+<pre><code class="language-vbnet">&#x27; Module: FinancialPlanner
+
+Public Function CalculateReplacementFund(cost As Double, salvage As Double, _
+life As Double) As Double
+&#x27; Calculate annual savings needed to replace asset
+Dim replacementCost As Double
+
+&#x27; Assume replacement cost increases by inflation
+replacementCost = cost * 1.03 ^ life  &#x27; 3% annual inflation
+
+CalculateReplacementFund = (replacementCost - salvage) / life
+End Function
+
+Public Function CalculateTaxSavings(cost As Double, salvage As Double, _
+life As Double, taxRate As Double) As Double
+&#x27; Calculate annual tax savings from depreciation
+Dim annualDepreciation As Double
+
+annualDepreciation = SLN(cost, salvage, life)
+CalculateTaxSavings = annualDepreciation * taxRate
+End Function
+
+Public Function CalculateNetPresentValue(cost As Double, salvage As Double, _
+life As Integer, _
+discountRate As Double) As Double
+&#x27; Calculate NPV of depreciation tax shield
+Dim annualDepreciation As Double
+Dim taxShield As Double
+Dim npv As Double
+Dim i As Integer
+Const TAX_RATE As Double = 0.3  &#x27; 30% tax rate
+
+annualDepreciation = SLN(cost, salvage, life)
+taxShield = annualDepreciation * TAX_RATE
+npv = 0
+
+For i = 1 To life
+npv = npv + taxShield / ((1 + discountRate) ^ i)
+Next i
+
+CalculateNetPresentValue = npv
+End Function
+
+Public Function ShouldReplaceAsset(currentBookValue As Double, _
+replacementCost As Double, _
+yearsRemaining As Double, _
+expectedSavings As Double) As Boolean
+&#x27; Determine if asset should be replaced now
+Dim replacementBenefit As Double
+
+replacementBenefit = expectedSavings * yearsRemaining
+ShouldReplaceAsset = replacementBenefit &gt; replacementCost
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The SLN function can generate the following errors:</p>
+<ul>
+<li><strong>Error 5</strong> (Invalid procedure call or argument): If life is zero or negative</li>
+<li><strong>Error 6</strong> (Overflow): If result exceeds Double range</li>
+<li><strong>Error 13</strong> (Type mismatch): Arguments not numeric</li>
+</ul>
+<p>Always validate inputs before calling SLN:</p>
+<pre><code class="language-vbnet">On Error Resume Next
+depreciation = SLN(cost, salvage, life)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Error calculating depreciation: &quot; &amp; Err.Description
+End If</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>SLN is a very fast calculation (simple division)</li>
+<li>No iterative calculations required</li>
+<li>Can be called repeatedly without performance concerns</li>
+<li>Consider caching result if used multiple times with same inputs</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate Inputs</strong>: Check cost &gt; salvage, life &gt; 0</li>
+<li><strong>Consistent Units</strong>: Ensure life matches desired period (years, months)</li>
+<li><strong>Handle Edge Cases</strong>: Check for zero life, negative values</li>
+<li><strong>Document Assumptions</strong>: Clearly state depreciation period</li>
+<li><strong>Salvage Value</strong>: Use realistic salvage value estimates</li>
+<li><strong>Format Output</strong>: Use Format function for currency display</li>
+<li><strong>Complete Schedules</strong>: Generate full schedules for planning</li>
+<li><strong>Compare Methods</strong>: Evaluate if straight-line is most appropriate</li>
+<li><strong>Tax Compliance</strong>: Verify method meets tax requirements</li>
+<li><strong>Regular Review</strong>: Update assumptions periodically</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Method</th>
+<th>Depreciation Pattern</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SLN</td>
+<td>Straight-line</td>
+<td>Constant each period</td>
+<td>Uniform usage assets</td>
+</tr>
+<tr>
+<td>DDB</td>
+<td>Double-declining balance</td>
+<td>Accelerated (higher early)</td>
+<td>Tech, vehicles</td>
+</tr>
+<tr>
+<td>SYD</td>
+<td>Sum-of-years digits</td>
+<td>Accelerated (graduated)</td>
+<td>Equipment with declining efficiency</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (all versions)</li>
+<li>Part of financial functions library</li>
+<li>Returns Double for precision</li>
+<li>Consistent across platforms</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes constant depreciation (may not reflect reality)</li>
+<li>Doesn't account for accelerated wear</li>
+<li>No adjustment for partial periods</li>
+<li>Salvage value is an estimate</li>
+<li>Doesn't consider tax implications directly</li>
+<li>Can't handle mid-period asset purchases without adjustment</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>DDB</code>: Returns depreciation using double-declining balance method</li>
+<li><code>SYD</code>: Returns depreciation using sum-of-years digits method</li>
+<li><code>FV</code>: Calculates future value (inverse concept)</li>
+<li><code>PV</code>: Calculates present value</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Financial</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

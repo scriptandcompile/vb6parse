@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - chr - String">
+    <title>chr - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / chr</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="chr-function"><code>Chr</code> Function</h1>
+<p>Returns a <code>String</code> containing the character associated with the specified character code.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Chr(charcode)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong><code>charcode</code></strong>: Required. Long value that identifies a character. The valid range for
+<code>charcode</code> is 0-255. For values outside this range, an error occurs.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the single character corresponding to the specified character
+code. For charcode values 0-127, this corresponds to the ASCII character set. For values
+128-255, this corresponds to the extended ASCII or ANSI character set based on the system's
+code page.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Chr</code> function is the inverse of the <code>Asc</code> function. While <code>Asc</code> returns the numeric
+character code of a character, <code>Chr</code> returns the character for a given code.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Valid range: 0-255 (Error 5 "Invalid procedure call or argument" for values outside range)</li>
+<li>Chr(0) returns a null character (vbNullChar)</li>
+<li>Chr(13) returns carriage return (vbCr)</li>
+<li>Chr(10) returns line feed (vbLf)</li>
+<li>Chr(9) returns tab character (vbTab)</li>
+<li>Values 0-31 are non-printable control characters</li>
+<li>Values 32-126 are standard printable ASCII characters</li>
+<li>Values 127-255 depend on the system code page (often Windows-1252 in VB6)</li>
+</ul>
+<h2 id="common-character-codes">Common Character Codes</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Character</th>
+<th>Constant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>(null)</td>
+<td>vbNullChar</td>
+<td>Null character</td>
+</tr>
+<tr>
+<td>9</td>
+<td>\t</td>
+<td>vbTab</td>
+<td>Horizontal tab</td>
+</tr>
+<tr>
+<td>10</td>
+<td>\n</td>
+<td>vbLf</td>
+<td>Line feed</td>
+</tr>
+<tr>
+<td>13</td>
+<td>\r</td>
+<td>vbCr</td>
+<td>Carriage return</td>
+</tr>
+<tr>
+<td>32</td>
+<td>(space)</td>
+<td>-</td>
+<td>Space character</td>
+</tr>
+<tr>
+<td>34</td>
+<td>"</td>
+<td>-</td>
+<td>Double quote</td>
+</tr>
+<tr>
+<td>39</td>
+<td>'</td>
+<td>-</td>
+<td>Single quote</td>
+</tr>
+<tr>
+<td>65</td>
+<td>A</td>
+<td>-</td>
+<td>Uppercase A</td>
+</tr>
+<tr>
+<td>97</td>
+<td>a</td>
+<td>-</td>
+<td>Lowercase a</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Get character from code
+Dim ch As String
+ch = Chr(65)  &#x27; Returns &quot;A&quot;
+ch = Chr(97)  &#x27; Returns &quot;a&quot;
+ch = Chr(48)  &#x27; Returns &quot;0&quot;
+
+&#x27; Special characters
+ch = Chr(32)  &#x27; Returns space &quot; &quot;
+ch = Chr(13)  &#x27; Returns carriage return
+ch = Chr(10)  &#x27; Returns line feed</code></pre>
+<h3 id="line-breaks-and-special-characters">Line Breaks and Special Characters</h3>
+<pre><code class="language-vbnet">&#x27; Create multi-line string
+Dim msg As String
+msg = &quot;Line 1&quot; &amp; Chr(13) &amp; Chr(10) &amp; &quot;Line 2&quot;
+&#x27; Or use the constant
+msg = &quot;Line 1&quot; &amp; vbCrLf &amp; &quot;Line 2&quot;
+
+&#x27; Tab-separated values
+Dim data As String
+data = &quot;Name&quot; &amp; Chr(9) &amp; &quot;Age&quot; &amp; Chr(9) &amp; &quot;City&quot;</code></pre>
+<h3 id="building-strings-from-codes">Building Strings from Codes</h3>
+<pre><code class="language-vbnet">&#x27; Build alphabet
+Dim i As Integer
+Dim alphabet As String
+For i = 65 To 90
+alphabet = alphabet &amp; Chr(i)
+Next i
+&#x27; alphabet = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="generating-character-sequences">Generating Character Sequences</h3>
+<pre><code class="language-vbnet">Function GetAlphabet(uppercase As Boolean) As String
+Dim result As String
+Dim i As Integer
+Dim startCode As Integer
+
+If uppercase Then
+startCode = 65  &#x27; &#x27;A&#x27;
+Else
+startCode = 97  &#x27; &#x27;a&#x27;
+End If
+
+For i = startCode To startCode + 25
+result = result &amp; Chr(i)
+Next i
+
+GetAlphabet = result
+End Function</code></pre>
+<h3 id="quote-handling">Quote Handling</h3>
+<pre><code class="language-vbnet">Function QuoteString(text As String) As String
+QuoteString = Chr(34) &amp; text &amp; Chr(34)
+End Function
+
+&#x27; Usage: result = QuoteString(&quot;Hello&quot;)  &#x27; Returns: &quot;Hello&quot;</code></pre>
+<h3 id="csv-generation">CSV Generation</h3>
+<pre><code class="language-vbnet">Function CreateCSVRow(ParamArray fields() As Variant) As String
+Dim result As String
+Dim i As Integer
+Dim field As String
+
+For i = LBound(fields) To UBound(fields)
+field = CStr(fields(i))
+
+&#x27; Quote fields containing commas or quotes
+If InStr(field, &quot;,&quot;) &gt; 0 Or InStr(field, Chr(34)) &gt; 0 Then
+field = Chr(34) &amp; Replace(field, Chr(34), Chr(34) &amp; Chr(34)) &amp; Chr(34)
+End If
+
+If i &gt; LBound(fields) Then result = result &amp; &quot;,&quot;
+result = result &amp; field
+Next i
+
+CreateCSVRow = result
+End Function</code></pre>
+<h3 id="control-character-removal">Control Character Removal</h3>
+<pre><code class="language-vbnet">Function RemoveControlChars(text As String) As String
+Dim result As String
+Dim i As Integer
+Dim ch As String
+Dim code As Integer
+
+For i = 1 To Len(text)
+ch = Mid(text, i, 1)
+code = Asc(ch)
+
+&#x27; Keep only printable characters (32-126) and common whitespace
+If code &gt;= 32 Or code = 9 Or code = 10 Or code = 13 Then
+result = result &amp; ch
+End If
+Next i
+
+RemoveControlChars = result
+End Function</code></pre>
+<h3 id="string-encodingdecoding">String Encoding/Decoding</h3>
+<pre><code class="language-vbnet">Function EncodeString(text As String) As String
+Dim result As String
+Dim i As Integer
+
+For i = 1 To Len(text)
+If i &gt; 1 Then result = result &amp; &quot;,&quot;
+result = result &amp; CStr(Asc(Mid(text, i, 1)))
+Next i
+
+EncodeString = result
+End Function
+
+Function DecodeString(encoded As String) As String
+Dim result As String
+Dim codes() As String
+Dim i As Integer
+
+codes = Split(encoded, &quot;,&quot;)
+For i = LBound(codes) To UBound(codes)
+result = result &amp; Chr(CLng(codes(i)))
+Next i
+
+DecodeString = result
+End Function</code></pre>
+<h3 id="random-character-generation">Random Character Generation</h3>
+<pre><code class="language-vbnet">Function GeneratePassword(length As Integer) As String
+Dim result As String
+Dim i As Integer
+Dim charType As Integer
+
+Randomize
+
+For i = 1 To length
+charType = Int(Rnd * 3)  &#x27; 0=uppercase, 1=lowercase, 2=digit
+
+Select Case charType
+Case 0  &#x27; Uppercase A-Z
+result = result &amp; Chr(65 + Int(Rnd * 26))
+Case 1  &#x27; Lowercase a-z
+result = result &amp; Chr(97 + Int(Rnd * 26))
+Case 2  &#x27; Digit 0-9
+result = result &amp; Chr(48 + Int(Rnd * 10))
+End Select
+Next i
+
+GeneratePassword = result
+End Function</code></pre>
+<h3 id="box-drawing-characters">Box Drawing Characters</h3>
+<pre><code class="language-vbnet">Function DrawBox(width As Integer, height As Integer) As String
+Dim result As String
+Dim i As Integer
+
+&#x27; Top border (using extended ASCII box characters)
+result = Chr(218)  &#x27; Top-left corner
+For i = 1 To width - 2
+result = result &amp; Chr(196)  &#x27; Horizontal line
+Next i
+result = result &amp; Chr(191) &amp; vbCrLf  &#x27; Top-right corner
+
+&#x27; Middle rows
+For i = 1 To height - 2
+result = result &amp; Chr(179)  &#x27; Vertical line
+result = result &amp; Space(width - 2)
+result = result &amp; Chr(179) &amp; vbCrLf  &#x27; Vertical line
+Next i
+
+&#x27; Bottom border
+result = result &amp; Chr(192)  &#x27; Bottom-left corner
+For i = 1 To width - 2
+result = result &amp; Chr(196)  &#x27; Horizontal line
+Next i
+result = result &amp; Chr(217)  &#x27; Bottom-right corner
+
+DrawBox = result
+End Function</code></pre>
+<h3 id="character-case-conversion">Character Case Conversion</h3>
+<pre><code class="language-vbnet">Function ToggleCase(text As String) As String
+Dim result As String
+Dim i As Integer
+Dim ch As String
+Dim code As Integer
+
+For i = 1 To Len(text)
+ch = Mid(text, i, 1)
+code = Asc(ch)
+
+If code &gt;= 65 And code &lt;= 90 Then
+&#x27; Uppercase -&gt; lowercase
+result = result &amp; Chr(code + 32)
+ElseIf code &gt;= 97 And code &lt;= 122 Then
+&#x27; Lowercase -&gt; uppercase
+result = result &amp; Chr(code - 32)
+Else
+result = result &amp; ch
+End If
+Next i
+
+ToggleCase = result
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="binary-data-handling">Binary Data Handling</h3>
+<pre><code class="language-vbnet">Function BytesToString(bytes() As Byte) As String
+Dim result As String
+Dim i As Long
+
+For i = LBound(bytes) To UBound(bytes)
+result = result &amp; Chr(bytes(i))
+Next i
+
+BytesToString = result
+End Function
+
+Function StringToBytes(text As String) As Byte()
+Dim bytes() As Byte
+Dim i As Long
+
+ReDim bytes(1 To Len(text))
+
+For i = 1 To Len(text)
+bytes(i) = Asc(Mid(text, i, 1))
+Next i
+
+StringToBytes = bytes
+End Function</code></pre>
+<h3 id="unicode-support-chrw-variant">Unicode Support (<code>ChrW</code> variant)</h3>
+<pre><code class="language-vbnet">&#x27; Note: VB6 has ChrW for Unicode characters
+Function GetUnicodeChar(code As Long) As String
+&#x27; For codes 0-255, Chr and ChrW are equivalent
+If code &lt;= 255 Then
+GetUnicodeChar = Chr(code)
+Else
+&#x27; For codes &gt; 255, use ChrW (not covered by Chr function)
+GetUnicodeChar = ChrW(code)
+End If
+End Function</code></pre>
+<h3 id="escape-sequence-processing">Escape Sequence Processing</h3>
+<pre><code class="language-vbnet">Function ProcessEscapeSequences(text As String) As String
+Dim result As String
+result = text
+
+&#x27; Replace common escape sequences
+result = Replace(result, &quot;\n&quot;, Chr(10))   &#x27; Line feed
+result = Replace(result, &quot;\r&quot;, Chr(13))   &#x27; Carriage return
+result = Replace(result, &quot;\t&quot;, Chr(9))    &#x27; Tab
+result = Replace(result, &quot;\\&quot;, Chr(92))   &#x27; Backslash
+result = Replace(result, &quot;\&quot;&quot;&quot;, Chr(34))  &#x27; Double quote
+
+ProcessEscapeSequences = result
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeChr(charcode As Long) As String
+On Error GoTo ErrorHandler
+
+If charcode &lt; 0 Or charcode &gt; 255 Then
+Err.Raise 5, , &quot;Invalid character code: &quot; &amp; charcode
+End If
+
+SafeChr = Chr(charcode)
+Exit Function
+
+ErrorHandler:
+MsgBox &quot;Error in Chr: &quot; &amp; Err.Description
+SafeChr = &quot;&quot;
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 5</strong> (Invalid procedure call or argument): Character code is outside the range 0-255</li>
+<li><strong>Error 13</strong> (Type mismatch): Argument is not numeric</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Chr</code> is a fast function with minimal overhead</li>
+<li>For building long strings with many <code>Chr</code> calls, consider using a <code>StringBuilder</code> pattern</li>
+<li>Avoid repeated <code>Chr</code> calls for the same character code (use a constant instead)</li>
+<li>For Unicode support beyond 255, use <code>ChrW</code> or <code>ChrB</code> functions</li>
+</ul>
+<h2 id="vb6-string-constants-vs-chr">VB6 String Constants vs <code>Chr</code></h2>
+<p>VB6 provides built-in constants for common characters:</p>
+<pre><code class="language-vbnet">&#x27; Prefer constants over Chr for readability
+vbCr        &#x27; Chr(13) - Carriage return
+vbLf        &#x27; Chr(10) - Line feed
+vbCrLf      &#x27; Chr(13) &amp; Chr(10) - Carriage return + line feed
+vbTab       &#x27; Chr(9) - Tab
+vbNullChar  &#x27; Chr(0) - Null character
+vbNullString &#x27; Empty string &quot;&quot;</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited to character codes 0-255 (single-byte characters)</li>
+<li>For Unicode beyond 255, use <code>ChrW</code> instead</li>
+<li>Character interpretation depends on system code page</li>
+<li>Control characters (0-31) may not display in UI controls</li>
+<li>Extended ASCII (128-255) may vary across systems</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Asc</code>: Returns the character code of the first character in a string (inverse of Chr)</li>
+<li><code>ChrW</code>: Returns Unicode character for character codes 0-65535</li>
+<li><code>ChrB</code>: Returns a byte containing the character code</li>
+<li><code>AscW</code>: Returns the Unicode character code</li>
+<li><code>AscB</code>: Returns the byte value</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

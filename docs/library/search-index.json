@@ -1,0 +1,1255 @@
+[
+  {
+    "name": "array",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/array.html",
+    "description": "Array Function Returns a Variant containing an array. Syntax vb Array(arglist) Parts - arglist: Required. A comma-delimited list of values that are assigned to the elements of the array contained with"
+  },
+  {
+    "name": "filter",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/filter.html",
+    "description": "Filter Function Returns a zero-based array containing a subset of a string array based on specified filter criteria. Syntax vb Filter(sourcearray, match, include, compare) Parameters - sourcearray: Re"
+  },
+  {
+    "name": "join",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/join.html",
+    "description": "Join Function Returns a string created by joining a number of substrings contained in an array. Syntax vb Join(sourcearray, delimiter) Parameters - sourcearray (Required): One-dimensional array contai"
+  },
+  {
+    "name": "lbound",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/lbound.html",
+    "description": "LBound Function Returns a Long containing the smallest available subscript for the indicated dimension of an array. Syntax vb LBound(arrayname, dimension) Parameters - arrayname (Required): Name of th"
+  },
+  {
+    "name": "split",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/split.html",
+    "description": "Split Function Returns a zero-based, one-dimensional array containing a specified number of substrings. Syntax vb Split(expression, delimiter, limit, compare) Parameters - expression - Required. Strin"
+  },
+  {
+    "name": "ubound",
+    "type": "function",
+    "category": "Arrays",
+    "url": "functions/arrays/ubound.html",
+    "description": "VB6 UBound Function The UBound function returns a Long containing the largest available subscript for the indicated dimension of an array. Syntax vb6 UBound(arrayname, dimension) Parameters - arraynam"
+  },
+  {
+    "name": "cverr",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/cverr.html",
+    "description": "CVErr Function Returns a Variant of subtype Error containing an error number. Syntax vb CVErr(errornumber) Parameters - errornumber: Required. Long integer that identifies an error. The valid range is"
+  },
+  {
+    "name": "hex",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/hex.html",
+    "description": "Hex Function Returns a String representing the hexadecimal value of a number. Syntax vb Hex(number) Parameters - number (Required): Any valid numeric expression or string expression. If number is not "
+  },
+  {
+    "name": "hex_dollar",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/hex_dollar.html",
+    "description": "Hex$ Function The Hex$ function in Visual Basic 6 returns a string representing the hexadecimal (base-16) value of a number. The dollar sign ($) suffix indicates that this function always returns a St"
+  },
+  {
+    "name": "oct",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/oct.html",
+    "description": "Oct Function Returns a String representing the octal (base-8) value of a number. Syntax vb Oct(number) Parameters - number - Required. Any valid numeric expression or string expression. If not a whole"
+  },
+  {
+    "name": "oct_dollar",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/oct_dollar.html",
+    "description": "Oct$ Function The Oct$ function in Visual Basic 6 returns a string representing the octal (base-8) value of a number. The function name stands for \"Octal String\". Syntax vb6 Oct$(number) Parameters - "
+  },
+  {
+    "name": "vartype",
+    "type": "function",
+    "category": "Conversion",
+    "url": "functions/conversion/vartype.html",
+    "description": "VB6 VarType Function The VarType function returns an integer constant indicating the subtype of a Variant variable or expression. Syntax vb6 VarType(varname) Parameters - varname: Required. Name of a "
+  },
+  {
+    "name": "date",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/date.html",
+    "description": "Date Function Returns the current system date as a Variant of subtype Date. Syntax vb Date Parameters None. The Date function takes no parameters. Return Value Returns a Variant of subtype Date (VarTy"
+  },
+  {
+    "name": "date_dollar",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/date_dollar.html",
+    "description": "Date$ Function Returns the current system date as a String. The dollar sign suffix ($) explicitly indicates that this function returns a String type (not a Variant). Syntax vb Date$ Parameters None. T"
+  },
+  {
+    "name": "dateadd",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/dateadd.html",
+    "description": "DateAdd Function Returns a Variant (Date) containing a date to which a specified time interval has been added. Syntax vb DateAdd(interval, number, date) Parameters - interval: Required. String express"
+  },
+  {
+    "name": "datediff",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/datediff.html",
+    "description": "DateDiff Function Returns a Variant (Long) specifying the number of time intervals between two specified dates. Syntax vb DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear) Parameters -"
+  },
+  {
+    "name": "datepart",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/datepart.html",
+    "description": "DatePart Function Returns a Variant (Integer) containing the specified part of a given date. Syntax vb DatePart(interval, date, firstdayofweek, firstweekofyear) Parameters - interval: Required. String"
+  },
+  {
+    "name": "dateserial",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/dateserial.html",
+    "description": "DateSerial Function Returns a Variant (Date) for a specified year, month, and day. Syntax vb DateSerial(year, month, day) Parameters - year: Required. Integer expression between 100 and 9999, inclusiv"
+  },
+  {
+    "name": "datevalue",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/datevalue.html",
+    "description": "DateValue Function Returns a Variant (Date) containing the date represented by a string expression. Syntax vb DateValue(date) Parameters - date: Required. String expression representing a date from Ja"
+  },
+  {
+    "name": "day",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/day.html",
+    "description": "Day Function Returns a whole number between 1 and 31, inclusive, representing the day of the month. Syntax vb Day(date) Parameters - date: Required. Any Variant, numeric expression, string expression,"
+  },
+  {
+    "name": "hour",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/hour.html",
+    "description": "Hour Function Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day. Syntax vb Hour(time) Parameters - time (Required): Any Variant, numeric expres"
+  },
+  {
+    "name": "minute",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/minute.html",
+    "description": "Minute Function Returns a Variant (Integer) specifying a whole number between 0 and 59, inclusive, representing the minute of the hour. Syntax vb Minute(time) Parameters - time (Required): Any Variant"
+  },
+  {
+    "name": "month",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/month.html",
+    "description": "Month Function Returns a Variant (Integer) specifying a whole number between 1 and 12, inclusive, representing the month of the year. Syntax vb Month(date) Parameters - date (Required) - Any Variant, "
+  },
+  {
+    "name": "monthname",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/monthname.html",
+    "description": "MonthName Function Returns a String indicating the specified month. Syntax vb MonthName(month, abbreviate) Parameters - month (Required) - Numeric designation of the month. For example, January is 1, "
+  },
+  {
+    "name": "now",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/now.html",
+    "description": "Now Function Returns a Variant (Date) specifying the current date and time according to the setting of the computer's system date and time. Syntax vb Now Parameters None. Now takes no parameters. Retu"
+  },
+  {
+    "name": "second",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/second.html",
+    "description": "Second Function Returns an Integer specifying a whole number between 0 and 59, inclusive, representing the second of the minute. Syntax vb Second(time) Parameters - time - Required. Any Variant, numer"
+  },
+  {
+    "name": "time",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/time.html",
+    "description": "VB6 Time Function The Time function returns a Variant (Date) indicating the current system time. Syntax vb6 Time() or vb6 Time Parameters None. The Time function takes no arguments. Returns Returns a "
+  },
+  {
+    "name": "time_dollar",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/time_dollar.html",
+    "description": "Time$ Function The Time$ function in Visual Basic 6 returns a string representing the current system time. The dollar sign ($) suffix indicates that this function always returns a String type, never a"
+  },
+  {
+    "name": "timer",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/timer.html",
+    "description": "VB6 Timer Function The Timer function returns a Single representing the number of seconds that have elapsed since midnight. Syntax vb6 Timer() or vb6 Timer Parameters None. The Timer function takes no"
+  },
+  {
+    "name": "timeserial",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/timeserial.html",
+    "description": "VB6 TimeSerial Function The TimeSerial function returns a Variant (Date) containing the time for a specific hour, minute, and second. Syntax vb6 TimeSerial(hour, minute, second) Parameters - hour: Req"
+  },
+  {
+    "name": "timevalue",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/timevalue.html",
+    "description": "VB6 TimeValue Function The TimeValue function returns a Variant (Date) containing the time value represented by a string. Syntax vb6 TimeValue(time) Parameters - time: Required. String expression repr"
+  },
+  {
+    "name": "weekday",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/weekday.html",
+    "description": "VB6 Weekday Function The Weekday function returns a Variant (Integer) specifying a whole number representing the day of the week. Syntax vb6 Weekday(date, firstdayofweek) Parameters - date: Required. "
+  },
+  {
+    "name": "weekdayname",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/weekdayname.html",
+    "description": "VB6 WeekdayName Function The WeekdayName function returns a string indicating the specified day of the week. Syntax vb6 WeekdayName(weekday, abbreviate, firstdayofweek) Parameters - weekday: Required."
+  },
+  {
+    "name": "year",
+    "type": "function",
+    "category": "Datetime",
+    "url": "functions/datetime/year.html",
+    "description": "VB6 Year Function The Year function returns an Integer representing the year of a specified date. Syntax vb6 Year(date) Parameters - date: Required. Any Variant, numeric expression, string expression,"
+  },
+  {
+    "name": "environ",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/environ.html",
+    "description": "Environ Function Returns the String value associated with an operating system environment variable. Syntax vb Environ(envstring | number) Parameters - envstring: Optional (if number provided). String "
+  },
+  {
+    "name": "environ_dollar",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/environ_dollar.html",
+    "description": "Environ$ Function Returns the string value associated with an environment variable. Syntax vb6 Environ$(envstring) Environ$(number) Parameters - envstring: A string expression containing the name of a"
+  },
+  {
+    "name": "error",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/error.html",
+    "description": "Error Function Returns the error message that corresponds to a given error number. Syntax vb Error(errornumber) Parameters - errornumber: Optional. A Long or any valid numeric expression that represen"
+  },
+  {
+    "name": "error_dollar",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/error_dollar.html",
+    "description": "VB6 Error$ Function The Error$ function returns the error message string corresponding to a given error number. Syntax vb6 Error$(errornumber) Parameters - errornumber: Optional. A numeric expression "
+  },
+  {
+    "name": "getallsettings",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/getallsettings.html",
+    "description": "GetAllSettings Function Returns a list of key settings and their respective values (originally created with SaveSetting) from an application's entry in the Windows registry. Syntax vb GetAllSettings(a"
+  },
+  {
+    "name": "getautoserversettings",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/getautoserversettings.html",
+    "description": "GetAutoServerSettings Function Returns information about the security settings for a DCOM (Distributed Component Object Model) server. Syntax vb GetAutoServerSettings(progid, clsid, machine) Parameter"
+  },
+  {
+    "name": "getsetting",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/getsetting.html",
+    "description": "GetSetting Function Returns a registry key setting value from the Windows registry. Syntax vb GetSetting(appname, section, key, default) Parameters - appname (Required): String expression containing t"
+  },
+  {
+    "name": "imestatus",
+    "type": "function",
+    "category": "Environment",
+    "url": "functions/environment/imestatus.html",
+    "description": "IMEStatus Function Returns an Integer indicating the current Input Method Editor (IME) mode of Microsoft Windows. Syntax vb IMEStatus() Parameters None Return Value Returns an Integer representing the"
+  },
+  {
+    "name": "curdir",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/curdir.html",
+    "description": "CurDir Function Returns a String representing the current path for the specified drive or the default drive. Syntax vb CurDir(drive) Parameters - drive: Optional. String expression that specifies an e"
+  },
+  {
+    "name": "curdir_dollar",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/curdir_dollar.html",
+    "description": "CurDir$ Function Returns a String representing the current path for the specified drive or the default drive. The dollar sign suffix ($) explicitly indicates that this function returns a String type ("
+  },
+  {
+    "name": "dir",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/dir.html",
+    "description": "Dir Function Returns a String representing the name of a file, directory, or folder that matches a specified pattern or file attribute, or the volume label of a drive. Syntax vb Dir(pathname, attribut"
+  },
+  {
+    "name": "eof",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/eof.html",
+    "description": "EOF Function Returns a Boolean value indicating whether the end of a file opened for Random or sequential Input has been reached. Syntax vb EOF(filenumber) Parameters - filenumber: Required. An Intege"
+  },
+  {
+    "name": "fileattr",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/fileattr.html",
+    "description": "FileAttr Function Returns a Long representing the file mode for files opened using the Open statement, or the file attribute information for files, directories, or folders. Syntax vb FileAttr(filenumb"
+  },
+  {
+    "name": "filedatetime",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/filedatetime.html",
+    "description": "FileDateTime Function Returns a Variant (Date) representing the date and time when a file was created or last modified. Syntax vb FileDateTime(pathname) Parameters - pathname: Required. A String expre"
+  },
+  {
+    "name": "filelen",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/filelen.html",
+    "description": "FileLen Function Returns a Long specifying the length of a file in bytes. Syntax vb FileLen(pathname) Parameters - pathname: Required. A String expression that specifies a file name. May include direc"
+  },
+  {
+    "name": "freefile",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/freefile.html",
+    "description": "FreeFile Function Returns an Integer representing the next file number available for use by the Open statement. Syntax vb FreeFile(rangenumber) Parameters - rangenumber - Optional. Variant that specif"
+  },
+  {
+    "name": "getattr",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/getattr.html",
+    "description": "GetAttr Function Returns an Integer representing the attributes of a file, directory, or folder. Syntax vb GetAttr(pathname) Parameters - pathname - Required. String expression that specifies a file n"
+  },
+  {
+    "name": "loc",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/loc.html",
+    "description": "Loc Function Returns a Long specifying the current read/write position within an open file. Syntax vb Loc(filenumber) Parameters - filenumber (Required): Integer file number used in the Open statement"
+  },
+  {
+    "name": "lof",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/lof.html",
+    "description": "LOF Function Returns a Long representing the size, in bytes, of a file opened using the Open statement. Syntax vb LOF(filenumber) Parameters - filenumber (Required): Integer file number used in the Op"
+  },
+  {
+    "name": "seek",
+    "type": "function",
+    "category": "File",
+    "url": "functions/file/seek.html",
+    "description": "Seek Function Returns a Long specifying the current read/write position within a file opened using Open statement. Syntax vb Seek(filenumber) Parameters - filenumber - Required. Any valid Integer file"
+  },
+  {
+    "name": "ddb",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/ddb.html",
+    "description": "DDB Function Returns a Double specifying the depreciation of an asset for a specific time period using the double-declining balance method or some other method you specify. Syntax vb DDB(cost, salvage"
+  },
+  {
+    "name": "fv",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/fv.html",
+    "description": "Fv Function Returns a Double specifying the future value of an annuity based on periodic, fixed payments and a fixed interest rate. Syntax vb Fv(rate, nper, pmt, pv, type) Parameters - rate - Required"
+  },
+  {
+    "name": "ipmt",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/ipmt.html",
+    "description": "IPmt Function Returns a Double specifying the interest payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate. Syntax vb IPmt(rate, per, nper, pv, fv, typ"
+  },
+  {
+    "name": "irr",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/irr.html",
+    "description": "IRR Function Returns a Double specifying the internal rate of return for a series of periodic cash flows (payments and receipts). Syntax vb IRR(values(), guess) Parameters - values() (Required): Array"
+  },
+  {
+    "name": "mirr",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/mirr.html",
+    "description": "MIRR Function Returns a Double specifying the modified internal rate of return for a series of periodic cash flows (payments and receipts). Syntax vb MIRR(values(), finance_rate, reinvest_rate) Parame"
+  },
+  {
+    "name": "nper",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/nper.html",
+    "description": "NPer Function Returns a Double specifying the number of periods for an annuity based on periodic, fixed payments and a fixed interest rate. Syntax vb NPer(rate, pmt, pv, fv, type) Parameters - rate (R"
+  },
+  {
+    "name": "npv",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/npv.html",
+    "description": "NPV Function Returns a Double specifying the net present value of an investment based on a series of periodic cash flows (payments and receipts) and a discount rate. Syntax vb NPV(rate, values()) Para"
+  },
+  {
+    "name": "pmt",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/pmt.html",
+    "description": "Pmt Function Returns a Double specifying the payment for an annuity based on periodic, fixed payments and a fixed interest rate. Syntax vb Pmt(rate, nper, pv, fv, type) Parameters - rate - Required. D"
+  },
+  {
+    "name": "ppmt",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/ppmt.html",
+    "description": "PPmt Function Returns a Double specifying the principal payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate. Syntax vb PPmt(rate, per, nper, pv, fv, ty"
+  },
+  {
+    "name": "pv",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/pv.html",
+    "description": "PV Function Returns a Double specifying the present value of an annuity based on periodic, fixed payments to be paid in the future and a fixed interest rate. Syntax vb PV(rate, nper, pmt, fv, type) Pa"
+  },
+  {
+    "name": "rate",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/rate.html",
+    "description": "Rate Function Returns a Double specifying the interest rate per period for an annuity. Syntax vb Rate(nper, pmt, pv, fv, type, guess) Parameters - nper - Required. Double specifying total number of pa"
+  },
+  {
+    "name": "sln",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/sln.html",
+    "description": "SLN Function Returns a Double specifying the straight-line depreciation of an asset for a single period. Syntax vb SLN(cost, salvage, life) Parameters - cost - Required. Double specifying initial cost"
+  },
+  {
+    "name": "syd",
+    "type": "function",
+    "category": "Financial",
+    "url": "functions/financial/syd.html",
+    "description": "VB6 SYD Function The SYD function returns a Double specifying the sum-of-years digits depreciation of an asset for a specified period. Syntax vb6 SYD(cost, salvage, life, period) Parameters - cost: Re"
+  },
+  {
+    "name": "partition",
+    "type": "function",
+    "category": "Graphics",
+    "url": "functions/graphics/partition.html",
+    "description": "Partition Function Returns a String indicating where a number occurs within a calculated series of ranges. Syntax vb Partition(number, start, stop, interval) Parameters - number - Required. Whole numb"
+  },
+  {
+    "name": "qbcolor",
+    "type": "function",
+    "category": "Graphics",
+    "url": "functions/graphics/qbcolor.html",
+    "description": "QBColor Function Returns a Long representing the RGB color code corresponding to the specified color number. Syntax vb QBColor(color) Parameters - color - Required. Integer in the range 0-15 that repr"
+  },
+  {
+    "name": "rgb",
+    "type": "function",
+    "category": "Graphics",
+    "url": "functions/graphics/rgb.html",
+    "description": "RGB Function Returns a Long representing an RGB color value from red, green, and blue color components. Syntax vb RGB(red, green, blue) Parameters - red - Required. Integer in the range 0-255 that rep"
+  },
+  {
+    "name": "spc",
+    "type": "function",
+    "category": "Graphics",
+    "url": "functions/graphics/spc.html",
+    "description": "Spc Function Used with the Print statement or Print method to position output. Syntax vb Spc(n) Parameters - n - Required. Numeric expression specifying the number of spaces to insert before displayin"
+  },
+  {
+    "name": "tab",
+    "type": "function",
+    "category": "Graphics",
+    "url": "functions/graphics/tab.html",
+    "description": "VB6 Tab Function The Tab function is used in Print statements to position output at a specific column number. Syntax vb6 Tab(column) Parameters - column: Optional. Numeric expression indicating the co"
+  },
+  {
+    "name": "command",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/command.html",
+    "description": "Command Function Returns the argument portion of the command line used to launch Microsoft Visual Basic or an executable program developed with Visual Basic. Syntax vb Command() Parameters None. The C"
+  },
+  {
+    "name": "command_dollar",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/command_dollar.html",
+    "description": "Command$ Function Returns the argument portion of the command line used to launch Microsoft Visual Basic or an executable program developed with Visual Basic. The dollar sign suffix ($) explicitly ind"
+  },
+  {
+    "name": "doevents",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/doevents.html",
+    "description": "DoEvents Function Yields execution so that the operating system can process other events and messages. Syntax vb DoEvents() Parameters None. Return Value Returns an Integer representing the number of "
+  },
+  {
+    "name": "input",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/input.html",
+    "description": "Input Function Returns a String containing characters from a file opened in Input or Binary mode. Syntax vb Input(number, filenumber) Parameters - number (Required): Long expression specifying the num"
+  },
+  {
+    "name": "inputbox",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/inputbox.html",
+    "description": "InputBox Function Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns a String containing the contents of the text box. Syntax vb InputBox(prompt, title,"
+  },
+  {
+    "name": "msgbox",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/msgbox.html",
+    "description": "MsgBox Function Displays a message in a dialog box, waits for the user to click a button, and returns an Integer indicating which button the user clicked. Syntax vb MsgBox(prompt, buttons, title, help"
+  },
+  {
+    "name": "shell",
+    "type": "function",
+    "category": "Interaction",
+    "url": "functions/interaction/shell.html",
+    "description": "Shell Function Runs an executable program and returns a Variant (Double) representing the program's task ID if successful, or zero if unsuccessful. Syntax vb Shell(pathname, windowstyle) Parameters - "
+  },
+  {
+    "name": "choose",
+    "type": "function",
+    "category": "Logic",
+    "url": "functions/logic/choose.html",
+    "description": "Choose Function Returns a value from a list of choices based on an index. Syntax vb Choose(index, choice-1, choice-2, ... , choice-n) Parameters - index: Required. Numeric expression (typically Intege"
+  },
+  {
+    "name": "iif",
+    "type": "function",
+    "category": "Logic",
+    "url": "functions/logic/iif.html",
+    "description": "IIf Function Returns one of two parts, depending on the evaluation of an expression. Syntax vb IIf(expr, truepart, falsepart) Parameters - expr (Required): Expression you want to evaluate - truepart ("
+  },
+  {
+    "name": "switch",
+    "type": "function",
+    "category": "Logic",
+    "url": "functions/logic/switch.html",
+    "description": "VB6 Switch Function The Switch function evaluates a list of expressions and returns a value or expression associated with the first expression that is True. Syntax vb6 Switch(expr1, value1, expr2, val"
+  },
+  {
+    "name": "abs",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/abs.html",
+    "description": "Abs Function Returns the absolute value of a number. Syntax vb Abs(number) Parts - number: Required. Any valid numeric expression. If number contains Null, Null is returned; if it is an uninitialized "
+  },
+  {
+    "name": "atn",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/atn.html",
+    "description": "Atn Function Returns a Double specifying the arctangent of a number. Syntax vb Atn(number) Parameters - number - Required. A Double or any valid numeric expression. The tangent value for which you wan"
+  },
+  {
+    "name": "cos",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/cos.html",
+    "description": "Cos Function Returns a Double specifying the cosine of an angle. Syntax vb Cos(number) Parameters - number: Required. Double or any valid numeric expression that expresses an angle in radians. Return "
+  },
+  {
+    "name": "exp",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/exp.html",
+    "description": "Exp Function Returns e (the base of natural logarithms) raised to a power. Syntax vb Exp(number) Parameters - number: Required. A Double or any valid numeric expression representing the exponent. Retu"
+  },
+  {
+    "name": "fix",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/fix.html",
+    "description": "Fix Function Returns the integer portion of a number. Syntax vb Fix(number) Parameters - number (Required): Any valid numeric expression. If number contains Null, Null is returned Return Value Returns"
+  },
+  {
+    "name": "int",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/int.html",
+    "description": "Int Function Returns the integer portion of a number. Syntax vb Int(number) Parameters - number (Required): Any valid numeric expression. If number contains Null, Null is returned Return Value Returns"
+  },
+  {
+    "name": "log",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/log.html",
+    "description": "Log Function Returns a Double specifying the natural logarithm of a number. Syntax vb Log(number) Parameters - number (Required): Double or any valid numeric expression greater than zero - Must be pos"
+  },
+  {
+    "name": "rnd",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/rnd.html",
+    "description": "Rnd Function Returns a Single containing a pseudo-random number. Syntax vb Rnd(number) Parameters - number - Optional. Single or any valid numeric expression. Return Value Returns a Single value great"
+  },
+  {
+    "name": "round",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/round.html",
+    "description": "Round Function Returns a number rounded to a specified number of decimal places. Syntax vb Round(expression, numdecimalplaces) Parameters - expression - Required. Numeric expression being rounded. - n"
+  },
+  {
+    "name": "sgn",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/sgn.html",
+    "description": "Sgn Function Returns an Integer indicating the sign of a number. Syntax vb Sgn(number) Parameters - number - Required. Any valid numeric expression. Return Value Returns an Integer indicating the sign"
+  },
+  {
+    "name": "sin",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/sin.html",
+    "description": "Sin Function Returns a Double specifying the sine of an angle. Syntax vb Sin(number) Parameters - number - Required. Double or any valid numeric expression that expresses an angle in radians. Return V"
+  },
+  {
+    "name": "sqr",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/sqr.html",
+    "description": "Sqr Function Returns a Double specifying the square root of a number. Syntax vb Sqr(number) Parameters - number - Required. Double or any valid numeric expression greater than or equal to 0. Return Va"
+  },
+  {
+    "name": "tan",
+    "type": "function",
+    "category": "Math",
+    "url": "functions/math/tan.html",
+    "description": "VB6 Tan Function The Tan function returns the tangent of an angle specified in radians. Syntax vb6 Tan(number) Parameters - number: Required. A numeric expression representing an angle in radians. Ret"
+  },
+  {
+    "name": "callbyname",
+    "type": "function",
+    "category": "Objects",
+    "url": "functions/objects/callbyname.html",
+    "description": "CallByName Function Executes a method, sets or returns a property, or sets or returns a field of an object. Syntax vb CallByName(object, procname, calltype, args()) Parameters - object - Required. Obj"
+  },
+  {
+    "name": "createobject",
+    "type": "function",
+    "category": "Objects",
+    "url": "functions/objects/createobject.html",
+    "description": "CreateObject Function Creates and returns a reference to an ActiveX object (COM object). Syntax vb CreateObject(class, servername) Parameters - class: Required. String expression representing the prog"
+  },
+  {
+    "name": "getobject",
+    "type": "function",
+    "category": "Objects",
+    "url": "functions/objects/getobject.html",
+    "description": "GetObject Function Returns a reference to an ActiveX object from a file or a running instance of an object. Syntax vb GetObject(pathname , class) Parameters - pathname - Optional. String expression th"
+  },
+  {
+    "name": "typename",
+    "type": "function",
+    "category": "Objects",
+    "url": "functions/objects/typename.html",
+    "description": "VB6 TypeName Function The TypeName function returns a string that provides information about the data type of a variable or expression. Syntax vb6 TypeName(varname) Parameters - varname: Required. Nam"
+  },
+  {
+    "name": "loadpicture",
+    "type": "function",
+    "category": "Resources",
+    "url": "functions/resources/loadpicture.html",
+    "description": "LoadPicture Function Returns a picture object (StdPicture) containing an image from a file or memory. Syntax vb LoadPicture(filename , size , colordepth , x, y) Parameters - filename (Optional): Strin"
+  },
+  {
+    "name": "loadresdata",
+    "type": "function",
+    "category": "Resources",
+    "url": "functions/resources/loadresdata.html",
+    "description": "LoadResData Function Returns the data stored in a resource (.res) file. Syntax vb LoadResData(index, format) Parameters - index (Required): Integer or String identifying the resource - Can be a numeri"
+  },
+  {
+    "name": "loadrespicture",
+    "type": "function",
+    "category": "Resources",
+    "url": "functions/resources/loadrespicture.html",
+    "description": "LoadResPicture Function Returns a picture object (StdPicture) containing an image from a resource (.res) file. Syntax vb LoadResPicture(index, format) Parameters - index (Required): Integer or String "
+  },
+  {
+    "name": "loadresstring",
+    "type": "function",
+    "category": "Resources",
+    "url": "functions/resources/loadresstring.html",
+    "description": "LoadResString Function Returns a string from a resource (.res) file. Syntax vb LoadResString(index) Parameters - index (Required): Integer identifying the string resource - Must be a numeric ID (strin"
+  },
+  {
+    "name": "asc",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/asc.html",
+    "description": "Asc Function Returns an Integer representing the character code corresponding to the first letter in a string. Syntax vb Asc(string) Parameters - string - Required. Any valid string expression. If the"
+  },
+  {
+    "name": "ascb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ascb.html",
+    "description": "AscB Function Returns an Integer representing the byte value (ANSI code) of the first byte in a string. The \"B\" suffix indicates this is the byte (ANSI) version of the Asc function. Syntax vb AscB(str"
+  },
+  {
+    "name": "ascw",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ascw.html",
+    "description": "AscW Function Returns an Integer representing the Unicode character code of the first character in a string. The \"W\" suffix indicates this is the wide (Unicode) version of the Asc function. Syntax vb "
+  },
+  {
+    "name": "chr",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chr.html",
+    "description": "Chr Function Returns a String containing the character associated with the specified character code. Syntax vb Chr(charcode) Parameters - charcode: Required. Long value that identifies a character. Th"
+  },
+  {
+    "name": "chr_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chr_dollar.html",
+    "description": "Chr$ Function Returns a String containing the character associated with the specified character code. The dollar sign suffix ($) explicitly indicates that this function returns a String type. Syntax v"
+  },
+  {
+    "name": "chrb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chrb.html",
+    "description": "ChrB Function Returns a String containing the character associated with the specified ANSI character code. The \"B\" suffix indicates this is the byte (ANSI) version of the Chr function. Syntax vb ChrB("
+  },
+  {
+    "name": "chrb_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chrb_dollar.html",
+    "description": "ChrB$ Function Returns a String containing the character associated with the specified ANSI character code. The dollar sign suffix ($) explicitly indicates that this function returns a String type (no"
+  },
+  {
+    "name": "chrw",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chrw.html",
+    "description": "ChrW Function Returns a String containing the Unicode character associated with the specified character code. The \"W\" suffix indicates this is the wide (Unicode) version of the Chr function. Syntax vb"
+  },
+  {
+    "name": "chrw_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/chrw_dollar.html",
+    "description": "ChrW$ Function Returns a String containing the Unicode character associated with the specified character code. The dollar sign suffix ($) explicitly indicates that this function returns a String type "
+  },
+  {
+    "name": "format",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/format.html",
+    "description": "Format Function Returns a Variant (String) containing an expression formatted according to instructions contained in a format expression. Syntax vb Format(expression, format, firstdayofweek, firstweek"
+  },
+  {
+    "name": "format_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/format_dollar.html",
+    "description": "Format$ Function Returns a String formatted according to instructions contained in a format expression. Syntax vb6 Format$(expression, format, firstdayofweek, firstweekofyear) Parameters - expression:"
+  },
+  {
+    "name": "formatcurrency",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/formatcurrency.html",
+    "description": "FormatCurrency Function Returns an expression formatted as a currency value using the currency symbol defined in the system control panel. Syntax vb FormatCurrency(expression, numdigitsafterdecimal, i"
+  },
+  {
+    "name": "formatdatetime",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/formatdatetime.html",
+    "description": "FormatDateTime Function Returns an expression formatted as a date or time. Syntax vb FormatDateTime(date, namedformat) Parameters - date: Required. Date expression to be formatted. - namedformat: Opti"
+  },
+  {
+    "name": "formatnumber",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/formatnumber.html",
+    "description": "FormatNumber Function Returns an expression formatted as a number. Syntax vb FormatNumber(expression, numdigitsafterdecimal, includeleadingdigit, useparensfornegativenumbers, groupdigits) Parameters -"
+  },
+  {
+    "name": "formatpercent",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/formatpercent.html",
+    "description": "FormatPercent Function Returns an expression formatted as a percentage (multiplied by 100) with a trailing % character. Syntax vb FormatPercent(expression, numdigitsafterdecimal, includeleadingdigit, "
+  },
+  {
+    "name": "instr",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/instr.html",
+    "description": "InStr Function Returns a Long specifying the position of the first occurrence of one string within another. Syntax vb InStr(start, string1, string2, compare) Parameters - start (Optional): Numeric exp"
+  },
+  {
+    "name": "instrrev",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/instrrev.html",
+    "description": "InStrRev Function Returns the position of an occurrence of one string within another, from the end of string. Syntax vb InStrRev(stringcheck, stringmatch, start, compare) Parameters - stringcheck (Req"
+  },
+  {
+    "name": "lcase",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/lcase.html",
+    "description": "LCase Function Returns a String that has been converted to lowercase. Syntax vb LCase(string) Parameters - string (Required): Any valid string expression - If string contains Null, Null is returned Re"
+  },
+  {
+    "name": "lcase_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/lcase_dollar.html",
+    "description": "LCase$ Function Returns a String that has been converted to lowercase. The \"$\" suffix indicates this function returns a String type. Syntax vb LCase$(string) Parameters - string: Required. Any valid s"
+  },
+  {
+    "name": "left",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/left.html",
+    "description": "Left Function Returns a String containing a specified number of characters from the left side of a string. Syntax vb Left(string, length) Parameters - string (Required): String expression from which l"
+  },
+  {
+    "name": "left_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/left_dollar.html",
+    "description": "Left$ Function Returns a String containing a specified number of characters from the left side of a string. Syntax vb6 Left$(string, length) Parameters - string: Required. String expression from which"
+  },
+  {
+    "name": "leftb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/leftb.html",
+    "description": "LeftB Function Returns a Variant (String) containing a specified number of bytes from the left side of a string. Syntax vb LeftB(string, length) Parameters - string (Required): String expression from "
+  },
+  {
+    "name": "leftb_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/leftb_dollar.html",
+    "description": "LeftB$ Function Returns a String containing a specified number of bytes from the left side of a string. Syntax vb6 LeftB$(string, length) Parameters - string: Required. String expression from which th"
+  },
+  {
+    "name": "len",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/len.html",
+    "description": "Len Function Returns a Long containing the number of characters in a string or the number of bytes required to store a variable. Syntax vb Len(string | varname) Parameters - string (Optional): Any val"
+  },
+  {
+    "name": "lenb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/lenb.html",
+    "description": "LenB Function The LenB function returns a Long containing the number of bytes used to represent a string in memory. This function operates on byte count rather than character count, which is important"
+  },
+  {
+    "name": "ltrim",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ltrim.html",
+    "description": "LTrim Function Returns a String containing a copy of a specified string with leading spaces removed. Syntax vb LTrim(string) Parameters - string (Required): String expression from which leading spaces"
+  },
+  {
+    "name": "ltrim_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ltrim_dollar.html",
+    "description": "LTrim$ Function Returns a String containing a copy of a specified string with leading spaces removed. Syntax vb6 LTrim$(string) Parameters - string: Required. Any valid string expression. If string co"
+  },
+  {
+    "name": "mid",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/mid.html",
+    "description": "Mid Function Returns a Variant (String) containing a specified number of characters from a string. Syntax vb Mid(string, start, length) Parameters - string (Required): String expression from which cha"
+  },
+  {
+    "name": "mid_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/mid_dollar.html",
+    "description": "Mid$ Function The Mid$ function returns a String containing a specified number of characters from a string. The dollar sign suffix ($) indicates that this function always returns a String type, never "
+  },
+  {
+    "name": "midb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/midb.html",
+    "description": "MidB Function The MidB function returns a Variant (String) containing a specified number of bytes from a string. This function operates on byte positions rather than character positions, which is impo"
+  },
+  {
+    "name": "midb_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/midb_dollar.html",
+    "description": "MidB$ Function Returns a String containing a specified number of bytes from a string. Syntax vb6 MidB$(string, start, length) Parameters - string: Required. String expression from which bytes are retu"
+  },
+  {
+    "name": "replace",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/replace.html",
+    "description": "Replace Function Returns a string in which a specified substring has been replaced with another substring a specified number of times. Syntax vb Replace(expression, find, replace, start, count, compar"
+  },
+  {
+    "name": "right",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/right.html",
+    "description": "Right Function Returns a String containing a specified number of characters from the right side of a string. Syntax vb Right(string, length) Parameters - string - Required. String expression from whic"
+  },
+  {
+    "name": "right_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/right_dollar.html",
+    "description": "Right$ Function The Right$ function in Visual Basic 6 returns a string containing a specified number of characters from the right side (end) of a string. The dollar sign ($) suffix indicates that this"
+  },
+  {
+    "name": "rightb",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/rightb.html",
+    "description": "RightB Function Returns a Variant (String) containing a specified number of bytes from the right side of a string. Syntax vb RightB(string, length) Parameters - string (Required): String expression fr"
+  },
+  {
+    "name": "rightb_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/rightb_dollar.html",
+    "description": "RightB$ Function The RightB$ function in Visual Basic 6 returns a string containing a specified number of bytes from the right side (end) of a string. Unlike Right$ which works with characters, RightB"
+  },
+  {
+    "name": "rtrim",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/rtrim.html",
+    "description": "RTrim Function Returns a String containing a copy of a specified string with trailing spaces removed. Syntax vb RTrim(string) Parameters - string (Required): String expression from which trailing spac"
+  },
+  {
+    "name": "rtrim_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/rtrim_dollar.html",
+    "description": "RTrim$ Function The RTrim$ function in Visual Basic 6 returns a string with trailing (right-side) spaces removed. The dollar sign ($) suffix indicates that this function always returns a String type, "
+  },
+  {
+    "name": "space",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/space.html",
+    "description": "Space Function Returns a String consisting of the specified number of spaces. Syntax vb Space(number) Parameters - number - Required. Long or any valid numeric expression specifying the number of spac"
+  },
+  {
+    "name": "space_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/space_dollar.html",
+    "description": "Space$ Function The Space$ function in Visual Basic 6 returns a string consisting of the specified number of space characters (ASCII 32). The dollar sign ($) suffix indicates that this function always"
+  },
+  {
+    "name": "str",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/str.html",
+    "description": "VB6 Str Function The Str function converts a number to a string representation. Syntax vb6 Str(number) Parameters - number: Required. Any valid numeric expression (Long, Integer, Single, Double, Curre"
+  },
+  {
+    "name": "str_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/str_dollar.html",
+    "description": "Str$ Function The Str$ function in Visual Basic 6 converts a numeric value to a string representation. The dollar sign ($) suffix indicates that this function always returns a String type, never a Var"
+  },
+  {
+    "name": "strcomp",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/strcomp.html",
+    "description": "VB6 StrComp Function The StrComp function compares two strings and returns a value indicating their relationship. Syntax vb6 StrComp(string1, string2, compare) Parameters - string1: Required. Any vali"
+  },
+  {
+    "name": "strconv",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/strconv.html",
+    "description": "VB6 StrConv Function The StrConv function converts a string to a specified format. Syntax vb6 StrConv(string, conversion, LCID) Parameters - string: Required. String expression to be converted. - conv"
+  },
+  {
+    "name": "string_function",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/string_function.html",
+    "description": "VB6 String Function The String function returns a string consisting of a repeating character. Syntax vb6 String(number, character) Parameters - number: Required. Long integer specifying the length of "
+  },
+  {
+    "name": "strreverse",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/strreverse.html",
+    "description": "VB6 StrReverse Function The StrReverse function returns a string in which the character order of a specified string is reversed. Syntax vb6 StrReverse(expression) Parameters - expression: Required. St"
+  },
+  {
+    "name": "trim",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/trim.html",
+    "description": "Trim Function Returns a String containing a copy of a specified string with both leading and trailing spaces removed. Syntax vb Trim(string) Parameters - string (Required): String expression from whic"
+  },
+  {
+    "name": "trim_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/trim_dollar.html",
+    "description": "Trim$ Function The Trim$ function in Visual Basic 6 returns a string with both leading and trailing spaces removed. The dollar sign ($) suffix indicates that this function always returns a String type"
+  },
+  {
+    "name": "ucase",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ucase.html",
+    "description": "VB6 UCase Function The UCase function returns a String that has been converted to uppercase. Syntax vb6 UCase(string) Parameters - string: Required. Any valid string expression. If string contains Nul"
+  },
+  {
+    "name": "ucase_dollar",
+    "type": "function",
+    "category": "String",
+    "url": "functions/string/ucase_dollar.html",
+    "description": "UCase$ Function Returns a String that has been converted to uppercase. The \"$\" suffix indicates this function returns a String type. Syntax vb UCase$(string) Parameters - string: Required. Any valid s"
+  },
+  {
+    "name": "isarray",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isarray.html",
+    "description": "IsArray Function Returns a Boolean value indicating whether a variable is an array. Syntax vb IsArray(varname) Parameters varname (Required): Variable name to test Return Value Returns a Boolean: - Tr"
+  },
+  {
+    "name": "isdate",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isdate.html",
+    "description": "IsDate Function Returns a Boolean value indicating whether an expression can be converted to a date. Syntax vb IsDate(expression) Parameters - expression (Required): Variant expression to test for dat"
+  },
+  {
+    "name": "isempty",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isempty.html",
+    "description": "IsEmpty Function Returns a Boolean value indicating whether a Variant variable has been initialized. Syntax vb IsEmpty(expression) Parameters - expression (Required): Variant expression to test Return"
+  },
+  {
+    "name": "iserror",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/iserror.html",
+    "description": "IsError Function Returns a Boolean value indicating whether an expression is an error value. Syntax vb IsError(expression) Parameters - expression (Required): Variant expression to test Return Value R"
+  },
+  {
+    "name": "ismissing",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/ismissing.html",
+    "description": "IsMissing Function Returns a Boolean value indicating whether an optional Variant parameter was passed to a procedure. Syntax vb IsMissing(argname) Parameters - argname (Required): Name of an optional"
+  },
+  {
+    "name": "isnull",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isnull.html",
+    "description": "IsNull Function Returns a Boolean value indicating whether an expression contains no valid data (Null). Syntax vb IsNull(expression) Parameters - expression (Required): Variant expression to test Retu"
+  },
+  {
+    "name": "isnumeric",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isnumeric.html",
+    "description": "IsNumeric Function Returns a Boolean value indicating whether an expression can be evaluated as a number. Syntax vb IsNumeric(expression) Parameters - expression (Required): Variant expression to test"
+  },
+  {
+    "name": "isobject",
+    "type": "function",
+    "category": "Type Checking",
+    "url": "functions/type_checking/isobject.html",
+    "description": "IsObject Function Returns a Boolean value indicating whether an identifier represents an object variable. Syntax vb IsObject(identifier) Parameters - identifier (Required): Variable name to test Retur"
+  },
+  {
+    "name": "name",
+    "type": "statement",
+    "category": "File Operations",
+    "url": "statements/file_operations/name.html",
+    "description": "Name Statement Renames a disk file, directory, or folder. Syntax vb Name oldpathname As newpathname - oldpathname: Required. String expression that specifies the existing file name and location. May i"
+  },
+  {
+    "name": "seek",
+    "type": "statement",
+    "category": "File Operations",
+    "url": "statements/file_operations/seek.html",
+    "description": "Seek Statement Sets the position for the next read or write operation in a file opened using the Open statement. Syntax vb Seek filenumber, position Parts - filenumber: Required. Any valid file number"
+  },
+  {
+    "name": "width",
+    "type": "statement",
+    "category": "File Operations",
+    "url": "statements/file_operations/width.html",
+    "description": "Width Statement Assigns an output line width to a file opened using the Open statement. Syntax vb Width filenumber, width Parts - filenumber: Required. Any valid file number. - width: Required. Numeri"
+  },
+  {
+    "name": "write",
+    "type": "statement",
+    "category": "File Operations",
+    "url": "statements/file_operations/write.html",
+    "description": "Write Statement Writes data to a sequential file. Syntax vb Write filenumber, outputlist Parts - filenumber: Required. Any valid file number. - outputlist: Optional. One or more comma-delimited numeri"
+  },
+  {
+    "name": "mkdir",
+    "type": "statement",
+    "category": "Filesystem",
+    "url": "statements/filesystem/mkdir.html",
+    "description": "MkDir Statement Creates a new directory or folder. Syntax vb MkDir path - path: Required. String expression that identifies the directory or folder to be created. May include drive. If no drive is spe"
+  },
+  {
+    "name": "rmdir",
+    "type": "statement",
+    "category": "Filesystem",
+    "url": "statements/filesystem/rmdir.html",
+    "description": "RmDir Statement Removes an empty directory or folder. Syntax vb RmDir path - path: Required. String expression that identifies the directory or folder to be removed. May include drive. If no drive is "
+  },
+  {
+    "name": "setattr",
+    "type": "statement",
+    "category": "Filesystem",
+    "url": "statements/filesystem/setattr.html",
+    "description": "SetAttr Statement Sets attribute information for a file. Syntax vb SetAttr pathname, attributes Parts - pathname: Required. String expression that specifies a file name. May include directory or folde"
+  },
+  {
+    "name": "date",
+    "type": "statement",
+    "category": "Runtime State",
+    "url": "statements/runtime_state/date.html",
+    "description": "VB6 Date statement syntax: - Date = dateexpression Sets the current system date. dateexpression: Required. Any expression that can represent a date. Note: The Date statement is used to set the date. T"
+  },
+  {
+    "name": "error",
+    "type": "statement",
+    "category": "Runtime State",
+    "url": "statements/runtime_state/error.html",
+    "description": "VB6 Error statement syntax: - Error errornumber Generates a run-time error; can be used instead of the Err.Raise method. The Error statement syntax has this part: | Part | Description | |-------------"
+  },
+  {
+    "name": "randomize",
+    "type": "statement",
+    "category": "Runtime State",
+    "url": "statements/runtime_state/randomize.html",
+    "description": "Parse a VB6 Randomize statement. Syntax vb Randomize number Arguments | Part | Optional / Required | Description | |------|---------------------|-------------| | number | Optional | A Variant or any v"
+  },
+  {
+    "name": "time",
+    "type": "statement",
+    "category": "Runtime State",
+    "url": "statements/runtime_state/time.html",
+    "description": "Time Statement Sets the system time. Syntax vb Time = time Parts - time: Required. Any numeric expression, string expression, or any combination that can represent a time. Remarks - System Time: The T"
+  },
+  {
+    "name": "mid",
+    "type": "statement",
+    "category": "String Manipulation",
+    "url": "statements/string_manipulation/mid.html",
+    "description": "Mid Statement Replaces a specified number of characters in a Variant (String) variable with characters from another string. Syntax vb Mid(stringvar, start, length) = string - stringvar: Required. Name"
+  },
+  {
+    "name": "midb",
+    "type": "statement",
+    "category": "String Manipulation",
+    "url": "statements/string_manipulation/midb.html",
+    "description": "MidB Statement Replaces a specified number of bytes in a Variant (String) variable with bytes from another string. Syntax vb MidB(stringvar, start, length) = string - stringvar: Required. Name of stri"
+  },
+  {
+    "name": "savepicture",
+    "type": "statement",
+    "category": "System Interaction",
+    "url": "statements/system_interaction/savepicture.html",
+    "description": "SavePicture Statement Saves a graphical image from a control or form to a file. Syntax vb SavePicture picture, stringexpression Parts - picture: Required. A property or graphic object from which to sa"
+  },
+  {
+    "name": "savesetting",
+    "type": "statement",
+    "category": "System Interaction",
+    "url": "statements/system_interaction/savesetting.html",
+    "description": "SaveSetting Statement Saves or creates an application entry in the Windows registry or (on the Macintosh) information in the application's initialization file. Syntax vb SaveSetting appname, section, "
+  },
+  {
+    "name": "sendkeys",
+    "type": "statement",
+    "category": "System Interaction",
+    "url": "statements/system_interaction/sendkeys.html",
+    "description": "SendKeys Statement Sends one or more keystrokes to the active window as if typed at the keyboard. Syntax vb SendKeys string , wait Parts - string: Required. String expression specifying the keystrokes"
+  },
+  {
+    "name": "stop",
+    "type": "statement",
+    "category": "System Interaction",
+    "url": "statements/system_interaction/stop.html",
+    "description": "Stop Statement Suspends execution. Syntax vb Stop Remarks - Execution Suspension: The Stop statement suspends execution but doesn't close any files or clear variables unless it is in a compiled execut"
+  },
+  {
+    "name": "unload",
+    "type": "statement",
+    "category": "System Interaction",
+    "url": "statements/system_interaction/unload.html",
+    "description": "Unload Statement Removes a form or control from memory. Syntax vb Unload object Parts - object: Required. An object expression that evaluates to a Form or control. If object is a form, unloading the f"
+  }
+]

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - second - Datetime">
+    <title>second - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / second</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="second-function">Second Function</h1>
+<p>Returns an Integer specifying a whole number between 0 and 59, inclusive, representing the second of the minute.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Second(time)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>time</code> - Required. Any Variant, numeric expression, string expression, or any combination that can represent a time. If <code>time</code> contains Null, Null is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> between 0 and 59 representing the second of the minute.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Second</code> function extracts the seconds component from a time value. It is commonly used for time parsing, logging, and time-based calculations.</p>
+<p><strong>Important Notes</strong>:
+- Returns 0-59 (60 seconds in a minute)
+- If time contains Null, Second returns Null
+- If time is not a valid time, runtime error occurs (Error 13: Type mismatch)
+- Only the time portion is used; date portion is ignored
+- Accepts Date/Time values, numeric values, and valid time strings</p>
+<p><strong>Valid Input Examples</strong>:
+- Date/Time values: Now, Time, Date
+- Time strings: "3:45:30 PM", "15:45:30"
+- Numeric values representing dates: 0.5 (noon), 0.75 (6 PM)
+- Combined date/time: #1/1/2000 3:45:30 PM#</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Time Parsing</strong>: Extract seconds from time values</li>
+<li><strong>Logging</strong>: Record precise timestamps</li>
+<li><strong>Time Calculations</strong>: Compute time differences</li>
+<li><strong>Scheduling</strong>: Check if task should run at specific second</li>
+<li><strong>Animation</strong>: Time-based animations at second intervals</li>
+<li><strong>Performance Timing</strong>: Measure elapsed seconds</li>
+<li><strong>Data Validation</strong>: Verify time components</li>
+<li><strong>Report Generation</strong>: Format time displays</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-get-current-second">Example 1: Get Current Second</h3>
+<pre><code class="language-vbnet">Dim currentSecond As Integer
+currentSecond = Second(Now)  &#x27; Returns 0-59</code></pre>
+<h3 id="example-2-parse-time-string">Example 2: Parse Time String</h3>
+<pre><code class="language-vbnet">Dim timeStr As String
+Dim sec As Integer
+
+timeStr = &quot;3:45:30 PM&quot;
+sec = Second(timeStr)  &#x27; Returns 30</code></pre>
+<h3 id="example-3-check-specific-second">Example 3: Check Specific Second</h3>
+<pre><code class="language-vbnet">If Second(Now) = 0 Then
+MsgBox &quot;New minute started!&quot;
+End If</code></pre>
+<h3 id="example-4-extract-from-datetime">Example 4: Extract from Date/Time</h3>
+<pre><code class="language-vbnet">Dim dt As Date
+Dim seconds As Integer
+
+dt = #1/15/2000 10:30:45 AM#
+seconds = Second(dt)  &#x27; Returns 45</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-gettimeseconds">Pattern 1: <code>GetTimeSeconds</code></h3>
+<pre><code class="language-vbnet">Function GetTimeSeconds(timeValue As Variant) As Integer
+&#x27; Safely get seconds from time value
+On Error Resume Next
+GetTimeSeconds = Second(timeValue)
+If Err.Number &lt;&gt; 0 Then
+GetTimeSeconds = 0
+End If
+On Error GoTo 0
+End Function</code></pre>
+<h3 id="pattern-2-formattimewithseconds">Pattern 2: <code>FormatTimeWithSeconds</code></h3>
+<pre><code class="language-vbnet">Function FormatTimeWithSeconds(timeValue As Date) As String
+&#x27; Format time as HH:MM:SS
+Dim h As Integer, m As Integer, s As Integer
+
+h = Hour(timeValue)
+m = Minute(timeValue)
+s = Second(timeValue)
+
+FormatTimeWithSeconds = Format(h, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format(m, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format(s, &quot;00&quot;)
+End Function</code></pre>
+<h3 id="pattern-3-isatsecondinterval">Pattern 3: <code>IsAtSecondInterval</code></h3>
+<pre><code class="language-vbnet">Function IsAtSecondInterval(timeValue As Date, interval As Integer) As Boolean
+&#x27; Check if time is at a specific second interval
+&#x27; e.g., IsAtSecondInterval(Now, 15) returns True at :00, :15, :30, :45
+IsAtSecondInterval = (Second(timeValue) Mod interval = 0)
+End Function</code></pre>
+<h3 id="pattern-4-getelapsedseconds">Pattern 4: <code>GetElapsedSeconds</code></h3>
+<pre><code class="language-vbnet">Function GetElapsedSeconds(startTime As Date, endTime As Date) As Long
+&#x27; Get total elapsed seconds between two times
+GetElapsedSeconds = DateDiff(&quot;s&quot;, startTime, endTime)
+End Function</code></pre>
+<h3 id="pattern-5-setseconds">Pattern 5: <code>SetSeconds</code></h3>
+<pre><code class="language-vbnet">Function SetSeconds(timeValue As Date, newSeconds As Integer) As Date
+&#x27; Set the seconds component of a time value
+Dim h As Integer, m As Integer
+
+h = Hour(timeValue)
+m = Minute(timeValue)
+
+SetSeconds = TimeSerial(h, m, newSeconds)
+End Function</code></pre>
+<h3 id="pattern-6-roundtonearestminute">Pattern 6: <code>RoundToNearestMinute</code></h3>
+<pre><code class="language-vbnet">Function RoundToNearestMinute(timeValue As Date) As Date
+&#x27; Round time to nearest minute based on seconds
+Dim h As Integer, m As Integer, s As Integer
+
+h = Hour(timeValue)
+m = Minute(timeValue)
+s = Second(timeValue)
+
+If s &gt;= 30 Then
+m = m + 1
+If m = 60 Then
+m = 0
+h = h + 1
+If h = 24 Then h = 0
+End If
+End If
+
+RoundToNearestMinute = TimeSerial(h, m, 0)
+End Function</code></pre>
+<h3 id="pattern-7-comparetimetosecond">Pattern 7: <code>CompareTimeToSecond</code></h3>
+<pre><code class="language-vbnet">Function CompareTimeToSecond(time1 As Date, time2 As Date) As Boolean
+&#x27; Compare times to the second (ignore milliseconds)
+Dim h1 As Integer, m1 As Integer, s1 As Integer
+Dim h2 As Integer, m2 As Integer, s2 As Integer
+
+h1 = Hour(time1): m1 = Minute(time1): s1 = Second(time1)
+h2 = Hour(time2): m2 = Minute(time2): s2 = Second(time2)
+
+CompareTimeToSecond = (h1 = h2 And m1 = m2 And s1 = s2)
+End Function</code></pre>
+<h3 id="pattern-8-validatetimeseconds">Pattern 8: <code>ValidateTimeSeconds</code></h3>
+<pre><code class="language-vbnet">Function ValidateTimeSeconds(timeValue As Variant) As Boolean
+&#x27; Validate that seconds are in valid range
+On Error Resume Next
+Dim s As Integer
+s = Second(timeValue)
+
+If Err.Number &lt;&gt; 0 Then
+ValidateTimeSeconds = False
+Else
+ValidateTimeSeconds = (s &gt;= 0 And s &lt;= 59)
+End If
+On Error GoTo 0
+End Function</code></pre>
+<h3 id="pattern-9-getsecondsuntilminute">Pattern 9: <code>GetSecondsUntilMinute</code></h3>
+<pre><code class="language-vbnet">Function GetSecondsUntilMinute(Optional timeValue As Date) As Integer
+&#x27; Get seconds remaining until next minute
+Dim currentTime As Date
+
+If timeValue = 0 Then
+currentTime = Now
+Else
+currentTime = timeValue
+End If
+
+GetSecondsUntilMinute = 60 - Second(currentTime)
+End Function</code></pre>
+<h3 id="pattern-10-parsetimecomponents">Pattern 10: <code>ParseTimeComponents</code></h3>
+<pre><code class="language-vbnet">Sub ParseTimeComponents(timeValue As Date, hours As Integer, _
+minutes As Integer, seconds As Integer)
+&#x27; Parse time into separate components
+hours = Hour(timeValue)
+minutes = Minute(timeValue)
+seconds = Second(timeValue)
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-precise-timer-class">Example 1: Precise Timer Class</h3>
+<pre><code class="language-vbnet">&#x27; High-precision timer for performance measurement
+Class PreciseTimer
+Private m_startTime As Date
+Private m_running As Boolean
+
+Public Sub Start()
+m_startTime = Now
+m_running = True
+End Sub
+
+Public Sub Stop()
+m_running = False
+End Sub
+
+Public Function GetElapsedSeconds() As Long
+&#x27; Get elapsed seconds
+Dim endTime As Date
+
+If m_running Then
+endTime = Now
+Else
+endTime = m_startTime
+End If
+
+GetElapsedSeconds = DateDiff(&quot;s&quot;, m_startTime, endTime)
+End Function
+
+Public Function GetElapsedTime() As String
+&#x27; Get formatted elapsed time
+Dim elapsed As Long
+Dim hours As Long, minutes As Long, seconds As Long
+
+elapsed = GetElapsedSeconds()
+
+hours = elapsed \ 3600
+minutes = (elapsed Mod 3600) \ 60
+seconds = elapsed Mod 60
+
+GetElapsedTime = Format(hours, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format(minutes, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format(seconds, &quot;00&quot;)
+End Function
+
+Public Function GetCurrentSecond() As Integer
+&#x27; Get current second of running timer
+If m_running Then
+GetCurrentSecond = Second(Now)
+Else
+GetCurrentSecond = Second(m_startTime)
+End If
+End Function
+
+Public Sub Reset()
+m_startTime = Now
+m_running = False
+End Sub
+
+Public Function IsRunning() As Boolean
+IsRunning = m_running
+End Function
+End Class</code></pre>
+<h3 id="example-2-time-logger-module">Example 2: Time Logger Module</h3>
+<pre><code class="language-vbnet">&#x27; Log events with precise timestamps
+Module TimeLogger
+Private Type LogEntry
+Timestamp As Date
+Message As String
+Second As Integer
+End Type
+
+Private m_logEntries() As LogEntry
+Private m_count As Integer
+
+Public Sub InitializeLog()
+m_count = 0
+ReDim m_logEntries(0 To 999)
+End Sub
+
+Public Sub LogEvent(message As String, Optional timeValue As Date)
+Dim entry As LogEntry
+Dim logTime As Date
+
+If m_count &gt; UBound(m_logEntries) Then
+ReDim Preserve m_logEntries(0 To UBound(m_logEntries) + 1000)
+End If
+
+If timeValue = 0 Then
+logTime = Now
+Else
+logTime = timeValue
+End If
+
+entry.Timestamp = logTime
+entry.Message = message
+entry.Second = Second(logTime)
+
+m_logEntries(m_count) = entry
+m_count = m_count + 1
+End Sub
+
+Public Function GetFormattedLog() As String
+&#x27; Get formatted log with timestamps
+Dim i As Integer
+Dim result As String
+Dim timeStr As String
+
+result = &quot;Event Log&quot; &amp; vbCrLf
+result = result &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+
+For i = 0 To m_count - 1
+timeStr = Format(m_logEntries(i).Timestamp, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+result = result &amp; timeStr &amp; &quot; | &quot; &amp; m_logEntries(i).Message &amp; vbCrLf
+Next i
+
+GetFormattedLog = result
+End Function
+
+Public Function GetEventsAtSecond(targetSecond As Integer) As String
+&#x27; Get all events that occurred at a specific second
+Dim i As Integer
+Dim result As String
+Dim count As Integer
+
+result = &quot;Events at second &quot; &amp; targetSecond &amp; &quot;:&quot; &amp; vbCrLf
+count = 0
+
+For i = 0 To m_count - 1
+If m_logEntries(i).Second = targetSecond Then
+result = result &amp; &quot;  &quot; &amp; _
+Format(m_logEntries(i).Timestamp, &quot;hh:nn:ss&quot;) &amp; &quot; | &quot; &amp; _
+m_logEntries(i).Message &amp; vbCrLf
+count = count + 1
+End If
+Next i
+
+result = result &amp; vbCrLf &amp; &quot;Total: &quot; &amp; count &amp; &quot; events&quot;
+GetEventsAtSecond = result
+End Function
+
+Public Function GetLogCount() As Integer
+GetLogCount = m_count
+End Function
+
+Public Sub ClearLog()
+m_count = 0
+ReDim m_logEntries(0 To 999)
+End Sub
+End Module</code></pre>
+<h3 id="example-3-time-based-task-scheduler">Example 3: Time-Based Task Scheduler</h3>
+<pre><code class="language-vbnet">&#x27; Schedule tasks to run at specific seconds
+Class TaskScheduler
+Private Type ScheduledTask
+TaskName As String
+TargetSecond As Integer
+Interval As Integer
+LastRun As Date
+Enabled As Boolean
+End Type
+
+Private m_tasks() As ScheduledTask
+Private m_count As Integer
+
+Public Sub Initialize()
+m_count = 0
+ReDim m_tasks(0 To 99)
+End Sub
+
+Public Sub AddTask(taskName As String, targetSecond As Integer, _
+Optional interval As Integer = 60)
+&#x27; Add task to run at specific second
+If m_count &gt; UBound(m_tasks) Then
+ReDim Preserve m_tasks(0 To UBound(m_tasks) + 50)
+End If
+
+m_tasks(m_count).TaskName = taskName
+m_tasks(m_count).TargetSecond = targetSecond
+m_tasks(m_count).Interval = interval
+m_tasks(m_count).LastRun = 0
+m_tasks(m_count).Enabled = True
+
+m_count = m_count + 1
+End Sub
+
+Public Function CheckTasks() As String
+&#x27; Check which tasks should run now
+Dim currentTime As Date
+Dim currentSecond As Integer
+Dim i As Integer
+Dim tasksToRun As String
+Dim elapsedSeconds As Long
+
+currentTime = Now
+currentSecond = Second(currentTime)
+tasksToRun = &quot;&quot;
+
+For i = 0 To m_count - 1
+If m_tasks(i).Enabled Then
+If currentSecond = m_tasks(i).TargetSecond Then
+If m_tasks(i).LastRun = 0 Then
+&#x27; First run
+tasksToRun = tasksToRun &amp; m_tasks(i).TaskName &amp; &quot;;&quot;
+m_tasks(i).LastRun = currentTime
+Else
+&#x27; Check interval
+elapsedSeconds = DateDiff(&quot;s&quot;, m_tasks(i).LastRun, currentTime)
+If elapsedSeconds &gt;= m_tasks(i).Interval Then
+tasksToRun = tasksToRun &amp; m_tasks(i).TaskName &amp; &quot;;&quot;
+m_tasks(i).LastRun = currentTime
+End If
+End If
+End If
+End If
+Next i
+
+CheckTasks = tasksToRun
+End Function
+
+Public Sub EnableTask(taskName As String)
+Dim i As Integer
+For i = 0 To m_count - 1
+If m_tasks(i).TaskName = taskName Then
+m_tasks(i).Enabled = True
+Exit Sub
+End If
+Next i
+End Sub
+
+Public Sub DisableTask(taskName As String)
+Dim i As Integer
+For i = 0 To m_count - 1
+If m_tasks(i).TaskName = taskName Then
+m_tasks(i).Enabled = False
+Exit Sub
+End If
+Next i
+End Sub
+End Class</code></pre>
+<h3 id="example-4-animation-timer">Example 4: Animation Timer</h3>
+<pre><code class="language-vbnet">&#x27; Time-based animation controller using seconds
+Class AnimationTimer
+Private m_startTime As Date
+Private m_duration As Integer  &#x27; Duration in seconds
+Private m_running As Boolean
+
+Public Sub StartAnimation(durationSeconds As Integer)
+m_startTime = Now
+m_duration = durationSeconds
+m_running = True
+End Sub
+
+Public Function GetProgress() As Double
+&#x27; Get animation progress (0.0 to 1.0)
+Dim elapsed As Long
+
+If Not m_running Then
+GetProgress = 0
+Exit Function
+End If
+
+elapsed = DateDiff(&quot;s&quot;, m_startTime, Now)
+
+If elapsed &gt;= m_duration Then
+GetProgress = 1
+m_running = False
+Else
+GetProgress = elapsed / m_duration
+End If
+End Function
+
+Public Function GetElapsedSeconds() As Integer
+&#x27; Get elapsed seconds since animation start
+If m_running Then
+GetElapsedSeconds = DateDiff(&quot;s&quot;, m_startTime, Now)
+Else
+GetElapsedSeconds = 0
+End If
+End Function
+
+Public Function GetRemainingSeconds() As Integer
+&#x27; Get remaining seconds in animation
+Dim elapsed As Integer
+
+If Not m_running Then
+GetRemainingSeconds = 0
+Exit Function
+End If
+
+elapsed = DateDiff(&quot;s&quot;, m_startTime, Now)
+
+If elapsed &gt;= m_duration Then
+GetRemainingSeconds = 0
+m_running = False
+Else
+GetRemainingSeconds = m_duration - elapsed
+End If
+End Function
+
+Public Function IsComplete() As Boolean
+IsComplete = Not m_running
+End Function
+
+Public Sub Stop()
+m_running = False
+End Sub
+
+Public Function GetCurrentSecond() As Integer
+GetCurrentSecond = Second(Now)
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>Second</code> function generates errors in specific situations:</p>
+<p><strong>Error 13: Type mismatch</strong>
+- Occurs when the argument cannot be interpreted as a date/time value</p>
+<p><strong>Error 94: Invalid use of Null</strong>
+- Can occur if Null is passed and not handled properly</p>
+<p>Example error handling:</p>
+<pre><code class="language-vbnet">On Error Resume Next
+Dim sec As Integer
+sec = Second(userInput)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Invalid time value&quot;
+sec = 0
+End If
+On Error GoTo 0</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Second</code> is very fast - simple extraction operation</li>
+<li>No significant performance considerations</li>
+<li>Can be called thousands of times with minimal impact</li>
+<li>Consider caching if calling repeatedly on same value</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate Input</strong>: Check that input is valid date/time before calling</li>
+<li><strong>Handle Null</strong>: Check for Null if data source is uncertain</li>
+<li><strong>Use with Other Time Functions</strong>: Combine with Hour, Minute for complete parsing</li>
+<li><strong>Format Consistently</strong>: Use consistent time formatting in your application</li>
+<li><strong>Consider Time Zones</strong>: Be aware of time zone issues in time calculations</li>
+<li><strong>Document Precision</strong>: Clarify if milliseconds matter in your application</li>
+<li><strong>Use for Validation</strong>: Validate time components are in expected ranges</li>
+<li><strong>Cache Now Values</strong>: If using Now multiple times, cache to avoid timing issues</li>
+<li><strong>Test Edge Cases</strong>: Test with midnight, end of minute, etc.</li>
+<li><strong>Use <code>TimeSerial</code></strong>: Combine with <code>TimeSerial</code> to construct times</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Second</strong></td>
+<td>Get seconds</td>
+<td>Integer</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td><strong>Minute</strong></td>
+<td>Get minutes</td>
+<td>Integer</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td><strong>Hour</strong></td>
+<td>Get hours</td>
+<td>Integer</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td><strong>Day</strong></td>
+<td>Get day</td>
+<td>Integer</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td><strong>Month</strong></td>
+<td>Get month</td>
+<td>Integer</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>Get year</td>
+<td>Integer</td>
+<td>100-9999</td>
+</tr>
+<tr>
+<td><strong><code>TimeSerial</code></strong></td>
+<td>Create time</td>
+<td>Date</td>
+<td>Constructs time from H:M:S</td>
+</tr>
+<tr>
+<td><strong><code>DatePart</code></strong></td>
+<td>Get date part</td>
+<td>Variant</td>
+<td>Flexible date/time extraction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VB6 and VBA</li>
+<li>Behavior consistent across all platforms</li>
+<li>In VB.NET, replaced by DateTime.Second property</li>
+<li>Returns Integer type (not Long)</li>
+<li>Always returns 0-59 range</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>No millisecond precision</li>
+<li>Cannot distinguish leap seconds</li>
+<li>Range limited to 0-59 (no support for values outside this range)</li>
+<li>Date portion of Date/Time value is ignored</li>
+<li>Cannot be used as <code>LValue</code> (cannot assign to Second)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Minute</code>: Returns the minute of the hour (0-59)</li>
+<li><code>Hour</code>: Returns the hour of the day (0-23)</li>
+<li><code>Now</code>: Returns the current system date and time</li>
+<li><code>Time</code>: Returns the current system time</li>
+<li><code>TimeSerial</code>: Returns a Date value for a specific time</li>
+<li><code>DatePart</code>: Returns a specified part of a given date</li>
+<li><code>Timer</code>: Returns seconds since midnight as Single</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - error - Environment">
+    <title>error - Environment - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/environment/index.html">Environment</a> / error</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="error-function"><code>Error</code> Function</h1>
+<p>Returns the error message that corresponds to a given error number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Error[(errornumber)]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>errornumber</strong>: Optional. A Long or any valid numeric expression that represents
+an error number. If omitted, the error message for the most recent run-time error
+(the current value of <code>Err.Number</code>) is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the error message associated with the specified error number.
+If the error number is not recognized, <code>Error</code> returns "Application-defined or object-defined error".</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Error</code> function is used to retrieve the text description of VB6 run-time errors.
+It's useful for error handling, logging, and displaying user-friendly error messages.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns error message as <code>String</code></li>
+<li>Without argument, returns message for current error (<code>Err.Number</code>)</li>
+<li>With argument, returns message for specified error number</li>
+<li>VB6 error numbers range from 0 to 65535</li>
+<li>User-defined errors typically use 512-65535 range</li>
+<li>System errors use 0-511 range</li>
+<li>Unrecognized errors return generic message</li>
+<li>Does not clear or raise errors</li>
+<li>Can be used without On Error statement</li>
+<li><code>Err.Description</code> also provides error messages</li>
+</ul>
+<h2 id="common-vb6-error-numbers">Common VB6 Error Numbers</h2>
+<ul>
+<li><strong>3</strong>: Return without <code>GoSub</code></li>
+<li><strong>5</strong>: Invalid procedure call or argument</li>
+<li><strong>6</strong>: Overflow</li>
+<li><strong>7</strong>: Out of memory</li>
+<li><strong>9</strong>: Subscript out of range</li>
+<li><strong>10</strong>: Array is fixed or temporarily locked</li>
+<li><strong>11</strong>: Division by zero</li>
+<li><strong>13</strong>: Type mismatch</li>
+<li><strong>28</strong>: Out of stack space</li>
+<li><strong>35</strong>: Sub or Function not defined</li>
+<li><strong>48</strong>: Error in loading DLL</li>
+<li><strong>49</strong>: Bad DLL calling convention</li>
+<li><strong>51</strong>: Internal error</li>
+<li><strong>52</strong>: Bad file name or number</li>
+<li><strong>53</strong>: File not found</li>
+<li><strong>54</strong>: Bad file mode</li>
+<li><strong>55</strong>: File already open</li>
+<li><strong>57</strong>: Device I/O error</li>
+<li><strong>58</strong>: File already exists</li>
+<li><strong>61</strong>: Disk full</li>
+<li><strong>62</strong>: Input past end of file</li>
+<li><strong>63</strong>: Bad record number</li>
+<li><strong>67</strong>: Too many files</li>
+<li><strong>68</strong>: Device unavailable</li>
+<li><strong>70</strong>: Permission denied</li>
+<li><strong>71</strong>: Disk not ready</li>
+<li><strong>74</strong>: Can't rename with different drive</li>
+<li><strong>75</strong>: Path/File access error</li>
+<li><strong>76</strong>: Path not found</li>
+<li><strong>91</strong>: <code>Object</code> variable or <code>With</code> block variable not set</li>
+<li><strong>92</strong>: For loop not initialized</li>
+<li><strong>93</strong>: Invalid pattern string</li>
+<li><strong>94</strong>: Invalid use of Null</li>
+<li><strong>298</strong>: System DLL could not be loaded</li>
+<li><strong>321</strong>: Invalid file format</li>
+<li><strong>322</strong>: Can't create necessary temporary file</li>
+<li><strong>325</strong>: Invalid format in resource file</li>
+<li><strong>380</strong>: Invalid property value</li>
+<li><strong>424</strong>: <code>Object</code> required</li>
+<li><strong>429</strong>: <code>ActiveX</code> component can't create <code>Object</code></li>
+<li><strong>430</strong>: Class does not support Automation</li>
+<li><strong>432</strong>: File name or class name not found during Automation operation</li>
+<li><strong>438</strong>: <code>Object</code> doesn't support this property or method</li>
+<li><strong>440</strong>: Automation error</li>
+<li><strong>445</strong>: <code>Object</code> doesn't support this action</li>
+<li><strong>446</strong>: <code>Object</code> doesn't support named arguments</li>
+<li><strong>447</strong>: <code>Object</code> doesn't support current locale setting</li>
+<li><strong>448</strong>: Named argument not found</li>
+<li><strong>449</strong>: Argument not optional</li>
+<li><strong>450</strong>: Wrong number of arguments or invalid property assignment</li>
+<li><strong>451</strong>: <code>Object</code> not a collection</li>
+<li><strong>452</strong>: Invalid ordinal</li>
+<li><strong>453</strong>: Specified DLL function not found</li>
+<li><strong>454</strong>: Code resource not found</li>
+<li><strong>455</strong>: Code resource lock error</li>
+<li><strong>457</strong>: This key is already associated with an element of this collection</li>
+<li><strong>458</strong>: Variable uses an Automation type not supported in Visual Basic</li>
+<li><strong>459</strong>: This component doesn't support events</li>
+<li><strong>460</strong>: Invalid Clipboard format</li>
+<li><strong>461</strong>: Specified format doesn't match format of data</li>
+<li><strong>480</strong>: Can't create <code>AutoRedraw</code> image</li>
+<li><strong>481</strong>: Invalid picture</li>
+<li><strong>482</strong>: Printer error</li>
+<li><strong>735</strong>: Can't save file to TEMP</li>
+<li><strong>744</strong>: Search text not found</li>
+<li><strong>746</strong>: Replacements too long</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Get error message for specific error number
+Dim msg As String
+msg = Error(53)
+Debug.Print msg  &#x27; Prints: &quot;File not found&quot;
+
+msg = Error(11)
+Debug.Print msg  &#x27; Prints: &quot;Division by zero&quot;</code></pre>
+<h3 id="get-current-error-message">Get Current Error Message</h3>
+<pre><code class="language-vbnet">Sub TestErrorHandling()
+On Error Resume Next
+
+&#x27; Cause an error
+Dim x As Integer
+x = 1 / 0
+
+&#x27; Check if error occurred
+If Err.Number &lt;&gt; 0 Then
+&#x27; Get error message without parameter (uses current error)
+Debug.Print &quot;Error: &quot; &amp; Error
+Debug.Print &quot;Error number: &quot; &amp; Err.Number
+Err.Clear
+End If
+End Sub</code></pre>
+<h3 id="display-error-in-message-box">Display Error in Message Box</h3>
+<pre><code class="language-vbnet">Sub OpenFileWithErrorHandling(filePath As String)
+On Error GoTo ErrorHandler
+
+Dim fileNum As Integer
+fileNum = FreeFile
+Open filePath For Input As #fileNum
+&#x27; Process file...
+Close #fileNum
+Exit Sub
+
+ErrorHandler:
+MsgBox &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Error(Err.Number), _
+vbExclamation, &quot;File Error&quot;
+End Sub</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="error-lookup-table">Error Lookup Table</h3>
+<pre><code class="language-vbnet">Function GetErrorMessage(errorNumber As Long) As String
+&#x27; Get standard VB6 error message
+GetErrorMessage = Error(errorNumber)
+
+&#x27; Override with custom messages if desired
+Select Case errorNumber
+Case 53
+GetErrorMessage = &quot;The specified file could not be found. Please check the path.&quot;
+Case 61
+GetErrorMessage = &quot;The disk is full. Please free up space and try again.&quot;
+Case 91
+GetErrorMessage = &quot;Object variable not initialized. Please contact support.&quot;
+End Select
+End Function</code></pre>
+<h3 id="error-logging">Error Logging</h3>
+<pre><code class="language-vbnet">Sub LogError(procedureName As String)
+Dim fileNum As Integer
+Dim logPath As String
+
+logPath = App.Path &amp; &quot;\error.log&quot;
+fileNum = FreeFile
+
+Open logPath For Append As #fileNum
+Print #fileNum, Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot; | &quot; &amp; _
+procedureName &amp; &quot; | &quot; &amp; _
+&quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Error(Err.Number)
+Close #fileNum
+End Sub</code></pre>
+<h3 id="custom-error-messages">Custom Error Messages</h3>
+<pre><code class="language-vbnet">Function GetFriendlyErrorMessage(errorNumber As Long) As String
+Dim standardMsg As String
+standardMsg = Error(errorNumber)
+
+&#x27; Provide user-friendly alternatives
+Select Case errorNumber
+Case 53  &#x27; File not found
+GetFriendlyErrorMessage = &quot;We couldn&#x27;t find that file. &quot; &amp; _
+&quot;It may have been moved or deleted.&quot;
+
+Case 70  &#x27; Permission denied
+GetFriendlyErrorMessage = &quot;You don&#x27;t have permission to access this file. &quot; &amp; _
+&quot;Please contact your administrator.&quot;
+
+Case 429  &#x27; Can&#x27;t create object
+GetFriendlyErrorMessage = &quot;A required component is not installed. &quot; &amp; _
+&quot;Please reinstall the application.&quot;
+
+Case Else
+GetFriendlyErrorMessage = standardMsg
+End Select
+End Function</code></pre>
+<h3 id="error-report-dialog">Error Report Dialog</h3>
+<pre><code class="language-vbnet">Sub ShowErrorReport()
+Dim msg As String
+
+msg = &quot;An error has occurred:&quot; &amp; vbCrLf &amp; vbCrLf
+msg = msg &amp; &quot;Error Number: &quot; &amp; Err.Number &amp; vbCrLf
+msg = msg &amp; &quot;Description: &quot; &amp; Error(Err.Number) &amp; vbCrLf
+msg = msg &amp; &quot;Source: &quot; &amp; Err.Source &amp; vbCrLf
+
+If Err.HelpFile &lt;&gt; &quot;&quot; Then
+msg = msg &amp; &quot;Help File: &quot; &amp; Err.HelpFile &amp; vbCrLf
+msg = msg &amp; &quot;Help Context: &quot; &amp; Err.HelpContext &amp; vbCrLf
+End If
+
+MsgBox msg, vbCritical, &quot;Application Error&quot;
+End Sub</code></pre>
+<h3 id="validate-error-numbers">Validate Error Numbers</h3>
+<pre><code class="language-vbnet">Function IsValidErrorNumber(errNum As Long) As Boolean
+Dim msg As String
+
+&#x27; Get error message
+msg = Error(errNum)
+
+&#x27; If it&#x27;s not a recognized error, VB6 returns a generic message
+If InStr(msg, &quot;Application-defined&quot;) &gt; 0 Or _
+InStr(msg, &quot;object-defined&quot;) &gt; 0 Then
+IsValidErrorNumber = False
+Else
+IsValidErrorNumber = True
+End If
+End Function</code></pre>
+<h3 id="list-common-errors">List Common Errors</h3>
+<pre><code class="language-vbnet">Sub ListCommonErrors()
+Dim errorNumbers() As Long
+Dim i As Integer
+
+errorNumbers = Array(5, 6, 7, 9, 11, 13, 52, 53, 54, 61, 62, 70, 91, 429)
+
+Debug.Print &quot;Common VB6 Errors:&quot;
+Debug.Print String(50, &quot;-&quot;)
+
+For i = LBound(errorNumbers) To UBound(errorNumbers)
+Debug.Print errorNumbers(i) &amp; &quot;: &quot; &amp; Error(errorNumbers(i))
+Next i
+End Sub</code></pre>
+<h3 id="enhanced-error-handler">Enhanced Error Handler</h3>
+<pre><code class="language-vbnet">Function HandleError(moduleName As String, procedureName As String) As VbMsgBoxResult
+Dim msg As String
+Dim errorMsg As String
+
+errorMsg = Error(Err.Number)
+
+msg = &quot;An error occurred in &quot; &amp; moduleName &amp; &quot;.&quot; &amp; procedureName &amp; vbCrLf &amp; vbCrLf
+msg = msg &amp; &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; errorMsg &amp; vbCrLf &amp; vbCrLf
+msg = msg &amp; &quot;Would you like to continue?&quot;
+
+HandleError = MsgBox(msg, vbYesNo + vbExclamation, &quot;Error&quot;)
+
+&#x27; Log the error
+LogError moduleName &amp; &quot;.&quot; &amp; procedureName
+
+&#x27; Clear the error
+Err.Clear
+End Function</code></pre>
+<h3 id="error-dictionary">Error Dictionary</h3>
+<pre><code class="language-vbnet">Function BuildErrorDictionary() As Collection
+Dim dict As New Collection
+Dim i As Long
+Dim msg As String
+
+&#x27; Build dictionary of all valid error messages
+For i = 3 To 1000
+msg = Error(i)
+
+&#x27; Only add if it&#x27;s a recognized error
+If InStr(msg, &quot;Application-defined&quot;) = 0 Then
+On Error Resume Next
+dict.Add msg, CStr(i)
+On Error GoTo 0
+End If
+Next i
+
+Set BuildErrorDictionary = dict
+End Function</code></pre>
+<h3 id="multilingual-error-messages">Multilingual Error Messages</h3>
+<pre><code class="language-vbnet">Function GetLocalizedError(errorNumber As Long, language As String) As String
+Dim standardMsg As String
+standardMsg = Error(errorNumber)
+
+&#x27; Provide translations for common errors
+If language = &quot;ES&quot; Then  &#x27; Spanish
+Select Case errorNumber
+Case 53: GetLocalizedError = &quot;Archivo no encontrado&quot;
+Case 61: GetLocalizedError = &quot;Disco lleno&quot;
+Case 70: GetLocalizedError = &quot;Permiso denegado&quot;
+Case Else: GetLocalizedError = standardMsg
+End Select
+ElseIf language = &quot;FR&quot; Then  &#x27; French
+Select Case errorNumber
+Case 53: GetLocalizedError = &quot;Fichier non trouvé&quot;
+Case 61: GetLocalizedError = &quot;Disque plein&quot;
+Case 70: GetLocalizedError = &quot;Permission refusée&quot;
+Case Else: GetLocalizedError = standardMsg
+End Select
+Else
+GetLocalizedError = standardMsg
+End If
+End Function</code></pre>
+<h3 id="error-testing-helper">Error Testing Helper</h3>
+<pre><code class="language-vbnet">Sub TestErrorMessages()
+Dim testErrors() As Long
+Dim i As Integer
+
+&#x27; Test specific error numbers
+testErrors = Array(5, 6, 7, 9, 11, 13, 52, 53, 54, 55, 57, 58, 61, 62, _
+67, 68, 70, 71, 74, 75, 76, 91, 92, 93, 94)
+
+For i = LBound(testErrors) To UBound(testErrors)
+Debug.Print &quot;Error &quot; &amp; testErrors(i) &amp; &quot;: &quot; &amp; Error(testErrors(i))
+Next i
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="error-mapper-with-suggestions">Error Mapper with Suggestions</h3>
+<pre><code class="language-vbnet">Type ErrorInfo
+Number As Long
+Message As String
+Suggestion As String
+End Type
+
+Function GetErrorInfo(errorNumber As Long) As ErrorInfo
+Dim info As ErrorInfo
+
+info.Number = errorNumber
+info.Message = Error(errorNumber)
+
+&#x27; Add helpful suggestions
+Select Case errorNumber
+Case 53
+info.Suggestion = &quot;Check the file path and ensure the file exists.&quot;
+Case 61
+info.Suggestion = &quot;Free up disk space or choose a different location.&quot;
+Case 70
+info.Suggestion = &quot;Run the application as administrator or check file permissions.&quot;
+Case 91
+info.Suggestion = &quot;Ensure the object is initialized with New or Set.&quot;
+Case 429
+info.Suggestion = &quot;Verify that all required DLLs and components are registered.&quot;
+Case Else
+info.Suggestion = &quot;Please contact technical support if the problem persists.&quot;
+End Select
+
+GetErrorInfo = info
+End Function</code></pre>
+<h3 id="comprehensive-error-logger">Comprehensive Error Logger</h3>
+<pre><code class="language-vbnet">Sub LogDetailedError(moduleName As String, procedureName As String, _
+Optional additionalInfo As String = &quot;&quot;)
+Dim fileNum As Integer
+Dim logPath As String
+Dim logEntry As String
+
+logPath = App.Path &amp; &quot;\logs\error_&quot; &amp; Format(Now, &quot;yyyymmdd&quot;) &amp; &quot;.log&quot;
+
+&#x27; Build detailed log entry
+logEntry = String(80, &quot;=&quot;) &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Timestamp: &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Module: &quot; &amp; moduleName &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Procedure: &quot; &amp; procedureName &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Error Number: &quot; &amp; Err.Number &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Error Message: &quot; &amp; Error(Err.Number) &amp; vbCrLf
+logEntry = logEntry &amp; &quot;Error Source: &quot; &amp; Err.Source &amp; vbCrLf
+
+If additionalInfo &lt;&gt; &quot;&quot; Then
+logEntry = logEntry &amp; &quot;Additional Info: &quot; &amp; additionalInfo &amp; vbCrLf
+End If
+
+logEntry = logEntry &amp; String(80, &quot;=&quot;) &amp; vbCrLf &amp; vbCrLf
+
+&#x27; Write to log file
+fileNum = FreeFile
+Open logPath For Append As #fileNum
+Print #fileNum, logEntry
+Close #fileNum
+End Sub</code></pre>
+<h3 id="error-recovery-system">Error Recovery System</h3>
+<pre><code class="language-vbnet">Function AttemptRecovery(errorNumber As Long) As Boolean
+Dim errorMsg As String
+
+errorMsg = Error(errorNumber)
+AttemptRecovery = False
+
+Select Case errorNumber
+Case 53  &#x27; File not found
+&#x27; Try to create the file or directory
+On Error Resume Next
+MkDir GetParentDirectory(expectedFilePath)
+CreateDefaultFile expectedFilePath
+If Err.Number = 0 Then AttemptRecovery = True
+On Error GoTo 0
+
+Case 61  &#x27; Disk full
+&#x27; Try to clean temp files
+On Error Resume Next
+CleanTempFiles
+If GetFreeDiskSpace() &gt; 1048576 Then AttemptRecovery = True
+On Error GoTo 0
+
+Case 70  &#x27; Permission denied
+&#x27; Prompt user to run as administrator
+MsgBox &quot;This operation requires administrator privileges. &quot; &amp; _
+&quot;Please restart the application as administrator.&quot;, vbExclamation
+AttemptRecovery = False
+
+Case 91  &#x27; Object not set
+&#x27; Try to reinitialize object
+On Error Resume Next
+InitializeObjects
+If Err.Number = 0 Then AttemptRecovery = True
+On Error GoTo 0
+End Select
+End Function</code></pre>
+<h3 id="error-statistics-tracker">Error Statistics Tracker</h3>
+<pre><code class="language-vbnet">Type ErrorStat
+ErrorNumber As Long
+ErrorMessage As String
+OccurrenceCount As Long
+LastOccurrence As Date
+End Type
+
+Private errorStats() As ErrorStat
+Private statCount As Long
+
+Sub TrackError(errorNumber As Long)
+Dim i As Long
+Dim found As Boolean
+
+&#x27; Find existing error in stats
+found = False
+For i = 0 To statCount - 1
+If errorStats(i).ErrorNumber = errorNumber Then
+errorStats(i).OccurrenceCount = errorStats(i).OccurrenceCount + 1
+errorStats(i).LastOccurrence = Now
+found = True
+Exit For
+End If
+Next i
+
+&#x27; Add new error to stats
+If Not found Then
+ReDim Preserve errorStats(0 To statCount)
+errorStats(statCount).ErrorNumber = errorNumber
+errorStats(statCount).ErrorMessage = Error(errorNumber)
+errorStats(statCount).OccurrenceCount = 1
+errorStats(statCount).LastOccurrence = Now
+statCount = statCount + 1
+End If
+End Sub
+
+Function GetErrorStatistics() As String
+Dim i As Long
+Dim report As String
+
+report = &quot;Error Statistics Report&quot; &amp; vbCrLf
+report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf &amp; vbCrLf
+
+For i = 0 To statCount - 1
+With errorStats(i)
+report = report &amp; &quot;Error &quot; &amp; .ErrorNumber &amp; &quot;: &quot; &amp; .ErrorMessage &amp; vbCrLf
+report = report &amp; &quot;  Occurrences: &quot; &amp; .OccurrenceCount &amp; vbCrLf
+report = report &amp; &quot;  Last Seen: &quot; &amp; Format(.LastOccurrence, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf &amp; vbCrLf
+End With
+Next i
+
+GetErrorStatistics = report
+End Function</code></pre>
+<h3 id="email-error-notification">Email Error Notification</h3>
+<pre><code class="language-vbnet">Sub SendErrorNotification(errorNumber As Long, context As String)
+Dim emailBody As String
+Dim errorMsg As String
+
+errorMsg = Error(errorNumber)
+
+emailBody = &quot;An error occurred in the application:&quot; &amp; vbCrLf &amp; vbCrLf
+emailBody = emailBody &amp; &quot;Error Number: &quot; &amp; errorNumber &amp; vbCrLf
+emailBody = emailBody &amp; &quot;Error Message: &quot; &amp; errorMsg &amp; vbCrLf
+emailBody = emailBody &amp; &quot;Context: &quot; &amp; context &amp; vbCrLf
+emailBody = emailBody &amp; &quot;User: &quot; &amp; Environ(&quot;USERNAME&quot;) &amp; vbCrLf
+emailBody = emailBody &amp; &quot;Computer: &quot; &amp; Environ(&quot;COMPUTERNAME&quot;) &amp; vbCrLf
+emailBody = emailBody &amp; &quot;Timestamp: &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf
+
+&#x27; Send email (pseudo-code)
+SendEmail &quot;admin@company.com&quot;, &quot;Application Error&quot;, emailBody
+End Sub</code></pre>
+<h3 id="error-based-retry-logic">Error-Based Retry Logic</h3>
+<pre><code class="language-vbnet">Function ExecuteWithRetry(operation As String, maxRetries As Integer) As Boolean
+Dim retryCount As Integer
+Dim errorMsg As String
+
+retryCount = 0
+
+Do
+On Error Resume Next
+
+&#x27; Attempt operation
+ExecuteOperation operation
+
+If Err.Number = 0 Then
+ExecuteWithRetry = True
+Exit Function
+End If
+
+&#x27; Get error message
+errorMsg = Error(Err.Number)
+
+&#x27; Check if error is retryable
+Select Case Err.Number
+Case 57, 68  &#x27; Device I/O error, Device unavailable
+retryCount = retryCount + 1
+If retryCount &lt; maxRetries Then
+Debug.Print &quot;Retry &quot; &amp; retryCount &amp; &quot; after error: &quot; &amp; errorMsg
+Sleep 1000  &#x27; Wait before retry
+End If
+
+Case Else  &#x27; Non-retryable error
+Debug.Print &quot;Non-retryable error: &quot; &amp; errorMsg
+Exit Do
+End Select
+
+On Error GoTo 0
+Loop While retryCount &lt; maxRetries
+
+ExecuteWithRetry = False
+End Function</code></pre>
+<h2 id="error-handling-best-practices">Error Handling Best Practices</h2>
+<pre><code class="language-vbnet">&#x27; Good - Use Error function for logging and display
+Sub ProcessFile(filePath As String)
+On Error GoTo ErrorHandler
+
+&#x27; Processing code...
+
+Exit Sub
+
+ErrorHandler:
+Dim errorMsg As String
+errorMsg = Error(Err.Number)
+
+LogError &quot;ProcessFile&quot;, errorMsg
+MsgBox &quot;Failed to process file: &quot; &amp; errorMsg, vbExclamation
+Err.Clear
+End Sub
+
+&#x27; Good - Compare with Err.Description
+Sub CompareErrorSources()
+On Error Resume Next
+Dim x As Integer
+x = 1 / 0
+
+Debug.Print &quot;Error function: &quot; &amp; Error(Err.Number)
+Debug.Print &quot;Err.Description: &quot; &amp; Err.Description
+&#x27; Both typically return the same message
+End Sub</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Error</code> function is very fast (simple lookup)</li>
+<li>No performance difference between <code>Error()</code> and <code>Error(n)</code></li>
+<li>Message strings are pre-defined in VB6 runtime</li>
+<li>Consider caching messages if calling repeatedly</li>
+<li>Minimal overhead for error message retrieval</li>
+</ul>
+<h2 id="comparison-with-other-error-functions">Comparison with Other Error Functions</h2>
+<h3 id="error-vs-errdescription"><code>Error</code> vs <code>Err.Description</code></h3>
+<pre><code class="language-vbnet">&#x27; Error() - Returns message for specified or current error
+msg = Error(53)          &#x27; &quot;File not found&quot;
+msg = Error()            &#x27; Current error message
+
+&#x27; Err.Description - Always current error message
+msg = Err.Description    &#x27; Current error message only</code></pre>
+<h3 id="error-vs-errraise"><code>Error</code> vs <code>Err.Raise</code></h3>
+<pre><code class="language-vbnet">&#x27; Error() - Retrieves error message (does not raise)
+msg = Error(5)           &#x27; Just gets the message
+
+&#x27; Err.Raise - Raises an error
+Err.Raise 5              &#x27; Triggers error 5</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns only standard VB6 error messages</li>
+<li>Cannot customize built-in messages</li>
+<li>Unrecognized error numbers return generic message</li>
+<li>Does not provide error context or call stack</li>
+<li>Limited to VB6 error number range</li>
+<li>No support for system error codes directly</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Err.Number</code>: Returns the current error number</li>
+<li><code>Err.Description</code>: Returns the current error description</li>
+<li><code>Err.Raise</code>: Raises a run-time error</li>
+<li><code>Err.Clear</code>: Clears current error information</li>
+<li><code>CVErr</code>: Creates an error value</li>
+<li><code>IsError</code>: Tests if a variant contains an error value</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Environment</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - now - Datetime">
+    <title>now - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / now</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="now-function">Now Function</h1>
+<p>Returns a Variant (Date) specifying the current date and time according to the setting of the computer's system date and time.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Now</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. Now takes no parameters.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <strong>Variant (Date)</strong> containing the current system date and time.</p>
+<p>The returned value includes both the date portion (number of days since December 30, 1899) and the time portion (fractional part of a 24-hour day).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Now function is one of the most frequently used VB6 date/time functions for getting the current moment.
+It combines both date and time information in a single value.</p>
+<h3 id="key-characteristics">Key Characteristics:</h3>
+<ul>
+<li>Returns both date and time components</li>
+<li>Based on computer's system clock</li>
+<li>No parameters required (parameterless function)</li>
+<li>Commonly used for timestamps, logging, and timing operations</li>
+<li>Can be separated into date-only or time-only using <code>Date()</code> or <code>Time()</code></li>
+<li>Precision to the second (does not include milliseconds)</li>
+<li>Returns Variant (Date) type</li>
+<li>Subject to system time zone settings</li>
+</ul>
+<h3 id="comparison-with-related-functions">Comparison with Related Functions:</h3>
+<ul>
+<li><strong>Date</strong> - Returns only the date portion (time is midnight)</li>
+<li><strong>Time</strong> - Returns only the time portion (date is December 30, 1899)</li>
+<li><strong>Now</strong> - Returns both date and time components</li>
+<li><strong>Timer</strong> - Returns seconds since midnight as Single (for precision timing)</li>
+</ul>
+<h3 id="common-use-cases">Common Use Cases:</h3>
+<ul>
+<li>Create timestamps for logging</li>
+<li>Record when events occur</li>
+<li>Calculate elapsed time</li>
+<li>Display current date and time to users</li>
+<li>Set default values for date fields</li>
+<li>Generate time-based filenames</li>
+<li>Track operation start/end times</li>
+<li>Audit trail creation</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Timestamps</strong> - Record when operations occur</li>
+<li><strong>Logging</strong> - Add timestamps to log entries</li>
+<li><strong>Audit Trails</strong> - Track when records are created/modified</li>
+<li><strong>Performance Timing</strong> - Measure operation duration</li>
+<li><strong>Display Current Time</strong> - Show users the current date/time</li>
+<li><strong>Default Values</strong> - Initialize date fields with current date/time</li>
+<li><strong>File Naming</strong> - Create time-stamped file names</li>
+<li><strong>Session Tracking</strong> - Record login/logout times</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Get current date and time
+Dim currentDateTime As Date
+currentDateTime = Now</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Display to user
+MsgBox &quot;Current time is: &quot; &amp; Now</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Create timestamp
+Dim timestamp As String
+timestamp = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Calculate elapsed time
+Dim startTime As Date
+startTime = Now
+&#x27; ... do some work ...
+MsgBox &quot;Elapsed: &quot; &amp; DateDiff(&quot;s&quot;, startTime, Now) &amp; &quot; seconds&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Simple timestamp logging
+Sub LogMessage(message As String)
+Debug.Print Now &amp; &quot; - &quot; &amp; message
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 2: Formatted timestamp
+Function GetTimestamp() As String
+GetTimestamp = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 3: Calculate operation duration
+Function MeasureOperation() As Double
+Dim startTime As Date
+Dim endTime As Date
+
+startTime = Now
+
+&#x27; Perform operation
+DoSomething
+
+endTime = Now
+
+&#x27; Return elapsed seconds
+MeasureOperation = DateDiff(&quot;s&quot;, startTime, endTime)
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 4: Audit trail update
+Sub UpdateRecord(recordID As Long)
+Dim sql As String
+sql = &quot;UPDATE Records SET ModifiedDate = &quot; &amp; _
+Format(Now, &quot;\#mm\/dd\/yyyy hh:nn:ss\#&quot;) &amp; _
+&quot; WHERE ID = &quot; &amp; recordID
+ExecuteSQL sql
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 5: Time-stamped filename
+Function GetLogFileName() As String
+GetLogFileName = &quot;log_&quot; &amp; Format(Now, &quot;yyyymmdd_hhnnss&quot;) &amp; &quot;.txt&quot;
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 6: Session tracking
+Sub RecordLogin(userID As Long)
+Dim loginTime As Date
+loginTime = Now
+
+&#x27; Store in database or session object
+Session(&quot;LoginTime&quot;) = loginTime
+Session(&quot;UserID&quot;) = userID
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 7: Timeout checking
+Function IsTimedOut(startTime As Date, timeoutMinutes As Long) As Boolean
+Dim elapsed As Long
+elapsed = DateDiff(&quot;n&quot;, startTime, Now)
+IsTimedOut = (elapsed &gt;= timeoutMinutes)
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 8: Scheduled task checking
+Function ShouldRunTask(lastRun As Date, intervalHours As Long) As Boolean
+Dim hoursSinceRun As Long
+
+If IsNull(lastRun) Then
+ShouldRunTask = True
+Else
+hoursSinceRun = DateDiff(&quot;h&quot;, lastRun, Now)
+ShouldRunTask = (hoursSinceRun &gt;= intervalHours)
+End If
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 9: Display relative time
+Function GetTimeAgo(pastTime As Date) As String
+Dim seconds As Long
+Dim minutes As Long
+Dim hours As Long
+
+seconds = DateDiff(&quot;s&quot;, pastTime, Now)
+
+If seconds &lt; 60 Then
+GetTimeAgo = seconds &amp; &quot; seconds ago&quot;
+ElseIf seconds &lt; 3600 Then
+minutes = seconds \ 60
+GetTimeAgo = minutes &amp; &quot; minutes ago&quot;
+Else
+hours = seconds \ 3600
+GetTimeAgo = hours &amp; &quot; hours ago&quot;
+End If
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 10: Business hours check
+Function IsDuringBusinessHours() As Boolean
+Dim currentHour As Integer
+Dim currentDay As Integer
+
+currentHour = Hour(Now)
+currentDay = Weekday(Now)
+
+&#x27; Monday-Friday, 9 AM to 5 PM
+IsDuringBusinessHours = (currentDay &gt;= vbMonday And currentDay &lt;= vbFriday) And _
+(currentHour &gt;= 9 And currentHour &lt; 17)
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-performance-monitor-class">Example 1: Performance Monitor Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: PerformanceMonitor
+&#x27; Tracks operation performance with detailed timing
+
+Option Explicit
+
+Private m_operations As Collection
+
+Private Type OperationTiming
+operationName As String
+startTime As Date
+endTime As Date
+duration As Double
+End Type
+
+Private Sub Class_Initialize()
+Set m_operations = New Collection
+End Sub
+
+Public Sub StartOperation(operationName As String)
+Dim timing As OperationTiming
+
+timing.operationName = operationName
+timing.startTime = Now
+timing.endTime = 0
+timing.duration = 0
+
+m_operations.Add timing, operationName
+End Sub
+
+Public Sub EndOperation(operationName As String)
+Dim timing As OperationTiming
+Dim i As Long
+
+&#x27; Find the operation
+For i = 1 To m_operations.Count
+timing = m_operations(i)
+If timing.operationName = operationName Then
+timing.endTime = Now
+timing.duration = DateDiff(&quot;s&quot;, timing.startTime, timing.endTime)
+
+&#x27; Update the collection
+m_operations.Remove i
+m_operations.Add timing, operationName
+Exit Sub
+End If
+Next i
+End Sub
+
+Public Function GetDuration(operationName As String) As Double
+Dim timing As OperationTiming
+Dim i As Long
+
+For i = 1 To m_operations.Count
+timing = m_operations(i)
+If timing.operationName = operationName Then
+If timing.endTime = 0 Then
+&#x27; Still running - calculate current duration
+GetDuration = DateDiff(&quot;s&quot;, timing.startTime, Now)
+Else
+GetDuration = timing.duration
+End If
+Exit Function
+End If
+Next i
+
+GetDuration = -1 &#x27; Not found
+End Function
+
+Public Function GenerateReport() As String
+Dim report As String
+Dim timing As OperationTiming
+Dim i As Long
+
+report = &quot;Performance Report - &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbCrLf
+report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+
+For i = 1 To m_operations.Count
+timing = m_operations(i)
+report = report &amp; timing.operationName &amp; &quot;: &quot;
+
+If timing.endTime = 0 Then
+report = report &amp; &quot;Running (&quot; &amp; DateDiff(&quot;s&quot;, timing.startTime, Now) &amp; &quot;s)&quot;
+Else
+report = report &amp; timing.duration &amp; &quot; seconds&quot;
+End If
+
+report = report &amp; vbCrLf
+Next i
+
+GenerateReport = report
+End Function</code></pre>
+<h3 id="example-2-audit-logger-class">Example 2: Audit Logger Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: AuditLogger
+&#x27; Logs all database operations with timestamps
+
+Option Explicit
+
+Private m_logFile As String
+Private m_enabled As Boolean
+
+Public Sub Initialize(logFilePath As String)
+m_logFile = logFilePath
+m_enabled = True
+End Sub
+
+Public Sub LogInsert(tableName As String, recordID As Variant, userName As String)
+Dim entry As String
+entry = FormatLogEntry(&quot;INSERT&quot;, tableName, recordID, userName, &quot;&quot;)
+WriteToLog entry
+End Sub
+
+Public Sub LogUpdate(tableName As String, recordID As Variant, userName As String, changes As String)
+Dim entry As String
+entry = FormatLogEntry(&quot;UPDATE&quot;, tableName, recordID, userName, changes)
+WriteToLog entry
+End Sub
+
+Public Sub LogDelete(tableName As String, recordID As Variant, userName As String)
+Dim entry As String
+entry = FormatLogEntry(&quot;DELETE&quot;, tableName, recordID, userName, &quot;&quot;)
+WriteToLog entry
+End Sub
+
+Public Sub LogSelect(tableName As String, userName As String, criteria As String)
+Dim entry As String
+entry = FormatLogEntry(&quot;SELECT&quot;, tableName, &quot;&quot;, userName, criteria)
+WriteToLog entry
+End Sub
+
+Private Function FormatLogEntry(operation As String, _
+tableName As String, _
+recordID As Variant, _
+userName As String, _
+details As String) As String
+Dim entry As String
+
+entry = Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; vbTab
+entry = entry &amp; operation &amp; vbTab
+entry = entry &amp; tableName &amp; vbTab
+entry = entry &amp; CStr(recordID) &amp; vbTab
+entry = entry &amp; userName &amp; vbTab
+entry = entry &amp; details
+
+FormatLogEntry = entry
+End Function
+
+Private Sub WriteToLog(entry As String)
+Dim fileNum As Integer
+
+If Not m_enabled Then Exit Sub
+
+On Error Resume Next
+fileNum = FreeFile
+Open m_logFile For Append As #fileNum
+Print #fileNum, entry
+Close #fileNum
+On Error GoTo 0
+End Sub
+
+Public Function GetRecentEntries(minutes As Long) As Collection
+Dim entries As New Collection
+Dim fileNum As Integer
+Dim line As String
+Dim timestamp As Date
+Dim cutoffTime As Date
+
+cutoffTime = DateAdd(&quot;n&quot;, -minutes, Now)
+
+On Error Resume Next
+fileNum = FreeFile
+Open m_logFile For Input As #fileNum
+
+Do While Not EOF(fileNum)
+Line Input #fileNum, line
+
+&#x27; Parse timestamp from first field
+timestamp = CDate(Left(line, 19))
+
+If timestamp &gt;= cutoffTime Then
+entries.Add line
+End If
+Loop
+
+Close #fileNum
+On Error GoTo 0
+
+Set GetRecentEntries = entries
+End Function</code></pre>
+<h3 id="example-3-session-manager-module">Example 3: Session Manager Module</h3>
+<pre><code class="language-vbnet">&#x27; Module: SessionManager
+&#x27; Manages user sessions with timeout tracking
+
+Option Explicit
+
+Private Type UserSession
+userID As Long
+userName As String
+loginTime As Date
+lastActivity As Date
+ipAddress As String
+isActive As Boolean
+End Type
+
+Private m_sessions As Collection
+Private m_timeoutMinutes As Long
+
+Public Sub Initialize(timeoutMinutes As Long)
+Set m_sessions = New Collection
+m_timeoutMinutes = timeoutMinutes
+End Sub
+
+Public Function CreateSession(userID As Long, userName As String, ipAddress As String) As String
+Dim session As UserSession
+Dim sessionID As String
+
+&#x27; Generate unique session ID
+sessionID = GenerateSessionID()
+
+session.userID = userID
+session.userName = userName
+session.loginTime = Now
+session.lastActivity = Now
+session.ipAddress = ipAddress
+session.isActive = True
+
+m_sessions.Add session, sessionID
+
+CreateSession = sessionID
+End Function
+
+Public Sub UpdateActivity(sessionID As String)
+Dim session As UserSession
+
+On Error Resume Next
+session = m_sessions(sessionID)
+
+If Err.Number = 0 Then
+session.lastActivity = Now
+m_sessions.Remove sessionID
+m_sessions.Add session, sessionID
+End If
+On Error GoTo 0
+End Sub
+
+Public Function IsSessionValid(sessionID As String) As Boolean
+Dim session As UserSession
+Dim minutesIdle As Long
+
+On Error Resume Next
+session = m_sessions(sessionID)
+
+If Err.Number &lt;&gt; 0 Then
+IsSessionValid = False
+Exit Function
+End If
+On Error GoTo 0
+
+If Not session.isActive Then
+IsSessionValid = False
+Exit Function
+End If
+
+minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
+IsSessionValid = (minutesIdle &lt; m_timeoutMinutes)
+End Function
+
+Public Sub CleanupExpiredSessions()
+Dim session As UserSession
+Dim sessionID As Variant
+Dim minutesIdle As Long
+Dim expiredIDs As Collection
+
+Set expiredIDs = New Collection
+
+&#x27; Find expired sessions
+For Each sessionID In m_sessions
+session = m_sessions(sessionID)
+minutesIdle = DateDiff(&quot;n&quot;, session.lastActivity, Now)
+
+If minutesIdle &gt;= m_timeoutMinutes Then
+expiredIDs.Add sessionID
+End If
+Next sessionID
+
+&#x27; Remove expired sessions
+For Each sessionID In expiredIDs
+m_sessions.Remove sessionID
+Next sessionID
+End Sub
+
+Public Function GetSessionDuration(sessionID As String) As Long
+Dim session As UserSession
+
+On Error Resume Next
+session = m_sessions(sessionID)
+
+If Err.Number = 0 Then
+GetSessionDuration = DateDiff(&quot;n&quot;, session.loginTime, Now)
+Else
+GetSessionDuration = 0
+End If
+On Error GoTo 0
+End Function
+
+Private Function GenerateSessionID() As String
+GenerateSessionID = Format(Now, &quot;yyyymmddhhnnss&quot;) &amp; &quot;_&quot; &amp; Int(Rnd * 10000)
+End Function</code></pre>
+<h3 id="example-4-scheduled-task-runner">Example 4: Scheduled Task Runner</h3>
+<pre><code class="language-vbnet">&#x27; Class: ScheduledTaskRunner
+&#x27; Executes tasks on a schedule based on current time
+
+Option Explicit
+
+Private Type ScheduledTask
+taskName As String
+lastRun As Date
+intervalMinutes As Long
+enabled As Boolean
+callbackObject As Object
+callbackMethod As String
+End Type
+
+Private m_tasks As Collection
+
+Private Sub Class_Initialize()
+Set m_tasks = New Collection
+End Sub
+
+Public Sub AddTask(taskName As String, _
+intervalMinutes As Long, _
+callbackObj As Object, _
+callbackMethod As String)
+Dim task As ScheduledTask
+
+task.taskName = taskName
+task.lastRun = 0
+task.intervalMinutes = intervalMinutes
+task.enabled = True
+Set task.callbackObject = callbackObj
+task.callbackMethod = callbackMethod
+
+m_tasks.Add task, taskName
+End Sub
+
+Public Sub CheckAndRunTasks()
+Dim task As ScheduledTask
+Dim i As Long
+Dim minutesSinceRun As Long
+
+For i = 1 To m_tasks.Count
+task = m_tasks(i)
+
+If task.enabled Then
+If task.lastRun = 0 Then
+&#x27; Never run - execute now
+ExecuteTask task
+task.lastRun = Now
+UpdateTask i, task
+Else
+minutesSinceRun = DateDiff(&quot;n&quot;, task.lastRun, Now)
+
+If minutesSinceRun &gt;= task.intervalMinutes Then
+ExecuteTask task
+task.lastRun = Now
+UpdateTask i, task
+End If
+End If
+End If
+Next i
+End Sub
+
+Private Sub ExecuteTask(task As ScheduledTask)
+On Error Resume Next
+CallByName task.callbackObject, task.callbackMethod, VbMethod
+
+If Err.Number &lt;&gt; 0 Then
+Debug.Print &quot;Task execution error: &quot; &amp; task.taskName &amp; &quot; - &quot; &amp; Err.Description
+End If
+On Error GoTo 0
+End Sub
+
+Private Sub UpdateTask(index As Long, task As ScheduledTask)
+Dim taskName As String
+taskName = task.taskName
+
+m_tasks.Remove index
+m_tasks.Add task, taskName
+End Sub
+
+Public Function GetNextRunTime(taskName As String) As Date
+Dim task As ScheduledTask
+
+On Error Resume Next
+task = m_tasks(taskName)
+
+If Err.Number = 0 Then
+If task.lastRun = 0 Then
+GetNextRunTime = Now &#x27; Will run immediately
+Else
+GetNextRunTime = DateAdd(&quot;n&quot;, task.intervalMinutes, task.lastRun)
+End If
+End If
+On Error GoTo 0
+End Function
+
+Public Sub EnableTask(taskName As String)
+Dim task As ScheduledTask
+Dim i As Long
+
+For i = 1 To m_tasks.Count
+task = m_tasks(i)
+If task.taskName = taskName Then
+task.enabled = True
+UpdateTask i, task
+Exit Sub
+End If
+Next i
+End Sub
+
+Public Sub DisableTask(taskName As String)
+Dim task As ScheduledTask
+Dim i As Long
+
+For i = 1 To m_tasks.Count
+task = m_tasks(i)
+If task.taskName = taskName Then
+task.enabled = False
+UpdateTask i, task
+Exit Sub
+End If
+Next i
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">&#x27; Now rarely fails, but system clock issues can occur:
+On Error Resume Next
+Dim currentTime As Date
+currentTime = Now
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Unable to get system time: &quot; &amp; Err.Description
+&#x27; Use a default or cached value
+End If
+On Error GoTo 0</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Now is a fast function - safe to call frequently</li>
+<li>For high-precision timing, use Timer function instead</li>
+<li>Does not include milliseconds - precision is to the second</li>
+<li>Caching Now value in tight loops can improve performance slightly</li>
+<li>System clock access is generally very fast</li>
+<li>No performance difference between Now, Date, and Time functions</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use for timestamps</strong> - Ideal for logging and audit trails</li>
+<li><strong>Store in Date variables</strong> - Declare as Date type, not Variant when possible</li>
+<li><strong>Format for display</strong> - Use <code>Format()</code> function for user-friendly output</li>
+<li><strong>Consider time zones</strong> - Now uses local system time, not UTC</li>
+<li><strong>Use Timer for precision</strong> - For sub-second timing, use Timer function</li>
+<li><strong>Cache in loops</strong> - Store Now once at loop start instead of calling repeatedly</li>
+<li><strong>Document timezone</strong> - Make it clear whether times are local or UTC</li>
+<li><strong>Use <code>DateDiff</code> carefully</strong> - Be aware of daylight saving time changes</li>
+<li><strong>Validate before math</strong> - Check for valid dates before date arithmetic</li>
+<li><strong>Consider Date vs Now</strong> - Use Date if you only need the date portion</li>
+</ol>
+<h2 id="comparison-with-alternatives">Comparison with Alternatives</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Date Component</th>
+<th>Time Component</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Now</strong></td>
+<td>Yes (current)</td>
+<td>Yes (current)</td>
+<td>Full timestamp</td>
+</tr>
+<tr>
+<td><strong>Date</strong></td>
+<td>Yes (current)</td>
+<td>No (midnight)</td>
+<td>Date-only operations</td>
+</tr>
+<tr>
+<td><strong>Time</strong></td>
+<td>No (12/30/1899)</td>
+<td>Yes (current)</td>
+<td>Time-only operations</td>
+</tr>
+<tr>
+<td><strong>Timer</strong></td>
+<td>No</td>
+<td>Yes (as Single)</td>
+<td>High-precision timing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VBA (Excel, Access, Word, etc.)</li>
+<li>Available in VB6</li>
+<li>Available in <code>VBScript</code></li>
+<li>Uses Windows system clock</li>
+<li>Subject to system time zone settings</li>
+<li>Affected by daylight saving time changes</li>
+<li>No parameters required (parameterless function)</li>
+<li>Returns local time, not UTC</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns local time only (no UTC option)</li>
+<li>Precision limited to seconds (no milliseconds)</li>
+<li>Subject to system clock changes</li>
+<li>Date range: January 1, 100 to December 31, 9999</li>
+<li>Can be affected by daylight saving time transitions</li>
+<li>No built-in time zone conversion</li>
+<li>Depends on accurate system clock</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><strong>Date</strong> - Returns current date (time = midnight)</li>
+<li><strong>Time</strong> - Returns current time (date = 12/30/1899)</li>
+<li><strong>Timer</strong> - Returns seconds since midnight (for precision timing)</li>
+<li><strong><code>DateAdd</code></strong> - Adds time intervals to dates</li>
+<li><strong><code>DateDiff</code></strong> - Calculates difference between dates</li>
+<li><strong>Format</strong> - Formats date/time for display</li>
+</ul>
+<h2 id="vb6-parser-notes">VB6 Parser Notes</h2>
+<p>Now is a parameterless function that is parsed as a <code>CallExpression</code>. This module exists primarily
+for documentation purposes to provide comprehensive reference material for VB6 developers working
+with date and time operations, timestamps, logging, and time-based calculations.</p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

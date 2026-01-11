@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - datevalue - Datetime">
+    <title>datevalue - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / datevalue</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="datevalue-function"><code>DateValue</code> Function</h1>
+<p>Returns a <code>Variant</code> (<code>Date</code>) containing the date represented by a string expression.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">DateValue(date)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>date</strong>: Required. <code>String</code> expression representing a date from January 1, 100 through
+December 31, 9999. Can also be any expression that can represent a date, a time, or
+both a date and time, in that range.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> of subtype <code>Date</code>. If the string includes valid time information, it's
+not returned as part of the date (time is set to midnight). Returns <code>Null</code> if the string
+cannot be converted to a valid date.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>DateValue</code> function is used to convert string representations of dates into actual
+<code>Date</code> values. It recognizes dates according to the system locale settings.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Interprets strings according to system locale settings</li>
+<li>Recognizes various date formats (MM/DD/YYYY, Month DD, YYYY, etc.)</li>
+<li>Strips time information if present (returns date portion only)</li>
+<li>Two-digit years: 0-29 → 2000-2029, 30-99 → 1930-1999</li>
+<li>Month names can be spelled out or abbreviated</li>
+<li>Accepts dates in various formats depending on locale</li>
+<li>Returns midnight (00:00:00) for time portion</li>
+<li>Case-insensitive for month names</li>
+</ul>
+<h2 id="recognized-date-formats">Recognized Date Formats</h2>
+<p><code>DateValue</code> recognizes many formats (locale-dependent):</p>
+<pre><code class="language-vbnet">&#x27; Numeric formats
+DateValue(&quot;1/15/2025&quot;)        &#x27; MM/DD/YYYY (US)
+DateValue(&quot;15/1/2025&quot;)        &#x27; DD/MM/YYYY (UK)
+DateValue(&quot;2025-01-15&quot;)       &#x27; ISO format
+DateValue(&quot;1-15-2025&quot;)        &#x27; With dashes
+
+&#x27; Text formats
+DateValue(&quot;January 15, 2025&quot;) &#x27; Full month name
+DateValue(&quot;Jan 15, 2025&quot;)     &#x27; Abbreviated month
+DateValue(&quot;15 January 2025&quot;)  &#x27; Different order
+DateValue(&quot;15-Jan-2025&quot;)      &#x27; Mixed format
+
+&#x27; Short formats
+DateValue(&quot;1/15/25&quot;)          &#x27; Two-digit year
+DateValue(&quot;Jan 15&quot;)           &#x27; Assumes current year</code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Convert string to date
+Dim birthday As Date
+birthday = DateValue(&quot;5/15/1990&quot;)
+MsgBox birthday
+
+&#x27; With month name
+Dim holiday As Date
+holiday = DateValue(&quot;December 25, 2025&quot;)
+
+&#x27; ISO format
+Dim isoDate As Date
+isoDate = DateValue(&quot;2025-01-15&quot;)</code></pre>
+<h3 id="parse-user-input">Parse User Input</h3>
+<pre><code class="language-vbnet">Function ParseDate(userInput As String) As Variant
+On Error Resume Next
+ParseDate = DateValue(userInput)
+
+If Err.Number &lt;&gt; 0 Then
+ParseDate = Null
+End If
+End Function
+
+&#x27; Usage
+Dim inputDate As Variant
+inputDate = ParseDate(txtDate.Text)
+If IsNull(inputDate) Then
+MsgBox &quot;Invalid date format&quot;
+End If</code></pre>
+<h3 id="strip-time-from-datetime">Strip Time from <code>DateTime</code></h3>
+<pre><code class="language-vbnet">Function GetDateOnly(dateTime As Variant) As Date
+&#x27; Convert to string and back to strip time
+GetDateOnly = DateValue(CStr(dateTime))
+End Function
+
+&#x27; Alternative using Int
+Function GetDateOnly2(dateTime As Date) As Date
+GetDateOnly2 = Int(dateTime)
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="validate-date-string">Validate Date String</h3>
+<pre><code class="language-vbnet">Function IsValidDateString(dateStr As String) As Boolean
+On Error Resume Next
+Dim testDate As Date
+testDate = DateValue(dateStr)
+IsValidDateString = (Err.Number = 0)
+End Function
+
+&#x27; Usage
+If IsValidDateString(txtDate.Text) Then
+MsgBox &quot;Valid date&quot;
+Else
+MsgBox &quot;Invalid date&quot;
+End If</code></pre>
+<h3 id="parse-various-formats">Parse Various Formats</h3>
+<pre><code class="language-vbnet">Function TryParseDateFormats(dateStr As String) As Variant
+Dim formats As Variant
+Dim i As Integer
+
+formats = Array(&quot;MM/DD/YYYY&quot;, &quot;DD/MM/YYYY&quot;, &quot;YYYY-MM-DD&quot;, _
+&quot;Month DD, YYYY&quot;, &quot;DD Month YYYY&quot;)
+
+On Error Resume Next
+TryParseDateFormats = DateValue(dateStr)
+
+If Err.Number = 0 Then Exit Function
+
+&#x27; Try with current year if not specified
+TryParseDateFormats = DateValue(dateStr &amp; &quot; &quot; &amp; Year(Date))
+End Function</code></pre>
+<h3 id="import-data-with-date-parsing">Import Data with Date Parsing</h3>
+<pre><code class="language-vbnet">Sub ImportDataWithDates(filePath As String)
+Dim line As String
+Dim fields() As String
+Dim recordDate As Date
+
+Open filePath For Input As #1
+
+Do Until EOF(1)
+Line Input #1, line
+fields = Split(line, &quot;,&quot;)
+
+On Error Resume Next
+recordDate = DateValue(fields(0))
+
+If Err.Number = 0 Then
+&#x27; Process valid date record
+ProcessRecord recordDate, fields
+Else
+&#x27; Log invalid date
+LogError &quot;Invalid date: &quot; &amp; fields(0)
+End If
+
+On Error GoTo 0
+Loop
+
+Close #1
+End Sub</code></pre>
+<h3 id="date-range-validator">Date Range Validator</h3>
+<pre><code class="language-vbnet">Function ValidateDateRange(startStr As String, endStr As String) As Boolean
+Dim startDate As Date
+Dim endDate As Date
+
+On Error Resume Next
+startDate = DateValue(startStr)
+If Err.Number &lt;&gt; 0 Then Exit Function
+
+endDate = DateValue(endStr)
+If Err.Number &lt;&gt; 0 Then Exit Function
+
+ValidateDateRange = (startDate &lt;= endDate)
+End Function</code></pre>
+<h3 id="convert-text-file-dates">Convert Text File Dates</h3>
+<pre><code class="language-vbnet">Function ConvertTextDate(textDate As String) As Date
+&#x27; Convert various text formats to standard date
+ConvertTextDate = DateValue(textDate)
+End Function
+
+Sub ProcessLogFile()
+Dim logDate As Date
+Dim dateStr As String
+
+dateStr = &quot;Jan 15, 2025&quot;
+logDate = ConvertTextDate(dateStr)
+
+MsgBox Format(logDate, &quot;yyyy-mm-dd&quot;)
+End Sub</code></pre>
+<h3 id="flexible-date-parser">Flexible Date Parser</h3>
+<pre><code class="language-vbnet">Function SmartDateParse(input As String) As Variant
+Dim result As Variant
+
+On Error Resume Next
+
+&#x27; Try as-is
+result = DateValue(input)
+If Err.Number = 0 Then
+SmartDateParse = result
+Exit Function
+End If
+Err.Clear
+
+&#x27; Try adding current year
+result = DateValue(input &amp; &quot;, &quot; &amp; Year(Date))
+If Err.Number = 0 Then
+SmartDateParse = result
+Exit Function
+End If
+
+&#x27; Return Null if unparseable
+SmartDateParse = Null
+End Function</code></pre>
+<h3 id="database-date-import">Database Date Import</h3>
+<pre><code class="language-vbnet">Sub ImportDatabaseDates(rs As ADODB.Recordset)
+Dim dateField As String
+Dim parsedDate As Date
+
+Do Until rs.EOF
+dateField = rs(&quot;DateField&quot;).Value
+
+On Error Resume Next
+parsedDate = DateValue(dateField)
+
+If Err.Number = 0 Then
+&#x27; Update with parsed date
+rs(&quot;DateField&quot;) = parsedDate
+rs.Update
+End If
+
+rs.MoveNext
+Loop
+End Sub</code></pre>
+<h3 id="form-date-validation">Form Date Validation</h3>
+<pre><code class="language-vbnet">Function ValidateFormDate(ByRef txt As TextBox, fieldName As String) As Boolean
+Dim testDate As Date
+
+On Error Resume Next
+testDate = DateValue(txt.Text)
+
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Invalid &quot; &amp; fieldName &amp; &quot; format&quot;, vbExclamation
+txt.SetFocus
+ValidateFormDate = False
+Else
+ValidateFormDate = True
+End If
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="multi-locale-date-parser">Multi-Locale Date Parser</h3>
+<pre><code class="language-vbnet">Function ParseInternationalDate(dateStr As String, locale As String) As Variant
+&#x27; This is simplified - VB6 doesn&#x27;t have full locale switching
+&#x27; Would need Windows API for true locale switching
+
+On Error Resume Next
+
+Select Case UCase(locale)
+Case &quot;US&quot;
+&#x27; Try MM/DD/YYYY first
+ParseInternationalDate = DateValue(dateStr)
+
+Case &quot;UK&quot;, &quot;EU&quot;
+&#x27; Parse with assumption of DD/MM/YYYY
+&#x27; Would need custom parsing logic
+ParseInternationalDate = DateValue(dateStr)
+
+Case &quot;ISO&quot;
+&#x27; YYYY-MM-DD format
+ParseInternationalDate = DateValue(dateStr)
+
+Case Else
+ParseInternationalDate = DateValue(dateStr)
+End Select
+
+If Err.Number &lt;&gt; 0 Then
+ParseInternationalDate = Null
+End If
+End Function</code></pre>
+<h3 id="batch-date-conversion">Batch Date Conversion</h3>
+<pre><code class="language-vbnet">Function ConvertDateArray(dateStrings() As String) As Variant
+Dim dates() As Date
+Dim i As Long
+Dim validCount As Long
+
+ReDim dates(LBound(dateStrings) To UBound(dateStrings))
+validCount = 0
+
+For i = LBound(dateStrings) To UBound(dateStrings)
+On Error Resume Next
+dates(i) = DateValue(dateStrings(i))
+
+If Err.Number = 0 Then
+validCount = validCount + 1
+End If
+Err.Clear
+Next i
+
+ConvertDateArray = dates
+End Function</code></pre>
+<h3 id="date-string-normalizer">Date String Normalizer</h3>
+<pre><code class="language-vbnet">Function NormalizeDateString(input As String, outputFormat As String) As String
+Dim parsedDate As Date
+
+On Error Resume Next
+parsedDate = DateValue(input)
+
+If Err.Number = 0 Then
+NormalizeDateString = Format(parsedDate, outputFormat)
+Else
+NormalizeDateString = &quot;&quot;
+End If
+End Function
+
+&#x27; Usage: Convert various formats to ISO
+Dim normalized As String
+normalized = NormalizeDateString(&quot;Jan 15, 2025&quot;, &quot;yyyy-mm-dd&quot;)  &#x27; Returns &quot;2025-01-15&quot;</code></pre>
+<h3 id="excel-date-converter">Excel Date Converter</h3>
+<pre><code class="language-vbnet">Function ExcelDateToVBDate(excelDateStr As String) As Variant
+&#x27; Excel stores dates as numbers, but when exported may be text
+Dim dateVal As Variant
+
+On Error Resume Next
+
+&#x27; Try as text date
+dateVal = DateValue(excelDateStr)
+
+If Err.Number &lt;&gt; 0 Then
+Err.Clear
+&#x27; Try as Excel serial number
+If IsNumeric(excelDateStr) Then
+dateVal = CDate(CDbl(excelDateStr))
+Else
+dateVal = Null
+End If
+End If
+
+ExcelDateToVBDate = dateVal
+End Function</code></pre>
+<h3 id="calendar-date-picker-helper">Calendar Date Picker Helper</h3>
+<pre><code class="language-vbnet">Function ParseCalendarInput(input As String) As Variant
+&#x27; Handle various calendar input formats
+Dim result As Date
+
+On Error Resume Next
+
+&#x27; Remove extra whitespace
+input = Trim(input)
+
+&#x27; Try direct conversion
+result = DateValue(input)
+If Err.Number = 0 Then
+ParseCalendarInput = result
+Exit Function
+End If
+
+&#x27; Try common substitutions
+If LCase(input) = &quot;today&quot; Then
+ParseCalendarInput = Date
+ElseIf LCase(input) = &quot;yesterday&quot; Then
+ParseCalendarInput = Date - 1
+ElseIf LCase(input) = &quot;tomorrow&quot; Then
+ParseCalendarInput = Date + 1
+Else
+ParseCalendarInput = Null
+End If
+End Function</code></pre>
+<h3 id="report-date-filter">Report Date Filter</h3>
+<pre><code class="language-vbnet">Function BuildDateFilter(fromStr As String, toStr As String) As String
+Dim fromDate As Date
+Dim toDate As Date
+
+On Error Resume Next
+fromDate = DateValue(fromStr)
+toDate = DateValue(toStr)
+
+If Err.Number = 0 Then
+BuildDateFilter = &quot;DateField &gt;= #&quot; &amp; fromDate &amp; &quot;# AND DateField &lt;= #&quot; &amp; toDate &amp; &quot;#&quot;
+Else
+BuildDateFilter = &quot;&quot;
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeDateValue(dateStr As String) As Variant
+On Error GoTo ErrorHandler
+
+&#x27; Validate input
+If Len(Trim(dateStr)) = 0 Then
+SafeDateValue = Null
+Exit Function
+End If
+
+SafeDateValue = DateValue(dateStr)
+Exit Function
+
+ErrorHandler:
+SafeDateValue = Null
+End Function
+
+Function SafeDateValueWithDefault(dateStr As String, defaultDate As Date) As Date
+On Error Resume Next
+SafeDateValueWithDefault = DateValue(dateStr)
+
+If Err.Number &lt;&gt; 0 Then
+SafeDateValueWithDefault = defaultDate
+End If
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 13</strong> (Type mismatch): <code>String</code> cannot be recognized as a date</li>
+<li><strong>Error 5</strong> (Invalid procedure call): <code>Date</code> is outside valid range</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>DateValue</code> involves string parsing, slower than <code>DateSerial</code></li>
+<li>Use <code>DateSerial</code> when constructing dates from numeric components</li>
+<li>Cache parsed dates when processing large datasets</li>
+<li>Locale detection adds overhead</li>
+<li>For known formats, custom parsing may be faster</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="always-validate-user-input">Always Validate User Input</h3>
+<pre><code class="language-vbnet">&#x27; Good - Validate before use
+On Error Resume Next
+userDate = DateValue(txtInput.Text)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Please enter a valid date&quot;
+Exit Sub
+End If
+
+&#x27; Avoid - Assuming input is valid
+userDate = DateValue(txtInput.Text)  &#x27; May crash</code></pre>
+<h3 id="use-isdate-for-pre-validation">Use <code>IsDate</code> for Pre-validation</h3>
+<pre><code class="language-vbnet">If IsDate(txtInput.Text) Then
+processDate = DateValue(txtInput.Text)
+Else
+MsgBox &quot;Invalid date&quot;
+End If</code></pre>
+<h3 id="prefer-dateserial-for-programmatic-dates">Prefer <code>DateSerial</code> for Programmatic Dates</h3>
+<pre><code class="language-vbnet">&#x27; Good - Fast and unambiguous
+dt = DateSerial(2025, 12, 25)
+
+&#x27; Less ideal - String parsing overhead
+dt = DateValue(&quot;12/25/2025&quot;)</code></pre>
+<h3 id="be-aware-of-locale-issues">Be Aware of Locale Issues</h3>
+<pre><code class="language-vbnet">&#x27; US locale: MM/DD/YYYY
+dt = DateValue(&quot;3/5/2025&quot;)    &#x27; March 5 in US
+
+&#x27; UK locale: DD/MM/YYYY
+dt = DateValue(&quot;3/5/2025&quot;)    &#x27; May 3 in UK
+
+&#x27; Use unambiguous formats when possible
+dt = DateValue(&quot;2025-03-05&quot;)  &#x27; ISO format, clearer
+dt = DateValue(&quot;March 5, 2025&quot;)  &#x27; Text format, clearer</code></pre>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<h3 id="datevalue-vs-dateserial"><code>DateValue</code> vs <code>DateSerial</code></h3>
+<pre><code class="language-vbnet">&#x27; DateValue - From string representation
+dt = DateValue(&quot;12/25/2025&quot;)
+
+&#x27; DateSerial - From numeric components (faster, more reliable)
+dt = DateSerial(2025, 12, 25)</code></pre>
+<h3 id="datevalue-vs-cdate"><code>DateValue</code> vs <code>CDate</code></h3>
+<pre><code class="language-vbnet">&#x27; DateValue - Returns date portion only (strips time)
+dt = DateValue(&quot;12/25/2025 3:30 PM&quot;)  &#x27; Returns 12/25/2025 00:00:00
+
+&#x27; CDate - Preserves time information
+dt = CDate(&quot;12/25/2025 3:30 PM&quot;)      &#x27; Returns 12/25/2025 15:30:00</code></pre>
+<h3 id="datevalue-vs-isdate"><code>DateValue</code> vs <code>IsDate</code></h3>
+<pre><code class="language-vbnet">&#x27; IsDate - Tests if string can be converted (returns Boolean)
+If IsDate(&quot;12/25/2025&quot;) Then...
+
+&#x27; DateValue - Actually converts (returns Date or error)
+dt = DateValue(&quot;12/25/2025&quot;)</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Locale-dependent interpretation can cause unexpected results</li>
+<li>Cannot directly parse custom date formats</li>
+<li>Limited control over parsing rules</li>
+<li>Strips time information (use <code>CDate</code> to preserve time)</li>
+<li>Two-digit year interpretation fixed (0-29=2000-2029, 30-99=1930-1999)</li>
+<li>Error handling required for user input</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>CDate</code>: Converts expression to <code>Date</code> (preserves time)</li>
+<li><code>DateSerial</code>: Creates date from year, month, day (numeric)</li>
+<li><code>IsDate</code>: Tests if expression can be converted to date</li>
+<li><code>Format</code>: Formats date as <code>String</code> (opposite direction)</li>
+<li><code>TimeValue</code>: Returns time portion from <code>String</code></li>
+<li><code>Year</code>, <code>Month</code>, <code>Day</code>: Extract date components</li>
+<li><code>Date</code>: Returns current system date</li>
+<li><code>CVDate</code>: Converts expression to <code>Date</code> (legacy function)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

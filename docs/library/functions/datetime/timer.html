@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - timer - Datetime">
+    <title>timer - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / timer</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>Timer</code> Function</p>
+<p>The <code>Timer</code> function returns a Single representing the number of seconds that have elapsed since midnight.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Timer()</code></pre>
+<p>or</p>
+<pre><code class="language-vbnet">Timer</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. The <code>Timer</code> function takes no arguments.</p>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>Single</code> representing the number of seconds elapsed since midnight (00:00:00). The value ranges from 0 to 86,400 (the number of seconds in 24 hours).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Timer</code> function provides high-precision time measurements:</p>
+<ul>
+<li><strong>No arguments</strong>: Called without parentheses or with empty parentheses</li>
+<li><strong>Seconds since midnight</strong>: Returns elapsed seconds from 00:00:00</li>
+<li><strong>High precision</strong>: Resolution approximately 10-55 milliseconds depending on platform</li>
+<li><strong>Single type</strong>: Returns floating-point value with fractional seconds</li>
+<li><strong>Midnight rollover</strong>: Value resets to 0 at midnight (00:00:00)</li>
+<li><strong>Performance timing</strong>: Ideal for measuring elapsed time for operations</li>
+<li><strong>System dependent</strong>: Precision varies by platform and Windows version</li>
+<li><strong>Time vs Timer</strong>: <code>Time</code> returns Date type for clock time, <code>Timer</code> returns Single for measurements</li>
+<li><strong>Midnight handling</strong>: When crossing midnight, current - start will be negative</li>
+<li><strong>Maximum value</strong>: Approximately 86,400 (24 hours × 3600 seconds/hour)</li>
+</ul>
+<h3 id="timer-vs-related-functions">Timer vs Related Functions</h3>
+<ul>
+<li><code>Timer</code> - Returns seconds since midnight as Single (high precision)</li>
+<li><code>Time</code> - Returns current time as Date (1 second precision)</li>
+<li><code>Now</code> - Returns current date and time as Date</li>
+<li><code>GetTickCount</code> - Windows API function for milliseconds since system start</li>
+</ul>
+<h3 id="precision-notes">Precision Notes</h3>
+<ul>
+<li>Windows 95/98/ME: ~55 milliseconds</li>
+<li>Windows NT/2000/XP and later: ~10-15 milliseconds</li>
+<li>Not suitable for microsecond precision measurements</li>
+<li>Use <code>QueryPerformanceCounter</code> API for higher precision</li>
+</ul>
+<h3 id="midnight-rollover-handling">Midnight Rollover Handling</h3>
+<pre><code class="language-vbnet">Function SafeElapsedTime(startTime As Single) As Single
+Dim elapsed As Single
+elapsed = Timer - startTime
+
+&#x27; Handle midnight rollover
+If elapsed &lt; 0 Then
+elapsed = elapsed + 86400   &#x27; Add 24 hours worth of seconds
+End If
+
+SafeElapsedTime = elapsed
+End Function</code></pre>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Performance Measurement</strong>: Time how long operations take</li>
+<li><strong>Timeout Implementation</strong>: Check if time limit exceeded</li>
+<li><strong>Animation Timing</strong>: Control animation frame timing</li>
+<li><strong>Delay Implementation</strong>: Create precise delays</li>
+<li><strong>Benchmark Testing</strong>: Compare performance of different approaches</li>
+<li><strong>Rate Limiting</strong>: Control operation frequency</li>
+<li><strong>Elapsed Time Display</strong>: Show how long process has been running</li>
+<li><strong>Time-based Triggers</strong>: Execute code after specific duration</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-measure-operation-time">Example 1: Measure Operation Time</h3>
+<pre><code class="language-vbnet">Sub MeasureOperation()
+Dim startTime As Single
+Dim elapsed As Single
+
+startTime = Timer
+
+&#x27; Perform operation
+Call LongRunningOperation
+
+elapsed = Timer - startTime
+MsgBox &quot;Operation took &quot; &amp; Format$(elapsed, &quot;0.000&quot;) &amp; &quot; seconds&quot;
+End Sub</code></pre>
+<h3 id="example-2-simple-timeout">Example 2: Simple Timeout</h3>
+<pre><code class="language-vbnet">Sub WaitWithTimeout(seconds As Single)
+Dim startTime As Single
+startTime = Timer
+
+Do While Timer - startTime &lt; seconds
+DoEvents  &#x27; Allow other processing
+Loop
+End Sub</code></pre>
+<h3 id="example-3-check-if-timeout-exceeded">Example 3: Check If Timeout Exceeded</h3>
+<pre><code class="language-vbnet">Function IsTimeout(startTime As Single, timeoutSeconds As Single) As Boolean
+IsTimeout = (Timer - startTime &gt;= timeoutSeconds)
+End Function</code></pre>
+<h3 id="example-4-benchmark-comparison">Example 4: Benchmark Comparison</h3>
+<pre><code class="language-vbnet">Sub CompareMethods()
+Dim time1 As Single, time2 As Single
+Dim elapsed1 As Single, elapsed2 As Single
+
+&#x27; Test Method 1
+time1 = Timer
+Call Method1
+elapsed1 = Timer - time1
+
+&#x27; Test Method 2
+time2 = Timer
+Call Method2
+elapsed2 = Timer - time2
+
+Debug.Print &quot;Method1: &quot; &amp; elapsed1 &amp; &quot;s, Method2: &quot; &amp; elapsed2 &amp; &quot;s&quot;
+End Sub</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-basic-elapsed-time">Pattern 1: Basic Elapsed Time</h3>
+<pre><code class="language-vbnet">Function GetElapsedTime(startTime As Single) As Single
+GetElapsedTime = Timer - startTime
+End Function</code></pre>
+<h3 id="pattern-2-elapsed-time-with-midnight-handling">Pattern 2: Elapsed Time with Midnight Handling</h3>
+<pre><code class="language-vbnet">Function GetElapsedTimeSafe(startTime As Single) As Single
+Dim elapsed As Single
+elapsed = Timer - startTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400
+GetElapsedTimeSafe = elapsed
+End Function</code></pre>
+<h3 id="pattern-3-wait-with-doevents">Pattern 3: Wait with <code>DoEvents</code></h3>
+<pre><code class="language-vbnet">Sub WaitSeconds(seconds As Single)
+Dim endTime As Single
+endTime = Timer + seconds
+
+Do While Timer &lt; endTime
+DoEvents
+Loop
+End Sub</code></pre>
+<h3 id="pattern-4-timeout-loop">Pattern 4: Timeout Loop</h3>
+<pre><code class="language-vbnet">Function WaitForCondition(timeoutSeconds As Single) As Boolean
+Dim startTime As Single
+startTime = Timer
+
+Do While Not ConditionMet()
+If Timer - startTime &gt; timeoutSeconds Then
+WaitForCondition = False
+Exit Function
+End If
+DoEvents
+Loop
+
+WaitForCondition = True
+End Function</code></pre>
+<h3 id="pattern-5-frame-rate-control">Pattern 5: Frame Rate Control</h3>
+<pre><code class="language-vbnet">Sub ControlFrameRate(targetFPS As Single)
+Static lastFrameTime As Single
+Dim targetDelay As Single
+Dim elapsed As Single
+
+targetDelay = 1 / targetFPS
+elapsed = Timer - lastFrameTime
+
+If elapsed &lt; targetDelay Then
+&#x27; Wait for remaining time
+Do While Timer - lastFrameTime &lt; targetDelay
+DoEvents
+Loop
+End If
+
+lastFrameTime = Timer
+End Sub</code></pre>
+<h3 id="pattern-6-rate-limiter">Pattern 6: Rate Limiter</h3>
+<pre><code class="language-vbnet">Function CanExecute(minimumInterval As Single) As Boolean
+Static lastExecuteTime As Single
+
+If Timer - lastExecuteTime &gt;= minimumInterval Then
+lastExecuteTime = Timer
+CanExecute = True
+Else
+CanExecute = False
+End If
+End Function</code></pre>
+<h3 id="pattern-7-performance-counter">Pattern 7: Performance Counter</h3>
+<pre><code class="language-vbnet">Sub StartTimer()
+Static timerStart As Single
+timerStart = Timer
+End Sub
+
+Function GetTimerElapsed() As Single
+Static timerStart As Single
+GetTimerElapsed = Timer - timerStart
+End Function</code></pre>
+<h3 id="pattern-8-format-elapsed-time">Pattern 8: Format Elapsed Time</h3>
+<pre><code class="language-vbnet">Function FormatElapsed(seconds As Single) As String
+Dim hrs As Long, mins As Long, secs As Long
+
+hrs = Int(seconds / 3600)
+mins = Int((seconds - hrs * 3600) / 60)
+secs = Int(seconds - hrs * 3600 - mins * 60)
+
+FormatElapsed = Format$(hrs, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format$(mins, &quot;00&quot;) &amp; &quot;:&quot; &amp; _
+Format$(secs, &quot;00&quot;)
+End Function</code></pre>
+<h3 id="pattern-9-delay-with-accuracy-check">Pattern 9: Delay with Accuracy Check</h3>
+<pre><code class="language-vbnet">Sub AccurateDelay(milliseconds As Long)
+Dim targetTime As Single
+targetTime = Timer + (milliseconds / 1000)
+
+Do While Timer &lt; targetTime
+&#x27; Busy wait for precision
+Loop
+End Sub</code></pre>
+<h3 id="pattern-10-periodic-execution">Pattern 10: Periodic Execution</h3>
+<pre><code class="language-vbnet">Sub ExecutePeriodically(intervalSeconds As Single)
+Static lastRun As Single
+
+If Timer - lastRun &gt;= intervalSeconds Or lastRun = 0 Then
+&#x27; Execute periodic task
+PerformTask
+lastRun = Timer
+End If
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-performance-profiler-class">Example 1: Performance Profiler Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: PerformanceProfiler
+&#x27; Profiles code execution times with statistics
+Option Explicit
+
+Private m_StartTime As Single
+Private m_Measurements As Collection
+Private m_IsRunning As Boolean
+
+Private Sub Class_Initialize()
+Set m_Measurements = New Collection
+End Sub
+
+Public Sub Start()
+m_StartTime = Timer
+m_IsRunning = True
+End Sub
+
+Public Function Stop() As Single
+Dim elapsed As Single
+
+If Not m_IsRunning Then
+Err.Raise 5, , &quot;Profiler not started&quot;
+End If
+
+elapsed = Timer - m_StartTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400  &#x27; Handle midnight
+
+m_Measurements.Add elapsed
+m_IsRunning = False
+Stop = elapsed
+End Function
+
+Public Function GetAverageTime() As Single
+Dim total As Single
+Dim measurement As Variant
+
+If m_Measurements.Count = 0 Then
+GetAverageTime = 0
+Exit Function
+End If
+
+total = 0
+For Each measurement In m_Measurements
+total = total + measurement
+Next measurement
+
+GetAverageTime = total / m_Measurements.Count
+End Function
+
+Public Function GetMinTime() As Single
+Dim minTime As Single
+Dim measurement As Variant
+
+If m_Measurements.Count = 0 Then
+GetMinTime = 0
+Exit Function
+End If
+
+minTime = 999999
+For Each measurement In m_Measurements
+If measurement &lt; minTime Then minTime = measurement
+Next measurement
+
+GetMinTime = minTime
+End Function
+
+Public Function GetMaxTime() As Single
+Dim maxTime As Single
+Dim measurement As Variant
+
+If m_Measurements.Count = 0 Then
+GetMaxTime = 0
+Exit Function
+End If
+
+maxTime = 0
+For Each measurement In m_Measurements
+If measurement &gt; maxTime Then maxTime = measurement
+Next measurement
+
+GetMaxTime = maxTime
+End Function
+
+Public Sub Reset()
+Set m_Measurements = New Collection
+m_IsRunning = False
+End Sub
+
+Public Property Get MeasurementCount() As Long
+MeasurementCount = m_Measurements.Count
+End Property</code></pre>
+<h3 id="example-2-timeout-manager-module">Example 2: Timeout Manager Module</h3>
+<pre><code class="language-vbnet">&#x27; Module: TimeoutManager
+&#x27; Manages multiple concurrent timeouts
+Option Explicit
+
+Private Type TimeoutEntry
+Name As String
+StartTime As Single
+TimeoutSeconds As Single
+Active As Boolean
+End Type
+
+Private m_Timeouts() As TimeoutEntry
+Private m_TimeoutCount As Long
+
+Public Sub StartTimeout(name As String, timeoutSeconds As Single)
+Dim i As Long
+
+&#x27; Check if already exists
+For i = 0 To m_TimeoutCount - 1
+If m_Timeouts(i).Name = name Then
+m_Timeouts(i).StartTime = Timer
+m_Timeouts(i).TimeoutSeconds = timeoutSeconds
+m_Timeouts(i).Active = True
+Exit Sub
+End If
+Next i
+
+&#x27; Add new timeout
+ReDim Preserve m_Timeouts(m_TimeoutCount)
+m_Timeouts(m_TimeoutCount).Name = name
+m_Timeouts(m_TimeoutCount).StartTime = Timer
+m_Timeouts(m_TimeoutCount).TimeoutSeconds = timeoutSeconds
+m_Timeouts(m_TimeoutCount).Active = True
+m_TimeoutCount = m_TimeoutCount + 1
+End Sub
+
+Public Function IsTimedOut(name As String) As Boolean
+Dim i As Long
+Dim elapsed As Single
+
+For i = 0 To m_TimeoutCount - 1
+If m_Timeouts(i).Name = name And m_Timeouts(i).Active Then
+elapsed = Timer - m_Timeouts(i).StartTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400
+
+IsTimedOut = (elapsed &gt;= m_Timeouts(i).TimeoutSeconds)
+Exit Function
+End If
+Next i
+
+IsTimedOut = False
+End Function
+
+Public Sub CancelTimeout(name As String)
+Dim i As Long
+
+For i = 0 To m_TimeoutCount - 1
+If m_Timeouts(i).Name = name Then
+m_Timeouts(i).Active = False
+Exit Sub
+End If
+Next i
+End Sub
+
+Public Function GetTimeRemaining(name As String) As Single
+Dim i As Long
+Dim elapsed As Single
+
+For i = 0 To m_TimeoutCount - 1
+If m_Timeouts(i).Name = name And m_Timeouts(i).Active Then
+elapsed = Timer - m_Timeouts(i).StartTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400
+
+GetTimeRemaining = m_Timeouts(i).TimeoutSeconds - elapsed
+If GetTimeRemaining &lt; 0 Then GetTimeRemaining = 0
+Exit Function
+End If
+Next i
+
+GetTimeRemaining = 0
+End Function</code></pre>
+<h3 id="example-3-animation-timer-class">Example 3: Animation Timer Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: AnimationTimer
+&#x27; Controls animation frame timing and FPS
+Option Explicit
+
+Private m_TargetFPS As Single
+Private m_LastFrameTime As Single
+Private m_FrameCount As Long
+Private m_FPSCalculationTime As Single
+Private m_CurrentFPS As Single
+
+Public Sub Initialize(targetFPS As Single)
+m_TargetFPS = targetFPS
+m_LastFrameTime = Timer
+m_FPSCalculationTime = Timer
+m_FrameCount = 0
+m_CurrentFPS = 0
+End Sub
+
+Public Function ShouldRenderFrame() As Boolean
+Dim currentTime As Single
+Dim targetDelay As Single
+Dim elapsed As Single
+
+currentTime = Timer
+targetDelay = 1 / m_TargetFPS
+
+elapsed = currentTime - m_LastFrameTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400
+
+If elapsed &gt;= targetDelay Then
+m_LastFrameTime = currentTime
+m_FrameCount = m_FrameCount + 1
+
+&#x27; Update FPS calculation every second
+If currentTime - m_FPSCalculationTime &gt;= 1 Then
+m_CurrentFPS = m_FrameCount / (currentTime - m_FPSCalculationTime)
+m_FrameCount = 0
+m_FPSCalculationTime = currentTime
+End If
+
+ShouldRenderFrame = True
+Else
+ShouldRenderFrame = False
+End If
+End Function
+
+Public Property Get CurrentFPS() As Single
+CurrentFPS = m_CurrentFPS
+End Property
+
+Public Property Get TargetFPS() As Single
+TargetFPS = m_TargetFPS
+End Property
+
+Public Property Let TargetFPS(value As Single)
+If value &gt; 0 Then m_TargetFPS = value
+End Property</code></pre>
+<h3 id="example-4-benchmark-suite-module">Example 4: Benchmark Suite Module</h3>
+<pre><code class="language-vbnet">&#x27; Module: BenchmarkSuite
+&#x27; Runs and compares multiple benchmark tests
+Option Explicit
+
+Private Type BenchmarkResult
+Name As String
+Iterations As Long
+TotalTime As Single
+AverageTime As Single
+MinTime As Single
+MaxTime As Single
+End Type
+
+Public Function RunBenchmark(testName As String, iterations As Long) As BenchmarkResult
+Dim result As BenchmarkResult
+Dim i As Long
+Dim startTime As Single
+Dim elapsed As Single
+Dim minTime As Single
+Dim maxTime As Single
+Dim totalTime As Single
+
+result.Name = testName
+result.Iterations = iterations
+minTime = 999999
+maxTime = 0
+totalTime = 0
+
+For i = 1 To iterations
+startTime = Timer
+
+&#x27; Execute test
+Call ExecuteBenchmarkTest(testName)
+
+elapsed = Timer - startTime
+If elapsed &lt; 0 Then elapsed = elapsed + 86400
+
+totalTime = totalTime + elapsed
+If elapsed &lt; minTime Then minTime = elapsed
+If elapsed &gt; maxTime Then maxTime = elapsed
+Next i
+
+result.TotalTime = totalTime
+result.AverageTime = totalTime / iterations
+result.MinTime = minTime
+result.MaxTime = maxTime
+
+RunBenchmark = result
+End Function
+
+Public Function FormatBenchmarkResult(result As BenchmarkResult) As String
+Dim output As String
+
+output = &quot;Benchmark: &quot; &amp; result.Name &amp; vbCrLf
+output = output &amp; &quot;Iterations: &quot; &amp; result.Iterations &amp; vbCrLf
+output = output &amp; &quot;Total Time: &quot; &amp; Format$(result.TotalTime, &quot;0.0000&quot;) &amp; &quot;s&quot; &amp; vbCrLf
+output = output &amp; &quot;Average: &quot; &amp; Format$(result.AverageTime * 1000, &quot;0.000&quot;) &amp; &quot;ms&quot; &amp; vbCrLf
+output = output &amp; &quot;Min: &quot; &amp; Format$(result.MinTime * 1000, &quot;0.000&quot;) &amp; &quot;ms&quot; &amp; vbCrLf
+output = output &amp; &quot;Max: &quot; &amp; Format$(result.MaxTime * 1000, &quot;0.000&quot;) &amp; &quot;ms&quot; &amp; vbCrLf
+
+FormatBenchmarkResult = output
+End Function
+
+Private Sub ExecuteBenchmarkTest(testName As String)
+&#x27; Placeholder - implement actual test logic
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>Timer</code> function typically does not raise errors:</p>
+<ul>
+<li><strong>No parameters</strong>: Cannot have parameter errors</li>
+<li><strong>Always succeeds</strong>: Returns current timer value</li>
+<li><strong>Midnight rollover</strong>: Not an error, but requires handling in elapsed time calculations</li>
+<li><strong>Negative elapsed time</strong>: Indicates midnight rollover, add 86400 to correct</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Very fast operation - direct system call</li>
+<li>Minimal CPU overhead</li>
+<li>Precision varies by Windows version (10-55ms)</li>
+<li>Not suitable for microsecond-level timing</li>
+<li>For busy-wait loops, consider CPU usage impact</li>
+<li>Use <code>DoEvents</code> in wait loops to prevent UI freeze</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Handle midnight rollover</strong> when measuring elapsed time</li>
+<li><strong>Use <code>DoEvents</code></strong> in timing loops to prevent application freeze</li>
+<li><strong>Store as Single</strong> type for consistency and precision</li>
+<li><strong>Avoid long-running measurements</strong> crossing midnight</li>
+<li><strong>Use for relative timing</strong> not absolute time-of-day</li>
+<li><strong>Consider <code>GetTickCount</code> API</strong> for measurements exceeding 24 hours</li>
+<li><strong>Test across midnight</strong> boundary for production code</li>
+<li><strong>Use Time function</strong> for actual clock time display</li>
+<li><strong>Format appropriately</strong> when displaying to users (ms, seconds, minutes)</li>
+<li><strong>Profile performance</strong> in release builds, not debug mode</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+<th>Precision</th>
+<th>Range</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Timer</code></td>
+<td>Single</td>
+<td>10-55ms</td>
+<td>0-86400</td>
+<td>Performance timing</td>
+</tr>
+<tr>
+<td><code>Time</code></td>
+<td>Date</td>
+<td>1 second</td>
+<td>Full time</td>
+<td>Clock time</td>
+</tr>
+<tr>
+<td><code>Now</code></td>
+<td>Date</td>
+<td>1 second</td>
+<td>Full date/time</td>
+<td>Current date/time</td>
+</tr>
+<tr>
+<td><code>GetTickCount</code></td>
+<td>Long</td>
+<td>10-16ms</td>
+<td>0-49.7 days</td>
+<td>Uptime timing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Precision varies by Windows version</li>
+<li>Windows 95/98/ME: ~55ms resolution</li>
+<li>Windows NT/2000/XP+: ~10-15ms resolution</li>
+<li>Returns fractional seconds (not milliseconds)</li>
+<li>Resets at midnight (00:00:00)</li>
+<li>Based on system timer tick</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Resets to 0 at midnight (requires handling)</li>
+<li>Not suitable for measurements exceeding 24 hours</li>
+<li>Limited precision (10-55ms, not microseconds)</li>
+<li>No timezone awareness</li>
+<li>Cannot measure absolute time, only relative</li>
+<li>Precision varies between systems</li>
+<li>Not monotonic (can jump backwards at midnight)</li>
+<li>No built-in high-resolution timer (use <code>QueryPerformanceCounter</code> API)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

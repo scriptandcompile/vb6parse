@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - ucase_dollar - String">
+    <title>ucase_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / ucase_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="ucase-function"><code>UCase$</code> Function</h1>
+<p>Returns a <code>String</code> that has been converted to uppercase.
+The "$" suffix indicates this function returns a <code>String</code> type.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">UCase$(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>string</strong>: Required. Any valid string expression. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> with all lowercase letters converted to uppercase. Numbers and punctuation
+are unchanged.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>UCase$</code> converts all lowercase letters in a string to uppercase.</li>
+<li>The "$" suffix explicitly indicates the function returns a <code>String</code> type rather than a <code>Variant</code>.</li>
+<li>Only lowercase letters (a-z) are affected; uppercase letters and non-alphabetic characters remain unchanged.</li>
+<li><code>UCase$</code> is functionally equivalent to <code>UCase</code>, but <code>UCase$</code> returns a <code>String</code> while <code>UCase</code> can return a <code>Variant</code>.</li>
+<li>For better performance when you know the result is a string, use <code>UCase$</code>.</li>
+<li>If the argument is <code>Null</code>, the function returns <code>Null</code>.</li>
+<li>The conversion is based on the system locale settings.</li>
+<li>For international characters, the behavior depends on the current code page.</li>
+<li>The inverse function is <code>LCase$</code>, which converts strings to lowercase.</li>
+<li>Common use cases include display formatting, SQL keywords, and creating constants.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Display formatting</strong> - Format text for display in uppercase</li>
+<li><strong>SQL keyword generation</strong> - Create SQL queries with uppercase keywords</li>
+<li><strong>Constant generation</strong> - Generate uppercase constant names</li>
+<li><strong>File path normalization</strong> - Normalize file paths for case-insensitive systems</li>
+<li><strong>Acronym formatting</strong> - Format acronyms and abbreviations</li>
+<li><strong>Header text</strong> - Create uppercase headers for reports</li>
+<li><strong>Code generation</strong> - Generate uppercase identifiers in code</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple conversion
+Dim result As String
+result = UCase$(&quot;hello&quot;)  &#x27; Returns &quot;HELLO&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Mixed case
+Dim text As String
+text = UCase$(&quot;Hello World&quot;)  &#x27; Returns &quot;HELLO WORLD&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: With numbers and punctuation
+Dim mixed As String
+mixed = UCase$(&quot;abc123!@#&quot;)  &#x27; Returns &quot;ABC123!@#&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Already uppercase
+Dim upper As String
+upper = UCase$(&quot;ALREADY UPPERCASE&quot;)  &#x27; Returns &quot;ALREADY UPPERCASE&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="sql-keyword-formatting">SQL Keyword Formatting</h3>
+<pre><code class="language-vbnet">Function BuildSQLQuery(table As String, field As String) As String
+BuildSQLQuery = UCase$(&quot;SELECT&quot;) &amp; &quot; * &quot; &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
+End Function</code></pre>
+<h3 id="constant-name-generator">Constant Name Generator</h3>
+<pre><code class="language-vbnet">Function GenerateConstantName(baseName As String) As String
+GenerateConstantName = UCase$(Replace(baseName, &quot; &quot;, &quot;_&quot;))
+End Function</code></pre>
+<h3 id="acronym-formatter">Acronym Formatter</h3>
+<pre><code class="language-vbnet">Function FormatAcronym(text As String) As String
+FormatAcronym = UCase$(text)
+End Function</code></pre>
+<h3 id="header-text-generator">Header Text Generator</h3>
+<pre><code class="language-vbnet">Function CreateHeader(title As String) As String
+CreateHeader = String$(Len(title), &quot;=&quot;) &amp; vbCrLf &amp; _
+UCase$(title) &amp; vbCrLf &amp; _
+String$(Len(title), &quot;=&quot;)
+End Function</code></pre>
+<h3 id="case-insensitive-command-comparison">Case-Insensitive Command Comparison</h3>
+<pre><code class="language-vbnet">Function ProcessCommand(cmd As String) As Boolean
+Select Case UCase$(Trim$(cmd))
+Case &quot;START&quot;
+ProcessCommand = StartService()
+Case &quot;STOP&quot;
+ProcessCommand = StopService()
+Case &quot;RESTART&quot;
+ProcessCommand = RestartService()
+Case Else
+ProcessCommand = False
+End Select
+End Function</code></pre>
+<h3 id="file-extension-normalization">File Extension Normalization</h3>
+<pre><code class="language-vbnet">Function NormalizeExtension(filename As String) As String
+Dim ext As String
+ext = Right$(filename, 4)
+If UCase$(ext) = &quot;.TXT&quot; Then
+NormalizeExtension = &quot;Text File&quot;
+End If
+End Function</code></pre>
+<h3 id="environment-variable-names">Environment Variable Names</h3>
+<pre><code class="language-vbnet">Function GetEnvironmentVar(varName As String) As String
+GetEnvironmentVar = Environ$(UCase$(varName))
+End Function</code></pre>
+<h3 id="registry-key-normalization">Registry Key Normalization</h3>
+<pre><code class="language-vbnet">Function NormalizeRegistryKey(keyName As String) As String
+NormalizeRegistryKey = UCase$(Trim$(keyName))
+End Function</code></pre>
+<h3 id="display-name-formatting">Display Name Formatting</h3>
+<pre><code class="language-vbnet">Function FormatDisplayName(firstName As String, lastName As String) As String
+FormatDisplayName = UCase$(lastName) &amp; &quot;, &quot; &amp; firstName
+End Function</code></pre>
+<h3 id="code-template-generator">Code Template Generator</h3>
+<pre><code class="language-vbnet">Function GenerateEnumMember(memberName As String) As String
+GenerateEnumMember = &quot;    &quot; &amp; UCase$(memberName) &amp; &quot; = &quot; &amp; counter
+End Function</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="sql-query-builder-with-uppercase-keywords">SQL Query Builder with Uppercase Keywords</h3>
+<pre><code class="language-vbnet">Function BuildComplexQuery(table As String, fields As String, whereClause As String) As String
+Dim sql As String
+
+sql = UCase$(&quot;SELECT&quot;) &amp; &quot; &quot; &amp; fields &amp; &quot; &quot;
+sql = sql &amp; UCase$(&quot;FROM&quot;) &amp; &quot; &quot; &amp; table
+
+If Len(whereClause) &gt; 0 Then
+sql = sql &amp; &quot; &quot; &amp; UCase$(&quot;WHERE&quot;) &amp; &quot; &quot; &amp; whereClause
+End If
+
+BuildComplexQuery = sql
+End Function</code></pre>
+<h3 id="configuration-file-writer">Configuration File Writer</h3>
+<pre><code class="language-vbnet">Sub WriteConfigSection(fileNum As Integer, sectionName As String, settings As Collection)
+Dim key As Variant
+
+Print #fileNum, &quot;[&quot; &amp; UCase$(sectionName) &amp; &quot;]&quot;
+
+For Each key In settings
+Print #fileNum, UCase$(key) &amp; &quot;=&quot; &amp; settings(key)
+Next key
+
+Print #fileNum, &quot;&quot;
+End Sub</code></pre>
+<h3 id="report-header-generator">Report Header Generator</h3>
+<pre><code class="language-vbnet">Function GenerateReportHeader(reportTitle As String, reportDate As String) As String
+Dim header As String
+Dim separator As String
+
+separator = String$(60, &quot;=&quot;)
+header = separator &amp; vbCrLf
+header = header &amp; Space$((60 - Len(reportTitle)) \ 2) &amp; UCase$(reportTitle) &amp; vbCrLf
+header = header &amp; Space$((60 - Len(reportDate)) \ 2) &amp; reportDate &amp; vbCrLf
+header = header &amp; separator &amp; vbCrLf
+
+GenerateReportHeader = header
+End Function</code></pre>
+<h3 id="macro-name-validator">Macro Name Validator</h3>
+<pre><code class="language-vbnet">Function ValidateMacroName(macroName As String) As String
+Dim validName As String
+Dim i As Long
+Dim char As String
+
+&#x27; Convert to uppercase and remove invalid characters
+validName = UCase$(macroName)
+
+For i = 1 To Len(validName)
+char = Mid$(validName, i, 1)
+If (char &gt;= &quot;A&quot; And char &lt;= &quot;Z&quot;) Or _
+(char &gt;= &quot;0&quot; And char &lt;= &quot;9&quot;) Or _
+char = &quot;_&quot; Then
+ValidateMacroName = ValidateMacroName &amp; char
+End If
+Next i
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeUCase(text As String) As String
+On Error GoTo ErrorHandler
+
+If IsNull(text) Then
+SafeUCase = &quot;&quot;
+Exit Function
+End If
+
+SafeUCase = UCase$(text)
+Exit Function
+
+ErrorHandler:
+SafeUCase = &quot;&quot;
+End Function</code></pre>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>UCase$</code> is a fast operation with minimal overhead</li>
+<li>For large strings, the performance is linear with string length</li>
+<li><code>UCase$</code> (returns <code>String</code>) is slightly faster than <code>UCase</code> (returns <code>Variant</code>)</li>
+<li>When formatting multiple strings, consider caching uppercase versions if reused</li>
+<li>For very large datasets, consider using database-level text functions</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use for display</strong> - Convert to uppercase when formatting for display</li>
+<li><strong>Prefer <code>UCase$</code> over <code>UCase</code></strong> - Use <code>UCase$</code> when you know the result is a string</li>
+<li><strong>SQL keywords</strong> - Use uppercase for SQL keywords to improve readability</li>
+<li><strong>Handle Null</strong> - Check for <code>Null</code> values before calling <code>UCase$</code></li>
+<li><strong>Combine with Trim</strong> - Often useful to combine <code>UCase$</code> with <code>Trim$</code> for cleaner output</li>
+<li><strong>Document intent</strong> - Make it clear when uppercase conversion is for display vs. comparison</li>
+<li><strong>Consider locale</strong> - Be aware that conversion may vary by system locale</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return Type</th>
+<th>Conversion</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UCase</code></td>
+<td>Variant</td>
+<td>To uppercase</td>
+<td>When working with Variant types</td>
+</tr>
+<tr>
+<td><code>UCase$</code></td>
+<td>String</td>
+<td>To uppercase</td>
+<td>When result is definitely a string</td>
+</tr>
+<tr>
+<td><code>LCase</code></td>
+<td>Variant</td>
+<td>To lowercase</td>
+<td>Convert to lowercase (Variant)</td>
+</tr>
+<tr>
+<td><code>LCase$</code></td>
+<td>String</td>
+<td>To lowercase</td>
+<td>Convert to lowercase (String)</td>
+</tr>
+<tr>
+<td><code>StrConv</code></td>
+<td>String</td>
+<td>Various conversions</td>
+<td>Complex case conversions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<h3 id="http-header-names">HTTP Header Names</h3>
+<pre><code class="language-vbnet">Function FormatHTTPHeader(headerName As String, headerValue As String) As String
+FormatHTTPHeader = UCase$(headerName) &amp; &quot;: &quot; &amp; headerValue
+End Function</code></pre>
+<h3 id="database-column-names">Database Column Names</h3>
+<pre><code class="language-vbnet">Function GetColumnName(fieldName As String) As String
+GetColumnName = UCase$(Replace(fieldName, &quot; &quot;, &quot;_&quot;))
+End Function</code></pre>
+<h3 id="license-key-formatting">License Key Formatting</h3>
+<pre><code class="language-vbnet">Function FormatLicenseKey(key As String) As String
+&#x27; Format as XXXX-XXXX-XXXX-XXXX
+Dim upperKey As String
+upperKey = UCase$(Replace(key, &quot;-&quot;, &quot;&quot;))
+
+FormatLicenseKey = Mid$(upperKey, 1, 4) &amp; &quot;-&quot; &amp; _
+Mid$(upperKey, 5, 4) &amp; &quot;-&quot; &amp; _
+Mid$(upperKey, 9, 4) &amp; &quot;-&quot; &amp; _
+Mid$(upperKey, 13, 4)
+End Function</code></pre>
+<h3 id="command-line-argument-parsing">Command Line Argument Parsing</h3>
+<pre><code class="language-vbnet">Function ParseArgument(arg As String) As String
+If Left$(arg, 1) = &quot;/&quot; Or Left$(arg, 1) = &quot;-&quot; Then
+ParseArgument = UCase$(Mid$(arg, 2))
+Else
+ParseArgument = UCase$(arg)
+End If
+End Function</code></pre>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>On Windows, <code>UCase$</code> respects the system locale for character conversion</li>
+<li>Behavior may vary for extended ASCII and international characters</li>
+<li>For ASCII characters (a-z), behavior is consistent across all platforms</li>
+<li>Some characters may convert differently depending on the active code page</li>
+<li>Modern Windows systems handle Unicode characters in <code>UCase$</code> operations</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Conversion is based on system locale; may not work as expected for all Unicode characters</li>
+<li>Returns <code>Null</code> if the input is <code>Null</code> (unlike some other string functions that error)</li>
+<li>Does not handle advanced Unicode normalization or case folding</li>
+<li>For true Unicode case folding, more sophisticated methods may be needed</li>
+<li>Some special characters may not convert in all locales</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - callbyname - Objects">
+    <title>callbyname - Objects - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/objects/index.html">Objects</a> / callbyname</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="callbyname-function"><code>CallByName</code> Function</h1>
+<p>Executes a method, sets or returns a property, or sets or returns a field of an object.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">CallByName(object, procname, calltype, [args()])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>object</code> - Required. Object expression on which the function will be executed.</li>
+<li><code>procname</code> - Required. String expression containing the name of the property, method, or field member of the object.</li>
+<li><code>calltype</code> - Required. Member of the <code>VbCallType</code> enumeration representing the type of procedure being called.</li>
+<li><code>args()</code> - Optional. <code>Variant</code> array containing the arguments to be passed to the property, method, or field being called.</li>
+</ul>
+<h2 id="vbcalltype-constants"><code>VbCallType</code> Constants</h2>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VbMethod</code></td>
+<td>1</td>
+<td>A method is being called</td>
+</tr>
+<tr>
+<td><code>VbGet</code></td>
+<td>2</td>
+<td>A property value is being retrieved</td>
+</tr>
+<tr>
+<td><code>VbLet</code></td>
+<td>4</td>
+<td>A property value is being set</td>
+</tr>
+<tr>
+<td><code>VbSet</code></td>
+<td>8</td>
+<td>A reference to an object is being set</td>
+</tr>
+</tbody>
+</table>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> containing the result of the called property or method. For <code>VbLet</code> and <code>VbSet</code>,
+the return value is not meaningful.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>CallByName</code> function allows you to execute object members by name at run time, providing
+a form of late binding. This is particularly useful for:</p>
+<ul>
+<li>Creating generic routines that work with multiple object types</li>
+<li>Implementing dynamic property access based on user input</li>
+<li>Building reflection-like functionality in VB6</li>
+<li>Simplifying repetitive property access code</li>
+</ul>
+<h3 id="important-notes">Important Notes</h3>
+<ol>
+<li><strong>Late Binding</strong>: <code>CallByName</code> always uses late binding, even if the object variable is early bound</li>
+<li><strong>Performance</strong>: Slower than direct method/property calls due to name lookup overhead</li>
+<li><strong>Case Insensitive</strong>: The <code>procname</code> parameter is case-insensitive</li>
+<li><strong>Error Handling</strong>: Raises run-time error if the member doesn't exist</li>
+<li><strong>Type Safety</strong>: No compile-time checking of member existence or argument types</li>
+</ol>
+<h3 id="call-type-details">Call Type Details</h3>
+<p><strong><code>VbMethod</code> (1)</strong>:
+- Calls a Sub or Function
+- Returns the function's return value (or Empty for Subs)
+- Passes arguments in the args array</p>
+<p><strong><code>VbGet</code> (2)</strong>:
+- Retrieves a property value or field value
+- Can be used with property procedures (Property Get) or public fields
+- For parameterized properties, pass indices in args array</p>
+<p><strong><code>VbLet</code> (4)</strong>:
+- Sets a <code>property</code> value or field value
+- For simple data types (numbers, strings, etc.)
+- The new value must be the last element in the args array
+- For parameterized properties, indices come before the value</p>
+<p><strong><code>VbSet</code> (8)</strong>:
+- Sets an object reference property
+- Similar to <code>VbLet</code> but for object references
+- Used when you would normally use the Set keyword</p>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-method-call">Basic Method Call</h3>
+<pre><code class="language-vbnet">Dim obj As Object
+Set obj = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+
+&#x27; Call the GetFolder method
+Dim folder As Variant
+folder = CallByName(obj, &quot;GetFolder&quot;, VbMethod, &quot;C:\Temp&quot;)</code></pre>
+<h3 id="property-get">Property Get</h3>
+<pre><code class="language-vbnet">Dim fs As Object
+Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+
+&#x27; Get the Drives property
+Dim drives As Variant
+drives = CallByName(fs, &quot;Drives&quot;, VbGet)</code></pre>
+<h3 id="property-let">Property Let</h3>
+<pre><code class="language-vbnet">Dim txt As Object
+Set txt = CreateObject(&quot;Scripting.TextStream&quot;)
+
+&#x27; Set a property value
+CallByName txt, &quot;Line&quot;, VbLet, 10</code></pre>
+<h3 id="property-set-object-reference">Property Set (Object Reference)</h3>
+<pre><code class="language-vbnet">Dim form As Form
+Set form = New Form1
+
+Dim btn As CommandButton
+Set btn = New CommandButton
+
+&#x27; Set an object property
+CallByName form, &quot;ActiveControl&quot;, VbSet, btn</code></pre>
+<h3 id="dynamic-property-access">Dynamic Property Access</h3>
+<pre><code class="language-vbnet">Function GetPropertyValue(obj As Object, propName As String) As Variant
+GetPropertyValue = CallByName(obj, propName, VbGet)
+End Function
+
+Function SetPropertyValue(obj As Object, propName As String, value As Variant)
+CallByName obj, propName, VbLet, value
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="1-generic-property-copier">1. Generic Property Copier</h3>
+<pre><code class="language-vbnet">Sub CopyProperties(source As Object, dest As Object, propNames() As String)
+Dim i As Integer
+Dim value As Variant
+
+For i = LBound(propNames) To UBound(propNames)
+value = CallByName(source, propNames(i), VbGet)
+CallByName dest, propNames(i), VbLet, value
+Next i
+End Sub</code></pre>
+<h3 id="2-form-field-population">2. Form Field Population</h3>
+<pre><code class="language-vbnet">Sub PopulateFormFromRecordset(frm As Form, rs As Recordset)
+Dim fld As Field
+Dim ctl As Control
+
+For Each fld In rs.Fields
+On Error Resume Next
+Set ctl = frm.Controls(fld.Name)
+If Not ctl Is Nothing Then
+CallByName ctl, &quot;Text&quot;, VbLet, fld.Value &amp; &quot;&quot;
+End If
+On Error GoTo 0
+Next fld
+End Sub</code></pre>
+<h3 id="3-dynamic-method-invocation">3. Dynamic Method Invocation</h3>
+<pre><code class="language-vbnet">Function InvokeMethod(obj As Object, methodName As String, _
+ParamArray args() As Variant) As Variant
+Dim argArray() As Variant
+Dim i As Integer
+
+If UBound(args) &gt;= 0 Then
+ReDim argArray(LBound(args) To UBound(args))
+For i = LBound(args) To UBound(args)
+argArray(i) = args(i)
+Next i
+InvokeMethod = CallByName(obj, methodName, VbMethod, argArray)
+Else
+InvokeMethod = CallByName(obj, methodName, VbMethod)
+End If
+End Function</code></pre>
+<h3 id="4-property-name-validation">4. Property Name Validation</h3>
+<pre><code class="language-vbnet">Function HasProperty(obj As Object, propName As String) As Boolean
+On Error Resume Next
+Dim temp As Variant
+temp = CallByName(obj, propName, VbGet)
+HasProperty = (Err.Number = 0)
+On Error GoTo 0
+End Function</code></pre>
+<h3 id="5-bulk-property-setting">5. Bulk Property Setting</h3>
+<pre><code class="language-vbnet">Sub SetMultipleProperties(obj As Object, propNames As Variant, _
+propValues As Variant)
+Dim i As Integer
+
+For i = LBound(propNames) To UBound(propNames)
+CallByName obj, propNames(i), VbLet, propValues(i)
+Next i
+End Sub
+
+&#x27; Usage:
+SetMultipleProperties myControl, _
+Array(&quot;Left&quot;, &quot;Top&quot;, &quot;Width&quot;, &quot;Height&quot;), _
+Array(100, 100, 200, 50)</code></pre>
+<h3 id="6-parameterized-property-access">6. Parameterized Property Access</h3>
+<pre><code class="language-vbnet">&#x27; Access a property with parameters (like an indexed property)
+Sub SetIndexedProperty(obj As Object, propName As String, _
+index As Integer, value As Variant)
+CallByName obj, propName, VbLet, index, value
+End Sub
+
+Function GetIndexedProperty(obj As Object, propName As String, _
+index As Integer) As Variant
+GetIndexedProperty = CallByName(obj, propName, VbGet, index)
+End Function</code></pre>
+<h3 id="7-configuration-driven-object-initialization">7. Configuration-Driven Object Initialization</h3>
+<pre><code class="language-vbnet">Sub InitializeFromConfig(obj As Object, configFile As String)
+Dim fs As Object
+Dim ts As Object
+Dim line As String
+Dim parts() As String
+
+Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+Set ts = fs.OpenTextFile(configFile)
+
+Do While Not ts.AtEndOfStream
+line = ts.ReadLine
+If InStr(line, &quot;=&quot;) &gt; 0 Then
+parts = Split(line, &quot;=&quot;)
+CallByName obj, Trim(parts(0)), VbLet, Trim(parts(1))
+End If
+Loop
+
+ts.Close
+End Sub</code></pre>
+<h3 id="8-error-safe-property-access">8. Error-Safe Property Access</h3>
+<pre><code class="language-vbnet">Function SafeGetProperty(obj As Object, propName As String, _
+Optional defaultValue As Variant) As Variant
+On Error Resume Next
+SafeGetProperty = CallByName(obj, propName, VbGet)
+If Err.Number &lt;&gt; 0 Then
+If Not IsMissing(defaultValue) Then
+SafeGetProperty = defaultValue
+Else
+SafeGetProperty = Empty
+End If
+End If
+On Error GoTo 0
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="calling-methods-with-multiple-arguments">Calling Methods with Multiple Arguments</h3>
+<pre><code class="language-vbnet">Dim obj As Object
+Set obj = CreateObject(&quot;SomeLibrary.SomeClass&quot;)
+
+&#x27; Call a method with multiple arguments
+Dim result As Variant
+result = CallByName(obj, &quot;Calculate&quot;, VbMethod, 10, 20, &quot;sum&quot;)</code></pre>
+<h3 id="working-with-collections">Working with Collections</h3>
+<pre><code class="language-vbnet">Sub EnumerateCollection(coll As Collection, methodName As String)
+Dim item As Variant
+For Each item In coll
+CallByName item, methodName, VbMethod
+Next item
+End Sub</code></pre>
+<h3 id="building-a-simple-orm">Building a Simple ORM</h3>
+<pre><code class="language-vbnet">Sub SaveObjectToDatabase(obj As Object, tableName As String, _
+propNames() As String)
+Dim sql As String
+Dim values As String
+Dim i As Integer
+Dim value As Variant
+
+sql = &quot;INSERT INTO &quot; &amp; tableName &amp; &quot; (&quot;
+values = &quot; VALUES (&quot;
+
+For i = LBound(propNames) To UBound(propNames)
+If i &gt; LBound(propNames) Then
+sql = sql &amp; &quot;, &quot;
+values = values &amp; &quot;, &quot;
+End If
+
+sql = sql &amp; propNames(i)
+value = CallByName(obj, propNames(i), VbGet)
+values = values &amp; &quot;&#x27;&quot; &amp; value &amp; &quot;&#x27;&quot;
+Next i
+
+sql = sql &amp; &quot;)&quot; &amp; values &amp; &quot;)&quot;
+&#x27; Execute SQL...
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>Common errors when using <code>CallByName</code>:</p>
+<ul>
+<li><strong>Error 438</strong>: Object doesn't support this property or method</li>
+<li>The specified member doesn't exist</li>
+<li>
+<p>Check spelling and case (though <code>CallByName</code> is case-insensitive)</p>
+</li>
+<li>
+<p><strong>Error 450</strong>: Wrong number of arguments or invalid property assignment</p>
+</li>
+<li>Incorrect number of arguments in the args array</li>
+<li>Using <code>VbLet</code> for an object (should use <code>VbSet</code>)</li>
+<li>
+<p>Using <code>VbSet</code> for a value type (should use <code>VbLet</code>)</p>
+</li>
+<li>
+<p><strong>Error 13</strong>: Type mismatch</p>
+</li>
+<li>Argument types don't match what the member expects</li>
+</ul>
+<pre><code class="language-vbnet">On Error Resume Next
+result = CallByName(obj, &quot;PropertyName&quot;, VbGet)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Error accessing property: &quot; &amp; Err.Description
+End If
+On Error GoTo 0</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>CallByName</code> is significantly slower than direct member access</li>
+<li>Name resolution happens at runtime, not compile time</li>
+<li>Consider caching frequently accessed members</li>
+<li>Use early binding and direct calls in performance-critical code</li>
+<li><code>CallByName</code> is best for scenarios where dynamic access is necessary</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot call private members</li>
+<li>Cannot call Friend members from outside the project</li>
+<li>No <code>IntelliSense</code> support for the member being called</li>
+<li>No compile-time type checking</li>
+<li>Cannot call default members by passing empty string</li>
+<li>More difficult to debug than direct calls</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Eval</code>: Evaluates an expression (only in VBA, not VB6)</li>
+<li><code>Execute</code>: Executes a statement (only in VBA, not VB6)</li>
+<li><code>GetObject</code>: Returns a reference to an object</li>
+<li><code>CreateObject</code>: Creates an instance of an object</li>
+<li><code>TypeName</code>: Returns the type name of a variable</li>
+<li><code>VarType</code>: Returns the variant subtype of a variable</li>
+</ul>
+<h2 id="parsing-notes">Parsing Notes</h2>
+<p>The <code>CallByName</code> function is not a reserved keyword in VB6. It is parsed as a regular
+function call (<code>CallExpression</code>). This module exists primarily for documentation
+purposes and to provide a comprehensive test suite that validates the parser
+correctly handles <code>CallByName</code> function calls in various contexts.</p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Objects</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

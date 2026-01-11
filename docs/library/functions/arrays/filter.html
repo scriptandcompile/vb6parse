@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - filter - Arrays">
+    <title>filter - Arrays - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/arrays/index.html">Arrays</a> / filter</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="filter-function">Filter Function</h1>
+<p>Returns a zero-based array containing a subset of a string array based on specified filter criteria.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Filter(sourcearray, match[, include[, compare]])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>sourcearray</strong>: Required. One-dimensional array of strings to be searched.</li>
+<li><strong>match</strong>: Required. String to search for.</li>
+<li><strong>include</strong>: Optional. Boolean value indicating whether to return substrings that include
+or exclude match. If True (default), Filter returns subset including match. If False,
+Filter returns subset excluding match.</li>
+<li><strong>compare</strong>: Optional. Numeric value indicating the kind of string comparison to use.</li>
+<li>0 = vbBinaryCompare (case-sensitive, default)</li>
+<li>1 = vbTextCompare (case-insensitive)</li>
+<li>2 = vbDatabaseCompare (Microsoft Access only)</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Variant containing a zero-based array of strings. If no matches are found,
+Filter returns an empty array. If sourcearray is Null or not a one-dimensional array,
+an error occurs.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Filter</code> function searches a string array for elements containing a specified substring
+and returns a new array with matching (or non-matching) elements. This is useful for
+filtering lists, implementing search functionality, and processing string collections.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns zero-based array regardless of input array bounds</li>
+<li>Match is substring search (not whole string match)</li>
+<li>Empty string match returns all elements (when include=True)</li>
+<li>Returns empty array if no matches found</li>
+<li>Case sensitivity controlled by compare parameter</li>
+<li>Original array is not modified</li>
+<li>Works only with one-dimensional string arrays</li>
+<li>Error 13 (Type Mismatch) if sourcearray is not an array</li>
+<li>Error 5 (Invalid procedure call) if sourcearray is multi-dimensional</li>
+<li>Error 94 (Invalid use of Null) if sourcearray is Null</li>
+<li>Returned array starts at index 0</li>
+<li>Can be used to implement NOT logic (include=False)</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ul>
+<li>Filter lists based on user input</li>
+<li>Implement search functionality</li>
+<li>Remove unwanted items from arrays</li>
+<li>Find items matching a pattern</li>
+<li>Create subsets of data</li>
+<li>Filter file lists</li>
+<li>Process search results</li>
+<li>Implement autocomplete features</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim fruits() As String
+Dim filtered() As String
+
+fruits = Array(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Cherry&quot;, &quot;Date&quot;, &quot;Elderberry&quot;)
+
+&#x27; Find fruits containing &quot;e&quot; (case-sensitive)
+filtered = Filter(fruits, &quot;e&quot;)
+&#x27; Returns: &quot;Apple&quot;, &quot;Cherry&quot;, &quot;Date&quot;, &quot;Elderberry&quot;
+
+&#x27; Find fruits NOT containing &quot;e&quot;
+filtered = Filter(fruits, &quot;e&quot;, False)
+&#x27; Returns: &quot;Banana&quot;
+
+&#x27; Find fruits containing &quot;a&quot; (case-insensitive)
+filtered = Filter(fruits, &quot;a&quot;, True, vbTextCompare)
+&#x27; Returns: &quot;Apple&quot;, &quot;Banana&quot;, &quot;Date&quot;</code></pre>
+<h3 id="case-sensitive-vs-case-insensitive">Case-Sensitive vs Case-Insensitive</h3>
+<pre><code class="language-vbnet">Dim names() As String
+names = Array(&quot;John&quot;, &quot;jane&quot;, &quot;JAMES&quot;, &quot;Julia&quot;, &quot;jack&quot;)
+
+&#x27; Case-sensitive search (default)
+Dim result1() As String
+result1 = Filter(names, &quot;J&quot;)
+&#x27; Returns: &quot;John&quot;, &quot;JAMES&quot;, &quot;Julia&quot;
+
+&#x27; Case-insensitive search
+Dim result2() As String
+result2 = Filter(names, &quot;J&quot;, True, vbTextCompare)
+&#x27; Returns: &quot;John&quot;, &quot;jane&quot;, &quot;JAMES&quot;, &quot;Julia&quot;, &quot;jack&quot;</code></pre>
+<h3 id="exclude-matches">Exclude Matches</h3>
+<pre><code class="language-vbnet">Dim files() As String
+files = Array(&quot;data.txt&quot;, &quot;backup.bak&quot;, &quot;report.txt&quot;, &quot;temp.bak&quot;, &quot;notes.txt&quot;)
+
+&#x27; Get only non-backup files (exclude .bak)
+Dim textFiles() As String
+textFiles = Filter(files, &quot;.bak&quot;, False)
+&#x27; Returns: &quot;data.txt&quot;, &quot;report.txt&quot;, &quot;notes.txt&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="filter-list-based-on-user-input">Filter List Based on User Input</h3>
+<pre><code class="language-vbnet">Function SearchList(items() As String, searchTerm As String) As String()
+On Error GoTo ErrorHandler
+
+If Trim(searchTerm) = &quot;&quot; Then
+&#x27; Return all items if search is empty
+SearchList = items
+Else
+&#x27; Return filtered items (case-insensitive)
+SearchList = Filter(items, searchTerm, True, vbTextCompare)
+End If
+
+Exit Function
+
+ErrorHandler:
+&#x27; Return empty array on error
+Dim emptyArray() As String
+ReDim emptyArray(0 To -1)
+SearchList = emptyArray
+End Function</code></pre>
+<h3 id="count-matching-items">Count Matching Items</h3>
+<pre><code class="language-vbnet">Function CountMatches(items() As String, searchTerm As String) As Long
+On Error GoTo ErrorHandler
+
+Dim matches() As String
+matches = Filter(items, searchTerm, True, vbTextCompare)
+
+&#x27; Check if array is empty
+If UBound(matches) &gt;= 0 Then
+CountMatches = UBound(matches) + 1
+Else
+CountMatches = 0
+End If
+
+Exit Function
+
+ErrorHandler:
+CountMatches = 0
+End Function</code></pre>
+<h3 id="filter-file-list-by-extension">Filter File List by Extension</h3>
+<pre><code class="language-vbnet">Function GetFilesByExtension(files() As String, extension As String) As String()
+&#x27; Ensure extension starts with dot
+If Left(extension, 1) &lt;&gt; &quot;.&quot; Then
+extension = &quot;.&quot; &amp; extension
+End If
+
+&#x27; Filter for files with this extension
+GetFilesByExtension = Filter(files, extension, True, vbTextCompare)
+End Function
+
+&#x27; Usage
+Dim allFiles() As String
+Dim txtFiles() As String
+allFiles = Array(&quot;doc1.txt&quot;, &quot;image.jpg&quot;, &quot;data.txt&quot;, &quot;photo.png&quot;)
+txtFiles = GetFilesByExtension(allFiles, &quot;.txt&quot;)</code></pre>
+<h3 id="multiple-filter-criteria">Multiple Filter Criteria</h3>
+<pre><code class="language-vbnet">Function FilterMultiple(items() As String, filters() As String) As String()
+Dim result() As String
+Dim temp() As String
+Dim i As Long
+
+result = items
+
+&#x27; Apply each filter sequentially
+For i = LBound(filters) To UBound(filters)
+temp = Filter(result, filters(i), True, vbTextCompare)
+result = temp
+
+&#x27; Exit early if no matches
+If UBound(result) &lt; 0 Then Exit For
+Next i
+
+FilterMultiple = result
+End Function
+
+&#x27; Usage: Find items containing both &quot;test&quot; and &quot;data&quot;
+Dim criteria() As String
+criteria = Array(&quot;test&quot;, &quot;data&quot;)
+filtered = FilterMultiple(sourceArray, criteria)</code></pre>
+<h3 id="populate-listbox-with-filtered-results">Populate <code>ListBox</code> with Filtered Results</h3>
+<pre><code class="language-vbnet">Sub UpdateFilteredList(lstBox As ListBox, items() As String, searchText As String)
+Dim filtered() As String
+Dim i As Long
+
+lstBox.Clear
+
+On Error GoTo ErrorHandler
+
+If Trim(searchText) = &quot;&quot; Then
+&#x27; Show all items
+For i = LBound(items) To UBound(items)
+lstBox.AddItem items(i)
+Next i
+Else
+&#x27; Show filtered items
+filtered = Filter(items, searchText, True, vbTextCompare)
+
+If UBound(filtered) &gt;= 0 Then
+For i = 0 To UBound(filtered)
+lstBox.AddItem filtered(i)
+Next i
+End If
+End If
+
+Exit Sub
+
+ErrorHandler:
+&#x27; Handle errors silently or show message
+End Sub</code></pre>
+<h3 id="remove-duplicates-with-filter">Remove Duplicates with Filter</h3>
+<pre><code class="language-vbnet">Function RemoveDuplicates(items() As String) As String()
+Dim result() As String
+Dim dict As Object
+Dim i As Long
+Dim count As Long
+
+Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+dict.CompareMode = vbTextCompare
+
+&#x27; Add unique items to dictionary
+For i = LBound(items) To UBound(items)
+If Not dict.Exists(items(i)) Then
+dict.Add items(i), Nothing
+End If
+Next i
+
+&#x27; Convert to array
+ReDim result(0 To dict.Count - 1)
+count = 0
+For i = 0 To dict.Count - 1
+result(count) = dict.Keys()(i)
+count = count + 1
+Next i
+
+RemoveDuplicates = result
+End Function</code></pre>
+<h3 id="filter-with-wildcard-simulation">Filter with Wildcard Simulation</h3>
+<pre><code class="language-vbnet">Function FilterWildcard(items() As String, pattern As String) As Collection
+&#x27; Simple wildcard: * at start, end, or both
+Dim results As New Collection
+Dim filtered() As String
+Dim searchTerm As String
+Dim i As Long
+Dim item As String
+
+If Left(pattern, 1) = &quot;*&quot; And Right(pattern, 1) = &quot;*&quot; Then
+&#x27; Contains search
+searchTerm = Mid(pattern, 2, Len(pattern) - 2)
+filtered = Filter(items, searchTerm, True, vbTextCompare)
+
+For i = 0 To UBound(filtered)
+results.Add filtered(i)
+Next i
+
+ElseIf Left(pattern, 1) = &quot;*&quot; Then
+&#x27; Ends with search
+searchTerm = Mid(pattern, 2)
+For i = LBound(items) To UBound(items)
+If Right(LCase(items(i)), Len(searchTerm)) = LCase(searchTerm) Then
+results.Add items(i)
+End If
+Next i
+
+ElseIf Right(pattern, 1) = &quot;*&quot; Then
+&#x27; Starts with search
+searchTerm = Left(pattern, Len(pattern) - 1)
+For i = LBound(items) To UBound(items)
+If Left(LCase(items(i)), Len(searchTerm)) = LCase(searchTerm) Then
+results.Add items(i)
+End If
+Next i
+
+Else
+&#x27; Exact match
+For i = LBound(items) To UBound(items)
+If LCase(items(i)) = LCase(pattern) Then
+results.Add items(i)
+End If
+Next i
+End If
+
+Set FilterWildcard = results
+End Function</code></pre>
+<h3 id="autocomplete-implementation">Autocomplete Implementation</h3>
+<pre><code class="language-vbnet">Sub TextBox_Change()
+Dim allItems() As String
+Dim matches() As String
+Dim i As Long
+
+&#x27; Get all possible values (from database, array, etc.)
+allItems = GetAllItemNames()
+
+If Len(Me.txtSearch.Text) &gt; 0 Then
+&#x27; Filter items that start with typed text
+matches = Filter(allItems, Me.txtSearch.Text, True, vbTextCompare)
+
+&#x27; Display suggestions
+Me.lstSuggestions.Clear
+
+If UBound(matches) &gt;= 0 Then
+For i = 0 To UBound(matches)
+Me.lstSuggestions.AddItem matches(i)
+Next i
+Me.lstSuggestions.Visible = True
+Else
+Me.lstSuggestions.Visible = False
+End If
+Else
+Me.lstSuggestions.Visible = False
+End If
+End Sub</code></pre>
+<h3 id="filter-log-entries">Filter Log Entries</h3>
+<pre><code class="language-vbnet">Function FilterLogsByLevel(logEntries() As String, level As String) As String()
+&#x27; Assume log format: &quot;[LEVEL] Message&quot;
+Dim levelTag As String
+levelTag = &quot;[&quot; &amp; UCase(level) &amp; &quot;]&quot;
+
+FilterLogsByLevel = Filter(logEntries, levelTag, True, vbTextCompare)
+End Function
+
+&#x27; Usage
+Dim logs() As String
+Dim errors() As String
+logs = Array(&quot;[INFO] Started&quot;, &quot;[ERROR] Failed&quot;, &quot;[INFO] Complete&quot;, &quot;[ERROR] Timeout&quot;)
+errors = FilterLogsByLevel(logs, &quot;ERROR&quot;)
+&#x27; Returns: &quot;[ERROR] Failed&quot;, &quot;[ERROR] Timeout&quot;</code></pre>
+<h3 id="check-if-array-contains-value">Check If Array Contains Value</h3>
+<pre><code class="language-vbnet">Function ArrayContains(items() As String, value As String, _
+Optional caseSensitive As Boolean = False) As Boolean
+On Error GoTo ErrorHandler
+
+Dim matches() As String
+Dim compareMode As VbCompareMethod
+
+If caseSensitive Then
+compareMode = vbBinaryCompare
+Else
+compareMode = vbTextCompare
+End If
+
+matches = Filter(items, value, True, compareMode)
+
+&#x27; Check if any exact matches
+Dim i As Long
+For i = 0 To UBound(matches)
+If StrComp(matches(i), value, compareMode) = 0 Then
+ArrayContains = True
+Exit Function
+End If
+Next i
+
+ArrayContains = False
+Exit Function
+
+ErrorHandler:
+ArrayContains = False
+End Function</code></pre>
+<h3 id="combine-include-and-exclude-filters">Combine Include and Exclude Filters</h3>
+<pre><code class="language-vbnet">Function FilterIncludeExclude(items() As String, includeText As String, _
+excludeText As String) As String()
+Dim temp() As String
+
+&#x27; First include items containing includeText
+If includeText &lt;&gt; &quot;&quot; Then
+temp = Filter(items, includeText, True, vbTextCompare)
+Else
+temp = items
+End If
+
+&#x27; Then exclude items containing excludeText
+If excludeText &lt;&gt; &quot;&quot; And UBound(temp) &gt;= 0 Then
+temp = Filter(temp, excludeText, False, vbTextCompare)
+End If
+
+FilterIncludeExclude = temp
+End Function
+
+&#x27; Usage: Get .txt files but not backup files
+filtered = FilterIncludeExclude(files, &quot;.txt&quot;, &quot;backup&quot;)</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="dynamic-search-with-multiple-columns">Dynamic Search with Multiple Columns</h3>
+<pre><code class="language-vbnet">Type RecordData
+ID As String
+Name As String
+Email As String
+Department As String
+End Type
+
+Function SearchRecords(records() As RecordData, searchTerm As String) As Long()
+&#x27; Search across multiple fields and return matching indices
+Dim names() As String
+Dim emails() As String
+Dim departments() As String
+Dim matchedNames() As String
+Dim matchedEmails() As String
+Dim matchedDepts() As String
+Dim results() As Long
+Dim i As Long
+Dim count As Long
+Dim dict As Object
+
+Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+
+&#x27; Build arrays for each searchable field
+ReDim names(LBound(records) To UBound(records))
+ReDim emails(LBound(records) To UBound(records))
+ReDim departments(LBound(records) To UBound(records))
+
+For i = LBound(records) To UBound(records)
+names(i) = records(i).Name
+emails(i) = records(i).Email
+departments(i) = records(i).Department
+Next i
+
+&#x27; Filter each field
+On Error Resume Next
+matchedNames = Filter(names, searchTerm, True, vbTextCompare)
+matchedEmails = Filter(emails, searchTerm, True, vbTextCompare)
+matchedDepts = Filter(departments, searchTerm, True, vbTextCompare)
+On Error GoTo 0
+
+&#x27; Collect unique matching indices
+For i = LBound(records) To UBound(records)
+If InStr(1, records(i).Name, searchTerm, vbTextCompare) &gt; 0 Or _
+InStr(1, records(i).Email, searchTerm, vbTextCompare) &gt; 0 Or _
+InStr(1, records(i).Department, searchTerm, vbTextCompare) &gt; 0 Then
+
+If Not dict.Exists(i) Then
+dict.Add i, Nothing
+End If
+End If
+Next i
+
+&#x27; Convert to array
+If dict.Count &gt; 0 Then
+ReDim results(0 To dict.Count - 1)
+For i = 0 To dict.Count - 1
+results(i) = dict.Keys()(i)
+Next i
+Else
+ReDim results(0 To -1)
+End If
+
+SearchRecords = results
+End Function</code></pre>
+<h3 id="incremental-filter-type-ahead">Incremental Filter (Type-Ahead)</h3>
+<pre><code class="language-vbnet">Private lastSearch As String
+Private cachedResults() As String
+
+Sub IncrementalSearch(items() As String, currentSearch As String)
+Dim filtered() As String
+
+&#x27; If new search starts with last search, filter cached results
+If Len(currentSearch) &gt; Len(lastSearch) And _
+Left(currentSearch, Len(lastSearch)) = lastSearch And _
+UBound(cachedResults) &gt;= 0 Then
+
+&#x27; Filter from cached results (faster)
+filtered = Filter(cachedResults, currentSearch, True, vbTextCompare)
+Else
+&#x27; Filter from full list
+filtered = Filter(items, currentSearch, True, vbTextCompare)
+End If
+
+&#x27; Update cache
+cachedResults = filtered
+lastSearch = currentSearch
+
+&#x27; Display results
+DisplayResults filtered
+End Sub</code></pre>
+<h3 id="category-based-filtering">Category-Based Filtering</h3>
+<pre><code class="language-vbnet">Type Product
+Name As String
+Category As String
+Price As Double
+Description As String
+End Type
+
+Function FilterProductsByCategory(products() As Product, _
+category As String) As Product()
+Dim categories() As String
+Dim filtered() As String
+Dim results() As Product
+Dim i As Long
+Dim count As Long
+
+&#x27; Build category array
+ReDim categories(LBound(products) To UBound(products))
+For i = LBound(products) To UBound(products)
+categories(i) = products(i).Category
+Next i
+
+&#x27; Get matching categories
+filtered = Filter(categories, category, True, vbTextCompare)
+
+&#x27; Build result array
+ReDim results(0 To UBound(filtered))
+count = 0
+
+For i = LBound(products) To UBound(products)
+If InStr(1, products(i).Category, category, vbTextCompare) &gt; 0 Then
+results(count) = products(i)
+count = count + 1
+End If
+Next i
+
+If count &gt; 0 Then
+ReDim Preserve results(0 To count - 1)
+Else
+ReDim results(0 To -1)
+End If
+
+FilterProductsByCategory = results
+End Function</code></pre>
+<h3 id="filter-with-performance-tracking">Filter with Performance Tracking</h3>
+<pre><code class="language-vbnet">Function FilterWithStats(items() As String, searchTerm As String, _
+ByRef matchCount As Long, _
+ByRef elapsedMs As Double) As String()
+Dim startTime As Double
+Dim results() As String
+
+startTime = Timer
+
+On Error GoTo ErrorHandler
+results = Filter(items, searchTerm, True, vbTextCompare)
+
+If UBound(results) &gt;= 0 Then
+matchCount = UBound(results) + 1
+Else
+matchCount = 0
+End If
+
+elapsedMs = (Timer - startTime) * 1000
+
+FilterWithStats = results
+Exit Function
+
+ErrorHandler:
+matchCount = 0
+elapsedMs = 0
+ReDim results(0 To -1)
+FilterWithStats = results
+End Function</code></pre>
+<h3 id="smart-case-sensitive-filter">Smart Case-Sensitive Filter</h3>
+<pre><code class="language-vbnet">Function SmartFilter(items() As String, searchTerm As String) As String()
+Dim compareMode As VbCompareMethod
+
+&#x27; If search term has uppercase letters, use case-sensitive
+&#x27; Otherwise use case-insensitive
+If searchTerm &lt;&gt; LCase(searchTerm) Then
+compareMode = vbBinaryCompare
+Else
+compareMode = vbTextCompare
+End If
+
+SmartFilter = Filter(items, searchTerm, True, compareMode)
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeFilter(items As Variant, searchTerm As String) As Variant
+On Error GoTo ErrorHandler
+
+Dim emptyArray() As String
+
+&#x27; Check if items is an array
+If Not IsArray(items) Then
+ReDim emptyArray(0 To -1)
+SafeFilter = emptyArray
+Exit Function
+End If
+
+&#x27; Check if items is Null
+If IsNull(items) Then
+ReDim emptyArray(0 To -1)
+SafeFilter = emptyArray
+Exit Function
+End If
+
+&#x27; Perform filter
+SafeFilter = Filter(items, searchTerm, True, vbTextCompare)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 13  &#x27; Type mismatch
+Debug.Print &quot;Filter error: sourcearray is not a string array&quot;
+Case 5   &#x27; Invalid procedure call
+Debug.Print &quot;Filter error: sourcearray is multi-dimensional&quot;
+Case 94  &#x27; Invalid use of Null
+Debug.Print &quot;Filter error: sourcearray is Null&quot;
+Case Else
+Debug.Print &quot;Filter error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description
+End Select
+
+ReDim emptyArray(0 To -1)
+SafeFilter = emptyArray
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 13</strong> (Type Mismatch): sourcearray is not an array or not a string array</li>
+<li><strong>Error 5</strong> (Invalid procedure call): sourcearray is multi-dimensional</li>
+<li><strong>Error 94</strong> (Invalid use of Null): sourcearray is Null</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Filter is efficient for small to medium arrays (&lt; 10,000 elements)</li>
+<li>For very large arrays, consider Dictionary-based approaches</li>
+<li>Case-insensitive search is slightly slower than case-sensitive</li>
+<li>Filtering already-filtered results is faster than re-filtering original array</li>
+<li>Consider caching results for repeated searches</li>
+<li>Empty string match returns entire array</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="always-check-result-array">Always Check Result Array</h3>
+<pre><code class="language-vbnet">Dim results() As String
+results = Filter(items, searchTerm)
+
+If UBound(results) &gt;= 0 Then
+&#x27; Process results
+For i = 0 To UBound(results)
+Debug.Print results(i)
+Next i
+Else
+Debug.Print &quot;No matches found&quot;
+End If</code></pre>
+<h3 id="use-error-handling">Use Error Handling</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+filtered = Filter(sourceArray, searchText, True, vbTextCompare)
+If Err.Number &lt;&gt; 0 Then
+&#x27; Handle error
+ReDim filtered(0 To -1)
+End If
+On Error GoTo 0</code></pre>
+<h3 id="default-to-case-insensitive-for-user-input">Default to Case-Insensitive for User Input</h3>
+<pre><code class="language-vbnet">&#x27; Good - User-friendly search
+results = Filter(items, userInput, True, vbTextCompare)
+
+&#x27; Less friendly - Exact case required
+results = Filter(items, userInput)</code></pre>
+<h2 id="comparison-with-other-approaches">Comparison with Other Approaches</h2>
+<h3 id="filter-vs-manual-loop">Filter vs Manual Loop</h3>
+<pre><code class="language-vbnet">&#x27; Using Filter (concise)
+matches = Filter(items, searchTerm, True, vbTextCompare)
+
+&#x27; Manual loop (more control)
+ReDim matches(0 To UBound(items))
+count = 0
+For i = LBound(items) To UBound(items)
+If InStr(1, items(i), searchTerm, vbTextCompare) &gt; 0 Then
+matches(count) = items(i)
+count = count + 1
+End If
+Next i
+If count &gt; 0 Then
+ReDim Preserve matches(0 To count - 1)
+End If</code></pre>
+<h3 id="filter-vs-collectiondictionary">Filter vs Collection/Dictionary</h3>
+<pre><code class="language-vbnet">&#x27; Filter - Returns array
+Dim arr() As String
+arr = Filter(items, searchTerm)
+
+&#x27; Collection - More flexible but slower
+Dim coll As New Collection
+For i = LBound(items) To UBound(items)
+If InStr(1, items(i), searchTerm, vbTextCompare) &gt; 0 Then
+coll.Add items(i)
+End If
+Next i</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Works only with one-dimensional arrays</li>
+<li>Only supports string arrays</li>
+<li>Returns zero-based array (even if source is 1-based)</li>
+<li>Substring match only (no regex or wildcards)</li>
+<li>Cannot filter on multiple criteria in single call</li>
+<li>No built-in support for custom comparison functions</li>
+<li>Case-insensitive limited to vbTextCompare behavior</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Array</code>: Creates a Variant array</li>
+<li><code>Split</code>: Splits a string into an array</li>
+<li><code>Join</code>: Joins array elements into a string</li>
+<li><code>InStr</code>: Finds substring position</li>
+<li><code>LBound</code>/<code>UBound</code>: Gets array bounds</li>
+<li><code>IsArray</code>: Checks if variable is an array</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Arrays</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

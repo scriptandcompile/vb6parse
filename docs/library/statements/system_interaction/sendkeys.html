@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - sendkeys - System Interaction">
+    <title>sendkeys - System Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/system_interaction/index.html">System Interaction</a> / sendkeys</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="sendkeys-statement"><code>SendKeys</code> Statement</h1>
+<p>Sends one or more keystrokes to the active window as if typed at the keyboard.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">SendKeys string [, wait]</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>string</strong>: Required. String expression specifying the keystrokes to send.</li>
+<li><strong>wait</strong>: Optional. Boolean value specifying the wait mode. If True, Visual Basic waits for the keystrokes to be processed before returning control to the calling procedure. If False (default), control returns immediately after the keys are sent.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Active Window</strong>: <code>SendKeys</code> sends keystrokes to the currently active window. Your application must activate the target window before using <code>SendKeys</code>.</li>
+<li><strong>Keystroke Representation</strong>: Each key is represented by one or more characters. To specify a single keyboard character, use the character itself (e.g., "A" sends the letter A).</li>
+<li><strong>Multiple Characters</strong>: To send a string of characters, concatenate them (e.g., "Hello" sends H, e, l, l, o in sequence).</li>
+<li><strong>Special Keys</strong>: Some keys have special representations enclosed in braces (e.g., {ENTER}, {TAB}, {ESC}).</li>
+<li><strong>Wait Parameter</strong>: Setting wait to True ensures that keystrokes are processed before your code continues. This is useful when you need to wait for an application to respond.</li>
+<li><strong>Focus Issues</strong>: If the target application doesn't have focus when <code>SendKeys</code> executes, the keystrokes may be sent to the wrong application.</li>
+<li><strong><code>AppActivate</code></strong>: Use <code>AppActivate</code> to activate the target window before calling <code>SendKeys</code>.</li>
+</ul>
+<h2 id="special-key-codes">Special Key Codes</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BACKSPACE</td>
+<td>{BACKSPACE} or {BS} or {BKSP}</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>{BREAK}</td>
+</tr>
+<tr>
+<td>CAPS LOCK</td>
+<td>{CAPSLOCK}</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>{DELETE} or {DEL}</td>
+</tr>
+<tr>
+<td>DOWN ARROW</td>
+<td>{DOWN}</td>
+</tr>
+<tr>
+<td>END</td>
+<td>{END}</td>
+</tr>
+<tr>
+<td>ENTER</td>
+<td>{ENTER} or ~</td>
+</tr>
+<tr>
+<td>ESC</td>
+<td>{ESC} or {ESCAPE}</td>
+</tr>
+<tr>
+<td>HELP</td>
+<td>{HELP}</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td>{HOME}</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>{INSERT} or {INS}</td>
+</tr>
+<tr>
+<td>LEFT ARROW</td>
+<td>{LEFT}</td>
+</tr>
+<tr>
+<td>NUM LOCK</td>
+<td>{NUMLOCK}</td>
+</tr>
+<tr>
+<td>PAGE DOWN</td>
+<td>{PGDN}</td>
+</tr>
+<tr>
+<td>PAGE UP</td>
+<td>{PGUP}</td>
+</tr>
+<tr>
+<td>PRINT SCREEN</td>
+<td>{PRTSC}</td>
+</tr>
+<tr>
+<td>RIGHT ARROW</td>
+<td>{RIGHT}</td>
+</tr>
+<tr>
+<td>SCROLL LOCK</td>
+<td>{SCROLLLOCK}</td>
+</tr>
+<tr>
+<td>TAB</td>
+<td>{TAB}</td>
+</tr>
+<tr>
+<td>UP ARROW</td>
+<td>{UP}</td>
+</tr>
+<tr>
+<td>F1-F16</td>
+<td>{F1} through {F16}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modifier-keys">Modifier Keys</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHIFT</td>
+<td>+ (plus sign)</td>
+</tr>
+<tr>
+<td>CTRL</td>
+<td>^ (caret)</td>
+</tr>
+<tr>
+<td>ALT</td>
+<td>% (percent sign)</td>
+</tr>
+</tbody>
+</table>
+<p>To specify modifier keys with regular keys, enclose the regular keys in parentheses:
+- <code>"+{F1}"</code> sends SHIFT+F1
+- <code>"^(ec)"</code> sends CTRL+E followed by CTRL+C
+- <code>"%(FA)"</code> sends ALT+F followed by ALT+A</p>
+<h2 id="repeating-keys">Repeating Keys</h2>
+<p>To repeat a key, use the format <code>{key number}</code>:
+- <code>"{RIGHT 10}"</code> sends RIGHT arrow 10 times
+- <code>"{TAB 5}"</code> sends TAB 5 times</p>
+<h2 id="examples">Examples</h2>
+<h3 id="send-simple-text">Send Simple Text</h3>
+<pre><code class="language-vbnet">SendKeys &quot;Hello World&quot;</code></pre>
+<h3 id="send-text-with-enter-key">Send Text with Enter Key</h3>
+<pre><code class="language-vbnet">SendKeys &quot;Username{TAB}Password{ENTER}&quot;</code></pre>
+<h3 id="activate-window-and-send-keys">Activate Window and Send Keys</h3>
+<pre><code class="language-vbnet">AppActivate &quot;Notepad&quot;
+SendKeys &quot;Hello from VB6{ENTER}&quot;, True</code></pre>
+<h3 id="send-altf4-to-close-window">Send Alt+F4 to Close Window</h3>
+<pre><code class="language-vbnet">SendKeys &quot;%{F4}&quot;  &#x27; ALT+F4</code></pre>
+<h3 id="send-ctrlc-to-copy">Send Ctrl+C to Copy</h3>
+<pre><code class="language-vbnet">SendKeys &quot;^c&quot;  &#x27; CTRL+C</code></pre>
+<h3 id="send-multiple-keys-with-wait">Send Multiple Keys with Wait</h3>
+<pre><code class="language-vbnet">SendKeys &quot;{DOWN}{DOWN}{ENTER}&quot;, True</code></pre>
+<h3 id="fill-form-fields">Fill Form Fields</h3>
+<pre><code class="language-vbnet">AppActivate &quot;Data Entry Form&quot;
+SendKeys &quot;John Doe{TAB}123 Main St{TAB}555-1234{ENTER}&quot;, True</code></pre>
+<h3 id="send-function-keys">Send Function Keys</h3>
+<pre><code class="language-vbnet">SendKeys &quot;{F1}&quot;    &#x27; Help key
+SendKeys &quot;{F5}&quot;    &#x27; Refresh
+SendKeys &quot;+{F10}&quot;  &#x27; SHIFT+F10 (context menu)</code></pre>
+<h3 id="repeat-keys">Repeat Keys</h3>
+<pre><code class="language-vbnet">SendKeys &quot;{RIGHT 5}&quot;    &#x27; Move right 5 times
+SendKeys &quot;{DOWN 10}&quot;    &#x27; Move down 10 times
+SendKeys &quot;{BACKSPACE 3}&quot; &#x27; Delete 3 characters</code></pre>
+<h3 id="send-key-combinations">Send Key Combinations</h3>
+<pre><code class="language-vbnet">SendKeys &quot;^a&quot;       &#x27; CTRL+A (Select All)
+SendKeys &quot;^c&quot;       &#x27; CTRL+C (Copy)
+SendKeys &quot;^v&quot;       &#x27; CTRL+V (Paste)
+SendKeys &quot;^s&quot;       &#x27; CTRL+S (Save)</code></pre>
+<h3 id="navigate-menus">Navigate Menus</h3>
+<pre><code class="language-vbnet">AppActivate &quot;Microsoft Word&quot;
+SendKeys &quot;%f&quot;, True  &#x27; ALT+F (File menu)
+SendKeys &quot;s&quot;, True   &#x27; S (Save)</code></pre>
+<h3 id="send-special-characters">Send Special Characters</h3>
+<pre><code class="language-vbnet">SendKeys &quot;Test {+} Addition&quot;  &#x27; Sends: Test + Addition
+SendKeys &quot;Test {^} Power&quot;     &#x27; Sends: Test ^ Power
+SendKeys &quot;Test {% } Percent&quot;  &#x27; Sends: Test % Percent</code></pre>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li><strong>Timing</strong>: <code>SendKeys</code> is not always reliable for complex automation. Consider using API calls or UI automation libraries for critical tasks.</li>
+<li><strong>Focus Management</strong>: Always ensure the target window has focus before sending keys.</li>
+<li><strong>Wait Parameter</strong>: Use True for the wait parameter when you need synchronous operation.</li>
+<li><strong>Case Sensitivity</strong>: To send uppercase letters, use the SHIFT modifier: <code>"+abc"</code> sends uppercase ABC.</li>
+<li><strong>Reserved Characters</strong>: To send +, ^, %, ~, or {}, enclose them in braces: <code>{+}</code>, <code>{^}</code>, <code>{%}</code>, <code>{~}</code>, <code>{{}</code>, <code>{}}</code>.</li>
+<li><strong>Limitations</strong>: <code>SendKeys</code> doesn't work with applications that directly process keyboard input at a low level.</li>
+<li><strong>Error Handling</strong>: If the target application is busy or unresponsive, <code>SendKeys</code> may fail silently or send keys to the wrong window.</li>
+</ul>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 5</strong>: Invalid procedure call - occurs if string contains invalid key codes</li>
+<li>Keys sent to wrong application if focus isn't properly managed</li>
+<li>Timing issues when wait is False and subsequent code depends on keystrokes being processed</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Always use <code>AppActivate</code> before <code>SendKeys</code> to ensure the correct window receives the keystrokes</li>
+<li>Use the wait parameter (True) when the next operation depends on the keystrokes being processed</li>
+<li>Add delays (<code>DoEvents</code> or Sleep) between <code>SendKeys</code> calls for complex sequences</li>
+<li>Test thoroughly as <code>SendKeys</code> behavior can vary across different applications and Windows versions</li>
+<li>Consider alternatives like Windows API or UI Automation for production applications</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>AppActivate</code> statement (activate an application window)</li>
+<li><code>DoEvents</code> function (yield execution to allow events to be processed)</li>
+<li><code>Shell</code> function (run executable programs)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sendkeys-statement">SendKeys Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to System Interaction</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

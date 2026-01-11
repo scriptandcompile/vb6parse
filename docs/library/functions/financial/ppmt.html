@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - ppmt - Financial">
+    <title>ppmt - Financial - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/financial/index.html">Financial</a> / ppmt</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="ppmt-function"><code>PPmt</code> Function</h1>
+<p>Returns a Double specifying the principal payment for a given period of an annuity based on periodic, fixed payments and a fixed interest rate.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">PPmt(rate, per, nper, pv, [fv], [type])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>rate</code> - Required. Double specifying interest rate per period. For example, if you get a car loan at an annual percentage rate (APR) of 10% and make monthly payments, the rate per period is 0.1/12, or 0.0083.</li>
+<li><code>per</code> - Required. Integer specifying payment period in the range 1 through nper. This is the specific period for which you want to know the principal payment.</li>
+<li><code>nper</code> - Required. Integer specifying total number of payment periods in the annuity. For example, if you make monthly payments on a 4-year car loan, your loan has 4 * 12 (or 48) payment periods.</li>
+<li><code>pv</code> - Required. Double specifying present value, or lump sum, that a series of payments to be paid in the future is worth now. For example, when you borrow money to buy a car, the loan amount is the present value to the lender.</li>
+<li><code>fv</code> - Optional. Variant specifying future value or cash balance you want after you've made the final payment. For example, the future value of a loan is $0. If omitted, 0 is assumed.</li>
+<li><code>type</code> - Optional. Variant specifying when payments are due. Use 0 if payments are due at the end of the payment period, or use 1 if payments are due at the beginning of the period. If omitted, 0 is assumed.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Double</code> specifying the principal payment for the given period. The principal is the portion of the payment that reduces the loan balance, excluding interest.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>PPmt</code> function is essential for creating amortization schedules and understanding how loans are paid down over time.
+While the total payment amount stays constant (calculated by <code>Pmt</code>), the split between principal and interest changes
+each period. Early in the loan, most of the payment goes to interest; later, most goes to principal.</p>
+<p>An annuity is a series of fixed cash payments made over a period of time. An annuity can be a loan (such as a home mortgage)
+or an investment (such as a monthly savings plan).</p>
+<p>The <code>rate</code> and <code>nper</code> arguments must be calculated using payment periods expressed in the same units. For example, if <code>rate</code>
+is calculated using months, <code>nper</code> must also be calculated using months.</p>
+<p>For all arguments, cash paid out (such as deposits to savings) is represented by negative numbers; cash received
+(such as dividend checks) is represented by positive numbers.</p>
+<p>The principal payment returned by <code>PPmt</code> plus the interest payment returned by <code>IPmt</code> for the same period equals
+the total payment returned by <code>Pmt</code>.</p>
+<p><strong>Important</strong>: The <code>per</code> parameter must be between 1 and <code>nper</code>. The function will raise an error if <code>per</code> is
+outside this range.</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Amortization Schedules</strong>: Breaking down each payment into principal and interest components</li>
+<li><strong>Loan Balance Tracking</strong>: Calculating how much principal is paid in each period</li>
+<li><strong>Tax Deduction Analysis</strong>: Separating deductible interest from non-deductible principal</li>
+<li><strong>Equity Building</strong>: Tracking home equity growth through principal payments</li>
+<li><strong>Refinancing Analysis</strong>: Comparing principal paydown between different loan options</li>
+<li><strong>Investment Analysis</strong>: Understanding the principal contribution in annuity investments</li>
+<li><strong>Financial Planning</strong>: Projecting debt reduction over time</li>
+<li><strong>Prepayment Scenarios</strong>: Analyzing impact of extra principal payments</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-simple-principal-payment">Example 1: Simple Principal Payment</h3>
+<pre><code class="language-vbnet">&#x27; Calculate principal payment in month 12 of a 60-month loan
+Dim principalPmt As Double
+principalPmt = PPmt(0.06 / 12, 12, 60, 20000)
+&#x27; Returns the principal portion of the 12th payment (negative value)</code></pre>
+<h3 id="example-2-first-vs-last-payment">Example 2: First vs Last Payment</h3>
+<pre><code class="language-vbnet">&#x27; $200,000 mortgage, 30 years, 4.5% APR
+Dim firstPrincipal As Double
+Dim lastPrincipal As Double
+
+firstPrincipal = Abs(PPmt(0.045 / 12, 1, 360, 200000))
+lastPrincipal = Abs(PPmt(0.045 / 12, 360, 360, 200000))
+
+&#x27; First payment: mostly interest, small principal
+&#x27; Last payment: mostly principal, small interest
+Debug.Print &quot;First payment principal: $&quot; &amp; Format(firstPrincipal, &quot;0.00&quot;)
+Debug.Print &quot;Last payment principal: $&quot; &amp; Format(lastPrincipal, &quot;0.00&quot;)</code></pre>
+<h3 id="example-3-verify-payment-split">Example 3: Verify Payment Split</h3>
+<pre><code class="language-vbnet">&#x27; Verify that PPmt + IPmt = Pmt for any period
+Dim totalPayment As Double
+Dim principalPart As Double
+Dim interestPart As Double
+
+totalPayment = Pmt(0.05 / 12, 60, 15000)
+principalPart = PPmt(0.05 / 12, 24, 60, 15000)
+interestPart = IPmt(0.05 / 12, 24, 60, 15000)
+
+&#x27; principalPart + interestPart should equal totalPayment</code></pre>
+<h3 id="example-4-calculate-principal-in-first-year">Example 4: Calculate Principal in First Year</h3>
+<pre><code class="language-vbnet">Function CalculateFirstYearPrincipal(loanAmount As Double, _
+annualRate As Double, _
+years As Integer) As Double
+Dim month As Integer
+Dim totalPrincipal As Double
+Dim monthlyRate As Double
+
+monthlyRate = annualRate / 12
+totalPrincipal = 0
+
+For month = 1 To 12
+totalPrincipal = totalPrincipal + PPmt(monthlyRate, month, years * 12, loanAmount)
+Next month
+
+CalculateFirstYearPrincipal = Abs(totalPrincipal)
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-buildamortizationschedule">Pattern 1: <code>BuildAmortizationSchedule</code></h3>
+<pre><code class="language-vbnet">Sub BuildAmortizationSchedule(principal As Double, _
+annualRate As Double, _
+years As Integer)
+Dim monthlyRate As Double
+Dim numPayments As Integer
+Dim period As Integer
+Dim payment As Double
+Dim principalPmt As Double
+Dim interestPmt As Double
+Dim balance As Double
+
+monthlyRate = annualRate / 12
+numPayments = years * 12
+payment = Abs(Pmt(monthlyRate, numPayments, principal))
+balance = principal
+
+Debug.Print &quot;Period&quot;, &quot;Payment&quot;, &quot;Principal&quot;, &quot;Interest&quot;, &quot;Balance&quot;
+Debug.Print String(60, &quot;-&quot;)
+
+For period = 1 To numPayments
+principalPmt = Abs(PPmt(monthlyRate, period, numPayments, principal))
+interestPmt = Abs(IPmt(monthlyRate, period, numPayments, principal))
+balance = balance - principalPmt
+
+Debug.Print period, _
+Format(payment, &quot;0.00&quot;), _
+Format(principalPmt, &quot;0.00&quot;), _
+Format(interestPmt, &quot;0.00&quot;), _
+Format(balance, &quot;0.00&quot;)
+Next period
+End Sub</code></pre>
+<h3 id="pattern-2-calculateprincipalpaidrange">Pattern 2: <code>CalculatePrincipalPaidRange</code></h3>
+<pre><code class="language-vbnet">Function CalculatePrincipalPaidRange(rate As Double, _
+startPeriod As Integer, _
+endPeriod As Integer, _
+nper As Integer, _
+pv As Double) As Double
+&#x27; Calculate total principal paid between two periods
+Dim period As Integer
+Dim totalPrincipal As Double
+
+totalPrincipal = 0
+For period = startPeriod To endPeriod
+totalPrincipal = totalPrincipal + PPmt(rate, period, nper, pv)
+Next period
+
+CalculatePrincipalPaidRange = totalPrincipal
+End Function</code></pre>
+<h3 id="pattern-3-getremainingbalance">Pattern 3: <code>GetRemainingBalance</code></h3>
+<pre><code class="language-vbnet">Function GetRemainingBalance(principal As Double, _
+rate As Double, _
+nper As Integer, _
+currentPeriod As Integer) As Double
+&#x27; Calculate remaining balance after a specific period
+Dim period As Integer
+Dim principalPaid As Double
+
+principalPaid = 0
+For period = 1 To currentPeriod
+principalPaid = principalPaid + PPmt(rate, period, nper, principal)
+Next period
+
+&#x27; Principal paid is negative, so subtract it (adds to get reduction)
+GetRemainingBalance = principal + principalPaid
+End Function</code></pre>
+<h3 id="pattern-4-compareprincipalpaydown">Pattern 4: <code>ComparePrincipalPaydown</code></h3>
+<pre><code class="language-vbnet">Sub ComparePrincipalPaydown(amount As Double)
+Dim principal15 As Double
+Dim principal30 As Double
+Dim year As Integer
+
+Debug.Print &quot;Year&quot;, &quot;15-yr Principal&quot;, &quot;30-yr Principal&quot;, &quot;Difference&quot;
+Debug.Print String(60, &quot;-&quot;)
+
+For year = 1 To 15
+&#x27; Calculate total principal paid in this year
+principal15 = Abs(CalculatePrincipalPaidRange(0.035 / 12, _
+(year - 1) * 12 + 1, year * 12, 15 * 12, amount))
+principal30 = Abs(CalculatePrincipalPaidRange(0.04 / 12, _
+(year - 1) * 12 + 1, year * 12, 30 * 12, amount))
+
+Debug.Print year, _
+Format(principal15, &quot;#,##0&quot;), _
+Format(principal30, &quot;#,##0&quot;), _
+Format(principal15 - principal30, &quot;#,##0&quot;)
+Next year
+End Sub</code></pre>
+<h3 id="pattern-5-validateppmtparameters">Pattern 5: <code>ValidatePPmtParameters</code></h3>
+<pre><code class="language-vbnet">Function ValidatePPmtParameters(rate As Double, per As Integer, _
+nper As Integer, pv As Double) As Boolean
+ValidatePPmtParameters = False
+
+If per &lt; 1 Or per &gt; nper Then
+MsgBox &quot;Period must be between 1 and &quot; &amp; nper
+Exit Function
+End If
+
+If nper &lt;= 0 Then
+MsgBox &quot;Number of periods must be positive&quot;
+Exit Function
+End If
+
+If rate &lt; 0 Then
+MsgBox &quot;Interest rate cannot be negative&quot;
+Exit Function
+End If
+
+ValidatePPmtParameters = True
+End Function</code></pre>
+<h3 id="pattern-6-calculateequitygrowth">Pattern 6: <code>CalculateEquityGrowth</code></h3>
+<pre><code class="language-vbnet">Function CalculateEquityGrowth(homeValue As Double, _
+loanAmount As Double, _
+rate As Double, _
+nper As Integer, _
+currentPeriod As Integer) As Double
+&#x27; Calculate home equity = home value - remaining loan balance
+Dim remainingBalance As Double
+Dim equity As Double
+
+remainingBalance = GetRemainingBalance(loanAmount, rate, nper, currentPeriod)
+equity = homeValue - remainingBalance
+
+CalculateEquityGrowth = equity
+End Function</code></pre>
+<h3 id="pattern-7-extraprincipalimpact">Pattern 7: <code>ExtraPrincipalImpact</code></h3>
+<pre><code class="language-vbnet">Function CalculateExtraPrincipalImpact(principal As Double, _
+rate As Double, _
+nper As Integer, _
+extraPayment As Double, _
+ByRef monthsSaved As Integer) As Double
+&#x27; Calculate how much faster loan pays off with extra principal
+Dim regularPayment As Double
+Dim balance As Double
+Dim monthlyRate As Double
+Dim period As Integer
+Dim principalPmt As Double
+
+monthlyRate = rate
+regularPayment = Abs(Pmt(monthlyRate, nper, principal))
+balance = principal
+period = 0
+
+Do While balance &gt; 0.01 And period &lt; nper
+period = period + 1
+principalPmt = Abs(PPmt(monthlyRate, period, nper, principal))
+balance = balance - principalPmt - extraPayment
+Loop
+
+monthsSaved = nper - period
+CalculateExtraPrincipalImpact = extraPayment * period
+End Function</code></pre>
+<h3 id="pattern-8-getprincipalpercent">Pattern 8: <code>GetPrincipalPercent</code></h3>
+<pre><code class="language-vbnet">Function GetPrincipalPercent(rate As Double, _
+period As Integer, _
+nper As Integer, _
+pv As Double) As Double
+&#x27; Calculate what percentage of payment is principal
+Dim payment As Double
+Dim principalPmt As Double
+
+payment = Abs(Pmt(rate, nper, pv))
+principalPmt = Abs(PPmt(rate, period, nper, pv))
+
+If payment &gt; 0 Then
+GetPrincipalPercent = (principalPmt / payment) * 100
+End If
+End Function</code></pre>
+<h3 id="pattern-9-findbreakevenperiod">Pattern 9: <code>FindBreakEvenPeriod</code></h3>
+<pre><code class="language-vbnet">Function FindBreakEvenPeriod(principal As Double, _
+rate As Double, _
+nper As Integer) As Integer
+&#x27; Find period where principal payment exceeds interest payment
+Dim period As Integer
+Dim principalPmt As Double
+Dim interestPmt As Double
+
+For period = 1 To nper
+principalPmt = Abs(PPmt(rate, period, nper, principal))
+interestPmt = Abs(IPmt(rate, period, nper, principal))
+
+If principalPmt &gt; interestPmt Then
+FindBreakEvenPeriod = period
+Exit Function
+End If
+Next period
+
+FindBreakEvenPeriod = nper &#x27; Never crossed over
+End Function</code></pre>
+<h3 id="pattern-10-projectprincipalpaydown">Pattern 10: <code>ProjectPrincipalPaydown</code></h3>
+<pre><code class="language-vbnet">Sub ProjectPrincipalPaydown(loanAmount As Double, _
+annualRate As Double, _
+years As Integer)
+Dim year As Integer
+Dim yearlyPrincipal As Double
+Dim cumulativePrincipal As Double
+Dim remainingBalance As Double
+Dim monthlyRate As Double
+Dim numPayments As Integer
+
+monthlyRate = annualRate / 12
+numPayments = years * 12
+cumulativePrincipal = 0
+
+Debug.Print &quot;Year&quot;, &quot;Principal Paid&quot;, &quot;Cumulative&quot;, &quot;Balance&quot;
+Debug.Print String(60, &quot;-&quot;)
+
+For year = 1 To years
+yearlyPrincipal = Abs(CalculatePrincipalPaidRange(monthlyRate, _
+(year - 1) * 12 + 1, year * 12, numPayments, loanAmount))
+cumulativePrincipal = cumulativePrincipal + yearlyPrincipal
+remainingBalance = loanAmount - cumulativePrincipal
+
+Debug.Print year, _
+Format(yearlyPrincipal, &quot;#,##0&quot;), _
+Format(cumulativePrincipal, &quot;#,##0&quot;), _
+Format(remainingBalance, &quot;#,##0&quot;)
+Next year
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-complete-amortization-analyzer">Example 1: Complete Amortization Analyzer</h3>
+<pre><code class="language-vbnet">&#x27; Comprehensive amortization analysis with principal tracking
+Class AmortizationAnalyzer
+Private m_principal As Double
+Private m_annualRate As Double
+Private m_years As Integer
+Private m_paymentType As Integer
+
+Public Sub Initialize(principal As Double, annualRate As Double, _
+years As Integer, Optional paymentType As Integer = 0)
+m_principal = principal
+m_annualRate = annualRate
+m_years = years
+m_paymentType = paymentType
+End Sub
+
+Public Function GetPaymentSchedule() As Collection
+Dim schedule As Collection
+Dim monthlyRate As Double
+Dim numPayments As Integer
+Dim period As Integer
+Dim entry As Object
+Dim payment As Double
+Dim principalPmt As Double
+Dim interestPmt As Double
+Dim balance As Double
+
+Set schedule = New Collection
+monthlyRate = m_annualRate / 12
+numPayments = m_years * 12
+payment = Abs(Pmt(monthlyRate, numPayments, m_principal, 0, m_paymentType))
+balance = m_principal
+
+For period = 1 To numPayments
+principalPmt = Abs(PPmt(monthlyRate, period, numPayments, m_principal, 0, m_paymentType))
+interestPmt = Abs(IPmt(monthlyRate, period, numPayments, m_principal, 0, m_paymentType))
+balance = balance - principalPmt
+
+Set entry = CreateObject(&quot;Scripting.Dictionary&quot;)
+entry.Add &quot;Period&quot;, period
+entry.Add &quot;Payment&quot;, payment
+entry.Add &quot;Principal&quot;, principalPmt
+entry.Add &quot;Interest&quot;, interestPmt
+entry.Add &quot;Balance&quot;, balance
+entry.Add &quot;PrincipalPercent&quot;, (principalPmt / payment) * 100
+
+schedule.Add entry
+Next period
+
+Set GetPaymentSchedule = schedule
+End Function
+
+Public Function GetYearlySummary() As Collection
+Dim summary As Collection
+Dim year As Integer
+Dim startPeriod As Integer
+Dim endPeriod As Integer
+Dim monthlyRate As Double
+Dim numPayments As Integer
+Dim yearlyPrincipal As Double
+Dim yearlyInterest As Double
+Dim period As Integer
+Dim entry As Object
+
+Set summary = New Collection
+monthlyRate = m_annualRate / 12
+numPayments = m_years * 12
+
+For year = 1 To m_years
+startPeriod = (year - 1) * 12 + 1
+endPeriod = year * 12
+
+yearlyPrincipal = 0
+yearlyInterest = 0
+
+For period = startPeriod To endPeriod
+yearlyPrincipal = yearlyPrincipal + _
+Abs(PPmt(monthlyRate, period, numPayments, m_principal, 0, m_paymentType))
+yearlyInterest = yearlyInterest + _
+Abs(IPmt(monthlyRate, period, numPayments, m_principal, 0, m_paymentType))
+Next period
+
+Set entry = CreateObject(&quot;Scripting.Dictionary&quot;)
+entry.Add &quot;Year&quot;, year
+entry.Add &quot;Principal&quot;, yearlyPrincipal
+entry.Add &quot;Interest&quot;, yearlyInterest
+entry.Add &quot;Total&quot;, yearlyPrincipal + yearlyInterest
+
+summary.Add entry
+Next year
+
+Set GetYearlySummary = summary
+End Function
+
+Public Function GetBalanceAtPeriod(period As Integer) As Double
+Dim p As Integer
+Dim principalPaid As Double
+Dim monthlyRate As Double
+Dim numPayments As Integer
+
+monthlyRate = m_annualRate / 12
+numPayments = m_years * 12
+principalPaid = 0
+
+For p = 1 To period
+principalPaid = principalPaid + _
+Abs(PPmt(monthlyRate, p, numPayments, m_principal, 0, m_paymentType))
+Next p
+
+GetBalanceAtPeriod = m_principal - principalPaid
+End Function
+
+Public Function GenerateReport() As String
+Dim report As String
+Dim summary As Collection
+Dim entry As Object
+Dim totalPrincipal As Double
+Dim totalInterest As Double
+
+Set summary = GetYearlySummary()
+
+report = &quot;Amortization Analysis Report&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;=&quot;) &amp; vbCrLf
+report = report &amp; &quot;Loan Amount: $&quot; &amp; Format(m_principal, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Annual Rate: &quot; &amp; Format(m_annualRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+report = report &amp; &quot;Term: &quot; &amp; m_years &amp; &quot; years&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;-&quot;) &amp; vbCrLf
+report = report &amp; &quot;Year   Principal      Interest       Total&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;-&quot;) &amp; vbCrLf
+
+totalPrincipal = 0
+totalInterest = 0
+
+For Each entry In summary
+report = report &amp; Format(entry(&quot;Year&quot;), &quot;00&quot;) &amp; &quot;   $&quot; &amp; _
+Format(entry(&quot;Principal&quot;), &quot;#,##0.00&quot;) &amp; &quot;   $&quot; &amp; _
+Format(entry(&quot;Interest&quot;), &quot;#,##0.00&quot;) &amp; &quot;   $&quot; &amp; _
+Format(entry(&quot;Total&quot;), &quot;#,##0.00&quot;) &amp; vbCrLf
+totalPrincipal = totalPrincipal + entry(&quot;Principal&quot;)
+totalInterest = totalInterest + entry(&quot;Interest&quot;)
+Next entry
+
+report = report &amp; String(70, &quot;-&quot;) &amp; vbCrLf
+report = report &amp; &quot;Total Principal: $&quot; &amp; Format(totalPrincipal, &quot;#,##0.00&quot;) &amp; vbCrLf
+report = report &amp; &quot;Total Interest: $&quot; &amp; Format(totalInterest, &quot;#,##0.00&quot;)
+
+GenerateReport = report
+End Function
+End Class</code></pre>
+<h3 id="example-2-loan-comparison-with-principal-analysis">Example 2: Loan Comparison with Principal Analysis</h3>
+<pre><code class="language-vbnet">&#x27; Compare multiple loan options focusing on principal paydown
+Module LoanPrincipalComparison
+Private Type LoanDetails
+Name As String
+Principal As Double
+Rate As Double
+Years As Integer
+End Type
+
+Public Function CompareLoans(loans() As LoanDetails, _
+comparisonYear As Integer) As String
+Dim report As String
+Dim i As Integer
+Dim monthlyRate As Double
+Dim numPayments As Integer
+Dim yearPrincipal As Double
+Dim yearInterest As Double
+Dim balance As Double
+Dim period As Integer
+
+report = &quot;Loan Comparison - Year &quot; &amp; comparisonYear &amp; vbCrLf
+report = report &amp; String(80, &quot;=&quot;) &amp; vbCrLf
+report = report &amp; &quot;Loan              Principal Paid  Interest Paid  &quot; &amp; _
+&quot;Balance        Principal %&quot; &amp; vbCrLf
+report = report &amp; String(80, &quot;-&quot;) &amp; vbCrLf
+
+For i = LBound(loans) To UBound(loans)
+monthlyRate = loans(i).Rate / 12
+numPayments = loans(i).Years * 12
+
+&#x27; Calculate year totals
+yearPrincipal = 0
+yearInterest = 0
+
+For period = (comparisonYear - 1) * 12 + 1 To comparisonYear * 12
+If period &lt;= numPayments Then
+yearPrincipal = yearPrincipal + _
+Abs(PPmt(monthlyRate, period, numPayments, loans(i).Principal))
+yearInterest = yearInterest + _
+Abs(IPmt(monthlyRate, period, numPayments, loans(i).Principal))
+End If
+Next period
+
+&#x27; Get balance at end of year
+balance = loans(i).Principal
+For period = 1 To comparisonYear * 12
+If period &lt;= numPayments Then
+balance = balance - Abs(PPmt(monthlyRate, period, numPayments, loans(i).Principal))
+End If
+Next period
+
+report = report &amp; Left(loans(i).Name &amp; Space(16), 16) &amp; &quot;  $&quot; &amp; _
+Format(yearPrincipal, &quot;#,##0&quot;) &amp; &quot;      $&quot; &amp; _
+Format(yearInterest, &quot;#,##0&quot;) &amp; &quot;      $&quot; &amp; _
+Format(balance, &quot;#,##0&quot;) &amp; &quot;      &quot; &amp; _
+Format((yearPrincipal / (yearPrincipal + yearInterest)) * 100, &quot;00.0&quot;) &amp; _
+&quot;%&quot; &amp; vbCrLf
+Next i
+
+CompareLoans = report
+End Function
+End Module</code></pre>
+<h3 id="example-3-equity-builder-tracker">Example 3: Equity Builder Tracker</h3>
+<pre><code class="language-vbnet">&#x27; Track home equity growth over time
+Class EquityTracker
+Private m_homeValue As Double
+Private m_loanAmount As Double
+Private m_annualRate As Double
+Private m_loanYears As Integer
+Private m_appreciationRate As Double
+
+Public Sub Initialize(homeValue As Double, loanAmount As Double, _
+annualRate As Double, loanYears As Integer, _
+appreciationRate As Double)
+m_homeValue = homeValue
+m_loanAmount = loanAmount
+m_annualRate = annualRate
+m_loanYears = loanYears
+m_appreciationRate = appreciationRate
+End Sub
+
+Public Function GetEquityAtYear(year As Integer) As Double
+Dim appreciatedValue As Double
+Dim remainingBalance As Double
+Dim period As Integer
+Dim monthlyRate As Double
+Dim numPayments As Integer
+Dim principalPaid As Double
+
+&#x27; Calculate appreciated home value
+appreciatedValue = m_homeValue * ((1 + m_appreciationRate) ^ year)
+
+&#x27; Calculate remaining loan balance
+monthlyRate = m_annualRate / 12
+numPayments = m_loanYears * 12
+principalPaid = 0
+
+For period = 1 To year * 12
+If period &lt;= numPayments Then
+principalPaid = principalPaid + _
+Abs(PPmt(monthlyRate, period, numPayments, m_loanAmount))
+End If
+Next period
+
+remainingBalance = m_loanAmount - principalPaid
+
+GetEquityAtYear = appreciatedValue - remainingBalance
+End Function
+
+Public Function GetEquityProjection() As Collection
+Dim projection As Collection
+Dim year As Integer
+Dim entry As Object
+Dim equity As Double
+Dim homeValue As Double
+Dim loanBalance As Double
+
+Set projection = New Collection
+
+For year = 0 To m_loanYears
+equity = GetEquityAtYear(year)
+homeValue = m_homeValue * ((1 + m_appreciationRate) ^ year)
+loanBalance = homeValue - equity
+
+Set entry = CreateObject(&quot;Scripting.Dictionary&quot;)
+entry.Add &quot;Year&quot;, year
+entry.Add &quot;HomeValue&quot;, homeValue
+entry.Add &quot;LoanBalance&quot;, loanBalance
+entry.Add &quot;Equity&quot;, equity
+entry.Add &quot;EquityPercent&quot;, (equity / homeValue) * 100
+
+projection.Add entry
+Next year
+
+Set GetEquityProjection = projection
+End Function
+
+Public Function GenerateEquityReport() As String
+Dim report As String
+Dim projection As Collection
+Dim entry As Object
+Dim year As Integer
+
+Set projection = GetEquityProjection()
+
+report = &quot;Home Equity Growth Projection&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;=&quot;) &amp; vbCrLf
+report = report &amp; &quot;Initial Home Value: $&quot; &amp; Format(m_homeValue, &quot;#,##0&quot;) &amp; vbCrLf
+report = report &amp; &quot;Loan Amount: $&quot; &amp; Format(m_loanAmount, &quot;#,##0&quot;) &amp; vbCrLf
+report = report &amp; &quot;Appreciation Rate: &quot; &amp; Format(m_appreciationRate * 100, &quot;0.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;-&quot;) &amp; vbCrLf
+report = report &amp; &quot;Year  Home Value    Loan Balance  Equity        Equity %&quot; &amp; vbCrLf
+report = report &amp; String(70, &quot;-&quot;) &amp; vbCrLf
+
+For Each entry In projection
+year = entry(&quot;Year&quot;)
+If year Mod 5 = 0 Or year = 1 Then  &#x27; Show every 5 years
+report = report &amp; Format(year, &quot;00&quot;) &amp; &quot;    $&quot; &amp; _
+Format(entry(&quot;HomeValue&quot;), &quot;#,##0&quot;) &amp; &quot;     $&quot; &amp; _
+Format(entry(&quot;LoanBalance&quot;), &quot;#,##0&quot;) &amp; &quot;     $&quot; &amp; _
+Format(entry(&quot;Equity&quot;), &quot;#,##0&quot;) &amp; &quot;      &quot; &amp; _
+Format(entry(&quot;EquityPercent&quot;), &quot;00.0&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+End If
+Next entry
+
+GenerateEquityReport = report
+End Function
+End Class</code></pre>
+<h3 id="example-4-refinance-decision-tool">Example 4: Refinance Decision Tool</h3>
+<pre><code class="language-vbnet">&#x27; Analyze refinancing with detailed principal comparison
+Class RefinanceAnalyzer
+Private m_currentBalance As Double
+Private m_currentRate As Double
+Private m_currentYearsLeft As Integer
+Private m_newRate As Double
+Private m_newYears As Integer
+Private m_closingCosts As Double
+
+Public Sub SetCurrentLoan(balance As Double, rate As Double, yearsLeft As Integer)
+m_currentBalance = balance
+m_currentRate = rate
+m_currentYearsLeft = yearsLeft
+End Sub
+
+Public Sub SetNewLoan(rate As Double, years As Integer, closingCosts As Double)
+m_newRate = rate
+m_newYears = years
+m_closingCosts = closingCosts
+End Sub
+
+Public Function ComparePrincipalPaydown(years As Integer) As String
+Dim report As String
+Dim year As Integer
+Dim currentPrincipal As Double
+Dim newPrincipal As Double
+Dim period As Integer
+Dim currentMonthlyRate As Double
+Dim newMonthlyRate As Double
+Dim currentNumPayments As Integer
+Dim newNumPayments As Integer
+
+currentMonthlyRate = m_currentRate / 12
+currentNumPayments = m_currentYearsLeft * 12
+newMonthlyRate = m_newRate / 12
+newNumPayments = m_newYears * 12
+
+report = &quot;Principal Paydown Comparison&quot; &amp; vbCrLf
+report = report &amp; String(60, &quot;=&quot;) &amp; vbCrLf
+report = report &amp; &quot;Year  Current Loan  New Loan      Difference&quot; &amp; vbCrLf
+report = report &amp; String(60, &quot;-&quot;) &amp; vbCrLf
+
+For year = 1 To years
+&#x27; Calculate principal paid in this year for current loan
+currentPrincipal = 0
+For period = (year - 1) * 12 + 1 To year * 12
+If period &lt;= currentNumPayments Then
+currentPrincipal = currentPrincipal + _
+Abs(PPmt(currentMonthlyRate, period, currentNumPayments, m_currentBalance))
+End If
+Next period
+
+&#x27; Calculate principal paid in this year for new loan
+newPrincipal = 0
+For period = (year - 1) * 12 + 1 To year * 12
+If period &lt;= newNumPayments Then
+newPrincipal = newPrincipal + _
+Abs(PPmt(newMonthlyRate, period, newNumPayments, m_currentBalance + m_closingCosts))
+End If
+Next period
+
+report = report &amp; Format(year, &quot;00&quot;) &amp; &quot;    $&quot; &amp; _
+Format(currentPrincipal, &quot;#,##0&quot;) &amp; &quot;      $&quot; &amp; _
+Format(newPrincipal, &quot;#,##0&quot;) &amp; &quot;      $&quot; &amp; _
+Format(newPrincipal - currentPrincipal, &quot;#,##0&quot;) &amp; vbCrLf
+Next year
+
+ComparePrincipalPaydown = report
+End Function
+
+Public Function ShouldRefinance() As Boolean
+Dim currentPayment As Double
+Dim newPayment As Double
+Dim monthlySavings As Double
+Dim breakEvenMonths As Integer
+
+currentPayment = Abs(Pmt(m_currentRate / 12, m_currentYearsLeft * 12, m_currentBalance))
+newPayment = Abs(Pmt(m_newRate / 12, m_newYears * 12, m_currentBalance + m_closingCosts))
+
+monthlySavings = currentPayment - newPayment
+
+If monthlySavings &gt; 0 Then
+breakEvenMonths = m_closingCosts / monthlySavings
+ShouldRefinance = (breakEvenMonths &lt;= 36)  &#x27; 3 years or less
+Else
+ShouldRefinance = False
+End If
+End Function
+
+Public Function GenerateAnalysis() As String
+Dim analysis As String
+Dim currentPayment As Double
+Dim newPayment As Double
+Dim monthlySavings As Double
+Dim breakEvenMonths As Integer
+
+currentPayment = Abs(Pmt(m_currentRate / 12, m_currentYearsLeft * 12, m_currentBalance))
+newPayment = Abs(Pmt(m_newRate / 12, m_newYears * 12, m_currentBalance + m_closingCosts))
+monthlySavings = currentPayment - newPayment
+
+analysis = &quot;Refinance Analysis&quot; &amp; vbCrLf
+analysis = analysis &amp; String(50, &quot;=&quot;) &amp; vbCrLf
+analysis = analysis &amp; &quot;Current Loan:&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;  Balance: $&quot; &amp; Format(m_currentBalance, &quot;#,##0&quot;) &amp; vbCrLf
+analysis = analysis &amp; &quot;  Rate: &quot; &amp; Format(m_currentRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;  Years Left: &quot; &amp; m_currentYearsLeft &amp; vbCrLf
+analysis = analysis &amp; &quot;  Payment: $&quot; &amp; Format(currentPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+analysis = analysis &amp; &quot;New Loan:&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;  Amount: $&quot; &amp; Format(m_currentBalance + m_closingCosts, &quot;#,##0&quot;) &amp; vbCrLf
+analysis = analysis &amp; &quot;  Rate: &quot; &amp; Format(m_newRate * 100, &quot;0.00&quot;) &amp; &quot;%&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;  Term: &quot; &amp; m_newYears &amp; &quot; years&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;  Payment: $&quot; &amp; Format(newPayment, &quot;#,##0.00&quot;) &amp; vbCrLf
+analysis = analysis &amp; String(50, &quot;-&quot;) &amp; vbCrLf
+
+If monthlySavings &gt; 0 Then
+breakEvenMonths = m_closingCosts / monthlySavings
+analysis = analysis &amp; &quot;Monthly Savings: $&quot; &amp; Format(monthlySavings, &quot;#,##0.00&quot;) &amp; vbCrLf
+analysis = analysis &amp; &quot;Break-even: &quot; &amp; breakEvenMonths &amp; &quot; months&quot; &amp; vbCrLf
+analysis = analysis &amp; &quot;Recommendation: &quot; &amp; _
+IIf(ShouldRefinance(), &quot;REFINANCE&quot;, &quot;DON&#x27;T REFINANCE&quot;)
+Else
+analysis = analysis &amp; &quot;New payment is HIGHER - refinancing not recommended&quot;
+End If
+
+GenerateAnalysis = analysis
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>PPmt</code> function can raise errors in the following situations:</p>
+<ul>
+<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
+<li><code>per</code> is less than 1 or greater than <code>nper</code></li>
+<li><code>nper</code> is 0 or negative</li>
+<li><code>rate</code> is -1 (causes division by zero in the formula)</li>
+<li><strong>Type Mismatch (Error 13)</strong>: When arguments cannot be converted to numeric values</li>
+<li><strong>Overflow (Error 6)</strong>: When calculated values exceed Double range</li>
+</ul>
+<p>Always validate input parameters:</p>
+<pre><code class="language-vbnet">If per &gt;= 1 And per &lt;= nper Then
+principalPayment = PPmt(rate, per, nper, pv)
+Else
+MsgBox &quot;Period must be between 1 and &quot; &amp; nper
+End If</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>The <code>PPmt</code> function is fast for individual period calculations</li>
+<li>For complete amortization schedules, calling <code>PPmt</code> for every period can be slow</li>
+<li>Consider calculating balance iteratively: balance = balance - <code>PPmt</code>(...)</li>
+<li>Pre-calculate monthly rate and other constants outside loops</li>
+<li>For large schedules (hundreds of periods), consider caching results</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate Period Range</strong>: Always check that per is between 1 and nper</li>
+<li><strong>Match Time Units</strong>: Ensure rate and nper use the same time period</li>
+<li><strong>Use with <code>IPmt</code></strong>: Combine <code>PPmt</code> and <code>IPmt</code> to verify they sum to total payment</li>
+<li><strong>Use Absolute Value</strong>: Use <code>Abs()</code> when displaying to users</li>
+<li><strong>Handle Sign Conventions</strong>: Remember negative = outflow, positive = inflow</li>
+<li><strong>Optimize Loops</strong>: Pre-calculate constants before looping through periods</li>
+<li><strong>Consider Rounding</strong>: Use proper rounding for financial calculations</li>
+<li><strong>Verify Totals</strong>: Sum of all principal payments should equal original loan amount</li>
+<li><strong>Document Calculations</strong>: Clearly state assumptions in amortization reports</li>
+<li><strong>Test Edge Cases</strong>: Verify behavior at period 1, final period, and 0% rate</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>PPmt</code></strong></td>
+<td>Principal portion of payment</td>
+<td>Double (principal amount)</td>
+<td>Amortization schedules, equity tracking</td>
+</tr>
+<tr>
+<td><strong><code>IPmt</code></strong></td>
+<td>Interest portion of payment</td>
+<td>Double (interest amount)</td>
+<td>Tax deductions, interest expense tracking</td>
+</tr>
+<tr>
+<td><strong>Pmt</strong></td>
+<td>Total periodic payment</td>
+<td>Double (payment amount)</td>
+<td>Loan budgeting, payment calculation</td>
+</tr>
+<tr>
+<td><strong>PV</strong></td>
+<td>Present value</td>
+<td>Double (current value)</td>
+<td>Valuation, reverse calculations</td>
+</tr>
+<tr>
+<td><strong>FV</strong></td>
+<td>Future value</td>
+<td>Double (future value)</td>
+<td>Investment projections</td>
+</tr>
+<tr>
+<td><strong><code>NPer</code></strong></td>
+<td>Number of periods</td>
+<td>Double (period count)</td>
+<td>Loan term calculation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all versions of VBA and VB6</li>
+<li>Behavior is consistent across Windows platforms</li>
+<li>Uses standard financial formulas for amortization</li>
+<li>For zero interest rates, principal = pv / nper for each period</li>
+<li>Maximum precision limited by Double data type</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Assumes constant interest rate over entire period</li>
+<li>Assumes equal payment amounts (standard amortization)</li>
+<li>Does not account for fees, taxes, or insurance</li>
+<li>Cannot handle variable rate loans without recalculation</li>
+<li>Period must be an integer (no fractional periods)</li>
+<li>Does not consider prepayment or extra principal payments</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>IPmt</code>: Returns the interest payment for a specific period</li>
+<li><code>Pmt</code>: Returns the total payment for an annuity</li>
+<li><code>PV</code>: Returns the present value of an investment</li>
+<li><code>FV</code>: Returns the future value of an investment</li>
+<li><code>NPer</code>: Returns the number of periods for an investment</li>
+<li><code>Rate</code>: Returns the interest rate per period</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Financial</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

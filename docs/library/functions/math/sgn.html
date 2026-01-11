@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - sgn - Math">
+    <title>sgn - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / sgn</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="sgn-function">Sgn Function</h1>
+<p>Returns an Integer indicating the sign of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Sgn(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. Any valid numeric expression.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an Integer indicating the sign of the number:
+- Returns <strong>-1</strong> if <code>number</code> is negative (less than zero)
+- Returns <strong>0</strong> if <code>number</code> is zero
+- Returns <strong>1</strong> if <code>number</code> is positive (greater than zero)</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Sgn function is used to determine the sign (positive, negative, or zero) of a numeric expression.
+It is particularly useful for:
+- Determining the direction of change in values
+- Implementing sign-dependent logic without complex conditionals
+- Comparing signs of two numbers
+- Normalizing values to -1, 0, or 1
+- Mathematical algorithms requiring sign information</p>
+<p>The sign of <code>number</code> determines the return value:
+- If <code>number</code> &gt; 0, Sgn returns 1
+- If <code>number</code> = 0, Sgn returns 0
+- If <code>number</code> &lt; 0, Sgn returns -1</p>
+<p>If <code>number</code> is Null, Sgn returns Null.</p>
+<p>The Sgn function is often used in combination with Abs to separate magnitude from direction:
+- <code>Abs(number)</code> gives the magnitude (absolute value)
+- <code>Sgn(number)</code> gives the direction (sign)
+- <code>number = Abs(number) * Sgn(number)</code> (reconstruction)</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Direction Detection</strong>: Determine if a value is increasing or decreasing</li>
+<li><strong>Sign Comparison</strong>: Compare signs of two numbers</li>
+<li><strong>Conditional Logic</strong>: Simplify sign-based branching</li>
+<li><strong>Mathematical Operations</strong>: Algorithms requiring sign information</li>
+<li><strong>Data Validation</strong>: Check if values are positive, negative, or zero</li>
+<li><strong>Trend Analysis</strong>: Determine direction of change in time series</li>
+<li><strong>Game Logic</strong>: Movement direction, score changes</li>
+<li><strong>Financial Calculations</strong>: Profit/loss direction, balance changes</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Basic sign detection
+Dim result As Integer
+result = Sgn(10)      &#x27; Returns 1 (positive)
+result = Sgn(-5.5)    &#x27; Returns -1 (negative)
+result = Sgn(0)       &#x27; Returns 0 (zero)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Determine direction of change
+Dim oldValue As Double
+Dim newValue As Double
+Dim direction As Integer
+
+oldValue = 100
+newValue = 120
+direction = Sgn(newValue - oldValue)  &#x27; Returns 1 (increasing)
+
+If direction = 1 Then
+MsgBox &quot;Value increased&quot;
+ElseIf direction = -1 Then
+MsgBox &quot;Value decreased&quot;
+Else
+MsgBox &quot;No change&quot;
+End If</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Compare signs of two numbers
+Dim a As Double
+Dim b As Double
+
+a = -15
+b = -20
+
+If Sgn(a) = Sgn(b) Then
+MsgBox &quot;Same sign&quot;
+Else
+MsgBox &quot;Different signs&quot;
+End If</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Normalize to unit sign
+Dim value As Double
+Dim unitSign As Integer
+
+value = 42.7
+unitSign = Sgn(value)  &#x27; Returns 1
+&#x27; Now unitSign can be used as a multiplier: 1, 0, or -1</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-getchangedirection">Pattern 1: <code>GetChangeDirection</code></h3>
+<p>Determine if value increased, decreased, or stayed same</p>
+<pre><code class="language-vbnet">Function GetChangeDirection(oldVal As Double, newVal As Double) As String
+Dim direction As Integer
+direction = Sgn(newVal - oldVal)
+
+Select Case direction
+Case 1
+GetChangeDirection = &quot;Increased&quot;
+Case -1
+GetChangeDirection = &quot;Decreased&quot;
+Case 0
+GetChangeDirection = &quot;No Change&quot;
+End Select
+End Function</code></pre>
+<h3 id="pattern-2-samesign">Pattern 2: <code>SameSign</code></h3>
+<p>Check if two numbers have the same sign</p>
+<pre><code class="language-vbnet">Function SameSign(a As Double, b As Double) As Boolean
+&#x27; Both zero, or both have same non-zero sign
+If a = 0 And b = 0 Then
+SameSign = True
+Else
+SameSign = (Sgn(a) = Sgn(b))
+End If
+End Function</code></pre>
+<h3 id="pattern-3-oppositesign">Pattern 3: <code>OppositeSign</code></h3>
+<p>Check if two numbers have opposite signs</p>
+<pre><code class="language-vbnet">Function OppositeSign(a As Double, b As Double) As Boolean
+OppositeSign = (Sgn(a) = -Sgn(b)) And (a &lt;&gt; 0) And (b &lt;&gt; 0)
+End Function</code></pre>
+<h3 id="pattern-4-signmultiplier">Pattern 4: <code>SignMultiplier</code></h3>
+<p>Get sign as multiplier for calculations</p>
+<pre><code class="language-vbnet">Function SignMultiplier(value As Double) As Integer
+SignMultiplier = Sgn(value)
+&#x27; Returns: -1, 0, or 1 which can be used in calculations
+End Function</code></pre>
+<h3 id="pattern-5-clamptosign">Pattern 5: <code>ClampToSign</code></h3>
+<p>Ensure value has specific sign</p>
+<pre><code class="language-vbnet">Function ClampToSign(value As Double, requiredSign As Integer) As Double
+If Sgn(value) &lt;&gt; requiredSign Then
+ClampToSign = Abs(value) * requiredSign
+Else
+ClampToSign = value
+End If
+End Function</code></pre>
+<h3 id="pattern-6-signstring">Pattern 6: <code>SignString</code></h3>
+<p>Convert sign to string representation</p>
+<pre><code class="language-vbnet">Function SignString(value As Double) As String
+Select Case Sgn(value)
+Case 1
+SignString = &quot;+&quot;
+Case -1
+SignString = &quot;-&quot;
+Case 0
+SignString = &quot;0&quot;
+End Select
+End Function</code></pre>
+<h3 id="pattern-7-comparebysign">Pattern 7: <code>CompareBySign</code></h3>
+<p>Three-way comparison using sign</p>
+<pre><code class="language-vbnet">Function CompareBySign(a As Double, b As Double) As Integer
+&#x27; Returns: -1 if a &lt; b, 0 if a = b, 1 if a &gt; b
+CompareBySign = Sgn(a - b)
+End Function</code></pre>
+<h3 id="pattern-8-countbysign">Pattern 8: <code>CountBySign</code></h3>
+<p>Count positive, negative, and zero values</p>
+<pre><code class="language-vbnet">Sub CountBySign(arr() As Double, ByRef positive As Long, _
+ByRef negative As Long, ByRef zero As Long)
+Dim i As Long
+positive = 0
+negative = 0
+zero = 0
+
+For i = LBound(arr) To UBound(arr)
+Select Case Sgn(arr(i))
+Case 1
+positive = positive + 1
+Case -1
+negative = negative + 1
+Case 0
+zero = zero + 1
+End Select
+Next i
+End Sub</code></pre>
+<h3 id="pattern-9-trenddirection">Pattern 9: <code>TrendDirection</code></h3>
+<p>Determine overall trend in series</p>
+<pre><code class="language-vbnet">Function TrendDirection(values() As Double) As String
+Dim i As Long
+Dim changes As Long
+Dim positiveChanges As Long
+Dim negativeChanges As Long
+
+For i = LBound(values) + 1 To UBound(values)
+Dim change As Integer
+change = Sgn(values(i) - values(i - 1))
+
+If change = 1 Then positiveChanges = positiveChanges + 1
+If change = -1 Then negativeChanges = negativeChanges + 1
+Next i
+
+If positiveChanges &gt; negativeChanges Then
+TrendDirection = &quot;Upward&quot;
+ElseIf negativeChanges &gt; positiveChanges Then
+TrendDirection = &quot;Downward&quot;
+Else
+TrendDirection = &quot;Stable&quot;
+End If
+End Function</code></pre>
+<h3 id="pattern-10-applysignto">Pattern 10: <code>ApplySignTo</code></h3>
+<p>Apply sign of one number to another</p>
+<pre><code class="language-vbnet">Function ApplySignTo(magnitude As Double, signSource As Double) As Double
+&#x27; Take absolute value of magnitude and apply sign from signSource
+ApplySignTo = Abs(magnitude) * Sgn(signSource)
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-changeanalyzer-class">Example 1: <code>ChangeAnalyzer</code> Class</h3>
+<p>Analyze changes in data series with trend detection</p>
+<pre><code class="language-vbnet">&#x27; Class: ChangeAnalyzer
+Private m_values() As Double
+Private m_count As Long
+
+Public Sub Initialize(initialCapacity As Long)
+ReDim m_values(1 To initialCapacity)
+m_count = 0
+End Sub
+
+Public Sub AddValue(value As Double)
+m_count = m_count + 1
+
+If m_count &gt; UBound(m_values) Then
+ReDim Preserve m_values(1 To m_count * 2)
+End If
+
+m_values(m_count) = value
+End Sub
+
+Public Function GetChangeDirection(index As Long) As Integer
+&#x27; Returns direction of change at index
+If index &lt; 2 Or index &gt; m_count Then
+GetChangeDirection = 0
+Else
+GetChangeDirection = Sgn(m_values(index) - m_values(index - 1))
+End If
+End Function
+
+Public Function GetOverallTrend() As String
+Dim i As Long
+Dim upCount As Long
+Dim downCount As Long
+
+For i = 2 To m_count
+Select Case Sgn(m_values(i) - m_values(i - 1))
+Case 1
+upCount = upCount + 1
+Case -1
+downCount = downCount + 1
+End Select
+Next i
+
+If upCount &gt; downCount Then
+GetOverallTrend = &quot;Upward Trend&quot;
+ElseIf downCount &gt; upCount Then
+GetOverallTrend = &quot;Downward Trend&quot;
+Else
+GetOverallTrend = &quot;No Clear Trend&quot;
+End If
+End Function
+
+Public Function GetConsecutiveChanges() As Long
+&#x27; Find longest sequence of consecutive changes in same direction
+Dim i As Long
+Dim currentDirection As Integer
+Dim currentCount As Long
+Dim maxCount As Long
+
+If m_count &lt; 2 Then
+GetConsecutiveChanges = 0
+Exit Function
+End If
+
+currentDirection = Sgn(m_values(2) - m_values(1))
+currentCount = 1
+maxCount = 1
+
+For i = 3 To m_count
+Dim direction As Integer
+direction = Sgn(m_values(i) - m_values(i - 1))
+
+If direction = currentDirection And direction &lt;&gt; 0 Then
+currentCount = currentCount + 1
+If currentCount &gt; maxCount Then maxCount = currentCount
+Else
+currentDirection = direction
+currentCount = 1
+End If
+Next i
+
+GetConsecutiveChanges = maxCount
+End Function
+
+Public Function GetTrendStrength() As Double
+&#x27; Returns value between -1 and 1 indicating trend strength
+&#x27; 1 = strong upward, -1 = strong downward, 0 = no trend
+Dim i As Long
+Dim sumSign As Long
+Dim changes As Long
+
+For i = 2 To m_count
+Dim sign As Integer
+sign = Sgn(m_values(i) - m_values(i - 1))
+If sign &lt;&gt; 0 Then
+sumSign = sumSign + sign
+changes = changes + 1
+End If
+Next i
+
+If changes &gt; 0 Then
+GetTrendStrength = CDbl(sumSign) / CDbl(changes)
+Else
+GetTrendStrength = 0
+End If
+End Function</code></pre>
+<h3 id="example-2-signcomparator-module">Example 2: <code>SignComparator</code> Module</h3>
+<p>Compare and analyze signs in numeric data</p>
+<pre><code class="language-vbnet">&#x27; Module: SignComparator
+
+Public Function AllSameSign(values() As Double) As Boolean
+&#x27; Check if all values have the same sign
+Dim i As Long
+Dim firstSign As Integer
+
+If UBound(values) &lt; LBound(values) Then
+AllSameSign = True
+Exit Function
+End If
+
+&#x27; Get first non-zero sign
+firstSign = 0
+For i = LBound(values) To UBound(values)
+firstSign = Sgn(values(i))
+If firstSign &lt;&gt; 0 Then Exit For
+Next i
+
+&#x27; Check all others
+For i = LBound(values) To UBound(values)
+If Sgn(values(i)) &lt;&gt; 0 And Sgn(values(i)) &lt;&gt; firstSign Then
+AllSameSign = False
+Exit Function
+End If
+Next i
+
+AllSameSign = True
+End Function
+
+Public Function GetSignCounts(values() As Double) As String
+Dim i As Long
+Dim posCount As Long
+Dim negCount As Long
+Dim zeroCount As Long
+
+For i = LBound(values) To UBound(values)
+Select Case Sgn(values(i))
+Case 1
+posCount = posCount + 1
+Case -1
+negCount = negCount + 1
+Case 0
+zeroCount = zeroCount + 1
+End Select
+Next i
+
+GetSignCounts = &quot;Positive: &quot; &amp; posCount &amp; _
+&quot;, Negative: &quot; &amp; negCount &amp; _
+&quot;, Zero: &quot; &amp; zeroCount
+End Function
+
+Public Function AlternatingSign(values() As Double) As Boolean
+&#x27; Check if signs alternate (ignoring zeros)
+Dim i As Long
+Dim lastSign As Integer
+
+For i = LBound(values) To UBound(values)
+Dim currentSign As Integer
+currentSign = Sgn(values(i))
+
+If currentSign &lt;&gt; 0 Then
+If lastSign &lt;&gt; 0 And currentSign = lastSign Then
+AlternatingSign = False
+Exit Function
+End If
+lastSign = currentSign
+End If
+Next i
+
+AlternatingSign = True
+End Function
+
+Public Function SignTransitions(values() As Double) As Long
+&#x27; Count how many times the sign changes
+Dim i As Long
+Dim transitions As Long
+Dim lastSign As Integer
+
+For i = LBound(values) To UBound(values)
+Dim currentSign As Integer
+currentSign = Sgn(values(i))
+
+If currentSign &lt;&gt; 0 Then
+If lastSign &lt;&gt; 0 And currentSign &lt;&gt; lastSign Then
+transitions = transitions + 1
+End If
+lastSign = currentSign
+End If
+Next i
+
+SignTransitions = transitions
+End Function</code></pre>
+<h3 id="example-3-directionindicator-class">Example 3: <code>DirectionIndicator</code> Class</h3>
+<p>Track and display directional changes with symbols</p>
+<pre><code class="language-vbnet">&#x27; Class: DirectionIndicator
+Private m_lastValue As Double
+Private m_initialized As Boolean
+
+Public Sub SetInitialValue(value As Double)
+m_lastValue = value
+m_initialized = True
+End Sub
+
+Public Function UpdateAndGetSymbol(newValue As Double) As String
+If Not m_initialized Then
+m_lastValue = newValue
+m_initialized = True
+UpdateAndGetSymbol = &quot;―&quot;  &#x27; Neutral symbol
+Exit Function
+End If
+
+Dim direction As Integer
+direction = Sgn(newValue - m_lastValue)
+
+Select Case direction
+Case 1
+UpdateAndGetSymbol = &quot;▲&quot;  &#x27; Up arrow
+Case -1
+UpdateAndGetSymbol = &quot;▼&quot;  &#x27; Down arrow
+Case 0
+UpdateAndGetSymbol = &quot;―&quot;  &#x27; Neutral
+End Select
+
+m_lastValue = newValue
+End Function
+
+Public Function GetDirection() As String
+&#x27; Not implemented - would require storing current value
+GetDirection = &quot;N/A&quot;
+End Function
+
+Public Function GetChangeText(newValue As Double) As String
+If Not m_initialized Then
+GetChangeText = &quot;Initial Value&quot;
+Else
+Dim change As Double
+Dim direction As Integer
+
+change = newValue - m_lastValue
+direction = Sgn(change)
+
+Select Case direction
+Case 1
+GetChangeText = &quot;Increased by &quot; &amp; Abs(change)
+Case -1
+GetChangeText = &quot;Decreased by &quot; &amp; Abs(change)
+Case 0
+GetChangeText = &quot;No Change&quot;
+End Select
+End If
+End Function
+
+Public Sub Reset()
+m_initialized = False
+m_lastValue = 0
+End Sub</code></pre>
+<h3 id="example-4-mathsignhelper-module">Example 4: <code>MathSignHelper</code> Module</h3>
+<p>Mathematical operations using sign function</p>
+<pre><code class="language-vbnet">&#x27; Module: MathSignHelper
+
+Public Function CopySign(magnitude As Double, signSource As Double) As Double
+&#x27; Copy the sign from signSource to magnitude
+&#x27; Similar to copysign() in C math library
+CopySign = Abs(magnitude) * Sgn(signSource)
+End Function
+
+Public Function RoundAwayFromZero(value As Double) As Long
+&#x27; Round away from zero (ceiling for positive, floor for negative)
+Dim sign As Integer
+sign = Sgn(value)
+
+If sign &gt;= 0 Then
+RoundAwayFromZero = -Int(-value)  &#x27; Ceiling
+Else
+RoundAwayFromZero = Int(value)    &#x27; Floor
+End If
+End Function
+
+Public Function RoundTowardZero(value As Double) As Long
+&#x27; Round toward zero (floor for positive, ceiling for negative)
+RoundTowardZero = Fix(value)
+End Function
+
+Public Function StepInDirection(value As Double, stepSize As Double, _
+direction As Integer) As Double
+&#x27; Step in the direction indicated by sign (-1, 0, or 1)
+StepInDirection = value + (Abs(stepSize) * direction)
+End Function
+
+Public Function Clamp(value As Double, minVal As Double, maxVal As Double) As Double
+&#x27; Clamp value between min and max
+If value &lt; minVal Then
+Clamp = minVal
+ElseIf value &gt; maxVal Then
+Clamp = maxVal
+Else
+Clamp = value
+End If
+End Function
+
+Public Function SignedMin(a As Double, b As Double) As Double
+&#x27; Return the value with smaller absolute value, preserving sign
+If Abs(a) &lt; Abs(b) Then
+SignedMin = a
+Else
+SignedMin = b
+End If
+End Function
+
+Public Function SignedMax(a As Double, b As Double) As Double
+&#x27; Return the value with larger absolute value, preserving sign
+If Abs(a) &gt; Abs(b) Then
+SignedMax = a
+Else
+SignedMax = b
+End If
+End Function
+
+Public Function CompareNumbers(a As Double, b As Double) As Integer
+&#x27; Three-way comparison: -1 if a&lt;b, 0 if a=b, 1 if a&gt;b
+CompareNumbers = Sgn(a - b)
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The Sgn function can generate the following errors:</p>
+<ul>
+<li><strong>Error 13</strong> (Type mismatch): Argument cannot be interpreted as numeric</li>
+<li><strong>Error 94</strong> (Invalid use of Null): If Null is passed and not properly handled</li>
+</ul>
+<p>Always use error handling when working with user input or uncertain data:</p>
+<pre><code class="language-vbnet">On Error Resume Next
+result = Sgn(userValue)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Invalid numeric value&quot;
+End If</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Sgn is very fast (simple comparison operation)</li>
+<li>Much faster than If...Then...Else chains for sign checking</li>
+<li>Use Sgn instead of multiple comparisons when appropriate</li>
+<li>No performance penalty for any numeric type</li>
+<li>Ideal for use in tight loops</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use for Comparisons</strong>: Prefer <code>Sgn(a - b)</code> over complex If statements for three-way comparison</li>
+<li><strong>Handle Zero Case</strong>: Remember that zero has its own return value (0)</li>
+<li><strong>Type Safety</strong>: Ensure argument is numeric to avoid Type Mismatch error</li>
+<li><strong>Null Handling</strong>: Check for Null if input might be Null</li>
+<li><strong>Sign vs. Value</strong>: Don't confuse sign with actual value</li>
+<li><strong>Combine with Abs</strong>: Use together to separate magnitude and direction</li>
+<li><strong>Clear Intent</strong>: Use Sgn to make sign-dependent logic more readable</li>
+<li><strong>Avoid Redundancy</strong>: Don't use Sgn(Abs(x)) - always returns 1 or 0</li>
+<li><strong>Consider Zero</strong>: Zero is neither positive nor negative</li>
+<li><strong>Document Usage</strong>: Comment when using Sgn in non-obvious ways</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Zero Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sgn</td>
+<td>Get sign</td>
+<td>-1, 0, or 1</td>
+<td>Returns 0</td>
+</tr>
+<tr>
+<td>Abs</td>
+<td>Get magnitude</td>
+<td>Non-negative number</td>
+<td>Returns 0</td>
+</tr>
+<tr>
+<td>Fix</td>
+<td>Truncate to integer</td>
+<td>Integer toward zero</td>
+<td>Returns 0</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>Round down</td>
+<td>Integer (floor)</td>
+<td>Returns 0</td>
+</tr>
+<tr>
+<td>Round</td>
+<td>Round to nearest</td>
+<td>Rounded number</td>
+<td>Returns 0</td>
+</tr>
+<tr>
+<td>If...Then</td>
+<td>Conditional logic</td>
+<td>Any value</td>
+<td>Requires explicit check</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (all versions)</li>
+<li>Available in <code>VBScript</code></li>
+<li>Part of core VB language</li>
+<li>Consistent behavior across all VB variants</li>
+<li>No platform-specific quirks</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only returns three values: -1, 0, 1</li>
+<li>Does not provide magnitude information (use Abs for that)</li>
+<li>Cannot distinguish between different magnitudes of same sign</li>
+<li>Returns Null if argument is Null (may need special handling)</li>
+<li>Not suitable for distinguishing "nearly zero" from actual zero</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Abs</code>: Returns the absolute value (magnitude without sign)</li>
+<li><code>Fix</code>: Returns the integer portion of a number, truncating toward zero</li>
+<li><code>Int</code>: Returns the integer portion of a number, rounding down</li>
+<li><code>Round</code>: Rounds a number to specified decimal places</li>
+<li><code>IIf</code>: Conditional function that can implement sign-based logic</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - atn - Math">
+    <title>atn - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / atn</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="atn-function"><code>Atn</code> Function</h1>
+<p>Returns a <code>Double</code> specifying the arctangent of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Atn(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. A <code>Double</code> or any valid numeric expression. The tangent value for which you want the angle.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Double</code> representing the arctangent of the number in radians.</p>
+<ul>
+<li>The result is in the range -π/2 to π/2 radians (-90° to 90°)</li>
+<li>To convert from radians to degrees, multiply by 180/π (approximately 57.2957795130823)</li>
+<li>To convert from degrees to radians, multiply by π/180 (approximately 0.0174532925199433)</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Atn</code> function takes the ratio of two sides of a right triangle (opposite/adjacent) and
+returns the corresponding angle in radians. This is the inverse of the tangent function.</p>
+<h3 id="important-notes">Important Notes</h3>
+<ol>
+<li><strong>Return Type</strong>: Always returns <code>Double</code> regardless of input type</li>
+<li><strong>Radians</strong>: Result is always in radians, not degrees</li>
+<li><strong>Range</strong>: Return value is between -π/2 and π/2 (-1.5708 to 1.5708 radians)</li>
+<li><strong>Ratio Input</strong>: The argument represents the tangent (opposite/adjacent) of the angle</li>
+<li><strong>Inverse Function</strong>: <code>Atn</code> is the inverse of <code>Tan</code> (<code>Atn(Tan(x)) = x</code> for x in valid range)</li>
+</ol>
+<h3 id="mathematical-relationship">Mathematical Relationship</h3>
+<pre><code class="language-vbnet">&#x27; For a right triangle:
+angle = Atn(opposite / adjacent)
+
+&#x27; Converting between functions:
+Tan(Atn(x)) = x    &#x27; Always true
+Atn(Tan(x)) = x    &#x27; True when -π/2 &lt; x &lt; π/2</code></pre>
+<h3 id="special-values">Special Values</h3>
+<ul>
+<li><code>Atn(0)</code> returns 0 (angle is 0 radians or 0°)</li>
+<li><code>Atn(1)</code> returns π/4 (approximately 0.785398, which is 45°)</li>
+<li><code>Atn(-1)</code> returns -π/4 (approximately -0.785398, which is -45°)</li>
+<li>Large positive values approach π/2 (90°)</li>
+<li>Large negative values approach -π/2 (-90°)</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim angle As Double
+angle = Atn(1)              &#x27; Returns π/4 (approx 0.785398) = 45°
+angle = Atn(0)              &#x27; Returns 0 = 0°
+angle = Atn(-1)             &#x27; Returns -π/4 (approx -0.785398) = -45°
+angle = Atn(1.732050808)    &#x27; Returns π/3 (approx 1.047198) = 60°</code></pre>
+<h3 id="converting-to-degrees">Converting to Degrees</h3>
+<pre><code class="language-vbnet">Function AtnDegrees(tangent As Double) As Double
+Const PI As Double = 3.14159265358979
+AtnDegrees = Atn(tangent) * 180 / PI
+End Function
+
+&#x27; Usage:
+angle = AtnDegrees(1)       &#x27; Returns 45 degrees</code></pre>
+<h3 id="calculating-angle-from-triangle-sides">Calculating Angle from Triangle Sides</h3>
+<pre><code class="language-vbnet">Function AngleFromSides(opposite As Double, adjacent As Double) As Double
+&#x27; Returns angle in radians
+AngleFromSides = Atn(opposite / adjacent)
+End Function
+
+&#x27; For a right triangle with opposite=3, adjacent=4:
+angle = AngleFromSides(3, 4)    &#x27; Returns angle in radians</code></pre>
+<h3 id="calculating">Calculating π</h3>
+<pre><code class="language-vbnet">Function CalculatePi() As Double
+&#x27; Since Atn(1) = π/4, then 4 * Atn(1) = π
+CalculatePi = 4 * Atn(1)
+End Function</code></pre>
+<h3 id="full-circle-angle-calculation-atn2-emulation">Full Circle Angle Calculation (Atn2 Emulation)</h3>
+<pre><code class="language-vbnet">Function Atn2(y As Double, x As Double) As Double
+&#x27; Emulates atan2 function for full circle (-π to π)
+Const PI As Double = 3.14159265358979
+
+If x &gt; 0 Then
+Atn2 = Atn(y / x)
+ElseIf x &lt; 0 Then
+If y &gt;= 0 Then
+Atn2 = Atn(y / x) + PI
+Else
+Atn2 = Atn(y / x) - PI
+End If
+ElseIf y &gt; 0 Then
+Atn2 = PI / 2
+ElseIf y &lt; 0 Then
+Atn2 = -PI / 2
+Else
+Atn2 = 0  &#x27; Undefined, but return 0
+End If
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="1-slope-to-angle-conversion">1. Slope to Angle Conversion</h3>
+<pre><code class="language-vbnet">Dim slope As Double
+Dim angleRadians As Double
+Dim angleDegrees As Double
+
+slope = 0.5  &#x27; Rise over run
+angleRadians = Atn(slope)
+angleDegrees = angleRadians * 180 / (4 * Atn(1))</code></pre>
+<h3 id="2-direction-calculation">2. Direction Calculation</h3>
+<pre><code class="language-vbnet">Function GetDirection(deltaX As Double, deltaY As Double) As Double
+&#x27; Returns angle in degrees (0-360)
+Const PI As Double = 3.14159265358979
+Dim angle As Double
+
+If deltaX = 0 Then
+If deltaY &gt; 0 Then
+angle = 90
+ElseIf deltaY &lt; 0 Then
+angle = 270
+Else
+angle = 0
+End If
+Else
+angle = Atn(deltaY / deltaX) * 180 / PI
+If deltaX &lt; 0 Then angle = angle + 180
+If angle &lt; 0 Then angle = angle + 360
+End If
+
+GetDirection = angle
+End Function</code></pre>
+<h3 id="3-distance-and-angle-from-origin">3. Distance and Angle from Origin</h3>
+<pre><code class="language-vbnet">Sub GetPolarCoordinates(x As Double, y As Double, _
+distance As Double, angle As Double)
+distance = Sqr(x * x + y * y)
+
+If x = 0 Then
+If y &gt; 0 Then
+angle = 90
+Else
+angle = 270
+End If
+Else
+angle = Atn(y / x) * 180 / (4 * Atn(1))
+If x &lt; 0 Then angle = angle + 180
+End If
+End Sub</code></pre>
+<h3 id="4-graphics-rotation">4. Graphics Rotation</h3>
+<pre><code class="language-vbnet">Function RotatePoint(x As Double, y As Double, _
+centerX As Double, centerY As Double, _
+angleDegrees As Double)
+Const PI As Double = 3.14159265358979
+Dim angleRadians As Double
+Dim currentAngle As Double
+Dim distance As Double
+Dim newAngle As Double
+
+&#x27; Get current angle and distance from center
+distance = Sqr((x - centerX) ^ 2 + (y - centerY) ^ 2)
+currentAngle = Atn((y - centerY) / (x - centerX))
+
+&#x27; Calculate new angle
+angleRadians = angleDegrees * PI / 180
+newAngle = currentAngle + angleRadians
+
+&#x27; Calculate new position
+x = centerX + distance * Cos(newAngle)
+y = centerY + distance * Sin(newAngle)
+End Function</code></pre>
+<h3 id="5-navigation-bearing">5. Navigation Bearing</h3>
+<pre><code class="language-vbnet">Function CalculateBearing(lat1 As Double, lon1 As Double, _
+lat2 As Double, lon2 As Double) As Double
+Const PI As Double = 3.14159265358979
+Dim dLon As Double
+Dim y As Double
+Dim x As Double
+Dim bearing As Double
+
+dLon = lon2 - lon1
+y = Sin(dLon) * Cos(lat2)
+x = Cos(lat1) * Sin(lat2) - Sin(lat1) * Cos(lat2) * Cos(dLon)
+bearing = Atn(y / x) * 180 / PI
+
+&#x27; Normalize to 0-360
+CalculateBearing = (bearing + 360) Mod 360
+End Function</code></pre>
+<h3 id="6-inverse-trigonometry-relationships">6. Inverse Trigonometry Relationships</h3>
+<pre><code class="language-vbnet">&#x27; Calculate arcsine using Atn
+Function Asin(x As Double) As Double
+Asin = Atn(x / Sqr(1 - x * x))
+End Function
+
+&#x27; Calculate arccosine using Atn
+Function Acos(x As Double) As Double
+Const PI As Double = 3.14159265358979
+Acos = PI / 2 - Atn(x / Sqr(1 - x * x))
+End Function</code></pre>
+<h3 id="7-tangent-line-slope">7. Tangent Line Slope</h3>
+<pre><code class="language-vbnet">Function GetTangentAngle(x1 As Double, y1 As Double, _
+x2 As Double, y2 As Double) As Double
+Dim slope As Double
+Const PI As Double = 3.14159265358979
+
+If x2 = x1 Then
+GetTangentAngle = 90  &#x27; Vertical line
+Else
+slope = (y2 - y1) / (x2 - x1)
+GetTangentAngle = Atn(slope) * 180 / PI
+End If
+End Function</code></pre>
+<h3 id="8-game-development-projectile-angle">8. Game Development - Projectile Angle</h3>
+<pre><code class="language-vbnet">Function AimAngle(shooterX As Double, shooterY As Double, _
+targetX As Double, targetY As Double) As Double
+Const PI As Double = 3.14159265358979
+Dim deltaX As Double
+Dim deltaY As Double
+
+deltaX = targetX - shooterX
+deltaY = targetY - shooterY
+
+If deltaX = 0 Then
+If deltaY &gt; 0 Then
+AimAngle = 90
+Else
+AimAngle = 270
+End If
+Else
+AimAngle = Atn(deltaY / deltaX) * 180 / PI
+If deltaX &lt; 0 Then AimAngle = AimAngle + 180
+If AimAngle &lt; 0 Then AimAngle = AimAngle + 360
+End If
+End Function</code></pre>
+<h2 id="common-trigonometric-values">Common Trigonometric Values</h2>
+<table>
+<thead>
+<tr>
+<th>Angle (Degrees)</th>
+<th>Angle (Radians)</th>
+<th>Tangent</th>
+<th>Atn(Tangent)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0°</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>30°</td>
+<td>π/6 ≈ 0.524</td>
+<td>0.577</td>
+<td>π/6</td>
+</tr>
+<tr>
+<td>45°</td>
+<td>π/4 ≈ 0.785</td>
+<td>1</td>
+<td>π/4</td>
+</tr>
+<tr>
+<td>60°</td>
+<td>π/3 ≈ 1.047</td>
+<td>1.732</td>
+<td>π/3</td>
+</tr>
+<tr>
+<td>90°</td>
+<td>π/2 ≈ 1.571</td>
+<td>∞</td>
+<td>π/2 (limit)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="type-conversion">Type Conversion</h2>
+<table>
+<thead>
+<tr>
+<th>Input Type</th>
+<th>Converted To</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Integer</code></td>
+<td><code>Double</code></td>
+<td>Atn(1) → Atn(1.0)</td>
+</tr>
+<tr>
+<td><code>Long</code></td>
+<td><code>Double</code></td>
+<td>Atn(10&amp;) → Atn(10.0)</td>
+</tr>
+<tr>
+<td><code>Single</code></td>
+<td><code>Double</code></td>
+<td>Atn(1.5!) → Atn(1.5)</td>
+</tr>
+<tr>
+<td><code>Double</code></td>
+<td><code>Double</code></td>
+<td>Atn(1.5#) → 1.5</td>
+</tr>
+<tr>
+<td><code>Currency</code></td>
+<td><code>Double</code></td>
+<td>Atn(100@) → Atn(100.0)</td>
+</tr>
+<tr>
+<td><code>Variant</code></td>
+<td><code>Double</code></td>
+<td>Depends on content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="error-conditions">Error Conditions</h2>
+<ul>
+<li><strong>Type Mismatch</strong>: If the argument cannot be converted to a numeric value</li>
+<li><strong>No overflow</strong>: Unlike some functions, <code>Atn</code> cannot overflow as it's bounded to ±π/2</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Tan</code>: Returns the tangent of an angle (inverse of <code>Atn</code>)</li>
+<li><code>Sin</code>: Returns the sine of an angle</li>
+<li><code>Cos</code>: Returns the cosine of an angle</li>
+<li><code>Sqr</code>: Returns the square root (used with <code>Atn</code> to calculate other inverse trig functions)</li>
+<li><code>Abs</code>: Returns absolute value (useful in angle calculations)</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>Atn</code> is a fast intrinsic function</li>
+<li>Implemented using CPU floating-point instructions</li>
+<li>No significant performance difference between <code>Integer</code>, <code>Long</code>, or <code>Double</code> arguments</li>
+<li>For repeated π calculations, cache the value of 4 * <code>Atn</code>(1) rather than recalculating</li>
+</ul>
+<h2 id="parsing-notes">Parsing Notes</h2>
+<p>The <code>Atn</code> function is not a reserved keyword in VB6. It is parsed as a regular
+function call (<code>CallExpression</code>). This module exists primarily for documentation
+purposes and to provide a comprehensive test suite that validates the parser
+correctly handles <code>Atn</code> function calls in various contexts.</p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

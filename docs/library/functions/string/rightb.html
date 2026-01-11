@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - rightb - String">
+    <title>rightb - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / rightb</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="rightb-function">RightB Function</h1>
+<p>Returns a Variant (String) containing a specified number of bytes from the right side of a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">RightB(string, length)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> (Required): String expression from which rightmost bytes are returned</li>
+<li>If string contains Null, Null is returned</li>
+<li><code>length</code> (Required): Numeric expression indicating how many bytes to return</li>
+<li>If 0, empty string ("") is returned</li>
+<li>If greater than or equal to number of bytes in string, entire string is returned</li>
+<li>Must be non-negative (negative values cause error)</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Variant containing a String:
+- Contains the specified number of bytes from the right side of the string
+- Returns empty string if length is 0
+- Returns entire string if length &gt;= LenB(string)
+- Returns Null if string argument is Null
+- Returns Variant type (RightB$ variant returns String type directly)</p>
+<h2 id="remarks">Remarks</h2>
+<p>The RightB function extracts bytes from the end of a string:</p>
+<ul>
+<li>Returns rightmost bytes up to specified length</li>
+<li>Operates on byte level, not character level</li>
+<li>Particularly useful with double-byte character sets (DBCS)</li>
+<li>Complements LeftB function (which returns leftmost bytes)</li>
+<li>Works with MidB function for complete byte-level substring extraction</li>
+<li>Extraction from end: RightB("ABC", 2) returns last 2 bytes</li>
+<li>Safe with lengths exceeding string byte length (returns full string)</li>
+<li>Null propagates through the function</li>
+<li>Negative length raises Error 5 (Invalid procedure call or argument)</li>
+<li>Common for extracting binary data suffixes, checksums, trailers</li>
+<li>More efficient than MidB for right extraction</li>
+<li>RightB$ variant returns String type (not Variant) for slight performance gain</li>
+<li>Cannot extract from left side (use LeftB for that)</li>
+<li>Cannot skip bytes (use MidB for that)</li>
+<li>Does not modify original string (strings are immutable)</li>
+</ul>
+<h2 id="differences-from-right-function">Differences from Right Function</h2>
+<ul>
+<li>Right operates on characters, RightB operates on bytes</li>
+<li>In single-byte character sets (SBCS), they are equivalent</li>
+<li>In double-byte character sets (DBCS), one character may be multiple bytes</li>
+<li>RightB is essential for binary data manipulation</li>
+<li>RightB is used with LenB (byte length) rather than Len (character length)</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Binary Data</strong>: Extract trailing bytes from binary strings</li>
+<li><strong>Checksums</strong>: Extract checksum bytes from data</li>
+<li><strong>File Trailers</strong>: Extract trailing data from files</li>
+<li><strong>DBCS Strings</strong>: Work with Japanese, Chinese, Korean text at byte level</li>
+<li><strong>Fixed Byte Records</strong>: Parse trailing fields from binary records</li>
+<li><strong>Byte Validation</strong>: Check byte suffixes in data</li>
+<li><strong>Binary Structures</strong>: Extract trailing fields from binary structures</li>
+<li><strong>Network Data</strong>: Process packet trailers</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Basic byte extraction
+Dim data As String
+data = Chr$(65) &amp; Chr$(66) &amp; Chr$(67)  &#x27; &quot;ABC&quot;
+
+Debug.Print RightB(data, 2)            &#x27; Last 2 bytes
+Debug.Print RightB(data, 1)            &#x27; Last byte
+
+&#x27; Example 2: Checksum extraction
+Dim packet As String
+packet = ReceiveNetworkData()
+
+Dim checksum As String
+checksum = RightB(packet, 4)  &#x27; 4-byte checksum at end
+
+&#x27; Example 3: File trailer
+Dim fileData As String
+Open &quot;data.bin&quot; For Binary As #1
+fileData = Input$(LOF(1), #1)
+Close #1
+
+Dim trailer As String
+trailer = RightB(fileData, 16)  &#x27; 16-byte trailer
+
+&#x27; Example 4: DBCS text handling
+Dim japaneseText As String
+japaneseText = LoadJapaneseText()  &#x27; Load Japanese text
+
+Dim lastBytes As String
+lastBytes = RightB(japaneseText, 4)  &#x27; Last 4 bytes (may be 2 DBCS chars)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Extract checksum
+Function GetChecksum(data As String) As String
+If LenB(data) &lt; 4 Then
+GetChecksum = &quot;&quot;
+Else
+GetChecksum = RightB(data, 4)
+End If
+End Function
+
+&#x27; Pattern 2: Validate trailer
+Function ValidateTrailer(data As String, trailer As String) As Boolean
+ValidateTrailer = (RightB(data, LenB(trailer)) = trailer)
+End Function
+
+&#x27; Pattern 3: Extract record suffix
+Function GetRecordSuffix(record As String) As String
+&#x27; Last 8 bytes contain record suffix
+GetRecordSuffix = RightB(record, 8)
+End Function
+
+&#x27; Pattern 4: Parse packet trailer
+Sub ParsePacket(packet As String)
+Dim payload As String
+Dim trailer As String
+
+trailer = RightB(packet, 8)  &#x27; 8-byte trailer
+payload = LeftB(packet, LenB(packet) - 8)  &#x27; All but trailer
+
+&#x27; Process payload and trailer
+End Sub
+
+&#x27; Pattern 5: Extract file extension bytes
+Function GetExtensionBytes(fileName As String) As String
+&#x27; Assumes extension is last 3 bytes after dot
+GetExtensionBytes = RightB(fileName, 3)
+End Function</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example: CRC validation
+Function ValidateCRC(data As String) As Boolean
+Dim crc As String
+Dim payload As String
+
+If LenB(data) &lt; 4 Then
+ValidateCRC = False
+Exit Function
+End If
+
+crc = RightB(data, 4)
+payload = LeftB(data, LenB(data) - 4)
+
+ValidateCRC = (CalculateCRC(payload) = crc)
+End Function
+
+&#x27; Example: Extract GUID data
+Sub ExtractGUID(guidData As String)
+Dim data4 As String
+data4 = RightB(guidData, 8)  &#x27; Last 8 bytes of GUID
+Debug.Print &quot;Data4: &quot; &amp; BytesToHex(data4)
+End Sub
+
+&#x27; Example: Binary record trailer
+Function GetRecordTrailer(record As String) As String
+&#x27; Records have 12-byte trailer
+Const TRAILER_SIZE As Long = 12
+
+If LenB(record) &gt;= TRAILER_SIZE Then
+GetRecordTrailer = RightB(record, TRAILER_SIZE)
+Else
+GetRecordTrailer = record
+End If
+End Function</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>RightB$</code>: String-returning variant of RightB</li>
+<li><code>LeftB</code>: Returns leftmost bytes from string</li>
+<li><code>LeftB$</code>: String-returning variant of LeftB</li>
+<li><code>MidB</code>: Returns bytes from middle of string</li>
+<li><code>MidB$</code>: String-returning variant of MidB</li>
+<li><code>LenB</code>: Returns byte length of string</li>
+<li><code>Right</code>: Character-based right extraction</li>
+<li><code>Left</code>: Character-based left extraction</li>
+<li><code>Mid</code>: Character-based middle extraction</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - formatdatetime - String">
+    <title>formatdatetime - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / formatdatetime</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="formatdatetime-function"><code>FormatDateTime</code> Function</h1>
+<p>Returns an expression formatted as a date or time.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">FormatDateTime(date[, namedformat])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>date</strong>: Required. Date expression to be formatted.</li>
+<li><strong>namedformat</strong>: Optional. <code>Numeric</code> value that indicates the date/time format used. If omitted, <code>vbGeneralDate</code> is used.</li>
+</ul>
+<h2 id="named-format-constants">Named Format Constants</h2>
+<ul>
+<li><strong><code>vbGeneralDate</code></strong> (0): Display a date and/or time. For real numbers, display a date and time. If there is no fractional part, display only a date. If there is no integer part, display time only. Date and time display is determined by system settings.</li>
+<li><strong><code>vbLongDate</code></strong> (1): Display a date using the long date format specified in the computer's regional settings.</li>
+<li><strong><code>vbShortDate</code></strong> (2): Display a date using the short date format specified in the computer's regional settings.</li>
+<li><strong><code>vbLongTime</code></strong> (3): Display a time using the time format specified in the computer's regional settings.</li>
+<li><strong><code>vbShortTime</code></strong> (4): Display a time using the 24-hour format (hh:mm).</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Variant of subtype String containing the formatted date/time expression.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>FormatDateTime</code> function provides a simple way to format date and time values
+using predefined formats based on the system's regional settings. It's easier to use
+than Format for common date/time formatting needs.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Uses system locale for date/time formatting</li>
+<li>Only supports 5 predefined formats</li>
+<li>Less flexible than Format function</li>
+<li>Locale-aware (respects regional settings)</li>
+<li>Returns empty string if date is Null</li>
+<li>Date-only values show date without time</li>
+<li>Time-only values show time without date</li>
+<li>Format determined by Windows regional settings</li>
+<li>Cannot customize format patterns</li>
+<li>Easier for simple date/time display</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ul>
+<li>Display dates in user's preferred format</li>
+<li>Show timestamps in applications</li>
+<li>Format dates for reports</li>
+<li>Display file modification times</li>
+<li>Show appointment times</li>
+<li>Format log timestamps</li>
+<li>Display birth dates</li>
+<li>Show transaction dates</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim dt As Date
+dt = #1/15/2025 3:45:30 PM#
+
+&#x27; General date (default)
+Debug.Print FormatDateTime(dt)                    &#x27; 1/15/2025 3:45:30 PM
+Debug.Print FormatDateTime(dt, vbGeneralDate)     &#x27; 1/15/2025 3:45:30 PM
+
+&#x27; Long date
+Debug.Print FormatDateTime(dt, vbLongDate)        &#x27; Wednesday, January 15, 2025
+
+&#x27; Short date
+Debug.Print FormatDateTime(dt, vbShortDate)       &#x27; 1/15/2025
+
+&#x27; Long time
+Debug.Print FormatDateTime(dt, vbLongTime)        &#x27; 3:45:30 PM
+
+&#x27; Short time
+Debug.Print FormatDateTime(dt, vbShortTime)       &#x27; 15:45</code></pre>
+<h3 id="date-only">Date Only</h3>
+<pre><code class="language-vbnet">Dim dateOnly As Date
+dateOnly = #1/15/2025#
+
+Debug.Print FormatDateTime(dateOnly, vbGeneralDate)  &#x27; 1/15/2025
+Debug.Print FormatDateTime(dateOnly, vbLongDate)     &#x27; Wednesday, January 15, 2025
+Debug.Print FormatDateTime(dateOnly, vbShortDate)    &#x27; 1/15/2025</code></pre>
+<h3 id="time-only">Time Only</h3>
+<pre><code class="language-vbnet">Dim timeOnly As Date
+timeOnly = #3:45:30 PM#
+
+Debug.Print FormatDateTime(timeOnly, vbGeneralDate)  &#x27; 3:45:30 PM
+Debug.Print FormatDateTime(timeOnly, vbLongTime)     &#x27; 3:45:30 PM
+Debug.Print FormatDateTime(timeOnly, vbShortTime)    &#x27; 15:45</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="display-current-datetime">Display Current Date/Time</h3>
+<pre><code class="language-vbnet">Sub ShowCurrentDateTime()
+Debug.Print &quot;Current Date (Long): &quot; &amp; FormatDateTime(Now, vbLongDate)
+Debug.Print &quot;Current Date (Short): &quot; &amp; FormatDateTime(Now, vbShortDate)
+Debug.Print &quot;Current Time (Long): &quot; &amp; FormatDateTime(Now, vbLongTime)
+Debug.Print &quot;Current Time (Short): &quot; &amp; FormatDateTime(Now, vbShortTime)
+End Sub</code></pre>
+<h3 id="format-label-caption">Format Label Caption</h3>
+<pre><code class="language-vbnet">Sub UpdateDateLabel()
+lblCurrentDate.Caption = &quot;Today is &quot; &amp; FormatDateTime(Date, vbLongDate)
+lblCurrentTime.Caption = &quot;Time: &quot; &amp; FormatDateTime(Time, vbLongTime)
+End Sub</code></pre>
+<h3 id="log-entry-formatting">Log Entry Formatting</h3>
+<pre><code class="language-vbnet">Sub WriteLog(message As String)
+Dim logEntry As String
+Dim timestamp As String
+
+timestamp = FormatDateTime(Now, vbGeneralDate)
+logEntry = &quot;[&quot; &amp; timestamp &amp; &quot;] &quot; &amp; message
+
+Debug.Print logEntry
+&#x27; Or write to file
+End Sub</code></pre>
+<h3 id="display-file-information">Display File Information</h3>
+<pre><code class="language-vbnet">Sub ShowFileInfo(filePath As String)
+Dim fileDate As Date
+
+On Error GoTo ErrorHandler
+fileDate = FileDateTime(filePath)
+
+Debug.Print &quot;File: &quot; &amp; filePath
+Debug.Print &quot;Modified: &quot; &amp; FormatDateTime(fileDate, vbLongDate) &amp; _
+&quot; at &quot; &amp; FormatDateTime(fileDate, vbLongTime)
+Exit Sub
+
+ErrorHandler:
+Debug.Print &quot;Error reading file date&quot;
+End Sub</code></pre>
+<h3 id="format-listbox-items">Format <code>ListBox</code> Items</h3>
+<pre><code class="language-vbnet">Sub PopulateDateList(lstDates As ListBox, dates() As Date)
+Dim i As Long
+
+lstDates.Clear
+
+For i = LBound(dates) To UBound(dates)
+lstDates.AddItem FormatDateTime(dates(i), vbShortDate)
+Next i
+End Sub</code></pre>
+<h3 id="display-birthday">Display Birthday</h3>
+<pre><code class="language-vbnet">Function FormatBirthday(birthDate As Date) As String
+Dim age As Integer
+
+age = DateDiff(&quot;yyyy&quot;, birthDate, Date)
+FormatBirthday = FormatDateTime(birthDate, vbLongDate) &amp; &quot; (Age: &quot; &amp; age &amp; &quot;)&quot;
+End Function
+
+&#x27; Usage
+Debug.Print FormatBirthday(#3/15/1990#)</code></pre>
+<h3 id="format-appointment-display">Format Appointment Display</h3>
+<pre><code class="language-vbnet">Function FormatAppointment(appointmentDate As Date, description As String) As String
+Dim dateStr As String
+Dim timeStr As String
+
+dateStr = FormatDateTime(appointmentDate, vbLongDate)
+timeStr = FormatDateTime(appointmentDate, vbShortTime)
+
+FormatAppointment = description &amp; vbCrLf &amp; _
+&quot;Date: &quot; &amp; dateStr &amp; vbCrLf &amp; _
+&quot;Time: &quot; &amp; timeStr
+End Function</code></pre>
+<h3 id="display-relative-time">Display Relative Time</h3>
+<pre><code class="language-vbnet">Function FormatRelativeDate(dt As Date) As String
+Dim daysDiff As Long
+
+daysDiff = DateDiff(&quot;d&quot;, dt, Date)
+
+Select Case daysDiff
+Case 0
+FormatRelativeDate = &quot;Today at &quot; &amp; FormatDateTime(dt, vbShortTime)
+Case 1
+FormatRelativeDate = &quot;Yesterday at &quot; &amp; FormatDateTime(dt, vbShortTime)
+Case -1
+FormatRelativeDate = &quot;Tomorrow at &quot; &amp; FormatDateTime(dt, vbShortTime)
+Case Is &gt; 1
+FormatRelativeDate = FormatDateTime(dt, vbShortDate)
+Case Is &lt; -1
+FormatRelativeDate = FormatDateTime(dt, vbShortDate)
+End Select
+End Function</code></pre>
+<h3 id="format-database-display">Format Database Display</h3>
+<pre><code class="language-vbnet">Function GetFormattedDate(rs As ADODB.Recordset, fieldName As String) As String
+If IsNull(rs.Fields(fieldName).Value) Then
+GetFormattedDate = &quot;N/A&quot;
+Else
+GetFormattedDate = FormatDateTime(rs.Fields(fieldName).Value, vbShortDate)
+End If
+End Function</code></pre>
+<h3 id="create-date-range-display">Create Date Range Display</h3>
+<pre><code class="language-vbnet">Function FormatDateRange(startDate As Date, endDate As Date) As String
+FormatDateRange = FormatDateTime(startDate, vbShortDate) &amp; &quot; - &quot; &amp; _
+FormatDateTime(endDate, vbShortDate)
+End Function
+
+&#x27; Usage
+Debug.Print FormatDateRange(#1/1/2025#, #1/31/2025#)  &#x27; 1/1/2025 - 1/31/2025</code></pre>
+<h3 id="format-grid-display">Format Grid Display</h3>
+<pre><code class="language-vbnet">Sub PopulateTransactionGrid(grid As MSFlexGrid, transactions As Collection)
+Dim i As Long
+Dim trans As Variant
+
+grid.Clear
+grid.Rows = transactions.Count + 1
+
+&#x27; Headers
+grid.TextMatrix(0, 0) = &quot;Date&quot;
+grid.TextMatrix(0, 1) = &quot;Time&quot;
+grid.TextMatrix(0, 2) = &quot;Description&quot;
+
+i = 1
+For Each trans In transactions
+grid.TextMatrix(i, 0) = FormatDateTime(trans.TransDate, vbShortDate)
+grid.TextMatrix(i, 1) = FormatDateTime(trans.TransDate, vbShortTime)
+grid.TextMatrix(i, 2) = trans.Description
+i = i + 1
+Next trans
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="flexible-date-formatter">Flexible Date Formatter</h3>
+<pre><code class="language-vbnet">Function FormatDateEx(dt As Date, style As String) As String
+Select Case LCase(style)
+Case &quot;long&quot;
+FormatDateEx = FormatDateTime(dt, vbLongDate)
+Case &quot;short&quot;
+FormatDateEx = FormatDateTime(dt, vbShortDate)
+Case &quot;longtime&quot;
+FormatDateEx = FormatDateTime(dt, vbLongTime)
+Case &quot;shorttime&quot;
+FormatDateEx = FormatDateTime(dt, vbShortTime)
+Case &quot;full&quot;
+FormatDateEx = FormatDateTime(dt, vbLongDate) &amp; &quot; &quot; &amp; _
+FormatDateTime(dt, vbLongTime)
+Case &quot;compact&quot;
+FormatDateEx = FormatDateTime(dt, vbShortDate) &amp; &quot; &quot; &amp; _
+FormatDateTime(dt, vbShortTime)
+Case Else
+FormatDateEx = FormatDateTime(dt, vbGeneralDate)
+End Select
+End Function</code></pre>
+<h3 id="multi-format-display">Multi-Format Display</h3>
+<pre><code class="language-vbnet">Sub DisplayAllFormats(dt As Date)
+Debug.Print &quot;Date/Time: &quot; &amp; dt
+Debug.Print String(60, &quot;=&quot;)
+Debug.Print &quot;General Date:  &quot;, FormatDateTime(dt, vbGeneralDate)
+Debug.Print &quot;Long Date:     &quot;, FormatDateTime(dt, vbLongDate)
+Debug.Print &quot;Short Date:    &quot;, FormatDateTime(dt, vbShortDate)
+Debug.Print &quot;Long Time:     &quot;, FormatDateTime(dt, vbLongTime)
+Debug.Print &quot;Short Time:    &quot;, FormatDateTime(dt, vbShortTime)
+End Sub</code></pre>
+<h3 id="calendar-event-formatter">Calendar Event Formatter</h3>
+<pre><code class="language-vbnet">Type CalendarEvent
+Title As String
+StartTime As Date
+EndTime As Date
+AllDay As Boolean
+End Type
+
+Function FormatCalendarEvent(evt As CalendarEvent) As String
+Dim result As String
+
+result = evt.Title &amp; vbCrLf
+result = result &amp; FormatDateTime(evt.StartTime, vbLongDate) &amp; vbCrLf
+
+If evt.AllDay Then
+result = result &amp; &quot;All Day Event&quot;
+Else
+result = result &amp; FormatDateTime(evt.StartTime, vbShortTime) &amp; &quot; - &quot; &amp; _
+FormatDateTime(evt.EndTime, vbShortTime)
+End If
+
+FormatCalendarEvent = result
+End Function</code></pre>
+<h3 id="report-header-generator">Report Header Generator</h3>
+<pre><code class="language-vbnet">Function GenerateReportHeader(reportTitle As String) As String
+Dim header As String
+
+header = String(60, &quot;=&quot;) &amp; vbCrLf
+header = header &amp; reportTitle &amp; vbCrLf
+header = header &amp; &quot;Generated: &quot; &amp; FormatDateTime(Now, vbLongDate) &amp; vbCrLf
+header = header &amp; &quot;Time: &quot; &amp; FormatDateTime(Now, vbLongTime) &amp; vbCrLf
+header = header &amp; String(60, &quot;=&quot;) &amp; vbCrLf
+
+GenerateReportHeader = header
+End Function</code></pre>
+<h3 id="timestamp-logger">Timestamp Logger</h3>
+<pre><code class="language-vbnet">Class TimestampLogger
+Private logEntries As Collection
+
+Private Sub Class_Initialize()
+Set logEntries = New Collection
+End Sub
+
+Public Sub LogEvent(message As String, Optional includeTime As Boolean = True)
+Dim entry As String
+
+If includeTime Then
+entry = FormatDateTime(Now, vbShortDate) &amp; &quot; &quot; &amp; _
+FormatDateTime(Now, vbLongTime) &amp; &quot; - &quot; &amp; message
+Else
+entry = FormatDateTime(Now, vbShortDate) &amp; &quot; - &quot; &amp; message
+End If
+
+logEntries.Add entry
+End Sub
+
+Public Function GetLog() As String
+Dim entry As Variant
+Dim result As String
+
+For Each entry In logEntries
+result = result &amp; entry &amp; vbCrLf
+Next entry
+
+GetLog = result
+End Function
+End Class</code></pre>
+<h3 id="smart-date-display">Smart Date Display</h3>
+<pre><code class="language-vbnet">Function SmartFormatDate(dt As Date, Optional includeTime As Boolean = False) As String
+Dim today As Date
+Dim diff As Long
+
+today = Date
+diff = DateDiff(&quot;d&quot;, today, dt)
+
+If diff = 0 Then
+SmartFormatDate = &quot;Today&quot;
+ElseIf diff = -1 Then
+SmartFormatDate = &quot;Yesterday&quot;
+ElseIf diff = 1 Then
+SmartFormatDate = &quot;Tomorrow&quot;
+ElseIf diff &gt; -7 And diff &lt; 0 Then
+SmartFormatDate = Format(dt, &quot;dddd&quot;)  &#x27; Day name
+Else
+SmartFormatDate = FormatDateTime(dt, vbShortDate)
+End If
+
+If includeTime Then
+SmartFormatDate = SmartFormatDate &amp; &quot; at &quot; &amp; _
+FormatDateTime(dt, vbShortTime)
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeFormatDateTime(value As Variant, _
+Optional style As VbDateTimeFormat = vbGeneralDate) As String
+On Error GoTo ErrorHandler
+
+If IsNull(value) Then
+SafeFormatDateTime = &quot;N/A&quot;
+ElseIf IsDate(value) Then
+SafeFormatDateTime = FormatDateTime(CDate(value), style)
+Else
+SafeFormatDateTime = &quot;Invalid Date&quot;
+End If
+
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 13  &#x27; Type mismatch
+SafeFormatDateTime = &quot;Type Error&quot;
+Case 5   &#x27; Invalid procedure call
+SafeFormatDateTime = &quot;Invalid Format&quot;
+Case Else
+SafeFormatDateTime = &quot;Error&quot;
+End Select
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 13</strong> (Type Mismatch): Value is not a valid date</li>
+<li><strong>Error 5</strong> (Invalid procedure call): Invalid format constant</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>FormatDateTime</code> is fast for predefined formats</li>
+<li>Faster than <code>Format</code> for simple date/time display</li>
+<li>Locale lookups cached by system</li>
+<li>Minimal overhead for formatting</li>
+<li>Consider caching formatted strings for repeated display</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="use-formatdatetime-for-simple-formatting">Use <code>FormatDateTime</code> for Simple Formatting</h3>
+<pre><code class="language-vbnet">&#x27; Good - Simple and locale-aware
+formatted = FormatDateTime(dt, vbShortDate)
+
+&#x27; Overkill for simple display
+formatted = Format(dt, &quot;mm/dd/yyyy&quot;)</code></pre>
+<h3 id="handle-null-values">Handle Null Values</h3>
+<pre><code class="language-vbnet">&#x27; Good - Check for Null
+If Not IsNull(dateValue) Then
+formatted = FormatDateTime(dateValue, vbShortDate)
+Else
+formatted = &quot;N/A&quot;
+End If</code></pre>
+<h3 id="use-appropriate-format-for-context">Use Appropriate Format for Context</h3>
+<pre><code class="language-vbnet">&#x27; Good - Long date for formal display
+lblEventDate.Caption = FormatDateTime(eventDate, vbLongDate)
+
+&#x27; Good - Short date for compact display
+txtDate.Text = FormatDateTime(Date, vbShortDate)</code></pre>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<h3 id="formatdatetime-vs-format"><code>FormatDateTime</code> vs <code>Format</code></h3>
+<pre><code class="language-vbnet">&#x27; `FormatDateTime` - Predefined formats only
+result = FormatDateTime(Now, vbLongDate)
+
+&#x27; `Format` - Custom patterns possible
+result = Format(Now, &quot;dddd, mmmm d, yyyy&quot;)</code></pre>
+<h3 id="formatdatetime-vs-datepart"><code>FormatDateTime</code> vs <code>DatePart</code></h3>
+<pre><code class="language-vbnet">&#x27; FormatDateTime - Returns formatted string
+result = FormatDateTime(Now, vbShortDate)  &#x27; &quot;1/15/2025&quot;
+
+&#x27; DatePart - Returns numeric part
+result = DatePart(&quot;m&quot;, Now)                &#x27; 1</code></pre>
+<h3 id="formatdatetime-vs-cstrstr"><code>FormatDateTime</code> vs <code>CStr</code>/<code>Str</code></h3>
+<pre><code class="language-vbnet">&#x27; FormatDateTime - Locale-aware formatting
+result = FormatDateTime(Now, vbShortDate)  &#x27; &quot;1/15/2025&quot;
+
+&#x27; CStr - Default conversion
+result = CStr(Now)                         &#x27; &quot;1/15/2025 3:45:30 PM&quot;</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only 5 predefined formats available</li>
+<li>Cannot customize format patterns</li>
+<li>Uses system locale (cannot specify different locale)</li>
+<li>Less flexible than <code>Format</code> function</li>
+<li>No control over date/time separators</li>
+<li>Cannot specify culture-specific formats</li>
+<li><code>Format</code> style depends on Windows settings</li>
+</ul>
+<h2 id="regional-settings-impact">Regional Settings Impact</h2>
+<p>The <code>FormatDateTime</code> function behavior varies by locale:</p>
+<h3 id="vbshortdate">vbShortDate</h3>
+<ul>
+<li><strong>United States</strong>: 1/15/2025</li>
+<li><strong>United Kingdom</strong>: 15/01/2025</li>
+<li><strong>Germany</strong>: 15.01.2025</li>
+<li><strong>Japan</strong>: 2025/01/15</li>
+</ul>
+<h3 id="vblongdate">vbLongDate</h3>
+<ul>
+<li><strong>United States</strong>: Wednesday, January 15, 2025</li>
+<li><strong>France</strong>: mercredi 15 janvier 2025</li>
+<li><strong>Germany</strong>: Mittwoch, 15. Januar 2025</li>
+</ul>
+<h3 id="vbshorttime">vbShortTime</h3>
+<ul>
+<li><strong>Most locales</strong>: 15:45 (24-hour format)</li>
+</ul>
+<h3 id="vblongtime">vbLongTime</h3>
+<ul>
+<li><strong>United States</strong>: 3:45:30 PM</li>
+<li><strong>Europe</strong>: 15:45:30</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Format</code>: More flexible date/time formatting with custom patterns</li>
+<li><code>FormatCurrency</code>: Format numbers as currency</li>
+<li><code>FormatNumber</code>: Format numbers without currency symbol</li>
+<li><code>FormatPercent</code>: Format numbers as percentages</li>
+<li><code>DatePart</code>: Extract specific parts of a date</li>
+<li><code>DateDiff</code>: Calculate difference between dates</li>
+<li><code>CDate</code>: Convert expression to Date type</li>
+<li><code>IsDate</code>: Check if expression can be converted to Date</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

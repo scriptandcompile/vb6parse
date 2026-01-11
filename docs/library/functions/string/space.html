@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - space - String">
+    <title>space - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / space</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="space-function">Space Function</h1>
+<p>Returns a String consisting of the specified number of spaces.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Space(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. Long or any valid numeric expression specifying the number of spaces to return.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a String containing the specified number of space characters (ASCII 32).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Space function is useful for creating strings with a specific number of spaces, commonly used for:
+- Formatting output in fixed-width columns
+- Creating indentation in text
+- Padding strings to specific lengths
+- Aligning text in reports or displays
+- Creating blank lines or spacing in file output</p>
+<p>Key characteristics:
+- Returns a string of space characters (ASCII value 32)
+- If <code>number</code> is 0, returns an empty string ("")
+- If <code>number</code> is negative, generates Error 5 (Invalid procedure call or argument)
+- Non-integer values are rounded to the nearest integer
+- Maximum practical limit is system memory for string storage</p>
+<p>The Space function is related to other string generation functions:
+- <strong>Space(n)</strong>: Creates n space characters
+- <strong>String(n, character)</strong>: Creates n repetitions of any character
+- <strong>String(n, charcode)</strong>: Creates n repetitions of character with given ASCII code</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Column Formatting</strong>: Align text in fixed-width columns</li>
+<li><strong>Indentation</strong>: Create indented text structures</li>
+<li><strong>Padding</strong>: Pad strings to specific widths</li>
+<li><strong>Separation</strong>: Add spacing between elements</li>
+<li><strong>Report Generation</strong>: Format reports with proper alignment</li>
+<li><strong>Text Files</strong>: Create formatted text file output</li>
+<li><strong>Display Alignment</strong>: Align data in list boxes or text boxes</li>
+<li><strong>Table Creation</strong>: Build ASCII tables with proper spacing</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Create a string of 5 spaces
+Dim spaces As String
+spaces = Space(5)
+&#x27; Returns &quot;     &quot; (5 spaces)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Pad a string to 20 characters
+Dim name As String
+Dim paddedName As String
+name = &quot;John&quot;
+paddedName = name &amp; Space(20 - Len(name))
+&#x27; Returns &quot;John                &quot; (16 trailing spaces)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Create indented text
+Dim level As Integer
+Dim text As String
+level = 3
+text = Space(level * 4) &amp; &quot;Indented text&quot;
+&#x27; Returns &quot;            Indented text&quot; (12 spaces for 3 levels of 4-space indent)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Format columns in output
+Dim item As String
+Dim price As String
+item = &quot;Apple&quot;
+price = &quot;$1.99&quot;
+Debug.Print item &amp; Space(20 - Len(item)) &amp; price
+&#x27; Outputs: &quot;Apple               $1.99&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-padright">Pattern 1: <code>PadRight</code></h3>
+<p>Pad string to specified width (right padding)</p>
+<pre><code class="language-vbnet">Function PadRight(text As String, totalWidth As Integer) As String
+Dim currentLen As Integer
+currentLen = Len(text)
+
+If currentLen &gt;= totalWidth Then
+PadRight = text
+Else
+PadRight = text &amp; Space(totalWidth - currentLen)
+End If
+End Function</code></pre>
+<h3 id="pattern-2-padleft">Pattern 2: <code>PadLeft</code></h3>
+<p>Pad string to specified width (left padding)</p>
+<pre><code class="language-vbnet">Function PadLeft(text As String, totalWidth As Integer) As String
+Dim currentLen As Integer
+currentLen = Len(text)
+
+If currentLen &gt;= totalWidth Then
+PadLeft = text
+Else
+PadLeft = Space(totalWidth - currentLen) &amp; text
+End If
+End Function</code></pre>
+<h3 id="pattern-3-center">Pattern 3: Center</h3>
+<p>Center text within specified width</p>
+<pre><code class="language-vbnet">Function Center(text As String, totalWidth As Integer) As String
+Dim currentLen As Integer
+Dim leftPadding As Integer
+Dim rightPadding As Integer
+
+currentLen = Len(text)
+
+If currentLen &gt;= totalWidth Then
+Center = text
+Exit Function
+End If
+
+leftPadding = (totalWidth - currentLen) \ 2
+rightPadding = totalWidth - currentLen - leftPadding
+
+Center = Space(leftPadding) &amp; text &amp; Space(rightPadding)
+End Function</code></pre>
+<h3 id="pattern-4-createindent">Pattern 4: <code>CreateIndent</code></h3>
+<p>Create indentation for nested structures</p>
+<pre><code class="language-vbnet">Function CreateIndent(level As Integer, Optional spacesPerLevel As Integer = 4) As String
+If level &lt;= 0 Then
+CreateIndent = &quot;&quot;
+Else
+CreateIndent = Space(level * spacesPerLevel)
+End If
+End Function</code></pre>
+<h3 id="pattern-5-formatcolumn">Pattern 5: <code>FormatColumn</code></h3>
+<p>Format text in fixed-width column</p>
+<pre><code class="language-vbnet">Function FormatColumn(text As String, width As Integer, _
+Optional alignment As String = &quot;LEFT&quot;) As String
+Select Case UCase(alignment)
+Case &quot;LEFT&quot;
+FormatColumn = PadRight(text, width)
+Case &quot;RIGHT&quot;
+FormatColumn = PadLeft(text, width)
+Case &quot;CENTER&quot;
+FormatColumn = Center(text, width)
+Case Else
+FormatColumn = text
+End Select
+End Function</code></pre>
+<h3 id="pattern-6-createseparator">Pattern 6: <code>CreateSeparator</code></h3>
+<p>Create separator line with spaces</p>
+<pre><code class="language-vbnet">Function CreateSeparator(leftText As String, rightText As String, _
+totalWidth As Integer, _
+Optional separator As String = &quot; &quot;) As String
+Dim leftLen As Integer
+Dim rightLen As Integer
+Dim middleSpaces As Integer
+
+leftLen = Len(leftText)
+rightLen = Len(rightText)
+middleSpaces = totalWidth - leftLen - rightLen
+
+If middleSpaces &lt; 0 Then middleSpaces = 0
+
+CreateSeparator = leftText &amp; String(middleSpaces, separator) &amp; rightText
+End Function</code></pre>
+<h3 id="pattern-7-buildtablerow">Pattern 7: <code>BuildTableRow</code></h3>
+<p>Build formatted table row</p>
+<pre><code class="language-vbnet">Function BuildTableRow(columns() As String, widths() As Integer) As String
+Dim row As String
+Dim i As Integer
+
+row = &quot;&quot;
+For i = LBound(columns) To UBound(columns)
+If i &gt; LBound(columns) Then row = row &amp; &quot; | &quot;
+row = row &amp; PadRight(columns(i), widths(i))
+Next i
+
+BuildTableRow = row
+End Function</code></pre>
+<h3 id="pattern-8-indentmultiline">Pattern 8: <code>IndentMultiline</code></h3>
+<p>Indent all lines in multiline text</p>
+<pre><code class="language-vbnet">Function IndentMultiline(text As String, spaces As Integer) As String
+Dim lines() As String
+Dim result As String
+Dim i As Integer
+Dim indent As String
+
+lines = Split(text, vbCrLf)
+indent = Space(spaces)
+result = &quot;&quot;
+
+For i = LBound(lines) To UBound(lines)
+If i &gt; LBound(lines) Then result = result &amp; vbCrLf
+result = result &amp; indent &amp; lines(i)
+Next i
+
+IndentMultiline = result
+End Function</code></pre>
+<h3 id="pattern-9-createblankline">Pattern 9: <code>CreateBlankLine</code></h3>
+<p>Create blank line with specific spacing</p>
+<pre><code class="language-vbnet">Function CreateBlankLine(width As Integer) As String
+CreateBlankLine = Space(width)
+End Function</code></pre>
+<h3 id="pattern-10-alignnumber">Pattern 10: <code>AlignNumber</code></h3>
+<p>Right-align number in field</p>
+<pre><code class="language-vbnet">Function AlignNumber(value As Variant, width As Integer, _
+Optional decimals As Integer = 2) As String
+Dim formatted As String
+
+formatted = Format(value, &quot;0.&quot; &amp; String(decimals, &quot;0&quot;))
+AlignNumber = PadLeft(formatted, width)
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-tableformatter-class">Example 1: <code>TableFormatter</code> Class</h3>
+<p>Format data in ASCII tables</p>
+<pre><code class="language-vbnet">&#x27; Class: TableFormatter
+Private m_columnWidths() As Integer
+Private m_columnCount As Integer
+Private m_alignment() As String
+
+Private Sub Class_Initialize()
+m_columnCount = 0
+End Sub
+
+Public Sub SetColumns(widths() As Integer, Optional alignments As Variant)
+Dim i As Integer
+
+m_columnCount = UBound(widths) - LBound(widths) + 1
+ReDim m_columnWidths(LBound(widths) To UBound(widths))
+ReDim m_alignment(LBound(widths) To UBound(widths))
+
+For i = LBound(widths) To UBound(widths)
+m_columnWidths(i) = widths(i)
+If IsMissing(alignments) Then
+m_alignment(i) = &quot;LEFT&quot;
+Else
+m_alignment(i) = alignments(i)
+End If
+Next i
+End Sub
+
+Public Function FormatRow(values() As String) As String
+Dim row As String
+Dim i As Integer
+Dim formattedValue As String
+
+row = &quot;&quot;
+For i = LBound(values) To UBound(values)
+If i &gt; LBound(values) Then row = row &amp; &quot; | &quot;
+
+formattedValue = FormatCell(values(i), m_columnWidths(i), m_alignment(i))
+row = row &amp; formattedValue
+Next i
+
+FormatRow = row
+End Function
+
+Private Function FormatCell(value As String, width As Integer, _
+alignment As String) As String
+Dim currentLen As Integer
+Dim padding As Integer
+
+currentLen = Len(value)
+
+If currentLen &gt;= width Then
+FormatCell = Left(value, width)
+Exit Function
+End If
+
+padding = width - currentLen
+
+Select Case UCase(alignment)
+Case &quot;LEFT&quot;
+FormatCell = value &amp; Space(padding)
+Case &quot;RIGHT&quot;
+FormatCell = Space(padding) &amp; value
+Case &quot;CENTER&quot;
+Dim leftPad As Integer
+Dim rightPad As Integer
+leftPad = padding \ 2
+rightPad = padding - leftPad
+FormatCell = Space(leftPad) &amp; value &amp; Space(rightPad)
+Case Else
+FormatCell = value &amp; Space(padding)
+End Select
+End Function
+
+Public Function CreateHeader(headers() As String) As String
+Dim header As String
+Dim separator As String
+Dim i As Integer
+
+header = FormatRow(headers)
+separator = &quot;&quot;
+
+For i = LBound(m_columnWidths) To UBound(m_columnWidths)
+If i &gt; LBound(m_columnWidths) Then separator = separator &amp; &quot;-+-&quot;
+separator = separator &amp; String(m_columnWidths(i), &quot;-&quot;)
+Next i
+
+CreateHeader = header &amp; vbCrLf &amp; separator
+End Function
+
+Public Function GetTotalWidth() As Integer
+Dim total As Integer
+Dim i As Integer
+
+total = 0
+For i = LBound(m_columnWidths) To UBound(m_columnWidths)
+total = total + m_columnWidths(i)
+Next i
+
+&#x27; Add separator widths
+total = total + (m_columnCount - 1) * 3  &#x27; &quot; | &quot; between columns
+
+GetTotalWidth = total
+End Function</code></pre>
+<h3 id="example-2-reportgenerator-module">Example 2: <code>ReportGenerator</code> Module</h3>
+<p>Generate formatted text reports</p>
+<pre><code class="language-vbnet">&#x27; Module: ReportGenerator
+
+Public Function GenerateReport(title As String, data() As Variant, _
+columnHeaders() As String, _
+columnWidths() As Integer) As String
+Dim report As String
+Dim i As Integer
+Dim j As Integer
+Dim totalWidth As Integer
+Dim titleLine As String
+
+&#x27; Calculate total width
+totalWidth = 0
+For i = LBound(columnWidths) To UBound(columnWidths)
+totalWidth = totalWidth + columnWidths(i)
+Next i
+totalWidth = totalWidth + (UBound(columnWidths) - LBound(columnWidths)) * 3
+
+&#x27; Center title
+titleLine = CenterText(title, totalWidth)
+report = titleLine &amp; vbCrLf
+report = report &amp; String(totalWidth, &quot;=&quot;) &amp; vbCrLf
+
+&#x27; Add header
+For i = LBound(columnHeaders) To UBound(columnHeaders)
+If i &gt; LBound(columnHeaders) Then report = report &amp; &quot; | &quot;
+report = report &amp; PadRight(columnHeaders(i), columnWidths(i))
+Next i
+report = report &amp; vbCrLf
+
+&#x27; Add separator
+For i = LBound(columnWidths) To UBound(columnWidths)
+If i &gt; LBound(columnWidths) Then report = report &amp; &quot;-+-&quot;
+report = report &amp; String(columnWidths(i), &quot;-&quot;)
+Next i
+report = report &amp; vbCrLf
+
+&#x27; Add data rows
+For i = LBound(data, 1) To UBound(data, 1)
+For j = LBound(data, 2) To UBound(data, 2)
+If j &gt; LBound(data, 2) Then report = report &amp; &quot; | &quot;
+report = report &amp; PadRight(CStr(data(i, j)), columnWidths(j))
+Next j
+report = report &amp; vbCrLf
+Next i
+
+GenerateReport = report
+End Function
+
+Private Function CenterText(text As String, width As Integer) As String
+Dim textLen As Integer
+Dim leftPad As Integer
+Dim rightPad As Integer
+
+textLen = Len(text)
+
+If textLen &gt;= width Then
+CenterText = text
+Exit Function
+End If
+
+leftPad = (width - textLen) \ 2
+rightPad = width - textLen - leftPad
+
+CenterText = Space(leftPad) &amp; text &amp; Space(rightPad)
+End Function
+
+Private Function PadRight(text As String, width As Integer) As String
+If Len(text) &gt;= width Then
+PadRight = Left(text, width)
+Else
+PadRight = text &amp; Space(width - Len(text))
+End If
+End Function
+
+Public Function CreateSummaryLine(label As String, value As String, _
+totalWidth As Integer) As String
+Dim labelLen As Integer
+Dim valueLen As Integer
+Dim spacesNeeded As Integer
+
+labelLen = Len(label)
+valueLen = Len(value)
+spacesNeeded = totalWidth - labelLen - valueLen
+
+If spacesNeeded &lt; 1 Then spacesNeeded = 1
+
+CreateSummaryLine = label &amp; Space(spacesNeeded) &amp; value
+End Function</code></pre>
+<h3 id="example-3-codeformatter-class">Example 3: <code>CodeFormatter</code> Class</h3>
+<p>Format source code with indentation</p>
+<pre><code class="language-vbnet">&#x27; Class: CodeFormatter
+Private m_indentLevel As Integer
+Private m_spacesPerIndent As Integer
+Private m_output As String
+
+Private Sub Class_Initialize()
+m_indentLevel = 0
+m_spacesPerIndent = 4
+m_output = &quot;&quot;
+End Sub
+
+Public Property Let SpacesPerIndent(value As Integer)
+If value &gt; 0 Then m_spacesPerIndent = value
+End Property
+
+Public Sub IncreaseIndent()
+m_indentLevel = m_indentLevel + 1
+End Sub
+
+Public Sub DecreaseIndent()
+If m_indentLevel &gt; 0 Then
+m_indentLevel = m_indentLevel - 1
+End If
+End Sub
+
+Public Sub AddLine(text As String)
+Dim indent As String
+indent = Space(m_indentLevel * m_spacesPerIndent)
+
+If m_output &lt;&gt; &quot;&quot; Then m_output = m_output &amp; vbCrLf
+m_output = m_output &amp; indent &amp; text
+End Sub
+
+Public Sub AddBlankLine()
+If m_output &lt;&gt; &quot;&quot; Then m_output = m_output &amp; vbCrLf
+End Sub
+
+Public Function GetOutput() As String
+GetOutput = m_output
+End Function
+
+Public Sub Clear()
+m_output = &quot;&quot;
+m_indentLevel = 0
+End Sub
+
+Public Sub AddBlock(blockStart As String, blockEnd As String, _
+lines() As String)
+Dim i As Integer
+
+AddLine blockStart
+IncreaseIndent
+
+For i = LBound(lines) To UBound(lines)
+AddLine lines(i)
+Next i
+
+DecreaseIndent
+AddLine blockEnd
+End Sub</code></pre>
+<h3 id="example-4-listboxformatter-module">Example 4: <code>ListBoxFormatter</code> Module</h3>
+<p>Format items for list box display</p>
+<pre><code class="language-vbnet">&#x27; Module: ListBoxFormatter
+
+Public Function FormatListItem(item As String, value As String, _
+totalWidth As Integer, _
+Optional separator As String = &quot; &quot;) As String
+Dim itemLen As Integer
+Dim valueLen As Integer
+Dim separatorLen As Integer
+Dim spacesNeeded As Integer
+
+itemLen = Len(item)
+valueLen = Len(value)
+separatorLen = Len(separator)
+
+spacesNeeded = totalWidth - itemLen - valueLen
+
+If spacesNeeded &lt; 1 Then spacesNeeded = 1
+
+FormatListItem = item &amp; Space(spacesNeeded) &amp; value
+End Function
+
+Public Sub PopulateFormattedList(lst As ListBox, items() As String, _
+values() As String, width As Integer)
+Dim i As Integer
+
+lst.Clear
+
+For i = LBound(items) To UBound(items)
+lst.AddItem FormatListItem(items(i), values(i), width)
+Next i
+End Sub
+
+Public Function CreateTreeItem(text As String, level As Integer, _
+Optional expandSymbol As String = &quot;+&quot;) As String
+Dim indent As String
+
+indent = Space(level * 2)
+
+If level &gt; 0 Then
+CreateTreeItem = indent &amp; expandSymbol &amp; &quot; &quot; &amp; text
+Else
+CreateTreeItem = text
+End If
+End Function
+
+Public Function AlignCurrency(amount As Double, width As Integer) As String
+Dim formatted As String
+
+formatted = FormatCurrency(amount, 2)
+AlignCurrency = Space(width - Len(formatted)) &amp; formatted
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The Space function can generate the following errors:</p>
+<ul>
+<li><strong>Error 5</strong> (Invalid procedure call or argument): If number is negative</li>
+<li><strong>Error 6</strong> (Overflow): If number exceeds Long range</li>
+<li><strong>Error 7</strong> (Out of memory): If resulting string exceeds available memory</li>
+<li><strong>Error 13</strong> (Type mismatch): If number is not numeric</li>
+</ul>
+<p>Always validate inputs:</p>
+<pre><code class="language-vbnet">On Error Resume Next
+result = Space(count)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Error creating spaces: &quot; &amp; Err.Description
+End If</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Very fast for small to moderate space counts (&lt; 1000)</li>
+<li>For large space counts, consider if you really need that many</li>
+<li>String concatenation in loops can be slow; build once when possible</li>
+<li>Space function is more efficient than repeated string concatenation</li>
+<li>Consider caching commonly used space strings</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate Count</strong>: Ensure space count is non-negative</li>
+<li><strong>Use Constants</strong>: Define column widths as constants for consistency</li>
+<li><strong>Avoid Magic Numbers</strong>: Use named constants instead of literal numbers</li>
+<li><strong>Handle Edge Cases</strong>: Check for zero or negative values</li>
+<li><strong>Consider Alternatives</strong>: For very large strings, evaluate necessity</li>
+<li><strong>Cache Results</strong>: Store frequently used space strings</li>
+<li><strong>Document Width</strong>: Comment expected column widths in code</li>
+<li><strong>Test Alignment</strong>: Verify output with different data lengths</li>
+<li><strong>Use Monospace</strong>: Ensure font is monospace for proper alignment</li>
+<li><strong>Combine with Format</strong>: Use with Format function for numeric alignment</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Space(n)</td>
+<td>n spaces</td>
+<td>Space(5)</td>
+<td>"     "</td>
+</tr>
+<tr>
+<td>String(n, " ")</td>
+<td>n of any character</td>
+<td>String(5, " ")</td>
+<td>"     "</td>
+</tr>
+<tr>
+<td>String(n, 32)</td>
+<td>n of ASCII char</td>
+<td>String(5, 32)</td>
+<td>"     "</td>
+</tr>
+<tr>
+<td>String(n, "*")</td>
+<td>n asterisks</td>
+<td>String(5, "*")</td>
+<td>"<strong>*</strong>"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-considerations">Platform Considerations</h2>
+<ul>
+<li>Available in VB6, VBA (all versions)</li>
+<li>Part of core string functions</li>
+<li>Consistent behavior across platforms</li>
+<li>Subject to system memory limits</li>
+<li>Maximum string length: approximately 2 billion characters (limited by available memory)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot create negative number of spaces (generates error)</li>
+<li>Limited by available system memory</li>
+<li>Non-integer values are rounded (e.g., Space(3.7) = Space(4))</li>
+<li>Returns empty string for Space(0)</li>
+<li>Not suitable for creating non-breaking spaces (use Chr(160) for HTML/Unicode)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>String</code>: Creates a string of repeated characters</li>
+<li><code>SPC</code>: Positions output in Print # statements</li>
+<li><code>Tab</code>: Positions output at specific column in Print # statements</li>
+<li><code>LSet</code>: Left-aligns string within string variable</li>
+<li><code>RSet</code>: Right-aligns string within string variable</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - replace - String">
+    <title>replace - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / replace</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="replace-function">Replace Function</h1>
+<p>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Replace(expression, find, replace, [start], [count], [compare])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>expression</code> - Required. String expression containing substring to replace.</li>
+<li><code>find</code> - Required. Substring being searched for.</li>
+<li><code>replace</code> - Required. Replacement substring.</li>
+<li><code>start</code> - Optional. Position within expression where substring search is to begin. If omitted, 1 is assumed. Must be used in conjunction with count.</li>
+<li><code>count</code> - Optional. Number of substring substitutions to perform. If omitted, default value is -1, which means make all possible substitutions.</li>
+<li><code>compare</code> - Optional. Numeric value indicating the kind of comparison to use when evaluating substrings. If omitted, 0 is assumed (vbBinaryCompare).</li>
+</ul>
+<h2 id="compare-values">Compare Values</h2>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vbBinaryCompare</td>
+<td>0</td>
+<td>Perform a binary comparison (case-sensitive)</td>
+</tr>
+<tr>
+<td>vbTextCompare</td>
+<td>1</td>
+<td>Perform a textual comparison (case-insensitive)</td>
+</tr>
+<tr>
+<td>vbDatabaseCompare</td>
+<td>2</td>
+<td>Perform a comparison based on database settings (Microsoft Access only)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> with the replacements made. The return value depends on the parameters:</p>
+<table>
+<thead>
+<tr>
+<th>If</th>
+<th>Replace Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>expression is zero-length</td>
+<td>Zero-length string ("")</td>
+</tr>
+<tr>
+<td>expression is Null</td>
+<td>An error</td>
+</tr>
+<tr>
+<td>find is zero-length</td>
+<td>Copy of expression</td>
+</tr>
+<tr>
+<td>replace is zero-length</td>
+<td>Copy of expression with all find occurrences removed</td>
+</tr>
+<tr>
+<td>start &gt; Len(expression)</td>
+<td>Zero-length string ("")</td>
+</tr>
+<tr>
+<td>count is 0</td>
+<td>Copy of expression</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Replace</code> function returns a string with substitutions made. Unlike the <code>Replace</code> method of regular expressions, this function performs simple string substitution without pattern matching.</p>
+<p>The return value of the <code>Replace</code> function is a string that begins at the position specified by <code>start</code>, with substitutions made, and concludes at the end of the <code>expression</code> string. It is not a copy of the original string from start to finish.</p>
+<p><strong>Important Notes</strong>:
+- If <code>start</code> is specified, the return value starts from that position, not from position 1
+- The original string before <code>start</code> position is not included in the result
+- Use <code>count</code> parameter to limit the number of replacements
+- Binary comparison (default) is case-sensitive; textual comparison is case-insensitive
+- Empty <code>find</code> string returns the original expression unchanged
+- Empty <code>replace</code> string removes all occurrences of <code>find</code></p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Text Sanitization</strong>: Remove or replace unwanted characters from user input</li>
+<li><strong>Data Formatting</strong>: Replace delimiters or format characters in data</li>
+<li><strong>Template Processing</strong>: Replace placeholders in template strings</li>
+<li><strong>Path Manipulation</strong>: Replace path separators or modify file paths</li>
+<li><strong>Case Normalization</strong>: Replace mixed-case text with standardized case</li>
+<li><strong>String Cleaning</strong>: Remove multiple spaces, tabs, or other whitespace</li>
+<li><strong>Data Import/Export</strong>: Convert between different data formats</li>
+<li><strong>SQL String Building</strong>: Escape quotes and special characters</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-simple-replacement">Example 1: Simple Replacement</h3>
+<pre><code class="language-vbnet">Dim result As String
+result = Replace(&quot;Hello World&quot;, &quot;World&quot;, &quot;VB6&quot;)
+&#x27; Returns: &quot;Hello VB6&quot;</code></pre>
+<h3 id="example-2-case-insensitive-replacement">Example 2: Case-Insensitive Replacement</h3>
+<pre><code class="language-vbnet">Dim result As String
+result = Replace(&quot;Hello WORLD&quot;, &quot;world&quot;, &quot;VB6&quot;, 1, -1, vbTextCompare)
+&#x27; Returns: &quot;Hello VB6&quot;</code></pre>
+<h3 id="example-3-remove-substring">Example 3: Remove Substring</h3>
+<pre><code class="language-vbnet">Dim cleaned As String
+cleaned = Replace(&quot;Remove   extra   spaces&quot;, &quot;   &quot;, &quot; &quot;)
+&#x27; Returns: &quot;Remove extra spaces&quot;</code></pre>
+<h3 id="example-4-limited-replacements">Example 4: Limited Replacements</h3>
+<pre><code class="language-vbnet">Dim result As String
+result = Replace(&quot;one, two, three, four&quot;, &quot;, &quot;, &quot; | &quot;, 1, 2)
+&#x27; Returns: &quot;one | two | three, four&quot; (only first 2 commas replaced)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-removeallspaces">Pattern 1: <code>RemoveAllSpaces</code></h3>
+<pre><code class="language-vbnet">Function RemoveAllSpaces(text As String) As String
+RemoveAllSpaces = Replace(text, &quot; &quot;, &quot;&quot;)
+End Function</code></pre>
+<h3 id="pattern-2-normalizewhitespace">Pattern 2: <code>NormalizeWhitespace</code></h3>
+<pre><code class="language-vbnet">Function NormalizeWhitespace(text As String) As String
+Dim result As String
+result = text
+
+&#x27; Replace tabs with spaces
+result = Replace(result, vbTab, &quot; &quot;)
+
+&#x27; Replace multiple spaces with single space
+Do While InStr(result, &quot;  &quot;) &gt; 0
+result = Replace(result, &quot;  &quot;, &quot; &quot;)
+Loop
+
+NormalizeWhitespace = Trim(result)
+End Function</code></pre>
+<h3 id="pattern-3-escapesqlstring">Pattern 3: <code>EscapeSQLString</code></h3>
+<pre><code class="language-vbnet">Function EscapeSQLString(text As String) As String
+&#x27; Escape single quotes for SQL
+EscapeSQLString = Replace(text, &quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;)
+End Function</code></pre>
+<h3 id="pattern-4-replacemultiple">Pattern 4: <code>ReplaceMultiple</code></h3>
+<pre><code class="language-vbnet">Function ReplaceMultiple(text As String, findList() As String, _
+replaceList() As String) As String
+Dim i As Integer
+Dim result As String
+
+result = text
+
+For i = LBound(findList) To UBound(findList)
+result = Replace(result, findList(i), replaceList(i))
+Next i
+
+ReplaceMultiple = result
+End Function</code></pre>
+<h3 id="pattern-5-replacecaseinsensitive">Pattern 5: <code>ReplaceCaseInsensitive</code></h3>
+<pre><code class="language-vbnet">Function ReplaceCaseInsensitive(text As String, find As String, _
+replaceWith As String) As String
+ReplaceCaseInsensitive = Replace(text, find, replaceWith, 1, -1, vbTextCompare)
+End Function</code></pre>
+<h3 id="pattern-6-replacespecialchars">Pattern 6: <code>ReplaceSpecialChars</code></h3>
+<pre><code class="language-vbnet">Function ReplaceSpecialChars(text As String, replacement As String) As String
+Dim result As String
+Dim specialChars As String
+Dim i As Integer
+
+result = text
+specialChars = &quot;!@#$%^&amp;*()[]{}|;:,.&lt;&gt;?/&quot;
+
+For i = 1 To Len(specialChars)
+result = Replace(result, Mid(specialChars, i, 1), replacement)
+Next i
+
+ReplaceSpecialChars = result
+End Function</code></pre>
+<h3 id="pattern-7-sanitizefilename">Pattern 7: <code>SanitizeFilename</code></h3>
+<pre><code class="language-vbnet">Function SanitizeFilename(filename As String) As String
+Dim result As String
+Dim invalidChars As String
+Dim i As Integer
+
+result = filename
+invalidChars = &quot;\/:*?&quot;&quot;&lt;&gt;|&quot;
+
+For i = 1 To Len(invalidChars)
+result = Replace(result, Mid(invalidChars, i, 1), &quot;_&quot;)
+Next i
+
+SanitizeFilename = result
+End Function</code></pre>
+<h3 id="pattern-8-convertlineendings">Pattern 8: <code>ConvertLineEndings</code></h3>
+<pre><code class="language-vbnet">Function ConvertLineEndings(text As String, newEnding As String) As String
+Dim result As String
+
+result = text
+
+&#x27; Normalize to LF first
+result = Replace(result, vbCrLf, vbLf)
+result = Replace(result, vbCr, vbLf)
+
+&#x27; Convert to desired ending
+If newEnding &lt;&gt; vbLf Then
+result = Replace(result, vbLf, newEnding)
+End If
+
+ConvertLineEndings = result
+End Function</code></pre>
+<h3 id="pattern-9-replacewithcounter">Pattern 9: <code>ReplaceWithCounter</code></h3>
+<pre><code class="language-vbnet">Function CountReplacements(text As String, find As String) As Long
+&#x27; Count how many times find appears in text
+Dim original As String
+Dim replaced As String
+
+If Len(find) = 0 Then
+CountReplacements = 0
+Exit Function
+End If
+
+original = text
+replaced = Replace(original, find, &quot;&quot;)
+
+CountReplacements = (Len(original) - Len(replaced)) / Len(find)
+End Function</code></pre>
+<h3 id="pattern-10-templatereplace">Pattern 10: <code>TemplateReplace</code></h3>
+<pre><code class="language-vbnet">Function ProcessTemplate(template As String, replacements As Collection) As String
+&#x27; Replace {key} placeholders with values from collection
+Dim result As String
+Dim key As Variant
+Dim placeholder As String
+
+result = template
+
+For Each key In replacements
+placeholder = &quot;{&quot; &amp; key &amp; &quot;}&quot;
+result = Replace(result, placeholder, CStr(replacements(key)))
+Next key
+
+ProcessTemplate = result
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-text-sanitizer-with-multiple-rules">Example 1: Text Sanitizer with Multiple Rules</h3>
+<pre><code class="language-vbnet">&#x27; Advanced text sanitization with configurable rules
+Class TextSanitizer
+Private Type ReplacementRule
+Find As String
+ReplaceWith As String
+CaseSensitive As Boolean
+MaxReplacements As Long
+End Type
+
+Private m_rules() As ReplacementRule
+Private m_ruleCount As Integer
+
+Public Sub Initialize()
+m_ruleCount = 0
+ReDim m_rules(0 To 9)
+End Sub
+
+Public Sub AddRule(find As String, replaceWith As String, _
+Optional caseSensitive As Boolean = True, _
+Optional maxReplacements As Long = -1)
+If m_ruleCount &gt; UBound(m_rules) Then
+ReDim Preserve m_rules(0 To UBound(m_rules) + 10)
+End If
+
+With m_rules(m_ruleCount)
+.Find = find
+.ReplaceWith = replaceWith
+.CaseSensitive = caseSensitive
+.MaxReplacements = maxReplacements
+End With
+
+m_ruleCount = m_ruleCount + 1
+End Sub
+
+Public Function Sanitize(text As String) As String
+Dim result As String
+Dim i As Integer
+Dim compareMode As Integer
+
+result = text
+
+For i = 0 To m_ruleCount - 1
+With m_rules(i)
+If .CaseSensitive Then
+compareMode = vbBinaryCompare
+Else
+compareMode = vbTextCompare
+End If
+
+result = Replace(result, .Find, .ReplaceWith, 1, .MaxReplacements, compareMode)
+End With
+Next i
+
+Sanitize = result
+End Function
+
+Public Sub ClearRules()
+m_ruleCount = 0
+End Sub
+
+Public Function GetRuleCount() As Integer
+GetRuleCount = m_ruleCount
+End Function
+End Class</code></pre>
+<h3 id="example-2-string-template-engine">Example 2: String Template Engine</h3>
+<pre><code class="language-vbnet">&#x27; Simple template engine with variable replacement
+Module TemplateEngine
+Public Function ProcessTemplate(template As String, _
+variables As Scripting.Dictionary) As String
+Dim result As String
+Dim key As Variant
+Dim placeholder As String
+Dim value As String
+
+result = template
+
+&#x27; Replace {variable} placeholders
+For Each key In variables.Keys
+placeholder = &quot;{&quot; &amp; CStr(key) &amp; &quot;}&quot;
+value = CStr(variables(key))
+result = Replace(result, placeholder, value)
+Next key
+
+ProcessTemplate = result
+End Function
+
+Public Function ProcessConditional(template As String, condition As Boolean, _
+trueValue As String, falseValue As String) As String
+Dim result As String
+
+result = template
+
+If condition Then
+result = Replace(result, &quot;{if}&quot;, trueValue)
+result = Replace(result, &quot;{else}&quot;, &quot;&quot;)
+Else
+result = Replace(result, &quot;{if}&quot;, &quot;&quot;)
+result = Replace(result, &quot;{else}&quot;, falseValue)
+End If
+
+ProcessConditional = result
+End Function
+
+Public Function ProcessLoop(template As String, items() As String) As String
+Dim result As String
+Dim itemText As String
+Dim i As Integer
+
+&#x27; Extract the loop template
+Dim loopStart As Long
+Dim loopEnd As Long
+Dim loopTemplate As String
+
+loopStart = InStr(template, &quot;{loop}&quot;)
+loopEnd = InStr(template, &quot;{/loop}&quot;)
+
+If loopStart = 0 Or loopEnd = 0 Then
+ProcessLoop = template
+Exit Function
+End If
+
+loopTemplate = Mid(template, loopStart + 6, loopEnd - loopStart - 6)
+
+itemText = &quot;&quot;
+For i = LBound(items) To UBound(items)
+itemText = itemText &amp; Replace(loopTemplate, &quot;{item}&quot;, items(i))
+Next i
+
+result = Left(template, loopStart - 1) &amp; itemText &amp; Mid(template, loopEnd + 7)
+
+ProcessLoop = result
+End Function
+End Module</code></pre>
+<h3 id="example-3-csvtsv-converter">Example 3: CSV/TSV Converter</h3>
+<pre><code class="language-vbnet">&#x27; Convert between CSV and TSV formats
+Class DelimiterConverter
+Private m_sourceDelimiter As String
+Private m_targetDelimiter As String
+Private m_textQualifier As String
+
+Public Sub Initialize(sourceDelim As String, targetDelim As String, _
+Optional textQual As String = &quot;&quot;&quot;&quot;)
+m_sourceDelimiter = sourceDelim
+m_targetDelimiter = targetDelim
+m_textQualifier = textQual
+End Sub
+
+Public Function Convert(data As String) As String
+Dim result As String
+Dim inQuotes As Boolean
+Dim i As Long
+Dim ch As String
+
+result = &quot;&quot;
+inQuotes = False
+
+For i = 1 To Len(data)
+ch = Mid(data, i, 1)
+
+If ch = m_textQualifier Then
+inQuotes = Not inQuotes
+result = result &amp; ch
+ElseIf ch = m_sourceDelimiter And Not inQuotes Then
+result = result &amp; m_targetDelimiter
+Else
+result = result &amp; ch
+End If
+Next i
+
+Convert = result
+End Function
+
+Public Function ConvertSimple(data As String) As String
+&#x27; Simple conversion without quote handling
+ConvertSimple = Replace(data, m_sourceDelimiter, m_targetDelimiter)
+End Function
+
+Public Function EscapeField(field As String) As String
+&#x27; Escape field for CSV/TSV
+Dim needsQuotes As Boolean
+Dim result As String
+
+result = field
+
+&#x27; Check if field needs quoting
+needsQuotes = (InStr(field, m_sourceDelimiter) &gt; 0) Or _
+(InStr(field, m_textQualifier) &gt; 0) Or _
+(InStr(field, vbCrLf) &gt; 0)
+
+If needsQuotes Then
+&#x27; Escape existing quotes
+result = Replace(result, m_textQualifier, m_textQualifier &amp; m_textQualifier)
+result = m_textQualifier &amp; result &amp; m_textQualifier
+End If
+
+EscapeField = result
+End Function
+End Class</code></pre>
+<h3 id="example-4-smart-string-replacer">Example 4: Smart String Replacer</h3>
+<pre><code class="language-vbnet">&#x27; Advanced string replacement with history and undo
+Class SmartReplacer
+Private m_originalText As String
+Private m_currentText As String
+Private m_history() As String
+Private m_historyCount As Integer
+
+Public Sub Initialize(text As String)
+m_originalText = text
+m_currentText = text
+m_historyCount = 0
+ReDim m_history(0 To 99)
+AddToHistory text
+End Sub
+
+Public Function ReplaceText(find As String, replaceWith As String, _
+Optional caseSensitive As Boolean = True, _
+Optional maxCount As Long = -1) As String
+Dim compareMode As Integer
+
+If caseSensitive Then
+compareMode = vbBinaryCompare
+Else
+compareMode = vbTextCompare
+End If
+
+m_currentText = Replace(m_currentText, find, replaceWith, 1, maxCount, compareMode)
+AddToHistory m_currentText
+
+ReplaceText = m_currentText
+End Function
+
+Public Function ReplaceFromStart(find As String, replaceWith As String, _
+startPos As Long) As String
+&#x27; Replace starting from a specific position
+Dim beforeStart As String
+Dim afterStart As String
+
+If startPos &lt; 1 Then startPos = 1
+If startPos &gt; Len(m_currentText) Then
+ReplaceFromStart = m_currentText
+Exit Function
+End If
+
+beforeStart = Left(m_currentText, startPos - 1)
+afterStart = Replace(Mid(m_currentText, startPos), find, replaceWith)
+
+m_currentText = beforeStart &amp; afterStart
+AddToHistory m_currentText
+
+ReplaceFromStart = m_currentText
+End Function
+
+Public Function GetCurrent() As String
+GetCurrent = m_currentText
+End Function
+
+Public Function Undo() As String
+If m_historyCount &gt; 1 Then
+m_historyCount = m_historyCount - 1
+m_currentText = m_history(m_historyCount - 1)
+End If
+
+Undo = m_currentText
+End Function
+
+Public Function Reset() As String
+m_currentText = m_originalText
+m_historyCount = 0
+ReDim m_history(0 To 99)
+AddToHistory m_currentText
+
+Reset = m_currentText
+End Function
+
+Public Function GetReplacementCount(find As String) As Long
+Dim withFind As Long
+Dim withoutFind As Long
+
+If Len(find) = 0 Then
+GetReplacementCount = 0
+Exit Function
+End If
+
+withFind = Len(m_currentText)
+withoutFind = Len(Replace(m_currentText, find, &quot;&quot;))
+
+GetReplacementCount = (withFind - withoutFind) / Len(find)
+End Function
+
+Private Sub AddToHistory(text As String)
+If m_historyCount &gt; UBound(m_history) Then
+&#x27; Shift history
+Dim i As Integer
+For i = 0 To UBound(m_history) - 1
+m_history(i) = m_history(i + 1)
+Next i
+m_history(UBound(m_history)) = text
+Else
+m_history(m_historyCount) = text
+m_historyCount = m_historyCount + 1
+End If
+End Sub
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>Replace</code> function can raise errors in the following situations:</p>
+<ul>
+<li><strong>Invalid Procedure Call (Error 5)</strong>: When:</li>
+<li><code>start</code> parameter is less than 1</li>
+<li><code>count</code> parameter is less than -1</li>
+<li><strong>Type Mismatch (Error 13)</strong>: When parameters cannot be converted to appropriate types</li>
+<li><strong>Invalid Use of Null (Error 94)</strong>: When <code>expression</code> is Null</li>
+</ul>
+<p>Always validate inputs when necessary:</p>
+<pre><code class="language-vbnet">Function SafeReplace(text As String, find As String, replaceWith As String) As String
+On Error Resume Next
+SafeReplace = Replace(text, find, replaceWith)
+If Err.Number &lt;&gt; 0 Then
+SafeReplace = text  &#x27; Return original on error
+Err.Clear
+End If
+On Error GoTo 0
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>The <code>Replace</code> function is optimized and very fast for most use cases</li>
+<li>Multiple sequential Replace calls can be slow for large strings</li>
+<li>Consider building a new string if making many replacements</li>
+<li>Using <code>count</code> parameter can improve performance by limiting replacements</li>
+<li>Binary comparison is faster than textual comparison</li>
+<li>Replacing with empty string is efficient for removing substrings</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use Meaningful Names</strong>: Name variables clearly (find, replaceWith, not f, r)</li>
+<li><strong>Check Empty Strings</strong>: Validate find parameter is not empty when expected</li>
+<li><strong>Consider Case Sensitivity</strong>: Choose appropriate compare parameter</li>
+<li><strong>Limit Replacements</strong>: Use count parameter when you know the limit</li>
+<li><strong>Chain Carefully</strong>: Be aware that multiple Replace calls compound</li>
+<li><strong>Escape Special Characters</strong>: Properly escape quotes and special chars</li>
+<li><strong>Validate Start Position</strong>: Ensure start is within string bounds</li>
+<li><strong>Test Edge Cases</strong>: Test with empty strings, no matches, all matches</li>
+<li><strong>Document Assumptions</strong>: Comment why specific replacements are made</li>
+<li><strong>Use Constants</strong>: Define commonly replaced strings as constants</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Replace</strong></td>
+<td>Replace substring</td>
+<td>String (modified)</td>
+<td>Simple string substitution</td>
+</tr>
+<tr>
+<td><strong><code>InStr</code></strong></td>
+<td>Find substring position</td>
+<td>Long (position)</td>
+<td>Locate substring, check existence</td>
+</tr>
+<tr>
+<td><strong>Mid</strong></td>
+<td>Extract substring</td>
+<td>String (portion)</td>
+<td>Get part of string</td>
+</tr>
+<tr>
+<td><strong>Left/Right</strong></td>
+<td>Extract from ends</td>
+<td>String (portion)</td>
+<td>Get start/end of string</td>
+</tr>
+<tr>
+<td><strong>Trim/LTrim/RTrim</strong></td>
+<td>Remove whitespace</td>
+<td>String (trimmed)</td>
+<td>Clean string edges</td>
+</tr>
+<tr>
+<td><strong>UCase/LCase</strong></td>
+<td>Change case</td>
+<td>String (case changed)</td>
+<td>Normalize case</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and VBA (Office 2000 and later)</li>
+<li>Not available in earlier VBA versions (use custom function)</li>
+<li>Behavior consistent across Windows platforms</li>
+<li>Case-insensitive comparison uses system locale settings</li>
+<li>vbDatabaseCompare only works in Microsoft Access</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot use regular expressions (use VBScript.RegExp for patterns)</li>
+<li>Cannot replace with different string based on match context</li>
+<li>Case-insensitive comparison depends on system locale</li>
+<li>No built-in way to replace with function result</li>
+<li>Cannot perform multiple different replacements in one call</li>
+<li>When start &gt; 1, characters before start are not in result</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>InStr</code>: Returns position of substring within string</li>
+<li><code>InStrRev</code>: Returns position of substring searching from end</li>
+<li><code>Mid</code>: Returns specified portion of string</li>
+<li><code>Left</code>: Returns specified number of characters from left</li>
+<li><code>Right</code>: Returns specified number of characters from right</li>
+<li><code>LCase</code>: Converts string to lowercase</li>
+<li><code>UCase</code>: Converts string to uppercase</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

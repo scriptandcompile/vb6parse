@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - hex_dollar - Conversion">
+    <title>hex_dollar - Conversion - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/conversion/index.html">Conversion</a> / hex_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="hex-function"><code>Hex$</code> Function</h1>
+<p>The <code>Hex$</code> function in Visual Basic 6 returns a string representing the hexadecimal (base-16)
+value of a number. The dollar sign (<code>$</code>) suffix indicates that this function always returns a
+<code>String</code> type, never a <code>Variant</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Hex$(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. Any valid numeric expression or string expression. If <code>number</code> is not a
+whole number, it is rounded to the nearest whole number before being evaluated.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> representing the hexadecimal value of <code>number</code>. The string contains only
+hexadecimal digits (0-9, A-F) without any prefix (no "0x" or "&amp;H").</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="number-range-and-representation">Number Range and Representation</h3>
+<ul>
+<li>Positive numbers: Returns hexadecimal representation without leading zeros</li>
+<li>Negative numbers: Returns two's complement representation</li>
+<li><code>Byte</code> values: Up to 2 hex digits (00-FF)</li>
+<li><code>Integer</code> values: Up to 4 hex digits (0000-FFFF)</li>
+<li><code>Long</code> values: Up to 8 hex digits (00000000-FFFFFFFF)</li>
+<li>Zero: Returns "0" (single character)</li>
+<li>If <code>number</code> contains <code>Null</code>, returns <code>Null</code></li>
+</ul>
+<h3 id="type-differences-hex-vs-hex">Type Differences: <code>Hex$</code> vs <code>Hex</code></h3>
+<ul>
+<li><code>Hex$</code>: Always returns <code>String</code> type (never <code>Variant</code>)</li>
+<li><code>Hex</code>: Returns <code>Variant</code> (can propagate <code>Null</code> values)</li>
+<li>Use <code>Hex$</code> when you need guaranteed <code>String</code> return type</li>
+<li>Use <code>Hex</code> when working with potentially <code>Null</code> values</li>
+</ul>
+<h3 id="formatting-characteristics">Formatting Characteristics</h3>
+<ul>
+<li>No "0x" or "&amp;H" prefix in output</li>
+<li>Uses uppercase letters (A-F, not a-f)</li>
+<li>No leading zeros for positive numbers (except zero itself)</li>
+<li>Negative numbers use two's complement representation</li>
+<li>Maximum 8 characters for <code>Long</code> type</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-convert-numbers-to-hex-strings">1. Convert Numbers to Hex Strings</h3>
+<pre><code class="language-vbnet">Function NumberToHex(value As Long) As String
+NumberToHex = Hex$(value)
+End Function
+
+Debug.Print NumberToHex(255)      &#x27; &quot;FF&quot;
+Debug.Print NumberToHex(4096)     &#x27; &quot;1000&quot;
+Debug.Print NumberToHex(65535)    &#x27; &quot;FFFF&quot;</code></pre>
+<h3 id="2-display-rgb-color-values">2. Display RGB Color Values</h3>
+<pre><code class="language-vbnet">Function ColorToHex(colorValue As Long) As String
+Dim hexStr As String
+hexStr = Hex$(colorValue)
+&#x27; Pad to 6 characters for web colors
+ColorToHex = String$(6 - Len(hexStr), &quot;0&quot;) &amp; hexStr
+End Function
+
+Dim webColor As String
+webColor = &quot;#&quot; &amp; ColorToHex(RGB(255, 128, 64))</code></pre>
+<h3 id="3-debug-memory-addresses">3. Debug Memory Addresses</h3>
+<pre><code class="language-vbnet">Function FormatAddress(address As Long) As String
+Dim hexAddr As String
+hexAddr = Hex$(address)
+&#x27; Pad to 8 characters
+FormatAddress = &quot;0x&quot; &amp; String$(8 - Len(hexAddr), &quot;0&quot;) &amp; hexAddr
+End Function</code></pre>
+<h3 id="4-generate-unique-identifiers">4. Generate Unique Identifiers</h3>
+<pre><code class="language-vbnet">Function GenerateHexID() As String
+Randomize
+Dim part1 As Long, part2 As Long
+part1 = Int(Rnd * &amp;H7FFFFFFF)
+part2 = Int(Rnd * &amp;H7FFFFFFF)
+GenerateHexID = Hex$(part1) &amp; Hex$(part2)
+End Function</code></pre>
+<h3 id="5-format-byte-arrays-as-hex-strings">5. Format Byte Arrays as Hex Strings</h3>
+<pre><code class="language-vbnet">Function BytesToHex(bytes() As Byte) As String
+Dim result As String
+Dim i As Integer
+Dim hexByte As String
+
+For i = LBound(bytes) To UBound(bytes)
+hexByte = Hex$(bytes(i))
+If Len(hexByte) = 1 Then hexByte = &quot;0&quot; &amp; hexByte
+result = result &amp; hexByte
+Next i
+
+BytesToHex = result
+End Function</code></pre>
+<h3 id="6-log-error-codes-in-hex">6. Log Error Codes in Hex</h3>
+<pre><code class="language-vbnet">Sub LogError(errNum As Long, errDesc As String)
+Dim logFile As Integer
+logFile = FreeFile
+Open &quot;errors.log&quot; For Append As #logFile
+Print #logFile, &quot;Error 0x&quot; &amp; Hex$(errNum) &amp; &quot;: &quot; &amp; errDesc
+Close #logFile
+End Sub</code></pre>
+<h3 id="7-convert-character-codes">7. Convert Character Codes</h3>
+<pre><code class="language-vbnet">Function CharToHex(ch As String) As String
+If Len(ch) &gt; 0 Then
+CharToHex = Hex$(Asc(ch))
+Else
+CharToHex = &quot;&quot;
+End If
+End Function
+
+Debug.Print CharToHex(&quot;A&quot;)  &#x27; &quot;41&quot;
+Debug.Print CharToHex(&quot;Z&quot;)  &#x27; &quot;5A&quot;</code></pre>
+<h3 id="8-create-hexadecimal-dump">8. Create Hexadecimal Dump</h3>
+<pre><code class="language-vbnet">Function HexDump(data As String, Optional bytesPerLine As Integer = 16) As String
+Dim result As String
+Dim i As Long
+Dim hexVal As String
+
+For i = 1 To Len(data)
+hexVal = Hex$(Asc(Mid$(data, i, 1)))
+If Len(hexVal) = 1 Then hexVal = &quot;0&quot; &amp; hexVal
+result = result &amp; hexVal &amp; &quot; &quot;
+
+If (i Mod bytesPerLine) = 0 Then
+result = result &amp; vbCrLf
+End If
+Next i
+
+HexDump = result
+End Function</code></pre>
+<h3 id="9-parse-and-format-checksums">9. Parse and Format Checksums</h3>
+<pre><code class="language-vbnet">Function FormatChecksum(checksum As Long) As String
+Dim hexStr As String
+hexStr = Hex$(checksum)
+&#x27; Pad to 8 characters
+FormatChecksum = String$(8 - Len(hexStr), &quot;0&quot;) &amp; hexStr
+End Function
+
+Dim crc32 As Long
+crc32 = CalculateCRC32(fileData)
+Debug.Print &quot;CRC32: &quot; &amp; FormatChecksum(crc32)</code></pre>
+<h3 id="10-network-protocol-debugging">10. Network Protocol Debugging</h3>
+<pre><code class="language-vbnet">Function FormatPacketHeader(packetType As Byte, packetLen As Integer) As String
+Dim typeHex As String, lenHex As String
+
+typeHex = Hex$(packetType)
+If Len(typeHex) = 1 Then typeHex = &quot;0&quot; &amp; typeHex
+
+lenHex = Hex$(packetLen)
+While Len(lenHex) &lt; 4
+lenHex = &quot;0&quot; &amp; lenHex
+Wend
+
+FormatPacketHeader = &quot;Type: 0x&quot; &amp; typeHex &amp; &quot; Len: 0x&quot; &amp; lenHex
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Hex()</code> - Returns a <code>Variant</code> containing the hexadecimal value (can handle <code>Null</code>)</li>
+<li><code>Oct$()</code> - Returns the octal (base-8) representation of a number</li>
+<li><code>Str$()</code> - Converts a number to its decimal string representation</li>
+<li><code>Val()</code> - Converts a string to a numeric value</li>
+<li><code>CLng()</code> - Converts an expression to a <code>Long</code> integer</li>
+<li><code>Asc()</code> - Returns the character code of the first character in a string</li>
+<li><code>Chr$()</code> - Returns the character associated with a character code</li>
+<li><code>Format$()</code> - Formats expressions with more control over output</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="padding-hex-values">Padding Hex Values</h3>
+<pre><code class="language-vbnet">&#x27; Pad to specific width for consistent formatting
+Function PadHex(value As Long, width As Integer) As String
+Dim hexStr As String
+hexStr = Hex$(value)
+
+If Len(hexStr) &lt; width Then
+PadHex = String$(width - Len(hexStr), &quot;0&quot;) &amp; hexStr
+Else
+PadHex = hexStr
+End If
+End Function
+
+Debug.Print PadHex(255, 4)   &#x27; &quot;00FF&quot;
+Debug.Print PadHex(4096, 8)  &#x27; &quot;00001000&quot;</code></pre>
+<h3 id="adding-hex-prefix">Adding Hex Prefix</h3>
+<pre><code class="language-vbnet">Function HexWithPrefix(value As Long) As String
+HexWithPrefix = &quot;&amp;H&quot; &amp; Hex$(value)  &#x27; VB6 style
+&#x27; Or: HexWithPrefix = &quot;0x&quot; &amp; Hex$(value)  &#x27; C style
+End Function</code></pre>
+<h3 id="converting-back-from-hex-string">Converting Back from Hex String</h3>
+<pre><code class="language-vbnet">Function HexToLong(hexStr As String) As Long
+&#x27; Remove any prefix
+If Left$(hexStr, 2) = &quot;&amp;H&quot; Or Left$(hexStr, 2) = &quot;0x&quot; Then
+hexStr = Mid$(hexStr, 3)
+End If
+
+&#x27; Convert using Val with &amp;H prefix
+HexToLong = Val(&quot;&amp;H&quot; &amp; hexStr)
+End Function</code></pre>
+<h3 id="handling-byte-order-endianness">Handling Byte Order (Endianness)</h3>
+<pre><code class="language-vbnet">Function LongToHexBytes(value As Long) As String
+Dim b1 As Byte, b2 As Byte, b3 As Byte, b4 As Byte
+
+b1 = value And &amp;HFF
+b2 = (value \ &amp;H100) And &amp;HFF
+b3 = (value \ &amp;H10000) And &amp;HFF
+b4 = (value \ &amp;H1000000) And &amp;HFF
+
+&#x27; Little-endian format
+LongToHexBytes = Right$(&quot;0&quot; &amp; Hex$(b1), 2) &amp; &quot; &quot; &amp; _
+Right$(&quot;0&quot; &amp; Hex$(b2), 2) &amp; &quot; &quot; &amp; _
+Right$(&quot;0&quot; &amp; Hex$(b3), 2) &amp; &quot; &quot; &amp; _
+Right$(&quot;0&quot; &amp; Hex$(b4), 2)
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Hex$</code> is very fast for converting numbers to hexadecimal strings</li>
+<li>No significant performance difference between <code>Hex</code> and <code>Hex$</code> for non-Null values</li>
+<li>String concatenation in loops can be slow; consider building arrays and using <code>Join</code></li>
+<li>For large byte arrays, consider buffering output</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Efficient for large arrays
+Function BytesToHexEfficient(bytes() As Byte) As String
+Dim chunks() As String
+ReDim chunks(UBound(bytes) - LBound(bytes))
+
+Dim i As Long, idx As Long
+For i = LBound(bytes) To UBound(bytes)
+chunks(idx) = Right$(&quot;0&quot; &amp; Hex$(bytes(i)), 2)
+idx = idx + 1
+Next i
+
+BytesToHexEfficient = Join(chunks, &quot;&quot;)
+End Function</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-no-automatic-padding">1. No Automatic Padding</h3>
+<pre><code class="language-vbnet">&#x27; Hex$ does NOT add leading zeros
+Debug.Print Hex$(15)    &#x27; &quot;F&quot; (not &quot;0F&quot;)
+Debug.Print Hex$(255)   &#x27; &quot;FF&quot; (correct)
+Debug.Print Hex$(16)    &#x27; &quot;10&quot; (not &quot;0010&quot;)
+
+&#x27; Must pad manually for consistent width
+Function PadHex(val As Integer) As String
+Dim h As String
+h = Hex$(val)
+PadHex = String$(4 - Len(h), &quot;0&quot;) &amp; h
+End Function</code></pre>
+<h3 id="2-negative-numbers-use-twos-complement">2. Negative Numbers Use Two's Complement</h3>
+<pre><code class="language-vbnet">&#x27; Negative numbers are represented in two&#x27;s complement
+Debug.Print Hex$(-1)     &#x27; &quot;FFFFFFFF&quot; (Long)
+Debug.Print Hex$(-256)   &#x27; &quot;FFFFFF00&quot;
+
+&#x27; For signed interpretation, check range
+Function SignedHex(value As Long) As String
+If value &lt; 0 Then
+SignedHex = &quot;-&amp;H&quot; &amp; Hex$(Abs(value))
+Else
+SignedHex = &quot;&amp;H&quot; &amp; Hex$(value)
+End If
+End Function</code></pre>
+<h3 id="3-no-prefix-in-output">3. No Prefix in Output</h3>
+<pre><code class="language-vbnet">&#x27; Hex$ does NOT include &quot;&amp;H&quot; or &quot;0x&quot; prefix
+Dim hexValue As String
+hexValue = Hex$(255)      &#x27; &quot;FF&quot; (not &quot;&amp;HFF&quot; or &quot;0xFF&quot;)
+
+&#x27; Add prefix manually if needed
+hexValue = &quot;&amp;H&quot; &amp; Hex$(255)  &#x27; &quot;&amp;HFF&quot;
+hexValue = &quot;0x&quot; &amp; Hex$(255)  &#x27; &quot;0xFF&quot;</code></pre>
+<h3 id="4-uppercase-output-only">4. Uppercase Output Only</h3>
+<pre><code class="language-vbnet">&#x27; Hex$ always returns uppercase A-F
+Debug.Print Hex$(255)  &#x27; &quot;FF&quot; (not &quot;ff&quot;)
+
+&#x27; Convert to lowercase if needed
+hexValue = LCase$(Hex$(255))  &#x27; &quot;ff&quot;</code></pre>
+<h3 id="5-rounding-of-non-integer-values">5. Rounding of Non-Integer Values</h3>
+<pre><code class="language-vbnet">&#x27; Non-integers are rounded before conversion
+Debug.Print Hex$(15.3)   &#x27; &quot;F&quot; (15 rounded)
+Debug.Print Hex$(15.7)   &#x27; &quot;10&quot; (16 rounded)
+Debug.Print Hex$(15.5)   &#x27; &quot;10&quot; (banker&#x27;s rounding to even)
+
+&#x27; Use Fix or Int if you need specific rounding
+Debug.Print Hex$(Int(15.7))   &#x27; &quot;F&quot; (truncated to 15)
+Debug.Print Hex$(Fix(15.7))   &#x27; &quot;F&quot; (truncated to 15)</code></pre>
+<h3 id="6-type-range-limitations">6. Type Range Limitations</h3>
+<pre><code class="language-vbnet">&#x27; Different types have different ranges
+Dim b As Byte
+Dim i As Integer
+Dim l As Long
+
+b = 255
+Debug.Print Hex$(b)  &#x27; &quot;FF&quot;
+
+i = -1
+Debug.Print Hex$(i)  &#x27; &quot;FFFF&quot; (16-bit two&#x27;s complement)
+
+l = -1
+Debug.Print Hex$(l)  &#x27; &quot;FFFFFFFF&quot; (32-bit two&#x27;s complement)</code></pre>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="memory-dump-utility">Memory Dump Utility</h3>
+<pre><code class="language-vbnet">Sub DumpMemory(startAddr As Long, length As Integer)
+Dim i As Integer
+Dim addr As Long
+Dim byteVal As Byte
+Dim line As String
+Dim ascii As String
+
+For i = 0 To length - 1
+If (i Mod 16) = 0 Then
+If i &gt; 0 Then
+Debug.Print line &amp; &quot;  &quot; &amp; ascii
+End If
+addr = startAddr + i
+line = Right$(&quot;00000000&quot; &amp; Hex$(addr), 8) &amp; &quot;: &quot;
+ascii = &quot;&quot;
+End If
+
+&#x27; Get byte value (pseudo-code)
+byteVal = GetMemoryByte(startAddr + i)
+line = line &amp; Right$(&quot;0&quot; &amp; Hex$(byteVal), 2) &amp; &quot; &quot;
+
+If byteVal &gt;= 32 And byteVal &lt;= 126 Then
+ascii = ascii &amp; Chr$(byteVal)
+Else
+ascii = ascii &amp; &quot;.&quot;
+End If
+Next i
+
+&#x27; Print last line
+If ascii &lt;&gt; &quot;&quot; Then
+Debug.Print line &amp; String$(3 * (16 - Len(ascii)), &quot; &quot;) &amp; &quot;  &quot; &amp; ascii
+End If
+End Sub</code></pre>
+<h3 id="uuidguid-formatter">UUID/GUID Formatter</h3>
+<pre><code class="language-vbnet">Function FormatGUID(data1 As Long, data2 As Integer, data3 As Integer, _
+data4() As Byte) As String
+Dim result As String
+Dim i As Integer
+
+result = Right$(&quot;00000000&quot; &amp; Hex$(data1), 8) &amp; &quot;-&quot;
+result = result &amp; Right$(&quot;0000&quot; &amp; Hex$(data2), 4) &amp; &quot;-&quot;
+result = result &amp; Right$(&quot;0000&quot; &amp; Hex$(data3), 4) &amp; &quot;-&quot;
+
+For i = 0 To 1
+result = result &amp; Right$(&quot;0&quot; &amp; Hex$(data4(i)), 2)
+Next i
+result = result &amp; &quot;-&quot;
+
+For i = 2 To 7
+result = result &amp; Right$(&quot;0&quot; &amp; Hex$(data4(i)), 2)
+Next i
+
+FormatGUID = result
+End Function</code></pre>
+<h3 id="color-manipulation">Color Manipulation</h3>
+<pre><code class="language-vbnet">Function RGBToWebColor(r As Byte, g As Byte, b As Byte) As String
+RGBToWebColor = &quot;#&quot; &amp; _
+Right$(&quot;0&quot; &amp; Hex$(r), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex$(g), 2) &amp; _
+Right$(&quot;0&quot; &amp; Hex$(b), 2)
+End Function
+
+Function WebColorToRGB(webColor As String, r As Byte, g As Byte, b As Byte)
+&#x27; Remove # if present
+If Left$(webColor, 1) = &quot;#&quot; Then webColor = Mid$(webColor, 2)
+
+r = Val(&quot;&amp;H&quot; &amp; Mid$(webColor, 1, 2))
+g = Val(&quot;&amp;H&quot; &amp; Mid$(webColor, 3, 2))
+b = Val(&quot;&amp;H&quot; &amp; Mid$(webColor, 5, 2))
+End Function</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns only uppercase hexadecimal letters (A-F), not lowercase</li>
+<li>Does not include "&amp;H" or "0x" prefix (must add manually)</li>
+<li>Does not pad with leading zeros (must pad manually)</li>
+<li>Cannot handle <code>Null</code> values (use <code>Hex</code> variant function instead)</li>
+<li>Limited to 32-bit <code>Long</code> integer range (no 64-bit support in VB6)</li>
+<li>Negative numbers return two's complement representation</li>
+<li>Fractional values are rounded before conversion</li>
+<li>No direct support for byte-order conversion (endianness)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Conversion</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>
