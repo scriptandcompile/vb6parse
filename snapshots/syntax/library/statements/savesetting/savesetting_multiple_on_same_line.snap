@@ -1,0 +1,63 @@
+---
+source: src/syntax/library/statements/savesetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SaveSettingStatement
+      children:
+        - kind: SaveSettingKeyword
+          text: SaveSetting
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"A\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"S\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"K1\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"V1\""
+        - kind: ColonOperator
+          text: ":"
+        - kind: Whitespace
+          text: " "
+        - kind: SaveSettingKeyword
+          text: SaveSetting
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"A\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"S\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"K2\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"V2\""
+        - kind: Newline
+          text: "\n"
