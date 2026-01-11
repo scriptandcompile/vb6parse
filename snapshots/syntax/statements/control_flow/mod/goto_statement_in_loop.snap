@@ -1,0 +1,175 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: ForStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: i
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "1"
+                - kind: Whitespace
+                  text: " "
+                - kind: ToKeyword
+                  text: To
+                - kind: Whitespace
+                  text: " "
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "10"
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: IfStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Whitespace
+                          text: " "
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                            - kind: Whitespace
+                              text: " "
+                            - kind: EqualityOperator
+                              text: "="
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "5"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ThenKeyword
+                          text: Then
+                        - kind: Newline
+                          text: "\n"
+                        - kind: StatementList
+                          children:
+                            - kind: GotoStatement
+                              children:
+                                - kind: Whitespace
+                                  text: "            "
+                                - kind: GotoKeyword
+                                  text: GoTo
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Identifier
+                                  text: ExitLoop
+                                - kind: Newline
+                                  text: "\n"
+                            - kind: Whitespace
+                              text: "        "
+                        - kind: EndKeyword
+                          text: End
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: Debug
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: PrintKeyword
+                          text: Print
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: i
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: i
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: ExitLoop
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Debug
+                - kind: PeriodOperator
+                  text: "."
+                - kind: PrintKeyword
+                  text: Print
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"done\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

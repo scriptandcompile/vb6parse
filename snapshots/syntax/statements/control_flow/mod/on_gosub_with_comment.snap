@@ -1,0 +1,65 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnGoSubStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: choice
+                - kind: Whitespace
+                  text: " "
+                - kind: GoSubKeyword
+                  text: GoSub
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Sub1
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: Sub2
+                - kind: Whitespace
+                  text: " "
+                - kind: EndOfLineComment
+                  text: "' Call appropriate subroutine"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
