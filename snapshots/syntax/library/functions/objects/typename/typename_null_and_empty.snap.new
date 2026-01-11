@@ -1,0 +1,146 @@
+---
+source: src/syntax/library/functions/objects/typename.rs
+assertion_line: 488
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: TypeName
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: v
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Null\""
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: EndOfLineComment
+                      text: "' Handle Null"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: ElseIfClause
+                  children:
+                    - kind: ElseIfKeyword
+                      text: ElseIf
+                    - kind: Whitespace
+                      text: " "
+                    - kind: BinaryExpression
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: TypeName
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: v
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Empty\""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ThenKeyword
+                      text: Then
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: EndOfLineComment
+                          text: "' Handle Empty"
+                        - kind: Newline
+                          text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
