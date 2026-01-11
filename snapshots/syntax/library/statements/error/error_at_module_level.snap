@@ -1,0 +1,17 @@
+---
+source: src/syntax/library/statements/error.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: ErrorStatement
+      children:
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "53"
+        - kind: Newline
+          text: "\n"
