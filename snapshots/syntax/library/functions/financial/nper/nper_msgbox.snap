@@ -1,0 +1,57 @@
+---
+source: src/syntax/library/functions/financial/nper.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Months to payoff: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: NPer
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: pmt
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: pv
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"0.0\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
