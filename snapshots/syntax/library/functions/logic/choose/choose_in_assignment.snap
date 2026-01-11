@@ -1,0 +1,97 @@
+---
+source: src/syntax/library/functions/logic/choose.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: msg
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: msg
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Choose
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: errorLevel
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Success\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Warning\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Error\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Critical\""
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

@@ -326,8 +326,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn choose_basic() {
         let source = r#"
@@ -336,51 +336,14 @@ result = Choose(1, "First", "Second", "Third")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"First\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Second\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Third\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -391,58 +354,14 @@ result = Choose(index, "A", "B", "C", "D")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"A\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"B\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"D\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -453,65 +372,14 @@ value = Choose(level, 1, 5, 10, 50, 100)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("level"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("5"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("10"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("50"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("100"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -522,59 +390,14 @@ result = Choose(x + 1, "Zero", "One", "Two")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("x"),
-                                },
-                                Whitespace,
-                                AdditionOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Zero\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"One\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Two\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -585,88 +408,14 @@ dayName = Choose(Weekday(Date), "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("dayName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("Weekday"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            DateKeyword,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Sun\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Mon\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Tue\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Wed\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Thu\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Fri\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Sat\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -680,60 +429,14 @@ result = Choose(index, _
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Underscore,
-                        Newline,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"First\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Underscore,
-                        Newline,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Second\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Underscore,
-                        Newline,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Third\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -744,114 +447,14 @@ monthName = Choose(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("monthName"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("month"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Jan\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Feb\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Mar\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Apr\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"May\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Jun\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Jul\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Aug\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Sep\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Oct\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Nov\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Dec\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -864,68 +467,14 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("Choose"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("status"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Pending\""),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Active\""),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Closed\""),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"Active\""),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Process"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -936,27 +485,14 @@ MsgBox Choose(errorLevel, "Info", "Warning", "Error")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("MsgBox"),
-                Whitespace,
-                Identifier ("Choose"),
-                LeftParenthesis,
-                Identifier ("errorLevel"),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Info\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Warning\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Error\""),
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -970,89 +506,14 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"A\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"B\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"C\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IsNull"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"Invalid\""),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1063,58 +524,14 @@ color = Choose(colorCode, vbRed, vbGreen, vbBlue, vbYellow)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("color"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("colorCode"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbRed"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbGreen"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbBlue"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbYellow"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1125,79 +542,14 @@ isValid = Choose(dayOfWeek, False, True, True, True, True, True, False)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("isValid"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("dayOfWeek"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                FalseKeyword,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1210,77 +562,14 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetStatus"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("code"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetStatus"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Choose"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("code"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Pending\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Approved\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Rejected\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1291,90 +580,14 @@ result = Choose(x, Choose(y, "A", "B"), Choose(y, "C", "D"))
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("x"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("Choose"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("y"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"A\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"B\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("Choose"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("y"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"C\""),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        StringLiteralExpression {
-                                            StringLiteral ("\"D\""),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1385,66 +598,14 @@ discount = amount * Choose(customerType, 0.05, 0.1, 0.15, 0.2)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("discount"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("amount"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("Choose"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("customerType"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1460,81 +621,14 @@ End Select
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("3"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("1"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("DoSomething"),
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("2"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("DoOther"),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1545,51 +639,14 @@ dueDate = Choose(priority, #1/1/2000#, #1/15/2000#, #2/1/2000#)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("dueDate"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("priority"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            LiteralExpression {
-                                DateLiteral ("#1/1/2000#"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            LiteralExpression {
-                                DateLiteral ("#1/15/2000#"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            LiteralExpression {
-                                DateLiteral ("#2/1/2000#"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1602,54 +659,14 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("3"),
-                },
-                Newline,
-                StatementList {
-                    PrintStatement {
-                        Whitespace,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("Choose"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"First\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Second\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Third\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1660,65 +677,14 @@ result = Choose(selector, 100, "Text", #1/1/2000#, True, 3.14)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("selector"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("100"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Text\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            LiteralExpression {
-                                DateLiteral ("#1/1/2000#"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1729,57 +695,14 @@ value = Choose(index, obj.Property1, obj.Property2, obj.Property3)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            MemberAccessExpression {
-                                Identifier ("obj"),
-                                PeriodOperator,
-                                Identifier ("Property1"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            MemberAccessExpression {
-                                Identifier ("obj"),
-                                PeriodOperator,
-                                Identifier ("Property2"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            MemberAccessExpression {
-                                Identifier ("obj"),
-                                PeriodOperator,
-                                Identifier ("Property3"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1790,78 +713,14 @@ result = Choose(index, arr(0), arr(1), arr(2))
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("arr"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("arr"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("arr"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("2"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1873,68 +732,14 @@ msg = Choose(errorLevel, "Success", "Warning", "Error", "Critical")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("msg"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("msg"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("errorLevel"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Success\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Warning\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Error\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Critical\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1945,72 +750,14 @@ result = Choose(index, obj.Method1(), obj.Method2(), obj.Method3())
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                MemberAccessExpression {
-                                    Identifier ("obj"),
-                                    PeriodOperator,
-                                    Identifier ("Method1"),
-                                },
-                                LeftParenthesis,
-                                ArgumentList,
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                MemberAccessExpression {
-                                    Identifier ("obj"),
-                                    PeriodOperator,
-                                    Identifier ("Method2"),
-                                },
-                                LeftParenthesis,
-                                ArgumentList,
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                MemberAccessExpression {
-                                    Identifier ("obj"),
-                                    PeriodOperator,
-                                    Identifier ("Method3"),
-                                },
-                                LeftParenthesis,
-                                ArgumentList,
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2024,95 +771,14 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("counter"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("10"),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("status"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Choose"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("counter"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"A\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"B\""),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"C\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("counter"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("counter"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2123,55 +789,13 @@ result = Choose( index , "First" , "Second" , "Third" )
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Choose"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                        },
-                        Whitespace,
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"First\""),
-                            },
-                        },
-                        Whitespace,
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Second\""),
-                            },
-                        },
-                        Whitespace,
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Third\""),
-                            },
-                        },
-                        Whitespace,
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/logic/choose");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
