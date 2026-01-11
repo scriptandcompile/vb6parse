@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/string/formatpercent.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: Debug
+    - kind: Unknown
+      text: "."
+    - kind: PrintStatement
+      children:
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatPercent
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rs
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"CompletionRate\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: RightParenthesis
+          text: )

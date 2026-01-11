@@ -397,36 +397,23 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn formatpercent_basic() {
         let source = r"result = FormatPercent(0.75)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -435,35 +422,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -472,35 +439,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -509,47 +456,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            UnaryExpression {
-                                SubtractionOperator,
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Comma,
-                            },
-                        },
-                        Whitespace,
-                    },
-                },
-            },
-            Identifier ("vbTrue"),
-            Unknown,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -558,56 +473,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTrue"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbFalse"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTrue"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -616,21 +490,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Identifier ("Debug"),
-            Unknown,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                Identifier ("FormatPercent"),
-                LeftParenthesis,
-                SingleLiteral,
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -639,24 +507,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("MsgBox"),
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("FormatPercent"),
-                Unknown,
-                Identifier("rate"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -665,45 +524,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblMargin"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    StringLiteralExpression {
-                        StringLiteral ("\"Profit Margin: \""),
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("margin"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("2"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -712,45 +541,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("txtResult"),
-                    PeriodOperator,
-                    TextKeyword,
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("yesVotes"),
-                                },
-                                Whitespace,
-                                DivisionOperator,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("totalVotes"),
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -759,34 +558,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("MsgBox"),
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("FormatPercent"),
-                Unknown,
-                Unknown,
-                Identifier("currentValue"),
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("previousValue"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("previousValue"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -795,53 +575,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblGrade"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    StringLiteralExpression {
-                        StringLiteral ("\"Score: \""),
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("score"),
-                                    },
-                                    Whitespace,
-                                    DivisionOperator,
-                                    Whitespace,
-                                    IdentifierExpression {
-                                        Identifier ("maxScore"),
-                                    },
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -850,29 +592,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("lstResults"),
-                Unknown,
-                Identifier("AddItem"),
-                Whitespace,
-                Identifier("FormatPercent"),
-                Unknown,
-                Identifier("values"),
-                Unknown,
-                Identifier("i"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Whitespace,
-                Identifier("total"),
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -881,99 +609,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("report"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        BinaryExpression {
-                            BinaryExpression {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Passed: \""),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("FormatPercent"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            BinaryExpression {
-                                                IdentifierExpression {
-                                                    Identifier ("passed"),
-                                                },
-                                                Whitespace,
-                                                DivisionOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("total"),
-                                                },
-                                            },
-                                        },
-                                        Comma,
-                                        Whitespace,
-                                        Argument {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("1"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("vbCrLf"),
-                            },
-                        },
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"Failed: \""),
-                        },
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("failed"),
-                                    },
-                                    Whitespace,
-                                    DivisionOperator,
-                                    Whitespace,
-                                    IdentifierExpression {
-                                        Identifier ("total"),
-                                    },
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -982,53 +626,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("value"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                AssignmentStatement {
-                    IdentifierExpression {
-                        Identifier ("result"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("value"),
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("3"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1038,71 +644,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IsNull"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("value"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                ExitStatement {
-                    ExitKeyword,
-                    Whitespace,
-                    FunctionKeyword,
-                },
-                Whitespace,
-            },
-            Unknown,
-            Whitespace,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("CDbl"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("value"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1112,66 +662,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("IsNumeric"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("value"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Whitespace,
-                ExitStatement {
-                    ExitKeyword,
-                    Whitespace,
-                    FunctionKeyword,
-                },
-                Whitespace,
-            },
-            Unknown,
-            Whitespace,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("value"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1181,45 +680,15 @@ result = FormatPercent(value, 2)";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                GotoKeyword,
-                Whitespace,
-                Identifier ("ErrorHandler"),
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("value"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1230,51 +699,15 @@ Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        Identifier ("data"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("2"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1286,63 +719,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("absValue"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IsKeyword,
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    SingleLiteral,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("FormatPercent"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("value"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("3"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1351,53 +736,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("lblStatus"),
-                    PeriodOperator,
-                    Identifier ("Caption"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    StringLiteralExpression {
-                        StringLiteral ("\"Achievement: \""),
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("FormatPercent"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("actual"),
-                                    },
-                                    Whitespace,
-                                    DivisionOperator,
-                                    Whitespace,
-                                    IdentifierExpression {
-                                        Identifier ("target"),
-                                    },
-                                },
-                            },
-                            Comma,
-                            Whitespace,
-                            Argument {
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1406,42 +753,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbFalse"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1450,42 +770,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbTrue"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1494,24 +787,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Identifier ("Debug"),
-            Unknown,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                Identifier ("FormatPercent"),
-                LeftParenthesis,
-                Identifier ("rs"),
-                LeftParenthesis,
-                StringLiteral ("\"CompletionRate\""),
-                RightParenthesis,
-                Comma,
-                Whitespace,
-                IntegerLiteral ("0"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1520,82 +804,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IIf"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("value"),
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("FormatPercent"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("value"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("0"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("FormatPercent"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("value"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("2"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1604,31 +821,15 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            UnaryExpression {
-                                SubtractionOperator,
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1637,34 +838,14 @@ End Select";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("FormatPercent"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/formatpercent",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
