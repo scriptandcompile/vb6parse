@@ -1,0 +1,58 @@
+---
+source: src/syntax/library/functions/resources/loadresdata.rs
+assertion_line: 956
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: AssignmentStatement
+      children:
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: MyObject
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: ResourceData
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LoadResData
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "101"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "256"
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
