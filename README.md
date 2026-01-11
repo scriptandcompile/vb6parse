@@ -232,7 +232,7 @@ src/
 │   └── token_stream.rs          # TokenStream implementation
 │
 ├── syntax/                      # Syntax Layer - VB6 Language constructs
-│   ├── library/                 # VB6 built-in library
+│   ├── library/                 # VB6 built-in library unit tests and documentation
 │   │   ├── functions/           # 160+ VB6 functions (14 categories)
 │   │   │   ├── array/           # Array, Filter, Join, Split, etc.
 │   │   │   ├── conversion/      # CBool, CInt, CLng, Str, Val, etc.
@@ -244,13 +244,18 @@ src/
 │   │   │   ├── miscellaneous/   # Environ, RGB, QBColor, etc.
 │   │   │   ├── string/          # Left, Right, Mid, Len, Trim, etc.
 │   │   │   └── ...
-│   │   └── statements/          # 42 VB6 statements (9 categories)
-│   │       ├── control_flow/    # If, Select Case, For, While, etc.
-│   │       ├── declarations/    # Dim, ReDim, Const, Enum, etc.
-│   │       ├── error_handling/  # On Error, Resume, Err, etc.
+│   │   └── statements/          # VB6 statement unit tests and documentation (7 categories)
 │   │       ├── file_operations/ # Open, Close, Get, Put, etc.
-│   │       ├── objects/         # Set, With, RaiseEvent, etc.
+│   │       ├── filesystem/      # FileCopy, Kill, MkDir, RmDir, etc.
+│   │       ├── runtime_control/ # DoEvents, Stop, End, etc.
+│   │       ├── runtime_state/   # Date, Time assignment, etc.
+│   │       ├── string_manipulation/ # Mid statement, etc.
+│   │       ├── system_interaction/  # Beep, etc.
 │   │       └── ...
+│   ├── statements/              # Statement parsing logic
+│   │   ├── control_flow/        # If, Select Case, For, While parsers
+│   │   ├── declarations/        # Dim, ReDim, Const, Enum parsers
+│   │   └── objects/             # Set, With, RaiseEvent parsers
 │   └── expressions/             # Expression parsing utilities
 │
 ├── parsers/                     # Parsers Layer - CST construction
@@ -534,7 +539,7 @@ if let Some(resource) = resource {
 ```
 
 **See also:**
-- [documents/FRX_format.md](documents/FRX_format.md) - FRX format specification
+- [docs/technical/frx-format.html](docs/technical/frx-format.html) - FRX format specification
 - [examples/debug_resource.rs](examples/debug_resource.rs) - Resource file debugging
 
 ## Testing
@@ -722,7 +727,7 @@ cargo fmt
 | `.vbp` | Project files | ✅ Complete |
 | `.cls` | Class modules | ✅ Complete |
 | `.bas` | Code modules | ✅ Complete |
-| `.frm` | Forms | ⚠️ PArtial (font, some icons, etc) |
+| `.frm` | Forms | ⚠️ Partial (font, some icons, etc) |
 | `.frx` | Form resources | ⚠️ Partial (binary blobs loaded, not all mapped to properties) |
 | `.ctl` | User controls | ✅ Parsed as forms |
 | `.dob` | User documents | ✅ Parsed as forms |
@@ -769,7 +774,7 @@ cargo +nightly fuzz run sourcefile_decode -- -max_total_time=60
 cargo +nightly fuzz list
 ```
 
-**Learn More:** See [fuzz/README.md](fuzz/README.md) for detailed usage and [Fuzzing.md](Fuzzing.md) for the complete fuzzing strategy.
+**Learn More:** See [fuzz/README.md](fuzz/README.md) for detailed usage.
 
 ## Examples
 
@@ -778,6 +783,7 @@ All examples are located in the [examples/](examples/) directory:
 | Example | Description |
 |---------|-------------|
 | [audiostation_parse.rs](examples/audiostation_parse.rs) | Parse a complete real-world VB6 project |
+| [cst_navigation.rs](examples/cst_navigation.rs) | Navigate and query the Concrete Syntax Tree |
 | [cst_parse.rs](examples/cst_parse.rs) | Parse tokens directly to CST |
 | [debug_cst.rs](examples/debug_cst.rs) | Display CST debug representation |
 | [debug_resource.rs](examples/debug_resource.rs) | Inspect FRX resource files |
