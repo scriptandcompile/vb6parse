@@ -1,0 +1,23 @@
+---
+source: src/syntax/library/functions/objects/callbyname.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: result
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: VariantKeyword
+          text: Variant
