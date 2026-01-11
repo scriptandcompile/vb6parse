@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/functions/interaction/command.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: fullCmd
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: BinaryExpression
+              children:
+                - kind: MemberAccessExpression
+                  children:
+                    - kind: Identifier
+                      text: App
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: EXEName
+                - kind: Whitespace
+                  text: " "
+                - kind: Ampersand
+                  text: "&"
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteralExpression
+                  children:
+                    - kind: StringLiteral
+                      text: "\" \""
+            - kind: Whitespace
+              text: " "
+            - kind: Ampersand
+              text: "&"
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Command
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children: []
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"
