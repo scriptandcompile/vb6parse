@@ -1,0 +1,143 @@
+---
+source: src/syntax/library/statements/write.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: recordType
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "1"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: WriteStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: WriteKeyword
+                              text: Write
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Octothorpe
+                              text: "#"
+                            - kind: IntegerLiteral
+                              text: "1"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Type A\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: data
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "2"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: WriteStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: WriteKeyword
+                              text: Write
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Octothorpe
+                              text: "#"
+                            - kind: IntegerLiteral
+                              text: "1"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Type B\""
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: data
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
