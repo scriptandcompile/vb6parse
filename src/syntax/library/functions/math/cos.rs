@@ -395,8 +395,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn cos_basic() {
         let source = r"
@@ -405,30 +405,13 @@ result = Cos(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("angle"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -439,30 +422,13 @@ value = Cos(0)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -474,46 +440,13 @@ result = Cos(Pi)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                ConstKeyword,
-                Whitespace,
-                Identifier ("Pi"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    SingleLiteral,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("Pi"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -526,78 +459,13 @@ result = Cos(radians)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                ConstKeyword,
-                Whitespace,
-                Identifier ("Pi"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    SingleLiteral,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("radians"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("degrees"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    ParenthesizedExpression {
-                        LeftParenthesis,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("Pi"),
-                            },
-                            Whitespace,
-                            DivisionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("180"),
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("radians"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -611,93 +479,13 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("CosDegrees"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("degrees"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    DoubleKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        ConstKeyword,
-                        Whitespace,
-                        Identifier ("Pi"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            SingleLiteral,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("CosDegrees"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    BinaryExpression {
-                                        IdentifierExpression {
-                                            Identifier ("degrees"),
-                                        },
-                                        Whitespace,
-                                        MultiplicationOperator,
-                                        Whitespace,
-                                        ParenthesizedExpression {
-                                            LeftParenthesis,
-                                            BinaryExpression {
-                                                IdentifierExpression {
-                                                    Identifier ("Pi"),
-                                                },
-                                                Whitespace,
-                                                DivisionOperator,
-                                                Whitespace,
-                                                NumericLiteralExpression {
-                                                    IntegerLiteral ("180"),
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -708,46 +496,13 @@ x = centerX + radius * Cos(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("x"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("centerX"),
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("radius"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -758,63 +513,13 @@ newX = x * Cos(angle) - y * Sin(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("newX"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                    Whitespace,
-                    SubtractionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("y"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -827,82 +532,13 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("0"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("samples"),
-                    },
-                    Whitespace,
-                    SubtractionOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1"),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("wave"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("amplitude"),
-                            },
-                            Whitespace,
-                            MultiplicationOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Cos"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("angle"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -914,78 +550,13 @@ position = amplitude * Cos(2 * Pi * frequency * time)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                ConstKeyword,
-                Whitespace,
-                Identifier ("Pi"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    SingleLiteral,
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("position"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("amplitude"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("Cos"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    BinaryExpression {
-                                        BinaryExpression {
-                                            NumericLiteralExpression {
-                                                IntegerLiteral ("2"),
-                                            },
-                                            Whitespace,
-                                            MultiplicationOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("Pi"),
-                                            },
-                                        },
-                                        Whitespace,
-                                        MultiplicationOperator,
-                                        Whitespace,
-                                        IdentifierExpression {
-                                            Identifier ("frequency"),
-                                        },
-                                    },
-                                    Whitespace,
-                                    MultiplicationOperator,
-                                    Whitespace,
-                                    IdentifierExpression {
-                                        TimeKeyword,
-                                    },
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -997,40 +568,13 @@ result = Cos(1.5708)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("result"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                DoubleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                SingleLiteral,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1042,67 +586,13 @@ y = radius * Sin(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("x"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("radius"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("Cos"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("angle"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("y"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("radius"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("Sin"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("angle"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1113,38 +603,13 @@ result = Cos(Pi / 4)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("Pi"),
-                                },
-                                Whitespace,
-                                DivisionOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("4"),
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1155,70 +620,13 @@ value = amplitude * Cos(2 * Pi * frequency * time + phase)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("amplitude"),
-                    },
-                    Whitespace,
-                    MultiplicationOperator,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("Cos"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    BinaryExpression {
-                                        BinaryExpression {
-                                            BinaryExpression {
-                                                NumericLiteralExpression {
-                                                    IntegerLiteral ("2"),
-                                                },
-                                                Whitespace,
-                                                MultiplicationOperator,
-                                                Whitespace,
-                                                IdentifierExpression {
-                                                    Identifier ("Pi"),
-                                                },
-                                            },
-                                            Whitespace,
-                                            MultiplicationOperator,
-                                            Whitespace,
-                                            IdentifierExpression {
-                                                Identifier ("frequency"),
-                                            },
-                                        },
-                                        Whitespace,
-                                        MultiplicationOperator,
-                                        Whitespace,
-                                        IdentifierExpression {
-                                            TimeKeyword,
-                                        },
-                                    },
-                                    Whitespace,
-                                    AdditionOperator,
-                                    Whitespace,
-                                    IdentifierExpression {
-                                        Identifier ("phase"),
-                                    },
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1231,47 +639,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("Cos"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("angle"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("ProcessPositive"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1282,63 +656,13 @@ sum = Cos(angle) ^ 2 + Sin(angle) ^ 2
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("sum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        ExponentiationOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("2"),
-                        },
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        ExponentiationOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("2"),
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1349,48 +673,13 @@ values(i) = Cos(angles(i))
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                CallExpression {
-                    Identifier ("values"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("i"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("angles"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("i"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1402,83 +691,13 @@ ptY = centerY + radiusY * Sin(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("ptX"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("centerX"),
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("radiusX"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("ptY"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("centerY"),
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("radiusY"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1490,117 +709,13 @@ newZ = x * Sin(angle) + z * Cos(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("newX"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                    Whitespace,
-                    SubtractionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("z"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("newZ"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("x"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("z"),
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("angle"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1616,64 +731,13 @@ End Select
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("angle"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IsKeyword,
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    SingleLiteral,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("HandleLarge"),
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseElseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    ElseKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("HandleSmall"),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1684,39 +748,13 @@ result = Cos(Cos(x))
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("Cos"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("x"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1729,61 +767,13 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("Cos"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Identifier ("angle"),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("threshold"),
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("angle"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("angle"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                StepKeyword,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1794,81 +784,13 @@ result = Cos(a) * Cos(b) - Sin(a) * Sin(b)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    BinaryExpression {
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("a"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Cos"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("b"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                    Whitespace,
-                    SubtractionOperator,
-                    Whitespace,
-                    BinaryExpression {
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("a"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Sin"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("b"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1879,39 +801,13 @@ magnitude = Abs(Cos(angle))
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("magnitude"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Abs"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("Cos"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("angle"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1922,21 +818,13 @@ Print "Cosine: "; Cos(angle)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"Cosine: \""),
-                Semicolon,
-                Whitespace,
-                Identifier ("Cos"),
-                LeftParenthesis,
-                Identifier ("angle"),
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1947,31 +835,12 @@ result = Cos( angle )
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Cos"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("angle"),
-                            },
-                        },
-                        Whitespace,
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/cos");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
