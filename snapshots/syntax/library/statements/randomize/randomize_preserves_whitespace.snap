@@ -1,0 +1,17 @@
+---
+source: src/syntax/library/statements/randomize.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: RandomizeStatement
+      children:
+        - kind: RandomizeKeyword
+          text: Randomize
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
