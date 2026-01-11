@@ -1,0 +1,76 @@
+name: Update Coverage
+
+on:
+  # Run on pushes to master that change source or test code
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run weekly on Monday at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: llvm-tools-preview
+    
+    - name: Cache cargo registry
+      uses: actions/cache@v3
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+    
+    - name: Cache cargo index
+      uses: actions/cache@v3
+      with:
+        path: ~/.cargo/git
+        key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+    
+    - name: Cache target directory
+      uses: actions/cache@v3
+      with:
+        path: target
+        key: ${{ runner.os }}-target-coverage-${{ hashFiles('**/Cargo.lock') }}
+    
+    - name: Install cargo-llvm-cov
+      run: cargo install cargo-llvm-cov
+    
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Generate coverage
+      run: |
+        chmod +x ./scripts/generate-coverage.py
+        ./scripts/generate-coverage.py
+    
+    - name: Commit and push if changed
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add docs/assets/data/coverage.json docs/assets/data/stats.json
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update coverage data [skip ci]"
+          git push
+        fi
