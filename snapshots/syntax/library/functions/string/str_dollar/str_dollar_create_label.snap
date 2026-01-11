@@ -1,0 +1,109 @@
+---
+source: src/syntax/library/functions/string/str_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CreateLabel
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: index
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerKeyword
+              text: Integer
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: CreateLabel
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Item\""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: LTrim$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Str$
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: index
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

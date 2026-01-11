@@ -354,8 +354,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn str_dollar_simple() {
         let source = r"
@@ -366,47 +366,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("123"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -420,58 +388,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("numStr"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("numStr"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("456"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -487,82 +412,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("value"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("value"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("100"),
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            TextKeyword,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("value"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -576,61 +434,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    UnaryExpression {
-                                        SubtractionOperator,
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("42"),
-                                        },
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -643,65 +455,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("NumberToString"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("value"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("NumberToString"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LTrim$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("Str$"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("value"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -714,72 +476,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("FormatMessage"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("count"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("FormatMessage"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"Found\""),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("Str$"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            IdentifierExpression {
-                                                Identifier ("count"),
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\" items\""),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -794,78 +499,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            CallExpression {
-                                Identifier ("LTrim$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Str$"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("value"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"100\""),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Debug"),
-                                PeriodOperator,
-                                PrintKeyword,
-                                Whitespace,
-                                StringLiteral ("\"Match\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -878,73 +520,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("CreateLabel"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("index"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("CreateLabel"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Item\""),
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LTrim$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Str$"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("index"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -957,57 +541,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("LogValue"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("valueName"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("value"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    DoubleKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("Debug"),
-                        PeriodOperator,
-                        PrintKeyword,
-                        Whitespace,
-                        Identifier ("valueName"),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteral ("\" =\""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("Str$"),
-                        LeftParenthesis,
-                        Identifier ("value"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1023,91 +565,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("ProcessValues"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("text1"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("text2"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("text1"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("10"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("text2"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("20"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1125,95 +591,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SelectCaseStatement {
-                        Whitespace,
-                        SelectKeyword,
-                        Whitespace,
-                        CaseKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LTrim$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    CallExpression {
-                                        Identifier ("Str$"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("code"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        Whitespace,
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"1\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("Debug"),
-                                    PeriodOperator,
-                                    PrintKeyword,
-                                    Whitespace,
-                                    StringLiteral ("\"One\""),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        CaseClause {
-                            CaseKeyword,
-                            Whitespace,
-                            StringLiteral ("\"2\""),
-                            Newline,
-                            StatementList {
-                                Whitespace,
-                                CallStatement {
-                                    Identifier ("Debug"),
-                                    PeriodOperator,
-                                    PrintKeyword,
-                                    Whitespace,
-                                    StringLiteral ("\"Two\""),
-                                    Newline,
-                                },
-                                Whitespace,
-                            },
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SelectKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1226,106 +612,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("BuildCSV"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("val1"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("val2"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("BuildCSV"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                CallExpression {
-                                    Identifier ("LTrim$"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("Str$"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("val1"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\",\""),
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LTrim$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Str$"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("val2"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1338,54 +633,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("WriteData"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("fileNum"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("id"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    PrintStatement {
-                        Whitespace,
-                        PrintKeyword,
-                        Whitespace,
-                        Octothorpe,
-                        Identifier ("fileNum"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("LTrim$"),
-                        LeftParenthesis,
-                        Identifier ("Str$"),
-                        LeftParenthesis,
-                        Identifier ("id"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1401,109 +657,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("ShowArray"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("arr"),
-                    LeftParenthesis,
-                    RightParenthesis,
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        IntegerKeyword,
-                        Newline,
-                    },
-                    ForStatement {
-                        Whitespace,
-                        ForKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("i"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LBound"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("arr"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        ToKeyword,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("UBound"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("arr"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("Debug"),
-                                PeriodOperator,
-                                PrintKeyword,
-                                Whitespace,
-                                StringLiteral ("\"[\""),
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                Identifier ("Str$"),
-                                LeftParenthesis,
-                                Identifier ("i"),
-                                RightParenthesis,
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                StringLiteral ("\"]\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        NextKeyword,
-                        Whitespace,
-                        Identifier ("i"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1516,96 +678,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ProgressMessage"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("current"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("total"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("ProgressMessage"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                BinaryExpression {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"Item\""),
-                                    },
-                                    Whitespace,
-                                    Ampersand,
-                                    Whitespace,
-                                    CallExpression {
-                                        Identifier ("Str$"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("current"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                StringLiteralExpression {
-                                    StringLiteral ("\" of\""),
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("Str$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("total"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1618,88 +699,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GenerateFileName"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("baseName"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("index"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GenerateFileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("baseName"),
-                                },
-                                Whitespace,
-                                Ampersand,
-                                Whitespace,
-                                CallExpression {
-                                    Identifier ("LTrim$"),
-                                    LeftParenthesis,
-                                    ArgumentList {
-                                        Argument {
-                                            CallExpression {
-                                                Identifier ("Str$"),
-                                                LeftParenthesis,
-                                                ArgumentList {
-                                                    Argument {
-                                                        IdentifierExpression {
-                                                            Identifier ("index"),
-                                                        },
-                                                    },
-                                                },
-                                                RightParenthesis,
-                                            },
-                                        },
-                                    },
-                                    RightParenthesis,
-                                },
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\".dat\""),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1715,82 +723,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("result"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("value"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        DoubleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("value"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            SingleLiteral,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("result"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("value"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1806,82 +747,15 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Main"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("amount"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        CurrencyKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        TextKeyword,
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("amount"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            SingleLiteral,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            TextKeyword,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("amount"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1894,56 +768,15 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("ConvertNumber"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("num"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("ConvertNumber"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Str$"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("num"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1956,72 +789,14 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("BuildQuery"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("userId"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    LongKeyword,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("BuildQuery"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            StringLiteralExpression {
-                                StringLiteral ("\"SELECT * FROM Users WHERE ID = \""),
-                            },
-                            Whitespace,
-                            Ampersand,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LTrim$"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        CallExpression {
-                                            Identifier ("Str$"),
-                                            LeftParenthesis,
-                                            ArgumentList {
-                                                Argument {
-                                                    IdentifierExpression {
-                                                        Identifier ("userId"),
-                                                    },
-                                                },
-                                            },
-                                            RightParenthesis,
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/string/str_dollar",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
