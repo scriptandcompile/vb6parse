@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/mid.rs
+source: src/syntax/library/statements/string_manipulation/mid.rs
 expression: tree
 ---
 root:

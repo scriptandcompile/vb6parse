@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/unlock.rs
+source: src/syntax/library/statements/file_operations/unlock.rs
 expression: tree
 ---
 root:

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/app_activate.rs
+source: src/syntax/library/statements/system_interaction/app_activate.rs
 expression: tree
 ---
 root:

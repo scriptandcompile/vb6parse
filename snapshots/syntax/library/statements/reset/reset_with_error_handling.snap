@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/reset.rs
+source: src/syntax/library/statements/file_operations/reset.rs
 expression: tree
 ---
 root:

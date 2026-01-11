@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/randomize.rs
+source: src/syntax/library/statements/runtime_state/randomize.rs
 expression: tree
 ---
 root:

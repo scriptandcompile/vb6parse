@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/declarations/mod.rs
+source: src/syntax/statements/declarations/arrays.rs
 expression: tree
 ---
 root:

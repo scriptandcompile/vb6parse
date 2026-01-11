@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/line_input.rs
+source: src/syntax/library/statements/file_operations/line_input.rs
 expression: tree
 ---
 root:

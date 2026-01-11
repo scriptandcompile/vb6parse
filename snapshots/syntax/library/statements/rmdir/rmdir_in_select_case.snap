@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/rmdir.rs
+source: src/syntax/library/statements/filesystem/rmdir.rs
 expression: tree
 ---
 root:

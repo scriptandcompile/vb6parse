@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/savesetting.rs
+source: src/syntax/library/statements/system_interaction/savesetting.rs
 expression: tree
 ---
 root:

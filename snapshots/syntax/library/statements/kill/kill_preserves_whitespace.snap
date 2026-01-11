@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/kill.rs
+source: src/syntax/library/statements/file_operations/kill.rs
 expression: tree
 ---
 root:

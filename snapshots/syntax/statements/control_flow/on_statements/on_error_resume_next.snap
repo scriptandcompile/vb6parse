@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/mod.rs
+source: src/syntax/statements/control_flow/on_statements.rs
 expression: tree
 ---
 root:

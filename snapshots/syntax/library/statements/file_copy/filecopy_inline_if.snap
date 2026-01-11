@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/file_copy.rs
+source: src/syntax/library/statements/file_operations/file_copy.rs
 expression: tree
 ---
 root:

@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/mkdir.rs
+source: src/syntax/library/statements/filesystem/mkdir.rs
 expression: tree
 ---
 root:
