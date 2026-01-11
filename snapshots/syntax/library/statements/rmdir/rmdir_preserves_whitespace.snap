@@ -1,0 +1,19 @@
+---
+source: src/syntax/library/statements/rmdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: RmDirStatement
+      children:
+        - kind: RmDirKeyword
+          text: RmDir
+        - kind: Whitespace
+          text: "    "
+        - kind: StringLiteral
+          text: "\"C:\\Temp\""
+        - kind: Whitespace
+          text: "    "
