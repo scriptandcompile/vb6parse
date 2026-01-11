@@ -1,92 +1,55 @@
 //! Built-in VB6 statement parsing.
 //!
-//! This module handles parsing of VB6 built-in system statements
-//! each in their own sub-module.
+//! This module handles parsing of VB6 built-in system statements organized by category.
 //!
-//! The built-in statements handled here are:
-//! - `AppActivate`: Activate an application window
-//! - Beep: Sound a tone through the computer's speaker
-//! - `ChDir`: Change the current directory or folder
-//! - `ChDrive`: Change the current drive
-//! - Close: Close files opened with the Open statement
-//! - Date: Set the current system date
-//! - `DeleteSetting`: Delete a section or key setting from the Windows registry
-//! - Error: Generate a run-time error
-//! - `FileCopy`: Copy a file
-//! - Get: Read data from an open disk file into a variable
-//! - Put: Write data from a variable to a disk file
-//! - Input: Read data from an open sequential file
-//! - Line Input: Read an entire line from a sequential file
-//! - Kill: Delete a file from disk
-//! - Load: Load a form or control into memory
-//! - Unload: Remove a form or control from memory
-//! - Lock: Control access to all or part of an open file
-//! - Unlock: Remove access restrictions from an open file
-//! - `LSet`: Left-align a string or copy a user-defined type
-//! - `RSet`: Right-align a string within a string variable
-//! - Mid: Replace characters in a string variable
-//! - `MidB`: Replace bytes in a string variable
-//! - `MkDir`: Create a new directory or folder
-//! - `RmDir`: Remove an empty directory or folder
-//! - Name: Rename a disk file, directory, or folder
-//! - Open: Open a file for input/output operations
-//! - Print: Write display-formatted data to a sequential file
-//! - Reset: Close all disk files opened using the Open statement
-//! - `SavePicture`: Save a graphical image to a file
-//! - `SaveSetting`: Save or create an application entry in the Windows registry
-//! - Seek: Set the position for the next read/write operation in a file
-//! - `SendKeys`: Send keystrokes to the active window
-//! - `SetAttr`: Set attribute information for a file
-//! - Stop: Suspend execution
-//! - Time: Set the current system time
-//! - Randomize: Initialize the random number generator
-//! - Width: Assign an output line width to a file
-//! - Write: Write data to a sequential file
+//! # Module Organization
 //!
+//! Library statements are organized into focused subdirectories:
+//!
+//! ## File Operations ([`file_operations`])
+//! Statements for file I/O and manipulation:
+//! - **Binary I/O**: Get, Put
+//! - **Sequential I/O**: Input, Line Input, Print, Write
+//! - **File Management**: Open, Close, Reset
+//! - **File Control**: Lock, Unlock, Seek
+//! - **File Manipulation**: FileCopy, Kill, Name
+//! - **Formatting**: Width
+//!
+//! ## Filesystem ([`filesystem`])
+//! Statements for directory and filesystem operations:
+//! - **Navigation**: ChDir, ChDrive
+//! - **Management**: MkDir, RmDir
+//! - **Attributes**: SetAttr
+//!
+//! ## System Interaction ([`system_interaction`])
+//! Statements for system and user interaction:
+//! - **Application Control**: AppActivate, Stop
+//! - **User Feedback**: Beep
+//! - **UI Management**: Load, Unload
+//! - **Registry**: DeleteSetting, SaveSetting
+//! - **Graphics**: SavePicture
+//! - **Input Simulation**: SendKeys
+//!
+//! ## String Manipulation ([`string_manipulation`])
+//! Statements for string operations:
+//! - **Alignment**: LSet, RSet
+//! - **Replacement**: Mid, MidB
+//!
+//! ## Runtime State ([`runtime_state`])
+//! Statements for runtime state management:
+//! - **System Time**: Date, Time
+//! - **Error Handling**: Error
+//! - **Random Numbers**: Randomize
 
 use crate::language::Token;
+use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
 
-use crate::parsers::cst::Parser;
-
-mod app_activate;
-mod beep;
-mod ch_dir;
-mod ch_drive;
-mod close;
-mod date;
-mod delete_setting;
-mod error;
-mod file_copy;
-mod get;
-mod input;
-mod kill;
-mod line_input;
-mod load;
-mod lock;
-mod lset;
-mod mid;
-mod midb;
-mod mkdir;
-mod name;
-mod open;
-mod print;
-mod put;
-mod randomize;
-mod reset;
-mod rmdir;
-mod rset;
-mod savepicture;
-mod savesetting;
-mod seek;
-mod sendkeys;
-mod setattr;
-mod stop;
-mod time;
-mod unload;
-mod unlock;
-mod width;
-mod write;
+pub(crate) mod file_operations;
+pub(crate) mod filesystem;
+pub(crate) mod runtime_state;
+pub(crate) mod string_manipulation;
+pub(crate) mod system_interaction;
 
 impl Parser<'_> {
     /// Check if the current token is a library statement keyword.

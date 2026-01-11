@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/load.rs
+source: src/syntax/library/statements/system_interaction/load.rs
 expression: tree
 ---
 root:

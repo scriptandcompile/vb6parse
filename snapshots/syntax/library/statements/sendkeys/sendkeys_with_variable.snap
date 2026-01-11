@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/sendkeys.rs
+source: src/syntax/library/statements/system_interaction/sendkeys.rs
 expression: tree
 ---
 root:

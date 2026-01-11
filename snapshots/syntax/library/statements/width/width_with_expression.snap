@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/width.rs
+source: src/syntax/library/statements/file_operations/width.rs
 expression: tree
 ---
 root:

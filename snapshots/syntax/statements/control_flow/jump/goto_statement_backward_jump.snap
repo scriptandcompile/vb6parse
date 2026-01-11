@@ -1,5 +1,5 @@
 ---
-source: src/syntax/statements/control_flow/mod.rs
+source: src/syntax/statements/control_flow/jump.rs
 expression: tree
 ---
 root:

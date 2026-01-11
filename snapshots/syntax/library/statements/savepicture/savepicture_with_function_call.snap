@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/savepicture.rs
+source: src/syntax/library/statements/system_interaction/savepicture.rs
 expression: tree
 ---
 root:

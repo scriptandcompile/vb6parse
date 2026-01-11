@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/close.rs
+source: src/syntax/library/statements/file_operations/close.rs
 expression: tree
 ---
 root:

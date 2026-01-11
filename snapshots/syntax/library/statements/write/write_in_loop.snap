@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/write.rs
+source: src/syntax/library/statements/file_operations/write.rs
 expression: tree
 ---
 root:

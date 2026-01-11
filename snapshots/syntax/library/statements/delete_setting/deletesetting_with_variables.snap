@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/delete_setting.rs
+source: src/syntax/library/statements/system_interaction/delete_setting.rs
 expression: tree
 ---
 root:

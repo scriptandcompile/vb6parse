@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/put.rs
+source: src/syntax/library/statements/file_operations/put.rs
 expression: tree
 ---
 root:

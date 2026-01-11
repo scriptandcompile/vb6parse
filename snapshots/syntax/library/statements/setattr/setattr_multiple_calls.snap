@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/setattr.rs
+source: src/syntax/library/statements/filesystem/setattr.rs
 expression: tree
 ---
 root:
