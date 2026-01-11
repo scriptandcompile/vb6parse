@@ -811,28 +811,23 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn getobject_basic() {
         let source = r#"Set xlApp = GetObject("C:\Reports\Sales.xls")"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("xlApp"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                StringLiteral ("\"C:\\Reports\\Sales.xls\""),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -841,22 +836,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("app"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Excel.Application\""),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -865,23 +853,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("doc"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("filePath"),
-                Comma,
-                Whitespace,
-                Identifier ("className"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -892,43 +872,15 @@ End Function"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetExcelInstance"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ObjectKeyword,
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("GetExcelInstance"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Excel.Application\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -939,40 +891,15 @@ On Error GoTo 0"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("obj"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                StringLiteral ("\"C:\\data.xls\""),
-                RightParenthesis,
-                Newline,
-            },
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                GotoKeyword,
-                Whitespace,
-                IntegerLiteral ("0"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -983,51 +910,15 @@ End If"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Comma,
-                                },
-                            },
-                            Whitespace,
-                        },
-                    },
-                },
-                StringLiteral ("\"Excel.Application\""),
-                RightParenthesis,
-                Whitespace,
-                IsKeyword,
-                Whitespace,
-                Identifier ("Nothing"),
-                Whitespace,
-                ThenKeyword,
-                Newline,
-            },
-            Whitespace,
-            CallStatement {
-                Identifier ("MsgBox"),
-                Whitespace,
-                StringLiteral ("\"Excel is running\""),
-                Newline,
-            },
-            Unknown,
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                IdentifierExpression,
-                StatementList,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1036,20 +927,15 @@ End If"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("xlRange"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                StringLiteral ("\"C:\\Data\\Report.xls!Sheet1!R1C1:R10C5\""),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1058,20 +944,15 @@ End If"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("wordDoc"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                StringLiteral ("\"C:\\Documents\\Letter.doc\""),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1082,50 +963,15 @@ Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("fileCount"),
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("doc"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        Identifier ("files"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1134,38 +980,15 @@ Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("GetObject"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Comma,
-                            },
-                        },
-                        Whitespace,
-                    },
-                },
-                Identifier ("progID"),
-                RightParenthesis,
-                Whitespace,
-                IsKeyword,
-                Whitespace,
-                Identifier ("Nothing"),
-                Whitespace,
-                ThenKeyword,
-                ExitStatement {
-                    Whitespace,
-                    ExitKeyword,
-                    Whitespace,
-                    SubKeyword,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1174,22 +997,15 @@ Next i";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("xlApp"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("filePath"),
-                RightParenthesis,
-                PeriodOperator,
-                Identifier ("Application"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1201,57 +1017,15 @@ End Select"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                CallExpression {
-                    Identifier ("TypeName"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("GetObject"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("filePath"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    StringLiteral ("\"Workbook\""),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("Debug"),
-                            PeriodOperator,
-                            PrintKeyword,
-                            Whitespace,
-                            StringLiteral ("\"Excel file\""),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1262,47 +1036,15 @@ Loop"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                UnaryExpression {
-                    NotKeyword,
-                    Whitespace,
-                    CallExpression {
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                IdentifierExpression {
-                                    Comma,
-                                },
-                            },
-                            Whitespace,
-                        },
-                    },
-                },
-                StatementList {
-                    Unknown,
-                    Unknown,
-                    Whitespace,
-                    CallStatement {
-                        IsKeyword,
-                        Whitespace,
-                        Identifier ("Nothing"),
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("DoEvents"),
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1311,20 +1053,15 @@ Loop"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("m_Document"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("m_FilePath"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1333,22 +1070,15 @@ Loop"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("cached"),
-                PeriodOperator,
-                Identifier ("Document"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("filePath"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1357,24 +1087,15 @@ Loop"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("m_Instances"),
-                Unknown,
-                Identifier("Add"),
-                Whitespace,
-                Identifier("GetObject"),
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-                Unknown,
-                Unknown,
-                Whitespace,
-                Unknown,
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1385,42 +1106,15 @@ End With"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            WithStatement {
-                WithKeyword,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                StringLiteral ("\"C:\\data.xls\""),
-                RightParenthesis,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            PeriodOperator,
-                        },
-                        BinaryExpression {
-                            MemberAccessExpression {
-                                Identifier ("Application"),
-                                PeriodOperator,
-                                Identifier ("Visible"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            BooleanLiteralExpression {
-                                TrueKeyword,
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                WithKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1429,28 +1123,15 @@ End With"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Identifier ("Debug"),
-            Unknown,
-            PrintStatement {
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"Count: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Excel.Application\""),
-                RightParenthesis,
-                PeriodOperator,
-                Identifier ("Workbooks"),
-                PeriodOperator,
-                Identifier ("Count"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1459,20 +1140,15 @@ End With"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("MsgBox"),
-                Whitespace,
-                Identifier("TypeName"),
-                Unknown,
-                Identifier("GetObject"),
-                Unknown,
-                Identifier("filePath"),
-                Unknown,
-                Unknown,
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1483,43 +1159,15 @@ End Property";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            PropertyStatement {
-                PropertyKeyword,
-                Whitespace,
-                GetKeyword,
-                Whitespace,
-                Identifier ("CurrentDocument"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                ObjectKeyword,
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("CurrentDocument"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        Identifier ("m_FilePath"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                PropertyKeyword,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1529,37 +1177,15 @@ Set doc = GetObject(filePath)"#;
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("filePath"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                MemberAccessExpression {
-                    StringLiteralExpression {
-                        StringLiteral ("\"C:\\Data\\\" & fileName & \""),
-                    },
-                    PeriodOperator,
-                    Identifier ("xls"),
-                },
-            },
-            Unknown,
-            Newline,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("doc"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("filePath"),
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1570,42 +1196,15 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            ForEachStatement {
-                ForKeyword,
-                Whitespace,
-                EachKeyword,
-                Whitespace,
-                Identifier ("file"),
-                Whitespace,
-                InKeyword,
-                Whitespace,
-                Identifier ("files"),
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("doc"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("GetObject"),
-                        LeftParenthesis,
-                        Identifier ("CStr"),
-                        LeftParenthesis,
-                        Identifier ("file"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("file"),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1614,51 +1213,15 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("CallByName"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            CallExpression {
-                                Identifier ("GetObject"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("filePath"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Save\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("VbMethod"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1667,17 +1230,15 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(
-            cst,
-            [
-                Identifier("GetObject"),
-                Unknown,
-                Identifier("filePath"),
-                Unknown,
-                Unknown,
-                Identifier("Save"),
-            ]
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
         );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1686,62 +1247,15 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                MemberAccessExpression {
-                    CallExpression {
-                        MemberAccessExpression {
-                            CallExpression {
-                                MemberAccessExpression {
-                                    CallExpression {
-                                        Identifier ("GetObject"),
-                                        LeftParenthesis,
-                                        ArgumentList {
-                                            Argument {
-                                                IdentifierExpression {
-                                                    Identifier ("filePath"),
-                                                },
-                                            },
-                                        },
-                                        RightParenthesis,
-                                    },
-                                    PeriodOperator,
-                                    Identifier ("Worksheets"),
-                                },
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("1"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            PeriodOperator,
-                            Identifier ("Range"),
-                        },
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                StringLiteralExpression {
-                                    StringLiteral ("\"A1\""),
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    PeriodOperator,
-                    Identifier ("Value"),
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1750,24 +1264,15 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("app"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                LeftParenthesis,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Excel.Application\""),
-                RightParenthesis,
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1776,31 +1281,14 @@ Next file";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("obj"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("IIf"),
-                LeftParenthesis,
-                Identifier ("condition"),
-                Comma,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("file1"),
-                RightParenthesis,
-                Comma,
-                Whitespace,
-                Identifier ("GetObject"),
-                LeftParenthesis,
-                Identifier ("file2"),
-                RightParenthesis,
-                RightParenthesis,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/objects/getobject",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

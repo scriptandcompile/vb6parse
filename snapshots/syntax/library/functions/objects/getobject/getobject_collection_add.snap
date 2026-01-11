@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: m_Instances
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: Add
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: GetObject
+    - kind: Unknown
+      text: (
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Excel.Application\""
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Excel\""
