@@ -710,9 +710,8 @@ m = Month(Now)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -729,9 +728,8 @@ currentMonth = Month(Date)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -748,9 +746,8 @@ m = Month(#3/15/2025#)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -768,9 +765,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -788,9 +784,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -815,9 +810,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -833,9 +827,8 @@ Debug.Print Month(Now)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -853,9 +846,8 @@ End With
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -875,9 +867,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -894,9 +885,8 @@ m = (Month(Date))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -913,9 +903,8 @@ result = IIf(Month(Date) = 12, "December", "Other")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -935,9 +924,8 @@ End Sub
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -953,9 +941,8 @@ Call ProcessMonth(Month(Date))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -972,9 +959,8 @@ obj.CurrentMonth = Month(Date)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -992,9 +978,8 @@ months(i) = Month(Date)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1013,9 +998,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1033,9 +1017,8 @@ Wend
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1053,9 +1036,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1073,9 +1055,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1091,9 +1072,8 @@ MsgBox "Current month: " & Month(Now)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1110,9 +1090,8 @@ dateStr = Year(Date) & "/" & Month(Date) & "/" & Day(Date)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1130,9 +1109,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1149,9 +1127,8 @@ formatted = Format(Month(Date), "00")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1168,9 +1145,8 @@ quarter = ((Month(Date) - 1) \ 3) + 1
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1186,9 +1162,8 @@ lblMonth.Caption = "Month: " & CStr(Month(Date))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1206,9 +1181,8 @@ If fiscalPeriod <= 0 Then fiscalPeriod = fiscalPeriod + 12
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1226,9 +1200,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/month",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/month");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);

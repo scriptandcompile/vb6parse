@@ -786,9 +786,8 @@ fileMode = FileAttr(fileNum, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -804,9 +803,8 @@ fileHandle = FileAttr(fileNum, 2)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -822,9 +820,8 @@ mode = FileAttr(1, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -845,9 +842,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -865,9 +861,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -885,9 +880,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -903,9 +897,8 @@ Debug.Print FileAttr(fileNum, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -921,9 +914,8 @@ canWrite = (FileAttr(fileNum, 1) = 2)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -939,9 +931,8 @@ isWritable = (FileAttr(fileNum, 1) = 2 Or FileAttr(fileNum, 1) = 8)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -961,9 +952,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -984,9 +974,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1002,9 +991,8 @@ msg = "Mode: " & FileAttr(fileNum, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1021,9 +1009,8 @@ info.Handle = FileAttr(fileNum, 2)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1039,9 +1026,8 @@ valid = (FileAttr(fileNum, 1) >= 1 And FileAttr(fileNum, 1) <= 32)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1059,9 +1045,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1077,9 +1062,8 @@ handles.Add FileAttr(i, 2), CStr(i)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1095,9 +1079,8 @@ MsgBox "File mode: " & FileAttr(fileNum, 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1115,9 +1098,8 @@ info = "File #" & fileNum & vbCrLf & _
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1133,9 +1115,8 @@ formatted = Format(FileAttr(fileNum, 1), "0")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1151,9 +1132,8 @@ Print #logNum, "Mode: " & FileAttr(fileNum, 1) & " | Handle: " & FileAttr(fileNu
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1169,9 +1149,8 @@ isOpen = (Err.Number = 0) And (FileAttr(fileNum, 1) > 0)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1188,9 +1167,8 @@ mode = FileAttr(fileNum, FILE_ATTR_MODE)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1207,9 +1185,8 @@ handles(i) = FileAttr(i, 2)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1228,9 +1205,8 @@ End With
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1246,9 +1222,8 @@ End With
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/fileattr",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/fileattr");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);

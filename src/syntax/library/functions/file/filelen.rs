@@ -845,9 +845,8 @@ fileSize = FileLen("C:\data.txt")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -863,9 +862,8 @@ size = FileLen(filePath)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -881,9 +879,8 @@ Debug.Print FileLen("C:\temp.dat")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -899,9 +896,8 @@ formatted = Format(FileLen(filePath) / 1024, "0.00") & " KB"
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -919,9 +915,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -937,9 +932,8 @@ totalSize = totalSize + FileLen(fullPath)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -955,9 +949,8 @@ isLarger = (FileLen(file1) > FileLen(file2))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -975,9 +968,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -997,9 +989,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1018,9 +1009,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1036,9 +1026,8 @@ msg = "Size: " & FileLen(filePath) & " bytes"
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1056,9 +1045,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1074,9 +1062,8 @@ isValid = (FileLen(filePath) = expectedSize)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1094,9 +1081,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1112,9 +1098,8 @@ stats.TotalSize = stats.TotalSize + FileLen(fullPath)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1133,9 +1118,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1152,9 +1136,8 @@ ReDim buffer(0 To fileSize - 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1170,9 +1153,8 @@ ProgressBar.Value = (bytesRead / FileLen(sourceFile)) * 100
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1188,9 +1170,8 @@ files(count).Size = FileLen(fullPath)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1207,9 +1188,8 @@ sizeInMB = FileLen(filePath) / 1048576
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1225,9 +1205,8 @@ MsgBox "File size: " & FormatFileSize(FileLen(filePath))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1250,9 +1229,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1268,9 +1246,8 @@ Print #reportNum, fileName, FileLen(fullPath)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1288,9 +1265,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1308,9 +1284,8 @@ info = "File: " & fileName & vbCrLf & _
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1332,9 +1307,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/file/filelen",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/file/filelen");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
