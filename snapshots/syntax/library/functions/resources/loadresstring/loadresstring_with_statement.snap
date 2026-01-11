@@ -1,0 +1,73 @@
+---
+source: src/syntax/library/functions/resources/loadresstring.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: WithStatement
+      children:
+        - kind: WithKeyword
+          text: With
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: lblStatus
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "                "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: PeriodOperator
+                      text: "."
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: Caption
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: LoadResString
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "8001"
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: WithKeyword
+          text: With
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
