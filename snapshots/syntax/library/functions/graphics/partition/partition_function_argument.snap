@@ -1,0 +1,55 @@
+---
+source: src/syntax/library/functions/graphics/partition.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessRange
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Partition
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: score
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "10"
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: studentName
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
