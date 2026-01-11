@@ -1,0 +1,81 @@
+---
+source: src/syntax/library/functions/string/strcomp.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: obj
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: NewKeyword
+                  text: New
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: StringComparer
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: obj
+                - kind: PeriodOperator
+                  text: "."
+                - kind: CompareKeyword
+                  text: Compare
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: str1
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: str2
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
