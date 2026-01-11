@@ -54,8 +54,7 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
-    use crate::*; // MidB statement tests
+    use crate::*;
 
     #[test]
     fn midb_simple() {
@@ -67,43 +66,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        TextKeyword,
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("5"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("3"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteral ("\"abc\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -112,24 +81,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            MidBStatement {
-                MidBKeyword,
-                LeftParenthesis,
-                Identifier ("globalStr"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("1"),
-                Comma,
-                Whitespace,
-                IntegerLiteral ("5"),
-                RightParenthesis,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"START\""),
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -142,40 +100,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("s"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("10"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("replacement"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -188,53 +119,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("arr"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Comma,
-                        Whitespace,
-                        Identifier ("startPos"),
-                        Whitespace,
-                        AdditionOperator,
-                        Whitespace,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("LenB"),
-                        LeftParenthesis,
-                        Identifier ("newStr"),
-                        RightParenthesis,
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("newStr"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -243,32 +134,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Whitespace,
-            MidBStatement {
-                MidBKeyword,
-                Whitespace,
-                LeftParenthesis,
-                Whitespace,
-                Identifier ("myString"),
-                Whitespace,
-                Comma,
-                Whitespace,
-                IntegerLiteral ("3"),
-                Whitespace,
-                Comma,
-                Whitespace,
-                IntegerLiteral ("2"),
-                Whitespace,
-                RightParenthesis,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                StringLiteral ("\"XX\""),
-                Whitespace,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -281,45 +153,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("buffer"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("pos"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("10"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("data"),
-                        Whitespace,
-                        EndOfLineComment,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -334,61 +174,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("needsUpdate"),
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            MidBStatement {
-                                Whitespace,
-                                MidBKeyword,
-                                LeftParenthesis,
-                                Identifier ("statusText"),
-                                Comma,
-                                Whitespace,
-                                IntegerLiteral ("1"),
-                                Comma,
-                                Whitespace,
-                                IntegerLiteral ("7"),
-                                RightParenthesis,
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                StringLiteral ("\"UPDATED\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -401,53 +193,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("valid"),
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        MidBStatement {
-                            MidBKeyword,
-                            LeftParenthesis,
-                            Identifier ("s"),
-                            Comma,
-                            Whitespace,
-                            IntegerLiteral ("1"),
-                            Comma,
-                            Whitespace,
-                            IntegerLiteral ("1"),
-                            RightParenthesis,
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteral ("\"A\""),
-                            Newline,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SubKeyword,
-                        Newline,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -462,76 +214,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("ReplaceBytes"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("line1"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("5"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteral ("\"HELLO\""),
-                        Newline,
-                    },
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("line2"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("3"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteral ("\"ABC\""),
-                        Newline,
-                    },
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("line3"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("2"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("4"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteral ("\"TEST\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -545,54 +234,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("dbcsStr"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        StringKeyword,
-                        Newline,
-                    },
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("dbcsStr"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("2"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteral ("\"XX\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -605,45 +253,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("obj"),
-                        PeriodOperator,
-                        Identifier ("Data"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("1"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("10"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("newData"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -656,46 +272,12 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    MidBStatement {
-                        Whitespace,
-                        MidBKeyword,
-                        LeftParenthesis,
-                        Identifier ("fullText"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("pos"),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("5"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("prefix"),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("suffix"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/midb");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
