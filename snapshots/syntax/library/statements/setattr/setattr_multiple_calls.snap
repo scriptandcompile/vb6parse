@@ -1,0 +1,89 @@
+---
+source: src/syntax/library/statements/setattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetAttrStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetAttrKeyword
+                  text: SetAttr
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File1.txt\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbReadOnly
+                - kind: Newline
+                  text: "\n"
+            - kind: SetAttrStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetAttrKeyword
+                  text: SetAttr
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File2.txt\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbHidden
+                - kind: Newline
+                  text: "\n"
+            - kind: SetAttrStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetAttrKeyword
+                  text: SetAttr
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File3.txt\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbArchive
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
