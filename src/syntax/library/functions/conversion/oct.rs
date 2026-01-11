@@ -673,9 +673,8 @@ result = Oct(64)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -693,9 +692,8 @@ Debug.Print Oct(permissions)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -713,9 +711,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -733,9 +730,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -752,9 +748,8 @@ octStr = Oct(511)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -770,9 +765,8 @@ MsgBox "Octal: " & Oct(value)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -788,9 +782,8 @@ Debug.Print "Dec: " & num & " Oct: " & Oct(num)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -813,9 +806,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -835,9 +827,8 @@ End Sub
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -855,9 +846,8 @@ End With
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -877,9 +867,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -897,9 +886,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -917,9 +905,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -937,9 +924,8 @@ Loop
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -958,9 +944,8 @@ Wend
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -977,9 +962,8 @@ result = (Oct(value))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -996,9 +980,8 @@ display = IIf(showOctal, Oct(num), Hex(num))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1016,9 +999,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1035,9 +1017,8 @@ octValues(i) = Oct(numbers(i))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1054,9 +1035,8 @@ obj.OctalString = Oct(obj.DecimalValue)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1072,9 +1052,8 @@ Call LogValue("Octal", Oct(deviceCode))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1091,9 +1070,8 @@ combined = CLng("&O" & Oct(value1)) + CLng("&O" & Oct(value2))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1110,9 +1088,8 @@ info = "Dec: " & num & " Hex: " & Hex(num) & " Oct: " & Oct(num)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1129,9 +1106,8 @@ formatted = "&O" & Oct(value)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1148,9 +1124,8 @@ digitCount = Len(Oct(number))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1171,9 +1146,8 @@ On Error GoTo 0
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1196,9 +1170,8 @@ End Sub
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/conversion/oct",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/conversion/oct");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);

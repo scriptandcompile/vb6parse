@@ -575,9 +575,8 @@ d = Day(#1/15/2025#)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -593,9 +592,8 @@ dayNum = Day(birthday)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -611,9 +609,8 @@ d = Day(Date)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -629,9 +626,8 @@ dayNum = Day(DateSerial(2025, 12, 25))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -649,9 +645,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -667,9 +662,8 @@ daysInMonth = Day(DateSerial(yr, mo + 1, 0))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -687,9 +681,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -707,9 +700,8 @@ dy = Day(dt)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -725,9 +717,8 @@ sameDay = (Day(date1) = Day(date2))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -743,9 +734,8 @@ newDate = DateSerial(Year(oldDate), Month(oldDate), Day(oldDate))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -763,9 +753,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -788,9 +777,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -806,9 +794,8 @@ dayNum = Day(DateAdd("d", 10, Date))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -824,9 +811,8 @@ isToday = (Month(Date) = Month(birthday)) And (Day(Date) = Day(birthday))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -846,9 +832,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -864,9 +849,8 @@ isLeapDay = (Month(dt) = 2) And (Day(dt) = 29)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -882,9 +866,8 @@ nextDay = Day(currentDate + 1)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -900,9 +883,8 @@ days(i) = Day(dates(i))
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -918,9 +900,8 @@ MsgBox "Day: " & Day(someDate)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -938,9 +919,8 @@ diff = d2 - d1
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -956,9 +936,8 @@ formatted = Format(DateSerial(2025, 1, Day(someDate)), "mm/dd/yyyy")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -976,9 +955,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -994,9 +972,8 @@ filter = "Day(DateField) = " & Day(targetDate)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1016,9 +993,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1036,9 +1012,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/datetime/day",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/datetime/day");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);

@@ -805,9 +805,8 @@ filtered = Filter(fruits, "e")
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -824,9 +823,8 @@ filtered = Filter(fruits, "e", False)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -843,9 +841,8 @@ filtered = Filter(fruits, "a", True, vbTextCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -862,9 +859,8 @@ result = Filter(names, "J", True, vbBinaryCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -880,9 +876,8 @@ textFiles = Filter(files, ".bak", False)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -900,9 +895,8 @@ End Function
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -922,9 +916,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -941,9 +934,8 @@ result = temp
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -962,9 +954,8 @@ Next i
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -984,9 +975,8 @@ ErrorHandler:
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1007,9 +997,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1025,9 +1014,8 @@ txtFiles = Filter(allFiles, ".txt", True, vbTextCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1045,9 +1033,8 @@ result = Filter(sourceData, pattern, includeMatches, searchMode)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1064,9 +1051,8 @@ result = Filter(logEntries, levelTag, True, vbTextCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1083,9 +1069,8 @@ temp = Filter(temp, excludeText, False, vbTextCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1101,9 +1086,8 @@ Debug.Print "Found: " & UBound(Filter(items, searchTerm)) + 1
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1119,9 +1103,8 @@ matchedNames = Filter(names, searchTerm, True, vbTextCompare)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1140,9 +1123,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1159,9 +1141,8 @@ cachedResults = filtered
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1180,9 +1161,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1204,9 +1184,8 @@ result = Filter(items, searchTerm, True, compareMode)
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1224,9 +1203,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1244,9 +1222,8 @@ End If
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1264,9 +1241,8 @@ elapsedMs = (Timer - startTime) * 1000
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1286,9 +1262,8 @@ Next item
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
@@ -1310,9 +1285,8 @@ End Select
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
-        settings.set_snapshot_path(
-            "../../../../../snapshots/syntax/library/functions/arrays/filter",
-        );
+        settings
+            .set_snapshot_path("../../../../../snapshots/syntax/library/functions/arrays/filter");
         settings.set_prepend_module_to_snapshot(false);
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
