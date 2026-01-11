@@ -133,8 +133,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn savesetting_simple() {
         let source = r#"
@@ -145,41 +145,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Startup\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Left\""),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("100"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -188,23 +160,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SaveSettingStatement {
-                SaveSettingKeyword,
-                Whitespace,
-                StringLiteral ("\"MyApp\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Settings\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Value\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Data\""),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -217,41 +179,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        Identifier ("appName"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("sectionName"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("keyName"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("value"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -264,45 +198,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        Identifier ("App"),
-                        PeriodOperator,
-                        Identifier ("Title"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Position\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Left\""),
-                        Comma,
-                        Whitespace,
-                        MeKeyword,
-                        PeriodOperator,
-                        Identifier ("Left"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -315,41 +217,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Display\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Width\""),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("800"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -362,41 +236,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"User\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Name\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"John Doe\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -409,43 +255,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Settings\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"BackColor\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("Form1"),
-                        PeriodOperator,
-                        Identifier ("BackColor"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -458,49 +274,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"User\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"FullName\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("firstName"),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteral ("\" \""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("lastName"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -513,46 +293,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Options\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"AutoSave\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("CStr"),
-                        LeftParenthesis,
-                        Identifier ("chkAutoSave"),
-                        PeriodOperator,
-                        Identifier ("Value"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -565,41 +312,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("saveSettings"),
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Prefs\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Theme\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Dark\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -612,58 +331,13 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10"),
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Item\""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Value\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("items"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -676,43 +350,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Window\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Left\""),
-                        Comma,
-                        Whitespace,
-                        IntegerLiteral ("100"),
-                        Whitespace,
-                        EndOfLineComment,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -721,26 +365,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SaveSettingStatement {
-                SaveSettingKeyword,
-                Whitespace,
-                StringLiteral ("\"App\""),
-                Whitespace,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Sec\""),
-                Whitespace,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Key\""),
-                Whitespace,
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Val\""),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -754,72 +385,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                PrivateKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("Form_Unload"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("Cancel"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    IntegerKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        Identifier ("App"),
-                        PeriodOperator,
-                        Identifier ("Title"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Position\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Left\""),
-                        Comma,
-                        Whitespace,
-                        MeKeyword,
-                        PeriodOperator,
-                        Identifier ("Left"),
-                        Newline,
-                    },
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        Identifier ("App"),
-                        PeriodOperator,
-                        Identifier ("Title"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Position\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Top\""),
-                        Comma,
-                        Whitespace,
-                        MeKeyword,
-                        PeriodOperator,
-                        Identifier ("Top"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -829,37 +401,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            SaveSettingStatement {
-                SaveSettingKeyword,
-                Whitespace,
-                StringLiteral ("\"A\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"S\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"K1\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"V1\""),
-                ColonOperator,
-                Whitespace,
-                SaveSettingKeyword,
-                Whitespace,
-                StringLiteral ("\"A\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"S\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"K2\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"V2\""),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -875,73 +423,13 @@ End Select
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("mode"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("1"),
-                    Newline,
-                    StatementList {
-                        SaveSettingStatement {
-                            Whitespace,
-                            SaveSettingKeyword,
-                            Whitespace,
-                            StringLiteral ("\"MyApp\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Mode\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Current\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Simple\""),
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("2"),
-                    Newline,
-                    StatementList {
-                        SaveSettingStatement {
-                            Whitespace,
-                            SaveSettingKeyword,
-                            Whitespace,
-                            StringLiteral ("\"MyApp\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Mode\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Current\""),
-                            Comma,
-                            Whitespace,
-                            StringLiteral ("\"Advanced\""),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -954,47 +442,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"DateTime\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"LastRun\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("Format$"),
-                        LeftParenthesis,
-                        Identifier ("Now"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"yyyy-mm-dd\""),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1007,43 +461,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Options\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Visible\""),
-                        Comma,
-                        Whitespace,
-                        MeKeyword,
-                        PeriodOperator,
-                        Identifier ("Visible"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1056,38 +480,13 @@ End With
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            WithStatement {
-                WithKeyword,
-                Whitespace,
-                Identifier ("Form1"),
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Form\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Width\""),
-                        Comma,
-                        Whitespace,
-                        PeriodOperator,
-                        WidthKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                WithKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1100,41 +499,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("SaveUserPreferences"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"User\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Name\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("userName"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1148,58 +519,13 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("StoreSettings"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                BooleanKeyword,
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Config\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Version\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"1.0\""),
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("StoreSettings"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BooleanLiteralExpression {
-                            TrueKeyword,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1212,48 +538,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Colors\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Item\""),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("colors"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1268,66 +559,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                PrivateKeyword,
-                Whitespace,
-                Identifier ("appName"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                PublicKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("SaveConfig"),
-                ParameterList {
-                    LeftParenthesis,
-                    Identifier ("key"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    Comma,
-                    Whitespace,
-                    Identifier ("value"),
-                    Whitespace,
-                    AsKeyword,
-                    Whitespace,
-                    StringKeyword,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        Identifier ("appName"),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Config\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("key"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("value"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1340,49 +578,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Math\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Result\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("x"),
-                        Whitespace,
-                        AdditionOperator,
-                        Whitespace,
-                        Identifier ("y"),
-                        Whitespace,
-                        MultiplicationOperator,
-                        Whitespace,
-                        IntegerLiteral ("2"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1395,43 +597,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Input\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"UserName\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("txtUserName"),
-                        PeriodOperator,
-                        TextKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1445,44 +617,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        Underscore,
-                        Newline,
-                        Whitespace,
-                        StringLiteral ("\"Section\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Key\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Value\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1495,43 +636,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Window\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"State\""),
-                        Comma,
-                        Whitespace,
-                        MeKeyword,
-                        PeriodOperator,
-                        Identifier ("WindowState"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1546,67 +657,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            SaveSettingStatement {
-                SaveSettingKeyword,
-                Whitespace,
-                StringLiteral ("\"MyApp\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Settings\""),
-                Comma,
-                Whitespace,
-                StringLiteral ("\"Value\""),
-                Comma,
-                Whitespace,
-                Identifier ("data"),
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    MemberAccessExpression {
-                        Identifier ("Err"),
-                        PeriodOperator,
-                        Identifier ("Number"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Error saving settings\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1619,40 +676,12 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SaveSettingStatement {
-                        Whitespace,
-                        SaveSettingKeyword,
-                        Whitespace,
-                        StringLiteral ("\"MyApp\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Database\\Connection\""),
-                        Comma,
-                        Whitespace,
-                        StringLiteral ("\"Server\""),
-                        Comma,
-                        Whitespace,
-                        Identifier ("serverName"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/savesetting");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }

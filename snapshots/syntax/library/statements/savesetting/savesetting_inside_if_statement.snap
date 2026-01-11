@@ -1,0 +1,65 @@
+---
+source: src/syntax/library/statements/savesetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: saveSettings
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SaveSettingStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SaveSettingKeyword
+                  text: SaveSetting
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"MyApp\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Prefs\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Theme\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Dark\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"

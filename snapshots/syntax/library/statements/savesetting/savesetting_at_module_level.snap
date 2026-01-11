@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/statements/savesetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SaveSettingStatement
+      children:
+        - kind: SaveSettingKeyword
+          text: SaveSetting
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"MyApp\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Settings\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Value\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Data\""
+        - kind: Newline
+          text: "\n"
