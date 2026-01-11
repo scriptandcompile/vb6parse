@@ -75,7 +75,7 @@ let result = ModuleFile::parse(&source);
 
 let (module, failures) = result.unpack();
 if let Some(module) = module {
-    println!("Module name: {}", module.attributes.name);
+    println!("Module name: {}", module.name);
 }
 ```
 
@@ -83,14 +83,12 @@ if let Some(module) = module {
 
 ```rust
 use vb6parse::*;
+let mut source_stream = SourceStream::new("test.bas", "Dim x As Integer");
+let (token_stream, _failures) = tokenize(&mut source_stream).unpack();
 
-let source = SourceFile::from_string("test.bas", "Dim x As Integer");
-let result = tokenize(&source);
-
-let (token_stream, failures) = result.unpack();
 if let Some(tokens) = token_stream {
-    for token in tokens.iter() {
-        println!("{:?}: {:?}", token.kind(), token.text());
+    for (text, token) in tokens {
+        println!("{:?}: {:?}", text, token);
     }
 }
 ```
@@ -100,20 +98,13 @@ if let Some(tokens) = token_stream {
 ```rust
 use vb6parse::*;
 
-let code = "Sub Test()\n    x = 5\nEnd Sub";
-let source = SourceFile::from_string("test.bas", code);
+let contents = "Sub Test()\n    x = 5\nEnd Sub";
 
-// Tokenize first
-let (tokens, _) = tokenize(&source).unpack();
+let (tree_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", contents).unpack();
 
-// Parse to CST
-if let Some(tokens) = tokens {
-    let (cst, _) = parse(&tokens).unpack();
-    
-    if let Some(tree) = cst {
-        // Navigate the syntax tree
-        println!("Root children: {}", tree.root().child_count());
-    }
+// Print the tree
+if let Some(tree) = tree_opt {
+    println!("{}", tree.debug_tree());
 }
 ```
 
@@ -127,34 +118,34 @@ use vb6parse::parsers::SyntaxKind;
 
 let source = "Sub Test()\n    Dim x As Integer\n    x = 42\nEnd Sub";
 let cst = ConcreteSyntaxTree::from_text("test.bas", source).unwrap();
-let root = cst.to_serializable().root;
+let root = cst.to_root_node();
 
 // Basic navigation
 let child_count = root.child_count();
 let first = root.first_child();
 
 // Find by kind
-let sub_stmt = root.find(SyntaxKind::SubStatement);  // First match
-let all_dims = root.find_all(SyntaxKind::DimStatement);  // All matches
+let sub_stmt = root.find(SyntaxKind::SubStatement); // First match
+let all_dims = root.find_all(SyntaxKind::DimStatement); // All matches
 
 // Filter children
 let non_tokens: Vec<_> = root.non_token_children().collect();
 let significant: Vec<_> = root.significant_children().collect();
 
 // Custom search with predicates
-let keywords = root.find_all_if(|n| n.kind.to_string().ends_with("Keyword"));
-let complex = root.find_all_if(|n| !n.is_token && n.children.len() > 5);
+let keywords = root.find_all_if(|n| n.kind().to_string().ends_with("Keyword"));
+let complex = root.find_all_if(|n| !n.is_token() && n.children().len() > 5);
 
 // Iterate all nodes depth-first
 for node in root.descendants() {
     if node.is_significant() {
-        println!("{:?}: {}", node.kind, node.text);
+        println!("{:?}: {}", node.kind(), node.text());
     }
-}
 
-// Convenience checkers
-if node.is_comment() || node.is_whitespace() {
-    // Skip trivia
+    // Convenience checkers
+    if node.is_comment() || node.is_whitespace() {
+        // Skip trivia
+    }
 }
 ```
 
@@ -306,108 +297,58 @@ src/
 
 ## Common Tasks
 
-### 1. Load and Validate a VB6 Project
+### 1. Extract All Form Controls
 
 ```rust
+use vb6parse::language::Control;
 use vb6parse::*;
-use std::fs;
-
-fn load_project(path: &str) -> Result<ProjectFile, String> {
-    let bytes = fs::read(path).map_err(|e| e.to_string())?;
-    
-    let source = SourceFile::decode_with_replacement(path, &bytes)
-        .map_err(|e| format!("Decode error: {:?}", e))?;
-    
-    let result = ProjectFile::parse(&source);
-    let (project, failures) = result.unpack();
-    
-    if !failures.is_empty() {
-        for failure in &failures {
-            failure.print();
-        }
-        return Err(format!("Parse had {} failures", failures.len()));
-    }
-    
-    project.ok_or_else(|| "Parse returned no result".to_string())
-}
-```
-
-### 2. Extract All Form Controls
-
-```rust
-use vb6parse::*;
-use vb6parse::language::controls::{Control, ControlKind};
 
 fn extract_controls(form_path: &str) -> Vec<String> {
     let source = SourceFile::from_file(form_path).unwrap();
     let result = FormFile::parse(&source);
     let (form, _) = result.unpack();
-    
+
     let mut control_names = Vec::new();
-    
-    if let Some(form) = form {
+
+    if let Some(formfile) = form {
         fn visit_control(control: &Control, names: &mut Vec<String>) {
-            names.push(control.name.clone());
-            
+            names.push(control.name().to_string());
+
             // Recursively visit children
-            if let Some(children) = control.kind.children() {
+            if let Some(children) = control.kind().children() {
                 for child in children {
                     visit_control(child, names);
                 }
             }
         }
-        
-        for control in &form.controls {
+
+        for control in formfile.form.children().unwrap() {
             visit_control(control, &mut control_names);
         }
     }
-    
+
     control_names
 }
 ```
 
-### 3. Analyze Code Without Full Parsing
+### 2. Analyze Code Without Full Parsing
 
 ```rust
 use vb6parse::*;
 
 fn count_identifiers(code: &str, function_name: &str) -> usize {
-    let source = SourceFile::from_string("temp.bas", code);
-    let result = tokenize(&source);
+    let mut source_stream = SourceStream::new("temp.bas", code);
+    let result = tokenize(&mut source_stream);
     let (tokens, _) = result.unpack();
-    
+
     tokens
         .map(|ts| {
-            ts.iter()
-                .filter(|t| {
-                    matches!(t.kind(), SyntaxKind::IdentifierToken)
-                        && t.text().eq_ignore_ascii_case(function_name)
-                })
-                .count()
+            ts.filter(|(text, token)| {
+                *token == language::Token::Identifier && text.eq_ignore_ascii_case(function_name)
+            })
+            .count()
         })
         .unwrap_or(0)
-}
-```
-
-### 4. Convert VB6 to Syntax Tree and Back
-
-```rust
-use vb6parse::*;
-
-fn roundtrip_code(code: &str) -> String {
-    let source = SourceFile::from_string("temp.bas", code);
-    let (tokens, _) = tokenize(&source).unpack();
-    
-    if let Some(tokens) = tokens {
-        let (cst, _) = parse(&tokens).unpack();
-        
-        if let Some(tree) = cst {
-            // CST preserves all whitespace and comments
-            return tree.root().text().to_string();
-        }
-    }
-    
-    String::new()
 }
 ```
 
@@ -428,9 +369,7 @@ let (project_opt, failures) = result.unpack();
 // Option 2: Check for failures first
 if result.has_failures() {
     for failure in result.failures() {
-        eprintln!("Error at line {}: {:?}", 
-                  failure.offset.line_number,
-                  failure.kind);
+        eprintln!("Error at line {}: {:?}", failure.error_offset, failure.kind);
     }
 }
 
@@ -449,10 +388,10 @@ The Concrete Syntax Tree preserves all source information including whitespace a
 ```rust
 use vb6parse::*;
 
-let (tree, _) = parse(&tokens).unpack().0.unwrap();
+let tree = parse(token_stream);
 
 // Navigate the tree
-let root = tree.root();
+let root = tree.to_root_node();
 for child in root.children() {
     println!("Node: {:?}", child.kind());
     println!("Text: {}", child.text());
@@ -477,7 +416,7 @@ use vb6parse::*;
 
 // From bytes (e.g., file read)
 let bytes = std::fs::read("file.bas")?;
-let source = SourceFile::decode_with_replacement("file.bas", &bytes)?;
+let source = SourceFile::decode_with_replacement("file.bas", &bytes).unwrap();
 
 // From UTF-8 string (testing/programmatic)
 let source = SourceFile::from_string("test.bas", "Dim x As Integer");
@@ -527,13 +466,21 @@ Form resource files contain binary data for controls (images, icons, property bl
 ```rust
 use vb6parse::*;
 
+// Option 1: load bytes and hand to FormResourceFile to handle.
 let bytes = std::fs::read("Form1.frx")?;
-let result = FormResource::load_from_bytes(&bytes);
+let result = FormResourceFile::parse("Form1.frx", bytes);
 
-let (resource, failures) = result.unpack();
+// Option 2: Load directly from file.
+let result = FormResourceFile::from_file("Form1.frx")?;
+
+let (resource, _failures) = result.unpack();
 if let Some(resource) = resource {
-    for (offset, data) in &resource.resources {
-        println!("Resource at offset {}: {} bytes", offset, data.len());
+    for (offset, data) in resource.iter_entries() {
+        println!(
+            "Resource at offset {}: {} bytes",
+            offset,
+            data.as_bytes().unwrap().len()
+        );
     }
 }
 ```
@@ -546,9 +493,9 @@ if let Some(resource) = resource {
 
 VB6Parse has comprehensive test coverage:
 
-- **5,467 library tests** - Testing VB6 library functions and statements
-- **83 documentation tests** - Ensuring examples work correctly
-- **31 integration tests** - Parsing real-world VB6 projects
+- **5,000+ library tests** - Testing VB6 library functions and statements
+- **80+ documentation tests** - Ensuring examples work correctly
+- **30+ integration tests** - Parsing real-world VB6 projects
 
 ### Running Tests
 
