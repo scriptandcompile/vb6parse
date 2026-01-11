@@ -1,0 +1,99 @@
+---
+source: src/syntax/library/functions/math/cos.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: value
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: amplitude
+            - kind: Whitespace
+              text: " "
+            - kind: MultiplicationOperator
+              text: "*"
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Cos
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "2"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: MultiplicationOperator
+                                          text: "*"
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: Pi
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: MultiplicationOperator
+                                      text: "*"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: frequency
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: MultiplicationOperator
+                                  text: "*"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: TimeKeyword
+                                      text: time
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AdditionOperator
+                              text: +
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: phase
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"
