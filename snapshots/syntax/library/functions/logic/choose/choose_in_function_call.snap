@@ -1,0 +1,43 @@
+---
+source: src/syntax/library/functions/logic/choose.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Choose
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: errorLevel
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Info\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Warning\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Error\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

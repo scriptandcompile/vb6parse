@@ -1,0 +1,97 @@
+---
+source: src/syntax/library/functions/logic/choose.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Choose
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: status
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Pending\""
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Active\""
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Closed\""
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteralExpression
+              children:
+                - kind: StringLiteral
+                  text: "\"Active\""
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Process
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"

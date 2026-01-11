@@ -1,0 +1,69 @@
+---
+source: src/syntax/library/functions/logic/choose.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: dueDate
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Choose
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: priority
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: LiteralExpression
+                      children:
+                        - kind: DateLiteral
+                          text: "#1/1/2000#"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: LiteralExpression
+                      children:
+                        - kind: DateLiteral
+                          text: "#1/15/2000#"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: LiteralExpression
+                      children:
+                        - kind: DateLiteral
+                          text: "#2/1/2000#"
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
