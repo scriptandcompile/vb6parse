@@ -1,0 +1,159 @@
+---
+source: src/syntax/library/functions/financial/sln.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: ErrorHandler
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: depValue
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: DoubleKeyword
+                  text: Double
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: depValue
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: SLN
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: assetCost
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: assetSalvage
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: assetLife
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: ExitStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ExitKeyword
+                  text: Exit
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: ErrorHandler
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Error calculating depreciation\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

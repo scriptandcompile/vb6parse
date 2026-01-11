@@ -1,0 +1,159 @@
+---
+source: src/syntax/library/functions/financial/sln.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Unknown
+      text: Class
+    - kind: Whitespace
+      text: " "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: AssetManager
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "    "
+    - kind: FunctionStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetDepreciation
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: c
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: DoubleKeyword
+              text: Double
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: s
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: DoubleKeyword
+              text: Double
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: l
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: DoubleKeyword
+              text: Double
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: DoubleKeyword
+          text: Double
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "        "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: GetDepreciation
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: SLN
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: c
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: s
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: l
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
+    - kind: Unknown
+      text: End
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: Class
+    - kind: Newline
+      text: "\n"
