@@ -1,0 +1,189 @@
+---
+source: src/syntax/library/functions/string/midb_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Main
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: ipBytes
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: GetIPv4Bytes
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children: []
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: octet1
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: AscB
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: MidB$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: ipBytes
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: octet2
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: AscB
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: MidB$
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: ipBytes
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "2"
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "1"
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
