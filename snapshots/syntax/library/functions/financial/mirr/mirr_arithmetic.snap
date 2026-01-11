@@ -1,0 +1,131 @@
+---
+source: src/syntax/library/functions/financial/mirr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: annualizedReturn
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: DoubleKeyword
+          text: Double
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: annualizedReturn
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: ParenthesizedExpression
+              children:
+                - kind: LeftParenthesis
+                  text: (
+                - kind: BinaryExpression
+                  children:
+                    - kind: ParenthesizedExpression
+                      children:
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: BinaryExpression
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AdditionOperator
+                              text: +
+                            - kind: Whitespace
+                              text: " "
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: MIRR
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: CallExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: monthlyFlows
+                                            - kind: LeftParenthesis
+                                              text: (
+                                            - kind: ArgumentList
+                                              children: []
+                                            - kind: RightParenthesis
+                                              text: )
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: monthlyFin
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: monthlyReinv
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ExponentiationOperator
+                      text: ^
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "12"
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: SubtractionOperator
+              text: "-"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "1"
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,145 @@
+---
+source: src/syntax/library/functions/financial/mirr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerKeyword
+          text: Integer
+        - kind: Newline
+          text: "\n"
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: i
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "0"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "10"
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: results
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: i
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: MIRR
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: scenarios
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: i
+                                - kind: RightParenthesis
+                                  text: )
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: SingleLiteral
+                                  text: "0.08"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
+                          children:
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: SingleLiteral
+                                  text: "0.05"
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"
