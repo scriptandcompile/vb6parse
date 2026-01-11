@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/financial/npv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: DisplayInvestmentAnalysis
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: NPV
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: discountRate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: projectedFlows
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
