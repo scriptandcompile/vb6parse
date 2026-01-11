@@ -1,0 +1,58 @@
+---
+source: src/syntax/library/functions/resources/loadrespicture.rs
+assertion_line: 1204
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: AssignmentStatement
+      children:
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: cmdSave
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: Picture
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LoadResPicture
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "203"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: vbResIcon
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

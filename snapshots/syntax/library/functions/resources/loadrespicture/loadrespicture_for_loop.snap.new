@@ -1,0 +1,108 @@
+---
+source: src/syntax/library/functions/resources/loadrespicture.rs
+assertion_line: 827
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: i
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "5"
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "                "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: imgArray
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: i
+                - kind: RightParenthesis
+                  text: )
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Picture
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: LoadResPicture
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "100"
+                - kind: Whitespace
+                  text: " "
+                - kind: AdditionOperator
+                  text: +
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: i
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbResBitmap
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
