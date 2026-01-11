@@ -1,0 +1,47 @@
+---
+source: src/syntax/library/statements/sendkeys.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SendKeysStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SendKeysKeyword
+                  text: SendKeys
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: keyString
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
