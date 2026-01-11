@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/string/formatdatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatDateTime
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Now
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbLongDate
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

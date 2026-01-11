@@ -1,0 +1,109 @@
+---
+source: src/syntax/library/functions/string/formatdatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: i
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LBound
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: dates
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: UBound
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: dates
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: Debug
+                - kind: PeriodOperator
+                  text: "."
+                - kind: PrintKeyword
+                  text: Print
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: FormatDateTime
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: dates
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: i
+                - kind: RightParenthesis
+                  text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: vbShortDate
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: i
+        - kind: Newline
+          text: "\n"
