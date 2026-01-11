@@ -1,0 +1,71 @@
+---
+source: src/syntax/library/statements/delete_setting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: DeleteSettingStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: DeleteSettingKeyword
+                  text: DeleteSetting
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: GetAppName
+                - kind: LeftParenthesis
+                  text: (
+                - kind: RightParenthesis
+                  text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: GetSection
+                - kind: LeftParenthesis
+                  text: (
+                - kind: RightParenthesis
+                  text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: GetKey
+                - kind: LeftParenthesis
+                  text: (
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
