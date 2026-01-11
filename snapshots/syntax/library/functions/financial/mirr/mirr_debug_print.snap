@@ -1,0 +1,45 @@
+---
+source: src/syntax/library/functions/financial/mirr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: MIRR
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: cashFlows
+        - kind: LeftParenthesis
+          text: (
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "0.08"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "0.05"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
