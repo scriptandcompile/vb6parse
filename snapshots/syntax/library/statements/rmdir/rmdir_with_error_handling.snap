@@ -1,0 +1,145 @@
+---
+source: src/syntax/library/statements/rmdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CleanupDirectories
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: ResumeKeyword
+                  text: Resume
+                - kind: Whitespace
+                  text: " "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Newline
+                  text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\Session1\""
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: MemberAccessExpression
+                      children:
+                        - kind: Identifier
+                          text: Err
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: Identifier
+                          text: Number
+                    - kind: Whitespace
+                      text: " "
+                    - kind: InequalityOperator
+                      text: "<>"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: MsgBox
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteral
+                          text: "\"Could not remove directory\""
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

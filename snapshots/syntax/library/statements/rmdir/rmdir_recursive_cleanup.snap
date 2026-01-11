@@ -1,0 +1,103 @@
+---
+source: src/syntax/library/statements/rmdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: RecursiveRemove
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: ResumeKeyword
+                  text: Resume
+                - kind: Whitespace
+                  text: " "
+                - kind: NextKeyword
+                  text: Next
+                - kind: Newline
+                  text: "\n"
+            - kind: KillStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: KillKeyword
+                  text: Kill
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\Data\\*.*\""
+                - kind: Newline
+                  text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\Data\""
+                - kind: Newline
+                  text: "\n"
+            - kind: KillStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: KillKeyword
+                  text: Kill
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\*.*\""
+                - kind: Newline
+                  text: "\n"
+            - kind: RmDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RmDirKeyword
+                  text: RmDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
