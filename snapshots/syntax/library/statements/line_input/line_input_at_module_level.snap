@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/statements/line_input.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: LineInputStatement
+      children:
+        - kind: LineKeyword
+          text: Line
+        - kind: Whitespace
+          text: " "
+        - kind: InputKeyword
+          text: Input
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: myLine
+        - kind: Newline
+          text: "\n"
