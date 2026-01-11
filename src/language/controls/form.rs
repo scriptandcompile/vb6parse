@@ -1,31 +1,55 @@
+//! Properties for a `Form` control.
+//!
+//! This is used as an enum variant of
+//! [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
+//! tag, name, and index are not included in this struct, but instead are part
+//! of the parent [`Control`](crate::language::controls::Control) struct.
+//!
+
+use std::convert::TryFrom;
+use std::fmt::Display;
+use std::str::FromStr;
+
 use crate::{
+    files::common::Properties,
     language::{
         controls::{
             Activation, Appearance, AutoRedraw, ClipControls, DrawMode, DrawStyle, FillStyle,
-            FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode, ScaleMode,
-            StartUpPosition, TextDirection, Visibility, WhatsThisHelp, WindowState,
+            FontTransparency, HasDeviceContext, MousePointer, Movability, OLEDropMode,
+            ReferenceOrValue, ScaleMode, StartUpPosition, TextDirection, Visibility, WhatsThisHelp,
+            WindowState,
         },
-        FormLinkMode, VB6Color,
+        Color, FormLinkMode, VB_BUTTON_FACE, VB_BUTTON_TEXT, VB_SCROLL_BARS,
     },
-    parsers::Properties,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
 /// The palette drawing mode of a form.
 ///
-/// The PaletteMode property only applies to 256-color displays. On high-color
+/// The `PaletteMode` property only applies to 256-color displays. On high-color
 /// or true-color displays, color selection is handled by the video driver using
 /// a palette of 32,000 or 16 million colors respectively. Even if you’re
 /// rogramming on a system with a high-color or true-color display, you still
-/// may want to set the PaletteMode, because many of your users may be using
+/// may want to set the `PaletteMode`, because many of your users may be using
 /// 256-color displays.
 ///
 /// [reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa733659(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum PaletteMode {
     /// In this mode, any controls, images contained on the form, or graphics
@@ -43,18 +67,18 @@ pub enum PaletteMode {
     #[default]
     HalfTone = 0,
     /// Z-order is a relative ordering that determines how controls overlap each
-    /// other on a form. When the PaletteMode of the form with the focus is set
-    /// to UseZOrder, the palette of the topmost control always has precedence.
+    /// other on a form. When the `PaletteMode` of the form with the focus is set
+    /// to `UseZOrder`, the palette of the topmost control always has precedence.
     /// This means that each time a new control becomes topmost (for instance,
     /// when you load a new image into a picture box), the hardware palette will
     /// be remapped. This will often cause a side effect known as palette flash:
     /// The display appears to flash as the new colors are displayed, both in
     /// the current form and in any other visible forms or applications.
     ///
-    /// Although the UseZOrder setting provides the most accurate color
+    /// Although the `UseZOrder` setting provides the most accurate color
     /// rendition, it comes at the expense of speed. Additionally, this method
     /// can cause the background color of the form or of controls that have no
-    /// image to appear dithered. Setting the PaletteMode to UseZOrder is the
+    /// image to appear dithered. Setting the `PaletteMode` to `UseZOrder` is the
     /// best choice when accurate display of the topmost image outweighs the
     /// annoyance of palette flash, or when you need to maintain backward
     /// compatibility with earlier versions of Visual Basic.
@@ -64,7 +88,7 @@ pub enum PaletteMode {
     /// If you need more precise control over the actual display of colors, you
     /// can use a 256-color image to define a custom palette. To do this, assign
     /// a 256-color image (.gif, .cur, .ico, .dib, or .gif) to the Palette
-    /// property of the form and set the PaletteMode property to Custom.
+    /// property of the form and set the `PaletteMode` property to Custom.
     /// The bitmap doesn’t have to be very large; even a single pixel can define
     /// up to 256 colors for the form or picture box. This is because the
     /// logical palette of a bitmap can list up to 256 colors, regardless of
@@ -79,8 +103,54 @@ pub enum PaletteMode {
     Custom = 2,
 }
 
+impl TryFrom<&str> for PaletteMode {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(PaletteMode::HalfTone),
+            "1" => Ok(PaletteMode::UseZOrder),
+            "2" => Ok(PaletteMode::Custom),
+            _ => Err(crate::errors::FormErrorKind::InvalidPaletteMode(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for PaletteMode {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        PaletteMode::try_from(s)
+    }
+}
+
+impl Display for PaletteMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            PaletteMode::HalfTone => "HalfTone",
+            PaletteMode::UseZOrder => "UseZOrder",
+            PaletteMode::Custom => "Custom",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The property that determines the appearance of a forms border.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FormBorderStyle {
     /// The form has no border.
@@ -100,9 +170,61 @@ pub enum FormBorderStyle {
     SizableToolWindow = 5,
 }
 
+impl TryFrom<&str> for FormBorderStyle {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FormBorderStyle::None),
+            "1" => Ok(FormBorderStyle::FixedSingle),
+            "2" => Ok(FormBorderStyle::Sizable),
+            "3" => Ok(FormBorderStyle::FixedDialog),
+            "4" => Ok(FormBorderStyle::FixedToolWindow),
+            "5" => Ok(FormBorderStyle::SizableToolWindow),
+            _ => Err(crate::errors::FormErrorKind::InvalidFormBorderStyle(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for FormBorderStyle {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FormBorderStyle::try_from(s)
+    }
+}
+
+impl Display for FormBorderStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FormBorderStyle::None => "None",
+            FormBorderStyle::FixedSingle => "FixedSingle",
+            FormBorderStyle::Sizable => "Sizable",
+            FormBorderStyle::FixedDialog => "FixedDialog",
+            FormBorderStyle::FixedToolWindow => "FixedToolWindow",
+            FormBorderStyle::SizableToolWindow => "SizableToolWindow",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `ControlBox` property of a `Form` control determines whether the
 /// control box is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ControlBox {
     /// The control box is not displayed.
@@ -112,9 +234,65 @@ pub enum ControlBox {
     Included = -1,
 }
 
+impl TryFrom<&str> for ControlBox {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ControlBox::Excluded),
+            "-1" => Ok(ControlBox::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidControlBox(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for ControlBox {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ControlBox::Included)
+        } else {
+            Ok(ControlBox::Excluded)
+        }
+    }
+}
+
+impl FromStr for ControlBox {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ControlBox::try_from(s)
+    }
+}
+
+impl Display for ControlBox {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ControlBox::Excluded => "Excluded",
+            ControlBox::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `MaxButton` property of a `Form` control determines whether the
 /// maximize button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum MaxButton {
     /// The maximize button is not displayed.
@@ -124,9 +302,65 @@ pub enum MaxButton {
     Included = -1,
 }
 
+impl TryFrom<&str> for MaxButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MaxButton::Excluded),
+            "-1" => Ok(MaxButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMaxButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for MaxButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(MaxButton::Included)
+        } else {
+            Ok(MaxButton::Excluded)
+        }
+    }
+}
+
+impl FromStr for MaxButton {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MaxButton::try_from(s)
+    }
+}
+
+impl Display for MaxButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MaxButton::Excluded => "Excluded",
+            MaxButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `MinButton` property of a `Form` control determines whether the
 /// minimize button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum MinButton {
     /// The minimize button is not displayed.
@@ -136,9 +370,71 @@ pub enum MinButton {
     Included = -1,
 }
 
+impl FromStr for MinButton {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" => Ok(MinButton::Excluded),
+            "-1" => Ok(MinButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
+                s.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for MinButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(MinButton::Included)
+        } else {
+            Ok(MinButton::Excluded)
+        }
+    }
+}
+
+impl TryFrom<&str> for MinButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MinButton::Excluded),
+            "-1" => Ok(MinButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidMinButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl Display for MinButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MinButton::Excluded => "Excluded",
+            MinButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `WhatsThisButton` property of a `Form` control determines whether the
 /// 'What's This?' button is displayed in the form's title bar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WhatsThisButton {
     /// The 'What's This?' button is not displayed.
@@ -148,9 +444,57 @@ pub enum WhatsThisButton {
     Included = -1,
 }
 
+impl TryFrom<&str> for WhatsThisButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WhatsThisButton::Excluded),
+            "-1" => Ok(WhatsThisButton::Included),
+            _ => Err(crate::errors::FormErrorKind::InvalidWhatsThisButton(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl TryFrom<bool> for WhatsThisButton {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(WhatsThisButton::Included)
+        } else {
+            Ok(WhatsThisButton::Excluded)
+        }
+    }
+}
+
+impl Display for WhatsThisButton {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WhatsThisButton::Excluded => "Excluded",
+            WhatsThisButton::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `ShowInTaskbar` property of a `Form` control determines whether the
 /// form is shown in the taskbar.
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum ShowInTaskbar {
     /// The form is not shown in the taskbar.
@@ -160,65 +504,161 @@ pub enum ShowInTaskbar {
     Show = -1,
 }
 
+impl TryFrom<&str> for ShowInTaskbar {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ShowInTaskbar::Hide),
+            "-1" => Ok(ShowInTaskbar::Show),
+            _ => Err(crate::errors::FormErrorKind::InvalidShowInTaskbar(
+                value.to_string(),
+            )),
+        }
+    }
+}
+
+impl FromStr for ShowInTaskbar {
+    type Err = crate::errors::FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ShowInTaskbar::try_from(s)
+    }
+}
+
+impl TryFrom<bool> for ShowInTaskbar {
+    type Error = crate::errors::FormErrorKind;
+
+    fn try_from(value: bool) -> Result<Self, Self::Error> {
+        if value {
+            Ok(ShowInTaskbar::Show)
+        } else {
+            Ok(ShowInTaskbar::Hide)
+        }
+    }
+}
+
+impl Display for ShowInTaskbar {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ShowInTaskbar::Hide => "Hide",
+            ShowInTaskbar::Show => "Show",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Properties for a `Form` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::Form`](crate::language::controls::VB6ControlKind::Form).
+/// [`ControlKind::Form`](crate::language::controls::ControlKind::Form).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct FormProperties {
+    /// The appearance of the form.
     pub appearance: Appearance,
+    /// Whether the form automatically redraws itself.
     pub auto_redraw: AutoRedraw,
-    pub back_color: VB6Color,
+    /// The background color of the form.
+    pub back_color: Color,
+    /// The border style of the form.
     pub border_style: FormBorderStyle,
-    pub caption: BString,
+    /// The caption of the form.
+    pub caption: String,
+    /// The height of the form's client area.
     pub client_height: i32,
+    /// The left position of the form's client area.
     pub client_left: i32,
+    /// The top position of the form's client area.
     pub client_top: i32,
+    /// The width of the form's client area.
     pub client_width: i32,
+    /// Whether controls are clipped to the form's boundaries.
     pub clip_controls: ClipControls,
+    /// The control box setting of the form.
     pub control_box: ControlBox,
+    /// The drawing mode of the form.
     pub draw_mode: DrawMode,
+    /// The drawing style of the form.
     pub draw_style: DrawStyle,
+    /// The drawing width of the form.
     pub draw_width: i32,
+    /// Whether the form is enabled.
     pub enabled: Activation,
-    pub fill_color: VB6Color,
+    /// The fill color of the form.
+    pub fill_color: Color,
+    /// The fill style of the form.
     pub fill_style: FillStyle,
+    /// The font transparency of the form.
     pub font_transparent: FontTransparency,
-    pub fore_color: VB6Color,
+    /// The foreground color of the form.
+    pub fore_color: Color,
+    /// Whether the form has a device context.
     pub has_dc: HasDeviceContext,
+    /// The height of the form.
     pub height: i32,
+    /// The help context ID of the form.
     pub help_context_id: i32,
-    pub icon: Option<DynamicImage>,
+    /// The icon of the form.
+    pub icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Whether the form previews key events.
     pub key_preview: bool,
+    /// The left position of the form.
     pub left: i32,
+    /// The link mode of the form.
     pub link_mode: FormLinkMode,
-    pub link_topic: BString,
+    /// The link topic of the form.
+    pub link_topic: String,
+    /// The maximize button setting of the form.
     pub max_button: MaxButton,
+    /// Whether the form is an MDI child.
     pub mdi_child: bool,
+    /// The minimize button setting of the form.
     pub min_button: MinButton,
-    pub mouse_icon: Option<DynamicImage>,
+    /// The mouse icon of the form.
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// The mouse pointer of the form.
     pub mouse_pointer: MousePointer,
+    /// The movability of the form.
     pub moveable: Movability,
+    /// Whether the form negotiates menus.
     pub negotiate_menus: bool,
+    /// The OLE drop mode of the form.
     pub ole_drop_mode: OLEDropMode,
-    pub palette: Option<DynamicImage>,
+    /// The palette of the form.
+    pub palette: Option<ReferenceOrValue<DynamicImage>>,
+    /// The palette mode of the form.
     pub palette_mode: PaletteMode,
-    pub picture: Option<DynamicImage>,
+    /// The picture of the form.
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// The text direction of the form.
     pub right_to_left: TextDirection,
+    /// The scale height of the form.
     pub scale_height: i32,
+    /// The scale left of the form.
     pub scale_left: i32,
+    /// The scale mode of the form.
     pub scale_mode: ScaleMode,
+    /// The scale top of the form.
     pub scale_top: i32,
+    /// The scale width of the form.
     pub scale_width: i32,
+    /// The show in taskbar setting of the form.
     pub show_in_taskbar: ShowInTaskbar,
+    /// The start up position of the form.
     pub start_up_position: StartUpPosition,
+    /// The top position of the form.
     pub top: i32,
+    /// The visibility of the form.
     pub visible: Visibility,
+    /// The "What's This?" button of the form.
     pub whats_this_button: WhatsThisButton,
+    /// The "What's This?" help of the form.
     pub whats_this_help: WhatsThisHelp,
+    /// The width of the form.
     pub width: i32,
+    /// The window state of the form.
     pub window_state: WindowState,
 }
 
@@ -305,7 +745,7 @@ impl Default for FormProperties {
         FormProperties {
             appearance: Appearance::ThreeD,
             auto_redraw: AutoRedraw::Manual,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
+            back_color: VB_BUTTON_FACE,
             border_style: FormBorderStyle::Sizable,
             caption: "Form1".into(),
             client_height: 200,
@@ -318,18 +758,18 @@ impl Default for FormProperties {
             draw_style: DrawStyle::Solid,
             draw_width: 1,
             enabled: Activation::Enabled,
-            fill_color: VB6Color::from_hex("&H00000000&").unwrap(),
+            fill_color: VB_SCROLL_BARS,
             fill_style: FillStyle::Transparent,
             font_transparent: FontTransparency::Transparent,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
-            has_dc: HasDeviceContext::Yes,
+            fore_color: VB_BUTTON_TEXT,
+            has_dc: HasDeviceContext::HasContext,
             height: 240,
             help_context_id: 0,
             icon: None,
             key_preview: false,
             left: 0,
             link_mode: FormLinkMode::None,
-            link_topic: "".into(),
+            link_topic: String::new(),
             max_button: MaxButton::Included,
             mdi_child: false,
             min_button: MinButton::Included,
@@ -359,93 +799,92 @@ impl Default for FormProperties {
     }
 }
 
-impl From<Properties<'_>> for FormProperties {
+impl From<Properties> for FormProperties {
     fn from(prop: Properties) -> Self {
         let mut form_prop = FormProperties::default();
 
-        form_prop.appearance = prop.get_property(b"Appearance".into(), form_prop.appearance);
-        form_prop.auto_redraw = prop.get_property(b"AutoRedraw".into(), form_prop.auto_redraw);
-        form_prop.back_color = prop.get_color(b"BackColor".into(), form_prop.back_color);
-        form_prop.border_style = prop.get_property(b"BorderStyle".into(), form_prop.border_style);
-        form_prop.caption = match prop.get(b"Caption".into()) {
-            Some(caption) => caption.into(),
+        form_prop.appearance = prop.get_property("Appearance", form_prop.appearance);
+        form_prop.auto_redraw = prop.get_property("AutoRedraw", form_prop.auto_redraw);
+        form_prop.back_color = prop.get_color("BackColor", form_prop.back_color);
+        form_prop.border_style = prop.get_property("BorderStyle", form_prop.border_style);
+        form_prop.caption = match prop.get("Caption") {
+            Some(caption) => caption.clone(),
             None => form_prop.caption,
         };
 
-        form_prop.client_height = prop.get_i32(b"ClientHeight".into(), form_prop.client_height);
-        form_prop.client_left = prop.get_i32(b"ClientLeft".into(), form_prop.client_left);
-        form_prop.client_top = prop.get_i32(b"ClientTop".into(), form_prop.client_top);
-        form_prop.client_width = prop.get_i32(b"ClientWidth".into(), form_prop.client_width);
+        form_prop.client_height = prop.get_i32("ClientHeight", form_prop.client_height);
+        form_prop.client_left = prop.get_i32("ClientLeft", form_prop.client_left);
+        form_prop.client_top = prop.get_i32("ClientTop", form_prop.client_top);
+        form_prop.client_width = prop.get_i32("ClientWidth", form_prop.client_width);
 
-        form_prop.clip_controls =
-            prop.get_property(b"ClipControls".into(), form_prop.clip_controls);
-        form_prop.control_box = prop.get_property(b"ControlBox".into(), form_prop.control_box);
+        form_prop.clip_controls = prop.get_property("ClipControls", form_prop.clip_controls);
+        form_prop.control_box = prop.get_property("ControlBox", form_prop.control_box);
 
-        form_prop.draw_mode = prop.get_property(b"DrawMode".into(), form_prop.draw_mode);
-        form_prop.draw_style = prop.get_property(b"DrawStyle".into(), form_prop.draw_style);
-        form_prop.draw_width = prop.get_i32(b"DrawWidth".into(), form_prop.draw_width);
+        form_prop.draw_mode = prop.get_property("DrawMode", form_prop.draw_mode);
+        form_prop.draw_style = prop.get_property("DrawStyle", form_prop.draw_style);
+        form_prop.draw_width = prop.get_i32("DrawWidth", form_prop.draw_width);
 
-        form_prop.enabled = prop.get_property(b"Enabled".into(), form_prop.enabled);
+        form_prop.enabled = prop.get_property("Enabled", form_prop.enabled);
 
-        form_prop.fill_color = prop.get_color(b"FillColor".into(), form_prop.fill_color);
-        form_prop.fill_style = prop.get_property(b"FillStyle".into(), form_prop.fill_style);
+        form_prop.fill_color = prop.get_color("FillColor", form_prop.fill_color);
+        form_prop.fill_style = prop.get_property("FillStyle", form_prop.fill_style);
 
+        // TODO: Font parsing
         // Font - group
 
         form_prop.font_transparent =
-            prop.get_property(b"FontTransparent".into(), form_prop.font_transparent);
-        form_prop.fore_color = prop.get_color(b"ForeColor".into(), form_prop.fore_color);
-        form_prop.has_dc = prop.get_property(b"HasDC".into(), form_prop.has_dc);
-        form_prop.height = prop.get_i32(b"Height".into(), form_prop.height);
-        form_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), form_prop.help_context_id);
+            prop.get_property("FontTransparent", form_prop.font_transparent);
+        form_prop.fore_color = prop.get_color("ForeColor", form_prop.fore_color);
+        form_prop.has_dc = prop.get_property("HasDC", form_prop.has_dc);
+        form_prop.height = prop.get_i32("Height", form_prop.height);
+        form_prop.help_context_id = prop.get_i32("HelpContextID", form_prop.help_context_id);
 
+        // TODO: Icon parsing
         // Icon
 
-        form_prop.key_preview = prop.get_bool(b"KeyPreview".into(), form_prop.key_preview);
-        form_prop.left = prop.get_i32(b"Left".into(), form_prop.left);
-        form_prop.link_mode = prop.get_property(b"LinkMode".into(), form_prop.link_mode);
-        form_prop.link_topic = match prop.get(b"LinkTopic".into()) {
-            Some(link_topic) => link_topic.into(),
+        form_prop.key_preview = prop.get_bool("KeyPreview", form_prop.key_preview);
+        form_prop.left = prop.get_i32("Left", form_prop.left);
+        form_prop.link_mode = prop.get_property("LinkMode", form_prop.link_mode);
+        form_prop.link_topic = match prop.get("LinkTopic") {
+            Some(link_topic) => link_topic.clone(),
             None => form_prop.link_topic,
         };
-        form_prop.max_button = prop.get_property(b"MaxButton".into(), form_prop.max_button);
-        form_prop.mdi_child = prop.get_bool(b"MDIChild".into(), form_prop.mdi_child);
-        form_prop.min_button = prop.get_property(b"MinButton".into(), form_prop.min_button);
+        form_prop.max_button = prop.get_property("MaxButton", form_prop.max_button);
+        form_prop.mdi_child = prop.get_bool("MDIChild", form_prop.mdi_child);
+        form_prop.min_button = prop.get_property("MinButton", form_prop.min_button);
 
+        // TODO: MouseIcon parsing
         // MouseIcon
 
-        form_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), form_prop.mouse_pointer);
-        form_prop.moveable = prop.get_property(b"Moveable".into(), form_prop.moveable);
-        form_prop.negotiate_menus =
-            prop.get_bool(b"NegotiateMenus".into(), form_prop.negotiate_menus);
-        form_prop.ole_drop_mode = prop.get_property(b"OLEDropMode".into(), form_prop.ole_drop_mode);
+        form_prop.mouse_pointer = prop.get_property("MousePointer", form_prop.mouse_pointer);
+        form_prop.moveable = prop.get_property("Moveable", form_prop.moveable);
+        form_prop.negotiate_menus = prop.get_bool("NegotiateMenus", form_prop.negotiate_menus);
+        form_prop.ole_drop_mode = prop.get_property("OLEDropMode", form_prop.ole_drop_mode);
 
+        // TODO: Palette parsing
         // Palette
 
-        form_prop.palette_mode = prop.get_property(b"PaletteMode".into(), form_prop.palette_mode);
+        form_prop.palette_mode = prop.get_property("PaletteMode", form_prop.palette_mode);
 
+        // TODO: Picture parsing
         // Picture
 
-        form_prop.right_to_left = prop.get_property(b"RightToLeft".into(), form_prop.right_to_left);
-        form_prop.scale_height = prop.get_i32(b"ScaleHeight".into(), form_prop.scale_height);
-        form_prop.scale_left = prop.get_i32(b"ScaleLeft".into(), form_prop.scale_left);
-        form_prop.scale_mode = prop.get_property(b"ScaleMode".into(), form_prop.scale_mode);
-        form_prop.scale_top = prop.get_i32(b"ScaleTop".into(), form_prop.scale_top);
-        form_prop.scale_width = prop.get_i32(b"ScaleWidth".into(), form_prop.scale_width);
-        form_prop.show_in_taskbar =
-            prop.get_property(b"ShowInTaskbar".into(), form_prop.show_in_taskbar);
+        form_prop.right_to_left = prop.get_property("RightToLeft", form_prop.right_to_left);
+        form_prop.scale_height = prop.get_i32("ScaleHeight", form_prop.scale_height);
+        form_prop.scale_left = prop.get_i32("ScaleLeft", form_prop.scale_left);
+        form_prop.scale_mode = prop.get_property("ScaleMode", form_prop.scale_mode);
+        form_prop.scale_top = prop.get_i32("ScaleTop", form_prop.scale_top);
+        form_prop.scale_width = prop.get_i32("ScaleWidth", form_prop.scale_width);
+        form_prop.show_in_taskbar = prop.get_property("ShowInTaskbar", form_prop.show_in_taskbar);
         form_prop.start_up_position =
-            prop.get_startup_position(b"StartUpPosition".into(), form_prop.start_up_position);
-        form_prop.top = prop.get_i32(b"Top".into(), form_prop.top);
-        form_prop.visible = prop.get_property(b"Visible".into(), form_prop.visible);
+            prop.get_startup_position("StartUpPosition", form_prop.start_up_position);
+        form_prop.top = prop.get_i32("Top", form_prop.top);
+        form_prop.visible = prop.get_property("Visible", form_prop.visible);
         form_prop.whats_this_button =
-            prop.get_property(b"WhatsThisButton".into(), form_prop.whats_this_button);
-        form_prop.whats_this_help =
-            prop.get_property(b"WhatsThisHelp".into(), form_prop.whats_this_help);
-        form_prop.width = prop.get_i32(b"Width".into(), form_prop.width);
-        form_prop.window_state = prop.get_property(b"WindowState".into(), form_prop.window_state);
+            prop.get_property("WhatsThisButton", form_prop.whats_this_button);
+        form_prop.whats_this_help = prop.get_property("WhatsThisHelp", form_prop.whats_this_help);
+        form_prop.width = prop.get_i32("Width", form_prop.width);
+        form_prop.window_state = prop.get_property("WindowState", form_prop.window_state);
 
         form_prop
     }

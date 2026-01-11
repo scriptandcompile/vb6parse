@@ -1,0 +1,45 @@
+---
+source: src/syntax/library/functions/file/curdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: fullPath
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: CurDir
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children: []
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: Ampersand
+              text: "&"
+            - kind: Whitespace
+              text: " "
+            - kind: StringLiteralExpression
+              children:
+                - kind: StringLiteral
+                  text: "\"\\data.txt\""
+        - kind: Newline
+          text: "\n"

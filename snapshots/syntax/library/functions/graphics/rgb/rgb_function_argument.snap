@@ -1,0 +1,43 @@
+---
+source: src/syntax/library/functions/graphics/rgb.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: SetBackgroundColor
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: RGB
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "230"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "230"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "230"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

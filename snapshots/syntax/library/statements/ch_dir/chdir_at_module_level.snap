@@ -1,0 +1,19 @@
+---
+source: src/syntax/library/statements/filesystem/ch_dir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ChDirStatement
+      children:
+        - kind: ChDirKeyword
+          text: ChDir
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"C:\\Temp\""
+        - kind: Newline
+          text: "\n"

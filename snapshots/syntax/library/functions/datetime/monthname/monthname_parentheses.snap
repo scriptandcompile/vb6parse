@@ -1,0 +1,57 @@
+---
+source: src/syntax/library/functions/datetime/monthname.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: NameKeyword
+          text: name
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+    - kind: NameStatement
+      children:
+        - kind: NameKeyword
+          text: name
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: MonthName
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "6"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: FalseKeyword
+          text: "False"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

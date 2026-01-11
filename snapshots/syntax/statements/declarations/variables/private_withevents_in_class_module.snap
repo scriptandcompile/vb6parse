@@ -1,0 +1,117 @@
+---
+source: src/syntax/statements/declarations/variables.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: VersionStatement
+      children:
+        - kind: VersionKeyword
+          text: VERSION
+        - kind: Whitespace
+          text: " "
+        - kind: SingleLiteral
+          text: "1.0"
+        - kind: Whitespace
+          text: " "
+        - kind: ClassKeyword
+          text: CLASS
+        - kind: Newline
+          text: "\n"
+    - kind: PropertiesBlock
+      children:
+        - kind: BeginKeyword
+          text: BEGIN
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "  "
+        - kind: Property
+          children:
+            - kind: PropertyKey
+              children:
+                - kind: Identifier
+                  text: MultiUse
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: PropertyValue
+              children:
+                - kind: SubtractionOperator
+                  text: "-"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Whitespace
+                  text: "  "
+                - kind: EndOfLineComment
+                  text: "'True"
+            - kind: Newline
+              text: "\n"
+        - kind: EndKeyword
+          text: END
+        - kind: Newline
+          text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: PrivateKeyword
+          text: Private
+        - kind: Whitespace
+          text: " "
+        - kind: WithEventsKeyword
+          text: WithEvents
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: m_timer
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Timer
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: PrivateKeyword
+          text: Private
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: m_timer_Tick
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: EndOfLineComment
+              text: "' Handle timer event"
+            - kind: Newline
+              text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

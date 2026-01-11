@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/resources/loadresstring.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ShowMessage
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: LoadResString
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "16001"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

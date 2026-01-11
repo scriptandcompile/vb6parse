@@ -1,3 +1,21 @@
+//! VB6 Control definitions and properties.
+//!
+//! This module contains the definitions for various VB6 controls,
+//! including their properties and enumerations used to represent
+//! different settings for these controls.
+//! Each control is represented as a struct with associated properties,
+//! and enumerations are used to define specific options for properties
+//! such as alignment, visibility, and behavior.
+//! This module is essential for parsing and representing VB6 forms
+//! and their controls in a structured manner.
+//!
+//! References to official Microsoft documentation are provided for
+//! each property and enumeration to ensure accuracy and completeness.
+//!
+//! Modules for individual controls are also included, each defining
+//! the properties specific to that control type.
+//!
+
 pub mod checkbox;
 pub mod combobox;
 pub mod commandbutton;
@@ -22,11 +40,15 @@ pub mod shape;
 pub mod textbox;
 pub mod timer;
 
-use bstr::BString;
+use std::convert::{From, TryFrom};
+use std::fmt::{Display, Formatter};
+use std::str::FromStr;
+
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
 
-use crate::parsers::form::VB6PropertyGroup;
+use crate::errors::FormErrorKind;
+use crate::language::PropertyGroup;
 
 use crate::language::controls::{
     checkbox::CheckBoxProperties,
@@ -44,7 +66,7 @@ use crate::language::controls::{
     line::LineProperties,
     listbox::ListBoxProperties,
     mdiform::MDIFormProperties,
-    menus::{MenuProperties, VB6MenuControl},
+    menus::{MenuControl, MenuProperties},
     ole::OLEProperties,
     optionbutton::OptionButtonProperties,
     picturebox::PictureBoxProperties,
@@ -58,7 +80,9 @@ use crate::language::controls::{
 /// moved in front of it or if it is redrawn manually.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245029(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum AutoRedraw {
     /// Disables automatic repainting of an object and writes graphics or text
@@ -75,10 +99,52 @@ pub enum AutoRedraw {
     Automatic = -1,
 }
 
+impl TryFrom<&str> for AutoRedraw {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(AutoRedraw::Manual),
+            "-1" => Ok(AutoRedraw::Automatic),
+            _ => Err(FormErrorKind::InvalidAutoRedraw(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for AutoRedraw {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        AutoRedraw::try_from(s)
+    }
+}
+
+impl From<bool> for AutoRedraw {
+    fn from(value: bool) -> Self {
+        if value {
+            AutoRedraw::Automatic
+        } else {
+            AutoRedraw::Manual
+        }
+    }
+}
+
+impl Display for AutoRedraw {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            AutoRedraw::Manual => "Manual",
+            AutoRedraw::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// `TextDirection` determines the direction in which text is displayed in the control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa442921(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum TextDirection {
     /// The text is ordered from left to right.
@@ -90,6 +156,46 @@ pub enum TextDirection {
     RightToLeft = -1,
 }
 
+impl TryFrom<&str> for TextDirection {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(TextDirection::LeftToRight),
+            "-1" => Ok(TextDirection::RightToLeft),
+            _ => Err(FormErrorKind::InvalidTextDirection(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for TextDirection {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, FormErrorKind> {
+        TextDirection::try_from(s)
+    }
+}
+
+impl From<bool> for TextDirection {
+    fn from(value: bool) -> Self {
+        if value {
+            TextDirection::RightToLeft
+        } else {
+            TextDirection::LeftToRight
+        }
+    }
+}
+
+impl Display for TextDirection {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            TextDirection::LeftToRight => "Left to Right",
+            TextDirection::RightToLeft => "Right to Left",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// `AutoSize` determines if the control is automatically resized to fit its contents.
 /// This is used with the `Label` control and the `PictureBox` control.
 ///
@@ -98,7 +204,19 @@ pub enum TextDirection {
 /// will be scaled or clipped depending on other properties like `SizeMode`.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245034(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum AutoSize {
     /// Keeps the size of the control constant. Contents are clipped when they
@@ -111,10 +229,62 @@ pub enum AutoSize {
     Resize = -1,
 }
 
+impl TryFrom<&str> for AutoSize {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, FormErrorKind> {
+        match value {
+            "0" => Ok(AutoSize::Fixed),
+            "-1" => Ok(AutoSize::Resize),
+            _ => Err(FormErrorKind::InvalidAutoSize(value.to_string())),
+        }
+    }
+}
+
+impl From<bool> for AutoSize {
+    fn from(value: bool) -> Self {
+        if value {
+            AutoSize::Resize
+        } else {
+            AutoSize::Fixed
+        }
+    }
+}
+
+impl FromStr for AutoSize {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, FormErrorKind> {
+        AutoSize::try_from(s)
+    }
+}
+
+impl Display for AutoSize {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            AutoSize::Fixed => "Fixed",
+            AutoSize::Resize => "Resize",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if a control or form can respond to user-generated events.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267301(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum Activation {
     /// The control is disabled and will not respond to user-generated events.
@@ -124,6 +294,38 @@ pub enum Activation {
     /// This is the default setting.
     #[default]
     Enabled = -1,
+}
+
+impl From<bool> for Activation {
+    fn from(value: bool) -> Self {
+        if value {
+            Activation::Enabled
+        } else {
+            Activation::Disabled
+        }
+    }
+}
+
+impl TryFrom<&str> for Activation {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Activation::Disabled),
+            "-1" => Ok(Activation::Enabled),
+            _ => Err(FormErrorKind::InvalidActivation(value.to_string())),
+        }
+    }
+}
+
+impl Display for Activation {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Activation::Disabled => "Disabled",
+            Activation::Enabled => "Enabled",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// `TabStop` determines if the control is included in the tab order.
@@ -138,7 +340,19 @@ pub enum Activation {
 /// However, it can still receive focus programmatically or through other user interactions.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445721(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum TabStop {
     /// Bypasses the object when the user is tabbing, although the object still
@@ -152,10 +366,44 @@ pub enum TabStop {
     Included = -1,
 }
 
+impl From<bool> for TabStop {
+    fn from(value: bool) -> Self {
+        if value {
+            TabStop::Included
+        } else {
+            TabStop::ProgrammaticOnly
+        }
+    }
+}
+
+impl TryFrom<&str> for TabStop {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(TabStop::ProgrammaticOnly),
+            "-1" => Ok(TabStop::Included),
+            _ => Err(FormErrorKind::InvalidTabStop(value.to_string())),
+        }
+    }
+}
+
+impl Display for TabStop {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            TabStop::ProgrammaticOnly => "Programmatic Only",
+            TabStop::Included => "Included",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control is visible or hidden.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445768(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Visibility {
     /// The control is not visible.
@@ -167,6 +415,46 @@ pub enum Visibility {
     Visible = -1,
 }
 
+impl TryFrom<&str> for Visibility {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Visibility::Hidden),
+            "-1" => Ok(Visibility::Visible),
+            _ => Err(FormErrorKind::InvalidVisibility(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Visibility {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Visibility::try_from(s)
+    }
+}
+
+impl From<bool> for Visibility {
+    fn from(value: bool) -> Self {
+        if value {
+            Visibility::Visible
+        } else {
+            Visibility::Hidden
+        }
+    }
+}
+
+impl Display for Visibility {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Visibility::Hidden => "Hidden",
+            Visibility::Visible => "Visible",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control has a device context.
 ///
 /// A device context is a Windows data structure that defines a set of graphic
@@ -175,16 +463,58 @@ pub enum Visibility {
 /// as a display or printer.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245860(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum HasDeviceContext {
     /// The control does not have a device context.
-    No = 0,
+    NoContext = 0,
     /// The control has a device context.
     ///
     /// This is the default setting.
     #[default]
-    Yes = -1,
+    HasContext = -1,
+}
+
+impl TryFrom<&str> for HasDeviceContext {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(HasDeviceContext::NoContext),
+            "-1" => Ok(HasDeviceContext::HasContext),
+            _ => Err(FormErrorKind::InvalidHasDeviceContext(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for HasDeviceContext {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        HasDeviceContext::try_from(s)
+    }
+}
+
+impl From<bool> for HasDeviceContext {
+    fn from(value: bool) -> Self {
+        if value {
+            HasDeviceContext::HasContext
+        } else {
+            HasDeviceContext::NoContext
+        }
+    }
+}
+
+impl Display for HasDeviceContext {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            HasDeviceContext::NoContext => "No Context",
+            HasDeviceContext::HasContext => "Has Context",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines whether the color assigned in the `mask_color` property is used
@@ -192,7 +522,9 @@ pub enum HasDeviceContext {
 /// That is, if it is used to create transparent regions.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445753(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum UseMaskColor {
     /// The control does not use the mask color.
@@ -203,6 +535,16 @@ pub enum UseMaskColor {
     /// The color assigned to the `mask_color` property is used as a mask,
     /// creating a transparent region wherever that color is.
     UseMaskColor = -1,
+}
+
+impl Display for UseMaskColor {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            UseMaskColor::DoNotUseMaskColor => "Do not use Mask Color",
+            UseMaskColor::UseMaskColor => "Use Mask Color",
+        };
+        write!(f, "{text}")
+    }
 }
 
 /// Determines if the control causes validation.
@@ -216,7 +558,19 @@ pub enum UseMaskColor {
 /// to move focus from the control to another control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245065(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum CausesValidation {
     /// The control does not cause validation.
@@ -231,6 +585,46 @@ pub enum CausesValidation {
     Yes = -1,
 }
 
+impl TryFrom<&str> for CausesValidation {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(CausesValidation::No),
+            "-1" => Ok(CausesValidation::Yes),
+            _ => Err(FormErrorKind::InvalidCausesValidation(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for CausesValidation {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        CausesValidation::try_from(s)
+    }
+}
+
+impl From<bool> for CausesValidation {
+    fn from(value: bool) -> Self {
+        if value {
+            CausesValidation::Yes
+        } else {
+            CausesValidation::No
+        }
+    }
+}
+
+impl Display for CausesValidation {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            CausesValidation::No => "No",
+            CausesValidation::Yes => "Yes",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `Movability` property of a `Form` control determines whether the
 /// form can be moved by the user. If the form is not moveable, the user cannot
 /// move the form by dragging its title bar or by using the arrow keys.
@@ -238,7 +632,19 @@ pub enum CausesValidation {
 /// bar or by using the arrow keys.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235194(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum Movability {
     /// The form is not moveable.
@@ -250,11 +656,63 @@ pub enum Movability {
     Moveable = -1,
 }
 
+impl TryFrom<&str> for Movability {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Movability::Fixed),
+            "-1" => Ok(Movability::Moveable),
+            _ => Err(FormErrorKind::InvalidMovability(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Movability {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Movability::try_from(s)
+    }
+}
+
+impl From<bool> for Movability {
+    fn from(value: bool) -> Self {
+        if value {
+            Movability::Moveable
+        } else {
+            Movability::Fixed
+        }
+    }
+}
+
+impl Display for Movability {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Movability::Fixed => "Fixed",
+            Movability::Moveable => "Moveable",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines whether background text and graphics on a `Form` or a `PictureBox`
 /// control are displayed in the spaces around characters.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267490(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FontTransparency {
     /// Masks existing background graphics and text around the characters of a
@@ -268,12 +726,64 @@ pub enum FontTransparency {
     Transparent = -1,
 }
 
+impl TryFrom<&str> for FontTransparency {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FontTransparency::Opaque),
+            "-1" => Ok(FontTransparency::Transparent),
+            _ => Err(FormErrorKind::InvalidFontTransparency(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FontTransparency {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FontTransparency::try_from(s)
+    }
+}
+
+impl From<bool> for FontTransparency {
+    fn from(value: bool) -> Self {
+        if value {
+            FontTransparency::Transparent
+        } else {
+            FontTransparency::Opaque
+        }
+    }
+}
+
+impl Display for FontTransparency {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FontTransparency::Opaque => "Opaque",
+            FontTransparency::Transparent => "Transparent",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines whether context-sensitive Help uses the What's This pop-up
 /// (provided by Help in 32-bit Windows operating systems) or the main Help
 /// window.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445772(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Default, TryFromPrimitive, serde::Serialize)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Default,
+    TryFromPrimitive,
+    serde::Serialize,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WhatsThisHelp {
     /// The application uses the F1 key to start Windows Help and load the topic
@@ -288,7 +798,47 @@ pub enum WhatsThisHelp {
     WhatsThisHelp = -1,
 }
 
-/// Determines the type of link used for a DDEconversation and activates the
+impl TryFrom<&str> for WhatsThisHelp {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WhatsThisHelp::F1Help),
+            "-1" => Ok(WhatsThisHelp::WhatsThisHelp),
+            _ => Err(FormErrorKind::InvalidWhatsThisHelp(value.to_string())),
+        }
+    }
+}
+
+impl From<bool> for WhatsThisHelp {
+    fn from(value: bool) -> Self {
+        if value {
+            WhatsThisHelp::WhatsThisHelp
+        } else {
+            WhatsThisHelp::F1Help
+        }
+    }
+}
+
+impl FromStr for WhatsThisHelp {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        WhatsThisHelp::try_from(s)
+    }
+}
+
+impl Display for WhatsThisHelp {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WhatsThisHelp::F1Help => "F1Help",
+            WhatsThisHelp::WhatsThisHelp => "WhatsThisHelp",
+        };
+        write!(f, "{text}")
+    }
+}
+
+/// Determines the type of link used for a DDE conversation and activates the
 /// connection.
 ///
 /// Forms allow a destination application to initiate a conversation with a
@@ -296,7 +846,19 @@ pub enum WhatsThisHelp {
 /// `application**|topic!**item` expression.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum FormLinkMode {
     /// No DDE interaction. No destination application can initiate a conversation
@@ -315,11 +877,63 @@ pub enum FormLinkMode {
     Source = 1,
 }
 
+impl TryFrom<&str> for FormLinkMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FormLinkMode::None),
+            "1" => Ok(FormLinkMode::Source),
+            _ => Err(FormErrorKind::InvalidFormLinkMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FormLinkMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FormLinkMode::try_from(s)
+    }
+}
+
+impl From<bool> for FormLinkMode {
+    fn from(value: bool) -> Self {
+        if value {
+            FormLinkMode::Source
+        } else {
+            FormLinkMode::None
+        }
+    }
+}
+
+impl Display for FormLinkMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FormLinkMode::None => "None",
+            FormLinkMode::Source => "Source",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Controls the display state of a form from normal, minimized, or maximized.
 /// This is used with the `Form` and `MDIForm` controls.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445778(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    serde::Serialize,
+    Default,
+    TryFromPrimitive,
+    Copy,
+    Hash,
+    PartialOrd,
+    Ord,
+)]
 #[repr(i32)]
 pub enum WindowState {
     /// The form is in its normal state.
@@ -333,11 +947,43 @@ pub enum WindowState {
     Maximized = 2,
 }
 
+impl TryFrom<&str> for WindowState {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(WindowState::Normal),
+            "1" => Ok(WindowState::Minimized),
+            "2" => Ok(WindowState::Maximized),
+            _ => Err(FormErrorKind::InvalidWindowState(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for WindowState {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        WindowState::try_from(s)
+    }
+}
+
+impl Display for WindowState {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            WindowState::Normal => "Normal",
+            WindowState::Minimized => "Minimized",
+            WindowState::Maximized => "Maximized",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `StartUpPosition` property of a `Form` or `MDIForm` control determines
 /// the initial position of the form when it first appears.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445708(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default)]
+#[derive(Debug, PartialEq, Eq, Clone, serde::Serialize, Default, Copy, Hash, PartialOrd, Ord)]
 pub enum StartUpPosition {
     /// The form is positioned based on the `client_height`, `client_width`,
     /// `client_top`, and `client_left` properties.
@@ -370,105 +1016,693 @@ pub enum StartUpPosition {
     WindowsDefault,
 }
 
-/// Represents a VB6 control.
-#[derive(Debug, PartialEq, Clone, Serialize)]
-pub struct VB6Control {
-    pub name: BString,
-    pub tag: BString,
-    pub index: i32,
-    pub kind: VB6ControlKind,
+impl Display for StartUpPosition {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            StartUpPosition::Manual {
+                client_height,
+                client_width,
+                client_top,
+                client_left,
+            } => write!(
+                f,
+                "Manual {{ client height: {client_height}, client width: {client_width}, client top: {client_top}, client left: {client_left} }}"
+            ),
+            StartUpPosition::CenterOwner => write!(f, "CenterOwner"),
+            StartUpPosition::CenterScreen => write!(f, "CenterScreen"),
+            StartUpPosition::WindowsDefault => write!(f, "WindowsDefault"),
+        }
+    }
 }
 
-/// The `VB6ControlKind` determines the specific kind of control that the `VB6Control` represents.
+/// Represents either a reference to an external resource within a *.frx file or an embedded value.
+///
+/// This is used to represent properties that can either be stored directly within the VB6 form file
+/// or as a reference to an external resource stored in the associated *.frx file.
+///
+/// The `Reference` variant contains the filename and offset within the *.frx file where the resource can be found.
+/// The `Value` variant contains the actual value of type `T`.
+///
+/// This is useful for handling properties such as images, icons, or other binary data that may be
+/// stored externally to keep the form file size manageable.
+#[derive(Debug, PartialEq, Clone, Serialize)]
+pub enum ReferenceOrValue<T> {
+    Reference { filename: String, offset: u32 },
+    Value(T),
+}
+
+impl<T> Display for ReferenceOrValue<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ReferenceOrValue::Reference { filename, offset } => {
+                write!(f, "Reference {{ filename: {filename}, offset: {offset} }}",)
+            }
+            ReferenceOrValue::Value(_) => write!(f, "Value"),
+        }
+    }
+}
+
+/// Represents a VB6 control.
+#[derive(Debug, PartialEq, Clone, Serialize)]
+pub struct Control {
+    /// The name of the control.
+    name: String,
+    /// The tag of the control.
+    tag: String,
+    /// The index of the control.
+    index: i32,
+    /// The kind of control.
+    kind: ControlKind,
+}
+
+impl Control {
+    /// Creates a new `Control` with the specified properties.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the control
+    /// * `tag` - The tag of the control
+    /// * `index` - The index of the control
+    /// * `kind` - The kind of control
+    ///
+    /// # Returns
+    ///
+    /// A new `Control` instance.
+    #[must_use]
+    pub fn new(name: String, tag: String, index: i32, kind: ControlKind) -> Self {
+        Self {
+            name,
+            tag,
+            index,
+            kind,
+        }
+    }
+
+    /// Returns the name of the control.
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    /// Returns the tag of the control.
+    #[must_use]
+    pub fn tag(&self) -> &str {
+        &self.tag
+    }
+
+    /// Returns the index of the control.
+    #[must_use]
+    pub fn index(&self) -> i32 {
+        self.index
+    }
+
+    /// Returns a reference to the control kind.
+    #[must_use]
+    pub fn kind(&self) -> &ControlKind {
+        &self.kind
+    }
+
+    /// Consumes the control and returns its name.
+    #[must_use]
+    pub fn into_name(self) -> String {
+        self.name
+    }
+
+    /// Consumes the control and returns its tag.
+    #[must_use]
+    pub fn into_tag(self) -> String {
+        self.tag
+    }
+
+    /// Consumes the control and returns its kind.
+    #[must_use]
+    pub fn into_kind(self) -> ControlKind {
+        self.kind
+    }
+
+    /// Consumes the control and returns all of its parts as a tuple.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing `(name, tag, index, kind)`.
+    #[must_use]
+    pub fn into_parts(self) -> (String, String, i32, ControlKind) {
+        (self.name, self.tag, self.index, self.kind)
+    }
+
+    /// Sets the name of the control.
+    ///
+    /// This is primarily used during parsing when the control name needs to be
+    /// updated based on attributes (e.g., `VB_Name` attribute in forms).
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+}
+
+impl Display for Control {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Control: {} ({})", self.name, self.kind)
+    }
+}
+
+/// The `ControlKind` determines the specific kind of control that the `Control` represents.
 ///
 /// Each variant contains the properties that are specific to that kind of control.
 #[derive(Debug, PartialEq, Clone, Serialize)]
-pub enum VB6ControlKind {
+pub enum ControlKind {
+    /// A command button control.
     CommandButton {
+        /// The properties of the command button control.
         properties: CommandButtonProperties,
     },
+    /// A data control.
     Data {
+        /// The properties of the data control.
         properties: DataProperties,
     },
+    /// A text box control.
     TextBox {
+        /// The properties of the text box control.
         properties: TextBoxProperties,
     },
+    /// A check box control.
     CheckBox {
+        /// The properties of the check box control.
         properties: CheckBoxProperties,
     },
+    /// A line control.
     Line {
+        /// The properties of the line control.
         properties: LineProperties,
     },
+    /// A shape control.
     Shape {
+        /// The properties of the shape control.
         properties: ShapeProperties,
     },
+    /// A list box control.
     ListBox {
+        /// The properties of the list box control.
         properties: ListBoxProperties,
     },
+    /// A timer control.
     Timer {
+        /// The properties of the timer control.
         properties: TimerProperties,
     },
+    /// A label control.
     Label {
+        /// The properties of the label control.
         properties: LabelProperties,
     },
+    /// A frame control.
     Frame {
+        /// The properties of the frame control.
         properties: FrameProperties,
-        controls: Vec<VB6Control>,
+        /// The child controls of the frame control.
+        controls: Vec<Control>,
     },
+    /// A picture box control.
     PictureBox {
+        /// The properties of the picture box control.
         properties: PictureBoxProperties,
+        /// The child controls of the picture box control.
+        controls: Vec<Control>,
     },
+    /// A file list box control.
     FileListBox {
+        /// The properties of the file list box control.
         properties: FileListBoxProperties,
     },
+    /// A drive list box control.
     DriveListBox {
+        /// The properties of the drive list box control.
         properties: DriveListBoxProperties,
     },
+    /// A directory list box control.
     DirListBox {
+        /// The properties of the directory list box control.
         properties: DirListBoxProperties,
     },
+    /// An OLE control.
     Ole {
+        /// The properties of the OLE control.
         properties: OLEProperties,
     },
+    /// An option button control.
     OptionButton {
+        /// The properties of the option button control.
         properties: OptionButtonProperties,
     },
+    /// An image control.
     Image {
+        /// The properties of the image control.
         properties: ImageProperties,
     },
+    /// A combo box control.
     ComboBox {
+        /// The properties of the combo box control.
         properties: ComboBoxProperties,
     },
+    /// A horizontal scroll bar control.
     HScrollBar {
+        /// The properties of the horizontal scroll bar control.
         properties: ScrollBarProperties,
     },
+    /// A vertical scroll bar control.
     VScrollBar {
+        /// The properties of the vertical scroll bar control.
         properties: ScrollBarProperties,
     },
+    /// A menu control.
     Menu {
+        /// The properties of the menu control.
         properties: MenuProperties,
-        sub_menus: Vec<VB6MenuControl>,
+        /// The sub-menus of the menu control.
+        sub_menus: Vec<MenuControl>,
     },
+    /// A form control.
     Form {
+        /// The properties of the form control.
         properties: FormProperties,
-        controls: Vec<VB6Control>,
-        menus: Vec<VB6MenuControl>,
+        /// The child controls of the form control.
+        controls: Vec<Control>,
+        /// The menus of the form control.
+        menus: Vec<MenuControl>,
     },
+    /// An MDI form control.
     MDIForm {
+        /// The properties of the MDI form control.
         properties: MDIFormProperties,
-        controls: Vec<VB6Control>,
-        menus: Vec<VB6MenuControl>,
+        /// The child controls of the MDI form control.
+        controls: Vec<Control>,
+        /// The menus of the MDI form control.
+        menus: Vec<MenuControl>,
     },
+    /// A custom control.
     Custom {
+        /// The properties of the custom control.
         properties: CustomControlProperties,
-        property_groups: Vec<VB6PropertyGroup>,
+        /// The property groups of the custom control.
+        property_groups: Vec<PropertyGroup>,
     },
 }
 
-impl VB6ControlKind {
+impl Display for ControlKind {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ControlKind::CommandButton { .. } => write!(f, "CommandButton"),
+            ControlKind::Data { .. } => write!(f, "Data"),
+            ControlKind::TextBox { .. } => write!(f, "TextBox"),
+            ControlKind::CheckBox { .. } => write!(f, "CheckBox"),
+            ControlKind::Line { .. } => write!(f, "Line"),
+            ControlKind::Shape { .. } => write!(f, "Shape"),
+            ControlKind::ListBox { .. } => write!(f, "ListBox"),
+            ControlKind::Timer { .. } => write!(f, "Timer"),
+            ControlKind::Label { .. } => write!(f, "Label"),
+            ControlKind::Frame { .. } => write!(f, "Frame"),
+            ControlKind::PictureBox { .. } => write!(f, "PictureBox"),
+            ControlKind::FileListBox { .. } => write!(f, "FileListBox"),
+            ControlKind::DriveListBox { .. } => write!(f, "DriveListBox"),
+            ControlKind::DirListBox { .. } => write!(f, "DirListBox"),
+            ControlKind::Ole { .. } => write!(f, "OLE"),
+            ControlKind::OptionButton { .. } => write!(f, "OptionButton"),
+            ControlKind::Image { .. } => write!(f, "Image"),
+            ControlKind::ComboBox { .. } => write!(f, "ComboBox"),
+            ControlKind::HScrollBar { .. } => write!(f, "HScrollBar"),
+            ControlKind::VScrollBar { .. } => write!(f, "VScrollBar"),
+            ControlKind::Menu { .. } => write!(f, "Menu"),
+            ControlKind::Form { .. } => write!(f, "Form"),
+            ControlKind::MDIForm { .. } => write!(f, "MDIForm"),
+            ControlKind::Custom { .. } => write!(f, "Custom"),
+        }
+    }
+}
+
+/// Helper methods for `ControlKind`.
+impl ControlKind {
+    /// Indicates if the control kind is a `Menu`.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind is a `Menu`, otherwise `false`.
     #[must_use]
     pub fn is_menu(&self) -> bool {
-        matches!(self, VB6ControlKind::Menu { .. })
+        matches!(self, ControlKind::Menu { .. })
+    }
+
+    /// Indicates if the control kind can contain child controls.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind can contain child controls, otherwise `false`.
+    #[must_use]
+    pub fn can_contain_children(&self) -> bool {
+        matches!(
+            self,
+            ControlKind::Frame { .. }
+                | ControlKind::PictureBox { .. }
+                | ControlKind::Form { .. }
+                | ControlKind::MDIForm { .. }
+        )
+    }
+
+    /// Indicates if the control kind can contain menus.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind can contain menus, otherwise `false`.
+    #[must_use]
+    pub fn can_contain_menus(&self) -> bool {
+        matches!(self, ControlKind::Form { .. } | ControlKind::MDIForm { .. })
+    }
+
+    /// Indicates if the control kind currently has menus.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind has menus, otherwise `false`.
+    #[must_use]
+    pub fn has_menu(&self) -> bool {
+        match self {
+            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
+                !menus.is_empty()
+            }
+            _ => false,
+        }
+    }
+
+    /// Indicates if the control kind currently has child controls.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the control kind has child controls, otherwise `false`.
+    #[must_use]
+    pub fn has_children(&self) -> bool {
+        matches!(
+            self,
+            ControlKind::Frame { controls, .. } |
+            ControlKind::PictureBox { controls, .. } |
+            ControlKind::Form { controls, .. } |
+            ControlKind::MDIForm { controls, .. } if !controls.is_empty()
+        )
+    }
+
+    /// Returns an iterator over child controls, if this control type supports children.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over child controls if the control kind supports children, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///     },
+    /// );
+    ///
+    /// if let Some(children) = control.kind().children() {
+    ///     for child in children {
+    ///         println!("Child control: {}", child.name());
+    ///     }
+    /// };
+    /// ```
+    #[must_use]
+    pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
+        match self {
+            ControlKind::Frame { controls, .. }
+            | ControlKind::PictureBox { controls, .. }
+            | ControlKind::Form { controls, .. }
+            | ControlKind::MDIForm { controls, .. } => Some(controls.iter()),
+            _ => None,
+        }
+    }
+
+    /// Returns an iterator over menus, if this control type supports menus.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over menus if the control kind supports menus, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyForm".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Form {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///         menus: vec![
+    ///             MenuControl::new(
+    ///                 "File".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 MenuProperties {
+    ///                     caption: "File".to_string(),
+    ///                     ..Default::default()
+    ///                 },
+    ///                 vec![],
+    ///             ),
+    ///        ],
+    ///     },
+    /// );
+    ///
+    /// if let Some(menus) = control.kind().menus() {
+    ///     for menu in menus {
+    ///         println!("Menu: {}", menu.properties().caption);
+    ///     }
+    /// };
+    #[must_use]
+    pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
+        match self {
+            ControlKind::Form { menus, .. } | ControlKind::MDIForm { menus, .. } => {
+                Some(menus.iter())
+            }
+            _ => None,
+        }
+    }
+
+    /// Recursively iterates over all descendant controls, if this control type supports children.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over all descendant controls.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![
+    ///             Control::new(
+    ///                 "Child1".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 ControlKind::Label {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             ),
+    ///             Control::new(
+    ///                 "Child2".to_string(),
+    ///                 "".to_string(),
+    ///                 1,
+    ///                 ControlKind::TextBox {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             ),
+    ///         ],
+    ///     },
+    /// );
+    ///
+    /// for child in control.kind().descendants() {
+    ///     println!("Child control: {}", child.name());
+    /// };
+    /// ```
+    #[must_use]
+    pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
+        Box::new(
+            self.children()
+                .into_iter()
+                .flatten()
+                .flat_map(|child| child.descendants()),
+        )
+    }
+}
+
+impl Control {
+    /// Returns `true` if the control is a `Menu`.
+    #[must_use]
+    pub fn is_menu(&self) -> bool {
+        self.kind.is_menu()
+    }
+
+    /// Returns `true` if the control has a menu.
+    #[must_use]
+    pub fn has_menu(&self) -> bool {
+        self.kind.has_menu()
+    }
+
+    /// Returns an iterator over menus, if this control type supports menus.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over menus if the control supports menus, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyForm".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Form {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///         menus: vec![
+    ///             MenuControl::new(
+    ///                 "File".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 MenuProperties {
+    ///                     caption: "File".to_string(),
+    ///                     ..Default::default()
+    ///                 },
+    ///                 vec![],
+    ///             ),
+    ///        ],
+    ///     },
+    /// );
+    ///
+    /// if let Some(menus) = control.menus() {
+    ///     for menu in menus {
+    ///         println!("Menu: {}", menu.properties().caption);
+    ///     }
+    /// };
+    /// ```
+    #[must_use]
+    pub fn menus(&self) -> Option<impl Iterator<Item = &MenuControl>> {
+        self.kind.menus()
+    }
+
+    /// Returns true if this control type can contain menus.
+    #[must_use]
+    pub fn can_contain_menus(&self) -> bool {
+        self.kind.can_contain_menus()
+    }
+
+    /// Returns true if this control type can contain child controls.
+    #[must_use]
+    pub fn can_contain_children(&self) -> bool {
+        self.kind.can_contain_children()
+    }
+
+    /// Returns an iterator over child controls, if this control type supports children.
+    ///
+    /// # Returns
+    ///
+    /// An `Option` containing an iterator over child controls if the control supports children, otherwise `None`.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![],
+    ///     },
+    /// );
+    ///
+    /// if let Some(children) = control.children() {
+    ///     for child in children {
+    ///         println!("Child control: {}", child.name());
+    ///     }
+    /// };
+    /// ```
+    #[must_use]
+    pub fn children(&self) -> Option<impl Iterator<Item = &Control>> {
+        self.kind.children()
+    }
+
+    /// Returns true if this control type can contain child controls.
+    #[must_use]
+    pub fn has_children(&self) -> bool {
+        matches!(
+            self.kind,
+            ControlKind::Frame { .. } | ControlKind::PictureBox { .. } | ControlKind::Form { .. }
+        )
+    }
+
+    /// Recursively iterates over this control and all descendants.
+    ///
+    /// # Returns
+    ///
+    /// An iterator over this control and all descendant controls.
+    ///
+    /// Example:
+    /// ```rust
+    /// use vb6parse::*;
+    /// use vb6parse::language::{Control, ControlKind, MenuControl, MenuProperties};
+    ///
+    /// let control = Control::new(
+    ///     "MyFrame".to_string(),
+    ///     "".to_string(),
+    ///     0,
+    ///     ControlKind::Frame {
+    ///         properties: Default::default(),
+    ///         controls: vec![
+    ///             Control::new(
+    ///                 "Child1".to_string(),
+    ///                 "".to_string(),
+    ///                 0,
+    ///                 ControlKind::Label {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             ),
+    ///             Control::new(
+    ///                 "Child2".to_string(),
+    ///                 "".to_string(),
+    ///                 1,
+    ///                 ControlKind::TextBox {
+    ///                     properties: Default::default(),
+    ///                 },
+    ///             ),
+    ///         ],
+    ///     },
+    /// );
+    ///
+    /// let mut descendants = control.descendants();
+    /// while let Some(descendant) = descendants.next() {
+    ///     println!("Descendant control: {}", descendant.name());
+    /// }
+    /// ```
+    #[must_use]
+    pub fn descendants(&self) -> Box<dyn Iterator<Item = &Control> + '_> {
+        Box::new(std::iter::once(self).chain(self.kind.descendants()))
     }
 }
 
@@ -477,7 +1711,9 @@ impl VB6ControlKind {
 /// automatically sized to fit the form's width.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267259(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Align {
     /// The control is not docked to any side of the parent control.
@@ -502,13 +1738,51 @@ pub enum Align {
     Right = 4,
 }
 
+impl TryFrom<&str> for Align {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Align::None),
+            "1" => Ok(Align::Top),
+            "2" => Ok(Align::Bottom),
+            "3" => Ok(Align::Left),
+            "4" => Ok(Align::Right),
+            _ => Err(FormErrorKind::InvalidAlign(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Align {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Align::try_from(s)
+    }
+}
+
+impl Display for Align {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Align::None => "None",
+            Align::Top => "Top",
+            Align::Bottom => "Bottom",
+            Align::Left => "Left",
+            Align::Right => "Right",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the alignment of a `CheckBox` or `OptionButton` control.
 ///
 /// This enum is the 'Alignment' property in VB6 specifically for `CheckBox` and
 /// `OptionButton` controls only.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum JustifyAlignment {
     /// The text is left-aligned. The control is right-aligned.
@@ -520,13 +1794,45 @@ pub enum JustifyAlignment {
     RightJustify = 1,
 }
 
+impl TryFrom<&str> for JustifyAlignment {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(JustifyAlignment::LeftJustify),
+            "1" => Ok(JustifyAlignment::RightJustify),
+            _ => Err(FormErrorKind::InvalidJustifyAlignment(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for JustifyAlignment {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        JustifyAlignment::try_from(s)
+    }
+}
+
+impl Display for JustifyAlignment {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            JustifyAlignment::LeftJustify => "Left Justify",
+            JustifyAlignment::RightJustify => "Right Justify",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `Alignment` property of a `Label` and `TextBox` control determines
 /// the alignment of the text within the control. The `Alignment` property is used
 /// to specify how the text is aligned within the control, such as left-aligned,
 /// right-aligned, or centered.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa267261(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Alignment {
     /// The text is left-aligned within the control.
@@ -540,11 +1846,45 @@ pub enum Alignment {
     Center = 2,
 }
 
+impl TryFrom<&str> for Alignment {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Alignment::LeftJustify),
+            "1" => Ok(Alignment::RightJustify),
+            "2" => Ok(Alignment::Center),
+            _ => Err(FormErrorKind::InvalidAlignment(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Alignment {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Alignment::try_from(s)
+    }
+}
+
+impl Display for Alignment {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Alignment::LeftJustify => "LeftJustify",
+            Alignment::RightJustify => "RightJustify",
+            Alignment::Center => "Center",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Indicates whether a `Label` control or the background of a `Shape` control
 /// is transparent or opaque.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245038(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BackStyle {
     /// The transparent background color and any graphics are visible behind the
@@ -558,28 +1898,60 @@ pub enum BackStyle {
     Opaque = 1,
 }
 
+impl TryFrom<&str> for BackStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(BackStyle::Transparent),
+            "1" => Ok(BackStyle::Opaque),
+            _ => Err(FormErrorKind::InvalidBackStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for BackStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        BackStyle::try_from(s)
+    }
+}
+
+impl Display for BackStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BackStyle::Transparent => "Transparent",
+            BackStyle::Opaque => "Opaque",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `Appearance` determines whether or not a control is painted at run time
 /// with 3D effects.
 ///
 /// Note:
 ///
-/// If set to ThreeD (1) at design time, the `Appearance` property draws
+/// If set to `ThreeD` (1) at design time, the `Appearance` property draws
 /// controls with three-dimensional effects. If the form's `BorderStyle`
 /// property is set to `FixedDouble` (vbFixedDouble, or 3), the caption and
 /// border of the form are also painted with three-dimensional effects.
 ///
-/// Setting the `Appearance` property to ThreeD (1) also causes the form and its
+/// Setting the `Appearance` property to `ThreeD` (1) also causes the form and its
 /// controls to have their `BackColor` property set to the color selected for 3D
 /// Objects in the `Appearance` tab of the operating system's Display Properties
 /// dialog box.
 ///
-/// Setting the `Appearance` property to ThreeD (1) for an `MDIForm` object
+/// Setting the `Appearance` property to `ThreeD` (1) for an `MDIForm` object
 /// affects only the MDI parent form. To have three-dimensional effects on MDI
 /// child forms, you must set each child form's `Appearance` property to
-/// ThreeD (1).
+/// `ThreeD` (1).
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa244932(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Appearance {
     /// The control is painted with a flat style.
@@ -591,10 +1963,42 @@ pub enum Appearance {
     ThreeD = 1,
 }
 
+impl TryFrom<&str> for Appearance {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Appearance::Flat),
+            "1" => Ok(Appearance::ThreeD),
+            _ => Err(FormErrorKind::InvalidAppearance(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Appearance {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Appearance::try_from(s)
+    }
+}
+
+impl Display for Appearance {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Appearance::Flat => "Flat",
+            Appearance::ThreeD => "ThreeD",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// The `BorderStyle` determines the appearance of the border of a control.
 ///
 /// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa245047(v=vs.60))
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum BorderStyle {
     /// The control has no border.
@@ -609,8 +2013,40 @@ pub enum BorderStyle {
     FixedSingle = 1,
 }
 
+impl TryFrom<&str> for BorderStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(BorderStyle::None),
+            "1" => Ok(BorderStyle::FixedSingle),
+            _ => Err(FormErrorKind::InvalidBorderStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for BorderStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        BorderStyle::try_from(s)
+    }
+}
+
+impl Display for BorderStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            BorderStyle::None => "None",
+            BorderStyle::FixedSingle => "FixedSingle",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DragMode {
     /// The control does not support drag and drop operations until
@@ -624,9 +2060,41 @@ pub enum DragMode {
     Automatic = 1,
 }
 
+impl TryFrom<&str> for DragMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(DragMode::Manual),
+            "1" => Ok(DragMode::Automatic),
+            _ => Err(FormErrorKind::InvalidDragMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DragMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DragMode::try_from(s)
+    }
+}
+
+impl Display for DragMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DragMode::Manual => "Manual",
+            DragMode::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Specifies how the pen (the color used in drawing) interacts with the
 /// background.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DrawMode {
     /// Black pen color is applied over the background.
@@ -647,11 +2115,11 @@ pub enum DrawMode {
     NotMaskPen = 8,
     /// The combination of the colors common to the pen and the background color.
     MaskPen = 9,
-    /// Inversion of the combinationfs of the colors in the pen and the background color but not in both (ie, NXOR).
+    /// Inversion of the combination of the colors in the pen and the background color but not in both (ie, NXOR).
     NotXorPen = 10,
     /// No operation is performed. The output remains unchanged. In effect, this turns drawing off (No Operation).
     Nop = 11,
-    /// The combinaton of the display color and the inverse of the pen color.
+    /// The combination of the display color and the inverse of the pen color.
     MergeNotPen = 12,
     /// The color specified by the `ForeColor` property is applied over the background.
     ///
@@ -666,8 +2134,68 @@ pub enum DrawMode {
     Whiteness = 16,
 }
 
+impl TryFrom<&str> for DrawMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "1" => Ok(DrawMode::Blackness),
+            "2" => Ok(DrawMode::NotMergePen),
+            "3" => Ok(DrawMode::MaskNotPen),
+            "4" => Ok(DrawMode::NotCopyPen),
+            "5" => Ok(DrawMode::MaskPenNot),
+            "6" => Ok(DrawMode::Invert),
+            "7" => Ok(DrawMode::XorPen),
+            "8" => Ok(DrawMode::NotMaskPen),
+            "9" => Ok(DrawMode::MaskPen),
+            "10" => Ok(DrawMode::NotXorPen),
+            "11" => Ok(DrawMode::Nop),
+            "12" => Ok(DrawMode::MergeNotPen),
+            "13" => Ok(DrawMode::CopyPen),
+            "14" => Ok(DrawMode::MergePenNot),
+            "15" => Ok(DrawMode::MergePen),
+            "16" => Ok(DrawMode::Whiteness),
+            _ => Err(FormErrorKind::InvalidDrawMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DrawMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DrawMode::try_from(s)
+    }
+}
+
+impl Display for DrawMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DrawMode::Blackness => "Blackness",
+            DrawMode::NotMergePen => "Not Merge Pen",
+            DrawMode::MaskNotPen => "Mask Not Pen",
+            DrawMode::NotCopyPen => "Not Copy Pen",
+            DrawMode::MaskPenNot => "Mask Pen Not",
+            DrawMode::Invert => "Invert",
+            DrawMode::XorPen => "Xor Pen",
+            DrawMode::NotMaskPen => "Not Mask Pen",
+            DrawMode::MaskPen => "Mask Pen",
+            DrawMode::NotXorPen => "Not Xor Pen",
+            DrawMode::Nop => "Nop",
+            DrawMode::MergeNotPen => "Merge Not Pen",
+            DrawMode::CopyPen => "Copy Pen",
+            DrawMode::MergePenNot => "Merge Pen Not",
+            DrawMode::MergePen => "Merge Pen",
+            DrawMode::Whiteness => "Whiteness",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the line style of any drawing from any graphic method applied by the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum DrawStyle {
     /// A solid line.
@@ -689,8 +2217,50 @@ pub enum DrawStyle {
     InsideSolid = 6,
 }
 
+impl TryFrom<&str> for DrawStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(DrawStyle::Solid),
+            "1" => Ok(DrawStyle::Dash),
+            "2" => Ok(DrawStyle::Dot),
+            "3" => Ok(DrawStyle::DashDot),
+            "4" => Ok(DrawStyle::DashDotDot),
+            "5" => Ok(DrawStyle::Transparent),
+            "6" => Ok(DrawStyle::InsideSolid),
+            _ => Err(FormErrorKind::InvalidDrawStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for DrawStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        DrawStyle::try_from(s)
+    }
+}
+
+impl Display for DrawStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            DrawStyle::Solid => "Solid",
+            DrawStyle::Dash => "Dash",
+            DrawStyle::Dot => "Dot",
+            DrawStyle::DashDot => "DashDot",
+            DrawStyle::DashDotDot => "DashDotDot",
+            DrawStyle::Transparent => "Transparent",
+            DrawStyle::InsideSolid => "InsideSolid",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the appearance of the mouse pointer when it is over the control.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum MousePointer {
     /// Standard pointer. The image is determined by the hovered over object.
@@ -726,7 +2296,7 @@ pub enum MousePointer {
     /// "Not" symbol (circle with a diagonal line) on top of the object being dragged.
     /// Indicates an invalid drop target.
     NoDrop = 12,
-    // Arrow with an hourglass.
+    /// Arrow with an hourglass.
     ArrowHourglass = 13,
     /// Arrow with a question mark.
     ArrowQuestion = 14,
@@ -740,8 +2310,70 @@ pub enum MousePointer {
     Custom = 99,
 }
 
+impl TryFrom<&str> for MousePointer {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MousePointer::Default),
+            "1" => Ok(MousePointer::Arrow),
+            "2" => Ok(MousePointer::Cross),
+            "3" => Ok(MousePointer::IBeam),
+            "4" => Ok(MousePointer::Icon),
+            "5" => Ok(MousePointer::Size),
+            "6" => Ok(MousePointer::SizeNESW),
+            "7" => Ok(MousePointer::SizeNS),
+            "8" => Ok(MousePointer::SizeNWSE),
+            "9" => Ok(MousePointer::SizeWE),
+            "10" => Ok(MousePointer::UpArrow),
+            "11" => Ok(MousePointer::Hourglass),
+            "12" => Ok(MousePointer::NoDrop),
+            "13" => Ok(MousePointer::ArrowHourglass),
+            "14" => Ok(MousePointer::ArrowQuestion),
+            "15" => Ok(MousePointer::SizeAll),
+            "99" => Ok(MousePointer::Custom),
+            _ => Err(FormErrorKind::InvalidMousePointer(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for MousePointer {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MousePointer::try_from(s)
+    }
+}
+
+impl Display for MousePointer {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MousePointer::Default => "Default",
+            MousePointer::Arrow => "Arrow",
+            MousePointer::Cross => "Cross",
+            MousePointer::IBeam => "IBeam",
+            MousePointer::Icon => "Icon",
+            MousePointer::Size => "Size",
+            MousePointer::SizeNESW => "SizeNESW",
+            MousePointer::SizeNS => "SizeNS",
+            MousePointer::SizeNWSE => "SizeNWSE",
+            MousePointer::SizeWE => "SizeWE",
+            MousePointer::UpArrow => "UpArrow",
+            MousePointer::Hourglass => "Hourglass",
+            MousePointer::NoDrop => "NoDrop",
+            MousePointer::ArrowHourglass => "ArrowHourglass",
+            MousePointer::ArrowQuestion => "ArrowQuestion",
+            MousePointer::SizeAll => "SizeAll",
+            MousePointer::Custom => "Custom",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drag and drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OLEDragMode {
     /// The programmer handles all OLE drag/drop events manually.
@@ -753,8 +2385,40 @@ pub enum OLEDragMode {
     Automatic = 1,
 }
 
+impl TryFrom<&str> for OLEDragMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(OLEDragMode::Manual),
+            "1" => Ok(OLEDragMode::Automatic),
+            _ => Err(FormErrorKind::InvalidOLEDragMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OLEDragMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OLEDragMode::try_from(s)
+    }
+}
+
+impl Display for OLEDragMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OLEDragMode::Manual => "Manual",
+            OLEDragMode::Automatic => "Automatic",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the style of drop operations.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum OLEDropMode {
     /// The control does not accept any OLE drop operations.
@@ -766,9 +2430,41 @@ pub enum OLEDropMode {
     Manual = 1,
 }
 
+impl TryFrom<&str> for OLEDropMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(OLEDropMode::None),
+            "1" => Ok(OLEDropMode::Manual),
+            _ => Err(FormErrorKind::InvalidOLEDropMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for OLEDropMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        OLEDropMode::try_from(s)
+    }
+}
+
+impl Display for OLEDropMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            OLEDropMode::None => "None",
+            OLEDropMode::Manual => "Manual",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control is clipped to the bounds of the parent control.
 /// This is used with the `Form` and `MDIForm` controls.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum ClipControls {
     /// The controls are not clipped to the bounds of the parent control.
@@ -780,9 +2476,41 @@ pub enum ClipControls {
     Clipped = 1,
 }
 
+impl TryFrom<&str> for ClipControls {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ClipControls::Unbounded),
+            "1" => Ok(ClipControls::Clipped),
+            _ => Err(FormErrorKind::InvalidClipControls(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for ClipControls {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ClipControls::try_from(s)
+    }
+}
+
+impl Display for ClipControls {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ClipControls::Unbounded => "Unbounded",
+            ClipControls::Clipped => "Clipped",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines if the control uses standard styling or if it uses graphical styling from it's
 /// picture properties.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum Style {
     /// The control uses standard styling.
@@ -794,9 +2522,41 @@ pub enum Style {
     Graphical = 1,
 }
 
+impl TryFrom<&str> for Style {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(Style::Standard),
+            "1" => Ok(Style::Graphical),
+            _ => Err(FormErrorKind::InvalidStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for Style {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Style::try_from(s)
+    }
+}
+
+impl Display for Style {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            Style::Standard => "Standard",
+            Style::Graphical => "Graphical",
+        };
+        write!(f, "{text}")
+    }
+}
+
 /// Determines the fill style of the control for drawing purposes.
 /// This is used with the `Form` and `PictureBox` controls.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum FillStyle {
     /// The background is filled with a solid color.
@@ -822,45 +2582,307 @@ pub enum FillStyle {
     DiagonalCross = 7,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+impl TryFrom<&str> for FillStyle {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(FillStyle::Solid),
+            "1" => Ok(FillStyle::Transparent),
+            "2" => Ok(FillStyle::HorizontalLine),
+            "3" => Ok(FillStyle::VerticalLine),
+            "4" => Ok(FillStyle::UpwardDiagonal),
+            "5" => Ok(FillStyle::DownwardDiagonal),
+            "6" => Ok(FillStyle::Cross),
+            "7" => Ok(FillStyle::DiagonalCross),
+            _ => Err(FormErrorKind::InvalidFillStyle(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for FillStyle {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        FillStyle::try_from(s)
+    }
+}
+
+impl Display for FillStyle {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            FillStyle::Solid => "Solid",
+            FillStyle::Transparent => "Transparent",
+            FillStyle::HorizontalLine => "HorizontalLine",
+            FillStyle::VerticalLine => "VerticalLine",
+            FillStyle::UpwardDiagonal => "UpwardDiagonal",
+            FillStyle::DownwardDiagonal => "DownwardDiagonal",
+            FillStyle::Cross => "Cross",
+            FillStyle::DiagonalCross => "DiagonalCross",
+        };
+        write!(f, "{text}")
+    }
+}
+
+/// Determines the link mode of a control for DDE conversations.
+/// This is used with the `Form` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235154(v=vs.60))
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum LinkMode {
+    /// No DDE interaction. No destination application can initiate a conversation
+    /// with the source control as the topic, and no application can poke data to
+    /// the control.
     #[default]
     None = 0,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. If such a link exists, Visual Basic automatically
+    /// notifies the destination whenever the contents of a control are changed.
+    /// In addition, a destination application can poke data to any `Label`,
+    /// `PictureBox`, or `TextBox` control on the form.
     Automatic = 1,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. However, Visual Basic does not automatically notify
+    /// the destination whenever the contents of a control are changed. In
+    /// addition, a destination application can poke data to any `Label`,
+    /// `PictureBox`, or `TextBox` control on the form.
     Manual = 2,
+    /// Allows any `Label`, `PictureBox`, or `TextBox` control on a form to supply
+    /// data to any destination application that establishes a DDE conversation
+    /// with the control. Visual Basic automatically notifies the destination
+    /// whenever the contents of a control are changed. However, a destination
+    /// application cannot poke data to any `Label`, `PictureBox`, or `TextBox`
+    /// control on the form.
     Notify = 3,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+impl TryFrom<&str> for LinkMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(LinkMode::None),
+            "1" => Ok(LinkMode::Automatic),
+            "2" => Ok(LinkMode::Manual),
+            "3" => Ok(LinkMode::Notify),
+            _ => Err(FormErrorKind::InvalidLinkMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for LinkMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        LinkMode::try_from(s)
+    }
+}
+
+impl Display for LinkMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            LinkMode::None => "None",
+            LinkMode::Automatic => "Automatic",
+            LinkMode::Manual => "Manual",
+            LinkMode::Notify => "Notify",
+        };
+        write!(f, "{text}")
+    }
+}
+
+/// Determines the multi-select behavior of a `ListBox` control.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa235198(v=vs.60))
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum MultiSelect {
+    /// The user cannot select more than one item in the list box.
     #[default]
     None = 0,
+    /// The user can select multiple items in the list box by holding down the
+    /// `SHIFT` key while clicking items.
     Simple = 1,
+    /// The user can select multiple items in the list box by holding down the
+    /// `CTRL` key while clicking items.
     Extended = 2,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
-#[repr(i32)]
-pub enum ScaleMode {
-    User = 0,
-    #[default]
-    Twip = 1,
-    Point = 2,
-    Pixel = 3,
-    Character = 4,
-    Inches = 5,
-    Millimeter = 6,
-    Centimeter = 7,
+impl TryFrom<&str> for MultiSelect {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(MultiSelect::None),
+            "1" => Ok(MultiSelect::Simple),
+            "2" => Ok(MultiSelect::Extended),
+            _ => Err(FormErrorKind::InvalidMultiSelect(value.to_string())),
+        }
+    }
 }
 
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive)]
+impl FromStr for MultiSelect {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MultiSelect::try_from(s)
+    }
+}
+
+impl Display for MultiSelect {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            MultiSelect::None => "None",
+            MultiSelect::Simple => "Simple",
+            MultiSelect::Extended => "Extended",
+        };
+        write!(f, "{text}")
+    }
+}
+
+/// Determines the scale mode of the control for sizing and positioning.
+/// This is used with the `Form` and `PictureBox` controls.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445668(v=vs.60))
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
+#[repr(i32)]
+pub enum ScaleMode {
+    /// Indicates that one or more of the `ScaleHeight`, `ScaleWidth`, `ScaleLeft`, and `ScaleTop` properties are set to custom values.
+    User = 0,
+    /// The control uses twips as the unit of measurement. (1440 twips per logical inch; 567 twips per logical centimeter).
+    #[default]
+    Twip = 1,
+    /// The control uses Points as the unit of measurement. (72 points per logical inch).
+    Point = 2,
+    /// The control uses Pixels as the unit of measurement. (The number of pixels per logical inch depends on the system's display settings).
+    Pixel = 3,
+    /// The control uses Characters as the unit of measurement. Character (horizontal = 120 twips per unit; vertical = 240 twips per unit).
+    Character = 4,
+    /// The control uses Inches as the unit of measurement.
+    Inches = 5,
+    /// The control uses Millimeters as the unit of measurement.
+    Millimeter = 6,
+    /// The control uses Centimeters as the unit of measurement.
+    Centimeter = 7,
+    /// The control uses `HiMetrics` as the unit of measurement.
+    HiMetric = 8,
+    /// The control uses the Units used by the control's container to determine the control's position.
+    ContainerPosition = 9,
+    /// The control uses the Units used by the control's container to determine the control's size.
+    ContainerSize = 10,
+}
+
+impl FromStr for ScaleMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        ScaleMode::try_from(s)
+    }
+}
+
+impl TryFrom<&str> for ScaleMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(ScaleMode::User),
+            "1" => Ok(ScaleMode::Twip),
+            "2" => Ok(ScaleMode::Point),
+            "3" => Ok(ScaleMode::Pixel),
+            "4" => Ok(ScaleMode::Character),
+            "5" => Ok(ScaleMode::Inches),
+            "6" => Ok(ScaleMode::Millimeter),
+            "7" => Ok(ScaleMode::Centimeter),
+            "8" => Ok(ScaleMode::HiMetric),
+            "9" => Ok(ScaleMode::ContainerPosition),
+            "10" => Ok(ScaleMode::ContainerSize),
+            _ => Err(FormErrorKind::InvalidScaleMode(value.to_string())),
+        }
+    }
+}
+
+impl Display for ScaleMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            ScaleMode::User => "User",
+            ScaleMode::Twip => "Twip",
+            ScaleMode::Point => "Point",
+            ScaleMode::Pixel => "Pixel",
+            ScaleMode::Character => "Character",
+            ScaleMode::Inches => "Inches",
+            ScaleMode::Millimeter => "Millimeter",
+            ScaleMode::Centimeter => "Centimeter",
+            ScaleMode::HiMetric => "HiMetric",
+            ScaleMode::ContainerPosition => "ContainerPosition",
+            ScaleMode::ContainerSize => "ContainerSize",
+        };
+        write!(f, "{text}")
+    }
+}
+
+/// Determines how the control sizes the picture within its bounds.
+/// This is used with the `Image` and `PictureBox` controls.
+///
+/// [Reference](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa445695(v=vs.60))
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, Default, TryFromPrimitive, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum SizeMode {
+    /// The picture is displayed in its original size. If the picture is larger than
+    /// the control, the picture is clipped to fit within the control's bounds.
+    ///
+    /// If the picture is smaller than the control, the picture is displayed in the
+    /// top-left corner of the control, and the remaining area of the control is
+    /// left blank.
     #[default]
     Clip = 0,
+    /// The picture is stretched or shrunk to fit the control's bounds.
     Stretch = 1,
+    /// The control is automatically resized to fit the picture.
     AutoSize = 2,
+    /// The picture is stretched or shrunk to fit the control's bounds while maintaining its aspect ratio.
     Zoom = 3,
+}
+
+impl TryFrom<&str> for SizeMode {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            "0" => Ok(SizeMode::Clip),
+            "1" => Ok(SizeMode::Stretch),
+            "2" => Ok(SizeMode::AutoSize),
+            "3" => Ok(SizeMode::Zoom),
+            _ => Err(FormErrorKind::InvalidSizeMode(value.to_string())),
+        }
+    }
+}
+
+impl FromStr for SizeMode {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        SizeMode::try_from(s)
+    }
+}
+
+impl Display for SizeMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            SizeMode::Clip => "Clip",
+            SizeMode::Stretch => "Stretch",
+            SizeMode::AutoSize => "AutoSize",
+            SizeMode::Zoom => "Zoom",
+        };
+        write!(f, "{text}")
+    }
 }

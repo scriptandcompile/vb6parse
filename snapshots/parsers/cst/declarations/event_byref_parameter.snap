@@ -1,0 +1,37 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: EventStatement
+      children:
+        - kind: EventKeyword
+          text: Event
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Modified
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Cancel
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: BooleanKeyword
+              text: Boolean
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

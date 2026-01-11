@@ -1,0 +1,43 @@
+---
+source: src/syntax/library/functions/graphics/qbcolor.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: SetFormColors
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: QBColor
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: QBColor
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "15"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,101 @@
+---
+source: src/syntax/library/statements/string_manipulation/rset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: mode
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "1"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: RSetStatement
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: RSetKeyword
+                      text: RSet
+                    - kind: Whitespace
+                      text: " "
+                    - kind: OutputKeyword
+                      text: output
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Left\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "2"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: RSetStatement
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: RSetKeyword
+                      text: RSet
+                    - kind: Whitespace
+                      text: " "
+                    - kind: OutputKeyword
+                      text: output
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"Right\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"

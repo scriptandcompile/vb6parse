@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/statements/file_operations/width.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WidthStatement
+      children:
+        - kind: WidthKeyword
+          text: Width
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "80"
+        - kind: Newline
+          text: "\n"

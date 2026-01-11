@@ -1,0 +1,59 @@
+---
+source: src/syntax/library/functions/financial/rate.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: AnalyzeLoan
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Rate
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "60"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: payment
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: principal
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: loanAmount
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

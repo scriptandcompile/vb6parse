@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/math/round.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessValue
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Round
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: measurement
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "2"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

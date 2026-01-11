@@ -1,0 +1,47 @@
+---
+source: src/syntax/library/functions/file/getattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: lst
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: AddItem
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: filename
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\" (\""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: GetAttr
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: fullPath
+    - kind: Unknown
+      text: )
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\")\""

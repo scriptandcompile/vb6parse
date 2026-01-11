@@ -1,0 +1,49 @@
+---
+source: src/syntax/library/functions/string/replace.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessData
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Replace
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rawData
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbCrLf
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbLf
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: delimiter
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

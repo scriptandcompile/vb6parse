@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/datetime/second.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Second: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Second
+        - kind: LeftParenthesis
+          text: (
+        - kind: TimeKeyword
+          text: Time
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,49 @@
+---
+source: src/syntax/library/statements/system_interaction/savepicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WithStatement
+      children:
+        - kind: WithKeyword
+          text: With
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Picture1
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SavePictureStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SavePictureKeyword
+                  text: SavePicture
+                - kind: Whitespace
+                  text: " "
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Picture
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"output.bmp\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: WithKeyword
+          text: With
+        - kind: Newline
+          text: "\n"

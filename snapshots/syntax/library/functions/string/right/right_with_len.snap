@@ -1,0 +1,23 @@
+---
+source: src/syntax/library/functions/string/right.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: RemComment
+          text: remaining As String
+        - kind: Newline
+          text: "\n"
+    - kind: RemComment
+      text: "remaining = Right(text, Len(text) - 5)"
+    - kind: Newline
+      text: "\n"

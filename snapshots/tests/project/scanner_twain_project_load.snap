@@ -1,0 +1,73 @@
+---
+source: tests/project.rs
+expression: project
+---
+project_type: Exe
+references:
+  - uuid: 00020430-0000-0000-c000-000000000046
+    unknown1: "2.0"
+    unknown2: "0"
+    path: "..\\..\\..\\Windows\\SysWOW64\\stdole2.tlb"
+    description: OLE Automation
+objects: []
+modules: []
+classes: []
+related_documents: []
+property_pages: []
+designers: []
+forms:
+  - frmScanner.frm
+user_controls: []
+user_documents: []
+other_properties: {}
+properties:
+  unused_control_info: Remove
+  upgrade_controls: Upgrade
+  res_file_32_path: ""
+  icon_form: frmScanner
+  startup: frmScanner
+  help_file_path: ""
+  title: VB6 Scanner Project
+  exe_32_file_name: VB_Scanner_Support.exe
+  exe_32_compatible: ""
+  dll_base_address: 0
+  path_32: ""
+  command_line_arguments: ""
+  name: VB_Scanner_Support
+  description: ""
+  debug_startup_component: ""
+  help_context_id: "0"
+  compatibility_mode: NoCompatibility
+  version_32_compatibility: ""
+  version_info:
+    major: 1
+    minor: 0
+    revision: 4
+    auto_increment_revision: 1
+    company_name: www.tannerhelland.com
+    file_description: ""
+    copyright: ""
+    trademark: ""
+    product_name: ""
+    comments: ©2012 Tanner Helland
+  server_support_files: Local
+  conditional_compile: ""
+  compilation_type:
+    NativeCode:
+      optimization_type: FavorFastCode
+      favor_pentium_pro: "True"
+      code_view_debug_info: NotCreated
+      aliasing: AssumeNoAliasing
+      bounds_check: NoBoundsCheck
+      overflow_check: NoOverflowCheck
+      floating_point_check: NoFloatingPointErrorCheck
+      pentium_fdiv_bug_check: NoPentiumFDivBugCheck
+      unrounded_floating_point: Allow
+  start_mode: StandAlone
+  unattended: Interactive
+  retained: UnloadOnExit
+  thread_per_object: 0
+  threading_model: ApartmentThreaded
+  max_number_of_threads: 1
+  debug_startup_option: WaitForComponentCreation
+  use_existing_browser: Use

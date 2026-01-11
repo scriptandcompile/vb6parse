@@ -1,0 +1,25 @@
+---
+source: src/syntax/library/statements/file_operations/input.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: InputStatement
+      children:
+        - kind: InputKeyword
+          text: Input
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: myData
+        - kind: Newline
+          text: "\n"

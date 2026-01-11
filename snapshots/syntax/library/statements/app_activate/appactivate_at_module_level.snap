@@ -1,0 +1,19 @@
+---
+source: src/syntax/library/statements/system_interaction/app_activate.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AppActivateStatement
+      children:
+        - kind: AppActivateKeyword
+          text: AppActivate
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"MyApp\""
+        - kind: Newline
+          text: "\n"

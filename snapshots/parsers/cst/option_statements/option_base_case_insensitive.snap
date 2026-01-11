@@ -1,0 +1,21 @@
+---
+source: src/parsers/cst/option_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: OPTION
+        - kind: Whitespace
+          text: " "
+        - kind: BaseKeyword
+          text: BASE
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Newline
+          text: "\n"

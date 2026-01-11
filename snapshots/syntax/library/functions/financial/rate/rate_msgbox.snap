@@ -1,0 +1,83 @@
+---
+source: src/syntax/library/functions/financial/rate.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"APR: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Rate
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "60"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "500"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "20000"
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: Whitespace
+          text: " "
+        - kind: MultiplicationOperator
+          text: "*"
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"0.00\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"%\""
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,181 @@
+---
+source: src/syntax/library/functions/datetime/hour.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Hour
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: Now
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "0"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ToKeyword
+                      text: To
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "5"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: Debug
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: PrintKeyword
+                              text: Print
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Night\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "6"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ToKeyword
+                      text: To
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "11"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: Debug
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: PrintKeyword
+                              text: Print
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Morning\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: Debug
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: PrintKeyword
+                              text: Print
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Afternoon/Evening\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

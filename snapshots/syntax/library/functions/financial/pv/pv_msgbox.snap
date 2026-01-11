@@ -1,0 +1,73 @@
+---
+source: src/syntax/library/functions/financial/pv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"You can borrow: $\""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Format
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Abs
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: PV
+        - kind: LeftParenthesis
+          text: (
+        - kind: SingleLiteral
+          text: "0.06"
+        - kind: Whitespace
+          text: " "
+        - kind: DivisionOperator
+          text: /
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "60"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: IntegerLiteral
+          text: "500"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"0.00\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

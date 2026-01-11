@@ -1,0 +1,81 @@
+---
+source: src/syntax/statements/declarations/arrays.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: ReDimStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ReDimKeyword
+                  text: ReDim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: arr1
+                - kind: LeftParenthesis
+                  text: (
+                - kind: IntegerLiteral
+                  text: "10"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: arr2
+                - kind: LeftParenthesis
+                  text: (
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "20"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: arr3
+                - kind: LeftParenthesis
+                  text: (
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "30"
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6 Form Resource File (.frx) Format Specification">
+    <title>FRX Format - VB6Parse Documentation</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../index.html">VB6Parse</a> / Documentation</h1>
+            <p class="tagline">Form Resource File Format (.frx)</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Documentation</a>
+            <a href="frx-format.html" class="active">FRX Format</a>
+            <a href="frm-format.html">FRM Architecture</a>
+            <a href="antlr4-spec.html">ANTLR4 Grammar</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container docs-content">
+        <aside class="toc">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#file-structure">File Structure</a></li>
+                <li><a href="#entry-types">Entry Types</a>
+                    <ul>
+                        <li><a href="#record12">12-Byte Header</a></li>
+                        <li><a href="#record4">4-Byte Header</a></li>
+                        <li><a href="#record3">3-Byte Header</a></li>
+                        <li><a href="#listitems">ListItems</a></li>
+                        <li><a href="#record1">1-Byte Header</a></li>
+                    </ul>
+                </li>
+                <li><a href="#detection">Detection Algorithm</a></li>
+                <li><a href="#cross-referencing">Cross-Referencing</a></li>
+                <li><a href="#parsing">Parsing Considerations</a></li>
+                <li><a href="#example">Complete Example</a></li>
+                <li><a href="#implementation">Implementation Notes</a></li>
+                <li><a href="#historical">Historical Context</a></li>
+            </ul>
+        </aside>
+
+        <article>
+            <h2 id="overview">Overview</h2>
+            <p>
+                VB6 Form Resource files (<code>.frx</code>) are binary files that store property data for forms 
+                and controls that cannot be represented as plain text in the <code>.frm</code> file. These files 
+                contain a sequence of variable-length records without an overall file header. Each record is 
+                referenced from the <code>.frm</code> file using a byte offset notation like 
+                <code>$"FormName.frx":0000</code>.
+            </p>
+            <div class="info-box">
+                <p><strong>Encoding:</strong> FRX files use <strong>Windows-1252</strong> encoding for text data 
+                and store values in <strong>little-endian</strong> byte order.</p>
+            </div>
+
+            <h2 id="file-structure">File Structure</h2>
+            <div class="architecture-diagram">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 10px;">
+                        <div style="flex: 1; border: 2px solid var(--primary-color); border-radius: 8px; padding: 20px; background: var(--code-background);">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Entry 1 - BMP</div>
+                            <div style="font-size: 0.9rem; color: var(--text-color); opacity: 0.8;">(variable size)</div>
+                        </div>
+                        <div style="flex: 1; font-size: 0.9rem; color: var(--text-color);">← Offset 0x0000</div>
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                        </div>
+                        <div style="flex: 1;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 10px;">
+                        <div style="flex: 1; border: 2px solid var(--primary-color); border-radius: 8px; padding: 20px; background: var(--code-background);">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Entry 2 - Text</div>
+                            <div style="font-size: 0.9rem; color: var(--text-color); opacity: 0.8;">(variable size)</div>
+                        </div>
+                        <div style="flex: 1; font-size: 0.9rem; color: var(--text-color);">← Offset depends on Entry 1 size</div>
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                        </div>
+                        <div style="flex: 1;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 10px;">
+                        <div style="flex: 1; border: 2px solid var(--primary-color); border-radius: 8px; padding: 20px; background: var(--code-background);">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Entry 3 - BMP</div>
+                            <div style="font-size: 0.9rem; color: var(--text-color); opacity: 0.8;">(variable size)</div>
+                        </div>
+                        <div style="flex: 1; font-size: 0.9rem; color: var(--text-color);">← Offset depends on previous entries</div>
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <div class="vertical-arrow" style="font-size: 1.5rem;">↓</div>
+                        </div>
+                        <div style="flex: 1;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="flex: 1; border: 2px solid var(--primary-color); border-radius: 8px; padding: 20px; background: var(--code-background); text-align: center; font-size: 1.5rem; color: var(--text-color); opacity: 0.6;">
+                            ...
+                        </div>
+                        <div style="flex: 1;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <p><strong>Important:</strong> There is <strong>no file header</strong> - the file immediately 
+                begins with the first resource entry. Each entry's location is calculated by summing the sizes 
+                of all previous entries.</p>
+            </div>
+
+            <h2 id="entry-types">Entry Types and Headers</h2>
+            <p>FRX files contain five distinct entry types, each with a unique header format:</p>
+
+            <h3 id="record12">1. Record12ByteHeader (Binary Blobs)</h3>
+            <p><strong>Magic Signature:</strong> <code>"lt\0\0"</code> at bytes 4-7</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Size</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x00</td>
+                        <td>4</td>
+                        <td>Size from end of signature to end of data (u32 LE)</td>
+                    </tr>
+                    <tr>
+                        <td>0x04</td>
+                        <td>4</td>
+                        <td>Magic signature: 0x6C 0x74 0x00 0x00 ("lt\0\0")</td>
+                    </tr>
+                    <tr>
+                        <td>0x08</td>
+                        <td>4</td>
+                        <td>Size of data section only (u32 LE) = [offset 0x00] - 8</td>
+                    </tr>
+                    <tr>
+                        <td>0x0C</td>
+                        <td>N</td>
+                        <td>Binary data payload</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Used For:</strong> Icons (.ico), Cursor files (.cur), Bitmap images (.bmp, .dib), 
+            PNG images, OLE objects, Picture properties (Icon, Picture, MouseIcon)</p>
+            <div class="code-example">
+                <h4>Example (Icon at offset 0x0000)</h4>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Offset</th>
+                            <th>Hex Data</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>0x0000</code></td>
+                            <td><code>3E 04 00 00</code></td>
+                            <td>Size: 0x043E (1086 bytes from end of sig)</td>
+                        </tr>
+                        <tr>
+                            <td><code>0x0004</code></td>
+                            <td><code>6C 74 00 00</code></td>
+                            <td>Magic: "lt\0\0"</td>
+                        </tr>
+                        <tr>
+                            <td><code>0x0008</code></td>
+                            <td><code>36 04 00 00</code></td>
+                            <td>Data size: 0x0436 (1078 bytes)</td>
+                        </tr>
+                        <tr>
+                            <td><code>0x000C</code></td>
+                            <td><code>00 00 01 00 02 00 10 10...</code></td>
+                            <td>Icon data (ICONDIR structure)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="record4">2. Record4ByteHeader (Large Text/Binary Data)</h3>
+            <p><strong>Identifier:</strong> First 4 bytes contain at least one <code>0x00</code> byte</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Size</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x00</td>
+                        <td>4</td>
+                        <td>Size of data section (u32 LE)</td>
+                    </tr>
+                    <tr>
+                        <td>0x04</td>
+                        <td>N</td>
+                        <td>Raw data payload</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Used For:</strong> Long text strings (Caption, ToolTipText with >255 characters), 
+            Multiline text (Text property of TextBox), Form descriptions, Binary data embedded in properties</p>
+
+            <h3 id="record3">3. Record3ByteHeader (Medium Text Data)</h3>
+            <p><strong>Magic Marker:</strong> <code>0xFF</code> at byte 0</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Size</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x00</td>
+                        <td>1</td>
+                        <td>Magic marker: 0xFF</td>
+                    </tr>
+                    <tr>
+                        <td>0x01</td>
+                        <td>2</td>
+                        <td>Size of data section (u16 LE)</td>
+                    </tr>
+                    <tr>
+                        <td>0x03</td>
+                        <td>N</td>
+                        <td>Data payload (typically text)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="warning-box">
+                <p><strong>VB6 IDE Off-by-One Bug:</strong> The VB6 IDE sometimes writes N in the size field 
+                when the actual data is N-1 bytes. Parsers must check if reading N bytes would exceed the file 
+                length and adjust by subtracting 1.</p>
+            </div>
+
+            <h3 id="listitems">4. ListItems (ComboBox/ListBox Contents)</h3>
+            <p><strong>Magic Signature:</strong> <code>0x03 0x00</code> or <code>0x07 0x00</code> at bytes 2-3</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Size</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x00</td>
+                        <td>2</td>
+                        <td>Number of items (u16 LE)</td>
+                    </tr>
+                    <tr>
+                        <td>0x02</td>
+                        <td>2</td>
+                        <td>Magic signature: 0x03 0x00 or 0x07 0x00</td>
+                    </tr>
+                    <tr>
+                        <td>0x04</td>
+                        <td>N</td>
+                        <td>Item entries (see below)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Item Entry Format:</strong> Each item: 2 bytes length (u16 LE) + N bytes string data (no null terminator)</p>
+            <p><strong>Used For:</strong> List property of ComboBox controls, List property of ListBox controls</p>
+
+            <h3 id="record1">5. Record1ByteHeader (Small Data)</h3>
+            <p><strong>Identifier:</strong> Default/fallback type (no specific magic)</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Size</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x00</td>
+                        <td>1</td>
+                        <td>Size of data section (u8)</td>
+                    </tr>
+                    <tr>
+                        <td>0x01</td>
+                        <td>N</td>
+                        <td>Data payload (max 255 bytes)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Used For:</strong> Very short strings (< 256 bytes), Small binary chunks, 
+            Fallback for unrecognized patterns</p>
+
+            <h2 id="detection">Entry Detection Algorithm</h2>
+            <p>The parser uses a waterfall detection approach at each offset:</p>
+            <div class="algorithm-box">
+                <ol>
+                    <li>Check for Record12ByteHeader: Offset + 4-7 == "lt\0\0" ?</li>
+                    <li>Check for Record3ByteHeader: buffer[offset] == 0xFF ?</li>
+                    <li>Check for ListItems: buffer[offset+2..offset+4] == [0x03, 0x00] or [0x07, 0x00] ?</li>
+                    <li>Check for Record4ByteHeader: buffer[offset..offset+4] contains any 0x00 byte ?</li>
+                    <li>Default: Record1ByteHeader</li>
+                </ol>
+                <p><strong>Note:</strong> This order is critical because later checks can produce false positives 
+                on earlier formats.</p>
+            </div>
+
+            <h2 id="cross-referencing">Cross-Referencing with .frm Files</h2>
+            <p>FRM files reference FRX entries using the syntax:</p>
+            <pre><code class="language-vbnet">PropertyName = $"FormName.frx":OFFSET</code></pre>
+            <p>Where <code>OFFSET</code> is a <strong>hexadecimal</strong> byte offset (without <code>0x</code> 
+            prefix) indicating where the resource entry begins in the FRX file.</p>
+            
+            <h4>Examples from .frm files:</h4>
+            <pre><code class="language-vbnet">' Icon property - references binary blob at offset 0x0000
+Icon = "DebugMain.frx":0000
+
+' Long caption - references large text at offset 0x00A6
+Caption = $"Form4.frx":00A6
+
+' ListBox items - references list structure at offset 0x0054
+ItemData = "SQLGenerator.frx":0054
+List = "SQLGenerator.frx":007C</code></pre>
+
+            <h3>Properties That Use FRX References</h3>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Control Types</th>
+                        <th>FRX Entry Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Icon</code></td>
+                        <td>Form, MDIForm</td>
+                        <td>Record12ByteHeader</td>
+                    </tr>
+                    <tr>
+                        <td><code>Picture</code></td>
+                        <td>Image, PictureBox, Form</td>
+                        <td>Record12ByteHeader</td>
+                    </tr>
+                    <tr>
+                        <td><code>MouseIcon</code></td>
+                        <td>All controls</td>
+                        <td>Record12ByteHeader</td>
+                    </tr>
+                    <tr>
+                        <td><code>List</code></td>
+                        <td>ListBox, ComboBox</td>
+                        <td>ListItems</td>
+                    </tr>
+                    <tr>
+                        <td><code>ItemData</code></td>
+                        <td>ListBox, ComboBox</td>
+                        <td>ListItems</td>
+                    </tr>
+                    <tr>
+                        <td><code>Caption</code></td>
+                        <td>Label, Button, etc.</td>
+                        <td>Record4ByteHeader</td>
+                    </tr>
+                    <tr>
+                        <td><code>Text</code></td>
+                        <td>TextBox</td>
+                        <td>Record4ByteHeader</td>
+                    </tr>
+                    <tr>
+                        <td><code>ToolTipText</code></td>
+                        <td>All controls</td>
+                        <td>Record4ByteHeader</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="parsing">Parsing Considerations</h2>
+            
+            <div class="consideration">
+                <h3>1. Windows-1252 Encoding</h3>
+                <p>All text data in FRX files uses Windows-1252 encoding, <strong>not UTF-8</strong>. Parsers must:</p>
+                <ul>
+                    <li>Decode text entries using Windows-1252 codec</li>
+                    <li>Handle extended characters (0x80-0xFF range)</li>
+                    <li>Use replacement characters for invalid sequences</li>
+                </ul>
+            </div>
+
+            <div class="consideration">
+                <h3>2. VB6 IDE Off-by-One Bug</h3>
+                <p>The VB6 IDE has a known bug where it declares size N but writes N-1 bytes for:</p>
+                <ul>
+                    <li>Record3ByteHeader entries</li>
+                    <li>Record1ByteHeader entries</li>
+                </ul>
+                <p><strong>Detection:</strong> If <code>offset + header_size + declared_size > file_length</code>, 
+                subtract 1 from declared_size.</p>
+            </div>
+
+            <div class="consideration">
+                <h3>3. Little-Endian Byte Order</h3>
+                <p>All multi-byte integers are stored in <strong>little-endian</strong> format:</p>
+                <pre><code>0x0010 0x0000  → 0x0010 (16 decimal)
+0x3E 0x04 0x00 0x00 → 0x043E (1086 decimal)</code></pre>
+            </div>
+
+            <div class="consideration">
+                <h3>4. No File-Level Metadata</h3>
+                <p>FRX files contain:</p>
+                <ul>
+                    <li>❌ No file signature/header</li>
+                    <li>❌ No version information</li>
+                    <li>❌ No entry count or index</li>
+                    <li>❌ No checksums or validation</li>
+                </ul>
+                <p>The only way to parse an FRX file is to sequentially scan from offset 0, identifying each 
+                entry's type and size, then advancing to the next entry.</p>
+            </div>
+
+            <h2 id="example">Example: Complete Entry Parse</h2>
+            <p>Given this FRX file hex dump:</p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Hex Data</th>
+                        <th>ASCII</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>00000000</code></td>
+                        <td><code>A2 00 00 00 41 6C 73 6F  20 74 68 65 72 65 20 61</code></td>
+                        <td><code>....Also there a</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>00000010</code></td>
+                        <td><code>72 65 20 6F 74 68 65 72  20 77 61 79 73 2F 63 6F</code></td>
+                        <td><code>re other ways/co</code></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center;"><em>... (lines omitted) ...</em></td>
+                    </tr>
+                    <tr>
+                        <td><code>000000A0</code></td>
+                        <td><code>34 2C 20 35 29 2E</code></td>
+                        <td><code>4, 5).</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>000000A6</code></td>
+                        <td><code>F4 00 00 00 46 6F 72 6D  34 20 69 73 20 61 20 6E</code></td>
+                        <td><code>....Form4 is a n</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="parse-example">
+                <h4>Entry 1 at offset 0x0000:</h4>
+                <ul>
+                    <li>Header: <code>A2 00 00 00</code> (4 bytes)</li>
+                    <li>Type: Record4ByteHeader (has 0x00 bytes)</li>
+                    <li>Size: 0xA2 = 162 bytes</li>
+                    <li>Data: 162 bytes of text starting at 0x0004</li>
+                    <li>Next entry offset: 0x0004 + 162 = 0x00A6</li>
+                </ul>
+
+                <h4>Entry 2 at offset 0x00A6:</h4>
+                <ul>
+                    <li>Header: <code>F4 00 00 00</code> (4 bytes)</li>
+                    <li>Type: Record4ByteHeader</li>
+                    <li>Size: 0xF4 = 244 bytes</li>
+                    <li>Data: 244 bytes of text starting at 0x00AA</li>
+                    <li>Next entry offset: 0x00AA + 244 = 0x019E</li>
+                </ul>
+            </div>
+
+            <h2 id="implementation">Implementation Notes</h2>
+            
+            <h3>Robust Parsing Strategy</h3>
+            <ol>
+                <li>Start at offset 0</li>
+                <li>Identify entry type using detection algorithm</li>
+                <li>Read header to determine data size</li>
+                <li>Extract data payload</li>
+                <li>Store entry with its offset as key</li>
+                <li>Advance offset by header_size + data_size</li>
+                <li>Repeat until EOF</li>
+            </ol>
+
+            <h3>Error Handling</h3>
+            <p>Common errors to handle gracefully:</p>
+            <ul>
+                <li><strong>Offset out of bounds:</strong> Entry extends past file end</li>
+                <li><strong>Size mismatch:</strong> Record12ByteHeader size fields don't match</li>
+                <li><strong>Corrupted list:</strong> ListItems structure truncated</li>
+                <li><strong>Buffer conversion:</strong> Not enough bytes for header</li>
+                <li><strong>Invalid signature:</strong> Record12ByteHeader lacks "lt\0\0"</li>
+            </ul>
+            <p><strong>Best practice:</strong> Continue parsing remaining entries even if one fails, 
+            accumulating non-fatal errors for reporting.</p>
+
+            <h3>Memory Efficiency</h3>
+            <p>For large FRX files (>1MB):</p>
+            <ul>
+                <li>Use <code>HashMap&lt;usize, ResourceEntry&gt;</code> for O(1) offset lookups</li>
+                <li>Store entries indexed by their starting offset</li>
+                <li>Keep original buffer for reference slicing</li>
+                <li>Avoid duplicating large binary blobs</li>
+            </ul>
+
+            <h2 id="historical">Historical Context</h2>
+            <p>The FRX format was designed for Visual Basic 6 (released 1998) and reflects limitations of that era:</p>
+            <ul>
+                <li><strong>No compression:</strong> Binary data stored raw</li>
+                <li><strong>No Unicode:</strong> Windows-1252 encoding only</li>
+                <li><strong>IDE bugs:</strong> Off-by-one size errors</li>
+                <li><strong>Brittle format:</strong> No version or magic signature</li>
+                <li><strong>Sequential access:</strong> Must parse from start to find entries</li>
+            </ul>
+            <p>Modern parsers should handle all these quirks while providing robust error recovery and efficient 
+            random access to entries by offset.</p>
+
+            <div class="related-docs">
+                <h3>Related Documentation</h3>
+                <ul>
+                    <li><a href="frm-format.html">FRM Architecture</a> - How FRM files reference FRX data</li>
+                    <li><a href="https://docs.rs/vb6parse/latest/vb6parse/files/resource/index.html" target="_blank">FormResource API</a> - Rust implementation</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>VB6Parse is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+            <p>Built with ❤️ by <a href="https://github.com/scriptandcompile" target="_blank">ScriptAndCompile</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,115 @@
+---
+source: src/syntax/library/functions/file/eof.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ReadAllLines
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: path
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: VariantKeyword
+          text: Variant
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: DoStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: DoKeyword
+                  text: Do
+                - kind: Whitespace
+                  text: " "
+                - kind: UntilKeyword
+                  text: Until
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: EOF
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: fnum
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: LineInputStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: LineKeyword
+                          text: Line
+                        - kind: Whitespace
+                          text: " "
+                        - kind: InputKeyword
+                          text: Input
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Octothorpe
+                          text: "#"
+                        - kind: Identifier
+                          text: fnum
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: LineKeyword
+                          text: line
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/functions/file/lof.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: ReDimStatement
+      children:
+        - kind: ReDimKeyword
+          text: ReDim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: fileData
+        - kind: LeftParenthesis
+          text: (
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LOF
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: fileNum
+            - kind: RightParenthesis
+              text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: ByteKeyword
+          text: Byte
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

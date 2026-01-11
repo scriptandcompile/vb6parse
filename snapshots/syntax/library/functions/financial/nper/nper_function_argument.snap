@@ -1,0 +1,53 @@
+---
+source: src/syntax/library/functions/financial/nper.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: DisplayPayoffSchedule
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: NPer
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: apr
+        - kind: Whitespace
+          text: " "
+        - kind: DivisionOperator
+          text: /
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: monthlyPmt
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: loanAmount
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

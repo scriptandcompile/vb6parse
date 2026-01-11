@@ -1,0 +1,27 @@
+---
+source: src/syntax/statements/declarations/variables.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: ConstKeyword
+          text: Const
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: MAX_SIZE
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "100"
+        - kind: Newline
+          text: "\n"

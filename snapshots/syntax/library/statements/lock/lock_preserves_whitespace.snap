@@ -1,0 +1,31 @@
+---
+source: src/syntax/library/statements/file_operations/lock.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: LockStatement
+      children:
+        - kind: LockKeyword
+          text: Lock
+        - kind: Whitespace
+          text: "    "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: IntegerLiteral
+          text: "5"
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

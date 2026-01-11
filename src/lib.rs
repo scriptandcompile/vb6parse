@@ -1,9 +1,8 @@
 #![warn(missing_docs)]
-
 //! # Summary
 //!
-//! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is the
-//! foundational library  for the tools and utilities for parsing / analysing / converting
+//! `VB6Parse` is a library for parsing Visual Basic 6 (VB6) code. It is a
+//! foundational library for tools and utilities that parse / analyse / convert
 //! VB6 code. It is designed to be used as a base library for other tools and utilities.
 //!
 //! ## Design Goals
@@ -11,30 +10,19 @@
 //! `VB6Parse` is designed to be a fast and efficient library for parsing VB6 code.
 //! Despite focusing on speed, ease of use has a high priority. While it should
 //! be possible for the library to be used to create things like real-time syntax
-//! highlighting, a language server, an interpreeter, or a high speed compiler,
+//! highlighting, a language server, an interpreter, or a high speed compiler,
 //! the primary goal is focused around offline analysis, legacy utilities,
 //! and tools that convert VB6 code to more modern languages.
 
 //! ## Project File Parsing
 //!
-//! To load a VB6 project file, you can use the `VB6Project::parse` method.
-//! This method takes a `file_name` and a byte slice as input, and returns a
-//! `VB6Project` struct that contains the parsed information.
-//!
-//! The `file_name` is required for error reporting, while the byte slice
-//! contains the contents of the project file. Because of the age of VB6
-//! it's possible that the file is encoded in a non-standard encoding so the
-//! byte slice is used instead of a string. The library will attempt to
-//! decode the bytes assuming it is in windows-1252 encoding.
-//!
-//! The parser will attempt to detect non-english character encodings and report
-//! an error if too many invalid characters are found. This does limit the library
-//! to currently support 'predominantly english' source code. This is a limitation
-//! which may be lifted in the future.
+//! To load a VB6 project file, you can use the `Project::parse` method.
+//! This method takes a `SourceFile` as input, and returns a
+//! `Project` struct that contains the parsed information.
 //!
 //! ```rust
 //! use vb6parse::*;
-//! use bstr::BStr;
+//! use vb6parse::files::project::properties::CompileTargetType;
 //!
 //! let input = r#"Type=Exe
 //! Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
@@ -90,24 +78,45 @@
 //! AutoRefresh=1
 //! "#;
 //!
-//! let project = VB6Project::parse("project1.vbp", input.as_bytes()).unwrap();
+//!
+//! let project_source_file = match SourceFile::decode_with_replacement("project1.vbp", input.as_bytes()) {
+//!     Ok(source_file) => source_file,
+//!     Err(e) => {
+//!         e.print();
+//!         panic!("failed to decode project source code.");
+//!     }
+//! };
+//!
+//! let result = ProjectFile::parse(&project_source_file);
+//!
+//! let (Some(project), failures) = result.unpack() else {
+//!    panic!("Project parse had no result");
+//! };
+//!
+//! if !failures.is_empty() {
+//!     for failure in failures {
+//!         failure.print();
+//!     }
+//!     panic!("Project parse had failures");
+//! }
+//!
 //!
 //! assert_eq!(project.project_type, CompileTargetType::Exe);
-//! assert_eq!(project.references.len(), 1);
-//! assert_eq!(project.objects.len(), 1);
-//! assert_eq!(project.modules.len(), 1);
-//! assert_eq!(project.classes.len(), 1);
-//! assert_eq!(project.designers.len(), 0);
-//! assert_eq!(project.forms.len(), 2);
-//! assert_eq!(project.user_controls.len(), 1);
-//! assert_eq!(project.user_documents.len(), 1);
-//! assert_eq!(project.startup, Some(BStr::new(b"Form1")));
-//! assert_eq!(project.title, Some(BStr::new(b"Project1")));
-//! assert_eq!(project.exe_32_file_name, Some(BStr::new(b"Project1.exe")));
+//! assert_eq!(project.references().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.objects().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.modules().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.classes().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.designers().collect::<Vec<_>>().len(), 0);
+//! assert_eq!(project.forms().collect::<Vec<_>>().len(), 2);
+//! assert_eq!(project.user_controls().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.user_documents().collect::<Vec<_>>().len(), 1);
+//! assert_eq!(project.properties.startup, "Form1");
+//! assert_eq!(project.properties.title, "Project1");
+//! assert_eq!(project.properties.exe_32_file_name, "Project1.exe");
 //! ```
 //!
-//! Note that in the example above, the `VB6Project::parse` method is used to parse
-//! the project file. The `VB6Project` struct contains the parsed information
+//! Note that in the example above, the `ProjectFile::parse` method is used to parse
+//! the project file. The `ProjectFile` struct contains the parsed information
 //! about the project, including the project type, references, objects, modules,
 //! classes, forms, user controls, etc. These references are not actually loaded
 //! or parsed. This makes it possible to read a project file in parts or to
@@ -115,27 +124,12 @@
 //!
 //! ## Form File Parsing
 //!
-//! To load a VB6 form file, you can use the `VB6Form::parse` method. This
-//! method takes a `file_name`, a byte slice as input, and a `resource_resolver`,
-//! and returns a `VB6Form` struct that contains the parsed information. This
-//! pattern is very similar to the `VB6Project::parse` method and is repeated
-//! throughout the library. This makes it easier to work with dynamically
-//! created VB6 code or test date without having to load the data from disk.
-//!
-//! A `resource_resolver` is a function that takes a `file_name` and an `offset`
-//! and returns a Result containing the resource data. This is used to resolve
-//! form resources such as images, icons, and other resources that are not
-//! included in the form file itself.
-//!
-//! Included in the library is a default `resource_file_resolver` function
-//! that can be used to resolve resources from a file. Breaking out the
-//! resource resolver allows for more flexibility in how resources are
-//! resolved as well as allowing for easier testing of the parser itself with
-//! a mock resource resolver.
+//! To load a VB6 form file, you can use the `FormFile::parse` method. This
+//! pattern is very similar to the `ProjectFile::parse` method and this pattern is
+//! repeated throughout the library.
 //!
 //! ```rust
-//! use vb6parse::parsers::VB6FormFile;
-//! use vb6parse::parsers::resource_file_resolver;
+//! use vb6parse::FormFile;
 //!
 //! let input = b"VERSION 5.00\r
 //! Begin VB.Form frmExampleForm\r
@@ -169,16 +163,55 @@
 //! Attribute VB_Name = \"frmExampleForm\"\r
 //! ";
 //!
-//! let result = VB6FormFile::parse_with_resolver("form_parse.frm", &mut input.as_ref(), resource_file_resolver);
+//! let source = vb6parse::SourceFile::decode("frmExampleForm.frm", input).expect("Failed to decode source file");
+//! let result = FormFile::parse(&source);
 //!
-//! assert!(result.is_ok());
-//! assert_eq!(result.unwrap().form.name, "frmExampleForm");
+//! let (Some(project), failures) = result.unpack() else {
+//!    panic!("Project parse had no result");
+//! };
+//!
+//! if !failures.is_empty() {
+//!     for failure in failures {
+//!         failure.print();
+//!     }
+//!     panic!("Project parse had failures");
+//! }
+//!
+//! assert_eq!(project.attributes.name, "frmExampleForm");
 //! ```
 
-pub mod errors;
-pub mod language;
-pub mod parsers;
+// Had to add a larger recursion limit because of particularly large assert_tree requests.
+#![cfg_attr(test, recursion_limit = "256")]
 
-pub use crate::errors::*;
-pub use crate::language::*;
-pub use crate::parsers::*;
+// =============================================================================
+// Layer modules (for advanced users who need full access)
+// =============================================================================
+pub mod errors;
+pub mod files;
+pub mod io;
+pub mod language;
+pub mod lexer;
+pub mod parsers;
+pub mod syntax;
+
+// =============================================================================
+// Top-level re-exports for common use cases
+// =============================================================================
+
+// I/O Layer - Decoding and character stream access
+pub use crate::io::{SourceFile, SourceStream};
+
+// Lexer Layer - Tokenization
+pub use crate::lexer::{tokenize, Token, TokenStream};
+
+// File Parsers - Main entry points for parsing VB6 files
+pub use crate::files::{ClassFile, FormFile, FormResourceFile, ModuleFile, ProjectFile};
+
+// Syntax Parsers - CST parsing and tree types
+pub use crate::parsers::{parse, ConcreteSyntaxTree, ParseResult, SerializableTree, SyntaxKind};
+
+// Error Types - All error kinds for pattern matching
+pub use crate::errors::{
+    ClassErrorKind, CodeErrorKind, ErrorDetails, FormErrorKind, ModuleErrorKind, ProjectErrorKind,
+    PropertyError, ResourceErrorKind, SourceFileErrorKind,
+};

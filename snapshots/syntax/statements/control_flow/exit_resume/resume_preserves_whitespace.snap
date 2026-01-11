@@ -1,0 +1,21 @@
+---
+source: src/syntax/statements/control_flow/exit_resume.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: ResumeStatement
+      children:
+        - kind: ResumeKeyword
+          text: Resume
+        - kind: Whitespace
+          text: "    "
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

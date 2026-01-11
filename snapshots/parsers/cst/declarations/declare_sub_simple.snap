@@ -1,0 +1,51 @@
+---
+source: src/parsers/cst/declarations.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DeclareStatement
+      children:
+        - kind: DeclareKeyword
+          text: Declare
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Sleep
+        - kind: Whitespace
+          text: " "
+        - kind: LibKeyword
+          text: Lib
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"kernel32\""
+        - kind: Whitespace
+          text: " "
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: dwMilliseconds
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

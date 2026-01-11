@@ -1,0 +1,21 @@
+---
+source: src/syntax/library/statements/file_operations/close.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CloseStatement
+      children:
+        - kind: CloseKeyword
+          text: Close
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/file/getattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SetAttrStatement
+      children:
+        - kind: SetAttrKeyword
+          text: SetAttr
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: filename
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetAttr
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: filename
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AndKeyword
+          text: And
+        - kind: Whitespace
+          text: " "
+        - kind: NotKeyword
+          text: Not
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbReadOnly

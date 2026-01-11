@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/functions/math/rnd.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Rnd
+        - kind: LeftParenthesis
+          text: (
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

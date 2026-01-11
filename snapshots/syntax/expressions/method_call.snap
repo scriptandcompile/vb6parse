@@ -1,0 +1,43 @@
+---
+source: src/syntax/expressions/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: x
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: MemberAccessExpression
+              children:
+                - kind: Identifier
+                  text: obj
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Method
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: arg
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

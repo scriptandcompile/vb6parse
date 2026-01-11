@@ -1,15 +1,36 @@
+//! Defines the properties and value enumeration for a `CheckBox` control in a VB6 form.
+//! This includes the `CheckBoxProperties` struct which holds all configurable
+//! properties of the `CheckBox`, as well as the `CheckBoxValue` enum which
+//! represents the state of the `CheckBox` (Unchecked, Checked, Grayed).
+//! These are used in the context of parsing and representing VB6 form controls.
+//!
+//! The properties covered include appearance, colors, captions, data binding,
+//! validation behavior, images, dimensions, and other control-specific settings.
+//!
+//! This struct is intended to be used as part of a larger control framework,
+//! specifically as a variant of the `ControlKind::CheckBox` enum.
+//!
+//! See [`ControlKind::CheckBox`](crate::language::controls::ControlKind::CheckBox)
+//! for usage.
+//!
+//! # References
+//! - [VB6 CheckBox Control Documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-basic-6/aa240800(v=vs.60))
+
+use std::fmt::Display;
+use std::str::FromStr;
+
 use crate::{
+    files::common::Properties,
     language::{
         controls::{
             Activation, Appearance, CausesValidation, DragMode, JustifyAlignment, MousePointer,
-            OLEDropMode, Style, TabStop, TextDirection, UseMaskColor, Visibility,
+            OLEDropMode, ReferenceOrValue, Style, TabStop, TextDirection, UseMaskColor, Visibility,
         },
-        VB6Color,
+        Color, VB_BUTTON_FACE, VB_BUTTON_TEXT,
     },
-    parsers::Properties,
+    FormErrorKind,
 };
 
-use bstr::BString;
 use image::DynamicImage;
 use num_enum::TryFromPrimitive;
 use serde::Serialize;
@@ -18,7 +39,9 @@ use serde::Serialize;
 ///
 /// This is used as a property of the [`CheckBoxProperties`](crate::language::controls::CheckBoxProperties)
 /// struct.
-#[derive(Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default)]
+#[derive(
+    Debug, PartialEq, Eq, Clone, Serialize, TryFromPrimitive, Default, Copy, Hash, PartialOrd, Ord,
+)]
 #[repr(i32)]
 pub enum CheckBoxValue {
     /// The checkbox is unchecked.
@@ -32,47 +55,113 @@ pub enum CheckBoxValue {
     Grayed = 2,
 }
 
+impl Display for CheckBoxValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let text = match self {
+            CheckBoxValue::Unchecked => "Unchecked",
+            CheckBoxValue::Checked => "Checked",
+            CheckBoxValue::Grayed => "Grayed",
+        };
+        write!(f, "{text}")
+    }
+}
+
+impl FromStr for CheckBoxValue {
+    type Err = FormErrorKind;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "0" | "Unchecked" => Ok(CheckBoxValue::Unchecked),
+            "1" | "Checked" => Ok(CheckBoxValue::Checked),
+            "2" | "Grayed" => Ok(CheckBoxValue::Grayed),
+            _ => Err(FormErrorKind::InvalidCheckBoxValue(s.to_string())),
+        }
+    }
+}
+
+impl TryFrom<&str> for CheckBoxValue {
+    type Error = FormErrorKind;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        CheckBoxValue::from_str(value)
+    }
+}
+
 /// Properties for a `CheckBox` control.
 ///
 /// This is used as an enum variant of
-/// [`VB6ControlKind::CheckBox`](crate::language::controls::VB6ControlKind::CheckBox).
+/// [`ControlKind::CheckBox`](crate::language::controls::ControlKind::CheckBox).
 /// tag, name, and index are not included in this struct, but instead are part
-/// of the parent [`VB6Control`](crate::language::controls::VB6Control) struct.
+/// of the parent [`Control`](crate::language::controls::Control) struct.
 #[derive(Debug, PartialEq, Clone)]
 pub struct CheckBoxProperties {
+    /// Justify alignment of the checkbox caption.
     pub alignment: JustifyAlignment,
+    /// Appearance of the checkbox control.
     pub appearance: Appearance,
-    pub back_color: VB6Color,
-    pub caption: BString,
+    /// Background color of the checkbox control.
+    pub back_color: Color,
+    /// Caption text of the checkbox control.
+    pub caption: String,
+    /// Whether the checkbox control causes validation.
     pub causes_validation: CausesValidation,
-    pub data_field: BString,
-    pub data_format: BString,
-    pub data_member: BString,
-    pub data_source: BString,
-    pub disabled_picture: Option<DynamicImage>,
-    pub down_picture: Option<DynamicImage>,
-    pub drag_icon: Option<DynamicImage>,
+    /// Data field associated with the checkbox control.
+    pub data_field: String,
+    /// Data format for the checkbox control.
+    pub data_format: String,
+    /// Data member associated with the checkbox control.
+    pub data_member: String,
+    /// Data source associated with the checkbox control.
+    pub data_source: String,
+    /// Picture displayed when the checkbox is disabled.
+    pub disabled_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Picture displayed when the checkbox is pressed down.
+    pub down_picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Icon used during drag operations.
+    pub drag_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Drag mode of the checkbox control.
     pub drag_mode: DragMode,
+    /// Whether the checkbox control is enabled.
     pub enabled: Activation,
-    pub fore_color: VB6Color,
+    /// Foreground color of the checkbox control.
+    pub fore_color: Color,
+    /// Height of the checkbox control.
     pub height: i32,
+    /// Help context ID associated with the checkbox control.
     pub help_context_id: i32,
+    /// Left position of the checkbox control.
     pub left: i32,
-    pub mask_color: VB6Color,
-    pub mouse_icon: Option<DynamicImage>,
+    /// Mask color used for transparency.
+    pub mask_color: Color,
+    /// Icon displayed when the mouse is over the checkbox control.
+    pub mouse_icon: Option<ReferenceOrValue<DynamicImage>>,
+    /// Mouse pointer style when hovering over the checkbox control.
     pub mouse_pointer: MousePointer,
+    /// OLE drop mode of the checkbox control.
     pub ole_drop_mode: OLEDropMode,
-    pub picture: Option<DynamicImage>,
+    /// Picture displayed on the checkbox control.
+    pub picture: Option<ReferenceOrValue<DynamicImage>>,
+    /// Text direction of the checkbox control.
     pub right_to_left: TextDirection,
+    /// Style of the checkbox control.
     pub style: Style,
+    /// Tab index of the checkbox control.
     pub tab_index: i32,
+    /// Whether the checkbox control is included in the tab order.
     pub tab_stop: TabStop,
-    pub tool_tip_text: BString,
+    /// Tool tip text for the checkbox control.
+    pub tool_tip_text: String,
+    /// Top position of the checkbox control.
     pub top: i32,
+    /// Whether to use the mask color for transparency.
     pub use_mask_color: UseMaskColor,
+    /// Current value/state of the checkbox control.
     pub value: CheckBoxValue,
+    /// Visibility of the checkbox control.
     pub visible: Visibility,
+    /// "What's This?" help ID associated with the checkbox control.
     pub whats_this_help_id: i32,
+    /// Width of the checkbox control.
     pub width: i32,
 }
 
@@ -81,23 +170,23 @@ impl Default for CheckBoxProperties {
         CheckBoxProperties {
             alignment: JustifyAlignment::LeftJustify,
             appearance: Appearance::ThreeD,
-            back_color: VB6Color::from_hex("&H8000000F&").unwrap(),
-            caption: "".into(),
+            back_color: VB_BUTTON_FACE,
+            caption: String::new(),
             causes_validation: CausesValidation::Yes,
-            data_field: "".into(),
-            data_format: "".into(),
-            data_member: "".into(),
-            data_source: "".into(),
+            data_field: String::new(),
+            data_format: String::new(),
+            data_member: String::new(),
+            data_source: String::new(),
             disabled_picture: None,
             down_picture: None,
             drag_icon: None,
             drag_mode: DragMode::Manual,
             enabled: Activation::Enabled,
-            fore_color: VB6Color::from_hex("&H80000012&").unwrap(),
+            fore_color: VB_BUTTON_TEXT,
             height: 30,
             help_context_id: 0,
             left: 30,
-            mask_color: VB6Color::from_hex("&H00C0C0C0&").unwrap(),
+            mask_color: Color::new(0xC0, 0xC0, 0xC0),
             mouse_icon: None,
             mouse_pointer: MousePointer::Default,
             ole_drop_mode: OLEDropMode::default(),
@@ -106,7 +195,7 @@ impl Default for CheckBoxProperties {
             style: Style::Standard,
             tab_index: 0,
             tab_stop: TabStop::Included,
-            tool_tip_text: "".into(),
+            tool_tip_text: String::new(),
             top: 30,
             use_mask_color: UseMaskColor::DoNotUseMaskColor,
             value: CheckBoxValue::Unchecked,
@@ -179,33 +268,32 @@ impl Serialize for CheckBoxProperties {
     }
 }
 
-impl<'a> From<Properties<'a>> for CheckBoxProperties {
-    fn from(prop: Properties<'a>) -> Self {
+impl From<Properties> for CheckBoxProperties {
+    fn from(prop: Properties) -> Self {
         let mut checkbox_prop = CheckBoxProperties::default();
 
-        checkbox_prop.alignment = prop.get_property(b"Alignment".into(), checkbox_prop.alignment);
-        checkbox_prop.appearance =
-            prop.get_property(b"Appearance".into(), checkbox_prop.appearance);
-        checkbox_prop.back_color = prop.get_color(b"BackColor".into(), checkbox_prop.back_color);
-        checkbox_prop.caption = match prop.get("Caption".into()) {
+        checkbox_prop.alignment = prop.get_property("Alignment", checkbox_prop.alignment);
+        checkbox_prop.appearance = prop.get_property("Appearance", checkbox_prop.appearance);
+        checkbox_prop.back_color = prop.get_color("BackColor", checkbox_prop.back_color);
+        checkbox_prop.caption = match prop.get("Caption") {
             Some(caption) => caption.into(),
             None => checkbox_prop.caption,
         };
         checkbox_prop.causes_validation =
-            prop.get_property(b"CausesValidation".into(), checkbox_prop.causes_validation);
-        checkbox_prop.data_field = match prop.get(b"DataField".into()) {
+            prop.get_property("CausesValidation", checkbox_prop.causes_validation);
+        checkbox_prop.data_field = match prop.get("DataField") {
             Some(data_field) => data_field.into(),
             None => checkbox_prop.data_field,
         };
-        checkbox_prop.data_format = match prop.get("DataFormat".into()) {
+        checkbox_prop.data_format = match prop.get("DataFormat") {
             Some(data_format) => data_format.into(),
             None => checkbox_prop.data_format,
         };
-        checkbox_prop.data_member = match prop.get("DataMember".into()) {
+        checkbox_prop.data_member = match prop.get("DataMember") {
             Some(data_member) => data_member.into(),
             None => checkbox_prop.data_member,
         };
-        checkbox_prop.data_source = match prop.get("DataSource".into()) {
+        checkbox_prop.data_source = match prop.get("DataSource") {
             Some(data_source) => data_source.into(),
             None => checkbox_prop.data_source,
         };
@@ -213,41 +301,39 @@ impl<'a> From<Properties<'a>> for CheckBoxProperties {
         //DownPicture
         //DragIcon
 
-        checkbox_prop.drag_mode = prop.get_property(b"DragMode".into(), checkbox_prop.drag_mode);
-        checkbox_prop.enabled = prop.get_property(b"Enabled".into(), checkbox_prop.enabled);
-        checkbox_prop.fore_color = prop.get_color(b"ForeColor".into(), checkbox_prop.fore_color);
-        checkbox_prop.height = prop.get_i32(b"Height".into(), checkbox_prop.height);
+        checkbox_prop.drag_mode = prop.get_property("DragMode", checkbox_prop.drag_mode);
+        checkbox_prop.enabled = prop.get_property("Enabled", checkbox_prop.enabled);
+        checkbox_prop.fore_color = prop.get_color("ForeColor", checkbox_prop.fore_color);
+        checkbox_prop.height = prop.get_i32("Height", checkbox_prop.height);
         checkbox_prop.help_context_id =
-            prop.get_i32(b"HelpContextID".into(), checkbox_prop.help_context_id);
-        checkbox_prop.left = prop.get_i32(b"Left".into(), checkbox_prop.left);
-        checkbox_prop.mask_color = prop.get_color(b"MaskColor".into(), checkbox_prop.mask_color);
+            prop.get_i32("HelpContextID", checkbox_prop.help_context_id);
+        checkbox_prop.left = prop.get_i32("Left", checkbox_prop.left);
+        checkbox_prop.mask_color = prop.get_color("MaskColor", checkbox_prop.mask_color);
 
         //MouseIcon
 
         checkbox_prop.mouse_pointer =
-            prop.get_property(b"MousePointer".into(), checkbox_prop.mouse_pointer);
-        checkbox_prop.ole_drop_mode =
-            prop.get_property(b"OLEDropMode".into(), checkbox_prop.ole_drop_mode);
+            prop.get_property("MousePointer", checkbox_prop.mouse_pointer);
+        checkbox_prop.ole_drop_mode = prop.get_property("OLEDropMode", checkbox_prop.ole_drop_mode);
 
         //Picture
 
-        checkbox_prop.right_to_left =
-            prop.get_property(b"RightToLeft".into(), checkbox_prop.right_to_left);
-        checkbox_prop.style = prop.get_property(b"Style".into(), checkbox_prop.style);
-        checkbox_prop.tab_index = prop.get_i32(b"TabIndex".into(), checkbox_prop.tab_index);
-        checkbox_prop.tab_stop = prop.get_property(b"TabStop".into(), checkbox_prop.tab_stop);
-        checkbox_prop.tool_tip_text = match prop.get("ToolTipText".into()) {
+        checkbox_prop.right_to_left = prop.get_property("RightToLeft", checkbox_prop.right_to_left);
+        checkbox_prop.style = prop.get_property("Style", checkbox_prop.style);
+        checkbox_prop.tab_index = prop.get_i32("TabIndex", checkbox_prop.tab_index);
+        checkbox_prop.tab_stop = prop.get_property("TabStop", checkbox_prop.tab_stop);
+        checkbox_prop.tool_tip_text = match prop.get("ToolTipText") {
             Some(tool_tip_text) => tool_tip_text.into(),
             None => checkbox_prop.tool_tip_text,
         };
-        checkbox_prop.top = prop.get_i32(b"Top".into(), checkbox_prop.top);
+        checkbox_prop.top = prop.get_i32("Top", checkbox_prop.top);
         checkbox_prop.use_mask_color =
-            prop.get_property(b"UseMaskColor".into(), checkbox_prop.use_mask_color);
-        checkbox_prop.value = prop.get_property(b"Value".into(), checkbox_prop.value);
-        checkbox_prop.visible = prop.get_property(b"Visible".into(), checkbox_prop.visible);
+            prop.get_property("UseMaskColor", checkbox_prop.use_mask_color);
+        checkbox_prop.value = prop.get_property("Value", checkbox_prop.value);
+        checkbox_prop.visible = prop.get_property("Visible", checkbox_prop.visible);
         checkbox_prop.whats_this_help_id =
-            prop.get_i32(b"WhatsThisHelp".into(), checkbox_prop.whats_this_help_id);
-        checkbox_prop.width = prop.get_i32(b"Width".into(), checkbox_prop.width);
+            prop.get_i32("WhatsThisHelp", checkbox_prop.whats_this_help_id);
+        checkbox_prop.width = prop.get_i32("Width", checkbox_prop.width);
 
         checkbox_prop
     }

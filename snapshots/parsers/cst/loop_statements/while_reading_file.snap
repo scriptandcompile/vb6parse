@@ -1,0 +1,155 @@
+---
+source: src/parsers/cst/loop_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ReadFile
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OpenStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OpenKeyword
+                  text: Open
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"data.txt\""
+                - kind: Whitespace
+                  text: " "
+                - kind: ForKeyword
+                  text: For
+                - kind: Whitespace
+                  text: " "
+                - kind: InputKeyword
+                  text: Input
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+            - kind: WhileStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: WhileKeyword
+                  text: While
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: EOF
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "1"
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: LineInputStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: LineKeyword
+                          text: Line
+                        - kind: Whitespace
+                          text: " "
+                        - kind: InputKeyword
+                          text: Input
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Octothorpe
+                          text: "#"
+                        - kind: IntegerLiteral
+                          text: "1"
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: dataLine
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: ProcessLine
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: dataLine
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: WendKeyword
+                  text: Wend
+                - kind: Newline
+                  text: "\n"
+            - kind: CloseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: CloseKeyword
+                  text: Close
+                - kind: Whitespace
+                  text: " "
+                - kind: Octothorpe
+                  text: "#"
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

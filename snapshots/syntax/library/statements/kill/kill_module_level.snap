@@ -1,0 +1,17 @@
+---
+source: src/syntax/library/statements/file_operations/kill.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: KillStatement
+      children:
+        - kind: KillKeyword
+          text: Kill
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"temp.dat\""
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,21 @@
+---
+source: src/syntax/statements/declarations/erase.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: EraseStatement
+      children:
+        - kind: EraseKeyword
+          text: Erase
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: myArray
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

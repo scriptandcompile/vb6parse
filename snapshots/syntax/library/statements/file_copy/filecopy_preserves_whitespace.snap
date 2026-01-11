@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/statements/file_operations/file_copy.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: FileCopyStatement
+      children:
+        - kind: FileCopyKeyword
+          text: FileCopy
+        - kind: Whitespace
+          text: "    "
+        - kind: StringLiteral
+          text: "\"a.txt\""
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: StringLiteral
+          text: "\"b.txt\""
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"

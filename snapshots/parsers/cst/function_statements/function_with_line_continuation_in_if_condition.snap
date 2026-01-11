@@ -1,0 +1,367 @@
+---
+source: src/parsers/cst/function_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: argGetArgs
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: argv
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: ByRefKeyword
+              text: ByRef
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: argc
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: LongKeyword
+              text: Long
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Underscore
+              text: _
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: " "
+            - kind: OptionalKeyword
+              text: Optional
+            - kind: Whitespace
+              text: " "
+            - kind: ByValKeyword
+              text: ByVal
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: Args
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: DimStatement
+              children:
+                - kind: DimKeyword
+                  text: Dim
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: strArgTemp
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: StringKeyword
+                  text: String
+                - kind: Newline
+                  text: "\n"
+            - kind: DoStatement
+              children:
+                - kind: DoKeyword
+                  text: Do
+                - kind: Whitespace
+                  text: " "
+                - kind: UntilKeyword
+                  text: Until
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: strArgTemp
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"\""
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: IfStatement
+                      children:
+                        - kind: Whitespace
+                          text: "  "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Whitespace
+                          text: " "
+                        - kind: BinaryExpression
+                          children:
+                            - kind: BinaryExpression
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: InStr
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "1"
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: strArgTemp
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: CallExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: Chr$
+                                                - kind: LeftParenthesis
+                                                  text: (
+                                                - kind: ArgumentList
+                                                  children:
+                                                    - kind: Argument
+                                                      children:
+                                                        - kind: NumericLiteralExpression
+                                                          children:
+                                                            - kind: IntegerLiteral
+                                                              text: "34"
+                                                - kind: RightParenthesis
+                                                  text: )
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: InequalityOperator
+                                  text: "<>"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "0"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AndKeyword
+                              text: And
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Underscore
+                              text: _
+                            - kind: Newline
+                              text: "\n"
+                            - kind: Whitespace
+                              text: "     "
+                            - kind: BinaryExpression
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: InStr
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "1"
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: strArgTemp
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: CallExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: Chr$
+                                                - kind: LeftParenthesis
+                                                  text: (
+                                                - kind: ArgumentList
+                                                  children:
+                                                    - kind: Argument
+                                                      children:
+                                                        - kind: NumericLiteralExpression
+                                                          children:
+                                                            - kind: IntegerLiteral
+                                                              text: "34"
+                                                - kind: RightParenthesis
+                                                  text: )
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: LessThanOperator
+                                  text: "<"
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: InStr
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "1"
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: strArgTemp
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
+                                          children:
+                                            - kind: StringLiteralExpression
+                                              children:
+                                                - kind: StringLiteral
+                                                  text: "\" \""
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ThenKeyword
+                          text: Then
+                        - kind: Newline
+                          text: "\n"
+                        - kind: StatementList
+                          children:
+                            - kind: Whitespace
+                              text: "    "
+                            - kind: AssignmentStatement
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: strArgTemp
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: EqualityOperator
+                                  text: "="
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"\""
+                                - kind: Newline
+                                  text: "\n"
+                            - kind: Whitespace
+                              text: "  "
+                        - kind: EndKeyword
+                          text: End
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Newline
+                          text: "\n"
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

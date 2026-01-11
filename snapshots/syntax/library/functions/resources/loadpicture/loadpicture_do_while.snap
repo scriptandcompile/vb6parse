@@ -1,0 +1,79 @@
+---
+source: src/syntax/library/functions/resources/loadpicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: WhileKeyword
+          text: While
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: hasMore
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "                "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: currentPic
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: LoadPicture
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: GetNextFile
+                - kind: LeftParenthesis
+                  text: (
+                - kind: RightParenthesis
+                  text: )
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "                "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: ProcessPicture
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: currentPic
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

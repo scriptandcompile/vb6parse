@@ -1,0 +1,51 @@
+---
+source: src/syntax/library/functions/environment/getautoserversettings.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: lstServers
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: AddItem
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: serverName
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\" - \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: GetAutoServerSettings
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: progID
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: clsID
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: serverName
+    - kind: Unknown
+      text: )

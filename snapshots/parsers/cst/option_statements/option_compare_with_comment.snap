@@ -1,0 +1,25 @@
+---
+source: src/parsers/cst/option_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: OptionStatement
+      children:
+        - kind: OptionKeyword
+          text: Option
+        - kind: Whitespace
+          text: " "
+        - kind: CompareKeyword
+          text: Compare
+        - kind: Whitespace
+          text: " "
+        - kind: TextKeyword
+          text: Text
+        - kind: Whitespace
+          text: " "
+        - kind: EndOfLineComment
+          text: "' Case-insensitive"
+        - kind: Newline
+          text: "\n"

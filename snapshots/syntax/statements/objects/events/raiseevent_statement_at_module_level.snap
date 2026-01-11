@@ -1,0 +1,19 @@
+---
+source: src/syntax/statements/objects/events.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: RaiseEventStatement
+      children:
+        - kind: RaiseEventKeyword
+          text: RaiseEvent
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GlobalEvent
+        - kind: Newline
+          text: "\n"

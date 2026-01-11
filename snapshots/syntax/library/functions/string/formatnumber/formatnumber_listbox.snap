@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/functions/string/formatnumber.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lst
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatNumber
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: values
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: decimals
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

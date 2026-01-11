@@ -1,0 +1,35 @@
+---
+source: src/syntax/library/functions/datetime/minute.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessMinute
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Minute
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Now
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

@@ -1,0 +1,65 @@
+---
+source: src/syntax/statements/declarations/arrays.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: ReDimStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ReDimKeyword
+                  text: ReDim
+                - kind: Whitespace
+                  text: " "
+                - kind: PreserveKeyword
+                  text: Preserve
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: argv
+                - kind: LeftParenthesis
+                  text: (
+                - kind: Identifier
+                  text: argc
+                - kind: Whitespace
+                  text: " "
+                - kind: SubtractionOperator
+                  text: "-"
+                - kind: Whitespace
+                  text: " "
+                - kind: LongLiteral
+                  text: 1&
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

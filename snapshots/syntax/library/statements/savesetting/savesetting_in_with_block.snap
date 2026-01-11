@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/statements/system_interaction/savesetting.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WithStatement
+      children:
+        - kind: WithKeyword
+          text: With
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Form1
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SaveSettingStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SaveSettingKeyword
+                  text: SaveSetting
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"MyApp\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Form\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Width\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: PeriodOperator
+                  text: "."
+                - kind: WidthKeyword
+                  text: Width
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: WithKeyword
+          text: With
+        - kind: Newline
+          text: "\n"

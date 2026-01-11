@@ -1,0 +1,17 @@
+---
+source: src/parsers/cst/deftype_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DefTypeStatement
+      children:
+        - kind: DefByteKeyword
+          text: DefByte
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: B
+        - kind: Newline
+          text: "\n"

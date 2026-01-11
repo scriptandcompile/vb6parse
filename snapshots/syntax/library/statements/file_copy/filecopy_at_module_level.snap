@@ -1,0 +1,23 @@
+---
+source: src/syntax/library/statements/file_operations/file_copy.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: FileCopyStatement
+      children:
+        - kind: FileCopyKeyword
+          text: FileCopy
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"old.dat\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"new.dat\""
+        - kind: Newline
+          text: "\n"

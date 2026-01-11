@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/string/rtrim.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lstCustomers
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: RTrim
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rs
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"CompanyName\""
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

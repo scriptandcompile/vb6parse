@@ -1,0 +1,95 @@
+---
+source: src/syntax/library/functions/objects/callbyname.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: DoStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: DoKeyword
+                  text: Do
+                - kind: Whitespace
+                  text: " "
+                - kind: WhileKeyword
+                  text: While
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: MemberAccessExpression
+                      children:
+                        - kind: Identifier
+                          text: rs
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: Identifier
+                          text: EOF
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: CallByName
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: rs
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteral
+                          text: "\"MoveNext\""
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: VbMethod
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: LoopKeyword
+                  text: Loop
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

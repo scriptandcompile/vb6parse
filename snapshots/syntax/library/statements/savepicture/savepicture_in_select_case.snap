@@ -1,0 +1,105 @@
+---
+source: src/syntax/library/statements/system_interaction/savepicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: format
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "1"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: SavePictureStatement
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: SavePictureKeyword
+                      text: SavePicture
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Identifier
+                      text: Picture1
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: Picture
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"output1.bmp\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "2"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: SavePictureStatement
+                  children:
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: SavePictureKeyword
+                      text: SavePicture
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Identifier
+                      text: Picture1
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: Image
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\"output2.bmp\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"

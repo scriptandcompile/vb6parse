@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/statements/file_operations/write.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WriteStatement
+      children:
+        - kind: WriteKeyword
+          text: Write
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"data\""
+        - kind: Newline
+          text: "\n"

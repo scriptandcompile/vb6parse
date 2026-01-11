@@ -1,0 +1,265 @@
+---
+source: src/parsers/cst/property_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: PropertyStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Whitespace
+          text: " "
+        - kind: LetKeyword
+          text: Let
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Caption
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: myCap
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: StringKeyword
+              text: String
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: mCaptext
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: myCap
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: BinaryExpression
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: glistN
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IsKeyword
+                          text: Is
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: Nothing
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: IfStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Whitespace
+                          text: " "
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: glistN
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: CenterText
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ThenKeyword
+                          text: Then
+                        - kind: Newline
+                          text: "\n"
+                        - kind: StatementList
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: AssignmentStatement
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: MemberAccessExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: glistN
+                                        - kind: PeriodOperator
+                                          text: "."
+                                        - kind: Identifier
+                                          text: list
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "0"
+                                    - kind: RightParenthesis
+                                      text: )
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: EqualityOperator
+                                  text: "="
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: mCaptext
+                                - kind: Newline
+                                  text: "\n"
+                            - kind: Whitespace
+                              text: "        "
+                        - kind: ElseClause
+                          children:
+                            - kind: ElseKeyword
+                              text: Else
+                            - kind: Newline
+                              text: "\n"
+                            - kind: StatementList
+                              children:
+                                - kind: Whitespace
+                                  text: "            "
+                                - kind: AssignmentStatement
+                                  children:
+                                    - kind: CallExpression
+                                      children:
+                                        - kind: MemberAccessExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: glistN
+                                            - kind: PeriodOperator
+                                              text: "."
+                                            - kind: Identifier
+                                              text: list
+                                        - kind: LeftParenthesis
+                                          text: (
+                                        - kind: ArgumentList
+                                          children:
+                                            - kind: Argument
+                                              children:
+                                                - kind: NumericLiteralExpression
+                                                  children:
+                                                    - kind: IntegerLiteral
+                                                      text: "0"
+                                        - kind: RightParenthesis
+                                          text: )
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: EqualityOperator
+                                      text: "="
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: StringLiteralExpression
+                                          children:
+                                            - kind: StringLiteral
+                                              text: "\"  \""
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: AdditionOperator
+                                          text: +
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: mCaptext
+                                    - kind: Newline
+                                      text: "\n"
+                                - kind: Whitespace
+                                  text: "        "
+                        - kind: EndKeyword
+                          text: End
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IfKeyword
+                          text: If
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
+                      children:
+                        - kind: Identifier
+                          text: glistN
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: Identifier
+                          text: ShowMe
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Newline
+          text: "\n"

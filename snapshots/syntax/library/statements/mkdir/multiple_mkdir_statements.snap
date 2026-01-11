@@ -1,0 +1,71 @@
+---
+source: src/syntax/library/statements/filesystem/mkdir.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: CreateDirs
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: MkDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: MkDirKeyword
+                  text: MkDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\""
+                - kind: Newline
+                  text: "\n"
+            - kind: MkDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: MkDirKeyword
+                  text: MkDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\Logs\""
+                - kind: Newline
+                  text: "\n"
+            - kind: MkDirStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: MkDirKeyword
+                  text: MkDir
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"C:\\Temp\\Data\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

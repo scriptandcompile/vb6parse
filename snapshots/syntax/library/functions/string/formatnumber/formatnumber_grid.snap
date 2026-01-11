@@ -1,0 +1,169 @@
+---
+source: src/syntax/library/functions/string/formatnumber.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Identifier
+      text: grid
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: TextMatrix
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: +
+    - kind: Whitespace
+      text: " "
+    - kind: AssignmentStatement
+      children:
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: IdentifierExpression
+          children:
+            - kind: Comma
+              text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: AssignmentStatement
+      children:
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "0"
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: FormatNumber
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: i
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "0"
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Identifier
+      text: grid
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: TextMatrix
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: i
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: +
+    - kind: Whitespace
+      text: " "
+    - kind: AssignmentStatement
+      children:
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: IdentifierExpression
+          children:
+            - kind: Comma
+              text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: AssignmentStatement
+      children:
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: FormatNumber
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: values
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: i
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "2"
+                - kind: RightParenthesis
+                  text: )
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,45 @@
+---
+source: tests/keyword_identifiers.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: PropertyStatement
+      children:
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Whitespace
+          text: " "
+        - kind: GetKeyword
+          text: Get
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Binary
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerKeyword
+          text: Integer
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children: []
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: PropertyKeyword
+          text: Property
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/functions/file/getattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: MsgBox
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"File attributes: \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: GetAttr
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: filename
+    - kind: Unknown
+      text: )

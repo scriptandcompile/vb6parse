@@ -1,0 +1,45 @@
+---
+source: src/parsers/cst/enum_statements.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: EnumStatement
+      children:
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Colors
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Red
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Green
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Blue
+        - kind: Newline
+          text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: EnumKeyword
+          text: Enum
+        - kind: Newline
+          text: "\n"
