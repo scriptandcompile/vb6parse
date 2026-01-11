@@ -688,8 +688,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn rnd_basic() {
         let source = r"
@@ -699,34 +699,13 @@ randomValue = Rnd()
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("randomValue"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("randomValue"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Rnd"),
-                    LeftParenthesis,
-                    ArgumentList,
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -738,31 +717,13 @@ x = Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("x"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("x"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -774,43 +735,13 @@ result = Rnd(-1)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("result"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("Rnd"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            UnaryExpression {
-                                SubtractionOperator,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("1"),
-                                },
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -825,53 +756,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Heads\""),
-                        Newline,
-                    },
-                },
-                ElseClause {
-                    ElseKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        CallStatement {
-                            Identifier ("MsgBox"),
-                            Whitespace,
-                            StringLiteral ("\"Tails\""),
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -884,42 +775,13 @@ End Function
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetRandomValue"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("GetRandomValue"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Rnd"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -931,31 +793,13 @@ randomNum = Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("randomNum"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("randomNum"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -966,19 +810,13 @@ MsgBox "Random: " & Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("MsgBox"),
-                Whitespace,
-                StringLiteral ("\"Random: \""),
-                Whitespace,
-                Ampersand,
-                Whitespace,
-                Identifier ("Rnd"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -989,19 +827,13 @@ Debug.Print Rnd()
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                Identifier ("Debug"),
-                PeriodOperator,
-                PrintKeyword,
-                Whitespace,
-                Identifier ("Rnd"),
-                LeftParenthesis,
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1021,119 +853,13 @@ End Select
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("value"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("value"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IsKeyword,
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    SingleLiteral,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"Low\""),
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IsKeyword,
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    SingleLiteral,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"Medium\""),
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseElseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    ElseKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("result"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"High\""),
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1148,51 +874,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                PrivateKeyword,
-                Whitespace,
-                Identifier ("m_randomValue"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            Newline,
-            SubStatement {
-                PublicKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("GenerateRandom"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("m_randomValue"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Rnd"),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1205,39 +893,13 @@ End With
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            WithStatement {
-                WithKeyword,
-                Whitespace,
-                Identifier ("dataObject"),
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            PeriodOperator,
-                        },
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("RandomValue"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            IdentifierExpression {
-                                Identifier ("Rnd"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                WithKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1254,101 +916,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("r"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("r"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("r"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("category"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            IntegerLiteral ("1"),
-                        },
-                        Newline,
-                    },
-                },
-                ElseIfClause {
-                    ElseIfKeyword,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("r"),
-                        },
-                        Whitespace,
-                        LessThanOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            SingleLiteral,
-                        },
-                    },
-                    Whitespace,
-                    ThenKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            IdentifierExpression {
-                                Identifier ("category"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("2"),
-                            },
-                            Newline,
-                        },
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1361,57 +935,13 @@ Next i
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10"),
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        CallExpression {
-                            Identifier ("randomNumbers"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("i"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Rnd"),
-                        },
-                        Newline,
-                    },
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1424,52 +954,13 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("count"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("count"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1482,52 +973,13 @@ Loop
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    Whitespace,
-                    GreaterThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("attempts"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("attempts"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                LoopKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1540,50 +992,13 @@ Wend
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            WhileStatement {
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("iterations"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("iterations"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                },
-                WendKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1595,35 +1010,13 @@ val = (Rnd)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("val"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("val"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                ParenthesizedExpression {
-                    LeftParenthesis,
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1635,62 +1028,13 @@ result = IIf(Rnd > 0.5, "Win", "Lose")
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("result"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("result"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IIf"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            BinaryExpression {
-                                IdentifierExpression {
-                                    Identifier ("Rnd"),
-                                },
-                                Whitespace,
-                                GreaterThanOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    SingleLiteral,
-                                },
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Win\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"Lose\""),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1702,45 +1046,13 @@ values(i) = Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("values"),
-                LeftParenthesis,
-                NumericLiteralExpression {
-                    IntegerLiteral ("10"),
-                },
-                RightParenthesis,
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                CallExpression {
-                    Identifier ("values"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("i"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1752,35 +1064,13 @@ obj.Value = Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("obj"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NewKeyword,
-                Whitespace,
-                Identifier ("RandomData"),
-                Newline,
-            },
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("obj"),
-                    PeriodOperator,
-                    Identifier ("Value"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1791,18 +1081,13 @@ Call ProcessValue(Rnd)
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            CallStatement {
-                CallKeyword,
-                Whitespace,
-                Identifier ("ProcessValue"),
-                LeftParenthesis,
-                Identifier ("Rnd"),
-                RightParenthesis,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1814,39 +1099,13 @@ msg = "Value: " & Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("msg"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                StringKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("msg"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    StringLiteralExpression {
-                        StringLiteral ("\"Value: \""),
-                    },
-                    Whitespace,
-                    Ampersand,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1858,56 +1117,13 @@ diceRoll = Int(Rnd * 6) + 1
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("diceRoll"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("diceRoll"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    CallExpression {
-                        Identifier ("Int"),
-                        LeftParenthesis,
-                        ArgumentList {
-                            Argument {
-                                BinaryExpression {
-                                    IdentifierExpression {
-                                        Identifier ("Rnd"),
-                                    },
-                                    Whitespace,
-                                    MultiplicationOperator,
-                                    Whitespace,
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("6"),
-                                    },
-                                },
-                            },
-                        },
-                        RightParenthesis,
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("1"),
-                    },
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1920,46 +1136,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("Rnd"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        SingleLiteral,
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("status"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"Rare\""),
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1972,50 +1155,13 @@ y = Rnd
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("x"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Comma,
-                Whitespace,
-                Identifier ("y"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("x"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("y"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2031,80 +1177,13 @@ End If
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("randomVal"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                SingleKeyword,
-                Newline,
-            },
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("randomVal"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("Rnd"),
-                },
-                Newline,
-            },
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    MemberAccessExpression {
-                        Identifier ("Err"),
-                        PeriodOperator,
-                        Identifier ("Number"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("randomVal"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        NumericLiteralExpression {
-                            SingleLiteral,
-                        },
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2122,78 +1201,12 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("GenerateRandom"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        GotoKeyword,
-                        Whitespace,
-                        Identifier ("ErrorHandler"),
-                        Newline,
-                    },
-                    Whitespace,
-                    DimStatement {
-                        DimKeyword,
-                        Whitespace,
-                        Identifier ("r"),
-                        Whitespace,
-                        AsKeyword,
-                        Whitespace,
-                        SingleKeyword,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("r"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("Rnd"),
-                        },
-                        Newline,
-                    },
-                    ExitStatement {
-                        Whitespace,
-                        ExitKeyword,
-                        Whitespace,
-                        SubKeyword,
-                        Newline,
-                    },
-                    LabelStatement {
-                        Identifier ("ErrorHandler"),
-                        ColonOperator,
-                        Newline,
-                    },
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Error generating random number\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../../snapshots/syntax/library/functions/math/rnd");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
