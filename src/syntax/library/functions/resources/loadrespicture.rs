@@ -686,8 +686,8 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn loadrespicture_basic() {
         let source = r"
@@ -696,29 +696,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("Picture1"),
-                PeriodOperator,
-                Identifier ("Picture"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -729,41 +715,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Image1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("102"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResIcon"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -776,59 +736,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("hasResource"),
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("Picture1"),
-                            PeriodOperator,
-                            Identifier ("Picture"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LoadResPicture"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("resID"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbResBitmap"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -839,41 +755,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Picture1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            StringLiteralExpression {
-                                StringLiteral ("\"LOGO\""),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResBitmap"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -886,61 +776,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SubStatement {
-                PrivateKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("Form_Load"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            MeKeyword,
-                            PeriodOperator,
-                            Identifier ("Picture"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LoadResPicture"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("101"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbResBitmap"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -951,34 +795,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("images"),
-                LeftParenthesis,
-                Identifier ("i"),
-                RightParenthesis,
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("100"),
-                Whitespace,
-                AdditionOperator,
-                Whitespace,
-                Identifier ("i"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -991,64 +816,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            ForStatement {
-                ForKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("i"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("1"),
-                },
-                Whitespace,
-                ToKeyword,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("5"),
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("imgArray"),
-                        LeftParenthesis,
-                        Identifier ("i"),
-                        RightParenthesis,
-                        PeriodOperator,
-                        Identifier ("Picture"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        IntegerLiteral ("100"),
-                        Whitespace,
-                        AdditionOperator,
-                        Whitespace,
-                        Identifier ("i"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                NextKeyword,
-                Whitespace,
-                Identifier ("i"),
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1061,49 +837,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            FunctionStatement {
-                FunctionKeyword,
-                Whitespace,
-                Identifier ("GetResPicture"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                Identifier ("StdPicture"),
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("GetResPicture"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        IntegerLiteral ("101"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                FunctionKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1118,87 +860,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Picture1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("999"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResBitmap"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    MemberAccessExpression {
-                        Identifier ("Err"),
-                        PeriodOperator,
-                        Identifier ("Number"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("32813"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Resource not found\""),
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1211,58 +881,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            WithStatement {
-                WithKeyword,
-                Whitespace,
-                Identifier ("Picture1"),
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            PeriodOperator,
-                        },
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("Picture"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("101"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResBitmap"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                WithKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1278,106 +905,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SelectCaseStatement {
-                SelectKeyword,
-                Whitespace,
-                CaseKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("imageType"),
-                },
-                Newline,
-                Whitespace,
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("1"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            MemberAccessExpression {
-                                Identifier ("Picture1"),
-                                PeriodOperator,
-                                Identifier ("Picture"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("101"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResBitmap"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                CaseClause {
-                    CaseKeyword,
-                    Whitespace,
-                    IntegerLiteral ("2"),
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            MemberAccessExpression {
-                                Identifier ("Picture1"),
-                                PeriodOperator,
-                                Identifier ("Picture"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("102"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResIcon"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SelectKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1392,119 +928,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("mode"),
-                    },
-                    Whitespace,
-                    EqualityOperator,
-                    Whitespace,
-                    StringLiteralExpression {
-                        StringLiteral ("\"dark\""),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        MemberAccessExpression {
-                            Identifier ("Picture1"),
-                            PeriodOperator,
-                            Identifier ("Picture"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("LoadResPicture"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    NumericLiteralExpression {
-                                        IntegerLiteral ("201"),
-                                    },
-                                },
-                                Comma,
-                                Whitespace,
-                                Argument {
-                                    IdentifierExpression {
-                                        Identifier ("vbResBitmap"),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                ElseIfClause {
-                    ElseIfKeyword,
-                    Whitespace,
-                    BinaryExpression {
-                        IdentifierExpression {
-                            Identifier ("mode"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        StringLiteralExpression {
-                            StringLiteral ("\"light\""),
-                        },
-                    },
-                    Whitespace,
-                    ThenKeyword,
-                    Newline,
-                    StatementList {
-                        Whitespace,
-                        AssignmentStatement {
-                            MemberAccessExpression {
-                                Identifier ("Picture1"),
-                                PeriodOperator,
-                                Identifier ("Picture"),
-                            },
-                            Whitespace,
-                            EqualityOperator,
-                            Whitespace,
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("101"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResBitmap"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                            Newline,
-                        },
-                        Whitespace,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1515,29 +947,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("pic"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                LeftParenthesis,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1548,80 +966,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Picture1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("IIf"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("enabled"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("101"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResIcon"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            CallExpression {
-                                Identifier ("LoadResPicture"),
-                                LeftParenthesis,
-                                ArgumentList {
-                                    Argument {
-                                        NumericLiteralExpression {
-                                            IntegerLiteral ("102"),
-                                        },
-                                    },
-                                    Comma,
-                                    Whitespace,
-                                    Argument {
-                                        IdentifierExpression {
-                                            Identifier ("vbResIcon"),
-                                        },
-                                    },
-                                },
-                                RightParenthesis,
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1634,47 +987,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SubStatement {
-                PrivateKeyword,
-                Whitespace,
-                SubKeyword,
-                Whitespace,
-                Identifier ("Class_Initialize"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("m_defaultPic"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        IntegerLiteral ("101"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1685,26 +1006,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            CallStatement {
-                CallKeyword,
-                Whitespace,
-                Identifier ("SetPicture"),
-                LeftParenthesis,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1715,29 +1025,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("MyForm"),
-                PeriodOperator,
-                Identifier ("Picture"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1751,60 +1047,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("pic"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("pic"),
-                    },
-                    Whitespace,
-                    IsKeyword,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("Nothing"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Failed to load\""),
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1818,77 +1069,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            WhileStatement {
-                WhileKeyword,
-                Whitespace,
-                BinaryExpression {
-                    IdentifierExpression {
-                        Identifier ("index"),
-                    },
-                    Whitespace,
-                    LessThanOperator,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("maxImages"),
-                    },
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("images"),
-                        LeftParenthesis,
-                        Identifier ("index"),
-                        RightParenthesis,
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        IntegerLiteral ("100"),
-                        Whitespace,
-                        AdditionOperator,
-                        Whitespace,
-                        Identifier ("index"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("index"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("index"),
-                            },
-                            Whitespace,
-                            AdditionOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("1"),
-                            },
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                WendKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1901,45 +1090,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                WhileKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("hasMore"),
-                },
-                Newline,
-                StatementList {
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("currentPic"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        Identifier ("GetNextID"),
-                        LeftParenthesis,
-                        RightParenthesis,
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                LoopKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -1954,81 +1113,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            DoStatement {
-                DoKeyword,
-                Whitespace,
-                UntilKeyword,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("loaded"),
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        ResumeKeyword,
-                        Whitespace,
-                        NextKeyword,
-                        Newline,
-                    },
-                    SetStatement {
-                        Whitespace,
-                        SetKeyword,
-                        Whitespace,
-                        Identifier ("pic"),
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        Identifier ("LoadResPicture"),
-                        LeftParenthesis,
-                        Identifier ("resID"),
-                        Comma,
-                        Whitespace,
-                        Identifier ("vbResBitmap"),
-                        RightParenthesis,
-                        Newline,
-                    },
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("loaded"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        ParenthesizedExpression {
-                            LeftParenthesis,
-                            BinaryExpression {
-                                MemberAccessExpression {
-                                    Identifier ("Err"),
-                                    PeriodOperator,
-                                    Identifier ("Number"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                NumericLiteralExpression {
-                                    IntegerLiteral ("0"),
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                LoopKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2040,56 +1133,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    MeKeyword,
-                    PeriodOperator,
-                    Identifier ("MousePointer"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                IdentifierExpression {
-                    Identifier ("vbCustom"),
-                },
-                Newline,
-            },
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    MeKeyword,
-                    PeriodOperator,
-                    Identifier ("MouseIcon"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("103"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResCursor"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2101,54 +1153,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            DimStatement {
-                ConstKeyword,
-                Whitespace,
-                Identifier ("RES_LOGO"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                NumericLiteralExpression {
-                    IntegerLiteral ("101"),
-                },
-                Newline,
-            },
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Picture1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("RES_LOGO"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResBitmap"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2161,73 +1174,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            DimStatement {
-                DimKeyword,
-                Whitespace,
-                Identifier ("imageID"),
-                Whitespace,
-                AsKeyword,
-                Whitespace,
-                IntegerKeyword,
-                Newline,
-            },
-            Whitespace,
-            AssignmentStatement {
-                IdentifierExpression {
-                    Identifier ("imageID"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                BinaryExpression {
-                    NumericLiteralExpression {
-                        IntegerLiteral ("100"),
-                    },
-                    Whitespace,
-                    AdditionOperator,
-                    Whitespace,
-                    IdentifierExpression {
-                        Identifier ("selectedIndex"),
-                    },
-                },
-                Newline,
-            },
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("Picture1"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("imageID"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResBitmap"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2238,41 +1193,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            AssignmentStatement {
-                MemberAccessExpression {
-                    Identifier ("cmdSave"),
-                    PeriodOperator,
-                    Identifier ("Picture"),
-                },
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                CallExpression {
-                    Identifier ("LoadResPicture"),
-                    LeftParenthesis,
-                    ArgumentList {
-                        Argument {
-                            NumericLiteralExpression {
-                                IntegerLiteral ("203"),
-                            },
-                        },
-                        Comma,
-                        Whitespace,
-                        Argument {
-                            IdentifierExpression {
-                                Identifier ("vbResIcon"),
-                            },
-                        },
-                    },
-                    RightParenthesis,
-                },
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2284,36 +1213,15 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("pic"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-            CallStatement {
-                Identifier ("Debug"),
-                PeriodOperator,
-                PrintKeyword,
-                Whitespace,
-                StringLiteral ("\"Loaded resource 101\""),
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -2328,72 +1236,14 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            Whitespace,
-            OnErrorStatement {
-                OnKeyword,
-                Whitespace,
-                ErrorKeyword,
-                Whitespace,
-                ResumeKeyword,
-                Whitespace,
-                NextKeyword,
-                Newline,
-            },
-            Whitespace,
-            SetStatement {
-                SetKeyword,
-                Whitespace,
-                Identifier ("pic"),
-                Whitespace,
-                EqualityOperator,
-                Whitespace,
-                Identifier ("LoadResPicture"),
-                LeftParenthesis,
-                IntegerLiteral ("101"),
-                Comma,
-                Whitespace,
-                Identifier ("vbResBitmap"),
-                RightParenthesis,
-                Newline,
-            },
-            Whitespace,
-            IfStatement {
-                IfKeyword,
-                Whitespace,
-                BinaryExpression {
-                    MemberAccessExpression {
-                        Identifier ("Err"),
-                        PeriodOperator,
-                        Identifier ("Number"),
-                    },
-                    Whitespace,
-                    InequalityOperator,
-                    Whitespace,
-                    NumericLiteralExpression {
-                        IntegerLiteral ("0"),
-                    },
-                },
-                Whitespace,
-                ThenKeyword,
-                Newline,
-                StatementList {
-                    Whitespace,
-                    CallStatement {
-                        Identifier ("MsgBox"),
-                        Whitespace,
-                        StringLiteral ("\"Failed to load resource\""),
-                        Newline,
-                    },
-                    Whitespace,
-                },
-                EndKeyword,
-                Whitespace,
-                IfKeyword,
-                Newline,
-            },
-            Whitespace,
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path(
+            "../../../../../snapshots/syntax/library/functions/resources/loadrespicture",
+        );
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
