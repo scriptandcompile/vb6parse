@@ -1,0 +1,95 @@
+---
+source: src/syntax/library/statements/name.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: RenameFiles
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: NameStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: NameKeyword
+                  text: Name
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File1.txt\""
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Backup1.txt\""
+                - kind: Newline
+                  text: "\n"
+            - kind: NameStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: NameKeyword
+                  text: Name
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File2.txt\""
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Backup2.txt\""
+                - kind: Newline
+                  text: "\n"
+            - kind: NameStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: NameKeyword
+                  text: Name
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"File3.txt\""
+                - kind: Whitespace
+                  text: " "
+                - kind: AsKeyword
+                  text: As
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Backup3.txt\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
