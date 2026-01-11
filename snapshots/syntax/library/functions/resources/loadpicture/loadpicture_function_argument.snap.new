@@ -1,0 +1,36 @@
+---
+source: src/syntax/library/functions/resources/loadpicture.rs
+assertion_line: 1025
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: SetPicture
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: LoadPicture
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"image.bmp\""
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
