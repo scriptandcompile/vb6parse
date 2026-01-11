@@ -14,6 +14,7 @@ Here are some other ideas for contributions, categorized by difficulty:
     *   Add more examples to the `examples/` directory for parsing different VB6 constructs.
     *   Expand the documentation for the `language` and `syntax` modules. Many of the enums and structs could benefit from more detailed explanations and examples.
     *   Document the error types in the `errors` module more thoroughly.
+    *   Add or improve documentation in `src/syntax/library/functions` and `src/syntax/library/statements` (documentation is automatically published to the website).
 
 *   **Increase Test Coverage:**
     *   Add more unit tests for individual parsers. The existing tests in `tests/` can be used as a template.
@@ -34,6 +35,34 @@ Here are some other ideas for contributions, categorized by difficulty:
 2.  Install the Rust toolchain: `rustup-init.sh`
 3.  Initialize the git submodules: `git submodule update --init --recursive`
 4.  Run the tests to make sure everything is working: `cargo test`
+
+## Documentation Generation
+
+### Library Reference Documentation
+
+When adding or updating VB6 library function/statement documentation in `src/syntax/library/`, regenerate the web documentation:
+
+```bash
+# Requires Python 3.6+ and markdown library
+pip install markdown
+
+# Generate library documentation
+python3 scripts/generate-library-docs.py --clean
+```
+
+The generated HTML pages will be created in `docs/library/` and are automatically deployed to GitHub Pages.
+
+### Coverage and Benchmarks
+
+To update the coverage and benchmark data on the website:
+
+```bash
+# Generate coverage data (requires cargo-llvm-cov)
+python3 scripts/generate-coverage.py
+
+# Generate benchmark data (requires criterion benchmarks to be run first)
+python3 scripts/generate-benchmarks.py
+```
 
 ## Submitting a Pull Request
 

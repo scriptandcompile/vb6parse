@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - array - Arrays">
+    <title>array - Arrays - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/arrays/index.html">Arrays</a> / array</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="array-function"><code>Array</code> Function</h1>
+<p>Returns a Variant containing an array.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Array(arglist)</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><code>arglist</code>: Required. A comma-delimited list of values that are assigned to the elements
+of the array contained within the Variant. If no arguments are specified, an array of zero
+length is created.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> whose subtype is <code>Array</code> containing the specified elements.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>Variant Array</code>: The <code>Array</code> function returns a <code>Variant</code> that contains an array. The array
+elements are <code>Variants</code> that can hold any data type.</li>
+<li><code>Zero-Based</code>: The array created by the <code>Array</code> function is zero-based. The first element
+has an index of 0.</li>
+<li><code>Dynamic Size</code>: The size of the array is determined by the number of arguments provided.</li>
+<li><code>Mixed Types</code>: <code>Array</code> elements can be of different types since they are stored as <code>Variants</code>.</li>
+<li><code>Assignment</code>: The result must be assigned to a <code>Variant</code> variable, not an array declared
+with specific dimensions.</li>
+<li><code>Empty Array</code>: Calling <code>Array()</code> with no arguments creates a zero-length array.</li>
+<li><code>LBound and UBound</code>: You can use <code>LBound</code> and <code>UBound</code> to determine the array bounds.
+<code>LBound</code> always returns 0, <code>UBound</code> returns (number of elements - 1).</li>
+<li><code>Option Base</code>: The <code>Array</code> function is not affected by <code>Option Base</code> statements; it always
+creates zero-based arrays.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-array-creation">Basic Array Creation</h3>
+<pre><code class="language-vbnet">Dim myArray As Variant
+myArray = Array(1, 2, 3, 4, 5)
+&#x27; myArray contains: [1, 2, 3, 4, 5]
+&#x27; LBound(myArray) = 0, UBound(myArray) = 4</code></pre>
+<h3 id="mixed-data-types">Mixed Data Types</h3>
+<pre><code class="language-vbnet">Dim mixed As Variant
+mixed = Array(&quot;Hello&quot;, 42, True, #1/1/2025#, 3.14)
+&#x27; Array can hold different types</code></pre>
+<h3 id="string-array">String Array</h3>
+<pre><code class="language-vbnet">Dim names As Variant
+names = Array(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;)
+Debug.Print names(0)  &#x27; Prints: Alice</code></pre>
+<h3 id="empty-array">Empty Array</h3>
+<pre><code class="language-vbnet">Dim emptyArr As Variant
+emptyArr = Array()
+&#x27; Creates a zero-length array
+&#x27; UBound(emptyArr) = -1</code></pre>
+<h3 id="using-for-each">Using For Each</h3>
+<pre><code class="language-vbnet">Dim values As Variant
+values = Array(10, 20, 30, 40)
+
+Dim item As Variant
+For Each item In values
+Debug.Print item
+Next item</code></pre>
+<h3 id="array-as-function-return">Array as Function Return</h3>
+<pre><code class="language-vbnet">Function GetColors() As Variant
+GetColors = Array(&quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot;)
+End Function</code></pre>
+<h3 id="accessing-elements">Accessing Elements</h3>
+<pre><code class="language-vbnet">Dim data As Variant
+data = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+Debug.Print data(0)  &#x27; A
+Debug.Print data(1)  &#x27; B
+Debug.Print data(2)  &#x27; C</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="initialize-lookup-table">Initialize Lookup Table</h3>
+<pre><code class="language-vbnet">Function GetMonthName(monthNum As Integer) As String
+Dim months As Variant
+months = Array(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, _
+&quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
+
+If monthNum &gt;= 1 And monthNum &lt;= 12 Then
+GetMonthName = months(monthNum - 1)
+Else
+GetMonthName = &quot;&quot;
+End If
+End Function</code></pre>
+<h3 id="configuration-data">Configuration Data</h3>
+<pre><code class="language-vbnet">Sub ProcessFiles()
+Dim extensions As Variant
+extensions = Array(&quot;.txt&quot;, &quot;.doc&quot;, &quot;.pdf&quot;, &quot;.xls&quot;)
+
+Dim ext As Variant
+For Each ext In extensions
+ProcessFileType CStr(ext)
+Next ext
+End Sub</code></pre>
+<h3 id="quick-test-data">Quick Test Data</h3>
+<pre><code class="language-vbnet">Sub TestFunction()
+Dim testCases As Variant
+testCases = Array(0, 1, 10, 100, -1, -100)
+
+Dim testValue As Variant
+For Each testValue In testCases
+Debug.Print &quot;Testing: &quot; &amp; testValue &amp; &quot; -&gt; &quot; &amp; MyFunction(testValue)
+Next testValue
+End Sub</code></pre>
+<h3 id="passing-multiple-values">Passing Multiple Values</h3>
+<pre><code class="language-vbnet">Sub UpdateRecord()
+SaveData Array(&quot;Name&quot;, &quot;John&quot;), _
+Array(&quot;Age&quot;, 30), _
+Array(&quot;City&quot;, &quot;NYC&quot;)
+End Sub
+
+Sub SaveData(ParamArray fields())
+Dim field As Variant
+For Each field In fields
+Debug.Print field(0) &amp; &quot;: &quot; &amp; field(1)
+Next field
+End Sub</code></pre>
+<h3 id="enumeration-substitute">Enumeration Substitute</h3>
+<pre><code class="language-vbnet">Function GetStatusText(status As Integer) As String
+Dim statuses As Variant
+statuses = Array(&quot;Pending&quot;, &quot;Processing&quot;, &quot;Complete&quot;, &quot;Failed&quot;)
+
+If status &gt;= 0 And status &lt;= 3 Then
+GetStatusText = statuses(status)
+Else
+GetStatusText = &quot;Unknown&quot;
+End If
+End Function</code></pre>
+<h3 id="split-alternative-vb6-early-versions">Split Alternative (VB6 Early Versions)</h3>
+<pre><code class="language-vbnet">&#x27; Before Split function was widely available
+Function GetHeaderFields() As Variant
+GetHeaderFields = Array(&quot;ID&quot;, &quot;Name&quot;, &quot;Date&quot;, &quot;Status&quot;)
+End Function</code></pre>
+<h3 id="matrixgrid-data">Matrix/Grid Data</h3>
+<pre><code class="language-vbnet">Sub CreateGrid()
+Dim row1 As Variant, row2 As Variant, row3 As Variant
+row1 = Array(1, 2, 3)
+row2 = Array(4, 5, 6)
+row3 = Array(7, 8, 9)
+
+Dim grid As Variant
+grid = Array(row1, row2, row3)
+
+&#x27; Access: grid(0)(0) = 1, grid(1)(2) = 6, etc.
+End Sub</code></pre>
+<h3 id="default-values">Default Values</h3>
+<pre><code class="language-vbnet">Function GetDefaults() As Variant
+GetDefaults = Array(0, &quot;&quot;, False, Null, Empty)
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Split</code>: Splits a string into an array of substrings</li>
+<li><code>Join</code>: Concatenates array elements into a string</li>
+<li><code>LBound</code>: Returns the lowest available subscript for an array dimension</li>
+<li><code>UBound</code>: Returns the highest available subscript for an array dimension</li>
+<li><code>IsArray</code>: Determines whether a variable is an array</li>
+<li><code>Filter</code>: Returns a zero-based array containing a subset of a string array</li>
+</ul>
+<h2 id="important-notes">Important Notes</h2>
+<h3 id="assignment-requirements">Assignment Requirements</h3>
+<pre><code class="language-vbnet">&#x27; Correct - assign to Variant
+Dim v As Variant
+v = Array(1, 2, 3)  &#x27; OK
+
+&#x27; Incorrect - cannot assign to typed array
+Dim arr(2) As Integer
+arr = Array(1, 2, 3)  &#x27; ERROR: Type mismatch</code></pre>
+<h3 id="zero-based-indexing">Zero-Based Indexing</h3>
+<pre><code class="language-vbnet">Dim arr As Variant
+arr = Array(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+Debug.Print LBound(arr)  &#x27; Always 0
+Debug.Print UBound(arr)  &#x27; 2 (not 3!)
+
+&#x27; First element is arr(0), last is arr(2)</code></pre>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li><code>Array()</code> creates a <code>Variant</code> array, which has more overhead than typed arrays</li>
+<li>For large arrays with known types, consider using <code>ReDim</code> instead</li>
+<li><code>Array()</code> is best for small, temporary arrays or mixed-type collections</li>
+<li>Each element is a <code>Variant</code>, which uses more memory than native types</li>
+</ul>
+<h2 id="type-information">Type Information</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Return Type</td>
+<td><code>Variant</code> (subtype: Array)</td>
+</tr>
+<tr>
+<td>Element Type</td>
+<td><code>Variant</code> (can hold any type)</td>
+</tr>
+<tr>
+<td>Lower Bound</td>
+<td>Always 0 (not affected by <code>Option Base</code>)</td>
+</tr>
+<tr>
+<td>Upper Bound</td>
+<td>Number of arguments - 1</td>
+</tr>
+<tr>
+<td>Dimensions</td>
+<td>Always single-dimensional</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Dynamic, determined by argument count</td>
+</tr>
+</tbody>
+</table>
+<p><code>Array</code> is parsed as a regular function call (<code>CallExpression</code>)
+This module serves as documentation and reference for the <code>Array</code> function</p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Arrays</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

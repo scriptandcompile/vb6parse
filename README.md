@@ -7,7 +7,8 @@ A complete, high-performance parser library for Visual Basic 6 code and project 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **📚 [Project Documentation & Resources](https://scriptandcompile.github.io/vb6parse/)**  
-**📊 [Code Coverage Report](https://scriptandcompile.github.io/vb6parse/coverage.html)**  
+**� [VB6 Library Reference](https://scriptandcompile.github.io/vb6parse/library/)**  
+**�📊 [Code Coverage Report](https://scriptandcompile.github.io/vb6parse/coverage.html)**  
 **📈 [Performance Benchmarks](https://scriptandcompile.github.io/vb6parse/benchmarks.html)**
 
 ## Overview

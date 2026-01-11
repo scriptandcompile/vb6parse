@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - format_dollar - String">
+    <title>format_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / format_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="format-function"><code>Format$</code> Function</h1>
+<p>Returns a <code>String</code> formatted according to instructions contained in a format expression.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Format$(expression[, format[, firstdayofweek[, firstweekofyear]]])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>expression</code>: Required. Any valid expression.</li>
+<li><code>format</code>: Optional. A valid named or user-defined format expression.</li>
+<li><code>firstdayofweek</code>: Optional. A constant that specifies the first day of the week.</li>
+<li><code>firstweekofyear</code>: Optional. A constant that specifies the first week of the year.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the formatted representation of the expression. If <code>format</code> is omitted, <code>Format$</code> returns a string similar to <code>Str$</code>.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Format$</code> function is one of the most versatile functions in VB6, allowing you to format numbers, dates, times, and strings according to predefined or custom format expressions.</p>
+<p>You can use one of the predefined named formats or create user-defined formats with special characters that specify how the value should be displayed.</p>
+<h3 id="named-numeric-formats">Named Numeric Formats</h3>
+<ul>
+<li><code>General Number</code>: Display number with no thousand separator</li>
+<li><code>Currency</code>: Display number with thousand separator and two decimal places</li>
+<li><code>Fixed</code>: Display at least one digit to the left and two digits to the right of decimal</li>
+<li><code>Standard</code>: Display number with thousand separator</li>
+<li><code>Percent</code>: Display number multiplied by 100 with percent sign</li>
+<li><code>Scientific</code>: Use standard scientific notation</li>
+<li><code>Yes/No</code>: Display No if number is 0; otherwise display Yes</li>
+<li><code>True/False</code>: Display False if number is 0; otherwise display True</li>
+<li><code>On/Off</code>: Display Off if number is 0; otherwise display On</li>
+</ul>
+<h3 id="named-datetime-formats">Named Date/Time Formats</h3>
+<ul>
+<li><code>General Date</code>: Display date and/or time</li>
+<li><code>Long Date</code>: Display date according to long date format</li>
+<li><code>Medium Date</code>: Display date using medium date format</li>
+<li><code>Short Date</code>: Display date using short date format</li>
+<li><code>Long Time</code>: Display time using long time format (includes hours, minutes, seconds)</li>
+<li><code>Medium Time</code>: Display time in 12-hour format using hours and minutes and AM/PM</li>
+<li><code>Short Time</code>: Display time using 24-hour format (hh:mm)</li>
+</ul>
+<h3 id="user-defined-number-format-characters">User-Defined Number Format Characters</h3>
+<ul>
+<li><code>0</code>: Digit placeholder. Display digit or zero</li>
+<li><code>#</code>: Digit placeholder. Display digit or nothing</li>
+<li><code>.</code>: Decimal placeholder</li>
+<li><code>%</code>: Percentage placeholder</li>
+<li><code>,</code>: Thousand separator</li>
+<li><code>E- E+ e- e+</code>: Scientific notation</li>
+<li><code>- + $ ( )</code>: Display literal character</li>
+<li><code>\</code>: Display next character as literal</li>
+</ul>
+<h3 id="user-defined-datetime-format-characters">User-Defined Date/Time Format Characters</h3>
+<ul>
+<li><code>c</code>: Display date as <code>ddddd</code> and time as <code>ttttt</code></li>
+<li><code>d</code>: Display day as number without leading zero (1-31)</li>
+<li><code>dd</code>: Display day as number with leading zero (01-31)</li>
+<li><code>ddd</code>: Display day as abbreviation (Sun-Sat)</li>
+<li><code>dddd</code>: Display day as full name (Sunday-Saturday)</li>
+<li><code>m</code>: Display month as number without leading zero (1-12)</li>
+<li><code>mm</code>: Display month as number with leading zero (01-12)</li>
+<li><code>mmm</code>: Display month as abbreviation (Jan-Dec)</li>
+<li><code>mmmm</code>: Display month as full name (January-December)</li>
+<li><code>yy</code>: Display year as 2-digit number (00-99)</li>
+<li><code>yyyy</code>: Display year as 4-digit number (100-9999)</li>
+<li><code>h</code>: Display hour as number without leading zero (0-23)</li>
+<li><code>hh</code>: Display hour as number with leading zero (00-23)</li>
+<li><code>n</code>: Display minute as number without leading zero (0-59)</li>
+<li><code>nn</code>: Display minute as number with leading zero (00-59)</li>
+<li><code>s</code>: Display second as number without leading zero (0-59)</li>
+<li><code>ss</code>: Display second as number with leading zero (00-59)</li>
+<li><code>AM/PM</code>: Use 12-hour clock and display uppercase AM/PM</li>
+</ul>
+<h3 id="user-defined-string-format-characters">User-Defined String Format Characters</h3>
+<ul>
+<li><code>@</code>: Character placeholder. Display character or space</li>
+<li><code>&amp;</code>: Character placeholder. Display character or nothing</li>
+<li><code>&lt;</code>: Force lowercase</li>
+<li><code>&gt;</code>: Force uppercase</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<h3 id="example-1-formatting-currency">Example 1: Formatting Currency</h3>
+<pre><code class="language-vbnet">Dim amount As Double
+amount = 1234.56
+Text1.Text = Format$(amount, &quot;Currency&quot;)  &#x27; &quot;$1,234.56&quot;</code></pre>
+<h3 id="example-2-custom-number-format">Example 2: Custom Number Format</h3>
+<pre><code class="language-vbnet">Dim value As Double
+value = 1234.5
+result = Format$(value, &quot;0000.00&quot;)  &#x27; &quot;1234.50&quot;</code></pre>
+<h3 id="example-3-date-formatting">Example 3: Date Formatting</h3>
+<pre><code class="language-vbnet">Dim today As Date
+today = Now
+dateStr = Format$(today, &quot;Long Date&quot;)</code></pre>
+<h3 id="example-4-custom-date-format">Example 4: Custom Date Format</h3>
+<pre><code class="language-vbnet">dateStr = Format$(Now, &quot;yyyy-mm-dd&quot;)  &#x27; &quot;2024-01-15&quot;</code></pre>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="formatting-as-percentage">Formatting as Percentage</h3>
+<pre><code class="language-vbnet">Dim rate As Double
+rate = 0.075
+display = Format$(rate, &quot;0.00%&quot;)  &#x27; &quot;7.50%&quot;</code></pre>
+<h3 id="zero-padded-numbers">Zero-Padded Numbers</h3>
+<pre><code class="language-vbnet">Dim id As Integer
+id = 42
+idStr = Format$(id, &quot;000000&quot;)  &#x27; &quot;000042&quot;</code></pre>
+<h3 id="phone-number-formatting">Phone Number Formatting</h3>
+<pre><code class="language-vbnet">Dim phone As String
+phone = &quot;5551234567&quot;
+formatted = Format$(phone, &quot;(@@@) @@@-@@@@&quot;)  &#x27; &quot;(555) 123-4567&quot;</code></pre>
+<h3 id="time-formatting">Time Formatting</h3>
+<pre><code class="language-vbnet">Dim currentTime As Date
+currentTime = Now
+timeStr = Format$(currentTime, &quot;hh:nn:ss AM/PM&quot;)</code></pre>
+<h3 id="scientific-notation">Scientific Notation</h3>
+<pre><code class="language-vbnet">Dim bigNum As Double
+bigNum = 12345678
+sciStr = Format$(bigNum, &quot;0.00E+00&quot;)  &#x27; &quot;1.23E+07&quot;</code></pre>
+<h3 id="file-timestamp">File Timestamp</h3>
+<pre><code class="language-vbnet">filename = &quot;backup_&quot; &amp; Format$(Now, &quot;yyyymmdd_hhnnss&quot;) &amp; &quot;.dat&quot;</code></pre>
+<h3 id="accounting-format">Accounting Format</h3>
+<pre><code class="language-vbnet">balance = Format$(amount, &quot;#,##0.00;(#,##0.00)&quot;)
+&#x27; Positive: &quot;1,234.56&quot;
+&#x27; Negative: &quot;(1,234.56)&quot;</code></pre>
+<h3 id="leading-zeros-for-dates">Leading Zeros for Dates</h3>
+<pre><code class="language-vbnet">monthStr = Format$(Month(Date), &quot;00&quot;)  &#x27; &quot;01&quot; to &quot;12&quot;
+dayStr = Format$(Day(Date), &quot;00&quot;)      &#x27; &quot;01&quot; to &quot;31&quot;</code></pre>
+<h3 id="conditional-formatting">Conditional Formatting</h3>
+<pre><code class="language-vbnet">&#x27; Format: positive;negative;zero
+result = Format$(value, &quot;+0.00;-0.00;Zero&quot;)</code></pre>
+<h3 id="uppercaselowercase-conversion">Uppercase/Lowercase Conversion</h3>
+<pre><code class="language-vbnet">upperName = Format$(&quot;john doe&quot;, &quot;&gt;&quot;)      &#x27; &quot;JOHN DOE&quot;
+lowerName = Format$(&quot;JOHN DOE&quot;, &quot;&lt;&quot;)      &#x27; &quot;john doe&quot;</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Format</code>: Variant version of <code>Format$</code></li>
+<li><code>Str$</code>: Converts a number to a string</li>
+<li><code>CStr</code>: Converts an expression to a string</li>
+<li><code>FormatNumber</code>: Formats a number with specific options</li>
+<li><code>FormatCurrency</code>: Formats a number as currency</li>
+<li><code>FormatDateTime</code>: Formats a date/time value</li>
+<li><code>FormatPercent</code>: Formats a number as a percentage</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use named formats for common formatting tasks (clearer intent)</li>
+<li>Cache format strings if using the same format repeatedly</li>
+<li>Test custom format strings with edge cases (zero, negative, very large/small)</li>
+<li>Use <code>@</code> instead of <code>&amp;</code> in string formats when you want spaces preserved</li>
+<li>Remember that <code>m</code> vs <code>mm</code> depends on context (month vs minute)</li>
+<li>Use four-digit years (<code>yyyy</code>) to avoid Y2K-style issues</li>
+<li>Consider locale settings when using named formats</li>
+<li>Use semicolons to specify different formats for positive, negative, and zero</li>
+<li>Escape literal characters with backslash or quotes when needed</li>
+<li>Be aware that <code>Format$</code> returns a string - convert back if needed</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Named formats are slightly faster than complex user-defined formats</li>
+<li>Avoid calling <code>Format$</code> in tight loops if possible (cache results)</li>
+<li>For simple zero-padding, <code>String$</code> + <code>Right$</code> may be faster</li>
+<li><code>Format$</code> is slower than simple string concatenation</li>
+<li>Consider using <code>FormatNumber</code>, <code>FormatCurrency</code>, etc. for specific tasks</li>
+</ul>
+<h2 id="locale-considerations">Locale Considerations</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Currency Symbol</td>
+<td>Uses system locale currency symbol</td>
+</tr>
+<tr>
+<td>Decimal Separator</td>
+<td>Uses locale decimal separator (. or ,)</td>
+</tr>
+<tr>
+<td>Thousand Separator</td>
+<td>Uses locale thousand separator</td>
+</tr>
+<tr>
+<td>Date Format</td>
+<td>Named date formats use locale settings</td>
+</tr>
+<tr>
+<td>Day/Month Names</td>
+<td>Uses locale language for names</td>
+</tr>
+<tr>
+<td>AM/PM Designators</td>
+<td>Uses locale AM/PM strings</td>
+</tr>
+<tr>
+<td>First Day of Week</td>
+<td>Can be overridden with parameter</td>
+</tr>
+<tr>
+<td>First Week of Year</td>
+<td>Can be overridden with parameter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Using <code>m</code> for minutes instead of <code>n</code> (m means month)</li>
+<li>Forgetting that <code>Format$</code> always returns a string</li>
+<li>Not escaping literal characters in format strings</li>
+<li>Assuming <code>#</code> and <code>0</code> behave the same (they don't)</li>
+<li>Using comma as decimal separator in code (always use period)</li>
+<li>Not handling empty strings or null values</li>
+<li>Forgetting that format strings are case-sensitive</li>
+<li>Using named formats that don't exist (causes error)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot create truly custom named formats</li>
+<li>Limited control over locale-specific formatting</li>
+<li>No built-in format for ISO 8601 dates (must use <code>yyyy-mm-ddThh:nn:ss</code>)</li>
+<li>Cannot format arrays or objects directly</li>
+<li>Some format combinations may produce unexpected results</li>
+<li>Maximum string length limitations apply to output</li>
+<li>Cannot use for binary or hexadecimal display (use <code>Hex$</code> or <code>Oct$</code>)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

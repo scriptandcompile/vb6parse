@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - rtrim_dollar - String">
+    <title>rtrim_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / rtrim_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="rtrim-function"><code>RTrim$</code> Function</h1>
+<p>The <code>RTrim$</code> function in Visual Basic 6 returns a string with trailing (right-side) spaces
+removed. The dollar sign (<code>$</code>) suffix indicates that this function always returns a <code>String</code>
+type, never a <code>Variant</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">RTrim$(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Required. Any valid string expression. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> with all trailing space characters (ASCII 32) removed from <code>string</code>.</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="space-removal">Space Removal</h3>
+<ul>
+<li>Removes only trailing spaces (ASCII character 32)</li>
+<li>Does not remove leading spaces (use <code>LTrim$</code> for that)</li>
+<li>Does not remove tabs, newlines, or other whitespace characters</li>
+<li>If the string contains only spaces, returns an empty string ("")</li>
+<li>Preserves spaces in the middle of the string</li>
+</ul>
+<h3 id="type-differences-rtrim-vs-rtrim">Type Differences: <code>RTrim$</code> vs <code>RTrim</code></h3>
+<ul>
+<li><code>RTrim$</code>: Always returns <code>String</code> type (never <code>Variant</code>)</li>
+<li><code>RTrim</code>: Returns <code>Variant</code> (can propagate <code>Null</code> values)</li>
+<li>Use <code>RTrim$</code> when you need guaranteed <code>String</code> return type</li>
+<li>Use <code>RTrim</code> when working with potentially <code>Null</code> values</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-clean-user-input">1. Clean User Input</h3>
+<pre><code class="language-vbnet">Function CleanInput(userInput As String) As String
+CleanInput = RTrim$(userInput)
+End Function
+
+Dim cleaned As String
+cleaned = CleanInput(&quot;  Hello World  &quot;)  &#x27; Returns &quot;  Hello World&quot;</code></pre>
+<h3 id="2-format-output-for-display">2. Format Output for Display</h3>
+<pre><code class="language-vbnet">Sub DisplayData()
+Dim dataField As String
+dataField = &quot;Value    &quot;
+Debug.Print &quot;|&quot; &amp; RTrim$(dataField) &amp; &quot;|&quot;  &#x27; Prints &quot;|Value|&quot;
+End Sub</code></pre>
+<h3 id="3-database-field-processing">3. Database Field Processing</h3>
+<pre><code class="language-vbnet">Function GetFieldValue(rs As Recordset, fieldName As String) As String
+&#x27; Remove trailing spaces from fixed-width database fields
+GetFieldValue = RTrim$(rs.Fields(fieldName).Value &amp; &quot;&quot;)
+End Function</code></pre>
+<h3 id="4-fixed-width-data-parsing">4. Fixed-Width Data Parsing</h3>
+<pre><code class="language-vbnet">Function ParseFixedField(dataLine As String, startPos As Integer, fieldWidth As Integer) As String
+Dim rawField As String
+rawField = Mid$(dataLine, startPos, fieldWidth)
+ParseFixedField = RTrim$(rawField)
+End Function
+
+Dim name As String
+name = ParseFixedField(&quot;John      Doe       &quot;, 1, 10)  &#x27; Returns &quot;John&quot;</code></pre>
+<h3 id="5-clean-file-content">5. Clean File Content</h3>
+<pre><code class="language-vbnet">Function ReadCleanLine(fileNum As Integer) As String
+Dim rawLine As String
+Line Input #fileNum, rawLine
+ReadCleanLine = RTrim$(rawLine)
+End Function</code></pre>
+<h3 id="6-string-comparison-preparation">6. String Comparison Preparation</h3>
+<pre><code class="language-vbnet">Function CompareValues(value1 As String, value2 As String) As Boolean
+&#x27; Remove trailing spaces for accurate comparison
+CompareValues = (RTrim$(value1) = RTrim$(value2))
+End Function</code></pre>
+<h3 id="7-configuration-value-processing">7. Configuration Value Processing</h3>
+<pre><code class="language-vbnet">Function GetConfigValue(key As String) As String
+Dim rawValue As String
+rawValue = GetINIString(&quot;Settings&quot;, key, &quot;&quot;)
+GetConfigValue = RTrim$(rawValue)
+End Function</code></pre>
+<h3 id="8-array-element-cleanup">8. Array Element Cleanup</h3>
+<pre><code class="language-vbnet">Sub CleanStringArray(arr() As String)
+Dim i As Integer
+For i = LBound(arr) To UBound(arr)
+arr(i) = RTrim$(arr(i))
+Next i
+End Sub</code></pre>
+<h3 id="9-report-generation">9. Report Generation</h3>
+<pre><code class="language-vbnet">Function FormatReportLine(label As String, value As String) As String
+Dim paddedLabel As String
+paddedLabel = label &amp; Space(30)
+FormatReportLine = Left$(RTrim$(paddedLabel), 30) &amp; value
+End Function</code></pre>
+<h3 id="10-logging-and-debug-output">10. Logging and Debug Output</h3>
+<pre><code class="language-vbnet">Sub LogMessage(message As String)
+Dim timestamp As String
+Dim cleanMsg As String
+timestamp = Format$(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+cleanMsg = RTrim$(message)
+Debug.Print timestamp &amp; &quot; - &quot; &amp; cleanMsg
+End Sub</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>RTrim()</code> - Returns a <code>Variant</code> with trailing spaces removed (can handle <code>Null</code>)</li>
+<li><code>LTrim$()</code> - Removes leading (left-side) spaces from a string</li>
+<li><code>Trim$()</code> - Removes both leading and trailing spaces from a string</li>
+<li><code>Left$()</code> - Returns a specified number of characters from the left side</li>
+<li><code>Right$()</code> - Returns a specified number of characters from the right side</li>
+<li><code>Space$()</code> - Creates a string consisting of the specified number of spaces</li>
+<li><code>Len()</code> - Returns the length of a string</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-rtrim-vs-rtrim">When to Use <code>RTrim$</code> vs <code>RTrim</code></h3>
+<pre><code class="language-vbnet">&#x27; Use RTrim$ when you need a String
+Dim cleaned As String
+cleaned = RTrim$(userInput)  &#x27; Type-safe, always returns String
+
+&#x27; use RTrim when working with Variants or Null values
+Dim result As Variant
+result = RTrim(variantValue)  &#x27; Can propagate Null</code></pre>
+<h3 id="combine-with-ltrim-for-full-cleanup">Combine with <code>LTrim$</code> for Full Cleanup</h3>
+<pre><code class="language-vbnet">&#x27; Remove both leading and trailing spaces
+Dim fullyClean As String
+fullyClean = LTrim$(RTrim$(input))
+
+&#x27; Or use Trim$ for convenience
+fullyClean = Trim$(input)</code></pre>
+<h3 id="use-for-fixed-width-fields">Use for Fixed-Width Fields</h3>
+<pre><code class="language-vbnet">&#x27; Clean up fixed-width database or file fields
+Dim firstName As String
+firstName = RTrim$(rs!FirstName)  &#x27; Remove padding spaces</code></pre>
+<h3 id="validate-before-processing">Validate Before Processing</h3>
+<pre><code class="language-vbnet">Function SafeRTrim(value As Variant) As String
+If IsNull(value) Then
+SafeRTrim = &quot;&quot;
+Else
+SafeRTrim = RTrim$(CStr(value))
+End If
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>RTrim$</code> is very efficient and lightweight</li>
+<li>Performs a single pass from the end of the string</li>
+<li>More efficient than manually removing spaces with loops</li>
+<li>No performance penalty for strings without trailing spaces</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Efficient: single RTrim$ call
+Dim cleaned As String
+cleaned = RTrim$(input)
+
+&#x27; Less efficient: manual space removal
+Dim i As Integer
+For i = Len(input) To 1 Step -1
+If Mid$(input, i, 1) &lt;&gt; &quot; &quot; Then Exit For
+Next i
+cleaned = Left$(input, i)</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-only-removes-spaces-ascii-32">1. Only Removes Spaces (ASCII 32)</h3>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;Hello&quot; &amp; vbTab  &#x27; Ends with tab character
+
+&#x27; RTrim$ does NOT remove tabs
+Debug.Print RTrim$(text)  &#x27; Still has the tab at the end
+
+&#x27; To remove all whitespace, you need custom logic
+Function RemoveTrailingWhitespace(s As String) As String
+Dim i As Integer
+For i = Len(s) To 1 Step -1
+Select Case Mid$(s, i, 1)
+Case &quot; &quot;, vbTab, vbCr, vbLf
+&#x27; Continue
+Case Else
+Exit For
+End Select
+Next i
+RemoveTrailingWhitespace = Left$(s, i)
+End Function</code></pre>
+<h3 id="2-null-value-handling">2. Null Value Handling</h3>
+<pre><code class="language-vbnet">&#x27; RTrim$ with Null causes runtime error
+Dim result As String
+result = RTrim$(nullValue)  &#x27; ERROR if nullValue is Null
+
+&#x27; Protect against Null
+If Not IsNull(value) Then
+result = RTrim$(value)
+Else
+result = &quot;&quot;
+End If</code></pre>
+<h3 id="3-confusing-with-trim">3. Confusing with <code>Trim$</code></h3>
+<pre><code class="language-vbnet">Dim text As String
+text = &quot;  Hello  &quot;
+
+Debug.Print RTrim$(text)   &#x27; &quot;  Hello&quot; (leading spaces remain)
+Debug.Print LTrim$(text)   &#x27; &quot;Hello  &quot; (trailing spaces remain)
+Debug.Print Trim$(text)    &#x27; &quot;Hello&quot; (both removed)</code></pre>
+<h3 id="4-database-field-assumptions">4. Database Field Assumptions</h3>
+<pre><code class="language-vbnet">&#x27; Wrong: assuming all database fields need RTrim
+value = RTrim$(rs!TextField)  &#x27; May error if field is Null
+
+&#x27; Better: handle Null and empty values
+If IsNull(rs!TextField) Then
+value = &quot;&quot;
+Else
+value = RTrim$(rs!TextField &amp; &quot;&quot;)
+End If</code></pre>
+<h3 id="5-not-checking-for-empty-results">5. Not Checking for Empty Results</h3>
+<pre><code class="language-vbnet">Dim input As String
+input = &quot;     &quot;  &#x27; Only spaces
+
+Dim result As String
+result = RTrim$(input)  &#x27; Returns &quot;&quot; (empty string)
+
+&#x27; Check if result is meaningful
+If Len(RTrim$(input)) &gt; 0 Then
+&#x27; Process non-empty string
+End If</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only removes space characters (ASCII 32), not other whitespace</li>
+<li>Cannot handle <code>Null</code> values (use <code>RTrim</code> variant function instead)</li>
+<li>Does not remove leading spaces (use <code>LTrim$</code> or <code>Trim$</code>)</li>
+<li>No option to specify custom characters to remove</li>
+<li>Works with strings only, not byte arrays</li>
+<li>Does not trim non-breaking spaces (character 160) or other Unicode whitespace</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

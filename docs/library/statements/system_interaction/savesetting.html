@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - savesetting - System Interaction">
+    <title>savesetting - System Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/system_interaction/index.html">System Interaction</a> / savesetting</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="savesetting-statement"><code>SaveSetting</code> Statement</h1>
+<p>Saves or creates an application entry in the Windows registry or (on the Macintosh) information in the application's initialization file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">SaveSetting appname, section, key, setting</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>appname</strong>: Required. String expression containing the name of the application or project to which the setting applies.</li>
+<li><strong>section</strong>: Required. String expression containing the name of the section in which the key setting is being saved.</li>
+<li><strong>key</strong>: Required. String expression containing the name of the key setting being saved.</li>
+<li><strong>setting</strong>: Required. Expression containing the value to which key is being set.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Registry Location</strong>: On Windows, <code>SaveSetting</code> writes to the registry under the path:
+<code>HKEY_CURRENT_USER\Software\VB and VBA Program Settings\appname\section\key</code></li>
+<li><strong>String Values</strong>: The setting argument is always stored as a string value in the registry.</li>
+<li><strong>Creating Entries</strong>: If the specified key setting doesn't exist, <code>SaveSetting</code> creates it.</li>
+<li><strong>Creating Sections</strong>: If the specified section doesn't exist, <code>SaveSetting</code> creates it.</li>
+<li><strong>Application Name</strong>: The appname is typically the name of your application. Multiple applications can use the same registry location by using the same appname.</li>
+<li><strong>Section Organization</strong>: Use sections to organize related settings. For example, you might have a "Startup" section and a "Display" section.</li>
+<li><strong>Type Conversion</strong>: Numeric values and other data types are automatically converted to strings when saved.</li>
+<li><strong>Security</strong>: Settings are stored per user (<code>HKEY_CURRENT_USER</code>), not per machine.</li>
+<li><strong><code>GetSetting</code> Function</strong>: Use the <code>GetSetting</code> function to retrieve values saved with <code>SaveSetting</code>.</li>
+<li><strong><code>DeleteSetting</code> Statement</strong>: Use <code>DeleteSetting</code> to remove registry entries created by <code>SaveSetting</code>.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="save-a-simple-setting">Save a Simple Setting</h3>
+<pre><code class="language-vbnet">SaveSetting &quot;MyApp&quot;, &quot;Startup&quot;, &quot;Left&quot;, 100
+SaveSetting &quot;MyApp&quot;, &quot;Startup&quot;, &quot;Top&quot;, 100</code></pre>
+<h3 id="save-user-preferences">Save User Preferences</h3>
+<pre><code class="language-vbnet">SaveSetting &quot;MyApp&quot;, &quot;Preferences&quot;, &quot;BackColor&quot;, vbBlue
+SaveSetting &quot;MyApp&quot;, &quot;Preferences&quot;, &quot;FontName&quot;, &quot;Arial&quot;
+SaveSetting &quot;MyApp&quot;, &quot;Preferences&quot;, &quot;FontSize&quot;, 12</code></pre>
+<h3 id="save-form-position-on-close">Save Form Position on Close</h3>
+<pre><code class="language-vbnet">Private Sub Form_Unload(Cancel As Integer)
+SaveSetting App.Title, &quot;Position&quot;, &quot;Left&quot;, Me.Left
+SaveSetting App.Title, &quot;Position&quot;, &quot;Top&quot;, Me.Top
+SaveSetting App.Title, &quot;Position&quot;, &quot;Width&quot;, Me.Width
+SaveSetting App.Title, &quot;Position&quot;, &quot;Height&quot;, Me.Height
+End Sub</code></pre>
+<h3 id="save-boolean-settings">Save Boolean Settings</h3>
+<pre><code class="language-vbnet">&#x27; Save a boolean as a string
+SaveSetting &quot;MyApp&quot;, &quot;Options&quot;, &quot;AutoSave&quot;, CStr(chkAutoSave.Value)</code></pre>
+<h3 id="save-with-variables">Save with Variables</h3>
+<pre><code class="language-vbnet">Dim userName As String
+userName = txtUserName.Text
+SaveSetting &quot;MyApp&quot;, &quot;User&quot;, &quot;LastUser&quot;, userName</code></pre>
+<h3 id="save-multiple-related-settings">Save Multiple Related Settings</h3>
+<pre><code class="language-vbnet">Sub SaveWindowSettings()
+Dim appName As String
+appName = App.Title
+
+SaveSetting appName, &quot;Window&quot;, &quot;Maximized&quot;, Me.WindowState = vbMaximized
+SaveSetting appName, &quot;Window&quot;, &quot;Visible&quot;, Me.Visible
+SaveSetting appName, &quot;Window&quot;, &quot;Caption&quot;, Me.Caption
+End Sub</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="using-apptitle-for-application-name">Using App.Title for Application Name</h3>
+<pre><code class="language-vbnet">&#x27; Ensures consistent application name across all settings
+SaveSetting App.Title, &quot;Database&quot;, &quot;ConnectionString&quot;, connStr</code></pre>
+<h3 id="organizing-settings-by-feature">Organizing Settings by Feature</h3>
+<pre><code class="language-vbnet">&#x27; Group related settings in sections
+SaveSetting &quot;MyApp&quot;, &quot;Display&quot;, &quot;Theme&quot;, &quot;Dark&quot;
+SaveSetting &quot;MyApp&quot;, &quot;Display&quot;, &quot;Language&quot;, &quot;English&quot;
+SaveSetting &quot;MyApp&quot;, &quot;Network&quot;, &quot;Port&quot;, 8080
+SaveSetting &quot;MyApp&quot;, &quot;Network&quot;, &quot;Timeout&quot;, 30</code></pre>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li><strong>Platform Differences</strong>: On Windows, settings are stored in the registry. On other platforms, behavior may vary.</li>
+<li><strong>String Storage</strong>: All values are stored as strings, so you may need to convert them back when retrieving with <code>GetSetting</code>.</li>
+<li><strong>Registry Cleanup</strong>: Use <code>DeleteSetting</code> to remove settings when they're no longer needed.</li>
+<li><strong>Error Handling</strong>: <code>SaveSetting</code> can fail if the registry is locked or permissions are insufficient.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>GetSetting</code> function (retrieve saved settings)</li>
+<li><code>GetAllSettings</code> function (retrieve all settings from a section)</li>
+<li><code>DeleteSetting</code> statement (delete registry entries)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/savesetting-statement">SaveSetting Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to System Interaction</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

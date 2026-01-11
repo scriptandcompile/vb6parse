@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - str_dollar - String">
+    <title>str_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / str_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="str-function"><code>Str$</code> Function</h1>
+<p>The <code>Str$</code> function in Visual Basic 6 converts a numeric value to a string representation.
+The dollar sign (<code>$</code>) suffix indicates that this function always returns a <code>String</code> type,
+never a <code>Variant</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Str$(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> - Required. Any valid numeric expression. Can be of type <code>Byte</code>, <code>Integer</code>, <code>Long</code>,
+<code>Single</code>, <code>Double</code>, or <code>Currency</code>.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> representation of the number. Positive numbers include a leading space
+for the sign position. Negative numbers include a leading minus sign (-).</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="sign-handling">Sign Handling</h3>
+<ul>
+<li>Positive numbers: Include a leading space (e.g., " 123")</li>
+<li>Negative numbers: Include a leading minus sign (e.g., "-123")</li>
+<li>Zero: Returns " 0" (with leading space)</li>
+<li>The leading space reserves position for the sign</li>
+</ul>
+<h3 id="numeric-formatting">Numeric Formatting</h3>
+<ul>
+<li>No thousands separators (e.g., "1000" not "1,000")</li>
+<li>Scientific notation for very large or very small numbers</li>
+<li>Floating-point numbers may show precision artifacts</li>
+<li>No control over decimal places</li>
+</ul>
+<h3 id="type-differences-str-vs-str">Type Differences: <code>Str$</code> vs <code>Str</code></h3>
+<ul>
+<li><code>Str$</code>: Always returns <code>String</code> type (never <code>Variant</code>)</li>
+<li><code>Str</code>: Returns <code>Variant</code> containing a string</li>
+<li>Use <code>Str$</code> when you need guaranteed <code>String</code> return type</li>
+<li>Use <code>Str</code> when working with <code>Variant</code> variables</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-basic-number-to-string-conversion">1. Basic Number to String Conversion</h3>
+<pre><code class="language-vbnet">Dim numStr As String
+numStr = Str$(123)  &#x27; Returns &quot; 123&quot; (note leading space)
+numStr = Str$(-45)  &#x27; Returns &quot;-45&quot;</code></pre>
+<h3 id="2-concatenating-numbers-with-text">2. Concatenating Numbers with Text</h3>
+<pre><code class="language-vbnet">Function FormatMessage(count As Integer) As String
+FormatMessage = &quot;Found&quot; &amp; Str$(count) &amp; &quot; items&quot;
+End Function
+
+Debug.Print FormatMessage(5)  &#x27; &quot;Found 5 items&quot;</code></pre>
+<h3 id="3-trimming-the-leading-space">3. Trimming the Leading Space</h3>
+<pre><code class="language-vbnet">Function NumberToString(value As Long) As String
+NumberToString = LTrim$(Str$(value))
+End Function
+
+Dim result As String
+result = NumberToString(100)  &#x27; Returns &quot;100&quot; (no leading space)</code></pre>
+<h3 id="4-building-comma-separated-values">4. Building Comma-Separated Values</h3>
+<pre><code class="language-vbnet">Function BuildCSV(values() As Integer) As String
+Dim i As Integer
+Dim result As String
+For i = LBound(values) To UBound(values)
+If i &gt; LBound(values) Then result = result &amp; &quot;,&quot;
+result = result &amp; LTrim$(Str$(values(i)))
+Next i
+BuildCSV = result
+End Function</code></pre>
+<h3 id="5-logging-and-debug-output">5. Logging and Debug Output</h3>
+<pre><code class="language-vbnet">Sub LogValue(name As String, value As Double)
+Debug.Print name &amp; &quot; =&quot; &amp; Str$(value)
+End Sub</code></pre>
+<h3 id="6-creating-numeric-labels">6. Creating Numeric Labels</h3>
+<pre><code class="language-vbnet">Function CreateLabel(index As Integer) As String
+CreateLabel = &quot;Item&quot; &amp; LTrim$(Str$(index))
+End Function
+
+Dim label As String
+label = CreateLabel(42)  &#x27; Returns &quot;Item42&quot;</code></pre>
+<h3 id="7-file-output-formatting">7. File Output Formatting</h3>
+<pre><code class="language-vbnet">Sub WriteDataLine(fileNum As Integer, id As Long, amount As Currency)
+Print #fileNum, LTrim$(Str$(id)) &amp; &quot;,&quot; &amp; LTrim$(Str$(amount))
+End Sub</code></pre>
+<h3 id="8-array-index-display">8. Array Index Display</h3>
+<pre><code class="language-vbnet">Sub ShowArrayContents(arr() As Integer)
+Dim i As Integer
+For i = LBound(arr) To UBound(arr)
+Debug.Print &quot;[&quot; &amp; LTrim$(Str$(i)) &amp; &quot;] = &quot; &amp; LTrim$(Str$(arr(i)))
+Next i
+End Sub</code></pre>
+<h3 id="9-simple-calculator-display">9. Simple Calculator Display</h3>
+<pre><code class="language-vbnet">Function UpdateDisplay(value As Double) As String
+UpdateDisplay = LTrim$(Str$(value))
+End Function</code></pre>
+<h3 id="10-building-sql-statements">10. Building SQL Statements</h3>
+<pre><code class="language-vbnet">Function BuildQuery(userId As Long) As String
+BuildQuery = &quot;SELECT * FROM Users WHERE ID = &quot; &amp; LTrim$(Str$(userId))
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Str()</code> - Returns a <code>Variant</code> containing the string representation of a number</li>
+<li><code>CStr()</code> - Converts an expression to a <code>String</code> (no leading space for positive numbers)</li>
+<li><code>Format$()</code> - Provides extensive formatting control for numeric values</li>
+<li><code>Val()</code> - Converts a string to a numeric value (inverse operation)</li>
+<li><code>LTrim$()</code> - Removes leading spaces (often used with <code>Str$</code>)</li>
+<li><code>Hex$()</code> - Converts a number to hexadecimal string</li>
+<li><code>Oct$()</code> - Converts a number to octal string</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-str-vs-cstr-vs-format">When to Use <code>Str$</code> vs <code>CStr</code> vs <code>Format$</code></h3>
+<pre><code class="language-vbnet">Dim value As Integer
+value = 42
+
+&#x27; Str$ includes leading space for positive numbers
+Debug.Print Str$(value)  &#x27; &quot; 42&quot;
+
+&#x27; CStr has no leading space
+Debug.Print CStr(value)  &#x27; &quot;42&quot;
+
+&#x27; Format$ provides control over formatting
+Debug.Print Format$(value, &quot;000&quot;)  &#x27; &quot;042&quot;</code></pre>
+<h3 id="always-trim-for-display">Always Trim for Display</h3>
+<pre><code class="language-vbnet">&#x27; Without trim (has leading space for positive numbers)
+Label1.Caption = Str$(count)  &#x27; &quot; 5&quot;
+
+&#x27; With trim (clean output)
+Label1.Caption = LTrim$(Str$(count))  &#x27; &quot;5&quot;
+
+&#x27; Or use CStr instead
+Label1.Caption = CStr(count)  &#x27; &quot;5&quot;</code></pre>
+<h3 id="use-format-for-formatted-output">Use <code>Format$</code> for Formatted Output</h3>
+<pre><code class="language-vbnet">&#x27; Str$ has no formatting control
+Debug.Print Str$(1234.5678)  &#x27; &quot; 1234.5678&quot;
+
+&#x27; Format$ provides control
+Debug.Print Format$(1234.5678, &quot;#,##0.00&quot;)  &#x27; &quot;1,234.57&quot;</code></pre>
+<h3 id="handle-negative-numbers">Handle Negative Numbers</h3>
+<pre><code class="language-vbnet">Function SafeConvert(value As Long) As String
+&#x27; Str$ handles negative numbers correctly
+SafeConvert = LTrim$(Str$(value))
+&#x27; For negative: &quot;-123&quot;, for positive: &quot;123&quot;
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Str$</code> is very fast for simple conversions</li>
+<li>Faster than <code>Format$</code> when formatting is not needed</li>
+<li>Similar performance to <code>CStr</code></li>
+<li>No significant overhead for any numeric type</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Fast: simple conversion
+For i = 1 To 10000
+text = LTrim$(Str$(i))
+Next i
+
+&#x27; Slower: formatted conversion (but more control)
+For i = 1 To 10000
+text = Format$(i, &quot;0000&quot;)
+Next i</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-leading-space-for-positive-numbers">1. Leading Space for Positive Numbers</h3>
+<pre><code class="language-vbnet">Dim result As String
+result = Str$(100)  &#x27; &quot; 100&quot; (note the leading space!)
+
+&#x27; This can cause problems in comparisons
+If Str$(100) = &quot;100&quot; Then  &#x27; FALSE! (&quot; 100&quot; &lt;&gt; &quot;100&quot;)
+Debug.Print &quot;Match&quot;
+End If
+
+&#x27; Use LTrim$ or CStr instead
+If LTrim$(Str$(100)) = &quot;100&quot; Then  &#x27; TRUE
+Debug.Print &quot;Match&quot;
+End If</code></pre>
+<h3 id="2-confusion-with-cstr">2. Confusion with <code>CStr</code></h3>
+<pre><code class="language-vbnet">Dim value As Integer
+value = 42
+
+Debug.Print Str$(value)   &#x27; &quot; 42&quot; (with space)
+Debug.Print CStr(value)   &#x27; &quot;42&quot; (no space)
+
+&#x27; Know which one you need</code></pre>
+<h3 id="3-no-formatting-control">3. No Formatting Control</h3>
+<pre><code class="language-vbnet">Dim amount As Currency
+amount = 1234.56
+
+&#x27; Str$ gives no control
+Debug.Print Str$(amount)  &#x27; &quot; 1234.56&quot;
+
+&#x27; Use Format$ for currency
+Debug.Print Format$(amount, &quot;$#,##0.00&quot;)  &#x27; &quot;$1,234.56&quot;</code></pre>
+<h3 id="4-floating-point-precision-issues">4. Floating-Point Precision Issues</h3>
+<pre><code class="language-vbnet">Dim value As Double
+value = 0.1 + 0.2
+
+Debug.Print Str$(value)  &#x27; May show &quot; 0.30000000000000004&quot;
+
+&#x27; Use Format$ to control precision
+Debug.Print Format$(value, &quot;0.00&quot;)  &#x27; &quot;0.30&quot;</code></pre>
+<h3 id="5-not-handling-very-large-or-small-numbers">5. Not Handling Very Large or Small Numbers</h3>
+<pre><code class="language-vbnet">Dim bigNum As Double
+bigNum = 1E+20
+
+Debug.Print Str$(bigNum)  &#x27; &quot; 1E+20&quot; (scientific notation)
+
+&#x27; Be aware of scientific notation in output</code></pre>
+<h3 id="6-null-values">6. Null Values</h3>
+<pre><code class="language-vbnet">&#x27; Str$ cannot handle Null
+Dim result As String
+result = Str$(nullValue)  &#x27; Runtime error if nullValue is Null
+
+&#x27; Check first
+If Not IsNull(value) Then
+result = Str$(value)
+Else
+result = &quot;&quot;
+End If</code></pre>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="building-a-progress-message">Building a Progress Message</h3>
+<pre><code class="language-vbnet">Function ProgressMessage(current As Long, total As Long) As String
+ProgressMessage = &quot;Processing item&quot; &amp; Str$(current) &amp; _
+&quot; of&quot; &amp; Str$(total)
+End Function
+
+Debug.Print ProgressMessage(5, 10)  &#x27; &quot;Processing item 5 of 10&quot;</code></pre>
+<h3 id="creating-sequential-filenames">Creating Sequential Filenames</h3>
+<pre><code class="language-vbnet">Function GenerateFileName(baseNameStr As String, index As Integer) As String
+GenerateFileName = baseNameStr &amp; LTrim$(Str$(index)) &amp; &quot;.dat&quot;
+End Function
+
+Dim fileName As String
+fileName = GenerateFileName(&quot;data&quot;, 1)  &#x27; &quot;data1.dat&quot;</code></pre>
+<h3 id="simple-data-export">Simple Data Export</h3>
+<pre><code class="language-vbnet">Sub ExportToCSV(data() As Double, fileName As String)
+Dim i As Integer
+Dim lineData As String
+
+Open fileName For Output As #1
+For i = LBound(data) To UBound(data)
+Print #1, LTrim$(Str$(data(i)))
+Next i
+Close #1
+End Sub</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Always includes leading space for positive numbers (use <code>LTrim$</code> or <code>CStr</code> to remove)</li>
+<li>No formatting control (no thousands separators, decimal places, etc.)</li>
+<li>Cannot handle <code>Null</code> values (use <code>CStr</code> with error handling instead)</li>
+<li>May produce scientific notation for very large or small numbers</li>
+<li>Floating-point precision artifacts may appear in output</li>
+<li>No locale-specific formatting (always uses invariant format)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

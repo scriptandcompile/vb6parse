@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - int - Math">
+    <title>int - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / int</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="int-function"><code>Int</code> Function</h1>
+<p>Returns the integer portion of a number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Int(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>number</code> (Required): Any valid numeric expression. If <code>number</code> contains <code>Null</code>, <code>Null</code> is returned</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns the integer portion of a number:
+- For positive numbers: Returns the largest integer less than or equal to <code>number</code>
+- For negative numbers: Returns the first negative integer less than or equal to <code>number</code>
+- If <code>number</code> is <code>Null</code>: Returns <code>Null</code>
+- Return type matches the input type (Integer, Long, Single, Double, Currency, Decimal)</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Int</code> function truncates toward negative infinity:</p>
+<ul>
+<li>Removes the fractional part of a number</li>
+<li>For positive numbers, behaves like truncation (same as <code>Fix</code>)</li>
+<li>For negative numbers, rounds DOWN (toward negative infinity)</li>
+<li><code>Fix</code> rounds toward zero (always truncates), <code>Int</code> rounds down</li>
+<li><code>Int</code>(-8.4) returns -9, <code>Fix</code>(-8.4) returns -8</li>
+<li><code>Int</code>(8.4) returns 8, <code>Fix</code>(8.4) returns 8</li>
+<li>Does not round to nearest integer (use <code>Round</code> for rounding)</li>
+<li>The return type preserves the input numeric type</li>
+<li>Commonly used with <code>Rnd</code> for generating random integers</li>
+<li>For currency calculations, consider using <code>Round</code> or <code>CCur</code> instead</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Remove Decimals</strong>: Strip fractional part from numbers</li>
+<li><strong>Random Integers</strong>: Generate random integer values with <code>Rnd</code></li>
+<li><strong>Array Indices</strong>: Convert floats to valid array indices</li>
+<li><strong>Loop Counters</strong>: Ensure integer values for loops</li>
+<li><strong>Division Results</strong>: Get whole number quotients</li>
+<li><strong>Coordinate Rounding</strong>: Round pixel coordinates</li>
+<li><strong>Pagination</strong>: Calculate page numbers</li>
+<li><strong>Quantity Calculations</strong>: Ensure whole unit quantities</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Remove decimal portion
+Dim result As Integer
+result = Int(8.7)
+Debug.Print result  &#x27; Prints: 8
+
+&#x27; Example 2: Negative number behavior
+Dim result As Integer
+result = Int(-8.7)
+Debug.Print result  &#x27; Prints: -9 (rounds down, not toward zero)
+
+&#x27; Example 3: Random integer between 1 and 100
+Dim randomNum As Integer
+Randomize
+randomNum = Int(Rnd * 100) + 1
+
+&#x27; Example 4: Calculate whole pages
+Dim totalItems As Long
+Dim itemsPerPage As Long
+Dim totalPages As Long
+totalItems = 47
+itemsPerPage = 10
+totalPages = Int(totalItems / itemsPerPage) + 1
+Debug.Print totalPages  &#x27; Prints: 5</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Random integer in range
+Function RandomInteger(minValue As Long, maxValue As Long) As Long
+Randomize
+RandomInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
+End Function
+
+&#x27; Pattern 2: Get whole number portion
+Function GetWholeNumber(value As Double) As Long
+If value &gt;= 0 Then
+GetWholeNumber = Int(value)
+Else
+&#x27; For negative numbers, Int rounds down
+&#x27; Use Fix if you want to truncate toward zero
+GetWholeNumber = Int(value)
+End If
+End Function
+
+&#x27; Pattern 3: Calculate pages needed
+Function CalculatePages(totalItems As Long, itemsPerPage As Long) As Long
+If itemsPerPage &lt;= 0 Then
+CalculatePages = 0
+Exit Function
+End If
+
+CalculatePages = Int((totalItems - 1) / itemsPerPage) + 1
+End Function
+
+&#x27; Pattern 4: Round down to nearest multiple
+Function RoundDownToMultiple(value As Double, multiple As Double) As Double
+If multiple = 0 Then
+RoundDownToMultiple = value
+Else
+RoundDownToMultiple = Int(value / multiple) * multiple
+End If
+End Function
+
+&#x27; Pattern 5: Extract integer part for display
+Function FormatNumber(value As Double) As String
+Dim wholePart As Long
+Dim decimalPart As Double
+
+wholePart = Int(Abs(value))
+decimalPart = Abs(value) - wholePart
+
+FormatNumber = CStr(wholePart) &amp; &quot;.&quot; &amp; _
+Format$(decimalPart, &quot;00&quot;)
+End Function
+
+&#x27; Pattern 6: Generate random array index
+Function RandomArrayIndex(arr As Variant) As Long
+Dim lowerBound As Long
+Dim upperBound As Long
+
+lowerBound = LBound(arr)
+upperBound = UBound(arr)
+
+RandomArrayIndex = Int((upperBound - lowerBound + 1) * Rnd) + lowerBound
+End Function
+
+&#x27; Pattern 7: Calculate grid position
+Sub GetGridPosition(pixelX As Double, pixelY As Double, _
+gridSize As Double, _
+ByRef gridX As Long, ByRef gridY As Long)
+gridX = Int(pixelX / gridSize)
+gridY = Int(pixelY / gridSize)
+End Sub
+
+&#x27; Pattern 8: Divide and get quotient
+Function IntegerDivision(dividend As Long, divisor As Long) As Long
+If divisor = 0 Then
+Err.Raise 11, , &quot;Division by zero&quot;
+End If
+
+IntegerDivision = Int(dividend / divisor)
+End Function
+
+&#x27; Pattern 9: Time to whole seconds
+Function GetWholeSeconds(timeValue As Double) As Long
+Dim secondsDecimal As Double
+secondsDecimal = timeValue * 86400  &#x27; Convert days to seconds
+GetWholeSeconds = Int(secondsDecimal)
+End Function
+
+&#x27; Pattern 10: Percentage to whole number
+Function GetWholePercent(value As Double, total As Double) As Long
+If total = 0 Then
+GetWholePercent = 0
+Else
+GetWholePercent = Int((value / total) * 100)
+End If
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Random number generator class
+Public Class RandomNumberGenerator
+Private m_initialized As Boolean
+
+Private Sub EnsureInitialized()
+If Not m_initialized Then
+Randomize
+m_initialized = True
+End If
+End Sub
+
+Public Function NextInteger(minValue As Long, maxValue As Long) As Long
+EnsureInitialized
+
+If minValue &gt; maxValue Then
+Err.Raise 5, , &quot;minValue cannot be greater than maxValue&quot;
+End If
+
+NextInteger = Int((maxValue - minValue + 1) * Rnd) + minValue
+End Function
+
+Public Function NextDouble() As Double
+EnsureInitialized
+NextDouble = Rnd
+End Function
+
+Public Function NextBoolean() As Boolean
+EnsureInitialized
+NextBoolean = (Int(Rnd * 2) = 1)
+End Function
+
+Public Function Shuffle(arr As Variant) As Variant
+Dim i As Long
+Dim j As Long
+Dim temp As Variant
+Dim result() As Variant
+
+EnsureInitialized
+
+&#x27; Copy array
+ReDim result(LBound(arr) To UBound(arr))
+For i = LBound(arr) To UBound(arr)
+result(i) = arr(i)
+Next i
+
+&#x27; Fisher-Yates shuffle
+For i = UBound(result) To LBound(result) + 1 Step -1
+j = Int((i - LBound(result) + 1) * Rnd) + LBound(result)
+temp = result(i)
+result(i) = result(j)
+result(j) = temp
+Next i
+
+Shuffle = result
+End Function
+End Class
+
+&#x27; Example 2: Pagination calculator
+Public Class PaginationHelper
+Private m_totalItems As Long
+Private m_itemsPerPage As Long
+
+Public Property Let TotalItems(value As Long)
+m_totalItems = value
+End Property
+
+Public Property Let ItemsPerPage(value As Long)
+If value &lt;= 0 Then
+Err.Raise 5, , &quot;ItemsPerPage must be greater than zero&quot;
+End If
+m_itemsPerPage = value
+End Property
+
+Public Property Get PageCount() As Long
+If m_itemsPerPage = 0 Then
+PageCount = 0
+Else
+PageCount = Int((m_totalItems - 1) / m_itemsPerPage) + 1
+End If
+End Property
+
+Public Function GetPageStartIndex(pageNumber As Long) As Long
+If pageNumber &lt; 1 Or pageNumber &gt; PageCount Then
+GetPageStartIndex = -1
+Else
+GetPageStartIndex = (pageNumber - 1) * m_itemsPerPage
+End If
+End Function
+
+Public Function GetPageEndIndex(pageNumber As Long) As Long
+Dim startIndex As Long
+startIndex = GetPageStartIndex(pageNumber)
+
+If startIndex = -1 Then
+GetPageEndIndex = -1
+Else
+GetPageEndIndex = startIndex + m_itemsPerPage - 1
+If GetPageEndIndex &gt;= m_totalItems Then
+GetPageEndIndex = m_totalItems - 1
+End If
+End If
+End Function
+
+Public Function GetPageForItem(itemIndex As Long) As Long
+If itemIndex &lt; 0 Or itemIndex &gt;= m_totalItems Then
+GetPageForItem = -1
+Else
+GetPageForItem = Int(itemIndex / m_itemsPerPage) + 1
+End If
+End Function
+End Class
+
+&#x27; Example 3: Grid coordinate mapper
+Public Class GridMapper
+Private m_cellWidth As Double
+Private m_cellHeight As Double
+
+Public Sub Initialize(cellWidth As Double, cellHeight As Double)
+m_cellWidth = cellWidth
+m_cellHeight = cellHeight
+End Sub
+
+Public Sub PixelToGrid(pixelX As Double, pixelY As Double, _
+ByRef gridX As Long, ByRef gridY As Long)
+gridX = Int(pixelX / m_cellWidth)
+gridY = Int(pixelY / m_cellHeight)
+End Sub
+
+Public Sub GridToPixel(gridX As Long, gridY As Long, _
+ByRef pixelX As Double, ByRef pixelY As Double)
+pixelX = gridX * m_cellWidth
+pixelY = gridY * m_cellHeight
+End Sub
+
+Public Function SnapToGrid(pixelX As Double, pixelY As Double) As Variant
+Dim gridX As Long
+Dim gridY As Long
+Dim snappedX As Double
+Dim snappedY As Double
+
+PixelToGrid pixelX, pixelY, gridX, gridY
+GridToPixel gridX, gridY, snappedX, snappedY
+
+SnapToGrid = Array(snappedX, snappedY)
+End Function
+End Class
+
+&#x27; Example 4: Dice roller simulator
+Public Class DiceRoller
+Public Function Roll(sides As Long, Optional count As Long = 1) As Long
+Dim i As Long
+Dim total As Long
+
+Randomize
+total = 0
+
+For i = 1 To count
+total = total + Int(Rnd * sides) + 1
+Next i
+
+Roll = total
+End Function
+
+Public Function RollMultiple(sides As Long, count As Long) As Collection
+Dim i As Long
+Dim result As New Collection
+
+Randomize
+
+For i = 1 To count
+result.Add Int(Rnd * sides) + 1
+Next i
+
+Set RollMultiple = result
+End Function
+
+Public Function RollWithAdvantage(sides As Long) As Long
+Dim roll1 As Long
+Dim roll2 As Long
+
+Randomize
+roll1 = Int(Rnd * sides) + 1
+roll2 = Int(Rnd * sides) + 1
+
+RollWithAdvantage = IIf(roll1 &gt; roll2, roll1, roll2)
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>Int</code> function can raise errors or return <code>Null</code>:</p>
+<ul>
+<li><strong>Type Mismatch (Error 13)</strong>: If <code>number</code> is not a numeric expression</li>
+<li><strong>Invalid use of Null (Error 94)</strong>: If <code>number</code> is <code>Null</code> and result is assigned to non-Variant</li>
+<li><strong>Overflow (Error 6)</strong>: If result exceeds the range of the target data type</li>
+</ul>
+<pre><code class="language-vbnet">On Error GoTo ErrorHandler
+Dim result As Long
+Dim value As Double
+
+value = 12.75
+result = Int(value)
+
+Debug.Print &quot;Integer portion: &quot; &amp; result
+Exit Sub
+
+ErrorHandler:
+MsgBox &quot;Error in Int: &quot; &amp; Err.Description, vbCritical</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: <code>Int</code> is a very fast built-in function</li>
+<li><strong>Type Preservation</strong>: Return type matches input type</li>
+<li><strong>No Rounding</strong>: Faster than <code>Round</code> (no complex calculation)</li>
+<li><strong>Alternative</strong>: For truncation toward zero, <code>Fix</code> is equivalent for positive numbers</li>
+<li><strong>Currency</strong>: For financial calculations, consider <code>Round</code> or <code>CCur</code></li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Understand Behavior</strong>: Know that <code>Int</code> rounds DOWN (toward negative infinity)</li>
+<li><strong>Fix vs Int</strong>: Use <code>Fix</code> for truncation toward zero, <code>Int</code> for floor operation</li>
+<li><strong>Random Numbers</strong>: Always Randomize before using <code>Rnd</code> with <code>Int</code></li>
+<li><strong>Type Awareness</strong>: Be aware of return type matching input type</li>
+<li><strong>Null Handling</strong>: Use Variant if input might be <code>Null</code></li>
+<li><strong>Array Bounds</strong>: Ensure <code>Int</code> result is within array bounds</li>
+<li><strong>Division</strong>: For integer division, consider using \ operator instead</li>
+</ol>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Behavior</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Int</code></td>
+<td>Rounds down (floor)</td>
+<td>Int(-8.7) = -9</td>
+</tr>
+<tr>
+<td><code>Fix</code></td>
+<td>Truncates toward zero</td>
+<td>Fix(-8.7) = -8</td>
+</tr>
+<tr>
+<td><code>Round</code></td>
+<td>Rounds to nearest</td>
+<td>Round(-8.7) = -9</td>
+</tr>
+<tr>
+<td><code>CLng</code></td>
+<td>Converts to Long with rounding</td>
+<td>CLng(-8.7) = -9</td>
+</tr>
+<tr>
+<td><code>CInt</code></td>
+<td>Converts to Integer with rounding</td>
+<td>CInt(-8.7) = -9</td>
+</tr>
+<tr>
+<td>\</td>
+<td>Integer division</td>
+<td>-87 \ 10 = -8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across platforms</li>
+<li>Return type matches input numeric type</li>
+<li>Different from many languages <code>int()</code> which truncates toward zero</li>
+<li>Equivalent to <code>Math.floor()</code> in many other languages</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Does not round to nearest (use Round for that)</li>
+<li>Behavior with negative numbers can be unexpected (use Fix for truncation)</li>
+<li>Return type depends on input type (can cause overflow)</li>
+<li>Cannot specify decimal places (always removes all decimals)</li>
+<li>No control over rounding direction (always down)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Fix</code>: Returns integer portion, truncating toward zero</li>
+<li><code>Round</code>: Rounds to nearest integer or specified decimal places</li>
+<li><code>CInt</code>: Converts to Integer with rounding</li>
+<li><code>CLng</code>: Converts to Long with rounding</li>
+<li><code>Rnd</code>: Random number generator (often used with Int)</li>
+<li><code>\</code>: Integer division operator</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

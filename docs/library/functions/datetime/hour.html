@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - hour - Datetime">
+    <title>hour - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / hour</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="hour-function"><code>Hour</code> Function</h1>
+<p>Returns an Integer specifying a whole number between 0 and 23, inclusive, representing the hour of the day.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Hour(time)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>time</code> (Required): Any <code>Variant</code>, numeric expression, string expression, or any combination that can represent a time. If <code>time</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> from 0 to 23 representing the hour of the day. The hour is returned in 24-hour format (0 = midnight, 23 = 11 PM).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Hour</code> function extracts the hour component from a date/time value:</p>
+<ul>
+<li>Returns values from 0 (midnight) to 23 (11 PM)</li>
+<li>Uses 24-hour format, not 12-hour AM/PM format</li>
+<li>If <code>time</code> is <code>Null</code>, the function returns <code>Null</code></li>
+<li>If <code>time</code> contains only a date with no time component, returns 0</li>
+<li>Works with <code>Date</code> variables, time strings, and numeric date/time values</li>
+<li>Can be used with <code>Now</code>, <code>Time</code>, <code>TimeValue</code>, and other date/time functions</li>
+<li>For 12-hour format with AM/PM, use <code>Format$</code> function instead</li>
+<li>Complements <code>Minute</code> and <code>Second</code> functions for complete time extraction</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Time-Based Logic</strong>: Determine if an event occurred during business hours</li>
+<li><strong>Scheduling</strong>: Check if current time is within a specific hour range</li>
+<li><strong>Data Analysis</strong>: Analyze activity patterns by hour of day</li>
+<li><strong>Logging</strong>: Extract hour from timestamp for categorization</li>
+<li><strong>User Interface</strong>: Display hour portion of time separately</li>
+<li><strong>Time Validation</strong>: Verify time values fall within expected ranges</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Get current hour
+Dim currentHour As Integer
+currentHour = Hour(Now)
+Debug.Print &quot;Current hour: &quot; &amp; currentHour
+
+&#x27; Example 2: Extract hour from time string
+Dim h As Integer
+h = Hour(&quot;14:30:00&quot;)    &#x27; Returns 14 (2 PM)
+
+&#x27; Example 3: Check for business hours
+If Hour(Now) &gt;= 9 And Hour(Now) &lt; 17 Then
+Debug.Print &quot;Within business hours&quot;
+End If
+
+&#x27; Example 4: Get hour from Date variable
+Dim myDate As Date
+myDate = #1/15/2024 3:45:00 PM#
+Debug.Print Hour(myDate)    &#x27; Returns 15</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Check if current time is within business hours
+Function IsBusinessHours() As Boolean
+Dim h As Integer
+h = Hour(Now)
+IsBusinessHours = (h &gt;= 9 And h &lt; 17)
+End Function
+
+&#x27; Pattern 2: Categorize time of day
+Function GetTimeOfDay() As String
+Dim h As Integer
+h = Hour(Now)
+
+If h &gt;= 0 And h &lt; 6 Then
+GetTimeOfDay = &quot;Night&quot;
+ElseIf h &gt;= 6 And h &lt; 12 Then
+GetTimeOfDay = &quot;Morning&quot;
+ElseIf h &gt;= 12 And h &lt; 18 Then
+GetTimeOfDay = &quot;Afternoon&quot;
+Else
+GetTimeOfDay = &quot;Evening&quot;
+End If
+End Function
+
+&#x27; Pattern 3: Format time in 12-hour format with AM/PM
+Function Format12Hour(timeValue As Date) As String
+Dim h As Integer
+Dim ampm As String
+
+h = Hour(timeValue)
+
+If h &gt;= 12 Then
+ampm = &quot;PM&quot;
+If h &gt; 12 Then h = h - 12
+Else
+ampm = &quot;AM&quot;
+If h = 0 Then h = 12
+End If
+
+Format12Hour = h &amp; &quot;:&quot; &amp; Right$(&quot;0&quot; &amp; Minute(timeValue), 2) &amp; &quot; &quot; &amp; ampm
+End Function
+
+&#x27; Pattern 4: Round time to nearest hour
+Function RoundToNearestHour(timeValue As Date) As Date
+If Minute(timeValue) &gt;= 30 Then
+RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
+TimeSerial(Hour(timeValue) + 1, 0, 0)
+Else
+RoundToNearestHour = DateSerial(Year(timeValue), Month(timeValue), Day(timeValue)) + _
+TimeSerial(Hour(timeValue), 0, 0)
+End If
+End Function
+
+&#x27; Pattern 5: Calculate hours elapsed
+Function HoursElapsed(startTime As Date, endTime As Date) As Integer
+Dim totalHours As Double
+totalHours = (endTime - startTime) * 24
+HoursElapsed = Int(totalHours)
+End Function
+
+&#x27; Pattern 6: Check if after specific hour
+Function IsAfterHour(checkTime As Date, hourThreshold As Integer) As Boolean
+IsAfterHour = (Hour(checkTime) &gt;= hourThreshold)
+End Function
+
+&#x27; Pattern 7: Get hour range description
+Function GetHourRange(timeValue As Date) As String
+Dim h As Integer
+h = Hour(timeValue)
+GetHourRange = h &amp; &quot;:00 - &quot; &amp; h &amp; &quot;:59&quot;
+End Function
+
+&#x27; Pattern 8: Validate time is within allowed hours
+Function IsWithinAllowedHours(checkTime As Date, startHour As Integer, endHour As Integer) As Boolean
+Dim h As Integer
+h = Hour(checkTime)
+
+If startHour &lt;= endHour Then
+IsWithinAllowedHours = (h &gt;= startHour And h &lt;= endHour)
+Else
+&#x27; Handle overnight range (e.g., 22:00 to 6:00)
+IsWithinAllowedHours = (h &gt;= startHour Or h &lt;= endHour)
+End If
+End Function
+
+&#x27; Pattern 9: Count hourly occurrences
+Sub CountByHour(timestamps() As Date, hourCounts() As Long)
+Dim i As Long
+Dim h As Integer
+
+ReDim hourCounts(0 To 23)
+
+For i = LBound(timestamps) To UBound(timestamps)
+h = Hour(timestamps(i))
+hourCounts(h) = hourCounts(h) + 1
+Next i
+End Sub
+
+&#x27; Pattern 10: Create time from hour
+Function CreateTimeFromHour(hourValue As Integer, Optional minuteValue As Integer = 0) As Date
+CreateTimeFromHour = TimeSerial(hourValue, minuteValue, 0)
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Business hours scheduler
+Public Class BusinessScheduler
+Private Const BUSINESS_START As Integer = 9
+Private Const BUSINESS_END As Integer = 17
+Private Const LUNCH_START As Integer = 12
+Private Const LUNCH_END As Integer = 13
+
+Public Function IsAvailable(checkTime As Date) As Boolean
+Dim h As Integer
+h = Hour(checkTime)
+
+If h &lt; BUSINESS_START Or h &gt;= BUSINESS_END Then
+IsAvailable = False
+ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
+IsAvailable = False
+Else
+IsAvailable = True
+End If
+End Function
+
+Public Function GetNextAvailableSlot(currentTime As Date) As Date
+Dim h As Integer
+Dim nextSlot As Date
+
+h = Hour(currentTime)
+
+If h &lt; BUSINESS_START Then
+nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
+TimeSerial(BUSINESS_START, 0, 0)
+ElseIf h &gt;= LUNCH_START And h &lt; LUNCH_END Then
+nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime)) + _
+TimeSerial(LUNCH_END, 0, 0)
+ElseIf h &gt;= BUSINESS_END Then
+nextSlot = DateSerial(Year(currentTime), Month(currentTime), Day(currentTime) + 1) + _
+TimeSerial(BUSINESS_START, 0, 0)
+Else
+nextSlot = currentTime
+End If
+
+GetNextAvailableSlot = nextSlot
+End Function
+End Class
+
+&#x27; Example 2: Hourly activity analyzer
+Public Class ActivityAnalyzer
+Private m_hourlyData(0 To 23) As Long
+
+Public Sub RecordActivity(activityTime As Date)
+Dim h As Integer
+h = Hour(activityTime)
+m_hourlyData(h) = m_hourlyData(h) + 1
+End Sub
+
+Public Function GetPeakHour() As Integer
+Dim i As Integer
+Dim maxCount As Long
+Dim peakHour As Integer
+
+maxCount = 0
+peakHour = 0
+
+For i = 0 To 23
+If m_hourlyData(i) &gt; maxCount Then
+maxCount = m_hourlyData(i)
+peakHour = i
+End If
+Next i
+
+GetPeakHour = peakHour
+End Function
+
+Public Function GetActivityInRange(startHour As Integer, endHour As Integer) As Long
+Dim i As Integer
+Dim total As Long
+
+total = 0
+For i = startHour To endHour
+total = total + m_hourlyData(i)
+Next i
+
+GetActivityInRange = total
+End Function
+End Class
+
+&#x27; Example 3: Time slot manager
+Public Class TimeSlotManager
+Private Type TimeSlot
+StartHour As Integer
+EndHour As Integer
+IsAvailable As Boolean
+End Type
+
+Private m_slots() As TimeSlot
+
+Public Sub Initialize()
+Dim i As Integer
+ReDim m_slots(0 To 23)
+
+For i = 0 To 23
+m_slots(i).StartHour = i
+m_slots(i).EndHour = i
+m_slots(i).IsAvailable = True
+Next i
+End Sub
+
+Public Function BookSlot(bookingTime As Date) As Boolean
+Dim h As Integer
+h = Hour(bookingTime)
+
+If m_slots(h).IsAvailable Then
+m_slots(h).IsAvailable = False
+BookSlot = True
+Else
+BookSlot = False
+End If
+End Function
+
+Public Function FindNextAvailable(afterTime As Date) As Integer
+Dim h As Integer
+Dim i As Integer
+
+h = Hour(afterTime)
+
+For i = h To 23
+If m_slots(i).IsAvailable Then
+FindNextAvailable = i
+Exit Function
+End If
+Next i
+
+FindNextAvailable = -1  &#x27; No available slots
+End Function
+End Class
+
+&#x27; Example 4: Shift time calculator
+Public Function CalculateShiftHours(clockIn As Date, clockOut As Date) As Double
+Dim totalHours As Double
+Dim inHour As Integer
+Dim outHour As Integer
+
+inHour = Hour(clockIn)
+outHour = Hour(clockOut)
+
+If clockOut &lt; clockIn Then
+&#x27; Overnight shift
+totalHours = (clockOut + 1 - clockIn) * 24
+Else
+totalHours = (clockOut - clockIn) * 24
+End If
+
+CalculateShiftHours = totalHours
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The Hour function can raise errors in certain situations:</p>
+<ul>
+<li><strong>Type Mismatch (Error 13)</strong>: If the argument cannot be interpreted as a date/time value</li>
+<li><strong>Invalid Procedure Call (Error 5)</strong>: If the date value is invalid</li>
+<li><strong>Null Propagation</strong>: If the argument is <code>Null</code>, the function returns <code>Null</code> (not an error)</li>
+</ul>
+<pre><code class="language-vbnet">On Error Resume Next
+Dim h As Integer
+h = Hour(someValue)
+If Err.Number &lt;&gt; 0 Then
+Debug.Print &quot;Error extracting hour: &quot; &amp; Err.Description
+h = 0  &#x27; Default value
+Err.Clear
+End If
+On Error GoTo 0</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: Hour extraction is a very fast, native operation</li>
+<li><strong>No Overhead</strong>: Minimal performance impact even in tight loops</li>
+<li><strong>Caching</strong>: If checking the same time repeatedly, cache the <code>Hour()</code> result</li>
+<li><strong>Comparison</strong>: Direct <code>Hour()</code> comparisons are faster than full time comparisons</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>24-Hour Format</strong>: Remember <code>Hour</code> returns 0-23, not 1-12 with AM/PM</li>
+<li><strong>Midnight</strong>: <code>Hour(#12:00:00 AM#)</code> returns 0, not 12</li>
+<li><strong>Noon</strong>: <code>Hour(#12:00:00 PM#)</code> returns 12</li>
+<li><strong>Validation</strong>: Validate hour ranges (0-23) when accepting user input</li>
+<li><strong>Date-Only Values</strong>: The hour component of a date-only value (no time) is always 0</li>
+<li><strong>Null Handling</strong>: Check for <code>Null</code> when working with <code>Variant</code> date values</li>
+<li><strong>Time Zones</strong>: <code>Hour</code> doesn't handle time zones; use explicit conversion if needed</li>
+</ol>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Return Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Hour</code></td>
+<td>Extract hour from time</td>
+<td>0-23 (24-hour)</td>
+</tr>
+<tr>
+<td><code>Minute</code></td>
+<td>Extract minute from time</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td><code>Second</code></td>
+<td>Extract second from time</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td><code>Day</code></td>
+<td>Extract day from date</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td><code>Month</code></td>
+<td>Extract month from date</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td><code>Year</code></td>
+<td>Extract year from date</td>
+<td>100-9999</td>
+</tr>
+<tr>
+<td><code>Weekday</code></td>
+<td>Get day of week</td>
+<td>1-7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conversion-examples">Conversion Examples</h2>
+<pre><code class="language-vbnet">&#x27; Convert 24-hour to 12-hour with AM/PM
+Function To12Hour(hour24 As Integer) As String
+Dim hour12 As Integer
+Dim ampm As String
+
+If hour24 &gt;= 12 Then
+ampm = &quot;PM&quot;
+hour12 = IIf(hour24 = 12, 12, hour24 - 12)
+Else
+ampm = &quot;AM&quot;
+hour12 = IIf(hour24 = 0, 12, hour24)
+End If
+
+To12Hour = hour12 &amp; &quot; &quot; &amp; ampm
+End Function
+
+&#x27; Convert 12-hour to 24-hour
+Function To24Hour(hour12 As Integer, isPM As Boolean) As Integer
+If isPM Then
+To24Hour = IIf(hour12 = 12, 12, hour12 + 12)
+Else
+To24Hour = IIf(hour12 = 12, 0, hour12)
+End If
+End Function</code></pre>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Consistent behavior across Windows platforms</li>
+<li>Uses system locale for time interpretation when parsing strings</li>
+<li>Returns Integer (2-byte signed integer, range: -32,768 to 32,767)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns 24-hour format only (0-23)</li>
+<li>No built-in AM/PM support (use Format$ for that)</li>
+<li>Cannot extract fractional hours (use full date arithmetic for precision)</li>
+<li>No time zone awareness (always uses local time interpretation)</li>
+<li>Date-only values always return hour 0</li>
+<li>Cannot handle dates before 1/1/100 or after 12/31/9999</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Minute</code>: Returns the minute of the hour (0-59)</li>
+<li><code>Second</code>: Returns the second of the minute (0-59)</li>
+<li><code>Now</code>: Returns the current date and time</li>
+<li><code>Time</code>: Returns the current system time</li>
+<li><code>TimeSerial</code>: Returns a Date for a specified hour, minute, and second</li>
+<li><code>TimeValue</code>: Converts a string to a time value</li>
+<li><code>Format</code>: Formats a date/time with custom formatting including AM/PM</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

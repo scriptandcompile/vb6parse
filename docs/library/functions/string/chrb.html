@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - chrb - String">
+    <title>chrb - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / chrb</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="chrb-function"><code>ChrB</code> Function</h1>
+<p>Returns a <code>String</code> containing the character associated with the specified ANSI character code.
+The "B" suffix indicates this is the byte (ANSI) version of the <code>Chr</code> function.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">ChrB(charcode)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>charcode</strong>: Required. Long. A numeric expression that identifies a character in the ANSI character set.
+Valid values are 0-255.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> containing a single byte character corresponding to the specified ANSI code.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>ChrB</code> is used to return ANSI characters (single-byte characters).</li>
+<li>The B suffix stands for "Byte", distinguishing it from the Unicode <code>ChrW</code> function.</li>
+<li>Numbers from 0 to 31 are standard, non-printable ASCII codes. For example, <code>ChrB(10)</code> returns a linefeed character.</li>
+<li>Numbers from 32 to 127 are standard printable ASCII characters.</li>
+<li>Numbers from 128 to 255 are extended ANSI characters (varies by code page).</li>
+<li>If charcode is outside the range 0-255, a runtime error occurs (Error 5: Invalid procedure call or argument).</li>
+<li><code>ChrB</code> is particularly useful when working with byte arrays or legacy ANSI text.</li>
+<li>For Unicode characters, use <code>ChrW</code> instead of <code>ChrB</code>.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Building strings with specific byte values</strong> - Construct ANSI strings byte-by-byte</li>
+<li><strong>Creating control characters</strong> - Generate line feeds, carriage returns, tabs, etc.</li>
+<li><strong>Low-level text manipulation</strong> - Work with binary data or legacy file formats</li>
+<li><strong>ANSI text generation</strong> - Create strings for systems expecting ANSI encoding</li>
+<li><strong>Byte array operations</strong> - Convert byte values to string representations</li>
+<li><strong>Legacy protocol support</strong> - Work with older communication protocols using ANSI</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple character conversion
+Dim ch As String
+ch = ChrB(65)  &#x27; Returns &quot;A&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Creating control characters
+Dim newline As String
+newline = ChrB(13) &amp; ChrB(10)  &#x27; CR+LF</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Building a string from byte codes
+Dim text As String
+text = ChrB(72) &amp; ChrB(101) &amp; ChrB(108) &amp; ChrB(108) &amp; ChrB(111)  &#x27; &quot;Hello&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Display a character
+MsgBox ChrB(65)  &#x27; Displays &quot;A&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Creating line breaks
+Dim CRLF As String
+CRLF = ChrB(13) &amp; ChrB(10)
+text = &quot;Line 1&quot; &amp; CRLF &amp; &quot;Line 2&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 2: Tab-separated values
+Dim TAB As String
+TAB = ChrB(9)
+data = &quot;Name&quot; &amp; TAB &amp; &quot;Age&quot; &amp; TAB &amp; &quot;City&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 3: Building ANSI strings from byte array
+Dim i As Integer
+Dim result As String
+Dim bytes() As Byte
+bytes = Array(72, 101, 108, 108, 111)
+For i = LBound(bytes) To UBound(bytes)
+result = result &amp; ChrB(bytes(i))
+Next i</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 4: Creating null-terminated strings
+Dim nullTerm As String
+nullTerm = &quot;Hello&quot; &amp; ChrB(0)</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 5: Character range generation
+Dim alphabet As String
+Dim i As Integer
+For i = 65 To 90
+alphabet = alphabet &amp; ChrB(i)
+Next i  &#x27; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 6: Control character constants
+Const NULL_CHAR As String = ChrB(0)
+Const BELL_CHAR As String = ChrB(7)
+Const BACKSPACE As String = ChrB(8)
+Const TAB_CHAR As String = ChrB(9)
+Const LF_CHAR As String = ChrB(10)
+Const CR_CHAR As String = ChrB(13)</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 7: Escape special characters
+Dim quote As String
+quote = ChrB(34)  &#x27; Double quote character
+result = quote &amp; &quot;Hello&quot; &amp; quote  &#x27; &quot;Hello&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 8: Binary data to string conversion
+Function BytesToString(bytes() As Byte) As String
+Dim i As Long
+Dim result As String
+For i = LBound(bytes) To UBound(bytes)
+result = result &amp; ChrB(bytes(i))
+Next i
+BytesToString = result
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 9: Creating delimited strings
+Dim PIPE As String
+PIPE = ChrB(124)  &#x27; &quot;|&quot; character
+data = &quot;Field1&quot; &amp; PIPE &amp; &quot;Field2&quot; &amp; PIPE &amp; &quot;Field3&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Pattern 10: ASCII art or special symbols
+Dim box As String
+box = ChrB(218) &amp; String(10, ChrB(196)) &amp; ChrB(191)  &#x27; Top of box</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Complete ANSI string builder
+Function BuildANSIString(byteCodes() As Integer) As String
+Dim i As Integer
+Dim result As String
+
+For i = LBound(byteCodes) To UBound(byteCodes)
+If byteCodes(i) &gt;= 0 And byteCodes(i) &lt;= 255 Then
+result = result &amp; ChrB(byteCodes(i))
+Else
+Err.Raise 5, , &quot;Invalid byte code: &quot; &amp; byteCodes(i)
+End If
+Next i
+
+BuildANSIString = result
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Legacy file format writer
+Sub WriteLegacyFormat(filename As String, data As String)
+Dim f As Integer
+Dim i As Integer
+Dim checksum As Byte
+
+f = FreeFile
+Open filename For Binary As #f
+
+&#x27; Write header with STX (Start of Text)
+Put #f, , ChrB(2)
+
+&#x27; Write data
+Put #f, , data
+
+&#x27; Calculate and write checksum
+checksum = 0
+For i = 1 To Len(data)
+checksum = checksum Xor Asc(Mid(data, i, 1))
+Next i
+Put #f, , ChrB(checksum)
+
+&#x27; Write ETX (End of Text)
+Put #f, , ChrB(3)
+
+Close #f
+End Sub</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Character encoding converter
+Function ConvertToANSI(text As String) As String
+Dim i As Integer
+Dim result As String
+Dim charCode As Integer
+
+For i = 1 To Len(text)
+charCode = Asc(Mid(text, i, 1))
+If charCode &lt;= 255 Then
+result = result &amp; ChrB(charCode)
+Else
+result = result &amp; ChrB(63)  &#x27; &quot;?&quot; for unmappable chars
+End If
+Next i
+
+ConvertToANSI = result
+End Function</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Binary protocol message builder
+Function CreateProtocolMessage(msgType As Byte, payload As String) As String
+Dim msg As String
+Dim length As Integer
+
+length = Len(payload)
+
+&#x27; SOH (Start of Header)
+msg = ChrB(1)
+
+&#x27; Message type
+msg = msg &amp; ChrB(msgType)
+
+&#x27; Length (2 bytes, little-endian)
+msg = msg &amp; ChrB(length Mod 256)
+msg = msg &amp; ChrB(length \ 256)
+
+&#x27; STX (Start of Text)
+msg = msg &amp; ChrB(2)
+
+&#x27; Payload
+msg = msg &amp; payload
+
+&#x27; ETX (End of Text)
+msg = msg &amp; ChrB(3)
+
+CreateProtocolMessage = msg
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeChrB(charcode As Long) As String
+On Error GoTo ErrorHandler
+
+If charcode &lt; 0 Or charcode &gt; 255 Then
+Err.Raise 5, , &quot;Character code must be between 0 and 255&quot;
+End If
+
+SafeChrB = ChrB(charcode)
+Exit Function
+
+ErrorHandler:
+SafeChrB = &quot;&quot;
+MsgBox &quot;Error converting character code &quot; &amp; charcode &amp; &quot;: &quot; &amp; Err.Description
+End Function</code></pre>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>ChrB</code> is very fast for single-byte character operations.</li>
+<li>When building large strings, consider using a byte array and converting once at the end.</li>
+<li><code>String</code> concatenation in a loop can be slow; use <code>StringBuilder</code> pattern if available.</li>
+<li><code>ChrB(0)</code> through <code>ChrB(31)</code> are control characters and may not display visibly.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use named constants for common control characters instead of magic numbers</li>
+<li>Validate character codes are in the range 0-255 before calling <code>ChrB</code></li>
+<li>Use <code>ChrB</code> for ANSI/byte operations, <code>ChrW</code> for Unicode operations</li>
+<li>Document when using non-printable characters (codes 0-31)</li>
+<li>Consider code page issues when working with extended ANSI (128-255)</li>
+<li>Use <code>vbCrLf</code> constant instead of <code>ChrB(13) &amp; ChrB(10)</code> when possible</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Character Set</th>
+<th>Return Type</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ChrB</code></td>
+<td>ANSI (byte)</td>
+<td>`String (1 byte)</td>
+<td>Legacy ANSI text, byte operations</td>
+</tr>
+<tr>
+<td><code>Chr</code></td>
+<td>ANSI/Unicode</td>
+<td><code>String</code></td>
+<td>General character conversion</td>
+</tr>
+<tr>
+<td><code>ChrW</code></td>
+<td>Unicode</td>
+<td><code>String (2 bytes)</code></td>
+<td>Unicode character conversion</td>
+</tr>
+<tr>
+<td><code>AscB</code></td>
+<td>ANSI (byte)</td>
+<td><code>Integer</code></td>
+<td>Get ANSI code from character</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li><code>ChrB</code> behavior is consistent across Windows platforms.</li>
+<li>Extended ANSI characters (128-255) may vary by system code page.</li>
+<li>In VB6, strings are internally Unicode but <code>ChrB</code> returns ANSI byte values.</li>
+<li><code>ChrB</code> is primarily for backward compatibility with older code.</li>
+</ul>
+<h2 id="common-character-codes">Common Character Codes</h2>
+<ul>
+<li>0: Null character</li>
+<li>7: Bell/beep</li>
+<li>8: Backspace</li>
+<li>9: Tab</li>
+<li>10: Line feed (LF)</li>
+<li>13: Carriage return (CR)</li>
+<li>32: Space</li>
+<li>34: Double quote</li>
+<li>39: Single quote/apostrophe</li>
+<li>65-90: Uppercase A-Z</li>
+<li>97-122: Lowercase a-z</li>
+<li>48-57: Digits 0-9</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only supports ANSI character codes (0-255).</li>
+<li>Cannot represent Unicode characters beyond the ANSI range.</li>
+<li>Code page dependent for values 128-255.</li>
+<li>Runtime error if charcode is outside valid range.</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

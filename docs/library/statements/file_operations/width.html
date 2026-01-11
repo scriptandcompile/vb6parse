@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - width - File Operations">
+    <title>width - File Operations - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/file_operations/index.html">File Operations</a> / width</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="width-statement">Width Statement</h1>
+<p>Assigns an output line width to a file opened using the Open statement.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Width #filenumber, width</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>filenumber</strong>: Required. Any valid file number.</li>
+<li><strong>width</strong>: Required. Numeric expression in the range 0–255, inclusive, that indicates how
+many characters appear on a line before a new line is started. If width equals 0, there is
+no limit to the length of a line. The default value for width is 0.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Output Formatting</strong>: The Width # statement is used with the Print # or Write # statements
+to control output formatting to files.</li>
+<li><strong>Line Length Control</strong>: For files opened for sequential output, if the width of a line of
+output exceeds the value specified for width, a new line is automatically started.</li>
+<li><strong>No Effect on Input</strong>: The Width # statement has no effect on files opened for input or
+binary access.</li>
+<li><strong>Zero Width</strong>: Setting width to 0 means there is no line length limit, allowing continuous
+output without automatic line breaks.</li>
+<li><strong>Maximum Width</strong>: The maximum width value is 255 characters.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-width-setting">Basic Width Setting</h3>
+<pre><code class="language-vbnet">Open &quot;output.txt&quot; For Output As #1
+Width #1, 80
+Print #1, &quot;This output will wrap at 80 characters&quot;
+Close #1</code></pre>
+<h3 id="set-unlimited-width">Set Unlimited Width</h3>
+<pre><code class="language-vbnet">Open &quot;data.csv&quot; For Output As #2
+Width #2, 0  &#x27; No line length limit
+Print #2, LongDataString
+Close #2</code></pre>
+<h3 id="width-with-multiple-files">Width with Multiple Files</h3>
+<pre><code class="language-vbnet">Open &quot;narrow.txt&quot; For Output As #1
+Open &quot;wide.txt&quot; For Output As #2
+Width #1, 40
+Width #2, 120</code></pre>
+<h3 id="dynamic-width-setting">Dynamic Width Setting</h3>
+<pre><code class="language-vbnet">Dim lineWidth As Integer
+lineWidth = 80
+Open &quot;report.txt&quot; For Output As #1
+Width #1, lineWidth</code></pre>
+<h3 id="width-for-formatted-output">Width for Formatted Output</h3>
+<pre><code class="language-vbnet">Open &quot;report.txt&quot; For Output As #1
+Width #1, 80
+Print #1, Tab(10); &quot;Header&quot;
+Print #1, Tab(10); String$(50, &quot;-&quot;)
+Close #1</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="report-generation-with-fixed-width">Report Generation with Fixed Width</h3>
+<pre><code class="language-vbnet">Sub GenerateReport()
+Open &quot;report.txt&quot; For Output As #1
+Width #1, 80
+
+Print #1, &quot;Annual Sales Report&quot;
+Print #1, String$(80, &quot;=&quot;)
+&#x27; ... report content ...
+
+Close #1
+End Sub</code></pre>
+<h3 id="csv-export-no-width-limit">CSV Export (No Width Limit)</h3>
+<pre><code class="language-vbnet">Sub ExportCSV()
+Open &quot;export.csv&quot; For Output As #1
+Width #1, 0  &#x27; Allow unlimited line length
+
+For i = 1 To RecordCount
+Print #1, BuildCSVLine(i)
+Next i
+
+Close #1
+End Sub</code></pre>
+<h3 id="console-style-output">Console-Style Output</h3>
+<pre><code class="language-vbnet">Open &quot;console.log&quot; For Output As #1
+Width #1, 80  &#x27; Standard console width
+Print #1, &quot;System Log - &quot;; Now()
+Close #1</code></pre>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File Operations</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

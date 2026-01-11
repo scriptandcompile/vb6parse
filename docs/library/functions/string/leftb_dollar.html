@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - leftb_dollar - String">
+    <title>leftb_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / leftb_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="leftb-function"><code>LeftB$</code> Function</h1>
+<p>Returns a <code>String</code> containing a specified number of bytes from the left side of a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">LeftB$(string, length)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code>: Required. String expression from which the leftmost bytes are returned. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+<li><code>length</code>: Required. Numeric expression indicating how many bytes to return. If 0, a zero-length string ("") is returned. If greater than or equal to the number of bytes in <code>string</code>, the entire string is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the leftmost <code>length</code> bytes from <code>string</code>. If <code>length</code> is 0, returns an empty string. If <code>length</code> is greater than or equal to the byte length of <code>string</code>, returns the entire string.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>LeftB$</code> function is used with byte data contained in a string. Instead of specifying the number of characters to return, <code>length</code> specifies the number of bytes.</p>
+<p>This function is particularly useful when working with:
+- Binary data stored in strings
+- ANSI strings where you need byte-level control
+- Double-byte character set (DBCS) strings
+- Legacy file formats that use byte-oriented data
+- Network protocols that specify byte lengths</p>
+<p><code>LeftB$</code> is the byte-oriented version of <code>Left$</code>. While <code>Left$</code> counts characters, <code>LeftB$</code> counts bytes. In single-byte character sets (like standard ASCII), these are equivalent, but in DBCS systems (like Japanese, Chinese, or Korean Windows), characters may occupy multiple bytes.</p>
+<p>The <code>LeftB$</code> function always returns a <code>String</code>. The <code>LeftB</code> function returns a <code>Variant</code>.</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<h3 id="example-1-extracting-binary-header">Example 1: Extracting Binary Header</h3>
+<pre><code class="language-vbnet">Dim data As String
+data = binaryData
+header = LeftB$(data, 4)  &#x27; Get first 4 bytes</code></pre>
+<h3 id="example-2-reading-fixed-byte-records">Example 2: Reading Fixed-Byte Records</h3>
+<pre><code class="language-vbnet">Dim record As String
+record = GetRecord()
+idBytes = LeftB$(record, 8)  &#x27; First 8 bytes = ID</code></pre>
+<h3 id="example-3-processing-dbcs-strings">Example 3: Processing DBCS Strings</h3>
+<pre><code class="language-vbnet">Dim jpText As String
+jpText = &quot;日本語&quot;  &#x27; Japanese text
+bytes = LeftB$(jpText, 4)  &#x27; Get first 4 bytes (may be 2 DBCS chars)</code></pre>
+<h3 id="example-4-protocol-header-extraction">Example 4: Protocol Header Extraction</h3>
+<pre><code class="language-vbnet">Dim packet As String
+packet = ReceivePacket()
+magic = LeftB$(packet, 2)  &#x27; 2-byte magic number</code></pre>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="extracting-file-signature">Extracting File Signature</h3>
+<pre><code class="language-vbnet">Dim fileData As String
+Open fileName For Binary As #1
+fileData = Input$(LOF(1), #1)
+Close #1
+signature = LeftB$(fileData, 4)
+If signature = &quot;MZ&quot; &amp; Chr$(0) &amp; Chr$(0) Then
+Debug.Print &quot;Executable file&quot;
+End If</code></pre>
+<h3 id="reading-binary-structure">Reading Binary Structure</h3>
+<pre><code class="language-vbnet">Dim buffer As String
+buffer = GetBinaryData()
+version = LeftB$(buffer, 2)  &#x27; 2-byte version field</code></pre>
+<h3 id="processing-network-data">Processing Network Data</h3>
+<pre><code class="language-vbnet">Dim netData As String
+netData = Socket.Receive()
+header = LeftB$(netData, 16)  &#x27; 16-byte protocol header</code></pre>
+<h3 id="validating-byte-prefix">Validating Byte Prefix</h3>
+<pre><code class="language-vbnet">If LeftB$(data, 3) = Chr$(0xFF) &amp; Chr$(0xFE) &amp; Chr$(0xFD) Then
+Debug.Print &quot;Valid magic bytes&quot;
+End If</code></pre>
+<h3 id="extracting-bmp-header">Extracting BMP Header</h3>
+<pre><code class="language-vbnet">Dim bmpData As String
+Open &quot;image.bmp&quot; For Binary As #1
+bmpData = Input$(54, #1)  &#x27; BMP header is 54 bytes
+Close #1
+fileType = LeftB$(bmpData, 2)  &#x27; &quot;BM&quot; for BMP files</code></pre>
+<h3 id="reading-length-prefixed-data">Reading Length-Prefixed Data</h3>
+<pre><code class="language-vbnet">Dim message As String
+message = buffer
+lenBytes = LeftB$(message, 4)
+msgLen = CLng(AscB(MidB$(lenBytes, 1, 1))) + _
+CLng(AscB(MidB$(lenBytes, 2, 1))) * 256</code></pre>
+<h3 id="processing-dbcs-carefully">Processing DBCS Carefully</h3>
+<pre><code class="language-vbnet">Dim text As String
+text = dbcsString
+&#x27; Be careful not to split DBCS characters
+If LenB(text) &gt; 10 Then
+truncated = LeftB$(text, 10)
+End If</code></pre>
+<h3 id="comparing-byte-sequences">Comparing Byte Sequences</h3>
+<pre><code class="language-vbnet">Dim data1 As String, data2 As String
+If LeftB$(data1, 8) = LeftB$(data2, 8) Then
+Debug.Print &quot;Headers match&quot;
+End If</code></pre>
+<h3 id="extracting-guid-bytes">Extracting GUID Bytes</h3>
+<pre><code class="language-vbnet">Dim guidStr As String
+guidStr = GetGUIDBytes()
+data1 = LeftB$(guidStr, 4)   &#x27; First DWORD
+data2 = MidB$(guidStr, 5, 2) &#x27; First WORD</code></pre>
+<h3 id="processing-binary-chunks">Processing Binary Chunks</h3>
+<pre><code class="language-vbnet">Dim chunk As String
+Dim offset As Long
+offset = 1
+Do While offset &lt;= LenB(binaryData)
+chunk = MidB$(binaryData, offset, 512)
+If LenB(chunk) = 0 Then Exit Do
+processChunk LeftB$(chunk, 512)
+offset = offset + 512
+Loop</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>LeftB</code>: Variant version that returns a <code>Variant</code></li>
+<li><code>Left$</code>: Character-based version that counts characters</li>
+<li><code>RightB$</code>: Returns bytes from the right side of a string</li>
+<li><code>MidB$</code>: Returns bytes from the middle of a string</li>
+<li><code>LenB</code>: Returns the number of bytes in a string</li>
+<li><code>AscB</code>: Returns the byte value of the first byte</li>
+<li><code>ChrB$</code>: Returns a string containing a single byte</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use <code>LeftB$</code> when working with binary data or byte-oriented protocols</li>
+<li>Be careful with DBCS strings - splitting may corrupt characters</li>
+<li>Always validate byte length before extraction to avoid errors</li>
+<li>Use <code>LenB</code> to get byte length, not <code>Len</code></li>
+<li>Prefer <code>LeftB$</code> over <code>Left$</code> for binary file operations</li>
+<li>Remember that byte positions are 1-based, not 0-based</li>
+<li>Use with <code>InputB$</code> when reading binary files</li>
+<li>Test DBCS string operations on appropriate language systems</li>
+<li>Combine with <code>AscB</code> and <code>ChrB$</code> for byte-level manipulation</li>
+<li>Document whether your code expects SBCS or DBCS strings</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>LeftB$</code> is slightly faster than <code>Left$</code> for binary data</li>
+<li>No performance penalty for requesting more bytes than available</li>
+<li>More efficient than character-by-character byte extraction</li>
+<li>Direct byte access is faster than converting to byte arrays</li>
+<li>Minimal overhead compared to <code>Left$</code> in SBCS environments</li>
+</ul>
+<h2 id="character-set-behavior">Character Set Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Byte per Char</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>English Windows</td>
+<td>1 byte</td>
+<td><code>LeftB$</code> and <code>Left$</code> behave identically</td>
+</tr>
+<tr>
+<td>DBCS Windows</td>
+<td>1-2 bytes</td>
+<td><code>LeftB$</code> may split multi-byte characters</td>
+</tr>
+<tr>
+<td>Unicode VB6</td>
+<td>2 bytes</td>
+<td>Internal strings are Unicode but converted</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td>N/A</td>
+<td><code>LeftB$</code> treats data as raw bytes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<ul>
+<li>Using <code>LeftB$</code> on DBCS strings without checking character boundaries</li>
+<li>Confusing byte length (<code>LenB</code>) with character length (<code>Len</code>)</li>
+<li>Assuming one byte equals one character in all locales</li>
+<li>Not handling <code>Null</code> string values (causes runtime error)</li>
+<li>Passing negative length values (causes runtime error)</li>
+<li>Using <code>LeftB$</code> for text processing (use <code>Left$</code> instead)</li>
+<li>Forgetting that VB6 strings are internally Unicode</li>
+<li>Splitting surrogate pairs in Unicode environments</li>
+<li>Using with text functions instead of byte functions</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot specify starting byte position (use <code>MidB$</code> instead)</li>
+<li>May corrupt DBCS characters if not used carefully</li>
+<li>Returns <code>Null</code> if the string argument is <code>Null</code></li>
+<li>Length parameter cannot be <code>Null</code></li>
+<li>Not suitable for modern Unicode string processing</li>
+<li>Limited to VB6's internal string representation</li>
+<li>May produce unexpected results with emoji or complex Unicode</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

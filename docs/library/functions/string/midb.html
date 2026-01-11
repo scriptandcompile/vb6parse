@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - midb - String">
+    <title>midb - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / midb</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="midb-function"><code>MidB</code> Function</h1>
+<p>The <code>MidB</code> function returns a <code>Variant</code> (<code>String</code>) containing a specified number of bytes from a string.
+This function operates on byte positions rather than character positions, which is important when working
+with ANSI strings or when you need byte-level control over string manipulation.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">MidB(string, start[, length])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Required. <code>String</code> expression from which bytes are returned.</li>
+<li><code>start</code> - Required. <code>Long</code>. The <code>Byte</code> position in string at which the part to be taken begins (1-based).</li>
+<li><code>length</code> - Optional. <code>Long</code>. Number of bytes to return. If omitted or if there are fewer than <code>length</code> bytes in the text (including the byte at <code>start</code>), all bytes from the start position to the end of the string are returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> (<code>String</code>) containing the specified byte sequence from the input string.</p>
+<h2 id="behavior">Behavior</h2>
+<ul>
+<li>If <code>start</code> is greater than the number of bytes in <code>string</code>, <code>MidB</code> returns a zero-length string ("").</li>
+<li>If <code>start</code> is less than 1, a runtime error occurs.</li>
+<li>If <code>length</code> is negative, a runtime error occurs.</li>
+<li>The first byte in the string is at position 1.</li>
+<li>When working with DBCS (Double-Byte Character Set) strings, <code>MidB</code> can split multi-byte characters if not used carefully.</li>
+</ul>
+<h2 id="difference-from-mid">Difference from Mid</h2>
+<p>The <code>MidB</code> function operates on byte positions, while the <code>Mid</code> function operates on character positions.
+For single-byte character sets (like ASCII), they behave identically. For multi-byte character sets
+(like Unicode or DBCS), <code>MidB</code> provides byte-level access which can be useful for binary data manipulation
+or low-level string operations.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-vbnet">&#x27; Extract 3 bytes starting at byte position 2
+Dim result As Variant
+result = MidB(&quot;Hello World&quot;, 2, 3)  &#x27; Returns &quot;ell&quot;
+
+&#x27; Extract from byte position 7 to the end
+result = MidB(&quot;Hello World&quot;, 7)  &#x27; Returns &quot;World&quot;
+
+&#x27; Start position beyond string length
+result = MidB(&quot;Hi&quot;, 10)  &#x27; Returns &quot;&quot;</code></pre>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

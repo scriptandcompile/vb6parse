@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - lenb - String">
+    <title>lenb - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / lenb</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="lenb-function"><code>LenB</code> Function</h1>
+<p>The <code>LenB</code> function returns a <code>Long</code> containing the number of bytes used to represent a string in memory.
+This function operates on byte count rather than character count, which is important when working with
+ANSI strings, DBCS (Double-Byte Character Set), or when you need to know the actual memory footprint of a string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">LenB(string | varname)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>string</code> - Any valid <code>String</code> expression.</li>
+<li><code>varname</code> - Any valid variable name. If <code>varname</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Long</code> specifying the number of bytes required to store the string or variable in memory.</p>
+<h2 id="behavior">Behavior</h2>
+<ul>
+<li>For ANSI strings (single-byte character sets), <code>LenB</code> returns the same value as <code>Len</code>.</li>
+<li>For Unicode strings (VB6 default), <code>LenB</code> returns twice the value of <code>Len</code> because each Unicode character requires 2 bytes.</li>
+<li>For DBCS strings, the byte count depends on whether characters are single-byte or double-byte.</li>
+<li>If the argument is <code>Null</code>, <code>LenB</code> returns <code>Null</code>.</li>
+<li>When used with user-defined types, <code>LenB</code> returns the total byte size of the type.</li>
+</ul>
+<h2 id="difference-from-len">Difference from Len</h2>
+<p>The <code>LenB</code> function returns the byte count, while the <code>Len</code> function returns the character count.
+For single-byte character sets, they are identical. For Unicode (VB6's default string type),
+<code>LenB</code> will return twice the value of <code>Len</code>.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-vbnet">&#x27; Get byte length of a string
+Dim size As Long
+size = LenB(&quot;Hello&quot;)  &#x27; Returns 10 (5 characters * 2 bytes each in Unicode)
+
+&#x27; Compare with character length
+Dim charLen As Long
+Dim byteLen As Long
+charLen = Len(&quot;Test&quot;)   &#x27; Returns 4
+byteLen = LenB(&quot;Test&quot;)  &#x27; Returns 8 (Unicode)
+
+&#x27; Check memory size
+Dim buffer As String
+buffer = Space$(100)
+Dim bufferSize As Long
+bufferSize = LenB(buffer)  &#x27; Returns 200 bytes</code></pre>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

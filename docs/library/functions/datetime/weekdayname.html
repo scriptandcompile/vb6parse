@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - weekdayname - Datetime">
+    <title>weekdayname - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / weekdayname</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>WeekdayName</code> Function</p>
+<p>The <code>WeekdayName</code> function returns a string indicating the specified day of the week.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">WeekdayName(weekday[, abbreviate[, firstdayofweek]])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>weekday</code>: Required. The numeric designation for the day of the week. Numeric value of each day depends on the <code>firstdayofweek</code> setting.</li>
+<li><code>abbreviate</code>: Optional. Boolean value that indicates if the weekday name is to be abbreviated. If omitted, the default is False (not abbreviated).</li>
+<li><code>firstdayofweek</code>: Optional. Numeric value indicating the first day of the week. See Settings section for values.</li>
+</ul>
+<h3 id="firstdayofweek-constants"><code>FirstDayOfWeek</code> Constants</h3>
+<ul>
+<li><code>vbUseSystemDayOfWeek</code> (0): Use National Language Support (NLS) API setting</li>
+<li><code>vbSunday</code> (1): Sunday (default)</li>
+<li><code>vbMonday</code> (2): Monday</li>
+<li><code>vbTuesday</code> (3): Tuesday</li>
+<li><code>vbWednesday</code> (4): Wednesday</li>
+<li><code>vbThursday</code> (5): Thursday</li>
+<li><code>vbFriday</code> (6): Friday</li>
+<li><code>vbSaturday</code> (7): Saturday</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> containing the name of the specified day of the week. The string is localized based on the system's regional settings.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>WeekdayName</code> function provides localized day names:</p>
+<ul>
+<li><strong>Localization</strong>: Returns day names according to system locale (e.g., "Monday" in English, "Lundi" in French)</li>
+<li><strong>Abbreviation</strong>: When <code>abbreviate</code> is True, returns shortened form (e.g., "Mon" instead of "Monday")</li>
+<li><strong>Weekday parameter</strong>: Numeric value from 1 to 7</li>
+<li><strong>Default first day</strong>: Sunday (vbSunday = 1) if <code>firstdayofweek</code> not specified</li>
+<li><strong>Consistency with Weekday</strong>: Use same <code>firstdayofweek</code> value as Weekday function for consistency</li>
+<li><strong>System locale</strong>: Output language depends on Windows regional settings</li>
+<li><strong>Case sensitivity</strong>: Returned string typically has proper capitalization</li>
+<li><strong>Abbreviation length</strong>: Typically 3 characters in English, varies by locale</li>
+</ul>
+<h3 id="understanding-weekday-parameter">Understanding Weekday Parameter</h3>
+<p>The <code>weekday</code> parameter's meaning depends on <code>firstdayofweek</code>:
+- If <code>firstdayofweek</code> is <code>vbSunday</code> (default): 1=Sunday, 2=Monday, 3=Tuesday, etc.
+- If <code>firstdayofweek</code> is <code>vbMonday</code>: 1=Monday, 2=Tuesday, 3=Wednesday, etc.
+- The number always refers to the position in the week, starting from the specified first day</p>
+<h3 id="abbreviation-examples-english-locale">Abbreviation Examples (English locale)</h3>
+<ul>
+<li>Full: "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"</li>
+<li>Abbreviated: "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"</li>
+</ul>
+<h3 id="combining-with-weekday-function">Combining with Weekday Function</h3>
+<pre><code class="language-vbnet">&#x27; Get the name of today&#x27;s day
+dayName = WeekdayName(Weekday(Date))</code></pre>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Display Day Names</strong>: Show user-friendly day names in UI</li>
+<li><strong>Report Headers</strong>: Label columns or sections with day names</li>
+<li><strong>Calendar Applications</strong>: Display calendar grid headers</li>
+<li><strong>Localized Applications</strong>: Provide day names in user's language</li>
+<li><strong>Schedule Display</strong>: Show schedule with day names</li>
+<li><strong>Date Formatting</strong>: Create custom date format strings</li>
+<li><strong>Dropdown Lists</strong>: Populate day selection dropdowns</li>
+<li><strong>Log Files</strong>: Human-readable date information in logs</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-get-todays-day-name">Example 1: Get Today's Day Name</h3>
+<pre><code class="language-vbnet">Sub ShowTodayName()
+Dim todayName As String
+todayName = WeekdayName(Weekday(Date))
+MsgBox &quot;Today is &quot; &amp; todayName
+End Sub</code></pre>
+<h3 id="example-2-display-all-day-names">Example 2: Display All Day Names</h3>
+<pre><code class="language-vbnet">Sub ListAllDays()
+Dim i As Integer
+For i = 1 To 7
+Debug.Print WeekdayName(i)
+Next i
+End Sub</code></pre>
+<h3 id="example-3-abbreviated-day-names">Example 3: Abbreviated Day Names</h3>
+<pre><code class="language-vbnet">Function GetAbbreviatedDayName(dayNumber As Integer) As String
+GetAbbreviatedDayName = WeekdayName(dayNumber, True)
+End Function
+
+&#x27; Usage:
+Debug.Print GetAbbreviatedDayName(1) &#x27; Prints &quot;Sun&quot; (if vbSunday is first day)</code></pre>
+<h3 id="example-4-create-calendar-header">Example 4: Create Calendar Header</h3>
+<pre><code class="language-vbnet">Function CreateCalendarHeader(Optional abbreviated As Boolean = True) As String
+Dim i As Integer
+Dim header As String
+
+header = &quot;&quot;
+For i = 1 To 7
+header = header &amp; WeekdayName(i, abbreviated, vbSunday) &amp; vbTab
+Next i
+
+CreateCalendarHeader = header
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-format-date-with-day-name">Pattern 1: Format Date with Day Name</h3>
+<pre><code class="language-vbnet">Function FormatDateWithDayName(dt As Date) As String
+FormatDateWithDayName = WeekdayName(Weekday(dt)) &amp; &quot;, &quot; &amp; Format$(dt, &quot;mmmm d, yyyy&quot;)
+End Function</code></pre>
+<h3 id="pattern-2-get-all-day-names-array">Pattern 2: Get All Day Names Array</h3>
+<pre><code class="language-vbnet">Function GetDayNamesArray(Optional abbreviated As Boolean = False) As String()
+Dim days(1 To 7) As String
+Dim i As Integer
+
+For i = 1 To 7
+days(i) = WeekdayName(i, abbreviated)
+Next i
+
+GetDayNamesArray = days
+End Function</code></pre>
+<h3 id="pattern-3-iso-week-day-names-monday-first">Pattern 3: ISO Week Day Names (Monday First)</h3>
+<pre><code class="language-vbnet">Function GetISODayName(dayNumber As Integer, Optional abbreviated As Boolean = False) As String
+GetISODayName = WeekdayName(dayNumber, abbreviated, vbMonday)
+End Function</code></pre>
+<h3 id="pattern-4-populate-combobox-with-days">Pattern 4: Populate <code>ComboBox</code> with Days</h3>
+<pre><code class="language-vbnet">Sub PopulateDayCombo(combo As ComboBox)
+Dim i As Integer
+combo.Clear
+For i = 1 To 7
+combo.AddItem WeekdayName(i)
+Next i
+End Sub</code></pre>
+<h3 id="pattern-5-get-day-initials">Pattern 5: Get Day Initials</h3>
+<pre><code class="language-vbnet">Function GetDayInitial(dayNumber As Integer) As String
+GetDayInitial = Left$(WeekdayName(dayNumber, True), 1)
+End Function</code></pre>
+<h3 id="pattern-6-create-week-schedule-header">Pattern 6: Create Week Schedule Header</h3>
+<pre><code class="language-vbnet">Function CreateWeekSchedule() As String
+Dim i As Integer
+Dim schedule As String
+
+schedule = &quot;Week Schedule:&quot; &amp; vbCrLf
+For i = 1 To 7
+schedule = schedule &amp; WeekdayName(i) &amp; &quot;: _____&quot; &amp; vbCrLf
+Next i
+
+CreateWeekSchedule = schedule
+End Function</code></pre>
+<h3 id="pattern-7-format-event-description">Pattern 7: Format Event Description</h3>
+<pre><code class="language-vbnet">Function FormatEventDescription(eventDate As Date, eventName As String) As String
+FormatEventDescription = eventName &amp; &quot; on &quot; &amp; _
+WeekdayName(Weekday(eventDate)) &amp; &quot;, &quot; &amp; _
+Format$(eventDate, &quot;mmmm d&quot;)
+End Function</code></pre>
+<h3 id="pattern-8-get-weekday-vs-weekend-label">Pattern 8: Get Weekday vs Weekend Label</h3>
+<pre><code class="language-vbnet">Function GetDayTypeLabel(dt As Date) As String
+Dim dayNum As Integer
+dayNum = Weekday(dt)
+
+If dayNum = vbSaturday Or dayNum = vbSunday Then
+GetDayTypeLabel = WeekdayName(dayNum) &amp; &quot; (Weekend)&quot;
+Else
+GetDayTypeLabel = WeekdayName(dayNum) &amp; &quot; (Weekday)&quot;
+End If
+End Function</code></pre>
+<h3 id="pattern-9-create-pivot-headers">Pattern 9: Create Pivot Headers</h3>
+<pre><code class="language-vbnet">Function CreatePivotDayHeaders() As Variant
+Dim headers(1 To 7) As String
+Dim i As Integer
+
+For i = 1 To 7
+headers(i) = WeekdayName(i, True, vbMonday)
+Next i
+
+CreatePivotDayHeaders = headers
+End Function</code></pre>
+<h3 id="pattern-10-conditional-day-name-display">Pattern 10: Conditional Day Name Display</h3>
+<pre><code class="language-vbnet">Function GetDisplayDayName(dt As Date, useAbbreviation As Boolean) As String
+GetDisplayDayName = WeekdayName(Weekday(dt), useAbbreviation)
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-calendar-header-generator-class">Example 1: Calendar Header Generator Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: CalendarHeaderGenerator
+&#x27; Generates calendar headers with configurable options
+Option Explicit
+
+Private m_FirstDayOfWeek As VbDayOfWeek
+Private m_Abbreviated As Boolean
+Private m_Separator As String
+
+Public Sub Initialize(Optional firstDay As VbDayOfWeek = vbSunday, _
+Optional abbreviated As Boolean = True, _
+Optional separator As String = &quot; &quot;)
+m_FirstDayOfWeek = firstDay
+m_Abbreviated = abbreviated
+m_Separator = separator
+End Sub
+
+Public Function GenerateHeader() As String
+Dim i As Integer
+Dim header As String
+
+header = &quot;&quot;
+For i = 1 To 7
+If i &gt; 1 Then header = header &amp; m_Separator
+header = header &amp; WeekdayName(i, m_Abbreviated, m_FirstDayOfWeek)
+Next i
+
+GenerateHeader = header
+End Function
+
+Public Function GenerateHeaderArray() As String()
+Dim headers(1 To 7) As String
+Dim i As Integer
+
+For i = 1 To 7
+headers(i) = WeekdayName(i, m_Abbreviated, m_FirstDayOfWeek)
+Next i
+
+GenerateHeaderArray = headers
+End Function
+
+Public Function GetDayName(dayNumber As Integer) As String
+If dayNumber &lt; 1 Or dayNumber &gt; 7 Then
+Err.Raise 5, , &quot;Day number must be between 1 and 7&quot;
+End If
+GetDayName = WeekdayName(dayNumber, m_Abbreviated, m_FirstDayOfWeek)
+End Function</code></pre>
+<h3 id="example-2-date-formatter-module">Example 2: Date Formatter Module</h3>
+<pre><code class="language-vbnet">&#x27; Module: DateFormatter
+&#x27; Advanced date formatting with day names
+Option Explicit
+
+Public Function FormatLongDate(dt As Date) As String
+FormatLongDate = WeekdayName(Weekday(dt)) &amp; &quot;, &quot; &amp; _
+Format$(dt, &quot;mmmm d, yyyy&quot;)
+End Function
+
+Public Function FormatShortDate(dt As Date) As String
+FormatShortDate = WeekdayName(Weekday(dt), True) &amp; &quot; &quot; &amp; _
+Format$(dt, &quot;mm/dd/yyyy&quot;)
+End Function
+
+Public Function FormatScheduleDate(dt As Date) As String
+FormatScheduleDate = WeekdayName(Weekday(dt), True) &amp; &quot;, &quot; &amp; _
+Format$(dt, &quot;mmm d&quot;)
+End Function
+
+Public Function FormatCalendarDate(dt As Date) As String
+FormatCalendarDate = WeekdayName(Weekday(dt)) &amp; vbCrLf &amp; _
+Format$(dt, &quot;d&quot;)
+End Function
+
+Public Function GetDayWithOrdinal(dt As Date) As String
+Dim dayNum As Integer
+Dim suffix As String
+
+dayNum = Day(dt)
+
+Select Case dayNum
+Case 1, 21, 31
+suffix = &quot;st&quot;
+Case 2, 22
+suffix = &quot;nd&quot;
+Case 3, 23
+suffix = &quot;rd&quot;
+Case Else
+suffix = &quot;th&quot;
+End Select
+
+GetDayWithOrdinal = WeekdayName(Weekday(dt)) &amp; &quot;, &quot; &amp; _
+MonthName(Month(dt)) &amp; &quot; &quot; &amp; dayNum &amp; suffix
+End Function</code></pre>
+<h3 id="example-3-schedule-analyzer-class">Example 3: Schedule Analyzer Class</h3>
+<pre><code class="language-vbnet">&#x27; Class: ScheduleAnalyzer
+&#x27; Analyzes schedules and provides day-based insights
+Option Explicit
+
+Public Function GetDayDistributionReport(dates() As Date) As String
+Dim dayCounts(1 To 7) As Integer
+Dim i As Long
+Dim report As String
+Dim dayNum As Integer
+
+&#x27; Count occurrences
+For i = LBound(dates) To UBound(dates)
+dayNum = Weekday(dates(i))
+dayCounts(dayNum) = dayCounts(dayNum) + 1
+Next i
+
+&#x27; Build report
+report = &quot;Day Distribution:&quot; &amp; vbCrLf
+For i = 1 To 7
+report = report &amp; WeekdayName(i) &amp; &quot;: &quot; &amp; dayCounts(i) &amp; vbCrLf
+Next i
+
+GetDayDistributionReport = report
+End Function
+
+Public Function GetMostCommonDay(dates() As Date) As String
+Dim dayCounts(1 To 7) As Integer
+Dim i As Long
+Dim maxCount As Integer
+Dim maxDay As Integer
+Dim dayNum As Integer
+
+For i = LBound(dates) To UBound(dates)
+dayNum = Weekday(dates(i))
+dayCounts(dayNum) = dayCounts(dayNum) + 1
+Next i
+
+maxCount = 0
+maxDay = 1
+For i = 1 To 7
+If dayCounts(i) &gt; maxCount Then
+maxCount = dayCounts(i)
+maxDay = i
+End If
+Next i
+
+GetMostCommonDay = WeekdayName(maxDay)
+End Function
+
+Public Function CreateDaySummary(dates() As Date) As Collection
+Dim summary As New Collection
+Dim i As Integer
+
+For i = 1 To 7
+summary.Add 0, WeekdayName(i)
+Next i
+
+Dim dt As Variant
+For Each dt In dates
+Dim dayName As String
+dayName = WeekdayName(Weekday(dt))
+summary.Remove dayName
+summary.Add summary(dayName) + 1, dayName
+Next dt
+
+Set CreateDaySummary = summary
+End Function</code></pre>
+<h3 id="example-4-localization-helper-module">Example 4: Localization Helper Module</h3>
+<pre><code class="language-vbnet">&#x27; Module: LocalizationHelper
+&#x27; Helps with localized day name handling
+Option Explicit
+
+Public Function GetLocalizedDayNames(Optional abbreviated As Boolean = False, _
+Optional firstDay As VbDayOfWeek = vbSunday) As String()
+Dim names(1 To 7) As String
+Dim i As Integer
+
+For i = 1 To 7
+names(i) = WeekdayName(i, abbreviated, firstDay)
+Next i
+
+GetLocalizedDayNames = names
+End Function
+
+Public Function CreateDayNameLookup(Optional abbreviated As Boolean = False) As Collection
+Dim lookup As New Collection
+Dim i As Integer
+
+For i = 1 To 7
+lookup.Add WeekdayName(i, abbreviated), CStr(i)
+Next i
+
+Set CreateDayNameLookup = lookup
+End Function
+
+Public Function FindDayNumber(dayName As String) As Integer
+Dim i As Integer
+
+For i = 1 To 7
+If UCase$(WeekdayName(i)) = UCase$(dayName) Then
+FindDayNumber = i
+Exit Function
+End If
+If UCase$(WeekdayName(i, True)) = UCase$(dayName) Then
+FindDayNumber = i
+Exit Function
+End If
+Next i
+
+FindDayNumber = 0 &#x27; Not found
+End Function
+
+Public Function IsDayNameValid(dayName As String) As Boolean
+IsDayNameValid = (FindDayNumber(dayName) &gt; 0)
+End Function
+
+Public Function NormalizeDayName(dayName As String) As String
+Dim dayNum As Integer
+dayNum = FindDayNumber(dayName)
+
+If dayNum &gt; 0 Then
+NormalizeDayName = WeekdayName(dayNum)
+Else
+NormalizeDayName = &quot;&quot;
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>WeekdayName</code> function can raise the following errors:</p>
+<ul>
+<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>weekday</code> is less than 1 or greater than 7</li>
+<li><strong>Error 5 (Invalid procedure call or argument)</strong>: If <code>firstdayofweek</code> is not between 0 and 7</li>
+<li><strong>Error 13 (Type mismatch)</strong>: If arguments are not of correct type</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>Very fast operation - simple lookup/formatting</li>
+<li>Constant time O(1) complexity</li>
+<li>No significant performance difference between abbreviated and full forms</li>
+<li>Can be called repeatedly without performance concerns</li>
+<li>Consider caching day name arrays if used frequently in loops</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use consistent firstdayofweek</strong> with Weekday function to avoid confusion</li>
+<li><strong>Cache day name arrays</strong> if populating lists or grids repeatedly</li>
+<li><strong>Handle localization</strong> - day names will differ based on system locale</li>
+<li><strong>Document expectations</strong> about which day is first in week</li>
+<li><strong>Use abbreviation</strong> parameter for space-constrained displays</li>
+<li><strong>Validate weekday range</strong> (1-7) before calling</li>
+<li><strong>Consider <code>MonthName</code></strong> for consistent date formatting patterns</li>
+<li><strong>Test with different locales</strong> if application is internationalized</li>
+<li><strong>Use named constants</strong> (vbMonday, etc.) for clarity</li>
+<li><strong>Combine with Format$</strong> for custom date displays</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Localized</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WeekdayName</code></td>
+<td>Get day name</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Weekday</code></td>
+<td>Get day number</td>
+<td>Integer (1-7)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>MonthName</code></td>
+<td>Get month name</td>
+<td>String</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Format$</code></td>
+<td>Format date</td>
+<td>String</td>
+<td>Partially</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, and <code>VBScript</code></li>
+<li>Behavior consistent across platforms</li>
+<li>Output localized based on system regional settings</li>
+<li>Abbreviation format varies by locale</li>
+<li>English (US): "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"</li>
+<li>Other languages will return appropriate translations</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot customize day name output (uses system locale)</li>
+<li>Abbreviation length not configurable (determined by locale)</li>
+<li>No way to get day name in specific language (uses system setting)</li>
+<li>Cannot get day names for custom calendars (e.g., Hebrew, Islamic)</li>
+<li>No built-in way to get single-letter day abbreviations</li>
+<li>Cannot specify case (capitalization) of returned string</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

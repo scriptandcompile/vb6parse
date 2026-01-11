@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - tab - Graphics">
+    <title>tab - Graphics - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/graphics/index.html">Graphics</a> / tab</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>VB6 <code>Tab</code> Function</p>
+<p>The <code>Tab</code> function is used in Print statements to position output at a specific column number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Tab([column])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>column</code>: Optional. Numeric expression indicating the column number (1-based) at which to position the next character printed. If omitted, moves to the next print zone.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a special value used only in Print statements to control output position. It does not return a value for assignment or calculation.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>Tab</code> is only meaningful within Print statements (e.g., <code>Print #1, Tab(10); "Hello"</code>).</li>
+<li>If <code>column</code> is omitted, output moves to the next print zone (every 14 columns by default).</li>
+<li>If <code>column</code> is less than the current print position, output moves to that column on the next line.</li>
+<li>If <code>column</code> is greater than the output line width, output starts at column 1 on the next line.</li>
+<li><code>Tab</code> cannot be used in assignment or as a function value.</li>
+<li><code>Tab</code> is not evaluated as a function in expressions outside Print context.</li>
+<li><code>Tab</code> is not the same as the Tab key or character (Chr$(9)).</li>
+<li>In Print statements, <code>Tab</code> can be combined with <code>Spc</code> for advanced formatting.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li>Aligning columns in printed output</li>
+<li>Formatting reports</li>
+<li>Creating tabular data in files</li>
+<li>Printing to the Immediate window</li>
+<li>Outputting to files with Print #</li>
+<li>Combining with <code>Spc</code> for custom spacing</li>
+<li>Printing headers and data in columns</li>
+<li>Generating formatted logs</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-print-with-tab">Example 1: Print with Tab</h3>
+<pre><code class="language-vbnet">Print Tab(10); &quot;Hello&quot;</code></pre>
+<h3 id="example-2-print-to-file-with-tab">Example 2: Print to file with Tab</h3>
+<pre><code class="language-vbnet">Print #1, Tab(20); &quot;World&quot;</code></pre>
+<h3 id="example-3-print-with-omitted-column">Example 3: Print with omitted column</h3>
+<pre><code class="language-vbnet">Print Tab; &quot;Next zone&quot;</code></pre>
+<h3 id="example-4-print-multiple-columns">Example 4: Print multiple columns</h3>
+<pre><code class="language-vbnet">Print Tab(5); &quot;A&quot;; Tab(15); &quot;B&quot;; Tab(25); &quot;C&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-print-table-header">Pattern 1: Print table header</h3>
+<pre><code class="language-vbnet">Print Tab(1); &quot;ID&quot;; Tab(10); &quot;Name&quot;; Tab(30); &quot;Score&quot;</code></pre>
+<h3 id="pattern-2-print-data-rows">Pattern 2: Print data rows</h3>
+<pre><code class="language-vbnet">For i = 1 To 10
+Print Tab(1); i; Tab(10); names(i); Tab(30); scores(i)
+Next i</code></pre>
+<h3 id="pattern-3-print-with-spc">Pattern 3: Print with Spc</h3>
+<pre><code class="language-vbnet">Print Tab(10); Spc(5); &quot;Data&quot;</code></pre>
+<h3 id="pattern-4-print-to-immediate-window">Pattern 4: Print to Immediate window</h3>
+<pre><code class="language-vbnet">Debug.Print Tab(15); &quot;Debug info&quot;</code></pre>
+<h3 id="pattern-5-print-to-file">Pattern 5: Print to file</h3>
+<pre><code class="language-vbnet">Print #1, Tab(8); &quot;File data&quot;</code></pre>
+<h3 id="pattern-6-print-with-omitted-column">Pattern 6: Print with omitted column</h3>
+<pre><code class="language-vbnet">Print Tab; &quot;Default zone&quot;</code></pre>
+<h3 id="pattern-7-print-with-calculated-column">Pattern 7: Print with calculated column</h3>
+<pre><code class="language-vbnet">Print Tab(i * 5); &quot;Value&quot;</code></pre>
+<h3 id="pattern-8-print-with-variable">Pattern 8: Print with variable</h3>
+<pre><code class="language-vbnet">col = 12
+Print Tab(col); &quot;Text&quot;</code></pre>
+<h3 id="pattern-9-print-with-multiple-tab-calls">Pattern 9: Print with multiple Tab calls</h3>
+<pre><code class="language-vbnet">Print Tab(5); &quot;A&quot;; Tab(15); &quot;B&quot;; Tab(25); &quot;C&quot;</code></pre>
+<h3 id="pattern-10-print-with-tab-and-spc">Pattern 10: Print with Tab and Spc</h3>
+<pre><code class="language-vbnet">Print Tab(10); Spc(3); &quot;Mix&quot;</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-print-formatted-report">Example 1: Print formatted report</h3>
+<pre><code class="language-vbnet">Print Tab(1); &quot;Header1&quot;; Tab(20); &quot;Header2&quot;
+For i = 1 To 5
+Print Tab(1); data1(i); Tab(20); data2(i)
+Next i</code></pre>
+<h3 id="example-2-print-to-file-with-dynamic-columns">Example 2: Print to file with dynamic columns</h3>
+<pre><code class="language-vbnet">For i = 1 To 3
+Print #1, Tab(i * 10); &quot;Col&quot; &amp; i
+Next i</code></pre>
+<h3 id="example-3-print-with-omitted-column-in-loop">Example 3: Print with omitted column in loop</h3>
+<pre><code class="language-vbnet">For i = 1 To 3
+Print Tab; &quot;Row&quot; &amp; i
+Next i</code></pre>
+<h3 id="example-4-print-with-tab-and-spc-for-alignment">Example 4: Print with Tab and Spc for alignment</h3>
+<pre><code class="language-vbnet">Print Tab(10); Spc(2); &quot;Aligned&quot;</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<ul>
+<li>If <code>column</code> is less than 1, output starts at column 1 of the next line.</li>
+<li>If <code>column</code> is omitted, output moves to the next print zone.</li>
+<li>If <code>column</code> is greater than line width, output starts at column 1 of the next line.</li>
+</ul>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li>No performance impact; only affects output formatting.</li>
+<li>Used only in Print statements.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Use only in Print statements.</li>
+<li>Avoid using as a function in expressions.</li>
+<li>Use with Spc for custom spacing.</li>
+<li>Test output on different devices (screen, file).</li>
+<li>Use variables for dynamic columns.</li>
+<li>Document column positions for maintainability.</li>
+<li>Avoid negative or zero columns.</li>
+<li>Use for tabular data formatting.</li>
+<li>Combine with loops for tables.</li>
+<li>Use omitted column for default zones.</li>
+</ol>
+<h2 id="comparison-table">Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Input</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Tab</code></td>
+<td>Print position</td>
+<td>column (optional)</td>
+<td>Print formatting</td>
+</tr>
+<tr>
+<td><code>Spc</code></td>
+<td>Print spaces</td>
+<td>count</td>
+<td>Print formatting</td>
+</tr>
+<tr>
+<td><code>Chr$(9)</code></td>
+<td>Tab character</td>
+<td>n/a</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in VB6, VBA, <code>VBScript</code></li>
+<li>Consistent across platforms</li>
+<li>Only for Print statements</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Not a function for assignment or calculation</li>
+<li>Only meaningful in Print context</li>
+<li>Not the same as the Tab character (Chr$(9))</li>
+<li>Cannot be used outside Print/Debug.Print/Print #</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Graphics</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

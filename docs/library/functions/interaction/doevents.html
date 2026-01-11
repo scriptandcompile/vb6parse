@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - doevents - Interaction">
+    <title>doevents - Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/interaction/index.html">Interaction</a> / doevents</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="doevents-function"><code>DoEvents</code> Function</h1>
+<p>Yields execution so that the operating system can process other events and messages.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">DoEvents()</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Integer</code> representing the number of open forms in stand-alone versions of
+Visual Basic. Returns 0 in all other applications.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>DoEvents</code> function temporarily yields execution to the operating system, allowing
+it to process other events such as user input, timers, and system messages. This is
+essential for keeping an application responsive during long-running operations.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Yields control to the operating system</li>
+<li>Allows message queue processing</li>
+<li>Prevents UI from appearing frozen during long operations</li>
+<li>Can cause reentrancy issues if not used carefully</li>
+<li>Slows down operations slightly due to context switching</li>
+<li>Returns number of open forms (VB6 stand-alone only)</li>
+<li>In most contexts, return value is ignored</li>
+<li>Does not create a new thread or async operation</li>
+<li>Processes Windows messages in the queue</li>
+<li>Can trigger event handlers and user interactions</li>
+</ul>
+<h2 id="when-to-use-doevents">When to Use <code>DoEvents</code></h2>
+<ul>
+<li>Long-running loops that process data</li>
+<li>File operations on large files</li>
+<li>Network operations that may take time</li>
+<li>Batch processing operations</li>
+<li>Any operation that could make UI unresponsive</li>
+</ul>
+<h2 id="when-not-to-use-doevents">When NOT to Use <code>DoEvents</code></h2>
+<ul>
+<li>In event handlers that could be re-entered</li>
+<li>When reentrancy could cause data corruption</li>
+<li>In critical sections or transaction code</li>
+<li>When better alternatives exist (timers, threading)</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Process large dataset while keeping UI responsive
+Dim i As Long
+For i = 1 To 100000
+ProcessRecord i
+
+&#x27; Yield every 100 iterations
+If i Mod 100 = 0 Then
+DoEvents
+End If
+Next i
+
+&#x27; Simple DoEvents call
+DoEvents
+
+&#x27; Check return value (rarely used)
+Dim formCount As Integer
+formCount = DoEvents()</code></pre>
+<h3 id="progress-bar-update">Progress Bar Update</h3>
+<pre><code class="language-vbnet">Sub ProcessWithProgress()
+Dim i As Long
+Dim total As Long
+
+total = 10000
+ProgressBar1.Min = 0
+ProgressBar1.Max = total
+
+For i = 1 To total
+ProcessItem i
+
+&#x27; Update progress bar
+ProgressBar1.Value = i
+lblStatus.Caption = &quot;Processing &quot; &amp; i &amp; &quot; of &quot; &amp; total
+
+&#x27; Allow UI to refresh
+DoEvents
+Next i
+
+MsgBox &quot;Processing complete!&quot;
+End Sub</code></pre>
+<h3 id="file-processing">File Processing</h3>
+<pre><code class="language-vbnet">Sub ProcessLargeFile(filePath As String)
+Dim fileNum As Integer
+Dim line As String
+Dim lineCount As Long
+
+fileNum = FreeFile
+Open filePath For Input As #fileNum
+
+lineCount = 0
+Do Until EOF(fileNum)
+Line Input #fileNum, line
+ProcessLine line
+lineCount = lineCount + 1
+
+&#x27; Yield every 100 lines
+If lineCount Mod 100 = 0 Then
+DoEvents
+End If
+Loop
+
+Close #fileNum
+End Sub</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="cancellable-long-operation">Cancellable Long Operation</h3>
+<pre><code class="language-vbnet">Private cancelOperation As Boolean
+
+Sub PerformCancellableOperation()
+Dim i As Long
+cancelOperation = False
+cmdCancel.Enabled = True
+
+For i = 1 To 100000
+If cancelOperation Then
+MsgBox &quot;Operation cancelled&quot;
+Exit For
+End If
+
+ProcessItem i
+
+If i Mod 100 = 0 Then
+DoEvents  &#x27; Allows cancel button to be clicked
+End If
+Next i
+
+cmdCancel.Enabled = False
+End Sub
+
+Private Sub cmdCancel_Click()
+cancelOperation = True
+End Sub</code></pre>
+<h3 id="batch-import-with-status">Batch Import with Status</h3>
+<pre><code class="language-vbnet">Sub ImportRecords(records As Variant)
+Dim i As Long
+Dim startTime As Double
+
+startTime = Timer
+
+For i = LBound(records) To UBound(records)
+ImportRecord records(i)
+
+&#x27; Update status every 50 records
+If i Mod 50 = 0 Then
+lblStatus.Caption = &quot;Imported &quot; &amp; i &amp; &quot; records...&quot;
+DoEvents
+End If
+Next i
+
+lblStatus.Caption = &quot;Import complete: &quot; &amp; UBound(records) - LBound(records) + 1 &amp; _
+&quot; records in &quot; &amp; Format(Timer - startTime, &quot;0.00&quot;) &amp; &quot; seconds&quot;
+End Sub</code></pre>
+<h3 id="prevent-ui-freeze-during-calculation">Prevent UI Freeze During Calculation</h3>
+<pre><code class="language-vbnet">Function CalculateComplexResult(data As Variant) As Double
+Dim i As Long
+Dim result As Double
+Dim iterations As Long
+
+iterations = 0
+result = 0
+
+For i = LBound(data) To UBound(data)
+result = result + PerformComplexCalculation(data(i))
+iterations = iterations + 1
+
+&#x27; Yield periodically
+If iterations Mod 500 = 0 Then
+DoEvents
+End If
+Next i
+
+CalculateComplexResult = result
+End Function</code></pre>
+<h3 id="database-batch-update">Database Batch Update</h3>
+<pre><code class="language-vbnet">Sub UpdateRecordsBatch(rs As ADODB.Recordset)
+Dim count As Long
+
+count = 0
+Do Until rs.EOF
+rs(&quot;Status&quot;) = &quot;Processed&quot;
+rs(&quot;ProcessDate&quot;) = Date
+rs.Update
+
+count = count + 1
+If count Mod 25 = 0 Then
+lblProgress.Caption = count &amp; &quot; records updated&quot;
+DoEvents
+End If
+
+rs.MoveNext
+Loop
+End Sub</code></pre>
+<h3 id="search-operation-with-live-results">Search Operation with Live Results</h3>
+<pre><code class="language-vbnet">Sub SearchFiles(rootPath As String, searchTerm As String)
+Dim fileName As String
+Dim matchCount As Long
+
+matchCount = 0
+lstResults.Clear
+
+fileName = Dir(rootPath &amp; &quot;\*.*&quot;)
+Do While fileName &lt;&gt; &quot;&quot;
+If InStr(1, fileName, searchTerm, vbTextCompare) &gt; 0 Then
+lstResults.AddItem fileName
+matchCount = matchCount + 1
+End If
+
+fileName = Dir
+DoEvents  &#x27; Keep UI responsive, allow viewing results
+Loop
+
+lblStatus.Caption = matchCount &amp; &quot; matches found&quot;
+End Sub</code></pre>
+<h3 id="report-generation">Report Generation</h3>
+<pre><code class="language-vbnet">Sub GenerateReport(data As Collection)
+Dim item As Variant
+Dim lineNum As Long
+
+lineNum = 0
+
+For Each item In data
+WriteReportLine item
+lineNum = lineNum + 1
+
+If lineNum Mod 20 = 0 Then
+lblProgress.Caption = &quot;Generated &quot; &amp; lineNum &amp; &quot; lines...&quot;
+DoEvents
+End If
+Next item
+End Sub</code></pre>
+<h3 id="animation-or-visual-feedback">Animation or Visual Feedback</h3>
+<pre><code class="language-vbnet">Sub ShowProcessingAnimation()
+Dim i As Integer
+
+For i = 1 To 100
+&#x27; Update visual indicator
+shpIndicator.Left = i * 50
+DoEvents
+
+&#x27; Simulate work
+Sleep 10
+Next i
+End Sub</code></pre>
+<h3 id="multi-step-process">Multi-Step Process</h3>
+<pre><code class="language-vbnet">Sub MultiStepProcess()
+lblStatus.Caption = &quot;Step 1: Loading data...&quot;
+DoEvents
+LoadData
+
+lblStatus.Caption = &quot;Step 2: Processing data...&quot;
+DoEvents
+ProcessData
+
+lblStatus.Caption = &quot;Step 3: Saving results...&quot;
+DoEvents
+SaveResults
+
+lblStatus.Caption = &quot;Complete!&quot;
+DoEvents
+End Sub</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="prevent-reentrancy">Prevent Reentrancy</h3>
+<pre><code class="language-vbnet">Private isProcessing As Boolean
+
+Sub SafeProcessWithDoEvents()
+&#x27; Prevent re-entry
+If isProcessing Then
+MsgBox &quot;Already processing&quot;
+Exit Sub
+End If
+
+isProcessing = True
+
+Dim i As Long
+For i = 1 To 10000
+ProcessItem i
+
+If i Mod 100 = 0 Then
+DoEvents
+End If
+Next i
+
+isProcessing = False
+End Sub</code></pre>
+<h3 id="throttled-doevents">Throttled <code>DoEvents</code></h3>
+<pre><code class="language-vbnet">Sub ProcessWithThrottledDoEvents()
+Dim i As Long
+Dim lastDoEvents As Double
+Dim doEventsInterval As Double
+
+doEventsInterval = 0.1  &#x27; 100ms
+lastDoEvents = Timer
+
+For i = 1 To 100000
+ProcessItem i
+
+&#x27; DoEvents based on time, not iteration count
+If Timer - lastDoEvents &gt; doEventsInterval Then
+DoEvents
+lastDoEvents = Timer
+End If
+Next i
+End Sub</code></pre>
+<h3 id="disable-controls-during-processing">Disable Controls During Processing</h3>
+<pre><code class="language-vbnet">Sub ProcessWithDisabledControls()
+&#x27; Disable controls to prevent reentrancy
+DisableControls
+
+Dim i As Long
+For i = 1 To 10000
+ProcessItem i
+
+If i Mod 100 = 0 Then
+UpdateProgress i
+DoEvents  &#x27; Safe because controls are disabled
+End If
+Next i
+
+EnableControls
+End Sub
+
+Sub DisableControls()
+Dim ctrl As Control
+For Each ctrl In Me.Controls
+If TypeOf ctrl Is CommandButton Then
+ctrl.Enabled = False
+End If
+Next ctrl
+End Sub
+
+Sub EnableControls()
+Dim ctrl As Control
+For Each ctrl In Me.Controls
+If TypeOf ctrl Is CommandButton Then
+ctrl.Enabled = True
+End If
+Next ctrl
+End Sub</code></pre>
+<h3 id="background-processing-simulation">Background Processing Simulation</h3>
+<pre><code class="language-vbnet">&#x27; Simulates background processing using DoEvents
+Private processingComplete As Boolean
+
+Sub StartBackgroundTask()
+processingComplete = False
+
+&#x27; Start the &quot;background&quot; task
+ProcessInBackground
+
+&#x27; Show modal dialog that waits
+Do Until processingComplete
+DoEvents
+Sleep 10  &#x27; Small delay to reduce CPU usage
+Loop
+
+MsgBox &quot;Background task complete&quot;
+End Sub
+
+Sub ProcessInBackground()
+Dim i As Long
+For i = 1 To 10000
+ProcessItem i
+
+If i Mod 100 = 0 Then
+DoEvents
+End If
+Next i
+
+processingComplete = True
+End Sub</code></pre>
+<h3 id="smart-doevents-with-cpu-management">Smart <code>DoEvents</code> with CPU Management</h3>
+<pre><code class="language-vbnet">Sub ProcessWithCPUManagement()
+Dim i As Long
+Dim processingTime As Double
+Dim doEventsTime As Double
+
+For i = 1 To 100000
+processingTime = Timer
+ProcessItem i
+processingTime = Timer - processingTime
+
+&#x27; DoEvents if processing takes significant time
+If processingTime &gt; 0.05 Then  &#x27; More than 50ms
+doEventsTime = Timer
+DoEvents
+doEventsTime = Timer - doEventsTime
+
+&#x27; Adjust strategy if DoEvents takes too long
+If doEventsTime &gt; processingTime * 0.1 Then
+&#x27; DoEvents overhead is too high, reduce frequency
+&#x27; (implementation-specific logic here)
+End If
+End If
+Next i
+End Sub</code></pre>
+<h3 id="export-with-user-interaction">Export with User Interaction</h3>
+<pre><code class="language-vbnet">Sub ExportDataWithOptions()
+Dim i As Long
+Dim exportCount As Long
+
+exportCount = 0
+
+For i = 1 To RecordCount
+If chkIncludeDeleted.Value = vbChecked Or Not IsDeleted(i) Then
+ExportRecord i
+exportCount = exportCount + 1
+End If
+
+&#x27; Update UI and allow user to change options
+If i Mod 50 = 0 Then
+lblProgress.Caption = exportCount &amp; &quot; records exported&quot;
+DoEvents
+&#x27; User can check/uncheck options, affecting subsequent exports
+End If
+Next i
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Sub ProcessWithErrorHandling()
+On Error GoTo ErrorHandler
+
+Dim i As Long
+For i = 1 To 10000
+ProcessItem i
+
+If i Mod 100 = 0 Then
+DoEvents
+End If
+Next i
+
+Exit Sub
+
+ErrorHandler:
+&#x27; DoEvents can trigger errors if event handlers fail
+MsgBox &quot;Error during processing: &quot; &amp; Err.Description
+Resume Next
+End Sub</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 11</strong> (Division by zero): Can occur if <code>DoEvents</code> allows user to clear data</li>
+<li><strong>Error 91</strong> (Object variable not set): If <code>DoEvents</code> allows object to be destroyed</li>
+<li><strong>Reentrancy errors</strong>: If <code>DoEvents</code> allows same code to be called recursively</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>DoEvents</code> has overhead (context switching, message processing)</li>
+<li>Call too frequently: significant performance impact</li>
+<li>Call too infrequently: UI appears frozen</li>
+<li>Typical guideline: every 50-100 iterations or every 100ms</li>
+<li>For very fast loops, use time-based checking instead of iteration-based</li>
+<li>Consider alternatives for truly asynchronous operations</li>
+<li><code>Sleep()</code> between <code>DoEvents</code> can reduce CPU usage in wait loops</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="call-periodically-not-every-iteration">Call Periodically, Not Every Iteration</h3>
+<pre><code class="language-vbnet">&#x27; Good - DoEvents every 100 iterations
+For i = 1 To 100000
+ProcessItem i
+If i Mod 100 = 0 Then DoEvents
+Next i
+
+&#x27; Bad - DoEvents every iteration (slow)
+For i = 1 To 100000
+ProcessItem i
+DoEvents  &#x27; Too frequent!
+Next i</code></pre>
+<h3 id="protect-against-reentrancy">Protect Against Reentrancy</h3>
+<pre><code class="language-vbnet">&#x27; Good - Use flag to prevent reentrancy
+Private isProcessing As Boolean
+
+Sub Process()
+If isProcessing Then Exit Sub
+isProcessing = True
+&#x27; ... processing with DoEvents ...
+isProcessing = False
+End Sub
+
+&#x27; Bad - No protection
+Sub Process()
+&#x27; ... processing with DoEvents ...
+&#x27; Can be called again through DoEvents
+End Sub</code></pre>
+<h3 id="disable-user-input-when-needed">Disable User Input When Needed</h3>
+<pre><code class="language-vbnet">&#x27; Good - Disable controls that could cause problems
+cmdProcess.Enabled = False
+For i = 1 To 10000
+ProcessItem i
+If i Mod 100 = 0 Then DoEvents
+Next i
+cmdProcess.Enabled = True</code></pre>
+<h3 id="consider-alternatives">Consider Alternatives</h3>
+<pre><code class="language-vbnet">&#x27; For very long operations, consider:
+&#x27; 1. Timer control for asynchronous processing
+&#x27; 2. Threading (in modern applications)
+&#x27; 3. Breaking into smaller chunks with callbacks
+&#x27; 4. Progress forms with asynchronous updates</code></pre>
+<h2 id="comparison-with-other-approaches">Comparison with Other Approaches</h2>
+<h3 id="doevents-vs-timer-control"><code>DoEvents</code> vs Timer Control</h3>
+<pre><code class="language-vbnet">&#x27; DoEvents - Synchronous, blocks until complete
+For i = 1 To 10000
+ProcessItem i
+If i Mod 100 = 0 Then DoEvents
+Next i
+
+&#x27; Timer - Asynchronous, processes in chunks
+Private currentIndex As Long
+
+Private Sub Timer1_Timer()
+Dim i As Long
+For i = currentIndex To currentIndex + 99
+If i &gt; 10000 Then
+Timer1.Enabled = False
+Exit Sub
+End If
+ProcessItem i
+Next i
+currentIndex = i
+End Sub</code></pre>
+<h3 id="doevents-vs-applicationwait-excel-vba"><code>DoEvents</code> vs <code>Application.Wait</code> (Excel VBA)</h3>
+<pre><code class="language-vbnet">&#x27; DoEvents - Yields immediately
+DoEvents
+
+&#x27; Application.Wait - Yields for specific duration
+Application.Wait Now + TimeValue(&quot;00:00:01&quot;)</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Does not create true multithreading</li>
+<li>Can cause reentrancy issues</li>
+<li>Performance overhead from context switching</li>
+<li>Return value rarely useful in modern applications</li>
+<li>No control over which events are processed</li>
+<li>Can make debugging more difficult</li>
+<li>Not available in all VBA hosts (e.g., some Office apps)</li>
+<li>Cannot cancel or prioritize specific events</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Sleep</code>: Pauses execution for specified milliseconds (Windows API)</li>
+<li><code>Timer</code>: Returns seconds since midnight (for timing operations)</li>
+<li><code>Now</code>: Returns current date and time</li>
+<li><code>Wait</code>: Application-specific wait method (Excel VBA)</li>
+<li><strong>Timer Control</strong>: Asynchronous event-based processing</li>
+<li><strong>Threading APIs</strong>: True multithreading (advanced)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Interaction</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - lcase_dollar - String">
+    <title>lcase_dollar - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / lcase_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="lcase-function"><code>LCase$</code> Function</h1>
+<p>Returns a <code>String</code> that has been converted to lowercase.
+The "$" suffix indicates this function returns a <code>String</code> type.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">LCase$(string)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>string</strong>: Required. Any valid string expression. If <code>string</code> contains <code>Null</code>, <code>Null</code> is returned.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> with all uppercase letters converted to lowercase. Numbers and punctuation
+are unchanged.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>LCase$</code> converts all uppercase letters in a string to lowercase.</li>
+<li>The "$" suffix explicitly indicates the function returns a <code>String</code> type rather than a <code>Variant</code>.</li>
+<li>Only uppercase letters (A-Z) are affected; lowercase letters and non-alphabetic characters remain unchanged.</li>
+<li><code>LCase$</code> is functionally equivalent to <code>LCase</code>, but <code>LCase$</code> returns a <code>String</code> while <code>LCase</code> can return a <code>Variant</code>.</li>
+<li>For better performance when you know the result is a string, use <code>LCase$</code>.</li>
+<li>If the argument is <code>Null</code>, the function returns <code>Null</code>.</li>
+<li>The conversion is based on the system locale settings.</li>
+<li>For international characters, the behavior depends on the current code page.</li>
+<li>The inverse function is <code>UCase$</code>, which converts strings to uppercase.</li>
+<li>Common use cases include case-insensitive comparisons and normalizing user input.</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Case-insensitive comparisons</strong> - Compare strings without regard to case</li>
+<li><strong>User input normalization</strong> - Convert user input to a consistent case</li>
+<li><strong>Email address handling</strong> - Normalize email addresses to lowercase</li>
+<li><strong>File path comparisons</strong> - Compare file paths on case-insensitive file systems</li>
+<li><strong>Username validation</strong> - Normalize usernames to lowercase</li>
+<li><strong>Search operations</strong> - Perform case-insensitive searches</li>
+<li><strong>Data standardization</strong> - Ensure consistent casing in databases</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple conversion
+Dim result As String
+result = LCase$(&quot;HELLO&quot;)  &#x27; Returns &quot;hello&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Mixed case
+Dim text As String
+text = LCase$(&quot;Hello World&quot;)  &#x27; Returns &quot;hello world&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: With numbers and punctuation
+Dim mixed As String
+mixed = LCase$(&quot;ABC123!@#&quot;)  &#x27; Returns &quot;abc123!@#&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Already lowercase
+Dim lower As String
+lower = LCase$(&quot;already lowercase&quot;)  &#x27; Returns &quot;already lowercase&quot;</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="case-insensitive-comparison">Case-Insensitive Comparison</h3>
+<pre><code class="language-vbnet">Function CompareIgnoreCase(str1 As String, str2 As String) As Boolean
+CompareIgnoreCase = (LCase$(str1) = LCase$(str2))
+End Function</code></pre>
+<h3 id="normalize-user-input">Normalize User Input</h3>
+<pre><code class="language-vbnet">Function NormalizeInput(userInput As String) As String
+NormalizeInput = Trim$(LCase$(userInput))
+End Function</code></pre>
+<h3 id="email-address-normalization">Email Address Normalization</h3>
+<pre><code class="language-vbnet">Function NormalizeEmail(email As String) As String
+NormalizeEmail = LCase$(Trim$(email))
+End Function</code></pre>
+<h3 id="case-insensitive-search">Case-Insensitive Search</h3>
+<pre><code class="language-vbnet">Function ContainsIgnoreCase(text As String, searchFor As String) As Boolean
+ContainsIgnoreCase = (InStr(LCase$(text), LCase$(searchFor)) &gt; 0)
+End Function</code></pre>
+<h3 id="username-validation">Username Validation</h3>
+<pre><code class="language-vbnet">Function ValidateUsername(username As String) As String
+&#x27; Normalize to lowercase
+ValidateUsername = LCase$(Trim$(username))
+End Function</code></pre>
+<h3 id="file-extension-check">File Extension Check</h3>
+<pre><code class="language-vbnet">Function HasExtension(filename As String, ext As String) As Boolean
+Dim fileExt As String
+fileExt = LCase$(Right$(filename, Len(ext)))
+HasExtension = (fileExt = LCase$(ext))
+End Function</code></pre>
+<h3 id="dictionary-key-normalization">Dictionary Key Normalization</h3>
+<pre><code class="language-vbnet">Sub AddToDictionary(dict As Object, key As String, value As Variant)
+dict.Add LCase$(key), value
+End Sub</code></pre>
+<h3 id="case-insensitive-replace">Case-Insensitive Replace</h3>
+<pre><code class="language-vbnet">Function ReplaceIgnoreCase(text As String, findText As String, replaceWith As String) As String
+Dim lowerText As String
+Dim lowerFind As String
+Dim pos As Long
+
+lowerText = LCase$(text)
+lowerFind = LCase$(findText)
+pos = InStr(lowerText, lowerFind)
+
+If pos &gt; 0 Then
+ReplaceIgnoreCase = Left$(text, pos - 1) &amp; replaceWith &amp; Mid$(text, pos + Len(findText))
+Else
+ReplaceIgnoreCase = text
+End If
+End Function</code></pre>
+<h3 id="sort-key-generation">Sort Key Generation</h3>
+<pre><code class="language-vbnet">Function GenerateSortKey(text As String) As String
+GenerateSortKey = LCase$(Trim$(text))
+End Function</code></pre>
+<h3 id="command-parser">Command Parser</h3>
+<pre><code class="language-vbnet">Function ParseCommand(input As String) As String
+Dim cmd As String
+cmd = LCase$(Trim$(input))
+
+Select Case cmd
+Case &quot;help&quot;
+ParseCommand = &quot;ShowHelp&quot;
+Case &quot;exit&quot;, &quot;quit&quot;
+ParseCommand = &quot;Exit&quot;
+Case Else
+ParseCommand = &quot;Unknown&quot;
+End Select
+End Function</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="case-insensitive-collection-lookup">Case-Insensitive Collection Lookup</h3>
+<pre><code class="language-vbnet">Function FindInCollection(col As Collection, key As String) As Variant
+On Error Resume Next
+Dim lowerKey As String
+Dim item As Variant
+Dim i As Long
+
+lowerKey = LCase$(key)
+
+&#x27; Try direct lookup first
+FindInCollection = col(lowerKey)
+
+If Err.Number &lt;&gt; 0 Then
+&#x27; Not found, search manually
+Err.Clear
+For i = 1 To col.Count
+If LCase$(col(i)) = lowerKey Then
+FindInCollection = col(i)
+Exit Function
+End If
+Next i
+End If
+End Function</code></pre>
+<h3 id="sql-query-builder">SQL Query Builder</h3>
+<pre><code class="language-vbnet">Function BuildWhereClause(fieldName As String, operator As String, value As String) As String
+Dim op As String
+op = LCase$(Trim$(operator))
+
+Select Case op
+Case &quot;equals&quot;, &quot;=&quot;
+BuildWhereClause = fieldName &amp; &quot; = &#x27;&quot; &amp; value &amp; &quot;&#x27;&quot;
+Case &quot;contains&quot;, &quot;like&quot;
+BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;%&quot; &amp; value &amp; &quot;%&#x27;&quot;
+Case &quot;startswith&quot;
+BuildWhereClause = fieldName &amp; &quot; LIKE &#x27;&quot; &amp; value &amp; &quot;%&#x27;&quot;
+Case Else
+BuildWhereClause = &quot;&quot;
+End Select
+End Function</code></pre>
+<h3 id="configuration-file-parser">Configuration File Parser</h3>
+<pre><code class="language-vbnet">Function ParseConfigLine(line As String, ByRef key As String, ByRef value As String) As Boolean
+Dim pos As Long
+Dim trimmedLine As String
+
+trimmedLine = Trim$(line)
+
+&#x27; Skip comments and empty lines
+If Len(trimmedLine) = 0 Or Left$(trimmedLine, 1) = &quot;#&quot; Then
+ParseConfigLine = False
+Exit Function
+End If
+
+pos = InStr(trimmedLine, &quot;=&quot;)
+If pos &gt; 0 Then
+key = LCase$(Trim$(Left$(trimmedLine, pos - 1)))
+value = Trim$(Mid$(trimmedLine, pos + 1))
+ParseConfigLine = True
+Else
+ParseConfigLine = False
+End If
+End Function</code></pre>
+<h3 id="smart-string-comparison">Smart String Comparison</h3>
+<pre><code class="language-vbnet">Function SmartCompare(str1 As String, str2 As String, caseSensitive As Boolean) As Boolean
+If caseSensitive Then
+SmartCompare = (str1 = str2)
+Else
+SmartCompare = (LCase$(str1) = LCase$(str2))
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeLCase(text As String) As String
+On Error GoTo ErrorHandler
+
+If IsNull(text) Then
+SafeLCase = &quot;&quot;
+Exit Function
+End If
+
+SafeLCase = LCase$(text)
+Exit Function
+
+ErrorHandler:
+SafeLCase = &quot;&quot;
+End Function</code></pre>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>LCase$</code> is a fast operation with minimal overhead</li>
+<li>For large strings, the performance is linear with string length</li>
+<li><code>LCase$</code> (returns <code>String</code>) is slightly faster than <code>LCase</code> (returns <code>Variant</code>)</li>
+<li>When comparing strings, convert both once rather than repeatedly</li>
+<li>Consider caching lowercase versions of frequently compared strings</li>
+<li>For very large datasets, consider using database-level case-insensitive comparisons</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use for comparisons</strong> - Always normalize case when doing case-insensitive comparisons</li>
+<li><strong>Prefer <code>LCase$</code> over <code>LCase</code></strong> - Use <code>LCase$</code> when you know the result is a string</li>
+<li><strong>Cache results</strong> - Store lowercase versions rather than converting repeatedly</li>
+<li><strong>Handle Null</strong> - Check for <code>Null</code> values before calling <code>LCase$</code></li>
+<li><strong>Combine with Trim</strong> - Often useful to combine <code>LCase$</code> with <code>Trim$</code> for user input</li>
+<li><strong>Document intent</strong> - Make it clear when lowercase conversion is for comparison vs. display</li>
+<li><strong>Consider locale</strong> - Be aware that conversion may vary by system locale</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return Type</th>
+<th>Conversion</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LCase</code></td>
+<td><code>Variant</code></td>
+<td>To lowercase</td>
+<td>When working with <code>Variant</code> types</td>
+</tr>
+<tr>
+<td><code>LCase$</code></td>
+<td><code>String</code></td>
+<td>To lowercase</td>
+<td>When result is definitely a string</td>
+</tr>
+<tr>
+<td><code>UCase</code></td>
+<td><code>Variant</code></td>
+<td>To uppercase</td>
+<td>Convert to uppercase (<code>Variant</code>)</td>
+</tr>
+<tr>
+<td><code>UCase$</code></td>
+<td><code>String</code></td>
+<td>To uppercase</td>
+<td>Convert to uppercase (<code>String</code>)</td>
+</tr>
+<tr>
+<td><code>StrConv</code></td>
+<td><code>String</code></td>
+<td>Various conversions</td>
+<td>Complex case conversions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<h3 id="case-insensitive-string-arrays">Case-Insensitive String Arrays</h3>
+<pre><code class="language-vbnet">Function ArrayContains(arr() As String, value As String) As Boolean
+Dim i As Long
+Dim lowerValue As String
+
+lowerValue = LCase$(value)
+
+For i = LBound(arr) To UBound(arr)
+If LCase$(arr(i)) = lowerValue Then
+ArrayContains = True
+Exit Function
+End If
+Next i
+
+ArrayContains = False
+End Function</code></pre>
+<h3 id="url-parameter-parsing">URL Parameter Parsing</h3>
+<pre><code class="language-vbnet">Function GetURLParameter(url As String, paramName As String) As String
+Dim lowerURL As String
+Dim lowerParam As String
+Dim startPos As Long
+Dim endPos As Long
+
+lowerURL = LCase$(url)
+lowerParam = LCase$(paramName) &amp; &quot;=&quot;
+
+startPos = InStr(lowerURL, lowerParam)
+If startPos &gt; 0 Then
+startPos = startPos + Len(lowerParam)
+endPos = InStr(startPos, url, &quot;&amp;&quot;)
+If endPos = 0 Then endPos = Len(url) + 1
+GetURLParameter = Mid$(url, startPos, endPos - startPos)
+End If
+End Function</code></pre>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>On Windows, <code>LCase$</code> respects the system locale for character conversion</li>
+<li>Behavior may vary for extended ASCII and international characters</li>
+<li>For ASCII characters (A-Z), behavior is consistent across all platforms</li>
+<li>Some characters may convert differently depending on the active code page</li>
+<li>Modern Windows systems handle Unicode characters in <code>LCase$</code> operations</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Conversion is based on system locale; may not work as expected for all Unicode characters</li>
+<li>Returns <code>Null</code> if the input is <code>Null</code> (unlike some other string functions that error)</li>
+<li>Does not handle advanced Unicode normalization or case folding</li>
+<li>For true Unicode case folding, more sophisticated methods may be needed</li>
+<li>Some special characters (like German ß) may not convert in all locales</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

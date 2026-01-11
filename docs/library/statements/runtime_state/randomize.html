@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - randomize - Runtime State">
+    <title>randomize - Runtime State - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/runtime_state/index.html">Runtime State</a> / randomize</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <p>Parse a VB6 Randomize statement.</p>
+<h1 id="syntax">Syntax</h1>
+<pre><code class="language-vbnet">Randomize [number]</code></pre>
+<h1 id="arguments">Arguments</h1>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Optional / Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number</td>
+<td>Optional</td>
+<td>A Variant or any valid numeric expression that is used as the new seed value to initialize the random number generator.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="remarks">Remarks</h1>
+<ul>
+<li>The Randomize statement initializes the random-number generator, giving it a new seed value.</li>
+<li>If you omit number, the value returned by the system timer is used as the new seed value.</li>
+<li>If Randomize is not used, the Rnd function (with no arguments) uses the same number as a seed the first time it is called, and thereafter uses the last generated number as a seed value.</li>
+<li>To repeat sequences of random numbers, call Rnd with a negative argument immediately before using Randomize with a numeric argument.</li>
+<li>Using Randomize with the same value for number does not repeat the previous sequence.</li>
+</ul>
+<h1 id="examples">Examples</h1>
+<pre><code class="language-vbnet">&#x27; Initialize random number generator
+Randomize
+x = Int((100 * Rnd) + 1)
+
+&#x27; Initialize with specific seed
+Randomize 42
+x = Rnd
+
+&#x27; Use timer as seed
+Randomize Timer</code></pre>
+<h1 id="references">References</h1>
+<p><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/randomize-statement">Microsoft VBA Language Reference - Randomize Statement</a></p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Runtime State</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

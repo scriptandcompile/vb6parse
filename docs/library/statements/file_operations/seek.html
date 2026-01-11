@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - seek - File Operations">
+    <title>seek - File Operations - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/file_operations/index.html">File Operations</a> / seek</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="seek-statement">Seek Statement</h1>
+<p>Sets the position for the next read or write operation in a file opened using the Open statement.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Seek [#]filenumber, position</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>filenumber</strong>: Required. Any valid file number. The number sign (#) is optional but commonly included for clarity.</li>
+<li><strong>position</strong>: Required. Number in the range 1 to 2,147,483,647 (equivalent to 2^31 - 1), indicating where the next read or write should occur.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>File Position</strong>: The Seek statement sets the byte position in a file where the next Input, Output, Get, or Put operation will occur.</li>
+<li><strong>Position Numbering</strong>: File positions are numbered beginning with 1 (the first byte in the file is at position 1, not 0).</li>
+<li><strong>Random Access Files</strong>: For Random mode files, the position parameter specifies a record number rather than a byte position.</li>
+<li><strong>Sequential Files</strong>: For files opened in Input, Output, or Append mode, position specifies the byte position.</li>
+<li><strong>Binary Files</strong>: For Binary mode files, position specifies the byte position.</li>
+<li><strong>Seek Function</strong>: Use the Seek function (without arguments except file number) to return the current file position.</li>
+<li><strong>EOF Behavior</strong>: Setting the position beyond the end of the file doesn't immediately extend the file, but writing to that position will.</li>
+<li><strong>Position Range</strong>: The position must be a positive Long value (1 to 2,147,483,647).</li>
+<li><strong>File Number</strong>: The file must be opened before using Seek.</li>
+</ul>
+<h2 id="position-interpretation-by-file-mode">Position Interpretation by File Mode</h2>
+<table>
+<thead>
+<tr>
+<th>File Mode</th>
+<th>Position Represents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random</td>
+<td>Record number (1-based)</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>Byte position (1-based)</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Byte position (1-based)</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Byte position (1-based)</td>
+</tr>
+<tr>
+<td>Append</td>
+<td>Byte position (1-based)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="seek-to-beginning-of-file">Seek to Beginning of File</h3>
+<pre><code class="language-vbnet">Open &quot;DATA.TXT&quot; For Binary As #1
+Seek #1, 1   &#x27; Position at first byte
+&#x27; Read or write operations
+Close #1</code></pre>
+<h3 id="seek-to-specific-byte-position">Seek to Specific Byte Position</h3>
+<pre><code class="language-vbnet">Open &quot;BINARY.DAT&quot; For Binary As #1
+Seek #1, 100   &#x27; Position at byte 100
+Get #1, , myData
+Close #1</code></pre>
+<h3 id="seek-to-specific-record-in-random-file">Seek to Specific Record in Random File</h3>
+<pre><code class="language-vbnet">Type Employee
+ID As Integer
+Name As String * 30
+End Type
+
+Dim emp As Employee
+Open &quot;EMPLOYEE.DAT&quot; For Random As #1 Len = Len(emp)
+Seek #1, 5   &#x27; Position at record 5
+Get #1, , emp
+Close #1</code></pre>
+<h3 id="seek-based-on-calculation">Seek Based on Calculation</h3>
+<pre><code class="language-vbnet">Dim recordNumber As Long
+recordNumber = 10
+Seek #1, recordNumber</code></pre>
+<h3 id="using-seek-with-loop">Using Seek with Loop</h3>
+<pre><code class="language-vbnet">Open &quot;DATA.BIN&quot; For Binary As #1
+For i = 1 To 100 Step 10
+Seek #1, i
+Put #1, , dataArray(i)
+Next i
+Close #1</code></pre>
+<h3 id="seek-to-end-of-file">Seek to End of File</h3>
+<pre><code class="language-vbnet">Open &quot;APPEND.TXT&quot; For Binary As #1
+Seek #1, LOF(1) + 1   &#x27; Position after last byte
+Put #1, , newData
+Close #1</code></pre>
+<h3 id="combined-with-seek-function">Combined with Seek Function</h3>
+<pre><code class="language-vbnet">Open &quot;DATA.TXT&quot; For Binary As #1
+currentPos = Seek(1)      &#x27; Get current position
+Seek #1, currentPos + 50  &#x27; Move 50 bytes forward
+Close #1</code></pre>
+<h3 id="rewind-file">Rewind File</h3>
+<pre><code class="language-vbnet">Sub RewindFile(fileNum As Integer)
+Seek fileNum, 1  &#x27; Return to beginning
+End Sub</code></pre>
+<h3 id="seek-in-random-access-processing">Seek in Random Access Processing</h3>
+<pre><code class="language-vbnet">Type Product
+Code As String * 10
+Price As Double
+End Type
+
+Dim prod As Product
+Dim recordNum As Long
+
+Open &quot;PRODUCTS.DAT&quot; For Random As #1 Len = Len(prod)
+recordNum = 25
+Seek #1, recordNum
+Get #1, , prod
+prod.Price = prod.Price * 1.1  &#x27; Increase price by 10%
+Seek #1, recordNum
+Put #1, , prod
+Close #1</code></pre>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 52</strong>: Bad file name or number - file not open or invalid file number</li>
+<li><strong>Error 63</strong>: Bad record number - position is less than 1 or exceeds valid range</li>
+<li><strong>Error 5</strong>: Invalid procedure call - negative or zero position value</li>
+</ul>
+<h2 id="performance-tips">Performance Tips</h2>
+<ul>
+<li>For sequential reading/writing, you generally don't need Seek as the file pointer advances automatically.</li>
+<li>Use Seek when you need random access to specific parts of a file.</li>
+<li>Combining Seek with the Seek function allows you to save and restore file positions.</li>
+<li>For large files, seeking to specific positions is much faster than reading sequentially.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>Seek</code> function (returns current file position)</li>
+<li><code>Get</code> statement (read data from file)</li>
+<li><code>Put</code> statement (write data to file)</li>
+<li><code>Open</code> statement (open files)</li>
+<li><code>LOF</code> function (length of file)</li>
+<li><code>Loc</code> function (current position in file)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/seek-statement">Seek Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File Operations</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

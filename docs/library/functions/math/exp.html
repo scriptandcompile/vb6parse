@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - exp - Math">
+    <title>exp - Math - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/math/index.html">Math</a> / exp</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="exp-function">Exp Function</h1>
+<p>Returns e (the base of natural logarithms) raised to a power.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Exp(number)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>number</strong>: Required. A Double or any valid numeric expression representing the exponent.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Double representing e raised to the specified power (e^number).
+The constant e is approximately 2.718282.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>Exp</code> function complements the action of the <code>Log</code> function and is sometimes
+referred to as the antilogarithm. It calculates e raised to a power, where e is
+the base of natural logarithms (approximately 2.718282).</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns e^number where e ≈ 2.718282</li>
+<li>Inverse of the natural logarithm (Log)</li>
+<li>Always returns positive value (e^x &gt; 0 for all x)</li>
+<li>Domain: all real numbers</li>
+<li>Range: positive real numbers (&gt; 0)</li>
+<li>Exp(0) = 1</li>
+<li>Exp(1) ≈ 2.718282</li>
+<li>For large positive values, can cause overflow</li>
+<li>For large negative values, approaches 0</li>
+<li>Maximum argument ≈ 709.78 (causes overflow above this)</li>
+<li>Minimum useful argument ≈ -708 (returns values very close to 0)</li>
+</ul>
+<h2 id="mathematical-properties">Mathematical Properties</h2>
+<ul>
+<li><strong>Identity</strong>: Exp(0) = 1</li>
+<li><strong>Euler's Number</strong>: Exp(1) = e ≈ 2.718282</li>
+<li><strong>Inverse of Log</strong>: Exp(Log(x)) = x (for x &gt; 0)</li>
+<li><strong>Product Rule</strong>: Exp(a + b) = Exp(a) * Exp(b)</li>
+<li><strong>Power Rule</strong>: Exp(a * b) = Exp(a)^b</li>
+<li><strong>Derivative</strong>: d/dx[Exp(x)] = Exp(x)</li>
+<li><strong>Integral</strong>: ∫Exp(x)dx = Exp(x) + C</li>
+</ul>
+<h2 id="common-applications">Common Applications</h2>
+<ul>
+<li>Exponential growth/decay calculations</li>
+<li>Compound interest formulas</li>
+<li>Population growth models</li>
+<li>Radioactive decay</li>
+<li>Probability distributions (normal, exponential)</li>
+<li>Signal processing</li>
+<li>Physics and engineering calculations</li>
+<li>Statistics and data analysis</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim result As Double
+
+&#x27; Basic exponential calculation
+result = Exp(1)           &#x27; Returns e ≈ 2.718282
+result = Exp(0)           &#x27; Returns 1
+result = Exp(2)           &#x27; Returns e² ≈ 7.389056
+
+&#x27; Negative exponents
+result = Exp(-1)          &#x27; Returns 1/e ≈ 0.367879
+result = Exp(-2)          &#x27; Returns 1/e² ≈ 0.135335</code></pre>
+<h3 id="exponential-growth">Exponential Growth</h3>
+<pre><code class="language-vbnet">Function ExponentialGrowth(initial As Double, rate As Double, time As Double) As Double
+&#x27; Calculate exponential growth: A = A₀ * e^(rt)
+&#x27; initial = initial amount
+&#x27; rate = growth rate (as decimal, e.g., 0.05 for 5%)
+&#x27; time = time period
+
+ExponentialGrowth = initial * Exp(rate * time)
+End Function
+
+&#x27; Example: Population growth
+&#x27; Initial population: 1000, growth rate: 3% per year, time: 10 years
+Dim population As Double
+population = ExponentialGrowth(1000, 0.03, 10)  &#x27; ≈ 1349.86</code></pre>
+<h3 id="compound-interest">Compound Interest</h3>
+<pre><code class="language-vbnet">Function ContinuousCompoundInterest(principal As Double, rate As Double, _
+time As Double) As Double
+&#x27; Calculate continuously compounded interest: A = P * e^(rt)
+&#x27; principal = initial investment
+&#x27; rate = annual interest rate (as decimal)
+&#x27; time = time in years
+
+ContinuousCompoundInterest = principal * Exp(rate * time)
+End Function
+
+&#x27; Example: $1000 at 5% for 10 years
+Dim amount As Double
+amount = ContinuousCompoundInterest(1000, 0.05, 10)  &#x27; ≈ $1648.72</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="radioactive-decay">Radioactive Decay</h3>
+<pre><code class="language-vbnet">Function RadioactiveDecay(initialAmount As Double, decayConstant As Double, _
+time As Double) As Double
+&#x27; Calculate remaining amount: N = N₀ * e^(-λt)
+&#x27; initialAmount = initial quantity
+&#x27; decayConstant = decay constant (λ)
+&#x27; time = elapsed time
+
+RadioactiveDecay = initialAmount * Exp(-decayConstant * time)
+End Function
+
+&#x27; Example: Half-life calculation
+Function HalfLife(decayConstant As Double) As Double
+&#x27; t₁/₂ = ln(2) / λ
+HalfLife = Log(2) / decayConstant
+End Function</code></pre>
+<h3 id="normal-distribution">Normal Distribution</h3>
+<pre><code class="language-vbnet">Function NormalDistribution(x As Double, mean As Double, stdDev As Double) As Double
+&#x27; Calculate normal (Gaussian) distribution PDF
+&#x27; f(x) = (1 / (σ√(2π))) * e^(-(x-μ)²/(2σ²))
+
+Dim pi As Double
+Dim exponent As Double
+
+pi = 4 * Atn(1)  &#x27; Calculate π
+exponent = -((x - mean) ^ 2) / (2 * stdDev ^ 2)
+
+NormalDistribution = (1 / (stdDev * Sqr(2 * pi))) * Exp(exponent)
+End Function</code></pre>
+<h3 id="exponential-smoothing">Exponential Smoothing</h3>
+<pre><code class="language-vbnet">Function ExponentialSmoothing(data() As Double, alpha As Double) As Variant
+&#x27; Apply exponential smoothing to data
+&#x27; alpha = smoothing factor (0 &lt; α &lt; 1)
+
+Dim smoothed() As Double
+Dim i As Long
+
+ReDim smoothed(LBound(data) To UBound(data))
+
+&#x27; First value is same as original
+smoothed(LBound(data)) = data(LBound(data))
+
+&#x27; Apply smoothing formula: S_t = α * Y_t + (1-α) * S_{t-1}
+For i = LBound(data) + 1 To UBound(data)
+smoothed(i) = alpha * data(i) + (1 - alpha) * smoothed(i - 1)
+Next i
+
+ExponentialSmoothing = smoothed
+End Function</code></pre>
+<h3 id="temperature-cooling-newtons-law">Temperature Cooling (Newton's Law)</h3>
+<pre><code class="language-vbnet">Function CoolingTemperature(initialTemp As Double, ambientTemp As Double, _
+coolingConstant As Double, time As Double) As Double
+&#x27; Newton&#x27;s Law of Cooling: T(t) = T_ambient + (T₀ - T_ambient) * e^(-kt)
+&#x27; initialTemp = initial temperature
+&#x27; ambientTemp = surrounding temperature
+&#x27; coolingConstant = cooling constant (k)
+&#x27; time = elapsed time
+
+CoolingTemperature = ambientTemp + (initialTemp - ambientTemp) * Exp(-coolingConstant * time)
+End Function
+
+&#x27; Example: Coffee cooling from 90°C to room temperature (20°C)
+Dim temp As Double
+temp = CoolingTemperature(90, 20, 0.1, 10)  &#x27; Temperature after 10 minutes</code></pre>
+<h3 id="convert-between-log-bases">Convert Between Log Bases</h3>
+<pre><code class="language-vbnet">Function LogBase(number As Double, base As Double) As Double
+&#x27; Calculate logarithm with arbitrary base
+&#x27; log_base(number) = ln(number) / ln(base)
+
+If number &lt;= 0 Or base &lt;= 0 Or base = 1 Then
+Err.Raise 5, , &quot;Invalid argument&quot;
+End If
+
+LogBase = Log(number) / Log(base)
+End Function
+
+Function PowerWithBase(base As Double, exponent As Double) As Double
+&#x27; Calculate base^exponent using Exp and Log
+&#x27; base^exponent = e^(exponent * ln(base))
+
+If base &lt;= 0 Then
+Err.Raise 5, , &quot;Base must be positive&quot;
+End If
+
+PowerWithBase = Exp(exponent * Log(base))
+End Function</code></pre>
+<h3 id="sigmoid-function">Sigmoid Function</h3>
+<pre><code class="language-vbnet">Function Sigmoid(x As Double) As Double
+&#x27; Logistic sigmoid function: σ(x) = 1 / (1 + e^(-x))
+&#x27; Used in neural networks and machine learning
+
+Sigmoid = 1 / (1 + Exp(-x))
+End Function
+
+Function SigmoidDerivative(x As Double) As Double
+&#x27; Derivative of sigmoid: σ&#x27;(x) = σ(x) * (1 - σ(x))
+Dim s As Double
+s = Sigmoid(x)
+SigmoidDerivative = s * (1 - s)
+End Function</code></pre>
+<h3 id="exponential-moving-average">Exponential Moving Average</h3>
+<pre><code class="language-vbnet">Function CalculateEMA(prices() As Double, periods As Integer) As Variant
+&#x27; Calculate Exponential Moving Average
+&#x27; Commonly used in financial analysis
+
+Dim ema() As Double
+Dim multiplier As Double
+Dim i As Long
+
+ReDim ema(LBound(prices) To UBound(prices))
+
+&#x27; Calculate multiplier: 2 / (periods + 1)
+multiplier = 2 / (periods + 1)
+
+&#x27; First EMA is simple moving average
+ema(LBound(prices)) = prices(LBound(prices))
+
+&#x27; Calculate EMA for remaining values
+For i = LBound(prices) + 1 To UBound(prices)
+ema(i) = (prices(i) - ema(i - 1)) * multiplier + ema(i - 1)
+Next i
+
+CalculateEMA = ema
+End Function</code></pre>
+<h3 id="black-scholes-option-pricing">Black-Scholes Option Pricing</h3>
+<pre><code class="language-vbnet">Function BlackScholesCall(stockPrice As Double, strikePrice As Double, _
+timeToExpiry As Double, riskFreeRate As Double, _
+volatility As Double) As Double
+&#x27; Simplified Black-Scholes formula for call option
+Dim d1 As Double, d2 As Double
+Dim pi As Double
+
+pi = 4 * Atn(1)
+
+d1 = (Log(stockPrice / strikePrice) + (riskFreeRate + 0.5 * volatility ^ 2) * timeToExpiry) / _
+(volatility * Sqr(timeToExpiry))
+d2 = d1 - volatility * Sqr(timeToExpiry)
+
+&#x27; Using normal CDF approximation (simplified)
+BlackScholesCall = stockPrice * NormalCDF(d1) - _
+strikePrice * Exp(-riskFreeRate * timeToExpiry) * NormalCDF(d2)
+End Function</code></pre>
+<h3 id="poisson-distribution">Poisson Distribution</h3>
+<pre><code class="language-vbnet">Function PoissonProbability(k As Long, lambda As Double) As Double
+&#x27; Calculate Poisson probability: P(X=k) = (λ^k * e^(-λ)) / k!
+&#x27; k = number of occurrences
+&#x27; lambda = average rate
+
+Dim i As Long
+Dim factorial As Double
+
+&#x27; Calculate k!
+factorial = 1
+For i = 2 To k
+factorial = factorial * i
+Next i
+
+&#x27; Calculate probability
+PoissonProbability = (lambda ^ k * Exp(-lambda)) / factorial
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="hyperbolic-functions">Hyperbolic Functions</h3>
+<pre><code class="language-vbnet">Function Sinh(x As Double) As Double
+&#x27; Hyperbolic sine: sinh(x) = (e^x - e^(-x)) / 2
+Sinh = (Exp(x) - Exp(-x)) / 2
+End Function
+
+Function Cosh(x As Double) As Double
+&#x27; Hyperbolic cosine: cosh(x) = (e^x + e^(-x)) / 2
+Cosh = (Exp(x) + Exp(-x)) / 2
+End Function
+
+Function Tanh(x As Double) As Double
+&#x27; Hyperbolic tangent: tanh(x) = sinh(x) / cosh(x)
+Dim ex As Double
+ex = Exp(x)
+Tanh = (ex - 1 / ex) / (ex + 1 / ex)
+End Function
+
+Function ArcSinh(x As Double) As Double
+&#x27; Inverse hyperbolic sine: asinh(x) = ln(x + √(x² + 1))
+ArcSinh = Log(x + Sqr(x * x + 1))
+End Function
+
+Function ArcCosh(x As Double) As Double
+&#x27; Inverse hyperbolic cosine: acosh(x) = ln(x + √(x² - 1))
+If x &lt; 1 Then
+Err.Raise 5, , &quot;Argument must be &gt;= 1&quot;
+End If
+ArcCosh = Log(x + Sqr(x * x - 1))
+End Function
+
+Function ArcTanh(x As Double) As Double
+&#x27; Inverse hyperbolic tangent: atanh(x) = 0.5 * ln((1+x)/(1-x))
+If Abs(x) &gt;= 1 Then
+Err.Raise 5, , &quot;Argument must be in (-1, 1)&quot;
+End If
+ArcTanh = 0.5 * Log((1 + x) / (1 - x))
+End Function</code></pre>
+<h3 id="taylor-series-approximation">Taylor Series Approximation</h3>
+<pre><code class="language-vbnet">Function ExpTaylor(x As Double, terms As Integer) As Double
+&#x27; Calculate Exp(x) using Taylor series
+&#x27; e^x = 1 + x + x²/2! + x³/3! + x⁴/4! + ...
+
+Dim result As Double
+Dim term As Double
+Dim i As Integer
+
+result = 1  &#x27; First term
+term = 1
+
+For i = 1 To terms
+term = term * x / i
+result = result + term
+Next i
+
+ExpTaylor = result
+End Function
+
+Sub CompareTaylorWithBuiltIn()
+Dim x As Double
+Dim terms As Integer
+
+x = 2
+
+Debug.Print &quot;Comparing Taylor series with built-in Exp:&quot;
+For terms = 1 To 20
+Debug.Print &quot;Terms: &quot; &amp; terms &amp; &quot;, Taylor: &quot; &amp; ExpTaylor(x, terms) &amp; _
+&quot;, Built-in: &quot; &amp; Exp(x) &amp; &quot;, Error: &quot; &amp; Abs(ExpTaylor(x, terms) - Exp(x))
+Next terms
+End Sub</code></pre>
+<h3 id="numerical-integration-using-exponential">Numerical Integration Using Exponential</h3>
+<pre><code class="language-vbnet">Function IntegrateExp(lowerBound As Double, upperBound As Double, _
+intervals As Long) As Double
+&#x27; Numerical integration of e^x using trapezoidal rule
+&#x27; ∫e^x dx from a to b
+
+Dim h As Double
+Dim sum As Double
+Dim x As Double
+Dim i As Long
+
+h = (upperBound - lowerBound) / intervals
+sum = (Exp(lowerBound) + Exp(upperBound)) / 2
+
+For i = 1 To intervals - 1
+x = lowerBound + i * h
+sum = sum + Exp(x)
+Next i
+
+IntegrateExp = sum * h
+End Function
+
+Sub VerifyIntegration()
+Dim a As Double, b As Double
+Dim numerical As Double
+Dim analytical As Double
+
+a = 0
+b = 1
+
+numerical = IntegrateExp(a, b, 1000)
+analytical = Exp(b) - Exp(a)  &#x27; Analytical solution: e^b - e^a
+
+Debug.Print &quot;Numerical: &quot; &amp; numerical
+Debug.Print &quot;Analytical: &quot; &amp; analytical
+Debug.Print &quot;Error: &quot; &amp; Abs(numerical - analytical)
+End Sub</code></pre>
+<h3 id="population-dynamics-model">Population Dynamics Model</h3>
+<pre><code class="language-vbnet">Function LogisticGrowth(initialPop As Double, carryingCapacity As Double, _
+growthRate As Double, time As Double) As Double
+&#x27; Logistic growth model: P(t) = K / (1 + ((K - P₀) / P₀) * e^(-rt))
+&#x27; initialPop = initial population (P₀)
+&#x27; carryingCapacity = maximum sustainable population (K)
+&#x27; growthRate = intrinsic growth rate (r)
+&#x27; time = time
+
+Dim ratio As Double
+
+ratio = (carryingCapacity - initialPop) / initialPop
+LogisticGrowth = carryingCapacity / (1 + ratio * Exp(-growthRate * time))
+End Function
+
+Sub PlotLogisticGrowth()
+Dim t As Double
+Dim population As Double
+
+Debug.Print &quot;Time&quot;, &quot;Population&quot;
+Debug.Print String(40, &quot;-&quot;)
+
+For t = 0 To 50 Step 5
+population = LogisticGrowth(100, 10000, 0.1, t)
+Debug.Print t, Format(population, &quot;#,##0.00&quot;)
+Next t
+End Sub</code></pre>
+<h3 id="complex-exponential-eulers-formula">Complex Exponential (Euler's Formula)</h3>
+<pre><code class="language-vbnet">Type ComplexNumber
+Real As Double
+Imaginary As Double
+End Type
+
+Function ComplexExp(z As ComplexNumber) As ComplexNumber
+&#x27; Calculate e^z for complex number z = a + bi
+&#x27; e^(a+bi) = e^a * (cos(b) + i*sin(b))  [Euler&#x27;s formula]
+
+Dim result As ComplexNumber
+Dim magnitude As Double
+
+magnitude = Exp(z.Real)
+result.Real = magnitude * Cos(z.Imaginary)
+result.Imaginary = magnitude * Sin(z.Imaginary)
+
+ComplexExp = result
+End Function
+
+Sub DemonstrateEulerFormula()
+Dim z As ComplexNumber
+Dim result As ComplexNumber
+Dim pi As Double
+
+pi = 4 * Atn(1)
+
+&#x27; e^(i*π) = -1 (Euler&#x27;s identity)
+z.Real = 0
+z.Imaginary = pi
+result = ComplexExp(z)
+
+Debug.Print &quot;e^(i*π) = &quot; &amp; Format(result.Real, &quot;0.0000&quot;) &amp; &quot; + &quot; &amp; _
+Format(result.Imaginary, &quot;0.0000&quot;) &amp; &quot;i&quot;
+Debug.Print &quot;Should be approximately -1 + 0i&quot;
+End Sub</code></pre>
+<h3 id="financial-option-greeks">Financial Option Greeks</h3>
+<pre><code class="language-vbnet">Function CalculateDelta(stockPrice As Double, strikePrice As Double, _
+timeToExpiry As Double, riskFreeRate As Double, _
+volatility As Double) As Double
+&#x27; Calculate Delta (rate of change of option price with respect to stock price)
+Dim d1 As Double
+
+d1 = (Log(stockPrice / strikePrice) + (riskFreeRate + 0.5 * volatility ^ 2) * timeToExpiry) / _
+(volatility * Sqr(timeToExpiry))
+
+CalculateDelta = NormalCDF(d1)
+End Function
+
+Function CalculateTheta(stockPrice As Double, strikePrice As Double, _
+timeToExpiry As Double, riskFreeRate As Double, _
+volatility As Double) As Double
+&#x27; Calculate Theta (rate of change of option price with respect to time)
+&#x27; Involves exponential decay term
+Dim d1 As Double, d2 As Double
+Dim pi As Double
+
+pi = 4 * Atn(1)
+
+d1 = (Log(stockPrice / strikePrice) + (riskFreeRate + 0.5 * volatility ^ 2) * timeToExpiry) / _
+(volatility * Sqr(timeToExpiry))
+d2 = d1 - volatility * Sqr(timeToExpiry)
+
+CalculateTheta = -(stockPrice * NormalPDF(d1) * volatility) / (2 * Sqr(timeToExpiry)) - _
+riskFreeRate * strikePrice * Exp(-riskFreeRate * timeToExpiry) * NormalCDF(d2)
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeExp(x As Double) As Double
+On Error GoTo ErrorHandler
+
+&#x27; Check for potential overflow
+If x &gt; 709.78 Then
+Err.Raise 6, , &quot;Overflow: exponent too large&quot;
+End If
+
+SafeExp = Exp(x)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 6  &#x27; Overflow
+MsgBox &quot;Exponential overflow. Result is too large to represent.&quot;, vbExclamation
+SafeExp = 0
+Case Else
+MsgBox &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description, vbCritical
+SafeExp = 0
+End Select
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 6</strong> (Overflow): Argument too large (&gt; 709.78 approximately)</li>
+<li><strong>Error 13</strong> (Type mismatch): Non-numeric argument</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Exp</code> is a built-in function, optimized for speed</li>
+<li>Hardware-accelerated on most processors</li>
+<li>Very fast compared to manual Taylor series calculation</li>
+<li>For repeated calculations with same value, consider caching</li>
+<li>For small values near 0, consider using Exp(x) - 1 pattern for precision</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="check-for-overflow">Check for Overflow</h3>
+<pre><code class="language-vbnet">&#x27; Good - Check before calculation
+If x &lt;= 709 Then
+result = Exp(x)
+Else
+MsgBox &quot;Value too large for Exp function&quot;
+End If
+
+&#x27; Or use error handling
+On Error Resume Next
+result = Exp(x)
+If Err.Number = 6 Then
+MsgBox &quot;Exponential overflow&quot;
+result = 0
+End If
+On Error GoTo 0</code></pre>
+<h3 id="use-with-log-for-powers">Use with Log for Powers</h3>
+<pre><code class="language-vbnet">&#x27; Calculate a^b where a and b are any real numbers
+&#x27; Good - Use Exp and Log
+Function Power(base As Double, exponent As Double) As Double
+If base &lt;= 0 Then
+Err.Raise 5, , &quot;Base must be positive&quot;
+End If
+Power = Exp(exponent * Log(base))
+End Function
+
+&#x27; For integer exponents, use ^ operator
+result = base ^ intExponent  &#x27; More efficient</code></pre>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<h3 id="exp-vs-operator">Exp vs ^ Operator</h3>
+<pre><code class="language-vbnet">&#x27; Exp - Natural exponential (base e)
+result = Exp(2)              &#x27; e^2 ≈ 7.389056
+
+&#x27; ^ - General power operator
+result = 2.718282 ^ 2        &#x27; Approximately same
+result = 10 ^ 2              &#x27; 100 (different base)</code></pre>
+<h3 id="exp-vs-log">Exp vs Log</h3>
+<pre><code class="language-vbnet">&#x27; Exp and Log are inverse functions
+x = 5
+result = Exp(Log(x))         &#x27; Returns 5
+result = Log(Exp(x))         &#x27; Returns 5</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Maximum argument approximately 709.78 (causes overflow)</li>
+<li>Minimum useful argument approximately -708 (underflows to 0)</li>
+<li>Returns Double (limited precision ~15-16 significant digits)</li>
+<li>Cannot directly calculate complex exponentials (requires manual implementation)</li>
+<li>Single argument only (unlike some languages with multi-parameter exp functions)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Log</code>: Natural logarithm (inverse of Exp)</li>
+<li><code>Sqr</code>: Square root</li>
+<li><code>^</code>: Power operator</li>
+<li><code>Sin</code>, <code>Cos</code>: Trigonometric functions (related via Euler's formula)</li>
+<li><code>Atn</code>: Arctangent</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Math</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

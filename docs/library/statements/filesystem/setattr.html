@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - setattr - Filesystem">
+    <title>setattr - Filesystem - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/filesystem/index.html">Filesystem</a> / setattr</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="setattr-statement"><code>SetAttr</code> Statement</h1>
+<p>Sets attribute information for a file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">SetAttr pathname, attributes</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>pathname</strong>: Required. String expression that specifies a file name. May include directory or folder, and drive.</li>
+<li><strong>attributes</strong>: Required. Numeric expression or constant specifying the file attributes. Sum of the values of the file attribute constants.</li>
+</ul>
+<h2 id="file-attribute-constants">File Attribute Constants</h2>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vbNormal</td>
+<td>0</td>
+<td>Normal (no attributes set)</td>
+</tr>
+<tr>
+<td>vbReadOnly</td>
+<td>1</td>
+<td>Read-only file attribute</td>
+</tr>
+<tr>
+<td>vbHidden</td>
+<td>2</td>
+<td>Hidden file attribute</td>
+</tr>
+<tr>
+<td>vbSystem</td>
+<td>4</td>
+<td>System file attribute</td>
+</tr>
+<tr>
+<td>vbArchive</td>
+<td>32</td>
+<td>File has changed since last backup</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Combining Attributes</strong>: You can combine attributes by adding their values together (e.g., <code>vbReadOnly + vbHidden = 3</code>).</li>
+<li><strong>File Must Exist</strong>: A run-time error occurs if the file specified by pathname doesn't exist.</li>
+<li><strong>Pathname Validation</strong>: Pathname can be a fully qualified path or a relative path. Wildcard characters (* and ?) are not supported.</li>
+<li><strong>Cannot Set Directory Attribute</strong>: You cannot use <code>SetAttr</code> to set the directory (vbDirectory = 16) attribute. Use <code>MkDir</code> and <code>RmDir</code> instead.</li>
+<li><strong>Volume Label</strong>: You cannot use <code>SetAttr</code> to set the volume label (vbVolume = 8) attribute.</li>
+<li><strong>Read-Only Directories</strong>: <code>SetAttr</code> cannot change the read-only status of a directory; it only works with files.</li>
+<li><strong>Error Handling</strong>: Use error handling to trap potential errors like file not found, permission denied, or invalid attributes.</li>
+<li><strong><code>GetAttr</code> Function</strong>: Use <code>GetAttr</code> to retrieve current file attributes before modifying them with <code>SetAttr</code>.</li>
+<li><strong>Clearing Attributes</strong>: To clear an attribute, set the file to vbNormal (0) or use a combination that excludes the unwanted attribute.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="set-file-to-read-only">Set File to Read-Only</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\MyFile.txt&quot;, vbReadOnly</code></pre>
+<h3 id="set-file-to-hidden">Set File to Hidden</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\Data\Secret.dat&quot;, vbHidden</code></pre>
+<h3 id="combine-multiple-attributes">Combine Multiple Attributes</h3>
+<pre><code class="language-vbnet">&#x27; Set file to read-only and hidden
+SetAttr &quot;C:\Config.ini&quot;, vbReadOnly + vbHidden</code></pre>
+<h3 id="clear-all-attributes-normal">Clear All Attributes (Normal)</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\MyFile.txt&quot;, vbNormal</code></pre>
+<h3 id="set-archive-attribute">Set Archive Attribute</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\Backup\Data.dat&quot;, vbArchive</code></pre>
+<h3 id="using-variables">Using Variables</h3>
+<pre><code class="language-vbnet">Dim fileName As String
+Dim attrs As Integer
+
+fileName = &quot;C:\Data\MyFile.txt&quot;
+attrs = vbReadOnly + vbArchive
+SetAttr fileName, attrs</code></pre>
+<h3 id="toggle-read-only-attribute">Toggle Read-Only Attribute</h3>
+<pre><code class="language-vbnet">Dim currentAttrs As Integer
+Dim filePath As String
+
+filePath = &quot;C:\MyFile.txt&quot;
+currentAttrs = GetAttr(filePath)
+
+If currentAttrs And vbReadOnly Then
+&#x27; Remove read-only
+SetAttr filePath, currentAttrs And Not vbReadOnly
+Else
+&#x27; Add read-only
+SetAttr filePath, currentAttrs Or vbReadOnly
+End If</code></pre>
+<h3 id="set-system-file">Set System File</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\Windows\system.dat&quot;, vbSystem</code></pre>
+<h3 id="set-multiple-files-in-a-loop">Set Multiple Files in a Loop</h3>
+<pre><code class="language-vbnet">Dim i As Integer
+For i = 1 To 10
+SetAttr &quot;C:\Files\File&quot; &amp; i &amp; &quot;.txt&quot;, vbReadOnly
+Next i</code></pre>
+<h3 id="with-error-handling">With Error Handling</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+SetAttr &quot;C:\MyFile.txt&quot;, vbReadOnly
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Could not set file attributes: &quot; &amp; Err.Description
+End If
+On Error GoTo 0</code></pre>
+<h3 id="using-apppath">Using App.Path</h3>
+<pre><code class="language-vbnet">SetAttr App.Path &amp; &quot;\Config.ini&quot;, vbHidden</code></pre>
+<h3 id="preserve-existing-attributes-while-adding-new-ones">Preserve Existing Attributes While Adding New Ones</h3>
+<pre><code class="language-vbnet">Dim filePath As String
+Dim currentAttrs As Integer
+
+filePath = &quot;C:\MyFile.txt&quot;
+currentAttrs = GetAttr(filePath)
+
+&#x27; Add hidden attribute while preserving others
+SetAttr filePath, currentAttrs Or vbHidden</code></pre>
+<h3 id="remove-specific-attribute">Remove Specific Attribute</h3>
+<pre><code class="language-vbnet">Dim filePath As String
+Dim currentAttrs As Integer
+
+filePath = &quot;C:\MyFile.txt&quot;
+currentAttrs = GetAttr(filePath)
+
+&#x27; Remove hidden attribute while preserving others
+SetAttr filePath, currentAttrs And Not vbHidden</code></pre>
+<h3 id="using-numeric-values">Using Numeric Values</h3>
+<pre><code class="language-vbnet">SetAttr &quot;C:\MyFile.txt&quot;, 1  &#x27; Same as vbReadOnly
+SetAttr &quot;C:\MyFile.txt&quot;, 3  &#x27; Read-only + Hidden (1 + 2)
+SetAttr &quot;C:\MyFile.txt&quot;, 35 &#x27; Read-only + Hidden + Archive (1 + 2 + 32)</code></pre>
+<h3 id="conditional-attribute-setting">Conditional Attribute Setting</h3>
+<pre><code class="language-vbnet">If FileIsImportant Then
+SetAttr filePath, vbReadOnly + vbArchive
+Else
+SetAttr filePath, vbNormal
+End If</code></pre>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 53</strong>: File not found - occurs if the pathname doesn't exist</li>
+<li><strong>Error 5</strong>: Invalid procedure call or argument - occurs if attributes value is invalid</li>
+<li><strong>Error 70</strong>: Permission denied - occurs if you don't have write access to the file</li>
+<li><strong>Error 75</strong>: Path/File access error - occurs if the file is open or locked</li>
+</ul>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li><strong>File Must Be Closed</strong>: The file should not be open when you use <code>SetAttr</code>.</li>
+<li><strong>Permissions Required</strong>: You must have appropriate permissions to change file attributes.</li>
+<li><strong>Network Files</strong>: <code>SetAttr</code> works with network files if you have appropriate permissions.</li>
+<li><strong>UNC Paths</strong>: <code>SetAttr</code> supports UNC (Universal Naming Convention) paths like "\\Server\Share\File.txt".</li>
+<li><strong>Attribute Persistence</strong>: File attributes persist after the application closes; they're stored in the file system.</li>
+<li><strong>Read-Only Files</strong>: To modify a read-only file, you must first remove the read-only attribute, make changes, then restore it.</li>
+<li><strong><code>GetAttr</code> Complement</strong>: Always use <code>GetAttr</code> to retrieve current attributes before modifying them to avoid unintentionally removing existing attributes.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Use error handling when working with <code>SetAttr</code> as file operations can fail for many reasons</li>
+<li>Use <code>GetAttr</code> before <code>SetAttr</code> to preserve existing attributes you don't want to change</li>
+<li>Use symbolic constants (vbReadOnly, etc.) instead of numeric values for better code readability</li>
+<li>Check file existence using <code>Dir()</code> before calling <code>SetAttr</code></li>
+<li>Be cautious when setting system attributes as they can affect system stability</li>
+<li>Document why specific attributes are being set, especially for hidden or system files</li>
+<li>Consider user permissions when setting attributes on shared or network files</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>GetAttr</code> function (retrieve file attributes)</li>
+<li><code>Dir</code> function (check if file exists)</li>
+<li><code>Kill</code> statement (delete files)</li>
+<li><code>Name</code> statement (rename files)</li>
+<li><code>FileCopy</code> statement (copy files)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/setattr-statement">SetAttr Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Filesystem</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

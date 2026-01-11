@@ -247,7 +247,6 @@ use crate::parsers::cst::Parser;
 use crate::parsers::syntaxkind::SyntaxKind;
 
 impl Parser<'_> {
-    /// Parses a Time statement.
     pub(crate) fn parse_time_statement(&mut self) {
         self.parse_simple_builtin_statement(SyntaxKind::TimeStatement);
     }

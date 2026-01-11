@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - stop - System Interaction">
+    <title>stop - System Interaction - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/system_interaction/index.html">System Interaction</a> / stop</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="stop-statement">Stop Statement</h1>
+<p>Suspends execution.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Stop</code></pre>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Execution Suspension</strong>: The Stop statement suspends execution but doesn't close any files or clear variables unless it is in a compiled executable (.exe) file.</li>
+<li><strong>Debug Mode</strong>: In the development environment, Stop causes the program to enter break mode, allowing you to examine variables, step through code, and use debugging tools.</li>
+<li><strong>Compiled Executable</strong>: In a compiled .exe file, Stop acts like the End statement, terminating the program and closing all files.</li>
+<li><strong>Break Mode</strong>: When Stop is encountered in the IDE, VB6 pauses execution and highlights the Stop statement, allowing you to inspect the current state.</li>
+<li><strong>Multiple Stop Statements</strong>: You can place Stop statements anywhere in your code to create breakpoints for debugging.</li>
+<li><strong>Not for Production</strong>: Stop statements should generally be removed before distributing your application, as they can cause unexpected behavior.</li>
+<li><strong>Alternative to Breakpoints</strong>: Stop provides a code-based alternative to setting breakpoints in the IDE.</li>
+<li><strong>No Arguments</strong>: The Stop statement takes no arguments or parameters.</li>
+</ul>
+<h2 id="common-uses">Common Uses</h2>
+<ul>
+<li><strong>Debugging</strong>: Pause execution to examine variable values and program state</li>
+<li><strong>Conditional Breakpoints</strong>: Combined with If statements for conditional debugging</li>
+<li><strong>Error Investigation</strong>: Stop execution when an error condition is detected</li>
+<li><strong>Loop Debugging</strong>: Pause execution during specific loop iterations</li>
+<li><strong>Testing</strong>: Verify code paths during development</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="simple-stop">Simple Stop</h3>
+<pre><code class="language-vbnet">Sub Test()
+Dim x As Integer
+x = 10
+Stop  &#x27; Execution pauses here in IDE
+x = x + 5
+End Sub</code></pre>
+<h3 id="conditional-stop-for-debugging">Conditional Stop for Debugging</h3>
+<pre><code class="language-vbnet">Sub ProcessData(value As Integer)
+If value &lt; 0 Then
+Stop  &#x27; Pause when invalid data is encountered
+End If
+&#x27; Process value
+End Sub</code></pre>
+<h3 id="stop-in-loop-for-specific-iteration">Stop in Loop for Specific Iteration</h3>
+<pre><code class="language-vbnet">For i = 1 To 100
+If i = 50 Then
+Stop  &#x27; Pause at iteration 50
+End If
+ProcessItem i
+Next i</code></pre>
+<h3 id="stop-on-error-condition">Stop on Error Condition</h3>
+<pre><code class="language-vbnet">Sub CalculateTotal()
+Dim total As Double
+total = GetSubtotal()
+
+If total &lt; 0 Then
+Stop  &#x27; Investigate negative total
+End If
+
+SaveTotal total
+End Sub</code></pre>
+<h3 id="multiple-stop-statements-for-debugging-path">Multiple Stop Statements for Debugging Path</h3>
+<pre><code class="language-vbnet">Function ValidateData(data As String) As Boolean
+Stop  &#x27; Entry point
+
+If Len(data) = 0 Then
+Stop  &#x27; Empty string case
+ValidateData = False
+Exit Function
+End If
+
+Stop  &#x27; Normal processing
+ValidateData = True
+End Function</code></pre>
+<h3 id="stop-in-select-case">Stop in Select Case</h3>
+<pre><code class="language-vbnet">Select Case userType
+Case 1
+ProcessAdmin
+Case 2
+ProcessUser
+Case Else
+Stop  &#x27; Unknown user type - investigate
+End Select</code></pre>
+<h3 id="stop-with-error-handler">Stop with Error Handler</h3>
+<pre><code class="language-vbnet">On Error GoTo ErrorHandler
+
+ProcessData
+Exit Sub
+
+ErrorHandler:
+Stop  &#x27; Pause to examine error
+MsgBox Err.Description
+End Sub</code></pre>
+<h3 id="stop-in-class-module">Stop in Class Module</h3>
+<pre><code class="language-vbnet">Private Sub Class_Initialize()
+Stop  &#x27; Verify initialization sequence
+InitializeProperties
+End Sub</code></pre>
+<h3 id="stop-before-critical-operation">Stop Before Critical Operation</h3>
+<pre><code class="language-vbnet">Sub DeleteAllRecords()
+Stop  &#x27; Verify this operation should proceed
+
+Dim rs As Recordset
+Set rs = db.OpenRecordset(&quot;Data&quot;)
+
+Do While Not rs.EOF
+rs.Delete
+rs.MoveNext
+Loop
+End Sub</code></pre>
+<h3 id="stop-in-property-procedure">Stop in Property Procedure</h3>
+<pre><code class="language-vbnet">Public Property Let Value(ByVal newValue As Integer)
+If newValue &lt; 0 Then
+Stop  &#x27; Negative value assigned
+End If
+m_Value = newValue
+End Property</code></pre>
+<h3 id="stop-with-doevents">Stop with <code>DoEvents</code></h3>
+<pre><code class="language-vbnet">For i = 1 To 1000
+DoEvents
+ProcessItem i
+
+If ShouldDebug Then
+Stop  &#x27; Conditional pause
+End If
+Next i</code></pre>
+<h3 id="stop-in-event-handler">Stop in Event Handler</h3>
+<pre><code class="language-vbnet">Private Sub Form_Load()
+Stop  &#x27; Debug form initialization
+InitializeControls
+LoadData
+End Sub</code></pre>
+<h3 id="stop-with-assert-like-check">Stop with Assert-like Check</h3>
+<pre><code class="language-vbnet">Sub ProcessArray(arr() As Integer)
+If UBound(arr) &lt; LBound(arr) Then
+Stop  &#x27; Invalid array bounds
+End If
+
+For i = LBound(arr) To UBound(arr)
+ProcessItem arr(i)
+Next i
+End Sub</code></pre>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li><strong>IDE vs. Compiled</strong>: Behavior differs between development environment and compiled executables</li>
+<li><strong>Production Code</strong>: Remove Stop statements before distributing your application</li>
+<li><strong>Alternative Debugging</strong>: Modern IDEs prefer breakpoints over Stop statements</li>
+<li><strong>No File Closure</strong>: In IDE, Stop doesn't close files or clear variables</li>
+<li><strong>Break Mode</strong>: Allows interactive debugging in the IDE</li>
+<li><strong>End Alternative</strong>: In compiled .exe, behaves like the End statement</li>
+<li><strong>Code-Based Breakpoint</strong>: Useful when you need a breakpoint that travels with the code</li>
+<li><strong>No Performance Impact</strong>: When compiled, can be configured to be removed by compiler</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Use Stop for temporary debugging during development</li>
+<li>Remove Stop statements before final release</li>
+<li>Use meaningful comments explaining why Stop is placed at a location</li>
+<li>Consider using conditional compilation to automatically remove Stop in release builds</li>
+<li>Prefer IDE breakpoints for most debugging scenarios</li>
+<li>Use Stop when you need to share debugging points with team members</li>
+<li>Document any Stop statements that remain for legitimate reasons</li>
+</ul>
+<h2 id="differences-from-end">Differences from End</h2>
+<ul>
+<li><strong>Stop</strong>: In IDE, enters break mode; in .exe, terminates program</li>
+<li><strong>End</strong>: Always terminates program and closes all files</li>
+<li><strong>Exit</strong>: Exits specific procedure/function/loop without terminating program</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code>End</code> statement (terminate program)</li>
+<li><code>Exit</code> statement (exit procedure, function, or loop)</li>
+<li><code>DoEvents</code> function (yield execution to the operating system)</li>
+<li><code>Debug.Assert</code> method (conditional debugging)</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/stop-statement">Stop Statement - Microsoft Docs</a></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to System Interaction</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

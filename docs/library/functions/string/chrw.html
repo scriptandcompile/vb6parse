@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - chrw - String">
+    <title>chrw - String - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/string/index.html">String</a> / chrw</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="chrw-function"><code>ChrW</code> Function</h1>
+<p>Returns a <code>String</code> containing the Unicode character associated with the specified character code.
+The "W" suffix indicates this is the wide (Unicode) version of the <code>Chr</code> function.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">ChrW(charcode)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>charcode</strong>: Required. <code>Long</code>. A numeric expression that identifies a Unicode character.
+Valid values are -32768 to 65535. However, values -32768 to -1 are treated as 65536 + value.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Returns a <code>String</code> containing a single Unicode character corresponding to the specified code.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><code>ChrW</code> is used to return Unicode characters (wide characters).</li>
+<li>The W suffix stands for "Wide", distinguishing it from the ANSI <code>ChrB</code> function.</li>
+<li>Valid Unicode code points range from 0 to 65535 (0x0000 to 0xFFFF) in the Basic Multilingual Plane.</li>
+<li>Negative values from -32768 to -1 are converted by adding 65536, allowing access to the full range.</li>
+<li><code>ChrW</code> is essential for working with international characters, symbols, and emoji within the BMP.</li>
+<li>For ANSI characters (0-255), <code>ChrW</code> and <code>Chr</code> produce the same results on systems using single-byte character sets.</li>
+<li>Characters outside the Basic Multilingual Plane (above 65535) require surrogate pairs in VB6.</li>
+<li>If charcode is outside the valid range, a runtime error occurs (Error 5: Invalid procedure call or argument).</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>International text support</strong> - Create strings with characters from various languages</li>
+<li><strong>Unicode symbol insertion</strong> - Insert mathematical symbols, currency symbols, arrows, etc.</li>
+<li><strong>XML/HTML entity handling</strong> - Convert numeric character references to actual characters</li>
+<li><strong>Special character creation</strong> - Generate Unicode control characters and formatting marks</li>
+<li><strong>Cross-platform text</strong> - Ensure consistent character representation across different systems</li>
+<li><strong>Unicode file processing</strong> - Read and write Unicode text files correctly</li>
+<li><strong>Internationalization (i18n)</strong> - Support multiple languages in applications</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple Unicode character
+Dim ch As String
+ch = ChrW(65)  &#x27; Returns &quot;A&quot; (same as Chr for ASCII range)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Euro symbol
+Dim euro As String
+euro = ChrW(8364)  &#x27; Returns &quot;€&quot;</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Greek letter
+Dim alpha As String
+alpha = ChrW(945)  &#x27; Returns &quot;α&quot; (Greek small letter alpha)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Chinese character
+Dim hanzi As String
+hanzi = ChrW(20013)  &#x27; Returns &quot;中&quot; (Chinese character for &quot;middle&quot;)</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="unicode-line-separator">Unicode Line Separator</h3>
+<pre><code class="language-vbnet">Const UNICODE_LINE_SEP = 8232
+text = &quot;Line 1&quot; &amp; ChrW(UNICODE_LINE_SEP) &amp; &quot;Line 2&quot;</code></pre>
+<h3 id="bullet-point-list">Bullet Point List</h3>
+<pre><code class="language-vbnet">Dim bullet As String
+bullet = ChrW(8226)  &#x27; &quot;•&quot;
+list = bullet &amp; &quot; Item 1&quot; &amp; vbCrLf &amp; bullet &amp; &quot; Item 2&quot;</code></pre>
+<h3 id="copyright-symbol">Copyright Symbol</h3>
+<pre><code class="language-vbnet">Dim copyright As String
+copyright = ChrW(169)  &#x27; &quot;©&quot;
+notice = &quot;Copyright &quot; &amp; copyright &amp; &quot; 2025&quot;</code></pre>
+<h3 id="mathematical-symbols">Mathematical Symbols</h3>
+<pre><code class="language-vbnet">Dim infinity As String, pi As String
+infinity = ChrW(8734)  &#x27; &quot;∞&quot;
+pi = ChrW(960)  &#x27; &quot;π&quot;
+equation = pi &amp; &quot; &quot; &amp; ChrW(8776) &amp; &quot; 3.14&quot;  &#x27; &quot;π ≈ 3.14&quot;</code></pre>
+<h3 id="arrow-symbols">Arrow Symbols</h3>
+<pre><code class="language-vbnet">Dim rightArrow As String
+rightArrow = ChrW(8594)  &#x27; &quot;→&quot;
+leftArrow = ChrW(8592)   &#x27; &quot;←&quot;</code></pre>
+<h3 id="non-breaking-space">Non-Breaking Space</h3>
+<pre><code class="language-vbnet">Dim nbsp As String
+nbsp = ChrW(160)  &#x27; Non-breaking space
+text = &quot;Price:&quot; &amp; nbsp &amp; &quot;$100&quot;</code></pre>
+<h3 id="emoji-and-symbols-bmp-only">Emoji and Symbols (BMP only)</h3>
+<pre><code class="language-vbnet">Dim heart As String, star As String
+heart = ChrW(9829)  &#x27; &quot;♥&quot;
+star = ChrW(9733)   &#x27; &quot;★&quot;</code></pre>
+<h3 id="zero-width-characters">Zero-Width Characters</h3>
+<pre><code class="language-vbnet">Dim zwj As String
+zwj = ChrW(8205)  &#x27; Zero-width joiner</code></pre>
+<h3 id="currency-symbols">Currency Symbols</h3>
+<pre><code class="language-vbnet">Dim pound As String, yen As String
+pound = ChrW(163)  &#x27; &quot;£&quot;
+yen = ChrW(165)    &#x27; &quot;¥&quot;</code></pre>
+<h3 id="diacritical-marks">Diacritical Marks</h3>
+<pre><code class="language-vbnet">Dim acute As String
+acute = ChrW(180)  &#x27; &quot;´&quot; (acute accent)
+combined = &quot;e&quot; &amp; ChrW(769)  &#x27; Combining acute accent</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="building-multilingual-text">Building Multilingual Text</h3>
+<pre><code class="language-vbnet">Function GetGreeting(language As String) As String
+Select Case language
+Case &quot;chinese&quot;
+GetGreeting = ChrW(20320) &amp; ChrW(22909)  &#x27; &quot;你好&quot;
+Case &quot;japanese&quot;
+GetGreeting = ChrW(12371) &amp; ChrW(12435) &amp; ChrW(12395) &amp; ChrW(12385) &amp; ChrW(12399)  &#x27; &quot;こんにちは&quot;
+Case &quot;korean&quot;
+GetGreeting = ChrW(50504) &amp; ChrW(45397) &amp; ChrW(54616) &amp; ChrW(49464) &amp; ChrW(50836)  &#x27; &quot;안녕하세요&quot;
+Case &quot;russian&quot;
+GetGreeting = ChrW(1055) &amp; ChrW(1088) &amp; ChrW(1080) &amp; ChrW(1074) &amp; ChrW(1077) &amp; ChrW(1090)  &#x27; &quot;Привет&quot;
+Case Else
+GetGreeting = &quot;Hello&quot;
+End Select
+End Function</code></pre>
+<h3 id="html-entity-decoder">HTML Entity Decoder</h3>
+<pre><code class="language-vbnet">Function DecodeNumericEntity(entity As String) As String
+&#x27; Decode &amp;#nnnn; or &amp;#xhhhh; entities
+Dim code As Long
+
+If InStr(entity, &quot;&amp;#x&quot;) &gt; 0 Then
+&#x27; Hexadecimal entity
+code = CLng(&quot;&amp;H&quot; &amp; Mid(entity, 4, Len(entity) - 4))
+ElseIf InStr(entity, &quot;&amp;#&quot;) &gt; 0 Then
+&#x27; Decimal entity
+code = CLng(Mid(entity, 3, Len(entity) - 3))
+End If
+
+If code &gt;= 0 And code &lt;= 65535 Then
+DecodeNumericEntity = ChrW(code)
+End If
+End Function</code></pre>
+<h3 id="unicode-range-validator">Unicode Range Validator</h3>
+<pre><code class="language-vbnet">Function IsInUnicodeRange(char As String, rangeStart As Long, rangeEnd As Long) As Boolean
+If Len(char) = 0 Then Exit Function
+
+Dim code As Long
+code = AscW(char)
+
+IsInUnicodeRange = (code &gt;= rangeStart And code &lt;= rangeEnd)
+End Function
+
+&#x27; Example usage:
+&#x27; If IsInUnicodeRange(char, 0x4E00, 0x9FFF) Then
+&#x27;     Debug.Print &quot;CJK Unified Ideograph&quot;
+&#x27; End If</code></pre>
+<h3 id="unicode-text-file-writer">Unicode Text File Writer</h3>
+<pre><code class="language-vbnet">Sub WriteUnicodeFile(filename As String, text As String)
+Dim fso As Object, stream As Object
+Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+Set stream = CreateObject(&quot;ADODB.Stream&quot;)
+
+stream.Type = 2  &#x27; Text
+stream.Charset = &quot;UTF-8&quot;
+stream.Open
+
+&#x27; Add BOM for UTF-8
+stream.WriteText ChrW(65279)  &#x27; UTF-8 BOM
+stream.WriteText text
+
+stream.SaveToFile filename, 2
+stream.Close
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeChrW(charcode As Long) As String
+On Error GoTo ErrorHandler
+
+&#x27; Normalize negative values
+If charcode &lt; 0 Then
+charcode = 65536 + charcode
+End If
+
+If charcode &gt;= 0 And charcode &lt;= 65535 Then
+SafeChrW = ChrW(charcode)
+Else
+SafeChrW = &quot;?&quot;  &#x27; Replacement character for invalid codes
+End If
+Exit Function
+
+ErrorHandler:
+SafeChrW = &quot;?&quot;
+End Function</code></pre>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><code>ChrW</code> is a fast operation with minimal overhead</li>
+<li>When building long Unicode strings, use string concatenation efficiently or a <code>StringBuilder</code> pattern</li>
+<li>For repeated character creation, consider caching the result</li>
+<li><code>AscW</code> is the inverse function of <code>ChrW</code></li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use <code>ChrW</code> for Unicode</strong> - Always use <code>ChrW</code> instead of <code>Chr</code> when working with international text</li>
+<li><strong>Validate ranges</strong> - Check that character codes are within valid Unicode ranges</li>
+<li><strong>Handle errors</strong> - Wrap <code>ChrW</code> calls in error handlers when processing user input</li>
+<li><strong>Document character codes</strong> - Use constants or comments to explain non-obvious character codes</li>
+<li><strong>Test with actual data</strong> - Verify Unicode text displays correctly in target environments</li>
+<li><strong>Consider normalization</strong> - Be aware that some characters can be represented multiple ways</li>
+<li><strong>Use UTF-8 for files</strong> - When saving Unicode text, prefer UTF-8 encoding</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Character Set</th>
+<th>Range</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Chr</code></td>
+<td>System default (ANSI/Unicode)</td>
+<td>0-255</td>
+<td>Legacy code, simple ASCII</td>
+</tr>
+<tr>
+<td><code>ChrB</code></td>
+<td>ANSI (byte)</td>
+<td>0-255</td>
+<td>ANSI text, byte operations</td>
+</tr>
+<tr>
+<td><code>ChrW</code></td>
+<td>Unicode (wide)</td>
+<td>0-65535</td>
+<td>International text, symbols</td>
+</tr>
+<tr>
+<td><code>AscW</code></td>
+<td>Unicode (inverse)</td>
+<td>Returns 0-65535</td>
+<td>Get Unicode code from character</td>
+</tr>
+</tbody>
+</table>
+<h2 id="unicode-ranges-reference">Unicode Ranges Reference</h2>
+<p>Some common Unicode ranges that work with <code>ChrW</code>:</p>
+<ul>
+<li><strong>Basic Latin</strong>: 0-127 (ASCII)</li>
+<li><strong>Latin-1 Supplement</strong>: 128-255</li>
+<li><strong>Greek and Coptic</strong>: 880-1023</li>
+<li><strong>Cyrillic</strong>: 1024-1279</li>
+<li><strong>Hebrew</strong>: 1424-1535</li>
+<li><strong>Arabic</strong>: 1536-1791</li>
+<li><strong>CJK Unified Ideographs</strong>: 19968-40959</li>
+<li><strong>Hangul Syllables</strong>: 44032-55203</li>
+<li><strong>Currency Symbols</strong>: 8352-8399</li>
+<li><strong>Mathematical Operators</strong>: 8704-8959</li>
+<li><strong>Arrows</strong>: 8592-8703</li>
+<li><strong>Box Drawing</strong>: 9472-9599</li>
+</ul>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>VB6 supports Unicode through <code>ChrW</code> but stores strings internally in the system's native format</li>
+<li>On Windows NT-based systems, strings are stored as Unicode (UTF-16)</li>
+<li>On Windows 95/98/ME, strings use ANSI encoding, which may cause issues with characters outside the current code page</li>
+<li>When running on older systems, test thoroughly with non-ASCII characters</li>
+<li>Modern Windows systems (XP and later) handle Unicode properly</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><code>ChrW</code> only supports the Basic Multilingual Plane (BMP), code points 0-65535</li>
+<li>Characters outside the BMP (like some emoji) require surrogate pairs in VB6</li>
+<li>Surrogate pairs are complex and require combining two <code>ChrW</code> calls</li>
+<li>Not all fonts support all Unicode characters; display depends on available fonts</li>
+<li>Some Unicode features like combining characters may not render correctly in all VB6 controls</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

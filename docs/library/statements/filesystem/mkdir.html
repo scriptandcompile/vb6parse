@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - mkdir - Filesystem">
+    <title>mkdir - Filesystem - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/filesystem/index.html">Filesystem</a> / mkdir</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="mkdir-statement"><code>MkDir</code> Statement</h1>
+<p>Creates a new directory or folder.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">MkDir path</code></pre>
+<ul>
+<li><code>path</code>: Required. String expression that identifies the directory or folder to be created. May include drive.
+If no drive is specified, <code>MkDir</code> creates the new directory or folder on the current drive.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>An error occurs if you try to create a directory or folder that already exists</li>
+<li>The <code>path</code> argument can include absolute or relative paths</li>
+<li>You can use <code>MkDir</code> to create nested directories by creating parent directories first</li>
+<li>On Windows systems, both forward slashes (/) and backslashes () can be used as path separators</li>
+<li>The directory name can include the drive letter</li>
+<li>UNC paths are supported on network drives</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-vbnet">&#x27; Create a directory in the current directory
+MkDir &quot;MyNewFolder&quot;
+
+&#x27; Create a directory with full path
+MkDir &quot;C:\Program Files\MyApp&quot;
+
+&#x27; Create a directory on another drive
+MkDir &quot;D:\Data\Reports&quot;
+
+&#x27; Create nested directories (parent must exist first)
+MkDir &quot;C:\Temp&quot;
+MkDir &quot;C:\Temp\Logs&quot;
+MkDir &quot;C:\Temp\Logs\Archive&quot;
+
+&#x27; Create directory on network drive
+MkDir &quot;\\Server\Share\NewFolder&quot;</code></pre>
+<h2 id="reference">Reference</h2>
+<p><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/mkdir-statement">MkDir Statement - Microsoft Docs</a></p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Filesystem</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

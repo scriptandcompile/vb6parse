@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - qbcolor - Graphics">
+    <title>qbcolor - Graphics - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/graphics/index.html">Graphics</a> / qbcolor</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="qbcolor-function"><code>QBColor</code> Function</h1>
+<p>Returns a Long representing the RGB color code corresponding to the specified color number.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">QBColor(color)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>color</code> - Required. Integer in the range 0-15 that represents a color value from the QBasic/DOS era color palette.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Long</code> representing the RGB color code that corresponds to the specified <code>QBasic</code> color number. The returned value can be used with Visual Basic's color properties.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>QBColor</code> function provides backward compatibility with <code>QBasic</code> and <code>QuickBASIC</code> programs by converting the 16-color palette used in DOS applications to RGB values usable in Windows applications.</p>
+<p>The color argument must be an integer from 0 to 15. Each number corresponds to a specific color from the classic DOS/QBasic palette:</p>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Color Name</th>
+<th>RGB Value</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Black</td>
+<td>RGB(0,0,0)</td>
+<td>&amp;H000000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Blue</td>
+<td>RGB(0,0,128)</td>
+<td>&amp;H800000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Green</td>
+<td>RGB(0,128,0)</td>
+<td>&amp;H008000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cyan</td>
+<td>RGB(0,128,128)</td>
+<td>&amp;H808000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Red</td>
+<td>RGB(128,0,0)</td>
+<td>&amp;H000080</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Magenta</td>
+<td>RGB(128,0,128)</td>
+<td>&amp;H800080</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Yellow</td>
+<td>RGB(128,128,0)</td>
+<td>&amp;H008080</td>
+</tr>
+<tr>
+<td>7</td>
+<td>White</td>
+<td>RGB(192,192,192)</td>
+<td>&amp;HC0C0C0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Gray</td>
+<td>RGB(128,128,128)</td>
+<td>&amp;H808080</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Light Blue</td>
+<td>RGB(0,0,255)</td>
+<td>&amp;HFF0000</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Light Green</td>
+<td>RGB(0,255,0)</td>
+<td>&amp;H00FF00</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Light Cyan</td>
+<td>RGB(0,255,255)</td>
+<td>&amp;HFFFF00</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Light Red</td>
+<td>RGB(255,0,0)</td>
+<td>&amp;H0000FF</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Light Magenta</td>
+<td>RGB(255,0,255)</td>
+<td>&amp;HFF00FF</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Light Yellow</td>
+<td>RGB(255,255,0)</td>
+<td>&amp;H00FFFF</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Bright White</td>
+<td>RGB(255,255,255)</td>
+<td>&amp;HFFFFFF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important Notes</strong>:
+- Colors 0-7 are the standard intensity colors
+- Colors 8-15 are the high intensity (bright) versions
+- The RGB values use BGR byte order when stored as Long values
+- Values outside 0-15 will cause an "Invalid procedure call or argument" error</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Legacy Code Migration</strong>: Converting QBasic/DOS applications to VB6/Windows</li>
+<li><strong>Console-Style Interfaces</strong>: Creating retro-style applications with classic color schemes</li>
+<li><strong>Educational Programs</strong>: Teaching programming with familiar DOS color palette</li>
+<li><strong>Text Display</strong>: Coloring text output in legacy-compatible ways</li>
+<li><strong>Form Backgrounds</strong>: Setting form or control colors using <code>QBasic</code> conventions</li>
+<li><strong>Chart/Graph Colors</strong>: Using classic palette for data visualization</li>
+<li><strong>Terminal Emulation</strong>: Emulating DOS/console applications</li>
+<li><strong>Game Development</strong>: Retro game development with classic color palette</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-setting-form-background">Example 1: Setting Form Background</h3>
+<pre><code class="language-vbnet">&#x27; Set form background to bright blue (QBasic color 9)
+Form1.BackColor = QBColor(9)</code></pre>
+<h3 id="example-2-setting-text-color">Example 2: Setting Text Color</h3>
+<pre><code class="language-vbnet">&#x27; Set label text to bright yellow (QBasic color 14)
+Label1.ForeColor = QBColor(14)</code></pre>
+<h3 id="example-3-cycling-through-colors">Example 3: Cycling Through Colors</h3>
+<pre><code class="language-vbnet">&#x27; Cycle through all 16 QBasic colors
+Dim i As Integer
+For i = 0 To 15
+Picture1.Line (i * 20, 0)-(i * 20 + 19, 100), QBColor(i), BF
+Next i</code></pre>
+<h3 id="example-4-conditional-coloring">Example 4: Conditional Coloring</h3>
+<pre><code class="language-vbnet">&#x27; Color-code values: green for positive, red for negative
+If value &gt;= 0 Then
+Label1.ForeColor = QBColor(10)  &#x27; Light Green
+Else
+Label1.ForeColor = QBColor(12)  &#x27; Light Red
+End If</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-colorbynumber">Pattern 1: <code>ColorByNumber</code></h3>
+<pre><code class="language-vbnet">Function ColorByNumber(colorNum As Integer) As Long
+&#x27; Safely convert color number with bounds checking
+If colorNum &lt; 0 Then colorNum = 0
+If colorNum &gt; 15 Then colorNum = 15
+ColorByNumber = QBColor(colorNum)
+End Function</code></pre>
+<h3 id="pattern-2-getcolorname">Pattern 2: <code>GetColorName</code></h3>
+<pre><code class="language-vbnet">Function GetColorName(colorNum As Integer) As String
+&#x27; Return descriptive name for QBasic color number
+Select Case colorNum
+Case 0: GetColorName = &quot;Black&quot;
+Case 1: GetColorName = &quot;Blue&quot;
+Case 2: GetColorName = &quot;Green&quot;
+Case 3: GetColorName = &quot;Cyan&quot;
+Case 4: GetColorName = &quot;Red&quot;
+Case 5: GetColorName = &quot;Magenta&quot;
+Case 6: GetColorName = &quot;Yellow&quot;
+Case 7: GetColorName = &quot;White&quot;
+Case 8: GetColorName = &quot;Gray&quot;
+Case 9: GetColorName = &quot;Light Blue&quot;
+Case 10: GetColorName = &quot;Light Green&quot;
+Case 11: GetColorName = &quot;Light Cyan&quot;
+Case 12: GetColorName = &quot;Light Red&quot;
+Case 13: GetColorName = &quot;Light Magenta&quot;
+Case 14: GetColorName = &quot;Light Yellow&quot;
+Case 15: GetColorName = &quot;Bright White&quot;
+Case Else: GetColorName = &quot;Unknown&quot;
+End Select
+End Function</code></pre>
+<h3 id="pattern-3-colorpalettepicker">Pattern 3: <code>ColorPalettePicker</code></h3>
+<pre><code class="language-vbnet">Sub ShowColorPalette()
+Dim i As Integer
+Dim x As Integer, y As Integer
+
+&#x27; Display all 16 colors in a 4x4 grid
+For i = 0 To 15
+x = (i Mod 4) * 60
+y = (i \ 4) * 40
+
+Picture1.Line (x, y)-(x + 55, y + 35), QBColor(i), BF
+Picture1.ForeColor = QBColor(15 - i)  &#x27; Contrast color
+Picture1.CurrentX = x + 5
+Picture1.CurrentY = y + 10
+Picture1.Print i
+Next i
+End Sub</code></pre>
+<h3 id="pattern-4-applycolorscheme">Pattern 4: <code>ApplyColorScheme</code></h3>
+<pre><code class="language-vbnet">Sub ApplyColorScheme(bgColor As Integer, fgColor As Integer, _
+Optional ctrl As Control = Nothing)
+&#x27; Apply QBasic color scheme to control or form
+If ctrl Is Nothing Then
+Me.BackColor = QBColor(bgColor)
+Me.ForeColor = QBColor(fgColor)
+Else
+ctrl.BackColor = QBColor(bgColor)
+ctrl.ForeColor = QBColor(fgColor)
+End If
+End Sub</code></pre>
+<h3 id="pattern-5-validatecolornumber">Pattern 5: <code>ValidateColorNumber</code></h3>
+<pre><code class="language-vbnet">Function ValidateColorNumber(colorNum As Integer) As Boolean
+&#x27; Check if color number is in valid range
+ValidateColorNumber = (colorNum &gt;= 0 And colorNum &lt;= 15)
+End Function</code></pre>
+<h3 id="pattern-6-getcomplementarycolor">Pattern 6: <code>GetComplementaryColor</code></h3>
+<pre><code class="language-vbnet">Function GetComplementaryColor(colorNum As Integer) As Long
+&#x27; Get a contrasting color for readability
+If colorNum &gt;= 0 And colorNum &lt;= 7 Then
+&#x27; Dark colors: use white/bright white
+GetComplementaryColor = QBColor(15)
+Else
+&#x27; Light colors: use black
+GetComplementaryColor = QBColor(0)
+End If
+End Function</code></pre>
+<h3 id="pattern-7-colorizetext">Pattern 7: <code>ColorizeText</code></h3>
+<pre><code class="language-vbnet">Sub ColorizeText(textBox As TextBox, colorCode As Integer)
+&#x27; Apply color with error handling
+On Error Resume Next
+textBox.ForeColor = QBColor(colorCode)
+If Err.Number &lt;&gt; 0 Then
+textBox.ForeColor = vbBlack  &#x27; Default to black on error
+Err.Clear
+End If
+On Error GoTo 0
+End Sub</code></pre>
+<h3 id="pattern-8-createcolorgradient">Pattern 8: <code>CreateColorGradient</code></h3>
+<pre><code class="language-vbnet">Sub CreateColorGradient(pic As PictureBox, startColor As Integer, _
+endColor As Integer, steps As Integer)
+&#x27; Create gradient using QBasic colors
+Dim i As Integer
+Dim stepHeight As Single
+
+stepHeight = pic.ScaleHeight / steps
+
+For i = 0 To steps - 1
+Dim blendColor As Integer
+blendColor = startColor + ((endColor - startColor) * i \ steps)
+If blendColor &lt; 0 Then blendColor = 0
+If blendColor &gt; 15 Then blendColor = 15
+
+pic.Line (0, i * stepHeight)-(pic.ScaleWidth, (i + 1) * stepHeight), _
+QBColor(blendColor), BF
+Next i
+End Sub</code></pre>
+<h3 id="pattern-9-highlightcontrol">Pattern 9: <code>HighlightControl</code></h3>
+<pre><code class="language-vbnet">Sub HighlightControl(ctrl As Control, highlight As Boolean)
+&#x27; Toggle control highlighting using QBasic colors
+If highlight Then
+ctrl.BackColor = QBColor(14)  &#x27; Light Yellow
+ctrl.ForeColor = QBColor(0)   &#x27; Black
+Else
+ctrl.BackColor = QBColor(15)  &#x27; White
+ctrl.ForeColor = QBColor(0)   &#x27; Black
+End If
+End Sub</code></pre>
+<h3 id="pattern-10-colorcodestatus">Pattern 10: <code>ColorCodeStatus</code></h3>
+<pre><code class="language-vbnet">Function GetStatusColor(status As String) As Long
+&#x27; Return color based on status string
+Select Case UCase(status)
+Case &quot;ERROR&quot;, &quot;CRITICAL&quot;
+GetStatusColor = QBColor(12)  &#x27; Light Red
+Case &quot;WARNING&quot;
+GetStatusColor = QBColor(14)  &#x27; Light Yellow
+Case &quot;SUCCESS&quot;, &quot;OK&quot;
+GetStatusColor = QBColor(10)  &#x27; Light Green
+Case &quot;INFO&quot;
+GetStatusColor = QBColor(9)   &#x27; Light Blue
+Case Else
+GetStatusColor = QBColor(7)   &#x27; White
+End Select
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="example-1-console-style-output-window">Example 1: Console-Style Output Window</h3>
+<pre><code class="language-vbnet">&#x27; Create a DOS-style console window with classic colors
+Class ConsoleWindow
+Private m_textBox As TextBox
+Private m_currentColor As Integer
+Private m_bgColor As Integer
+
+Public Sub Initialize(textBox As TextBox)
+Set m_textBox = textBox
+m_currentColor = 7   &#x27; White
+m_bgColor = 0        &#x27; Black
+
+&#x27; Setup for console appearance
+With m_textBox
+.BackColor = QBColor(m_bgColor)
+.ForeColor = QBColor(m_currentColor)
+.Font.Name = &quot;Courier New&quot;
+.Font.Size = 10
+.MultiLine = True
+.ScrollBars = vbVertical
+End With
+End Sub
+
+Public Sub SetColor(colorNum As Integer)
+If colorNum &gt;= 0 And colorNum &lt;= 15 Then
+m_currentColor = colorNum
+End If
+End Sub
+
+Public Sub SetBackColor(colorNum As Integer)
+If colorNum &gt;= 0 And colorNum &lt;= 15 Then
+m_bgColor = colorNum
+m_textBox.BackColor = QBColor(m_bgColor)
+End If
+End Sub
+
+Public Sub Print(text As String)
+&#x27; Note: VB6 doesn&#x27;t support rich text easily in TextBox
+&#x27; This is simplified - use RichTextBox for multi-color text
+m_textBox.ForeColor = QBColor(m_currentColor)
+m_textBox.Text = m_textBox.Text &amp; text &amp; vbCrLf
+m_textBox.SelStart = Len(m_textBox.Text)
+End Sub
+
+Public Sub PrintColored(text As String, colorNum As Integer)
+Dim oldColor As Integer
+oldColor = m_currentColor
+SetColor colorNum
+Print text
+SetColor oldColor
+End Sub
+
+Public Sub Clear()
+m_textBox.Text = &quot;&quot;
+End Sub
+
+Public Sub ShowColorTest()
+Dim i As Integer
+Clear
+
+For i = 0 To 15
+PrintColored &quot;Color &quot; &amp; i &amp; &quot;: &quot; &amp; GetColorName(i), i
+Next i
+End Sub
+
+Private Function GetColorName(colorNum As Integer) As String
+Select Case colorNum
+Case 0: GetColorName = &quot;Black&quot;
+Case 1: GetColorName = &quot;Blue&quot;
+Case 2: GetColorName = &quot;Green&quot;
+Case 3: GetColorName = &quot;Cyan&quot;
+Case 4: GetColorName = &quot;Red&quot;
+Case 5: GetColorName = &quot;Magenta&quot;
+Case 6: GetColorName = &quot;Yellow&quot;
+Case 7: GetColorName = &quot;White&quot;
+Case 8: GetColorName = &quot;Gray&quot;
+Case 9: GetColorName = &quot;Light Blue&quot;
+Case 10: GetColorName = &quot;Light Green&quot;
+Case 11: GetColorName = &quot;Light Cyan&quot;
+Case 12: GetColorName = &quot;Light Red&quot;
+Case 13: GetColorName = &quot;Light Magenta&quot;
+Case 14: GetColorName = &quot;Light Yellow&quot;
+Case 15: GetColorName = &quot;Bright White&quot;
+Case Else: GetColorName = &quot;Unknown&quot;
+End Select
+End Function
+End Class</code></pre>
+<h3 id="example-2-color-palette-manager">Example 2: Color Palette Manager</h3>
+<pre><code class="language-vbnet">&#x27; Manage and display QBasic color palette
+Module ColorPaletteManager
+Private Type ColorInfo
+Number As Integer
+Name As String
+RGBValue As Long
+HexValue As String
+End Type
+
+Private m_palette(0 To 15) As ColorInfo
+Private m_initialized As Boolean
+
+Public Sub InitializePalette()
+Dim i As Integer
+
+For i = 0 To 15
+m_palette(i).Number = i
+m_palette(i).Name = GetColorName(i)
+m_palette(i).RGBValue = QBColor(i)
+m_palette(i).HexValue = &quot;&amp;H&quot; &amp; Right(&quot;000000&quot; &amp; Hex(QBColor(i)), 6)
+Next i
+
+m_initialized = True
+End Sub
+
+Public Function GetColorInfo(colorNum As Integer) As String
+If Not m_initialized Then InitializePalette
+
+If colorNum &lt; 0 Or colorNum &gt; 15 Then
+GetColorInfo = &quot;Invalid color number&quot;
+Exit Function
+End If
+
+With m_palette(colorNum)
+GetColorInfo = &quot;Color &quot; &amp; .Number &amp; &quot;: &quot; &amp; .Name &amp; _
+&quot; (RGB: &quot; &amp; .RGBValue &amp; &quot;, Hex: &quot; &amp; .HexValue &amp; &quot;)&quot;
+End With
+End Function
+
+Public Function FindColorByName(colorName As String) As Integer
+Dim i As Integer
+
+If Not m_initialized Then InitializePalette
+
+For i = 0 To 15
+If UCase(m_palette(i).Name) = UCase(colorName) Then
+FindColorByName = i
+Exit Function
+End If
+Next i
+
+FindColorByName = -1  &#x27; Not found
+End Function
+
+Public Sub DisplayPalette(pic As PictureBox)
+Dim i As Integer
+Dim x As Single, y As Single
+Dim boxSize As Single
+
+If Not m_initialized Then InitializePalette
+
+pic.Cls
+boxSize = pic.ScaleWidth / 4
+
+For i = 0 To 15
+x = (i Mod 4) * boxSize
+y = (i \ 4) * boxSize
+
+&#x27; Draw color box
+pic.Line (x, y)-(x + boxSize - 5, y + boxSize - 5), _
+QBColor(i), BF
+
+&#x27; Draw color number
+pic.ForeColor = GetComplementaryColor(i)
+pic.CurrentX = x + 5
+pic.CurrentY = y + 5
+pic.Print Format(i, &quot;00&quot;)
+Next i
+End Sub
+
+Public Function ExportPaletteToHTML() As String
+Dim html As String
+Dim i As Integer
+
+If Not m_initialized Then InitializePalette
+
+html = &quot;&lt;table border=&#x27;1&#x27;&gt;&quot; &amp; vbCrLf
+html = html &amp; &quot;&lt;tr&gt;&lt;th&gt;Number&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Hex&lt;/th&gt;&lt;th&gt;Preview&lt;/th&gt;&lt;/tr&gt;&quot; &amp; vbCrLf
+
+For i = 0 To 15
+html = html &amp; &quot;&lt;tr&gt;&quot;
+html = html &amp; &quot;&lt;td&gt;&quot; &amp; i &amp; &quot;&lt;/td&gt;&quot;
+html = html &amp; &quot;&lt;td&gt;&quot; &amp; m_palette(i).Name &amp; &quot;&lt;/td&gt;&quot;
+html = html &amp; &quot;&lt;td&gt;&quot; &amp; m_palette(i).HexValue &amp; &quot;&lt;/td&gt;&quot;
+html = html &amp; &quot;&lt;td style=&#x27;background-color:&quot; &amp; m_palette(i).HexValue &amp; &quot;;&#x27;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;&quot;
+html = html &amp; &quot;&lt;/tr&gt;&quot; &amp; vbCrLf
+Next i
+
+html = html &amp; &quot;&lt;/table&gt;&quot;
+ExportPaletteToHTML = html
+End Function
+
+Private Function GetColorName(colorNum As Integer) As String
+&#x27; Implementation same as previous examples
+Select Case colorNum
+Case 0: GetColorName = &quot;Black&quot;
+Case 1: GetColorName = &quot;Blue&quot;
+Case 2: GetColorName = &quot;Green&quot;
+Case 3: GetColorName = &quot;Cyan&quot;
+Case 4: GetColorName = &quot;Red&quot;
+Case 5: GetColorName = &quot;Magenta&quot;
+Case 6: GetColorName = &quot;Yellow&quot;
+Case 7: GetColorName = &quot;White&quot;
+Case 8: GetColorName = &quot;Gray&quot;
+Case 9: GetColorName = &quot;Light Blue&quot;
+Case 10: GetColorName = &quot;Light Green&quot;
+Case 11: GetColorName = &quot;Light Cyan&quot;
+Case 12: GetColorName = &quot;Light Red&quot;
+Case 13: GetColorName = &quot;Light Magenta&quot;
+Case 14: GetColorName = &quot;Light Yellow&quot;
+Case 15: GetColorName = &quot;Bright White&quot;
+End Select
+End Function
+
+Private Function GetComplementaryColor(colorNum As Integer) As Long
+If colorNum &gt;= 0 And colorNum &lt;= 7 Then
+GetComplementaryColor = QBColor(15)
+Else
+GetComplementaryColor = QBColor(0)
+End If
+End Function
+End Module</code></pre>
+<h3 id="example-3-retro-game-color-manager">Example 3: Retro Game Color Manager</h3>
+<pre><code class="language-vbnet">&#x27; Manage colors for retro-style games
+Class GameColorManager
+Private m_playerColor As Integer
+Private m_enemyColor As Integer
+Private m_backgroundColors() As Integer
+Private m_levelColors As Collection
+
+Public Sub Initialize()
+Set m_levelColors = New Collection
+ReDim m_backgroundColors(0 To 3)
+
+&#x27; Default colors
+m_playerColor = 14       &#x27; Light Yellow
+m_enemyColor = 12        &#x27; Light Red
+m_backgroundColors(0) = 0  &#x27; Black
+m_backgroundColors(1) = 1  &#x27; Blue
+m_backgroundColors(2) = 2  &#x27; Green
+m_backgroundColors(3) = 5  &#x27; Magenta
+End Sub
+
+Public Function GetPlayerColor() As Long
+GetPlayerColor = QBColor(m_playerColor)
+End Function
+
+Public Function GetEnemyColor() As Long
+GetEnemyColor = QBColor(m_enemyColor)
+End Function
+
+Public Function GetBackgroundColor(level As Integer) As Long
+Dim colorIndex As Integer
+colorIndex = level Mod (UBound(m_backgroundColors) + 1)
+GetBackgroundColor = QBColor(m_backgroundColors(colorIndex))
+End Function
+
+Public Sub SetLevelColorScheme(level As Integer, bgColor As Integer, _
+playerColor As Integer, enemyColor As Integer)
+Dim scheme As String
+scheme = bgColor &amp; &quot;,&quot; &amp; playerColor &amp; &quot;,&quot; &amp; enemyColor
+
+&#x27; Store in collection using level as key
+On Error Resume Next
+m_levelColors.Remove CStr(level)
+On Error GoTo 0
+m_levelColors.Add scheme, CStr(level)
+End Sub
+
+Public Sub ApplyLevelColors(level As Integer, gameForm As Form)
+Dim scheme As String
+Dim colors() As String
+
+On Error Resume Next
+scheme = m_levelColors(CStr(level))
+On Error GoTo 0
+
+If scheme &lt;&gt; &quot;&quot; Then
+colors = Split(scheme, &quot;,&quot;)
+If UBound(colors) = 2 Then
+gameForm.BackColor = QBColor(CInt(colors(0)))
+m_playerColor = CInt(colors(1))
+m_enemyColor = CInt(colors(2))
+End If
+Else
+&#x27; Use default colors
+gameForm.BackColor = GetBackgroundColor(level)
+End If
+End Sub
+
+Public Function CreateColorCycle(startColor As Integer, endColor As Integer) As Long()
+&#x27; Create array of colors for animation
+Dim colors() As Long
+Dim i As Integer
+Dim count As Integer
+
+count = Abs(endColor - startColor) + 1
+ReDim colors(0 To count - 1)
+
+For i = 0 To count - 1
+If startColor &lt;= endColor Then
+colors(i) = QBColor(startColor + i)
+Else
+colors(i) = QBColor(startColor - i)
+End If
+Next i
+
+CreateColorCycle = colors
+End Function
+End Class</code></pre>
+<h3 id="example-4-syntax-highlighter">Example 4: Syntax Highlighter</h3>
+<pre><code class="language-vbnet">&#x27; Simple syntax highlighter using QBasic colors
+Class SyntaxHighlighter
+Private m_keywordColor As Integer
+Private m_stringColor As Integer
+Private m_commentColor As Integer
+Private m_numberColor As Integer
+Private m_normalColor As Integer
+
+Public Sub Initialize()
+m_keywordColor = 9    &#x27; Light Blue
+m_stringColor = 12    &#x27; Light Red
+m_commentColor = 2    &#x27; Green
+m_numberColor = 14    &#x27; Light Yellow
+m_normalColor = 15    &#x27; Bright White
+End Sub
+
+Public Function GetKeywordColor() As Long
+GetKeywordColor = QBColor(m_keywordColor)
+End Function
+
+Public Function GetStringColor() As Long
+GetStringColor = QBColor(m_stringColor)
+End Function
+
+Public Function GetCommentColor() As Long
+GetCommentColor = QBColor(m_commentColor)
+End Function
+
+Public Function GetNumberColor() As Long
+GetNumberColor = QBColor(m_numberColor)
+End Function
+
+Public Function GetNormalColor() As Long
+GetNormalColor = QBColor(m_normalColor)
+End Function
+
+Public Sub SetColorScheme(scheme As String)
+&#x27; Apply predefined color schemes
+Select Case UCase(scheme)
+Case &quot;CLASSIC&quot;
+m_keywordColor = 9
+m_stringColor = 12
+m_commentColor = 2
+m_numberColor = 14
+m_normalColor = 15
+Case &quot;PASTEL&quot;
+m_keywordColor = 11
+m_stringColor = 13
+m_commentColor = 10
+m_numberColor = 14
+m_normalColor = 7
+Case &quot;CONTRAST&quot;
+m_keywordColor = 14
+m_stringColor = 12
+m_commentColor = 10
+m_numberColor = 11
+m_normalColor = 15
+End Select
+End Sub
+
+Public Function GetColorForType(tokenType As String) As Long
+Select Case UCase(tokenType)
+Case &quot;KEYWORD&quot;
+GetColorForType = GetKeywordColor()
+Case &quot;STRING&quot;
+GetColorForType = GetStringColor()
+Case &quot;COMMENT&quot;
+GetColorForType = GetCommentColor()
+Case &quot;NUMBER&quot;
+GetColorForType = GetNumberColor()
+Case Else
+GetColorForType = GetNormalColor()
+End Select
+End Function
+End Class</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>QBColor</code> function can raise errors in the following situations:</p>
+<ul>
+<li><strong>Invalid Procedure Call or Argument (Error 5)</strong>: When:</li>
+<li>The color argument is less than 0 or greater than 15</li>
+<li>The argument is not a valid integer</li>
+<li><strong>Type Mismatch (Error 13)</strong>: When the argument cannot be converted to an integer</li>
+</ul>
+<p>Always validate the color number before calling <code>QBColor</code>:</p>
+<pre><code class="language-vbnet">Function SafeQBColor(colorNum As Integer) As Long
+On Error Resume Next
+SafeQBColor = QBColor(colorNum)
+If Err.Number &lt;&gt; 0 Then
+SafeQBColor = QBColor(7)  &#x27; Default to white
+Err.Clear
+End If
+On Error GoTo 0
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>The <code>QBColor</code> function is very fast - it's essentially a lookup table</li>
+<li>No performance penalty for repeated calls</li>
+<li>Can be called thousands of times without noticeable impact</li>
+<li>Consider caching if using the same color multiple times in tight loops</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Validate Input</strong>: Always check that color numbers are in range 0-15</li>
+<li><strong>Use Constants</strong>: Define named constants for frequently used colors</li>
+<li><strong>Document Color Choices</strong>: Comment why specific colors were chosen</li>
+<li><strong>Test Accessibility</strong>: Consider color-blind users when choosing colors</li>
+<li><strong>Provide Contrast</strong>: Ensure text is readable against background</li>
+<li><strong>Use Complementary Colors</strong>: Pair dark backgrounds with light foregrounds</li>
+<li><strong>Consider Modern Alternatives</strong>: For new code, consider <code>RGB()</code> function</li>
+<li><strong>Legacy Compatibility</strong>: Use <code>QBColor</code> when porting QBasic/DOS code</li>
+<li><strong>Error Handling</strong>: Wrap <code>QBColor</code> calls in error handlers for robustness</li>
+<li><strong>Color Naming</strong>: Use <code>GetColorName</code> pattern for better code readability</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>QBColor</code></strong></td>
+<td><code>QBasic</code> color to RGB</td>
+<td>Long (RGB value)</td>
+<td>Legacy compatibility, retro interfaces</td>
+</tr>
+<tr>
+<td><strong>RGB</strong></td>
+<td>Create RGB color</td>
+<td>Long (RGB value)</td>
+<td>Custom colors, modern applications</td>
+</tr>
+<tr>
+<td><strong>vbRed, vbBlue, etc.</strong></td>
+<td>Predefined constants</td>
+<td>Long (RGB value)</td>
+<td>Standard colors, quick coding</td>
+</tr>
+<tr>
+<td><strong><code>LoadPicture</code></strong></td>
+<td>Load image with colors</td>
+<td>Picture object</td>
+<td>Complex graphics, photos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in VB6 and all versions of VBA</li>
+<li>Behavior is consistent across all Windows platforms</li>
+<li>Returns BGR byte order (Blue-Green-Red) as is standard for Windows</li>
+<li>Color values are identical to <code>QBasic</code> and <code>QuickBASIC</code></li>
+<li>Not available in VB.NET (use System.Drawing.Color instead)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited to 16 predefined colors only</li>
+<li>Cannot create custom colors (use RGB function instead)</li>
+<li>Color numbers must be exactly 0-15 (no wrapping or modulo)</li>
+<li>Colors may not display identically on all monitors</li>
+<li>High-intensity colors (8-15) may appear less distinct on some displays</li>
+<li>Not suitable for professional graphics requiring precise color control</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>RGB</code>: Creates custom RGB color values</li>
+<li><code>Hex</code>: Converts numbers to hexadecimal strings</li>
+<li><code>LoadPicture</code>: Loads images with full color support</li>
+<li>Color constants: <code>vbBlack</code>, <code>vbRed</code>, <code>vbGreen</code>, <code>vbBlue</code>, etc.</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Graphics</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

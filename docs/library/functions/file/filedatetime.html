@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - filedatetime - File">
+    <title>filedatetime - File - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/file/index.html">File</a> / filedatetime</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="filedatetime-function"><code>FileDateTime</code> Function</h1>
+<p>Returns a <code>Variant</code> (<code>Date</code>) representing the date and time when a file was created or last modified.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">FileDateTime(pathname)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>pathname</strong>: Required. A <code>String</code> expression that specifies a file name. May include
+directory or folder, and drive. If the file is not found, an error occurs.</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Variant</code> of subtype <code>Date</code> representing the date and time when the file was
+last modified. The returned value includes both date and time components.</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>FileDateTime</code> function returns the last modification date and time of a file.
+This is useful for file management, backup utilities, synchronization, and determining
+if files need to be updated.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Returns date/time of last modification</li>
+<li>File does not need to be open</li>
+<li>Error if file does not exist (Error 53)</li>
+<li>Error if path is invalid (Error 76)</li>
+<li>Works with full paths and relative paths</li>
+<li>Returns same value as file system shows</li>
+<li>Precision depends on file system (typically 2-second resolution on FAT, 100ns on NTFS)</li>
+<li>Affected by daylight saving time changes</li>
+<li>Returns local time (not UTC)</li>
+<li>Can be used with wildcards via <code>Dir</code> function</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ul>
+<li>Determine if file is newer than another</li>
+<li>Check if file has been modified since last access</li>
+<li>File synchronization between locations</li>
+<li>Backup and archive utilities</li>
+<li>Change detection systems</li>
+<li>File age calculations</li>
+<li>Automated cleanup of old files</li>
+<li>Build systems (check if recompilation needed)</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">Dim fileDate As Date
+
+&#x27; Get file modification date/time
+fileDate = FileDateTime(&quot;C:\data.txt&quot;)
+Debug.Print &quot;File last modified: &quot; &amp; fileDate
+
+&#x27; Format the date/time
+Debug.Print Format(fileDate, &quot;yyyy-mm-dd hh:nn:ss&quot;)</code></pre>
+<h3 id="compare-file-dates">Compare File Dates</h3>
+<pre><code class="language-vbnet">Function IsFileNewer(file1 As String, file2 As String) As Boolean
+&#x27; Returns True if file1 is newer than file2
+On Error GoTo ErrorHandler
+
+Dim date1 As Date
+Dim date2 As Date
+
+date1 = FileDateTime(file1)
+date2 = FileDateTime(file2)
+
+IsFileNewer = (date1 &gt; date2)
+Exit Function
+
+ErrorHandler:
+IsFileNewer = False
+End Function</code></pre>
+<h3 id="check-if-file-was-modified-today">Check If File Was Modified Today</h3>
+<pre><code class="language-vbnet">Function IsModifiedToday(filePath As String) As Boolean
+On Error GoTo ErrorHandler
+
+Dim fileDate As Date
+fileDate = FileDateTime(filePath)
+
+&#x27; Compare just the date part
+IsModifiedToday = (Int(fileDate) = Int(Date))
+Exit Function
+
+ErrorHandler:
+IsModifiedToday = False
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="find-newest-file-in-directory">Find Newest File in Directory</h3>
+<pre><code class="language-vbnet">Function FindNewestFile(folderPath As String, pattern As String) As String
+Dim fileName As String
+Dim newestFile As String
+Dim newestDate As Date
+Dim currentDate As Date
+
+&#x27; Ensure path ends with backslash
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+folderPath = folderPath &amp; &quot;\&quot;
+End If
+
+fileName = Dir(folderPath &amp; pattern)
+newestDate = #1/1/1900#
+
+Do While fileName &lt;&gt; &quot;&quot;
+On Error Resume Next
+currentDate = FileDateTime(folderPath &amp; fileName)
+
+If Err.Number = 0 Then
+If currentDate &gt; newestDate Then
+newestDate = currentDate
+newestFile = fileName
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+FindNewestFile = newestFile
+End Function</code></pre>
+<h3 id="get-file-age">Get File Age</h3>
+<pre><code class="language-vbnet">Function GetFileAgeInDays(filePath As String) As Long
+On Error GoTo ErrorHandler
+
+Dim fileDate As Date
+fileDate = FileDateTime(filePath)
+
+&#x27; Calculate difference in days
+GetFileAgeInDays = DateDiff(&quot;d&quot;, fileDate, Now)
+Exit Function
+
+ErrorHandler:
+GetFileAgeInDays = -1
+End Function
+
+Function GetFileAgeInHours(filePath As String) As Long
+On Error GoTo ErrorHandler
+
+Dim fileDate As Date
+fileDate = FileDateTime(filePath)
+
+GetFileAgeInHours = DateDiff(&quot;h&quot;, fileDate, Now)
+Exit Function
+
+ErrorHandler:
+GetFileAgeInHours = -1
+End Function</code></pre>
+<h3 id="delete-old-files">Delete Old Files</h3>
+<pre><code class="language-vbnet">Sub DeleteOldFiles(folderPath As String, daysOld As Long)
+Dim fileName As String
+Dim fullPath As String
+Dim fileDate As Date
+Dim ageInDays As Long
+
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+folderPath = folderPath &amp; &quot;\&quot;
+End If
+
+fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+
+Do While fileName &lt;&gt; &quot;&quot;
+fullPath = folderPath &amp; fileName
+
+On Error Resume Next
+fileDate = FileDateTime(fullPath)
+
+If Err.Number = 0 Then
+ageInDays = DateDiff(&quot;d&quot;, fileDate, Now)
+
+If ageInDays &gt; daysOld Then
+Kill fullPath
+Debug.Print &quot;Deleted: &quot; &amp; fileName &amp; &quot; (Age: &quot; &amp; ageInDays &amp; &quot; days)&quot;
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+End Sub</code></pre>
+<h3 id="check-if-file-needs-backup">Check If File Needs Backup</h3>
+<pre><code class="language-vbnet">Function NeedsBackup(sourceFile As String, backupFile As String) As Boolean
+On Error GoTo ErrorHandler
+
+Dim sourceDate As Date
+Dim backupDate As Date
+
+&#x27; Get source file date
+sourceDate = FileDateTime(sourceFile)
+
+&#x27; Check if backup exists
+If Dir(backupFile) = &quot;&quot; Then
+&#x27; No backup exists
+NeedsBackup = True
+Exit Function
+End If
+
+&#x27; Get backup file date
+backupDate = FileDateTime(backupFile)
+
+&#x27; Needs backup if source is newer than backup
+NeedsBackup = (sourceDate &gt; backupDate)
+Exit Function
+
+ErrorHandler:
+NeedsBackup = True  &#x27; Assume needs backup on error
+End Function</code></pre>
+<h3 id="list-files-modified-within-date-range">List Files Modified Within Date Range</h3>
+<pre><code class="language-vbnet">Function GetFilesModifiedBetween(folderPath As String, startDate As Date, _
+endDate As Date) As Collection
+Dim files As New Collection
+Dim fileName As String
+Dim fullPath As String
+Dim fileDate As Date
+
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+folderPath = folderPath &amp; &quot;\&quot;
+End If
+
+fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+
+Do While fileName &lt;&gt; &quot;&quot;
+fullPath = folderPath &amp; fileName
+
+On Error Resume Next
+fileDate = FileDateTime(fullPath)
+
+If Err.Number = 0 Then
+If fileDate &gt;= startDate And fileDate &lt;= endDate Then
+files.Add fullPath
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+Set GetFilesModifiedBetween = files
+End Function</code></pre>
+<h3 id="file-synchronization-check">File Synchronization Check</h3>
+<pre><code class="language-vbnet">Function SynchronizeFile(sourceFile As String, destFile As String) As Boolean
+On Error GoTo ErrorHandler
+
+Dim sourceDate As Date
+Dim destDate As Date
+Dim needsCopy As Boolean
+
+sourceDate = FileDateTime(sourceFile)
+
+&#x27; Check if destination exists
+If Dir(destFile) = &quot;&quot; Then
+needsCopy = True
+Else
+destDate = FileDateTime(destFile)
+needsCopy = (sourceDate &gt; destDate)
+End If
+
+If needsCopy Then
+FileCopy sourceFile, destFile
+Debug.Print &quot;Synchronized: &quot; &amp; sourceFile &amp; &quot; -&gt; &quot; &amp; destFile
+SynchronizeFile = True
+Else
+Debug.Print &quot;Already synchronized: &quot; &amp; destFile
+SynchronizeFile = False
+End If
+
+Exit Function
+
+ErrorHandler:
+Debug.Print &quot;Error synchronizing: &quot; &amp; Err.Description
+SynchronizeFile = False
+End Function</code></pre>
+<h3 id="build-system-check-dependencies">Build System - Check Dependencies</h3>
+<pre><code class="language-vbnet">Function SourceNewerThanExecutable(sourceFile As String, exeFile As String) As Boolean
+&#x27; Used in build systems to determine if recompilation is needed
+On Error GoTo ErrorHandler
+
+Dim sourceDate As Date
+Dim exeDate As Date
+
+&#x27; Check if executable exists
+If Dir(exeFile) = &quot;&quot; Then
+SourceNewerThanExecutable = True  &#x27; Need to build
+Exit Function
+End If
+
+sourceDate = FileDateTime(sourceFile)
+exeDate = FileDateTime(exeFile)
+
+SourceNewerThanExecutable = (sourceDate &gt; exeDate)
+Exit Function
+
+ErrorHandler:
+SourceNewerThanExecutable = True  &#x27; Assume needs build on error
+End Function</code></pre>
+<h3 id="generate-file-report">Generate File Report</h3>
+<pre><code class="language-vbnet">Sub GenerateFileReport(folderPath As String, reportFile As String)
+Dim fileName As String
+Dim fullPath As String
+Dim fileDate As Date
+Dim reportNum As Integer
+
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+folderPath = folderPath &amp; &quot;\&quot;
+End If
+
+reportNum = FreeFile
+Open reportFile For Output As #reportNum
+
+Print #reportNum, &quot;File Report for: &quot; &amp; folderPath
+Print #reportNum, &quot;Generated: &quot; &amp; Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;)
+Print #reportNum, String(80, &quot;-&quot;)
+Print #reportNum, &quot;Filename&quot;, &quot;Modified Date&quot;, &quot;Age (Days)&quot;
+Print #reportNum, String(80, &quot;-&quot;)
+
+fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+
+Do While fileName &lt;&gt; &quot;&quot;
+fullPath = folderPath &amp; fileName
+
+On Error Resume Next
+fileDate = FileDateTime(fullPath)
+
+If Err.Number = 0 Then
+Print #reportNum, fileName, _
+Format(fileDate, &quot;yyyy-mm-dd hh:nn:ss&quot;), _
+DateDiff(&quot;d&quot;, fileDate, Now)
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+Close #reportNum
+End Sub</code></pre>
+<h3 id="monitor-file-changes">Monitor File Changes</h3>
+<pre><code class="language-vbnet">Private lastCheckedDate As Date
+
+Function HasFileChanged(filePath As String) As Boolean
+On Error GoTo ErrorHandler
+
+Dim currentDate As Date
+currentDate = FileDateTime(filePath)
+
+If lastCheckedDate = 0 Then
+&#x27; First check
+lastCheckedDate = currentDate
+HasFileChanged = False
+Else
+HasFileChanged = (currentDate &gt; lastCheckedDate)
+If HasFileChanged Then
+lastCheckedDate = currentDate
+End If
+End If
+
+Exit Function
+
+ErrorHandler:
+HasFileChanged = False
+End Function</code></pre>
+<h3 id="sort-files-by-date">Sort Files by Date</h3>
+<pre><code class="language-vbnet">Type FileInfo
+Name As String
+ModifiedDate As Date
+End Type
+
+Function GetFilesSortedByDate(folderPath As String) As Variant
+Dim files() As FileInfo
+Dim fileName As String
+Dim fullPath As String
+Dim count As Long
+Dim i As Long, j As Long
+Dim temp As FileInfo
+
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then
+folderPath = folderPath &amp; &quot;\&quot;
+End If
+
+&#x27; Collect files
+ReDim files(0 To 100)
+count = 0
+fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+
+Do While fileName &lt;&gt; &quot;&quot;
+fullPath = folderPath &amp; fileName
+
+On Error Resume Next
+files(count).Name = fileName
+files(count).ModifiedDate = FileDateTime(fullPath)
+
+If Err.Number = 0 Then
+count = count + 1
+If count &gt; UBound(files) Then
+ReDim Preserve files(0 To UBound(files) + 100)
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+If count &gt; 0 Then
+ReDim Preserve files(0 To count - 1)
+
+&#x27; Bubble sort by date (newest first)
+For i = 0 To count - 2
+For j = i + 1 To count - 1
+If files(j).ModifiedDate &gt; files(i).ModifiedDate Then
+temp = files(i)
+files(i) = files(j)
+files(j) = temp
+End If
+Next j
+Next i
+End If
+
+GetFilesSortedByDate = files
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="incremental-backup-system">Incremental Backup System</h3>
+<pre><code class="language-vbnet">Function PerformIncrementalBackup(sourceFolder As String, backupFolder As String, _
+lastBackupDate As Date) As Long
+Dim fileName As String
+Dim sourcePath As String
+Dim backupPath As String
+Dim fileDate As Date
+Dim copiedCount As Long
+
+If Right(sourceFolder, 1) &lt;&gt; &quot;\&quot; Then sourceFolder = sourceFolder &amp; &quot;\&quot;
+If Right(backupFolder, 1) &lt;&gt; &quot;\&quot; Then backupFolder = backupFolder &amp; &quot;\&quot;
+
+&#x27; Ensure backup folder exists
+If Dir(backupFolder, vbDirectory) = &quot;&quot; Then
+MkDir backupFolder
+End If
+
+fileName = Dir(sourceFolder &amp; &quot;*.*&quot;)
+copiedCount = 0
+
+Do While fileName &lt;&gt; &quot;&quot;
+sourcePath = sourceFolder &amp; fileName
+backupPath = backupFolder &amp; fileName
+
+On Error Resume Next
+fileDate = FileDateTime(sourcePath)
+
+If Err.Number = 0 And fileDate &gt; lastBackupDate Then
+FileCopy sourcePath, backupPath
+If Err.Number = 0 Then
+copiedCount = copiedCount + 1
+Debug.Print &quot;Backed up: &quot; &amp; fileName
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+PerformIncrementalBackup = copiedCount
+End Function</code></pre>
+<h3 id="file-cache-invalidation">File Cache Invalidation</h3>
+<pre><code class="language-vbnet">Private Type CacheEntry
+FilePath As String
+CachedDate As Date
+CachedData As Variant
+End Type
+
+Private cache() As CacheEntry
+Private cacheCount As Long
+
+Function GetCachedFileData(filePath As String) As Variant
+Dim i As Long
+Dim currentDate As Date
+
+On Error Resume Next
+currentDate = FileDateTime(filePath)
+
+If Err.Number &lt;&gt; 0 Then
+GetCachedFileData = Null
+Exit Function
+End If
+
+&#x27; Check if in cache and still valid
+For i = 0 To cacheCount - 1
+If cache(i).FilePath = filePath Then
+If cache(i).CachedDate = currentDate Then
+&#x27; Cache is valid
+GetCachedFileData = cache(i).CachedData
+Exit Function
+Else
+&#x27; Cache is stale, reload
+cache(i).CachedData = LoadFileData(filePath)
+cache(i).CachedDate = currentDate
+GetCachedFileData = cache(i).CachedData
+Exit Function
+End If
+End If
+Next i
+
+&#x27; Not in cache, add it
+ReDim Preserve cache(0 To cacheCount)
+cache(cacheCount).FilePath = filePath
+cache(cacheCount).CachedDate = currentDate
+cache(cacheCount).CachedData = LoadFileData(filePath)
+GetCachedFileData = cache(cacheCount).CachedData
+cacheCount = cacheCount + 1
+End Function</code></pre>
+<h3 id="multi-directory-synchronization">Multi-Directory Synchronization</h3>
+<pre><code class="language-vbnet">Function SynchronizeFolders(sourceFolder As String, destFolder As String) As Long
+Dim fileName As String
+Dim sourcePath As String
+Dim destPath As String
+Dim sourceDate As Date
+Dim destDate As Date
+Dim syncCount As Long
+
+If Right(sourceFolder, 1) &lt;&gt; &quot;\&quot; Then sourceFolder = sourceFolder &amp; &quot;\&quot;
+If Right(destFolder, 1) &lt;&gt; &quot;\&quot; Then destFolder = destFolder &amp; &quot;\&quot;
+
+&#x27; Ensure destination exists
+If Dir(destFolder, vbDirectory) = &quot;&quot; Then
+MkDir destFolder
+End If
+
+fileName = Dir(sourceFolder &amp; &quot;*.*&quot;)
+syncCount = 0
+
+Do While fileName &lt;&gt; &quot;&quot;
+sourcePath = sourceFolder &amp; fileName
+destPath = destFolder &amp; fileName
+
+On Error Resume Next
+sourceDate = FileDateTime(sourcePath)
+
+If Err.Number = 0 Then
+&#x27; Check if destination exists
+If Dir(destPath) = &quot;&quot; Then
+&#x27; Destination doesn&#x27;t exist, copy
+FileCopy sourcePath, destPath
+syncCount = syncCount + 1
+Else
+&#x27; Check dates
+destDate = FileDateTime(destPath)
+If sourceDate &gt; destDate Then
+&#x27; Source is newer, update
+FileCopy sourcePath, destPath
+syncCount = syncCount + 1
+End If
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+SynchronizeFolders = syncCount
+End Function</code></pre>
+<h3 id="change-detection-system">Change Detection System</h3>
+<pre><code class="language-vbnet">Type ChangeRecord
+FilePath As String
+PreviousDate As Date
+CurrentDate As Date
+ChangeType As String  &#x27; &quot;Modified&quot;, &quot;Created&quot;, &quot;Deleted&quot;
+End Type
+
+Function DetectChanges(folderPath As String, baseline() As FileInfo) As Variant
+Dim changes() As ChangeRecord
+Dim changeCount As Long
+Dim fileName As String
+Dim fullPath As String
+Dim currentDate As Date
+Dim i As Long
+Dim found As Boolean
+
+If Right(folderPath, 1) &lt;&gt; &quot;\&quot; Then folderPath = folderPath &amp; &quot;\&quot;
+
+ReDim changes(0 To 100)
+changeCount = 0
+
+&#x27; Check current files
+fileName = Dir(folderPath &amp; &quot;*.*&quot;)
+
+Do While fileName &lt;&gt; &quot;&quot;
+fullPath = folderPath &amp; fileName
+
+On Error Resume Next
+currentDate = FileDateTime(fullPath)
+
+If Err.Number = 0 Then
+found = False
+
+&#x27; Check if in baseline
+For i = LBound(baseline) To UBound(baseline)
+If baseline(i).Name = fileName Then
+found = True
+
+&#x27; Check if modified
+If currentDate &gt; baseline(i).ModifiedDate Then
+changes(changeCount).FilePath = fullPath
+changes(changeCount).PreviousDate = baseline(i).ModifiedDate
+changes(changeCount).CurrentDate = currentDate
+changes(changeCount).ChangeType = &quot;Modified&quot;
+changeCount = changeCount + 1
+End If
+
+Exit For
+End If
+Next i
+
+&#x27; If not found in baseline, it&#x27;s new
+If Not found Then
+changes(changeCount).FilePath = fullPath
+changes(changeCount).CurrentDate = currentDate
+changes(changeCount).ChangeType = &quot;Created&quot;
+changeCount = changeCount + 1
+End If
+End If
+
+Err.Clear
+fileName = Dir
+Loop
+
+If changeCount &gt; 0 Then
+ReDim Preserve changes(0 To changeCount - 1)
+DetectChanges = changes
+Else
+DetectChanges = Array()
+End If
+End Function</code></pre>
+<h3 id="log-file-rotation-based-on-date">Log File Rotation Based on Date</h3>
+<pre><code class="language-vbnet">Sub RotateLogFile(logPath As String, maxAgeDays As Long)
+Dim logDate As Date
+Dim ageDays As Long
+Dim archivePath As String
+
+On Error Resume Next
+
+&#x27; Check if log file exists
+If Dir(logPath) = &quot;&quot; Then Exit Sub
+
+logDate = FileDateTime(logPath)
+ageDays = DateDiff(&quot;d&quot;, logDate, Now)
+
+If ageDays &gt;= maxAgeDays Then
+&#x27; Create archive name with date
+archivePath = Left(logPath, Len(logPath) - 4) &amp; &quot;_&quot; &amp; _
+Format(logDate, &quot;yyyymmdd&quot;) &amp; &quot;.log&quot;
+
+&#x27; Rename current log to archive
+Name logPath As archivePath
+
+Debug.Print &quot;Rotated log file: &quot; &amp; logPath &amp; &quot; -&gt; &quot; &amp; archivePath
+End If
+End Sub</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeFileDateTime(filePath As String) As Variant
+On Error GoTo ErrorHandler
+
+SafeFileDateTime = FileDateTime(filePath)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 53  &#x27; File not found
+MsgBox &quot;File not found: &quot; &amp; filePath, vbExclamation
+SafeFileDateTime = Null
+Case 76  &#x27; Path not found
+MsgBox &quot;Path not found: &quot; &amp; filePath, vbExclamation
+SafeFileDateTime = Null
+Case Else
+MsgBox &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description, vbCritical
+SafeFileDateTime = Null
+End Select
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 53</strong> (File not found): The specified file does not exist</li>
+<li><strong>Error 76</strong> (Path not found): The specified path is invalid</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>FileDateTime</code> is relatively fast (reads file metadata only)</li>
+<li>Does not open the file or read contents</li>
+<li>Performance depends on file system and disk speed</li>
+<li>Network paths are slower than local paths</li>
+<li>Consider caching results if checking same file repeatedly</li>
+<li>Use <code>Dir</code> function to check existence before calling <code>FileDateTime</code></li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="check-file-existence-first">Check File Existence First</h3>
+<pre><code class="language-vbnet">&#x27; Good - Check existence to avoid error
+If Dir(filePath) &lt;&gt; &quot;&quot; Then
+fileDate = FileDateTime(filePath)
+Else
+MsgBox &quot;File not found&quot;
+End If
+
+&#x27; Or use error handling
+On Error Resume Next
+fileDate = FileDateTime(filePath)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Cannot get file date&quot;
+End If
+On Error GoTo 0</code></pre>
+<h3 id="use-full-paths">Use Full Paths</h3>
+<pre><code class="language-vbnet">&#x27; Good - Use full path for clarity
+fileDate = FileDateTime(&quot;C:\Projects\data.txt&quot;)
+
+&#x27; Or build from App.Path
+fileDate = FileDateTime(App.Path &amp; &quot;\config.ini&quot;)</code></pre>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<h3 id="filedatetime-vs-now"><code>FileDateTime</code> vs <code>Now</code></h3>
+<pre><code class="language-vbnet">&#x27; FileDateTime - Gets file modification date
+fileDate = FileDateTime(&quot;C:\file.txt&quot;)
+
+&#x27; Now - Gets current system date/time
+currentDate = Now</code></pre>
+<h3 id="filedatetime-vs-getattr"><code>FileDateTime</code> vs <code>GetAttr</code></h3>
+<pre><code class="language-vbnet">&#x27; FileDateTime - Returns date/time of modification
+fileDate = FileDateTime(&quot;C:\file.txt&quot;)
+
+&#x27; GetAttr - Returns file attributes (readonly, hidden, etc.)
+attrs = GetAttr(&quot;C:\file.txt&quot;)</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Returns modification date only (not creation or access date)</li>
+<li>File must exist (cannot get date of deleted files)</li>
+<li>Returns local time (not UTC)</li>
+<li>Precision limited by file system</li>
+<li>Cannot set file date/time (read-only function)</li>
+<li>Does not work with directories (use <code>Dir</code> with <code>vbDirectory</code>)</li>
+<li>No built-in wildcard support (must use with <code>Dir</code>)</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Dir</code>: Returns file names matching a pattern</li>
+<li><code>GetAttr</code>: Returns file attributes</li>
+<li><code>FileLen</code>: Returns file size in bytes</li>
+<li><code>Now</code>: Returns current system date and time</li>
+<li><code>Date</code>: Returns current system date</li>
+<li><code>DateDiff</code>: Calculates difference between two dates</li>
+<li><code>Format</code>: Formats date/time for display</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

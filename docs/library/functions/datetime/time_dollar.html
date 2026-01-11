@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - time_dollar - Datetime">
+    <title>time_dollar - Datetime - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/datetime/index.html">Datetime</a> / time_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="time-function"><code>Time$</code> Function</h1>
+<p>The <code>Time$</code> function in Visual Basic 6 returns a string representing the current system time.
+The dollar sign (<code>$</code>) suffix indicates that this function always returns a <code>String</code> type,
+never a <code>Variant</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Time$</code></pre>
+<h2 id="parameters">Parameters</h2>
+<p>None. <code>Time$</code> takes no parameters.</p>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> representing the current system time in the format "HH:MM:SS" (24-hour format).</p>
+<h2 id="behavior-and-characteristics">Behavior and Characteristics</h2>
+<h3 id="time-format">Time Format</h3>
+<ul>
+<li>Always returns 24-hour format (e.g., "14:30:45" for 2:30:45 PM)</li>
+<li>Format: "HH:MM:SS" where HH is 00-23, MM is 00-59, SS is 00-59</li>
+<li>Always includes leading zeros (e.g., "09:05:03")</li>
+<li>Does not include AM/PM indicator</li>
+<li>Does not include milliseconds or fractional seconds</li>
+</ul>
+<h3 id="type-differences-time-vs-time">Type Differences: <code>Time$</code> vs <code>Time</code></h3>
+<ul>
+<li><code>Time$</code>: Always returns <code>String</code> type (never <code>Variant</code>)</li>
+<li><code>Time</code>: Returns <code>Variant</code> containing a Date/Time value</li>
+<li>Use <code>Time$</code> when you need a string representation</li>
+<li>Use <code>Time</code> when you need to perform date/time arithmetic</li>
+</ul>
+<h3 id="system-time">System Time</h3>
+<ul>
+<li>Reflects the current system clock time</li>
+<li>Updates each time the function is called</li>
+<li>Accuracy depends on system clock resolution</li>
+<li>No time zone information included</li>
+</ul>
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="1-display-current-time">1. Display Current Time</h3>
+<pre><code class="language-vbnet">Sub ShowTime()
+Debug.Print &quot;Current time: &quot; &amp; Time$
+End Sub</code></pre>
+<h3 id="2-timestamp-for-logging">2. Timestamp for Logging</h3>
+<pre><code class="language-vbnet">Sub LogMessage(message As String)
+Dim logEntry As String
+logEntry = Time$ &amp; &quot; - &quot; &amp; message
+Debug.Print logEntry
+End Sub
+
+LogMessage &quot;Application started&quot;</code></pre>
+<h3 id="3-time-based-file-naming">3. Time-Based File Naming</h3>
+<pre><code class="language-vbnet">Function GenerateTimeStampedFileName(baseName As String) As String
+Dim timeStamp As String
+timeStamp = Replace$(Time$, &quot;:&quot;, &quot;&quot;)
+GenerateTimeStampedFileName = baseName &amp; &quot;_&quot; &amp; timeStamp &amp; &quot;.log&quot;
+End Function
+
+&#x27; Generates: &quot;logfile_143045.log&quot; at 2:30:45 PM</code></pre>
+<h3 id="4-update-time-display">4. Update Time Display</h3>
+<pre><code class="language-vbnet">Sub Timer1_Timer()
+&#x27; Update label every second
+lblTime.Caption = Time$
+End Sub</code></pre>
+<h3 id="5-record-processing-time">5. Record Processing Time</h3>
+<pre><code class="language-vbnet">Sub ProcessData()
+Dim startTime As String
+startTime = Time$
+
+&#x27; ... processing code ...
+
+Debug.Print &quot;Started at: &quot; &amp; startTime
+Debug.Print &quot;Completed at: &quot; &amp; Time$
+End Sub</code></pre>
+<h3 id="6-time-based-greetings">6. Time-Based Greetings</h3>
+<pre><code class="language-vbnet">Function GetGreeting() As String
+Dim currentHour As Integer
+currentHour = Hour(Now)
+
+If currentHour &lt; 12 Then
+GetGreeting = &quot;Good morning! Time: &quot; &amp; Time$
+ElseIf currentHour &lt; 18 Then
+GetGreeting = &quot;Good afternoon! Time: &quot; &amp; Time$
+Else
+GetGreeting = &quot;Good evening! Time: &quot; &amp; Time$
+End If
+End Function</code></pre>
+<h3 id="7-audit-trail-entries">7. Audit Trail Entries</h3>
+<pre><code class="language-vbnet">Sub RecordAudit(action As String, userName As String)
+Dim auditEntry As String
+auditEntry = Date$ &amp; &quot; &quot; &amp; Time$ &amp; &quot; - &quot; &amp; userName &amp; &quot; - &quot; &amp; action
+Print #1, auditEntry
+End Sub</code></pre>
+<h3 id="8-periodic-task-checking">8. Periodic Task Checking</h3>
+<pre><code class="language-vbnet">Sub CheckScheduledTask()
+Dim currentTimeStr As String
+currentTimeStr = Time$
+
+If currentTimeStr = &quot;09:00:00&quot; Then
+&#x27; Execute morning task
+RunMorningReport
+End If
+End Sub</code></pre>
+<h3 id="9-status-bar-updates">9. Status Bar Updates</h3>
+<pre><code class="language-vbnet">Sub UpdateStatusBar()
+StatusBar1.Panels(1).Text = &quot;Current Time: &quot; &amp; Time$
+End Sub</code></pre>
+<h3 id="10-debug-output-with-timestamps">10. Debug Output with Timestamps</h3>
+<pre><code class="language-vbnet">Sub DebugLog(category As String, message As String)
+Debug.Print &quot;[&quot; &amp; Time$ &amp; &quot;] &quot; &amp; category &amp; &quot;: &quot; &amp; message
+End Sub
+
+DebugLog &quot;INFO&quot;, &quot;Processing started&quot;</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Time</code> - Returns a <code>Variant</code> containing the current system time (can be used in calculations)</li>
+<li><code>Date$</code> - Returns a string representing the current system date</li>
+<li><code>Now</code> - Returns the current system date and time as a <code>Date</code> value</li>
+<li><code>Timer</code> - Returns the number of seconds elapsed since midnight</li>
+<li><code>Hour()</code> - Extracts the hour component from a time value</li>
+<li><code>Minute()</code> - Extracts the minute component from a time value</li>
+<li><code>Second()</code> - Extracts the second component from a time value</li>
+<li><code>Format$()</code> - Formats time values with custom formatting</li>
+<li><code>TimeSerial()</code> - Creates a time value from hour, minute, and second</li>
+<li><code>TimeValue()</code> - Converts a string to a time value</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="when-to-use-time-vs-time-vs-now">When to Use <code>Time$</code> vs <code>Time</code> vs <code>Now</code></h3>
+<pre><code class="language-vbnet">&#x27; Use Time$ for string display/logging
+Debug.Print &quot;Current time: &quot; &amp; Time$  &#x27; &quot;14:30:45&quot;
+
+&#x27; Use Time for time arithmetic
+Dim currentTime As Date
+currentTime = Time
+Dim laterTime As Date
+laterTime = currentTime + TimeSerial(1, 0, 0)  &#x27; Add 1 hour
+
+&#x27; Use Now for complete timestamp
+Dim timestamp As Date
+timestamp = Now  &#x27; Includes both date and time</code></pre>
+<h3 id="combine-with-date-for-full-timestamp">Combine with <code>Date$</code> for Full Timestamp</h3>
+<pre><code class="language-vbnet">Function GetFullTimestamp() As String
+GetFullTimestamp = Date$ &amp; &quot; &quot; &amp; Time$
+End Function
+
+Debug.Print GetFullTimestamp()  &#x27; &quot;12/02/2025 14:30:45&quot;</code></pre>
+<h3 id="use-format-for-custom-time-formatting">Use <code>Format$</code> for Custom Time Formatting</h3>
+<pre><code class="language-vbnet">&#x27; Time$ always returns 24-hour format
+Debug.Print Time$  &#x27; &quot;14:30:45&quot;
+
+&#x27; Use Format$ for 12-hour format or other formats
+Debug.Print Format$(Now, &quot;hh:mm:ss AM/PM&quot;)  &#x27; &quot;02:30:45 PM&quot;
+Debug.Print Format$(Now, &quot;Long Time&quot;)       &#x27; &quot;2:30:45 PM&quot;</code></pre>
+<h3 id="replace-colons-for-file-names">Replace Colons for File Names</h3>
+<pre><code class="language-vbnet">Function SafeTimeStamp() As String
+&#x27; Colons are invalid in filenames on Windows
+SafeTimeStamp = Replace$(Time$, &quot;:&quot;, &quot;&quot;)
+End Function
+
+Dim fileName As String
+fileName = &quot;backup_&quot; &amp; SafeTimeStamp() &amp; &quot;.dat&quot;  &#x27; &quot;backup_143045.dat&quot;</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>Time$</code> is a system call and relatively fast</li>
+<li>Calling repeatedly in tight loops may impact performance</li>
+<li>Cache the value if you need it multiple times in the same operation</li>
+</ul>
+<pre><code class="language-vbnet">&#x27; Less efficient: multiple calls
+For i = 1 To 1000
+Debug.Print Time$ &amp; &quot; - Item &quot; &amp; i
+Next i
+
+&#x27; More efficient: cache the time
+Dim currentTime As String
+currentTime = Time$
+For i = 1 To 1000
+Debug.Print currentTime &amp; &quot; - Item &quot; &amp; i
+Next i</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-24-hour-format-only">1. 24-Hour Format Only</h3>
+<pre><code class="language-vbnet">&#x27; Time$ always uses 24-hour format
+Debug.Print Time$  &#x27; &quot;14:30:45&quot; (not &quot;2:30:45 PM&quot;)
+
+&#x27; For 12-hour format, use Format$
+Debug.Print Format$(Now, &quot;hh:mm:ss AM/PM&quot;)  &#x27; &quot;02:30:45 PM&quot;</code></pre>
+<h3 id="2-string-comparison-issues">2. String Comparison Issues</h3>
+<pre><code class="language-vbnet">&#x27; Comparing time strings can be tricky
+If Time$ = &quot;9:00:00&quot; Then  &#x27; Will NEVER match!
+&#x27; Time$ returns &quot;09:00:00&quot; with leading zero
+End If
+
+&#x27; Correct: include leading zero
+If Time$ = &quot;09:00:00&quot; Then
+&#x27; This works
+End If
+
+&#x27; Better: use Time value for comparisons
+If Time &gt; TimeSerial(9, 0, 0) Then
+&#x27; More reliable
+End If</code></pre>
+<h3 id="3-colons-in-file-names">3. Colons in File Names</h3>
+<pre><code class="language-vbnet">&#x27; Invalid filename on Windows (colons not allowed)
+fileName = &quot;log_&quot; &amp; Time$ &amp; &quot;.txt&quot;  &#x27; &quot;log_14:30:45.txt&quot; - ERROR!
+
+&#x27; Remove or replace colons
+fileName = &quot;log_&quot; &amp; Replace$(Time$, &quot;:&quot;, &quot;&quot;) &amp; &quot;.txt&quot;  &#x27; &quot;log_143045.txt&quot;
+fileName = &quot;log_&quot; &amp; Replace$(Time$, &quot;:&quot;, &quot;-&quot;) &amp; &quot;.txt&quot;  &#x27; &quot;log_14-30-45.txt&quot;</code></pre>
+<h3 id="4-time-changes-during-execution">4. Time Changes During Execution</h3>
+<pre><code class="language-vbnet">&#x27; Problem: time can change between calls
+Debug.Print &quot;Start: &quot; &amp; Time$
+&#x27; ... long operation ...
+Debug.Print &quot;End: &quot; &amp; Time$  &#x27; Different value!
+
+&#x27; Solution: capture at start if consistency needed
+Dim operationTime As String
+operationTime = Time$
+Debug.Print &quot;Start: &quot; &amp; operationTime
+&#x27; ... long operation ...
+Debug.Print &quot;Started at: &quot; &amp; operationTime
+Debug.Print &quot;Completed at: &quot; &amp; Time$</code></pre>
+<h3 id="5-no-milliseconds">5. No Milliseconds</h3>
+<pre><code class="language-vbnet">&#x27; Time$ only has second precision
+Debug.Print Time$  &#x27; &quot;14:30:45&quot; (no milliseconds)
+
+&#x27; For higher precision, use Timer function
+Dim startTimer As Single
+startTimer = Timer
+&#x27; ... operation ...
+Debug.Print &quot;Elapsed: &quot; &amp; (Timer - startTimer) &amp; &quot; seconds&quot;</code></pre>
+<h3 id="6-locale-independence">6. Locale Independence</h3>
+<pre><code class="language-vbnet">&#x27; Time$ format is NOT affected by locale settings
+&#x27; Always returns &quot;HH:MM:SS&quot; regardless of system locale
+Debug.Print Time$  &#x27; Always &quot;14:30:45&quot; format
+
+&#x27; For locale-specific formatting, use Format$
+Debug.Print Format$(Now, &quot;Long Time&quot;)  &#x27; Respects locale</code></pre>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="creating-log-files-with-timestamps">Creating Log Files with Timestamps</h3>
+<pre><code class="language-vbnet">Sub WriteLog(message As String)
+Dim logFile As String
+Dim timeStamp As String
+
+logFile = App.Path &amp; &quot;\application.log&quot;
+timeStamp = Date$ &amp; &quot; &quot; &amp; Time$
+
+Open logFile For Append As #1
+Print #1, timeStamp &amp; &quot; - &quot; &amp; message
+Close #1
+End Sub</code></pre>
+<h3 id="digital-clock-display">Digital Clock Display</h3>
+<pre><code class="language-vbnet">Private Sub tmrClock_Timer()
+lblClock.Caption = Time$
+
+&#x27; Update every second
+tmrClock.Interval = 1000
+End Sub</code></pre>
+<h3 id="performance-monitoring">Performance Monitoring</h3>
+<pre><code class="language-vbnet">Sub MonitorPerformance()
+Dim startTime As Double
+Dim endTime As Double
+
+Debug.Print &quot;Operation started at: &quot; &amp; Time$
+startTime = Timer
+
+&#x27; ... operation to monitor ...
+
+endTime = Timer
+Debug.Print &quot;Operation ended at: &quot; &amp; Time$
+Debug.Print &quot;Elapsed time: &quot; &amp; (endTime - startTime) &amp; &quot; seconds&quot;
+End Sub</code></pre>
+<h3 id="scheduled-task-execution">Scheduled Task Execution</h3>
+<pre><code class="language-vbnet">Private Sub tmrScheduler_Timer()
+Dim currentTimeStr As String
+currentTimeStr = Time$
+
+Select Case currentTimeStr
+Case &quot;09:00:00&quot;
+RunMorningReport
+Case &quot;12:00:00&quot;
+RunNoonBackup
+Case &quot;17:00:00&quot;
+RunEveningCleanup
+End Select
+End Sub</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Always returns 24-hour format (no AM/PM)</li>
+<li>No millisecond or sub-second precision</li>
+<li>No time zone information</li>
+<li>Format cannot be customized (use <code>Format$</code> for that)</li>
+<li>Returns string, not suitable for time arithmetic (use <code>Time</code> function instead)</li>
+<li>Colons in output make it unsuitable for filenames without modification</li>
+<li>Cannot be set (read-only; use <code>Time =</code> statement to set system time)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Datetime</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

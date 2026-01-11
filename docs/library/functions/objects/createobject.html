@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - createobject - Objects">
+    <title>createobject - Objects - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/objects/index.html">Objects</a> / createobject</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="createobject-function"><code>CreateObject</code> Function</h1>
+<p>Creates and returns a reference to an <code>ActiveX</code> object (<code>COM</code> object).</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">CreateObject(class, [servername])</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li>
+<p><strong><code>class</code></strong>: Required. <code>String</code> expression representing the programmatic identifier (<code>ProgID</code>) of
+the object to create. The format is typically "Application.ObjectType" or
+"Library.Class".</p>
+</li>
+<li>
+<p><strong><code>servername</code></strong>: Optional. <code>String</code> expression representing the name of the network server where
+the object will be created. If omitted or an empty string (""), the object is created on the
+local machine. This parameter is only used for <code>DCOM</code> (<code>Distributed COM</code>).</p>
+</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns an <code>Object</code> reference to the created <code>COM</code> object. The actual type depends on the class
+specified. Returns <code>Nothing</code> if the object cannot be created.</p>
+<h2 id="remarks">Remarks</h2>
+<p><code>CreateObject</code> is used to instantiate <code>COM</code> objects at runtime. This is known as late binding,
+as opposed to early binding where you reference the object library and declare objects with
+specific types at design time.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>Creates objects using late binding (runtime resolution)</li>
+<li>Requires the <code>COM</code> object to be registered on the system</li>
+<li>Returns generic <code>Object</code> type (requires type casting for <code>IntelliSense</code>)</li>
+<li>Slower than early binding but more flexible</li>
+<li>No compile-time type checking</li>
+<li>Enables automation of external applications</li>
+<li>Can create objects on remote servers (<code>DCOM</code>)</li>
+</ul>
+<h2 id="common-progids">Common <code>ProgID</code>s</h2>
+<table>
+<thead>
+<tr>
+<th><code>ProgID</code></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Excel.Application"</td>
+<td>Microsoft Excel application</td>
+</tr>
+<tr>
+<td>"Word.Application"</td>
+<td>Microsoft Word application</td>
+</tr>
+<tr>
+<td>"Scripting.FileSystemObject"</td>
+<td>File system object for file operations</td>
+</tr>
+<tr>
+<td>"Scripting.Dictionary"</td>
+<td>Dictionary object for key-value pairs</td>
+</tr>
+<tr>
+<td>"ADODB.Connection"</td>
+<td>ADO database connection</td>
+</tr>
+<tr>
+<td>"ADODB.Recordset"</td>
+<td>ADO recordset for database queries</td>
+</tr>
+<tr>
+<td>"Shell.Application"</td>
+<td>Windows Shell automation</td>
+</tr>
+<tr>
+<td>"WScript.Shell"</td>
+<td>Windows Script Host Shell object</td>
+</tr>
+<tr>
+<td>"MSXML2.DOMDocument"</td>
+<td>XML DOM parser</td>
+</tr>
+<tr>
+<td>"CDO.Message"</td>
+<td>Collaboration Data Objects for email</td>
+</tr>
+<tr>
+<td>"InternetExplorer.Application"</td>
+<td>Internet Explorer automation</td>
+</tr>
+<tr>
+<td>"Outlook.Application"</td>
+<td>Microsoft Outlook application</td>
+</tr>
+<tr>
+<td>"Access.Application"</td>
+<td>Microsoft Access application</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-vbnet">&#x27; Create an Excel application object
+Dim xlApp As Object
+Set xlApp = CreateObject(&quot;Excel.Application&quot;)
+xlApp.Visible = True
+xlApp.Workbooks.Add
+Set xlApp = Nothing
+
+&#x27; Create a FileSystemObject
+Dim fso As Object
+Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)</code></pre>
+<h3 id="microsoft-excel-automation">Microsoft Excel Automation</h3>
+<pre><code class="language-vbnet">Sub CreateExcelSpreadsheet()
+Dim xlApp As Object
+Dim xlBook As Object
+Dim xlSheet As Object
+
+On Error GoTo ErrorHandler
+
+&#x27; Create Excel application
+Set xlApp = CreateObject(&quot;Excel.Application&quot;)
+xlApp.Visible = True
+
+&#x27; Add a workbook
+Set xlBook = xlApp.Workbooks.Add
+Set xlSheet = xlBook.Worksheets(1)
+
+&#x27; Add data
+xlSheet.Cells(1, 1).Value = &quot;Name&quot;
+xlSheet.Cells(1, 2).Value = &quot;Value&quot;
+xlSheet.Cells(2, 1).Value = &quot;Item 1&quot;
+xlSheet.Cells(2, 2).Value = 100
+
+&#x27; Clean up
+Set xlSheet = Nothing
+Set xlBook = Nothing
+xlApp.Quit
+Set xlApp = Nothing
+
+Exit Sub
+
+ErrorHandler:
+MsgBox &quot;Error: &quot; &amp; Err.Description
+If Not xlApp Is Nothing Then
+xlApp.Quit
+Set xlApp = Nothing
+End If
+End Sub</code></pre>
+<h3 id="file-system-operations">File System Operations</h3>
+<pre><code class="language-vbnet">Function FileExists(filePath As String) As Boolean
+Dim fso As Object
+Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+FileExists = fso.FileExists(filePath)
+Set fso = Nothing
+End Function
+
+Function GetFileSize(filePath As String) As Long
+Dim fso As Object
+Dim file As Object
+
+Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+If fso.FileExists(filePath) Then
+Set file = fso.GetFile(filePath)
+GetFileSize = file.Size
+Set file = Nothing
+End If
+Set fso = Nothing
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="dictionary-for-key-value-storage">Dictionary for Key-Value Storage</h3>
+<pre><code class="language-vbnet">Function CreateDictionary() As Object
+Dim dict As Object
+Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)
+
+&#x27; Add items
+dict.Add &quot;Name&quot;, &quot;John Doe&quot;
+dict.Add &quot;Age&quot;, 30
+dict.Add &quot;City&quot;, &quot;New York&quot;
+
+Set CreateDictionary = dict
+End Function</code></pre>
+<h3 id="database-connection">Database Connection</h3>
+<pre><code class="language-vbnet">Function OpenDatabase(connectionString As String) As Object
+Dim conn As Object
+
+On Error GoTo ErrorHandler
+
+Set conn = CreateObject(&quot;ADODB.Connection&quot;)
+conn.Open connectionString
+
+Set OpenDatabase = conn
+Exit Function
+
+ErrorHandler:
+MsgBox &quot;Database error: &quot; &amp; Err.Description
+Set OpenDatabase = Nothing
+End Function</code></pre>
+<h3 id="xml-document-processing">XML Document Processing</h3>
+<pre><code class="language-vbnet">Function LoadXMLFile(filePath As String) As Object
+Dim xmlDoc As Object
+
+Set xmlDoc = CreateObject(&quot;MSXML2.DOMDocument&quot;)
+xmlDoc.async = False
+
+If xmlDoc.Load(filePath) Then
+Set LoadXMLFile = xmlDoc
+Else
+MsgBox &quot;Error loading XML: &quot; &amp; xmlDoc.parseError.reason
+Set LoadXMLFile = Nothing
+End If
+End Function</code></pre>
+<h3 id="shell-commands">Shell Commands</h3>
+<pre><code class="language-vbnet">Sub RunCommand(command As String)
+Dim shell As Object
+Set shell = CreateObject(&quot;WScript.Shell&quot;)
+shell.Run command, 1, True  &#x27; Wait for completion
+Set shell = Nothing
+End Sub
+
+Function GetEnvironmentVariable(varName As String) As String
+Dim shell As Object
+Set shell = CreateObject(&quot;WScript.Shell&quot;)
+GetEnvironmentVariable = shell.ExpandEnvironmentStrings(&quot;%&quot; &amp; varName &amp; &quot;%&quot;)
+Set shell = Nothing
+End Function</code></pre>
+<h3 id="email-sending-cdo">Email Sending (CDO)</h3>
+<pre><code class="language-vbnet">Sub SendEmail(toAddr As String, subject As String, body As String)
+Dim msg As Object
+Dim config As Object
+
+Set msg = CreateObject(&quot;CDO.Message&quot;)
+Set config = CreateObject(&quot;CDO.Configuration&quot;)
+
+&#x27; Configure SMTP settings
+With config.Fields
+.Item(&quot;http://schemas.microsoft.com/cdo/configuration/sendusing&quot;) = 2
+.Item(&quot;http://schemas.microsoft.com/cdo/configuration/smtpserver&quot;) = &quot;smtp.example.com&quot;
+.Item(&quot;http://schemas.microsoft.com/cdo/configuration/smtpserverport&quot;) = 25
+.Update
+End With
+
+&#x27; Send message
+With msg
+Set .Configuration = config
+.To = toAddr
+.From = &quot;sender@example.com&quot;
+.Subject = subject
+.TextBody = body
+.Send
+End With
+
+Set msg = Nothing
+Set config = Nothing
+End Sub</code></pre>
+<h3 id="word-document-creation">Word Document Creation</h3>
+<pre><code class="language-vbnet">Sub CreateWordDocument()
+Dim wordApp As Object
+Dim wordDoc As Object
+
+Set wordApp = CreateObject(&quot;Word.Application&quot;)
+wordApp.Visible = True
+
+Set wordDoc = wordApp.Documents.Add
+wordDoc.Content.Text = &quot;This is a test document.&quot;
+
+Set wordDoc = Nothing
+Set wordApp = Nothing
+End Sub</code></pre>
+<h3 id="registry-access">Registry Access</h3>
+<pre><code class="language-vbnet">Function ReadRegistry(keyPath As String) As String
+Dim shell As Object
+Set shell = CreateObject(&quot;WScript.Shell&quot;)
+
+On Error Resume Next
+ReadRegistry = shell.RegRead(keyPath)
+
+Set shell = Nothing
+End Function
+
+Sub WriteRegistry(keyPath As String, value As String)
+Dim shell As Object
+Set shell = CreateObject(&quot;WScript.Shell&quot;)
+shell.RegWrite keyPath, value
+Set shell = Nothing
+End Sub</code></pre>
+<h3 id="http-request">HTTP Request</h3>
+<pre><code class="language-vbnet">Function GetWebPage(url As String) As String
+Dim http As Object
+
+Set http = CreateObject(&quot;MSXML2.XMLHTTP&quot;)
+http.Open &quot;GET&quot;, url, False
+http.Send
+
+If http.Status = 200 Then
+GetWebPage = http.responseText
+End If
+
+Set http = Nothing
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="remote-object-creation-dcom">Remote Object Creation (DCOM)</h3>
+<pre><code class="language-vbnet">Sub CreateRemoteObject()
+Dim obj As Object
+
+&#x27; Create object on remote server
+Set obj = CreateObject(&quot;MyApp.MyClass&quot;, &quot;\\ServerName&quot;)
+
+&#x27; Use the remote object
+obj.DoSomething
+
+Set obj = Nothing
+End Sub</code></pre>
+<h3 id="object-factory-pattern">Object Factory Pattern</h3>
+<pre><code class="language-vbnet">Function CreateObjectSafe(progID As String) As Object
+On Error GoTo ErrorHandler
+
+Set CreateObjectSafe = CreateObject(progID)
+Exit Function
+
+ErrorHandler:
+MsgBox &quot;Failed to create object: &quot; &amp; progID &amp; vbCrLf &amp; _
+&quot;Error: &quot; &amp; Err.Description, vbCritical
+Set CreateObjectSafe = Nothing
+End Function</code></pre>
+<h3 id="version-specific-object-creation">Version-Specific Object Creation</h3>
+<pre><code class="language-vbnet">Function CreateExcelObject() As Object
+On Error Resume Next
+
+&#x27; Try different versions in order of preference
+Set CreateExcelObject = CreateObject(&quot;Excel.Application.16&quot;)  &#x27; Office 2016
+If CreateExcelObject Is Nothing Then
+Set CreateExcelObject = CreateObject(&quot;Excel.Application.15&quot;)  &#x27; Office 2013
+End If
+If CreateExcelObject Is Nothing Then
+Set CreateExcelObject = CreateObject(&quot;Excel.Application&quot;)  &#x27; Any version
+End If
+
+On Error GoTo 0
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function CreateObjectWithErrorHandling(progID As String) As Object
+On Error GoTo ErrorHandler
+
+Set CreateObjectWithErrorHandling = CreateObject(progID)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 429  &#x27; ActiveX component can&#x27;t create object
+MsgBox &quot;The COM object &#x27;&quot; &amp; progID &amp; &quot;&#x27; is not registered on this system.&quot;, _
+vbCritical, &quot;Object Not Found&quot;
+Case 70   &#x27; Permission denied
+MsgBox &quot;Permission denied creating object: &quot; &amp; progID, vbCritical
+Case Else
+MsgBox &quot;Error creating object: &quot; &amp; progID &amp; vbCrLf &amp; _
+&quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description, vbCritical
+End Select
+
+Set CreateObjectWithErrorHandling = Nothing
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 429</strong> (<code>ActiveX</code> component can't create object): <code>Object</code> not registered or not installed</li>
+<li><strong>Error 70</strong> (Permission denied): Insufficient permissions to create the object</li>
+<li><strong>Error 462</strong> (The remote server machine does not exist or is unavailable): <code>DCOM</code> server issue</li>
+<li><strong>Error 13</strong> (Type mismatch): Invalid <code>ProgID</code> format</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li>Late binding (<code>CreateObject</code>) is slower than early binding</li>
+<li>No <code>IntelliSense</code> or compile-time checking with <code>CreateObject</code></li>
+<li>Reuse objects when possible instead of creating multiple instances</li>
+<li>Always set objects to <code>Nothing</code> when done to release resources</li>
+<li>Creating objects on remote servers has network overhead</li>
+</ul>
+<h2 id="early-binding-vs-late-binding">Early Binding vs Late Binding</h2>
+<h3 id="late-binding-createobject">Late Binding (<code>CreateObject</code>)</h3>
+<pre><code class="language-vbnet">Dim xlApp As Object  &#x27; Generic Object type
+Set xlApp = CreateObject(&quot;Excel.Application&quot;)
+xlApp.Visible = True  &#x27; No IntelliSense</code></pre>
+<p><strong>Advantages:</strong>
+- No reference needed at design time
+- Works with any version of the COM object
+- More flexible for distribution</p>
+<p><strong>Disadvantages:</strong>
+- Slower performance
+- No <code>IntelliSense</code>
+- No compile-time checking
+- Errors only at runtime</p>
+<h3 id="early-binding-object-library-reference">Early Binding (Object Library Reference)</h3>
+<pre><code class="language-vbnet">&#x27; Add reference to &quot;Microsoft Excel XX.0 Object Library&quot;
+Dim xlApp As Excel.Application
+Set xlApp = New Excel.Application
+xlApp.Visible = True  &#x27; IntelliSense available</code></pre>
+<p><strong>Advantages:</strong>
+- Faster performance
+- <code>IntelliSense</code> support
+- Compile-time checking
+- Better debugging</p>
+<p><strong>Disadvantages:</strong>
+- Requires reference at design time
+- Version-specific
+- Larger deployment package</p>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="always-clean-up-objects">Always Clean Up Objects</h3>
+<pre><code class="language-vbnet">Sub ProperCleanup()
+Dim xlApp As Object
+
+On Error GoTo ErrorHandler
+
+Set xlApp = CreateObject(&quot;Excel.Application&quot;)
+&#x27; Use the object...
+
+&#x27; Clean up
+If Not xlApp Is Nothing Then
+xlApp.Quit
+Set xlApp = Nothing
+End If
+Exit Sub
+
+ErrorHandler:
+If Not xlApp Is Nothing Then
+xlApp.Quit
+Set xlApp = Nothing
+End If
+End Sub</code></pre>
+<h3 id="check-object-creation-success">Check Object Creation Success</h3>
+<pre><code class="language-vbnet">Dim obj As Object
+Set obj = CreateObject(&quot;Some.Object&quot;)
+If obj Is Nothing Then
+MsgBox &quot;Failed to create object&quot;
+Exit Sub
+End If</code></pre>
+<h3 id="use-specific-error-handling">Use Specific Error Handling</h3>
+<pre><code class="language-vbnet">On Error Resume Next
+Set obj = CreateObject(&quot;Excel.Application&quot;)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Excel not available: &quot; &amp; Err.Description
+Exit Sub
+End If
+On Error GoTo 0</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Requires COM object to be registered on the system</li>
+<li>No compile-time type checking</li>
+<li>Slower than early binding</li>
+<li>No <code>IntelliSense</code> support in IDE</li>
+<li><code>DCOM</code> requires proper network and security configuration</li>
+<li>Cannot create objects with parameterized constructors</li>
+<li>Limited to COM/ActiveX objects only</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>GetObject</code>: Gets reference to existing object or creates from file</li>
+<li><code>New</code>: Creates early-bound object (requires reference)</li>
+<li><code>Set</code>: Assigns object reference</li>
+<li><code>Nothing</code>: Releases object reference</li>
+<li><code>Is</code>: Compares object references</li>
+<li><code>TypeName</code>: Returns type name of object</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Objects</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

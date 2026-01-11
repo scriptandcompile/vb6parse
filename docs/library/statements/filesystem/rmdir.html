@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - rmdir - Filesystem">
+    <title>rmdir - Filesystem - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/filesystem/index.html">Filesystem</a> / rmdir</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="rmdir-statement"><code>RmDir</code> Statement</h1>
+<p>Removes an empty directory or folder.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">RmDir path</code></pre>
+<ul>
+<li><code>path</code>: Required. String expression that identifies the directory or folder to be removed. May include drive.
+If no drive is specified, <code>RmDir</code> removes the directory or folder on the current drive.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>An error occurs if you try to use <code>RmDir</code> on a directory containing files. Use the Kill statement to delete all files before attempting to remove a directory.</li>
+<li>An error also occurs if you try to remove a directory that doesn't exist.</li>
+<li>The directory must be empty (contain no files or subdirectories) before it can be removed.</li>
+<li>The <code>path</code> argument can include absolute or relative paths.</li>
+<li>On Windows systems, both forward slashes (/) and backslashes () can be used as path separators.</li>
+<li>The directory name can include the drive letter.</li>
+<li>You cannot remove the current directory. You must change to a parent or different directory first.</li>
+<li>UNC paths are supported on network drives.</li>
+<li>To remove a directory tree, you must remove all subdirectories first (working from innermost to outermost).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-vbnet">&#x27; Remove a directory in the current directory
+RmDir &quot;OldFolder&quot;
+
+&#x27; Remove a directory with full path
+RmDir &quot;C:\Temp\TempFiles&quot;
+
+&#x27; Remove a directory on another drive
+RmDir &quot;D:\Data\Archive&quot;
+
+&#x27; Remove nested directories (must remove innermost first)
+RmDir &quot;C:\Temp\Logs\Archive&quot;
+RmDir &quot;C:\Temp\Logs&quot;
+RmDir &quot;C:\Temp&quot;
+
+&#x27; Remove directory on network drive
+RmDir &quot;\\Server\Share\OldFolder&quot;
+
+&#x27; Safe removal with error handling
+On Error Resume Next
+RmDir &quot;C:\Temp\ToDelete&quot;
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;Could not remove directory&quot;
+End If
+On Error GoTo 0</code></pre>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li><strong>Error 75</strong>: Path/File access error - directory contains files or subdirectories</li>
+<li><strong>Error 76</strong>: Path not found - directory doesn't exist</li>
+<li><strong>Error 5</strong>: Invalid procedure call - trying to remove current directory</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/rmdir-statement">RmDir Statement - Microsoft Docs</a></p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Filesystem</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

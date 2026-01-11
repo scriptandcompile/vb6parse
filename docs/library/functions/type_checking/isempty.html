@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - isempty - Type Checking">
+    <title>isempty - Type Checking - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/type_checking/index.html">Type Checking</a> / isempty</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="isempty-function"><code>IsEmpty</code> Function</h1>
+<p>Returns a <code>Boolean</code> value indicating whether a <code>Variant</code> variable has been initialized.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">IsEmpty(expression)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>expression</code> (Required): <code>Variant</code> expression to test</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Boolean</code>:
+- <code>True</code> if the variable is <code>Empty</code> (uninitialized)
+- <code>False</code> if the variable has been initialized
+- Only <code>Variant</code> variables can be <code>Empty</code>
+- All other variable types are always initialized with default values
+- Returns <code>False</code> for <code>Null</code> values (<code>Null</code> is not the same as <code>Empty</code>)
+- Returns <code>False</code> for zero, empty strings, and <code>False</code></p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>IsEmpty</code> function is used to determine whether a <code>Variant</code> variable has been initialized:</p>
+<ul>
+<li>Only works with <code>Variant</code> data type</li>
+<li>Returns <code>True</code> only for uninitialized <code>Variant</code> variables</li>
+<li><code>Empty</code> is different from <code>Null</code> (<code>IsNull</code>) and zero</li>
+<li><code>Empty</code> is different from zero-length string ("")</li>
+<li><code>Empty</code> is different from <code>False</code></li>
+<li>Useful for checking optional <code>Variant</code> parameters</li>
+<li>Can detect uninitialized elements in <code>Variant</code> arrays</li>
+<li>Once a <code>Variant</code> is assigned any value (including <code>Null</code>), it is no longer <code>Empty</code></li>
+<li>Use <code>VarType(var) = vbEmpty</code> for the same check</li>
+<li>Cannot be used to test whether procedure or function exists</li>
+<li>Commonly used in procedures with optional Variant parameters</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Optional Parameters</strong>: Check if optional Variant parameter was provided</li>
+<li><strong>Variable Initialization</strong>: Verify Variant has been assigned a value</li>
+<li><strong>Array Elements</strong>: Check if array elements have been assigned</li>
+<li><strong>Data Validation</strong>: Distinguish between uninitialized and zero/empty values</li>
+<li><strong>Database Fields</strong>: Detect uninitialized field values</li>
+<li><strong>Configuration Settings</strong>: Check if settings have been loaded</li>
+<li><strong>Error Handling</strong>: Detect uninitialized return values</li>
+<li><strong>Default Value Logic</strong>: Apply defaults only when variable is uninitialized</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Check uninitialized Variant
+Dim myVar As Variant
+
+If IsEmpty(myVar) Then
+Debug.Print &quot;Variable is uninitialized&quot;  &#x27; This prints
+End If
+
+myVar = 0
+If IsEmpty(myVar) Then
+Debug.Print &quot;Still empty&quot;
+Else
+Debug.Print &quot;Now initialized&quot;  &#x27; This prints
+End If
+
+&#x27; Example 2: Distinguish Empty from other values
+Dim testVar As Variant
+
+Debug.Print IsEmpty(testVar)        &#x27; True - uninitialized
+testVar = 0
+Debug.Print IsEmpty(testVar)        &#x27; False - initialized to zero
+testVar = &quot;&quot;
+Debug.Print IsEmpty(testVar)        &#x27; False - initialized to empty string
+testVar = False
+Debug.Print IsEmpty(testVar)        &#x27; False - initialized to False
+testVar = Null
+Debug.Print IsEmpty(testVar)        &#x27; False - Null is not Empty
+
+&#x27; Example 3: Optional parameter handling
+Function ProcessData(data As String, Optional threshold As Variant) As Boolean
+Dim thresholdValue As Double
+
+If IsEmpty(threshold) Then
+&#x27; Use default value when parameter not provided
+thresholdValue = 100
+Debug.Print &quot;Using default threshold: 100&quot;
+Else
+thresholdValue = threshold
+Debug.Print &quot;Using provided threshold: &quot; &amp; threshold
+End If
+
+&#x27; Process data with threshold
+ProcessData = (Len(data) &gt; thresholdValue)
+End Function
+
+&#x27; Usage
+ProcessData &quot;test&quot;              &#x27; Uses default threshold (100)
+ProcessData &quot;test&quot;, 10          &#x27; Uses provided threshold (10)
+ProcessData &quot;test&quot;, 0           &#x27; Uses provided threshold (0) - not Empty!
+
+&#x27; Example 4: Check array elements
+Dim values(1 To 5) As Variant
+Dim i As Integer
+
+values(1) = 10
+values(3) = &quot;Hello&quot;
+&#x27; values(2), values(4), values(5) remain Empty
+
+For i = 1 To 5
+If IsEmpty(values(i)) Then
+Debug.Print &quot;Element &quot; &amp; i &amp; &quot; is uninitialized&quot;
+Else
+Debug.Print &quot;Element &quot; &amp; i &amp; &quot; = &quot; &amp; values(i)
+End If
+Next i</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Optional parameter with default
+Function GetValue(key As String, Optional defaultValue As Variant) As Variant
+Dim result As Variant
+result = LookupValue(key)
+
+If IsEmpty(result) Then
+If IsEmpty(defaultValue) Then
+GetValue = Null  &#x27; No default provided
+Else
+GetValue = defaultValue
+End If
+Else
+GetValue = result
+End If
+End Function
+
+&#x27; Pattern 2: Initialize if empty
+Sub EnsureInitialized(ByRef value As Variant, defaultValue As Variant)
+If IsEmpty(value) Then
+value = defaultValue
+End If
+End Sub
+
+&#x27; Pattern 3: Count initialized array elements
+Function CountInitializedElements(arr As Variant) As Long
+Dim i As Long
+Dim count As Long
+
+If Not IsArray(arr) Then
+CountInitializedElements = 0
+Exit Function
+End If
+
+count = 0
+For i = LBound(arr) To UBound(arr)
+If Not IsEmpty(arr(i)) Then
+count = count + 1
+End If
+Next i
+
+CountInitializedElements = count
+End Function
+
+&#x27; Pattern 4: Safe value retrieval
+Function SafeGetValue(source As Variant, key As String) As Variant
+On Error Resume Next
+SafeGetValue = source(key)
+
+If Err.Number &lt;&gt; 0 Or IsEmpty(SafeGetValue) Then
+SafeGetValue = Null
+End If
+On Error GoTo 0
+End Function
+
+&#x27; Pattern 5: Validate required parameter
+Sub ProcessRecord(recordData As Variant)
+If IsEmpty(recordData) Then
+Err.Raise 5, , &quot;Record data is required&quot;
+End If
+
+&#x27; Process the record
+End Sub
+
+&#x27; Pattern 6: Type-aware value handling
+Function DescribeValue(value As Variant) As String
+If IsEmpty(value) Then
+DescribeValue = &quot;Uninitialized&quot;
+ElseIf IsNull(value) Then
+DescribeValue = &quot;Null value&quot;
+ElseIf IsNumeric(value) Then
+DescribeValue = &quot;Number: &quot; &amp; value
+ElseIf IsDate(value) Then
+DescribeValue = &quot;Date: &quot; &amp; value
+Else
+DescribeValue = &quot;Other: &quot; &amp; value
+End If
+End Function
+
+&#x27; Pattern 7: Clear variant (make it empty again)
+Sub ClearVariant(ByRef value As Variant)
+&#x27; Set to Empty state
+value = Empty
+Debug.Print &quot;IsEmpty now: &quot; &amp; IsEmpty(value)  &#x27; True
+End Sub
+
+&#x27; Pattern 8: Coalesce - return first non-empty value
+Function Coalesce(ParamArray values() As Variant) As Variant
+Dim i As Long
+
+For i = LBound(values) To UBound(values)
+If Not IsEmpty(values(i)) And Not IsNull(values(i)) Then
+Coalesce = values(i)
+Exit Function
+End If
+Next i
+
+Coalesce = Null  &#x27; All values were Empty or Null
+End Function
+
+&#x27; Pattern 9: Check multiple values
+Function AllInitialized(ParamArray values() As Variant) As Boolean
+Dim i As Long
+
+For i = LBound(values) To UBound(values)
+If IsEmpty(values(i)) Then
+AllInitialized = False
+Exit Function
+End If
+Next i
+
+AllInitialized = True
+End Function
+
+&#x27; Pattern 10: Cache with lazy initialization
+Private m_cachedValue As Variant
+
+Function GetCachedValue() As Variant
+If IsEmpty(m_cachedValue) Then
+&#x27; Initialize cache on first access
+m_cachedValue = ExpensiveCalculation()
+End If
+
+GetCachedValue = m_cachedValue
+End Function
+
+Sub InvalidateCache()
+m_cachedValue = Empty
+End Sub</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Configuration manager with lazy loading
+Public Class ConfigurationManager
+Private m_config As Variant
+Private m_filePath As String
+
+Public Sub Initialize(filePath As String)
+m_filePath = filePath
+m_config = Empty  &#x27; Mark as uninitialized
+End Sub
+
+Public Function GetSetting(key As String, Optional defaultValue As Variant) As Variant
+&#x27; Load config on first access
+If IsEmpty(m_config) Then
+LoadConfiguration
+End If
+
+On Error Resume Next
+GetSetting = m_config(key)
+
+If Err.Number &lt;&gt; 0 Or IsEmpty(GetSetting) Then
+If IsEmpty(defaultValue) Then
+GetSetting = Null
+Else
+GetSetting = defaultValue
+End If
+End If
+On Error GoTo 0
+End Function
+
+Private Sub LoadConfiguration()
+&#x27; Load configuration from file
+Set m_config = CreateObject(&quot;Scripting.Dictionary&quot;)
+&#x27; ... load settings into dictionary ...
+End Sub
+
+Public Sub Reload()
+m_config = Empty  &#x27; Clear cache to force reload
+End Sub
+End Class
+
+&#x27; Example 2: Smart default value provider
+Public Class DefaultValueProvider
+Private m_defaults As Variant
+
+Public Sub SetDefault(key As String, value As Variant)
+If IsEmpty(m_defaults) Then
+Set m_defaults = CreateObject(&quot;Scripting.Dictionary&quot;)
+End If
+m_defaults(key) = value
+End Sub
+
+Public Function GetWithDefault(value As Variant, key As String) As Variant
+If IsEmpty(value) Then
+If Not IsEmpty(m_defaults) Then
+On Error Resume Next
+GetWithDefault = m_defaults(key)
+If Err.Number &lt;&gt; 0 Then
+GetWithDefault = Null
+End If
+On Error GoTo 0
+Else
+GetWithDefault = Null
+End If
+Else
+GetWithDefault = value
+End If
+End Function
+End Class
+
+&#x27; Example 3: Variant array processor
+Public Class VariantArrayProcessor
+Public Function Compact(arr As Variant) As Variant
+&#x27; Remove Empty elements from array
+Dim result() As Variant
+Dim i As Long, count As Long
+
+If Not IsArray(arr) Then
+Compact = arr
+Exit Function
+End If
+
+ReDim result(LBound(arr) To UBound(arr))
+count = LBound(arr) - 1
+
+For i = LBound(arr) To UBound(arr)
+If Not IsEmpty(arr(i)) Then
+count = count + 1
+result(count) = arr(i)
+End If
+Next i
+
+If count &gt;= LBound(result) Then
+ReDim Preserve result(LBound(result) To count)
+Compact = result
+Else
+Compact = Array()  &#x27; Empty array
+End If
+End Function
+
+Public Function FillEmpty(arr As Variant, fillValue As Variant) As Variant
+&#x27; Replace Empty elements with fill value
+Dim result() As Variant
+Dim i As Long
+
+If Not IsArray(arr) Then
+FillEmpty = arr
+Exit Function
+End If
+
+ReDim result(LBound(arr) To UBound(arr))
+
+For i = LBound(arr) To UBound(arr)
+If IsEmpty(arr(i)) Then
+result(i) = fillValue
+Else
+result(i) = arr(i)
+End If
+Next i
+
+FillEmpty = result
+End Function
+End Class
+
+&#x27; Example 4: Flexible function with multiple optional parameters
+Function CreateReport(title As String, Optional author As Variant, _
+Optional date As Variant, Optional includeIndex As Variant) As String
+Dim report As String
+
+report = &quot;REPORT: &quot; &amp; title &amp; vbCrLf
+
+If Not IsEmpty(author) Then
+report = report &amp; &quot;Author: &quot; &amp; author &amp; vbCrLf
+Else
+report = report &amp; &quot;Author: Unknown&quot; &amp; vbCrLf
+End If
+
+If Not IsEmpty(date) Then
+If IsDate(date) Then
+report = report &amp; &quot;Date: &quot; &amp; Format$(date, &quot;Long Date&quot;) &amp; vbCrLf
+Else
+report = report &amp; &quot;Date: &quot; &amp; date &amp; vbCrLf
+End If
+Else
+report = report &amp; &quot;Date: &quot; &amp; Format$(Now, &quot;Long Date&quot;) &amp; vbCrLf
+End If
+
+report = report &amp; String(40, &quot;-&quot;) &amp; vbCrLf
+
+&#x27; Add content...
+
+&#x27; Add index if requested
+If Not IsEmpty(includeIndex) Then
+If includeIndex = True Then
+report = report &amp; vbCrLf &amp; &quot;INDEX&quot; &amp; vbCrLf
+&#x27; ... add index content ...
+End If
+End If
+
+CreateReport = report
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>IsEmpty</code> function itself does not raise errors, but it's commonly used in error prevention:</p>
+<pre><code class="language-vbnet">Function SafeOperation(value As Variant) As Boolean
+If IsEmpty(value) Then
+MsgBox &quot;Value must be initialized&quot;, vbExclamation
+SafeOperation = False
+Exit Function
+End If
+
+&#x27; Safe to use value
+SafeOperation = True
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: <code>IsEmpty</code> is a very fast check with minimal overhead</li>
+<li><strong>Variant Only</strong>: Only applicable to <code>Variant</code> variables</li>
+<li><strong>Early Validation</strong>: Check <code>IsEmpty</code> early to avoid unnecessary processing</li>
+<li><strong><code>VarType</code> Alternative</strong>: <code>VarType(var) = vbEmpty</code> provides same check</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Optional Parameters</strong>: Always check <code>IsEmpty</code> for optional <code>Variant</code> parameters</li>
+<li><strong>Explicit Defaults</strong>: Provide clear default values when parameters are <code>Empty</code></li>
+<li><strong>Document Behavior</strong>: Document whether <code>Empty</code> is valid for function parameters</li>
+<li><strong>Distinguish States</strong>: Understand difference between <code>Empty</code>, <code>Null</code>, zero, and empty string</li>
+<li><strong>Initialization</strong>: Consider explicitly initializing <code>Variant</code>s when <code>Empty</code> is not desired</li>
+<li><strong>Combine Checks</strong>: Use with <code>IsNull</code> for comprehensive validation</li>
+<li><strong>Clear Code</strong>: Use <code>IsEmpty</code> rather than <code>VarType</code> for better readability</li>
+<li><strong>Reset to Empty</strong>: Use <code>var = Empty</code> to reset Variant to uninitialized state</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsEmpty</code></td>
+<td>Check if uninitialized</td>
+<td><code>Boolean</code></td>
+<td>Detect Empty Variants</td>
+</tr>
+<tr>
+<td><code>IsNull</code></td>
+<td>Check if Null</td>
+<td><code>Boolean</code></td>
+<td>Detect Null values</td>
+</tr>
+<tr>
+<td><code>IsNumeric</code></td>
+<td>Check if numeric</td>
+<td><code>Boolean</code></td>
+<td>Validate numeric data</td>
+</tr>
+<tr>
+<td><code>IsDate</code></td>
+<td>Check if date</td>
+<td><code>Boolean</code></td>
+<td>Validate date data</td>
+</tr>
+<tr>
+<td><code>IsArray</code></td>
+<td>Check if array</td>
+<td><code>Boolean</code></td>
+<td>Validate array variables</td>
+</tr>
+<tr>
+<td><code>VarType</code></td>
+<td>Get variant type</td>
+<td><code>Integer</code></td>
+<td>Detailed type information</td>
+</tr>
+<tr>
+<td><code>TypeName</code></td>
+<td>Get type name</td>
+<td><code>String</code></td>
+<td>Type name as string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="empty-vs-null-vs-zero-vs-empty-string"><code>Empty</code> vs <code>Null</code> vs <code>Zero</code> vs Empty <code>String</code></h2>
+<pre><code class="language-vbnet">Dim v As Variant
+
+&#x27; Empty (uninitialized)
+Debug.Print IsEmpty(v)         &#x27; True
+Debug.Print IsNull(v)          &#x27; False
+Debug.Print v = 0              &#x27; True (Empty coerces to 0 in numeric context)
+Debug.Print v = &quot;&quot;             &#x27; True (Empty coerces to &quot;&quot; in string context)
+
+&#x27; Null
+v = Null
+Debug.Print IsEmpty(v)         &#x27; False
+Debug.Print IsNull(v)          &#x27; True
+
+&#x27; Zero
+v = 0
+Debug.Print IsEmpty(v)         &#x27; False
+Debug.Print v = 0              &#x27; True
+
+&#x27; Empty String
+v = &quot;&quot;
+Debug.Print IsEmpty(v)         &#x27; False
+Debug.Print v = &quot;&quot;             &#x27; True</code></pre>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Part of VBA core functions</li>
+<li>Returns <code>Boolean</code> type</li>
+<li>Only works with <code>Variant</code> data type</li>
+<li><code>Empty</code> is VB-specific concept (not in all languages)</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only works with <code>Variant</code> variables</li>
+<li>Cannot test non-Variant types (they're always initialized)</li>
+<li>Does not indicate what type of value is expected</li>
+<li>Cannot distinguish between intentionally Empty and accidentally uninitialized</li>
+<li><code>Empty</code> has different coercion behavior in different contexts</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>IsNull</code>: Check if <code>Variant</code> is <code>Null</code></li>
+<li><code>VarType</code>: Get detailed <code>Variant</code> type information</li>
+<li><code>TypeName</code>: Get type name as <code>String</code></li>
+<li><code>IsNumeric</code>: Check if numeric</li>
+<li><code>IsDate</code>: Check if <code>Date</code></li>
+<li><code>IsArray</code>: Check if <code>Array</code></li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Type Checking</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

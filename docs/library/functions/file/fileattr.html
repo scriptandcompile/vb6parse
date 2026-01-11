@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - fileattr - File">
+    <title>fileattr - File - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/file/index.html">File</a> / fileattr</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="fileattr-function"><code>FileAttr</code> Function</h1>
+<p>Returns a <code>Long</code> representing the file mode for files opened using the <code>Open</code> statement,
+or the file attribute information for files, directories, or folders.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">FileAttr(filenumber, returntype)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>filenumber</strong>: Required. An <code>Integer</code> containing a valid file number of an open file.</li>
+<li><strong>returntype</strong>: Required. A <code>Long</code> indicating the type of information to return.</li>
+<li><strong>1</strong>: Returns a value indicating the file mode (<code>Input</code>, <code>Output</code>, <code>Append</code>, <code>Binary</code>, <code>Random</code>)</li>
+<li><strong>2</strong>: Returns the file handle used by the operating system</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Long</code> value. The meaning depends on the returntype parameter:</p>
+<h3 id="when-returntype-1-file-mode">When returntype = 1 (File Mode):</h3>
+<ul>
+<li><strong>1</strong>: <code>Input</code> mode</li>
+<li><strong>2</strong>: <code>Output</code> mode</li>
+<li><strong>4</strong>: <code>Random</code> access mode</li>
+<li><strong>8</strong>: <code>Append</code> mode</li>
+<li><strong>32</strong>: <code>Binary</code> mode</li>
+</ul>
+<h3 id="when-returntype-2-file-handle">When returntype = 2 (File Handle):</h3>
+<p>Returns the operating system file handle (an integer value used by the OS to identify the file).</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>FileAttr</code> function returns information about files that have been opened using
+the <code>Open</code> statement. It provides two types of information: the file access mode
+or the operating system file handle.</p>
+<p><strong>Important Characteristics:</strong></p>
+<ul>
+<li>File must be open before calling <code>FileAttr</code></li>
+<li>Error if file number is invalid or file is closed</li>
+<li>returntype must be 1 or 2</li>
+<li>File mode values are mutually exclusive</li>
+<li>File handle is OS-specific (Windows, Unix, etc.)</li>
+<li>File handle can be used with API calls</li>
+<li>Not applicable to files opened by other applications</li>
+<li>Only works with files opened via VB6 Open statement</li>
+</ul>
+<h2 id="file-mode-values-returntype-1">File Mode Values (returntype = 1)</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td>1</td>
+<td>File opened for reading</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>2</td>
+<td>File opened for writing (new file or overwrite)</td>
+</tr>
+<tr>
+<td>Random</td>
+<td>4</td>
+<td>File opened for random access</td>
+</tr>
+<tr>
+<td>Append</td>
+<td>8</td>
+<td>File opened for appending</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>32</td>
+<td>File opened in binary mode</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage-check-file-mode">Basic Usage - Check File Mode</h3>
+<pre><code class="language-vbnet">Sub CheckFileMode()
+Dim fileNum As Integer
+Dim fileMode As Long
+
+fileNum = FreeFile
+Open &quot;C:\data.txt&quot; For Input As #fileNum
+
+&#x27; Get file mode
+fileMode = FileAttr(fileNum, 1)
+
+Select Case fileMode
+Case 1
+Debug.Print &quot;File opened for Input&quot;
+Case 2
+Debug.Print &quot;File opened for Output&quot;
+Case 4
+Debug.Print &quot;File opened for Random access&quot;
+Case 8
+Debug.Print &quot;File opened for Append&quot;
+Case 32
+Debug.Print &quot;File opened for Binary&quot;
+End Select
+
+Close #fileNum
+End Sub</code></pre>
+<h3 id="get-file-handle">Get File Handle</h3>
+<pre><code class="language-vbnet">Sub GetFileHandle()
+Dim fileNum As Integer
+Dim fileHandle As Long
+
+fileNum = FreeFile
+Open &quot;C:\temp.dat&quot; For Binary As #fileNum
+
+&#x27; Get operating system file handle
+fileHandle = FileAttr(fileNum, 2)
+Debug.Print &quot;OS File Handle: &quot; &amp; fileHandle
+
+&#x27; File handle can be used with Windows API calls
+&#x27; Example: SetFilePointer, ReadFile, WriteFile, etc.
+
+Close #fileNum
+End Sub</code></pre>
+<h3 id="verify-file-is-open-for-writing">Verify File Is Open for Writing</h3>
+<pre><code class="language-vbnet">Function CanWriteToFile(fileNum As Integer) As Boolean
+On Error GoTo ErrorHandler
+
+Dim fileMode As Long
+fileMode = FileAttr(fileNum, 1)
+
+&#x27; Check if file is open for Output, Append, Random, or Binary
+CanWriteToFile = (fileMode = 2 Or fileMode = 8 Or fileMode = 4 Or fileMode = 32)
+Exit Function
+
+ErrorHandler:
+CanWriteToFile = False
+End Function</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="file-mode-lookup-function">File Mode Lookup Function</h3>
+<pre><code class="language-vbnet">Function GetFileModeDescription(fileNum As Integer) As String
+On Error GoTo ErrorHandler
+
+Dim fileMode As Long
+fileMode = FileAttr(fileNum, 1)
+
+Select Case fileMode
+Case 1
+GetFileModeDescription = &quot;Input&quot;
+Case 2
+GetFileModeDescription = &quot;Output&quot;
+Case 4
+GetFileModeDescription = &quot;Random&quot;
+Case 8
+GetFileModeDescription = &quot;Append&quot;
+Case 32
+GetFileModeDescription = &quot;Binary&quot;
+Case Else
+GetFileModeDescription = &quot;Unknown&quot;
+End Select
+Exit Function
+
+ErrorHandler:
+GetFileModeDescription = &quot;Error: &quot; &amp; Err.Description
+End Function</code></pre>
+<h3 id="list-all-open-files">List All Open Files</h3>
+<pre><code class="language-vbnet">Sub ListOpenFiles()
+Dim i As Integer
+Dim fileMode As Long
+Dim modeDesc As String
+
+Debug.Print &quot;Open Files:&quot;
+Debug.Print String(60, &quot;-&quot;)
+Debug.Print &quot;File#&quot;, &quot;Mode&quot;, &quot;Handle&quot;
+Debug.Print String(60, &quot;-&quot;)
+
+For i = 1 To 255
+On Error Resume Next
+fileMode = FileAttr(i, 1)
+
+If Err.Number = 0 Then
+&#x27; File is open
+modeDesc = GetFileModeDescription(i)
+Debug.Print i, modeDesc, FileAttr(i, 2)
+End If
+
+Err.Clear
+Next i
+End Sub</code></pre>
+<h3 id="safe-file-operation-wrapper">Safe File Operation Wrapper</h3>
+<pre><code class="language-vbnet">Function WriteToFile(fileNum As Integer, data As String) As Boolean
+On Error GoTo ErrorHandler
+
+Dim fileMode As Long
+
+&#x27; Verify file is open
+fileMode = FileAttr(fileNum, 1)
+
+&#x27; Check if writable
+If fileMode &lt;&gt; 2 And fileMode &lt;&gt; 8 And fileMode &lt;&gt; 4 And fileMode &lt;&gt; 32 Then
+MsgBox &quot;File is not open for writing&quot;, vbExclamation
+WriteToFile = False
+Exit Function
+End If
+
+&#x27; Write data based on mode
+Select Case fileMode
+Case 2, 8  &#x27; Output or Append
+Print #fileNum, data
+Case 4     &#x27; Random
+Put #fileNum, , data
+Case 32    &#x27; Binary
+Put #fileNum, , data
+End Select
+
+WriteToFile = True
+Exit Function
+
+ErrorHandler:
+WriteToFile = False
+End Function</code></pre>
+<h3 id="log-file-access-information">Log File Access Information</h3>
+<pre><code class="language-vbnet">Sub LogFileAccess(fileNum As Integer, logPath As String)
+Dim logNum As Integer
+Dim fileMode As Long
+Dim fileHandle As Long
+
+On Error Resume Next
+
+fileMode = FileAttr(fileNum, 1)
+fileHandle = FileAttr(fileNum, 2)
+
+If Err.Number = 0 Then
+logNum = FreeFile
+Open logPath For Append As #logNum
+Print #logNum, Format(Now, &quot;yyyy-mm-dd hh:nn:ss&quot;) &amp; &quot; | &quot; &amp; _
+&quot;File#&quot; &amp; fileNum &amp; &quot; | &quot; &amp; _
+&quot;Mode: &quot; &amp; GetFileModeDescription(fileNum) &amp; &quot; | &quot; &amp; _
+&quot;Handle: &quot; &amp; fileHandle
+Close #logNum
+End If
+End Sub</code></pre>
+<h3 id="check-if-file-number-is-valid">Check If File Number Is Valid</h3>
+<pre><code class="language-vbnet">Function IsFileOpen(fileNum As Integer) As Boolean
+On Error Resume Next
+Dim fileMode As Long
+
+fileMode = FileAttr(fileNum, 1)
+IsFileOpen = (Err.Number = 0)
+End Function</code></pre>
+<h3 id="get-all-file-handles">Get All File Handles</h3>
+<pre><code class="language-vbnet">Function GetOpenFileHandles() As Collection
+Dim handles As New Collection
+Dim i As Integer
+Dim fileHandle As Long
+
+For i = 1 To 255
+On Error Resume Next
+fileHandle = FileAttr(i, 2)
+
+If Err.Number = 0 Then
+handles.Add fileHandle, CStr(i)
+End If
+
+Err.Clear
+Next i
+
+Set GetOpenFileHandles = handles
+End Function</code></pre>
+<h3 id="validate-file-before-operation">Validate File Before Operation</h3>
+<pre><code class="language-vbnet">Function ValidateFileForReading(fileNum As Integer) As Boolean
+On Error GoTo ErrorHandler
+
+Dim fileMode As Long
+fileMode = FileAttr(fileNum, 1)
+
+&#x27; Check if file is open for Input, Random, or Binary
+ValidateFileForReading = (fileMode = 1 Or fileMode = 4 Or fileMode = 32)
+Exit Function
+
+ErrorHandler:
+ValidateFileForReading = False
+End Function</code></pre>
+<h3 id="compare-file-modes">Compare File Modes</h3>
+<pre><code class="language-vbnet">Sub CompareFileModes(file1 As Integer, file2 As Integer)
+Dim mode1 As Long, mode2 As Long
+
+On Error Resume Next
+mode1 = FileAttr(file1, 1)
+mode2 = FileAttr(file2, 1)
+
+If Err.Number = 0 Then
+If mode1 = mode2 Then
+Debug.Print &quot;Files have the same mode: &quot; &amp; GetFileModeDescription(file1)
+Else
+Debug.Print &quot;File1 mode: &quot; &amp; GetFileModeDescription(file1)
+Debug.Print &quot;File2 mode: &quot; &amp; GetFileModeDescription(file2)
+End If
+End If
+End Sub</code></pre>
+<h3 id="track-file-usage-statistics">Track File Usage Statistics</h3>
+<pre><code class="language-vbnet">Type FileStats
+FileNumber As Integer
+Mode As Long
+Handle As Long
+OpenTime As Date
+OperationCount As Long
+End Type
+
+Private fileStatistics() As FileStats
+Private statCount As Long
+
+Sub RecordFileOpen(fileNum As Integer)
+On Error Resume Next
+
+Dim fileMode As Long
+Dim fileHandle As Long
+
+fileMode = FileAttr(fileNum, 1)
+fileHandle = FileAttr(fileNum, 2)
+
+If Err.Number = 0 Then
+ReDim Preserve fileStatistics(0 To statCount)
+
+With fileStatistics(statCount)
+.FileNumber = fileNum
+.Mode = fileMode
+.Handle = fileHandle
+.OpenTime = Now
+.OperationCount = 0
+End With
+
+statCount = statCount + 1
+End If
+End Sub</code></pre>
+<h3 id="platform-specific-file-handle-usage">Platform-Specific File Handle Usage</h3>
+<pre><code class="language-vbnet">&#x27; Windows API declarations (for demonstration)
+Private Declare Function GetFileSize Lib &quot;kernel32&quot; _
+(ByVal hFile As Long, lpFileSizeHigh As Long) As Long
+
+Function GetFileSizeViaHandle(fileNum As Integer) As Long
+Dim fileHandle As Long
+Dim fileSizeHigh As Long
+
+On Error GoTo ErrorHandler
+
+&#x27; Get file handle from VB6 file number
+fileHandle = FileAttr(fileNum, 2)
+
+&#x27; Use Windows API to get file size
+GetFileSizeViaHandle = GetFileSize(fileHandle, fileSizeHigh)
+Exit Function
+
+ErrorHandler:
+GetFileSizeViaHandle = -1
+End Function</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="file-access-monitor">File Access Monitor</h3>
+<pre><code class="language-vbnet">Type FileAccessInfo
+FileNumber As Integer
+Mode As String
+Handle As Long
+CanRead As Boolean
+CanWrite As Boolean
+LastChecked As Date
+End Type
+
+Function GetFileAccessInfo(fileNum As Integer) As FileAccessInfo
+Dim info As FileAccessInfo
+Dim fileMode As Long
+
+On Error GoTo ErrorHandler
+
+fileMode = FileAttr(fileNum, 1)
+
+With info
+.FileNumber = fileNum
+.Handle = FileAttr(fileNum, 2)
+.LastChecked = Now
+
+Select Case fileMode
+Case 1  &#x27; Input
+.Mode = &quot;Input&quot;
+.CanRead = True
+.CanWrite = False
+Case 2  &#x27; Output
+.Mode = &quot;Output&quot;
+.CanRead = False
+.CanWrite = True
+Case 4  &#x27; Random
+.Mode = &quot;Random&quot;
+.CanRead = True
+.CanWrite = True
+Case 8  &#x27; Append
+.Mode = &quot;Append&quot;
+.CanRead = False
+.CanWrite = True
+Case 32  &#x27; Binary
+.Mode = &quot;Binary&quot;
+.CanRead = True
+.CanWrite = True
+End Select
+End With
+
+GetFileAccessInfo = info
+Exit Function
+
+ErrorHandler:
+info.Mode = &quot;Error&quot;
+GetFileAccessInfo = info
+End Function</code></pre>
+<h3 id="automatic-file-mode-detection-for-operations">Automatic File Mode Detection for Operations</h3>
+<pre><code class="language-vbnet">Function ReadFromFile(fileNum As Integer, ByRef data As Variant) As Boolean
+On Error GoTo ErrorHandler
+
+Dim fileMode As Long
+fileMode = FileAttr(fileNum, 1)
+
+&#x27; Read based on detected mode
+Select Case fileMode
+Case 1  &#x27; Input mode
+If Not EOF(fileNum) Then
+Line Input #fileNum, data
+ReadFromFile = True
+End If
+
+Case 4  &#x27; Random mode
+Get #fileNum, , data
+ReadFromFile = True
+
+Case 32  &#x27; Binary mode
+Get #fileNum, , data
+ReadFromFile = True
+
+Case Else
+MsgBox &quot;File not open for reading&quot;, vbExclamation
+ReadFromFile = False
+End Select
+
+Exit Function
+
+ErrorHandler:
+ReadFromFile = False
+End Function</code></pre>
+<h3 id="file-handle-cache">File Handle Cache</h3>
+<pre><code class="language-vbnet">Private Type HandleCacheEntry
+FileNumber As Integer
+Handle As Long
+CachedTime As Date
+End Type
+
+Private handleCache() As HandleCacheEntry
+Private cacheSize As Long
+
+Function GetCachedHandle(fileNum As Integer) As Long
+Dim i As Long
+Dim currentTime As Date
+
+currentTime = Now
+
+&#x27; Check cache first
+For i = 0 To cacheSize - 1
+If handleCache(i).FileNumber = fileNum Then
+&#x27; Verify cache is still valid (within 1 second)
+If DateDiff(&quot;s&quot;, handleCache(i).CachedTime, currentTime) &lt; 1 Then
+GetCachedHandle = handleCache(i).Handle
+Exit Function
+End If
+End If
+Next i
+
+&#x27; Not in cache or expired, get fresh value
+On Error Resume Next
+GetCachedHandle = FileAttr(fileNum, 2)
+
+If Err.Number = 0 Then
+&#x27; Add to cache
+ReDim Preserve handleCache(0 To cacheSize)
+handleCache(cacheSize).FileNumber = fileNum
+handleCache(cacheSize).Handle = GetCachedHandle
+handleCache(cacheSize).CachedTime = currentTime
+cacheSize = cacheSize + 1
+End If
+End Function</code></pre>
+<h3 id="cross-platform-file-handle-wrapper">Cross-Platform File Handle Wrapper</h3>
+<pre><code class="language-vbnet">Function GetPlatformFileInfo(fileNum As Integer) As String
+Dim fileHandle As Long
+Dim info As String
+
+On Error Resume Next
+
+fileHandle = FileAttr(fileNum, 2)
+
+If Err.Number = 0 Then
+info = &quot;File Number: &quot; &amp; fileNum &amp; vbCrLf
+info = info &amp; &quot;Mode: &quot; &amp; GetFileModeDescription(fileNum) &amp; vbCrLf
+info = info &amp; &quot;OS Handle: &quot; &amp; fileHandle &amp; vbCrLf
+
+&#x27; Platform-specific information
+#If Win32 Then
+info = info &amp; &quot;Platform: Windows 32-bit&quot; &amp; vbCrLf
+#ElseIf Win64 Then
+info = info &amp; &quot;Platform: Windows 64-bit&quot; &amp; vbCrLf
+#Else
+info = info &amp; &quot;Platform: Unknown&quot; &amp; vbCrLf
+#End If
+Else
+info = &quot;File not open&quot;
+End If
+
+GetPlatformFileInfo = info
+End Function</code></pre>
+<h3 id="file-descriptor-manager">File Descriptor Manager</h3>
+<pre><code class="language-vbnet">Private Type FileDescriptor
+VBFileNumber As Integer
+OSHandle As Long
+Mode As Long
+ModeDescription As String
+FilePath As String
+OpenedAt As Date
+IsOpen As Boolean
+End Type
+
+Private descriptors As Collection
+
+Sub InitializeDescriptorManager()
+Set descriptors = New Collection
+End Sub
+
+Sub RegisterOpenFile(fileNum As Integer, filePath As String)
+Dim desc As FileDescriptor
+
+On Error Resume Next
+
+desc.VBFileNumber = fileNum
+desc.OSHandle = FileAttr(fileNum, 2)
+desc.Mode = FileAttr(fileNum, 1)
+desc.ModeDescription = GetFileModeDescription(fileNum)
+desc.FilePath = filePath
+desc.OpenedAt = Now
+desc.IsOpen = (Err.Number = 0)
+
+If desc.IsOpen Then
+descriptors.Add desc, &quot;FD&quot; &amp; fileNum
+End If
+End Sub
+
+Function GetDescriptor(fileNum As Integer) As FileDescriptor
+On Error Resume Next
+GetDescriptor = descriptors(&quot;FD&quot; &amp; fileNum)
+End Function</code></pre>
+<h3 id="comprehensive-file-state-checker">Comprehensive File State Checker</h3>
+<pre><code class="language-vbnet">Function GetCompleteFileState(fileNum As Integer) As String
+Dim state As String
+Dim fileMode As Long
+Dim fileHandle As Long
+
+On Error Resume Next
+
+state = &quot;=== File State for #&quot; &amp; fileNum &amp; &quot; ===&quot; &amp; vbCrLf
+
+fileMode = FileAttr(fileNum, 1)
+If Err.Number &lt;&gt; 0 Then
+state = state &amp; &quot;File is CLOSED or invalid file number&quot; &amp; vbCrLf
+GetCompleteFileState = state
+Exit Function
+End If
+
+state = state &amp; &quot;File is OPEN&quot; &amp; vbCrLf
+state = state &amp; &quot;Mode: &quot; &amp; GetFileModeDescription(fileNum) &amp; &quot; (&quot; &amp; fileMode &amp; &quot;)&quot; &amp; vbCrLf
+
+fileHandle = FileAttr(fileNum, 2)
+state = state &amp; &quot;OS Handle: &quot; &amp; fileHandle &amp; vbCrLf
+
+&#x27; Add capabilities
+state = state &amp; &quot;Capabilities:&quot; &amp; vbCrLf
+Select Case fileMode
+Case 1
+state = state &amp; &quot;  - Read: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - Write: No&quot; &amp; vbCrLf
+state = state &amp; &quot;  - EOF applicable: Yes&quot; &amp; vbCrLf
+Case 2
+state = state &amp; &quot;  - Read: No&quot; &amp; vbCrLf
+state = state &amp; &quot;  - Write: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - EOF applicable: No&quot; &amp; vbCrLf
+Case 4
+state = state &amp; &quot;  - Read: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - Write: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - EOF applicable: Yes&quot; &amp; vbCrLf
+Case 8
+state = state &amp; &quot;  - Read: No&quot; &amp; vbCrLf
+state = state &amp; &quot;  - Write: Yes (append only)&quot; &amp; vbCrLf
+state = state &amp; &quot;  - EOF applicable: No&quot; &amp; vbCrLf
+Case 32
+state = state &amp; &quot;  - Read: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - Write: Yes&quot; &amp; vbCrLf
+state = state &amp; &quot;  - EOF applicable: Use LOF/Seek&quot; &amp; vbCrLf
+End Select
+
+GetCompleteFileState = state
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">Function SafeFileAttr(fileNum As Integer, returnType As Long) As Variant
+On Error GoTo ErrorHandler
+
+&#x27; Validate returnType
+If returnType &lt;&gt; 1 And returnType &lt;&gt; 2 Then
+Err.Raise 5, , &quot;Invalid returnType. Must be 1 or 2.&quot;
+End If
+
+SafeFileAttr = FileAttr(fileNum, returnType)
+Exit Function
+
+ErrorHandler:
+Select Case Err.Number
+Case 52  &#x27; Bad file name or number
+MsgBox &quot;File #&quot; &amp; fileNum &amp; &quot; is not open&quot;, vbExclamation
+SafeFileAttr = Null
+Case 5   &#x27; Invalid procedure call
+MsgBox &quot;Invalid returnType parameter&quot;, vbExclamation
+SafeFileAttr = Null
+Case Else
+MsgBox &quot;Error &quot; &amp; Err.Number &amp; &quot;: &quot; &amp; Err.Description, vbCritical
+SafeFileAttr = Null
+End Select
+End Function</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<ul>
+<li><strong>Error 52</strong> (Bad file name or number): File number is invalid or file is closed</li>
+<li><strong>Error 5</strong> (Invalid procedure call): returntype is not 1 or 2</li>
+</ul>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>FileAttr</code> is very fast (simple state query)</li>
+<li>Minimal overhead for checking file state</li>
+<li>More efficient than maintaining separate state variables</li>
+<li>File handle retrieval (returntype=2) is as fast as mode retrieval</li>
+<li>Consider caching results if calling frequently in tight loops</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="always-validate-file-is-open">Always Validate File Is Open</h3>
+<pre><code class="language-vbnet">&#x27; Good - Check before operations
+On Error Resume Next
+fileMode = FileAttr(fileNum, 1)
+If Err.Number &lt;&gt; 0 Then
+MsgBox &quot;File is not open&quot;
+Exit Sub
+End If
+On Error GoTo 0
+
+&#x27; Or use IsFileOpen helper
+If Not IsFileOpen(fileNum) Then
+Exit Sub
+End If</code></pre>
+<h3 id="use-constants-for-return-types">Use Constants for Return Types</h3>
+<pre><code class="language-vbnet">&#x27; Good - Define constants for clarity
+Const FILE_ATTR_MODE = 1
+Const FILE_ATTR_HANDLE = 2
+
+fileMode = FileAttr(fileNum, FILE_ATTR_MODE)
+fileHandle = FileAttr(fileNum, FILE_ATTR_HANDLE)</code></pre>
+<h2 id="comparison-with-other-functions">Comparison with Other Functions</h2>
+<h3 id="fileattr-vs-getattr"><code>FileAttr</code> vs <code>GetAttr</code></h3>
+<pre><code class="language-vbnet">&#x27; FileAttr - For open files, returns mode or handle
+fileMode = FileAttr(fileNum, 1)  &#x27; File must be open
+
+&#x27; GetAttr - For any file, returns attributes (readonly, hidden, etc.)
+attrs = GetAttr(&quot;C:\file.txt&quot;)   &#x27; File can be closed</code></pre>
+<h3 id="fileattr-vs-lof"><code>FileAttr</code> vs <code>LOF</code></h3>
+<pre><code class="language-vbnet">&#x27; FileAttr - Returns mode or handle
+fileMode = FileAttr(fileNum, 1)
+
+&#x27; LOF - Returns file length in bytes
+fileSize = LOF(fileNum)</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Only works with files opened via VB6 Open statement</li>
+<li>Cannot get attributes of closed files</li>
+<li>returntype must be exactly 1 or 2</li>
+<li>File handle is platform-specific</li>
+<li>No information about file path or name</li>
+<li>Cannot determine if file is at EOF</li>
+<li>Does not indicate file position</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>FreeFile</code>: Returns next available file number</li>
+<li><code>Open</code>: Opens a file for reading or writing</li>
+<li><code>Close</code>: Closes an open file</li>
+<li><code>LOF</code>: Returns length of open file</li>
+<li><code>Seek</code>: Returns or sets current position in file</li>
+<li><code>EOF</code>: Returns whether end of file reached</li>
+<li><code>GetAttr</code>: Returns attributes of any file (readonly, hidden, etc.)</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - write - File Operations">
+    <title>write - File Operations - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/file_operations/index.html">File Operations</a> / write</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="write-statement">Write Statement</h1>
+<p>Writes data to a sequential file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Write #filenumber, [outputlist]</code></pre>
+<h2 id="parts">Parts</h2>
+<ul>
+<li><strong>filenumber</strong>: Required. Any valid file number.</li>
+<li><strong>outputlist</strong>: Optional. One or more comma-delimited numeric expressions or string expressions
+to write to a file.</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li><strong>Data Formatting</strong>: Data written with Write # is usually read from a file with Input #.</li>
+<li><strong>Delimiters</strong>: The Write # statement inserts commas between items and quotation marks around
+strings as they are written to the file. You don't have to put explicit delimiters in the list.</li>
+<li><strong>Universal Data</strong>: Write # writes data in a universal format that can be read by Input # regardless
+of the locale settings.</li>
+<li><strong>Numeric Data</strong>: Numeric data is written with a period (.) as the decimal separator.</li>
+<li><strong>Boolean Values</strong>: Boolean data is written as #TRUE# or #FALSE#.</li>
+<li><strong>Date Values</strong>: Date data is written using the universal date format: #yyyy-mm-dd hh:mm:ss#</li>
+<li><strong>Empty Values</strong>: If outputlist data is Empty, nothing is written. However, if outputlist data is
+Null, #NULL# is written.</li>
+<li><strong>Error Data</strong>: Error values are written as #ERROR errorcode#. The number sign (#) ensures the keyword
+is not confused with a variable name.</li>
+<li><strong>Comparison with Print #</strong>: Unlike Print #, Write # inserts commas between items and quotes around
+strings automatically.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="write-simple-data">Write Simple Data</h3>
+<pre><code class="language-vbnet">Open &quot;test.txt&quot; For Output As #1
+Write #1, &quot;Hello&quot;, 42, True
+Close #1
+&#x27; File contents: &quot;Hello&quot;,42,#TRUE#</code></pre>
+<h3 id="write-multiple-lines">Write Multiple Lines</h3>
+<pre><code class="language-vbnet">Open &quot;data.txt&quot; For Output As #1
+For i = 1 To 10
+Write #1, i, i * i, i * i * i
+Next i
+Close #1</code></pre>
+<h3 id="write-mixed-data-types">Write Mixed Data Types</h3>
+<pre><code class="language-vbnet">Open &quot;record.txt&quot; For Output As #1
+Write #1, &quot;John Doe&quot;, 30, #1/1/1995#, True
+Close #1</code></pre>
+<h3 id="write-without-data-new-line">Write Without Data (New Line)</h3>
+<pre><code class="language-vbnet">Open &quot;output.txt&quot; For Output As #1
+Write #1, &quot;First line&quot;
+Write #1
+Write #1, &quot;Third line&quot;
+Close #1</code></pre>
+<h3 id="write-null-and-empty">Write Null and Empty</h3>
+<pre><code class="language-vbnet">Open &quot;test.txt&quot; For Output As #1
+Write #1, Null, Empty, &quot;data&quot;
+Close #1
+&#x27; File contents: #NULL#,,&quot;data&quot;</code></pre>
+<h3 id="write-error-values">Write Error Values</h3>
+<pre><code class="language-vbnet">Open &quot;errors.txt&quot; For Output As #1
+Write #1, CVErr(2007)
+Close #1
+&#x27; File contents: #ERROR 2007#</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="export-data-to-csv-like-format">Export Data to CSV-like Format</h3>
+<pre><code class="language-vbnet">Sub ExportData()
+Open &quot;export.txt&quot; For Output As #1
+
+&#x27; Write header
+Write #1, &quot;Name&quot;, &quot;Age&quot;, &quot;City&quot;
+
+&#x27; Write data rows
+For i = 0 To UBound(employees)
+Write #1, employees(i).Name, employees(i).Age, employees(i).City
+Next i
+
+Close #1
+End Sub</code></pre>
+<h3 id="write-database-records">Write Database Records</h3>
+<pre><code class="language-vbnet">Sub SaveRecords()
+Open &quot;records.dat&quot; For Output As #1
+
+Do Until rs.EOF
+Write #1, rs!ID, rs!Name, rs!Date, rs!Active
+rs.MoveNext
+Loop
+
+Close #1
+End Sub</code></pre>
+<h3 id="write-configuration-data">Write Configuration Data</h3>
+<pre><code class="language-vbnet">Sub SaveConfig()
+Open &quot;config.dat&quot; For Output As #1
+Write #1, appName, version, lastRun, isRegistered
+Close #1
+End Sub</code></pre>
+<h3 id="write-array-data">Write Array Data</h3>
+<pre><code class="language-vbnet">Sub WriteArray()
+Open &quot;array.dat&quot; For Output As #1
+
+For i = LBound(data) To UBound(data)
+Write #1, data(i)
+Next i
+
+Close #1
+End Sub</code></pre>
+<h3 id="append-data-to-existing-file">Append Data to Existing File</h3>
+<pre><code class="language-vbnet">Sub AppendRecord()
+Open &quot;log.txt&quot; For Append As #1
+Write #1, Now(), userName, action, details
+Close #1
+End Sub</code></pre>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File Operations</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

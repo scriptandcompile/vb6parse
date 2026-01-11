@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - mid - String Manipulation">
+    <title>mid - String Manipulation - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/statements/string_manipulation/index.html">String Manipulation</a> / mid</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="mid-statement">Mid Statement</h1>
+<p>Replaces a specified number of characters in a Variant (String) variable with characters from another string.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Mid(stringvar, start[, length]) = string</code></pre>
+<ul>
+<li><code>stringvar</code>: Required. Name of string variable to modify</li>
+<li><code>start</code>: Required. Character position where replacement begins (1-based)</li>
+<li><code>length</code>: Optional. Number of characters to replace. If omitted, uses entire length of <code>string</code></li>
+<li><code>string</code>: Required. String expression used as replacement</li>
+</ul>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>The number of characters replaced is always less than or equal to the number of characters in <code>stringvar</code></li>
+<li>If <code>start</code> is greater than the length of <code>stringvar</code>, <code>stringvar</code> is unchanged</li>
+<li>If <code>length</code> is omitted, all characters from <code>start</code> to the end of the string are replaced</li>
+<li><code>Mid</code> statement replaces characters in-place; it does not change the length of the original string</li>
+<li>If replacement string is longer than <code>length</code>, only <code>length</code> characters are used</li>
+<li>If replacement string is shorter than <code>length</code>, only available characters are replaced</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-vbnet">Dim s As String
+s = &quot;Hello World&quot;
+Mid(s, 7, 5) = &quot;VB6!!&quot;     &#x27; s becomes &quot;Hello VB6!!&quot;
+
+s = &quot;ABCDEFGH&quot;
+Mid(s, 3) = &quot;123&quot;          &#x27; s becomes &quot;AB123FGH&quot;
+
+s = &quot;Test&quot;
+Mid(s, 2, 2) = &quot;XX&quot;        &#x27; s becomes &quot;TXXt&quot;</code></pre>
+<h2 id="reference">Reference</h2>
+<p><a href="https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/mid-statement">Mid Statement - Microsoft Docs</a></p>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to String Manipulation</a> |
+                <a href="../index.html">View all statements</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

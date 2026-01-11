@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - isdate - Type Checking">
+    <title>isdate - Type Checking - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/type_checking/index.html">Type Checking</a> / isdate</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="isdate-function"><code>IsDate</code> Function</h1>
+<p>Returns a Boolean value indicating whether an expression can be converted to a date.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">IsDate(expression)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>expression</code> (Required): <code>Variant</code> expression to test for date validity</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>Boolean</code>:
+- <code>True</code> if the expression is a date or can be recognized as a valid date
+- <code>False</code> if the expression cannot be converted to a date
+- Recognizes dates in various formats based on locale settings
+- Returns <code>True</code> for <code>Date</code> data type variables
+- Returns <code>True</code> for valid date strings
+- Returns <code>False</code> for <code>Null</code>, <code>Empty</code>, and invalid date expressions</p>
+<h2 id="remarks">Remarks</h2>
+<p>The <code>IsDate</code> function determines whether an expression represents a valid date:</p>
+<ul>
+<li>Returns <code>True</code> for <code>Date</code> type variables</li>
+<li>Returns <code>True</code> for strings that can be interpreted as valid dates</li>
+<li><code>Date</code> format recognition depends on locale settings of the system</li>
+<li>Recognizes many common <code>Date</code> formats (MM/DD/YYYY, DD-MMM-YYYY, etc.)</li>
+<li>Returns <code>False</code> for <code>Null</code> values</li>
+<li>Returns <code>False</code> for <code>Empty</code> variants</li>
+<li>Can validate user input before date conversion</li>
+<li>Useful for preventing Type Mismatch errors with date operations</li>
+<li>Returns <code>True</code> for date/time combinations</li>
+<li>Returns <code>True</code> for time-only values</li>
+<li><code>Date</code> range must be valid (e.g., not February 30)</li>
+<li>Years typically need to be in valid range (100-9999)</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Input Validation</strong>: Verify user-entered dates before conversion</li>
+<li><strong>Data Type Checking</strong>: Determine if Variant contains date data</li>
+<li><strong>Error Prevention</strong>: Avoid Type Mismatch errors in date operations</li>
+<li><strong>Database Input</strong>: Validate dates before database insertion</li>
+<li><strong>Form Validation</strong>: Check date fields on data entry forms</li>
+<li><strong>File Processing</strong>: Validate date columns when importing data</li>
+<li><strong>Report Generation</strong>: Ensure date parameters are valid</li>
+<li><strong>Date Parsing</strong>: Test multiple date format attempts</li>
+</ol>
+<h2 id="basic-usage-examples">Basic Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Simple date validation
+Dim testValue As Variant
+
+testValue = &quot;12/25/2025&quot;
+If IsDate(testValue) Then
+Debug.Print &quot;Valid date&quot;  &#x27; This prints
+End If
+
+testValue = &quot;Not a date&quot;
+If IsDate(testValue) Then
+Debug.Print &quot;Valid date&quot;
+Else
+Debug.Print &quot;Invalid date&quot;  &#x27; This prints
+End If
+
+&#x27; Example 2: Validate user input
+Dim userInput As String
+userInput = InputBox(&quot;Enter a date:&quot;)
+
+If IsDate(userInput) Then
+Dim dateValue As Date
+dateValue = CDate(userInput)
+MsgBox &quot;You entered: &quot; &amp; Format$(dateValue, &quot;Long Date&quot;)
+Else
+MsgBox &quot;Invalid date format&quot;, vbExclamation
+End If
+
+&#x27; Example 3: Check various date formats
+Debug.Print IsDate(&quot;12/25/2025&quot;)      &#x27; True (MM/DD/YYYY)
+Debug.Print IsDate(&quot;25-Dec-2025&quot;)     &#x27; True (DD-MMM-YYYY)
+Debug.Print IsDate(&quot;December 25, 2025&quot;) &#x27; True (long format)
+Debug.Print IsDate(&quot;2025-12-25&quot;)      &#x27; True (ISO format)
+Debug.Print IsDate(&quot;12:30 PM&quot;)        &#x27; True (time only)
+Debug.Print IsDate(&quot;13/45/2025&quot;)      &#x27; False (invalid month)
+Debug.Print IsDate(&quot;February 30, 2025&quot;) &#x27; False (invalid day)
+
+&#x27; Example 4: Validate before date arithmetic
+Function AddDaysToDate(dateStr As String, days As Long) As Variant
+If IsDate(dateStr) Then
+AddDaysToDate = CDate(dateStr) + days
+Else
+AddDaysToDate = Null
+MsgBox &quot;Invalid date: &quot; &amp; dateStr, vbExclamation
+End If
+End Function
+
+Dim result As Variant
+result = AddDaysToDate(&quot;12/25/2025&quot;, 7)
+If Not IsNull(result) Then
+Debug.Print &quot;New date: &quot; &amp; result
+End If</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<pre><code class="language-vbnet">&#x27; Pattern 1: Safe date conversion
+Function SafeCDate(value As Variant) As Variant
+If IsDate(value) Then
+SafeCDate = CDate(value)
+Else
+SafeCDate = Null
+End If
+End Function
+
+&#x27; Pattern 2: Validate and format date
+Function FormatIfDate(value As Variant, formatString As String) As String
+If IsDate(value) Then
+FormatIfDate = Format$(CDate(value), formatString)
+Else
+FormatIfDate = &quot;N/A&quot;
+End If
+End Function
+
+&#x27; Pattern 3: Validate date range
+Function IsValidDateInRange(dateStr As String, minDate As Date, maxDate As Date) As Boolean
+Dim testDate As Date
+
+If Not IsDate(dateStr) Then
+IsValidDateInRange = False
+Exit Function
+End If
+
+testDate = CDate(dateStr)
+IsValidDateInRange = (testDate &gt;= minDate And testDate &lt;= maxDate)
+End Function
+
+&#x27; Pattern 4: Parse flexible date input
+Function ParseDate(value As Variant) As Variant
+If IsDate(value) Then
+ParseDate = CDate(value)
+ElseIf IsNumeric(value) Then
+&#x27; Try treating as Excel serial date
+On Error Resume Next
+ParseDate = CDate(CDbl(value))
+If Err.Number &lt;&gt; 0 Then ParseDate = Null
+On Error GoTo 0
+Else
+ParseDate = Null
+End If
+End Function
+
+&#x27; Pattern 5: Validate date field
+Function ValidateDateField(fieldValue As Variant, fieldName As String) As Boolean
+If IsNull(fieldValue) Or IsEmpty(fieldValue) Then
+MsgBox fieldName &amp; &quot; is required&quot;, vbExclamation
+ValidateDateField = False
+ElseIf Not IsDate(fieldValue) Then
+MsgBox fieldName &amp; &quot; must be a valid date&quot;, vbExclamation
+ValidateDateField = False
+Else
+ValidateDateField = True
+End If
+End Function
+
+&#x27; Pattern 6: Extract date from mixed data
+Function ExtractDate(data As Variant) As Variant
+If IsDate(data) Then
+ExtractDate = CDate(data)
+ElseIf VarType(data) = vbString Then
+&#x27; Try to extract date from string
+Dim parts() As String
+parts = Split(data, &quot; &quot;)
+
+Dim i As Integer
+For i = 0 To UBound(parts)
+If IsDate(parts(i)) Then
+ExtractDate = CDate(parts(i))
+Exit Function
+End If
+Next i
+
+ExtractDate = Null
+Else
+ExtractDate = Null
+End If
+End Function
+
+&#x27; Pattern 7: Type-safe date comparison
+Function CompareDates(date1 As Variant, date2 As Variant) As Integer
+If Not IsDate(date1) Or Not IsDate(date2) Then
+CompareDates = 0  &#x27; Invalid comparison
+Exit Function
+End If
+
+Dim d1 As Date, d2 As Date
+d1 = CDate(date1)
+d2 = CDate(date2)
+
+If d1 &lt; d2 Then
+CompareDates = -1
+ElseIf d1 &gt; d2 Then
+CompareDates = 1
+Else
+CompareDates = 0
+End If
+End Function
+
+&#x27; Pattern 8: Validate date before database insert
+Function InsertRecord(recordDate As Variant, description As String) As Boolean
+If Not IsDate(recordDate) Then
+MsgBox &quot;Invalid date for record&quot;, vbCritical
+InsertRecord = False
+Exit Function
+End If
+
+&#x27; Proceed with database insert
+Dim sql As String
+sql = &quot;INSERT INTO Records (RecordDate, Description) VALUES (&quot; &amp; _
+&quot;#&quot; &amp; CDate(recordDate) &amp; &quot;#, &#x27;&quot; &amp; description &amp; &quot;&#x27;)&quot;
+
+&#x27; Execute SQL...
+InsertRecord = True
+End Function
+
+&#x27; Pattern 9: Handle multiple date formats
+Function TryParseDateFormats(dateStr As String) As Variant
+Dim formats As Variant
+Dim i As Integer
+
+&#x27; Try direct conversion first
+If IsDate(dateStr) Then
+TryParseDateFormats = CDate(dateStr)
+Exit Function
+End If
+
+&#x27; Try reformatting
+formats = Array(&quot;MM/DD/YYYY&quot;, &quot;DD/MM/YYYY&quot;, &quot;YYYY-MM-DD&quot;)
+&#x27; Would need custom parsing logic here
+
+TryParseDateFormats = Null
+End Function
+
+&#x27; Pattern 10: Validate array of dates
+Function ValidateDateArray(dates As Variant) As Boolean
+Dim i As Long
+
+If Not IsArray(dates) Then
+ValidateDateArray = False
+Exit Function
+End If
+
+For i = LBound(dates) To UBound(dates)
+If Not IsDate(dates(i)) Then
+ValidateDateArray = False
+Exit Function
+End If
+Next i
+
+ValidateDateArray = True
+End Function</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Date validation class
+Public Class DateValidator
+Private m_minDate As Date
+Private m_maxDate As Date
+Private m_allowEmpty As Boolean
+
+Public Sub Initialize(Optional minDate As Date, Optional maxDate As Date, _
+Optional allowEmpty As Boolean = False)
+m_minDate = minDate
+m_maxDate = maxDate
+m_allowEmpty = allowEmpty
+End Sub
+
+Public Function Validate(value As Variant) As Boolean
+&#x27; Check for empty
+If IsEmpty(value) Or IsNull(value) Or value = &quot;&quot; Then
+Validate = m_allowEmpty
+Exit Function
+End If
+
+&#x27; Check if date
+If Not IsDate(value) Then
+Validate = False
+Exit Function
+End If
+
+&#x27; Check range
+Dim dateValue As Date
+dateValue = CDate(value)
+
+If m_minDate &lt;&gt; 0 And dateValue &lt; m_minDate Then
+Validate = False
+Exit Function
+End If
+
+If m_maxDate &lt;&gt; 0 And dateValue &gt; m_maxDate Then
+Validate = False
+Exit Function
+End If
+
+Validate = True
+End Function
+
+Public Function GetErrorMessage(value As Variant) As String
+If IsEmpty(value) Or IsNull(value) Or value = &quot;&quot; Then
+If Not m_allowEmpty Then
+GetErrorMessage = &quot;Date is required&quot;
+End If
+ElseIf Not IsDate(value) Then
+GetErrorMessage = &quot;Invalid date format: &quot; &amp; value
+Else
+Dim dateValue As Date
+dateValue = CDate(value)
+
+If m_minDate &lt;&gt; 0 And dateValue &lt; m_minDate Then
+GetErrorMessage = &quot;Date must be on or after &quot; &amp; m_minDate
+ElseIf m_maxDate &lt;&gt; 0 And dateValue &gt; m_maxDate Then
+GetErrorMessage = &quot;Date must be on or before &quot; &amp; m_maxDate
+End If
+End If
+End Function
+End Class
+
+&#x27; Example 2: Smart date parser
+Public Class SmartDateParser
+Public Function Parse(value As Variant) As Variant
+&#x27; Handle different input types
+If IsDate(value) Then
+Parse = CDate(value)
+Exit Function
+End If
+
+If IsNumeric(value) Then
+&#x27; Try as Excel serial date
+On Error Resume Next
+Parse = CDate(CDbl(value))
+If Err.Number = 0 Then Exit Function
+On Error GoTo 0
+End If
+
+If VarType(value) = vbString Then
+Parse = ParseString(CStr(value))
+Else
+Parse = Null
+End If
+End Function
+
+Private Function ParseString(str As String) As Variant
+&#x27; Remove common prefixes
+str = Replace(str, &quot;Date:&quot;, &quot;&quot;)
+str = Trim(str)
+
+If IsDate(str) Then
+ParseString = CDate(str)
+Exit Function
+End If
+
+&#x27; Try common transformations
+str = Replace(str, &quot;.&quot;, &quot;/&quot;)  &#x27; 12.25.2025 -&gt; 12/25/2025
+If IsDate(str) Then
+ParseString = CDate(str)
+Exit Function
+End If
+
+ParseString = Null
+End Function
+End Class
+
+&#x27; Example 3: Form field validator
+Public Class FormValidator
+Public Function ValidateAllDates(frm As Form) As Boolean
+Dim ctl As Control
+Dim invalidFields As String
+
+For Each ctl In frm.Controls
+If TypeOf ctl Is TextBox Then
+If ctl.Tag = &quot;DATE&quot; Then
+If ctl.Text &lt;&gt; &quot;&quot; And Not IsDate(ctl.Text) Then
+invalidFields = invalidFields &amp; ctl.Name &amp; vbCrLf
+End If
+End If
+End If
+Next ctl
+
+If invalidFields &lt;&gt; &quot;&quot; Then
+MsgBox &quot;Invalid date fields:&quot; &amp; vbCrLf &amp; invalidFields, vbExclamation
+ValidateAllDates = False
+Else
+ValidateAllDates = True
+End If
+End Function
+
+Public Sub HighlightInvalidDates(frm As Form)
+Dim ctl As Control
+
+For Each ctl In frm.Controls
+If TypeOf ctl Is TextBox Then
+If ctl.Tag = &quot;DATE&quot; And ctl.Text &lt;&gt; &quot;&quot; Then
+If IsDate(ctl.Text) Then
+ctl.BackColor = vbWhite
+Else
+ctl.BackColor = RGB(255, 200, 200)  &#x27; Light red
+End If
+End If
+End If
+Next ctl
+End Sub
+End Class
+
+&#x27; Example 4: CSV date column validator
+Function ValidateCSVDates(filePath As String, dateColumn As Integer) As String
+Dim fileNum As Integer
+Dim line As String
+Dim fields() As String
+Dim lineNum As Long
+Dim errors As String
+
+fileNum = FreeFile
+Open filePath For Input As fileNum
+
+lineNum = 0
+Do While Not EOF(fileNum)
+Line Input #fileNum, line
+lineNum = lineNum + 1
+
+If lineNum = 1 Then
+&#x27; Skip header
+GoTo NextLine
+End If
+
+fields = Split(line, &quot;,&quot;)
+
+If UBound(fields) &gt;= dateColumn Then
+If Not IsDate(fields(dateColumn)) Then
+errors = errors &amp; &quot;Line &quot; &amp; lineNum &amp; &quot;: Invalid date &#x27;&quot; &amp; _
+fields(dateColumn) &amp; &quot;&#x27;&quot; &amp; vbCrLf
+End If
+End If
+
+NextLine:
+Loop
+
+Close fileNum
+
+If errors = &quot;&quot; Then
+ValidateCSVDates = &quot;All dates valid&quot;
+Else
+ValidateCSVDates = &quot;Validation errors:&quot; &amp; vbCrLf &amp; errors
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>IsDate</code> function itself does not raise errors, but it's commonly used to prevent errors:</p>
+<pre><code class="language-vbnet">Function SafeDateOperation(dateStr As String) As Variant
+&#x27; Prevent Type Mismatch errors
+If Not IsDate(dateStr) Then
+MsgBox &quot;Invalid date: &quot; &amp; dateStr, vbCritical
+SafeDateOperation = Null
+Exit Function
+End If
+
+&#x27; Safe to convert and use
+Dim dateValue As Date
+dateValue = CDate(dateStr)
+
+&#x27; Perform date operations
+SafeDateOperation = dateValue + 30
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Fast Operation</strong>: <code>IsDate</code> is a fast check with minimal overhead</li>
+<li><strong>Locale Dependent</strong>: <code>Date</code> parsing depends on system locale settings</li>
+<li><strong>Validation Before Conversion</strong>: More efficient than Try/Catch approach with <code>CDate</code></li>
+<li><strong>String Parsing</strong>: <code>IsDate</code> must parse string to determine validity</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Always Validate</strong>: Check <code>IsDate</code> before <code>CDate</code> to prevent Type Mismatch errors</li>
+<li><strong>User Input</strong>: Essential for validating user-entered dates</li>
+<li><strong>Locale Awareness</strong>: Be aware that date format recognition varies by locale</li>
+<li><strong>Clear Messages</strong>: Provide clear error messages when dates are invalid</li>
+<li><strong>Range Validation</strong>: Combine <code>IsDate</code> with range checks for complete validation</li>
+<li><strong>Null Handling</strong>: Remember <code>IsDate</code> returns False for <code>Null</code> and <code>Empty</code></li>
+<li><strong>Database Dates</strong>: Validate before inserting into database date fields</li>
+<li><strong>Format Consistency</strong>: Consider standardizing date format after validation</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsDate</code></td>
+<td>Check if valid date</td>
+<td>Boolean</td>
+<td>Validate date expressions</td>
+</tr>
+<tr>
+<td><code>IsNumeric</code></td>
+<td>Check if numeric</td>
+<td>Boolean</td>
+<td>Validate numeric data</td>
+</tr>
+<tr>
+<td><code>IsNull</code></td>
+<td>Check if Null</td>
+<td>Boolean</td>
+<td>Check for Null values</td>
+</tr>
+<tr>
+<td><code>IsEmpty</code></td>
+<td>Check if uninitialized</td>
+<td>Boolean</td>
+<td>Check Variant initialization</td>
+</tr>
+<tr>
+<td><code>CDate</code></td>
+<td>Convert to date</td>
+<td>Date</td>
+<td>Perform conversion</td>
+</tr>
+<tr>
+<td><code>VarType</code></td>
+<td>Get variant type</td>
+<td>Integer</td>
+<td>Detailed type information</td>
+</tr>
+<tr>
+<td><code>DateValue</code></td>
+<td>Extract date part</td>
+<td>Date</td>
+<td>Get date without time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-and-version-notes">Platform and Version Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Part of VBA core functions</li>
+<li>Returns <code>Boolean</code> type</li>
+<li>Date format recognition depends on system locale</li>
+<li>Valid date range typically: January 1, 100 to December 31, 9999</li>
+<li>Recognizes time-only values as valid dates</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot specify expected date format</li>
+<li>Locale-dependent interpretation may cause confusion</li>
+<li>Does not provide information about why date is invalid</li>
+<li>Cannot distinguish between date-only, time-only, or datetime values</li>
+<li>May accept ambiguous dates differently on different systems</li>
+<li>Does not validate business logic (e.g., "birth date must be in past")</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>CDate</code>: Convert expression to <code>Date</code> type</li>
+<li><code>DateValue</code>: Return date part of date/time</li>
+<li><code>IsNumeric</code>: Check if numeric</li>
+<li><code>IsNull</code>: Check if <code>Null</code></li>
+<li><code>VarType</code>: Get detailed type information</li>
+<li><code>TypeName</code>: Get type name as <code>String</code></li>
+<li><code>Format</code>: Format date for display</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to Type Checking</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

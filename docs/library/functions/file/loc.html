@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - loc - File">
+    <title>loc - File - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/file/index.html">File</a> / loc</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="loc-function">Loc Function</h1>
+<p>Returns a Long specifying the current read/write position within an open file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">Loc(filenumber)</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>filenumber</code> (Required): Integer file number used in the Open statement</li>
+<li>Must be a valid file number from a currently open file</li>
+<li>File numbers typically obtained from <code>FreeFile</code> function</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a Long:
+- For Random mode: Record number of last record read or written
+- For Sequential mode: Current byte position divided by 128
+- For Binary mode: Position of last byte read or written
+- Returns 0 if no read/write operations have occurred yet
+- Returns value based on last I/O operation</p>
+<h2 id="remarks">Remarks</h2>
+<p>The Loc function returns the current position in an open file:</p>
+<ul>
+<li>Behavior varies based on file access mode</li>
+<li>For Random access: Returns record number (1-based)</li>
+<li>For Sequential access: Returns byte position / 128 (approximation)</li>
+<li>For Binary access: Returns byte position (0-based)</li>
+<li>Does not move the file pointer</li>
+<li>Read-only operation (non-destructive)</li>
+<li>Useful for tracking progress in file operations</li>
+<li>Returns position of last operation, not next operation</li>
+<li>For Random files, increments after Get/Put</li>
+<li>For Binary files, tracks exact byte position</li>
+<li>For Sequential files, provides approximate position</li>
+<li>Essential for file I/O progress tracking</li>
+<li>Used with Seek to navigate files</li>
+<li>Different from Seek function (which also sets position)</li>
+<li>LOF function returns file length, Loc returns position</li>
+<li>Error 52 if file number not open</li>
+<li>Error 68 if device unavailable</li>
+<li>Common in loops reading/writing files</li>
+<li>Helps detect end-of-file conditions</li>
+<li>Used for progress bars during file operations</li>
+</ul>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Track Random File Position</strong></li>
+</ol>
+<pre><code class="language-vbnet">currentRecord = Loc(1)</code></pre>
+<ol>
+<li><strong>Track Binary File Position</strong></li>
+</ol>
+<pre><code class="language-vbnet">bytesProcessed = Loc(fileNum)</code></pre>
+<ol>
+<li><strong>Progress Calculation</strong></li>
+</ol>
+<pre><code class="language-vbnet">percentComplete = (Loc(1) / LOF(1)) * 100</code></pre>
+<ol>
+<li><strong>Check if Data Written</strong></li>
+</ol>
+<pre><code class="language-vbnet">If Loc(fileNum) &gt; 0 Then
+&#x27; File has been written to
+End If</code></pre>
+<ol>
+<li><strong>Loop Until End</strong></li>
+</ol>
+<pre><code class="language-vbnet">Do While Loc(1) &lt; LOF(1)
+Get #1, , record
+Loop</code></pre>
+<ol>
+<li><strong>Record Number Display</strong></li>
+</ol>
+<pre><code class="language-vbnet">lblRecordNum.Caption = &quot;Record: &quot; &amp; Loc(1)</code></pre>
+<ol>
+<li><strong>Byte Position Check</strong></li>
+</ol>
+<pre><code class="language-vbnet">Debug.Print &quot;Position: &quot; &amp; Loc(fileNum)</code></pre>
+<ol>
+<li><strong>Progress Bar Update</strong></li>
+</ol>
+<pre><code class="language-vbnet">ProgressBar1.Value = (Loc(1) / totalRecords) * 100</code></pre>
+<h2 id="basic-examples">Basic Examples</h2>
+<h3 id="example-1-random-file-position">Example 1: Random File Position</h3>
+<pre><code class="language-vbnet">Type CustomerRecord
+ID As Long
+Name As String * 50
+End Type
+
+Dim customer As CustomerRecord
+Dim fileNum As Integer
+
+fileNum = FreeFile
+Open &quot;customers.dat&quot; For Random As #fileNum Len = Len(customer)
+
+&#x27; Read records
+Do While Not EOF(fileNum)
+Get #fileNum, , customer
+Debug.Print &quot;Record: &quot; &amp; Loc(fileNum)
+Loop
+
+Close #fileNum</code></pre>
+<h3 id="example-2-binary-file-progress">Example 2: Binary File Progress</h3>
+<pre><code class="language-vbnet">Dim fileNum As Integer
+Dim data As Byte
+Dim fileSize As Long
+
+fileNum = FreeFile
+Open &quot;data.bin&quot; For Binary As #fileNum
+fileSize = LOF(fileNum)
+
+Do While Loc(fileNum) &lt; fileSize
+Get #fileNum, , data
+
+&#x27; Update progress
+If Loc(fileNum) Mod 1024 = 0 Then
+Debug.Print &quot;Progress: &quot; &amp; (Loc(fileNum) / fileSize) * 100 &amp; &quot;%&quot;
+End If
+Loop
+
+Close #fileNum</code></pre>
+<h3 id="example-3-sequential-file-position">Example 3: Sequential File Position</h3>
+<pre><code class="language-vbnet">Dim fileNum As Integer
+Dim line As String
+
+fileNum = FreeFile
+Open &quot;log.txt&quot; For Input As #fileNum
+
+Do While Not EOF(fileNum)
+Line Input #fileNum, line
+
+&#x27; Approximate position (bytes / 128)
+Debug.Print &quot;Position: &quot; &amp; Loc(fileNum)
+Loop
+
+Close #fileNum</code></pre>
+<h3 id="example-4-track-write-position">Example 4: Track Write Position</h3>
+<pre><code class="language-vbnet">Dim fileNum As Integer
+Dim i As Integer
+
+fileNum = FreeFile
+Open &quot;output.bin&quot; For Binary As #fileNum
+
+For i = 1 To 100
+Put #fileNum, , i
+Debug.Print &quot;Wrote to position: &quot; &amp; Loc(fileNum)
+Next i
+
+Close #fileNum</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="pattern-1-calculateprogress">Pattern 1: <code>CalculateProgress</code></h3>
+<pre><code class="language-vbnet">Function CalculateProgress(ByVal fileNum As Integer) As Single
+Dim currentPos As Long
+Dim totalSize As Long
+
+currentPos = Loc(fileNum)
+totalSize = LOF(fileNum)
+
+If totalSize &gt; 0 Then
+CalculateProgress = (currentPos / totalSize) * 100
+Else
+CalculateProgress = 0
+End If
+End Function</code></pre>
+<h3 id="pattern-2-isfilepositionchanged">Pattern 2: <code>IsFilePositionChanged</code></h3>
+<pre><code class="language-vbnet">Function IsFilePositionChanged(ByVal fileNum As Integer, _
+ByVal lastPosition As Long) As Boolean
+IsFilePositionChanged = (Loc(fileNum) &lt;&gt; lastPosition)
+End Function</code></pre>
+<h3 id="pattern-3-getcurrentrecord">Pattern 3: <code>GetCurrentRecord</code></h3>
+<pre><code class="language-vbnet">Function GetCurrentRecord(ByVal fileNum As Integer) As Long
+&#x27; For Random access files
+GetCurrentRecord = Loc(fileNum)
+End Function</code></pre>
+<h3 id="pattern-4-getbytesprocessed">Pattern 4: <code>GetBytesProcessed</code></h3>
+<pre><code class="language-vbnet">Function GetBytesProcessed(ByVal fileNum As Integer) As Long
+&#x27; For Binary access files
+GetBytesProcessed = Loc(fileNum)
+End Function</code></pre>
+<h3 id="pattern-5-updateprogressbar">Pattern 5: <code>UpdateProgressBar</code></h3>
+<pre><code class="language-vbnet">Sub UpdateProgressBar(ByVal fileNum As Integer, _
+ByVal progressBar As ProgressBar)
+Dim percent As Single
+percent = (Loc(fileNum) / LOF(fileNum)) * 100
+
+If percent &lt;= 100 Then
+progressBar.Value = percent
+End If
+DoEvents
+End Sub</code></pre>
+<h3 id="pattern-6-readfilewithprogress">Pattern 6: <code>ReadFileWithProgress</code></h3>
+<pre><code class="language-vbnet">Sub ReadFileWithProgress(ByVal filename As String)
+Dim fileNum As Integer
+Dim data As Byte
+Dim lastPercent As Integer
+Dim currentPercent As Integer
+
+fileNum = FreeFile
+Open filename For Binary As #fileNum
+
+Do While Loc(fileNum) &lt; LOF(fileNum)
+Get #fileNum, , data
+ProcessByte data
+
+currentPercent = Int((Loc(fileNum) / LOF(fileNum)) * 100)
+If currentPercent &lt;&gt; lastPercent Then
+Debug.Print &quot;Progress: &quot; &amp; currentPercent &amp; &quot;%&quot;
+lastPercent = currentPercent
+End If
+Loop
+
+Close #fileNum
+End Sub</code></pre>
+<h3 id="pattern-7-getrecordposition">Pattern 7: <code>GetRecordPosition</code></h3>
+<pre><code class="language-vbnet">Function GetRecordPosition(ByVal fileNum As Integer) As String
+Dim current As Long
+Dim total As Long
+
+current = Loc(fileNum)
+total = LOF(fileNum) / Len(recordVariable)
+
+GetRecordPosition = current &amp; &quot; of &quot; &amp; total
+End Function</code></pre>
+<h3 id="pattern-8-safeloc">Pattern 8: <code>SafeLoc</code></h3>
+<pre><code class="language-vbnet">Function SafeLoc(ByVal fileNum As Integer) As Long
+On Error Resume Next
+SafeLoc = Loc(fileNum)
+If Err.Number &lt;&gt; 0 Then
+SafeLoc = -1
+Err.Clear
+End If
+End Function</code></pre>
+<h3 id="pattern-9-isatendoffile">Pattern 9: <code>IsAtEndOfFile</code></h3>
+<pre><code class="language-vbnet">Function IsAtEndOfFile(ByVal fileNum As Integer) As Boolean
+&#x27; For Binary mode
+IsAtEndOfFile = (Loc(fileNum) &gt;= LOF(fileNum))
+End Function</code></pre>
+<h3 id="pattern-10-logfileposition">Pattern 10: <code>LogFilePosition</code></h3>
+<pre><code class="language-vbnet">Sub LogFilePosition(ByVal fileNum As Integer, _
+ByVal operation As String)
+Debug.Print operation &amp; &quot; - Position: &quot; &amp; Loc(fileNum) &amp; _
+&quot; of &quot; &amp; LOF(fileNum)
+End Sub</code></pre>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="example-1-file-reader-with-progress">Example 1: File Reader with Progress</h3>
+<pre><code class="language-vbnet">&#x27; Class: BinaryFileReader
+Private m_fileNum As Integer
+Private m_filename As String
+Private m_fileSize As Long
+
+Public Sub OpenFile(ByVal filename As String)
+m_filename = filename
+m_fileNum = FreeFile
+Open filename For Binary As #m_fileNum
+m_fileSize = LOF(m_fileNum)
+End Sub
+
+Public Function ReadByte() As Byte
+If Not IsEOF Then
+Get #m_fileNum, , ReadByte
+End If
+End Function
+
+Public Property Get Position() As Long
+Position = Loc(m_fileNum)
+End Property
+
+Public Property Get Size() As Long
+Size = m_fileSize
+End Property
+
+Public Property Get Progress() As Single
+If m_fileSize &gt; 0 Then
+Progress = (Loc(m_fileNum) / m_fileSize) * 100
+Else
+Progress = 0
+End If
+End Property
+
+Public Property Get IsEOF() As Boolean
+IsEOF = (Loc(m_fileNum) &gt;= m_fileSize)
+End Property
+
+Public Sub CloseFile()
+If m_fileNum &gt; 0 Then
+Close #m_fileNum
+m_fileNum = 0
+End If
+End Sub
+
+Private Sub Class_Terminate()
+CloseFile
+End Sub</code></pre>
+<h3 id="example-2-random-file-navigator">Example 2: Random File Navigator</h3>
+<pre><code class="language-vbnet">&#x27; Class: RandomFileNavigator
+Private m_fileNum As Integer
+Private m_recordLength As Integer
+Private m_totalRecords As Long
+
+Public Sub OpenFile(ByVal filename As String, _
+ByVal recordLength As Integer)
+m_recordLength = recordLength
+m_fileNum = FreeFile
+Open filename For Random As #m_fileNum Len = recordLength
+m_totalRecords = LOF(m_fileNum) / recordLength
+End Sub
+
+Public Property Get CurrentRecord() As Long
+CurrentRecord = Loc(m_fileNum)
+End Property
+
+Public Property Get TotalRecords() As Long
+TotalRecords = m_totalRecords
+End Property
+
+Public Property Get ProgressPercent() As Single
+If m_totalRecords &gt; 0 Then
+ProgressPercent = (Loc(m_fileNum) / m_totalRecords) * 100
+Else
+ProgressPercent = 0
+End If
+End Property
+
+Public Function IsFirstRecord() As Boolean
+IsFirstRecord = (Loc(m_fileNum) = 1)
+End Function
+
+Public Function IsLastRecord() As Boolean
+IsLastRecord = (Loc(m_fileNum) = m_totalRecords)
+End Function
+
+Public Sub CloseFile()
+If m_fileNum &gt; 0 Then
+Close #m_fileNum
+m_fileNum = 0
+End If
+End Sub
+
+Private Sub Class_Terminate()
+CloseFile
+End Sub</code></pre>
+<h3 id="example-3-file-copy-with-progress">Example 3: File Copy with Progress</h3>
+<pre><code class="language-vbnet">Sub CopyFileWithProgress(ByVal sourceFile As String, _
+ByVal destFile As String, _
+Optional progressBar As ProgressBar = Nothing)
+Dim sourceNum As Integer, destNum As Integer
+Dim buffer As Byte
+Dim totalSize As Long
+Dim lastPercent As Integer
+Dim currentPercent As Integer
+
+sourceNum = FreeFile
+Open sourceFile For Binary As #sourceNum
+totalSize = LOF(sourceNum)
+
+destNum = FreeFile
+Open destFile For Binary As #destNum
+
+Do While Loc(sourceNum) &lt; totalSize
+Get #sourceNum, , buffer
+Put #destNum, , buffer
+
+If Not progressBar Is Nothing Then
+currentPercent = Int((Loc(sourceNum) / totalSize) * 100)
+If currentPercent &lt;&gt; lastPercent Then
+progressBar.Value = currentPercent
+lastPercent = currentPercent
+DoEvents
+End If
+End If
+Loop
+
+Close #sourceNum
+Close #destNum
+End Sub</code></pre>
+<h3 id="example-4-file-processing-monitor">Example 4: File Processing Monitor</h3>
+<pre><code class="language-vbnet">&#x27; Form with lblStatus, lblProgress, ProgressBar1
+Private m_fileNum As Integer
+Private m_totalSize As Long
+
+Private Sub ProcessLargeFile(ByVal filename As String)
+Dim data As Byte
+Dim startTime As Single
+
+m_fileNum = FreeFile
+Open filename For Binary As #m_fileNum
+m_totalSize = LOF(m_fileNum)
+
+startTime = Timer
+Timer1.Enabled = True
+
+Do While Loc(m_fileNum) &lt; m_totalSize
+Get #m_fileNum, , data
+ProcessData data
+Loop
+
+Timer1.Enabled = False
+Close #m_fileNum
+
+lblStatus.Caption = &quot;Complete!&quot;
+End Sub
+
+Private Sub Timer1_Timer()
+UpdateProgress
+End Sub
+
+Private Sub UpdateProgress()
+Dim percent As Single
+Dim bytesProcessed As Long
+
+On Error Resume Next
+bytesProcessed = Loc(m_fileNum)
+
+If m_totalSize &gt; 0 Then
+percent = (bytesProcessed / m_totalSize) * 100
+ProgressBar1.Value = percent
+lblProgress.Caption = Format(percent, &quot;0.0&quot;) &amp; &quot;% - &quot; &amp; _
+FormatBytes(bytesProcessed) &amp; &quot; of &quot; &amp; _
+FormatBytes(m_totalSize)
+End If
+End Sub
+
+Private Function FormatBytes(ByVal bytes As Long) As String
+If bytes &lt; 1024 Then
+FormatBytes = bytes &amp; &quot; bytes&quot;
+ElseIf bytes &lt; 1048576 Then
+FormatBytes = Format(bytes / 1024, &quot;0.0&quot;) &amp; &quot; KB&quot;
+Else
+FormatBytes = Format(bytes / 1048576, &quot;0.0&quot;) &amp; &quot; MB&quot;
+End If
+End Function</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="language-vbnet">&#x27; Error 52: Bad file name or number
+On Error Resume Next
+pos = Loc(999)
+If Err.Number = 52 Then
+MsgBox &quot;File not open!&quot;
+End If
+
+&#x27; Error 68: Device unavailable
+pos = Loc(fileNum)
+If Err.Number = 68 Then
+MsgBox &quot;Device unavailable!&quot;
+End If
+
+&#x27; Safe position retrieval
+Function GetSafePosition(ByVal fileNum As Integer) As Long
+On Error Resume Next
+GetSafePosition = Loc(fileNum)
+If Err.Number &lt;&gt; 0 Then
+GetSafePosition = -1
+Err.Clear
+End If
+End Function</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Very Fast</strong>: Loc is a simple file pointer query</li>
+<li><strong>No I/O</strong>: Does not perform actual file operations</li>
+<li><strong>Frequent Calls</strong>: Safe to call in tight loops</li>
+<li><strong>Progress Updates</strong>: Use modulo to update UI less frequently</li>
+<li><strong><code>DoEvents</code></strong>: Call <code>DoEvents</code> when updating UI to maintain responsiveness</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use with LOF</strong> for calculating percentage complete</li>
+<li><strong>Check file is open</strong> before calling Loc</li>
+<li><strong>Update progress periodically</strong> not on every byte</li>
+<li><strong>Cache in variable</strong> if using multiple times</li>
+<li><strong>Use for Binary/Random</strong> files (Sequential returns approximation)</li>
+<li><strong>Combine with EOF</strong> for robust loop conditions</li>
+<li><strong>Handle errors</strong> for unopened files</li>
+<li><strong>Use <code>DoEvents</code></strong> when updating UI in loops</li>
+<li><strong>Consider mode</strong> when interpreting return value</li>
+<li><strong>Document units</strong> (bytes, records, or approximation)</li>
+</ol>
+<h2 id="comparison-with-related-functions">Comparison with Related Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Read/Write</th>
+<th>Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loc</strong></td>
+<td>Get position</td>
+<td>Read-only</td>
+<td>Position</td>
+</tr>
+<tr>
+<td><strong>Seek</strong> (function)</td>
+<td>Get position</td>
+<td>Read-only</td>
+<td>Position + 1</td>
+</tr>
+<tr>
+<td><strong>Seek</strong> (statement)</td>
+<td>Set position</td>
+<td>Write</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><strong>LOF</strong></td>
+<td>Get file length</td>
+<td>Read-only</td>
+<td>Total bytes</td>
+</tr>
+<tr>
+<td><strong>EOF</strong></td>
+<td>Check end</td>
+<td>Read-only</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
+<h2 id="loc-vs-seek-function">Loc vs Seek Function</h2>
+<pre><code class="language-vbnet">&#x27; Loc - returns position of last operation
+currentPos = Loc(fileNum)
+
+&#x27; Seek - returns next read/write position (Loc + 1)
+nextPos = Seek(fileNum)
+
+&#x27; For Binary mode:
+&#x27; After reading byte at position 100:
+&#x27; Loc returns 100
+&#x27; Seek returns 101</code></pre>
+<h2 id="mode-specific-behavior">Mode-Specific Behavior</h2>
+<pre><code class="language-vbnet">&#x27; Random mode - record number
+Open &quot;data.dat&quot; For Random As #1 Len = 128
+Get #1, 5, record
+Debug.Print Loc(1)  &#x27; Returns 5 (record number)
+
+&#x27; Binary mode - byte position
+Open &quot;data.bin&quot; For Binary As #1
+Get #1, , buffer
+Debug.Print Loc(1)  &#x27; Returns bytes read
+
+&#x27; Sequential mode - approximate (bytes / 128)
+Open &quot;text.txt&quot; For Input As #1
+Line Input #1, line
+Debug.Print Loc(1)  &#x27; Returns approximate position</code></pre>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Available in all VB6 versions</li>
+<li>Part of VBA core library</li>
+<li>Returns Long (max 2GB file support)</li>
+<li>For files &gt; 2GB, result may overflow</li>
+<li>Windows-specific file I/O</li>
+<li>Behavior identical across Windows versions</li>
+<li>Sequential mode approximation may vary</li>
+<li>Random mode most reliable</li>
+<li>Binary mode exact for files &lt; 2GB</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>2GB Limit</strong>: Long type limits file size to ~2GB</li>
+<li><strong>Sequential Approximation</strong>: Not exact for Input/Output/Append modes</li>
+<li><strong>Division by 128</strong>: Sequential mode uses this approximation</li>
+<li><strong>No String Files</strong>: Works with file numbers only</li>
+<li><strong>Requires Open File</strong>: Error if file not open</li>
+<li><strong>Mode Dependent</strong>: Return value meaning varies by mode</li>
+<li><strong>No Directory</strong>: Only for files, not directories</li>
+<li><strong>Last Operation</strong>: Returns position of last I/O, not current</li>
+</ul>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>Seek</code>: Get/set file position (next position, not last)</li>
+<li><code>LOF</code>: Get length of file</li>
+<li><code>EOF</code>: Check if at end of file</li>
+<li><code>Open</code>: Open file for I/O</li>
+<li><code>Close</code>: Close file</li>
+<li><code>Get</code>: Read from file (updates Loc)</li>
+<li><code>Put</code>: Write to file (updates Loc)</li>
+<li><code>FreeFile</code>: Get available file number</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>

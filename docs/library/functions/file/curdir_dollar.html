@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VB6Parse Library Reference - curdir_dollar - File">
+    <title>curdir_dollar - File - VB6Parse Library Reference</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/docs-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="../../../assets/js/theme-switcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/vbnet.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header class="docs-header">
+        <div class="container">
+            <h1><a href="../../../index.html">VB6Parse</a> / <a href="../../../library/index.html">Library</a> / <a href="../../../library/functions/file/index.html">File</a> / curdir_dollar</h1>
+            <p class="tagline">VB6 Library Reference</p>
+        </div>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="container">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../library/index.html">Library Reference</a>
+            <a href="../../../documentation.html">Documentation</a>
+            <a href="https://docs.rs/vb6parse" target="_blank">API Docs</a>
+            <a href="https://github.com/scriptandcompile/vb6parse" target="_blank">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <article class="library-item">
+            <h1 id="curdir-function"><code>CurDir$</code> Function</h1>
+<p>Returns a <code>String</code> representing the current path for the specified drive or the default drive.
+The dollar sign suffix (<code>$</code>) explicitly indicates that this function returns a <code>String</code> type
+(not a <code>Variant</code>).</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="language-vbnet">CurDir$[(drive)]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong><code>drive</code></strong>: Optional. <code>String</code> expression that specifies an existing drive. If no drive is
+specified or if drive is a zero-length string (""), <code>CurDir$</code> returns the path for the
+current drive. The drive parameter can be just the drive letter (e.g., "C") or include
+a colon (e.g., "C:").</li>
+</ul>
+<h2 id="return-value">Return Value</h2>
+<p>Returns a <code>String</code> containing the current directory path for the specified drive. The returned
+path does not include a trailing backslash unless the current directory is the root directory.
+The return value is always a <code>String</code> type (never <code>Variant</code>).</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>The <code>CurDir$</code> function always returns a <code>String</code>, while <code>CurDir</code> (without <code>$</code>) can return a <code>Variant</code>.</li>
+<li>Without arguments, returns current directory of current drive.</li>
+<li>With drive specified, returns current directory of that drive.</li>
+<li>Does not include trailing backslash (except for root directory).</li>
+<li>Drive parameter is case-insensitive ("C" and "c" are equivalent).</li>
+<li>Each drive maintains its own current directory in Windows.</li>
+<li>On Windows, returns full path (e.g., "C:\Windows\System32").</li>
+<li>Root directory returns drive with backslash (e.g., "C:\").</li>
+<li>For better performance when you know the result is a string, use <code>CurDir$</code> instead of <code>CurDir</code>.</li>
+</ul>
+<h2 id="drive-specification">Drive Specification</h2>
+<p>The drive parameter can be specified in several ways:
+- <code>CurDir$()</code> - Current drive
+- <code>CurDir$("")</code> - Current drive
+- <code>CurDir$("C")</code> - Drive C
+- <code>CurDir$("C:")</code> - Drive C
+- <code>CurDir$("D")</code> - Drive D</p>
+<h2 id="typical-uses">Typical Uses</h2>
+<ol>
+<li><strong>Directory context</strong> - Determine current working directory</li>
+<li><strong>Path building</strong> - Construct full paths from relative paths</li>
+<li><strong>Directory restoration</strong> - Save and restore directory state</li>
+<li><strong>File operations</strong> - Locate files relative to current directory</li>
+<li><strong>Logging</strong> - Record current directory for debugging</li>
+<li><strong>Validation</strong> - Verify expected working directory</li>
+<li><strong>Multi-drive operations</strong> - Work with multiple drives simultaneously</li>
+</ol>
+<h2 id="basic-examples">Basic Examples</h2>
+<pre><code class="language-vbnet">&#x27; Example 1: Get current directory
+Dim currentDir As String
+currentDir = CurDir$()</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 2: Get current directory of specific drive
+Dim cDrive As String
+cDrive = CurDir$(&quot;C&quot;)</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 3: Check if in expected directory
+If CurDir$() = &quot;C:\MyApp&quot; Then
+MsgBox &quot;In correct directory&quot;
+End If</code></pre>
+<pre><code class="language-vbnet">&#x27; Example 4: Display current directory
+MsgBox &quot;Current directory: &quot; &amp; CurDir$()</code></pre>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="save-and-restore-directory">Save and Restore Directory</h3>
+<pre><code class="language-vbnet">Sub ProcessInDifferentDirectory(targetDir As String)
+Dim savedDir As String
+
+&#x27; Save current directory
+savedDir = CurDir$()
+
+On Error GoTo ErrorHandler
+
+&#x27; Change to target directory
+ChDir targetDir
+
+&#x27; Do work in target directory
+ProcessFiles
+
+&#x27; Restore original directory
+ChDir savedDir
+Exit Sub
+
+ErrorHandler:
+&#x27; Always restore directory even on error
+ChDir savedDir
+Err.Raise Err.Number, , Err.Description
+End Sub</code></pre>
+<h3 id="building-full-path-from-relative-path">Building Full Path from Relative Path</h3>
+<pre><code class="language-vbnet">Function GetFullPath(relativePath As String) As String
+Dim currentDir As String
+currentDir = CurDir$()
+
+&#x27; Check if current dir already ends with backslash
+If Right$(currentDir, 1) = &quot;\&quot; Then
+GetFullPath = currentDir &amp; relativePath
+Else
+GetFullPath = currentDir &amp; &quot;\&quot; &amp; relativePath
+End If
+End Function</code></pre>
+<h3 id="ensuring-correct-working-directory">Ensuring Correct Working Directory</h3>
+<pre><code class="language-vbnet">Sub EnsureWorkingDirectory(expectedDir As String)
+Dim currentDir As String
+currentDir = CurDir$()
+
+If UCase$(currentDir) &lt;&gt; UCase$(expectedDir) Then
+ChDir expectedDir
+End If
+End Sub</code></pre>
+<h3 id="multi-drive-directory-tracking">Multi-Drive Directory Tracking</h3>
+<pre><code class="language-vbnet">Function GetAllDriveDirs() As Collection
+Dim drives() As String
+Dim result As New Collection
+Dim i As Integer
+
+drives = Array(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;)
+
+For i = LBound(drives) To UBound(drives)
+On Error Resume Next
+result.Add CurDir$(drives(i)), drives(i)
+On Error GoTo 0
+Next i
+
+Set GetAllDriveDirs = result
+End Function</code></pre>
+<h3 id="path-validation">Path Validation</h3>
+<pre><code class="language-vbnet">Function IsValidDirectory(dirPath As String) As Boolean
+Dim savedDir As String
+Dim result As Boolean
+
+savedDir = CurDir$()
+result = False
+
+On Error Resume Next
+ChDir dirPath
+If Err.Number = 0 Then
+result = True
+ChDir savedDir
+End If
+On Error GoTo 0
+
+IsValidDirectory = result
+End Function</code></pre>
+<h3 id="log-file-path-construction">Log File Path Construction</h3>
+<pre><code class="language-vbnet">Function GetLogFilePath() As String
+Dim logDir As String
+Dim logFile As String
+
+logDir = CurDir$()
+logFile = &quot;application_&quot; &amp; Format$(Now, &quot;yyyymmdd&quot;) &amp; &quot;.log&quot;
+
+If Right$(logDir, 1) = &quot;\&quot; Then
+GetLogFilePath = logDir &amp; logFile
+Else
+GetLogFilePath = logDir &amp; &quot;\&quot; &amp; logFile
+End If
+End Function</code></pre>
+<h3 id="working-directory-report">Working Directory Report</h3>
+<pre><code class="language-vbnet">Sub ReportCurrentDirectories()
+Dim report As String
+
+report = &quot;Current Directory: &quot; &amp; CurDir$() &amp; vbCrLf
+
+On Error Resume Next
+report = report &amp; &quot;C: Drive: &quot; &amp; CurDir$(&quot;C&quot;) &amp; vbCrLf
+report = report &amp; &quot;D: Drive: &quot; &amp; CurDir$(&quot;D&quot;) &amp; vbCrLf
+On Error GoTo 0
+
+MsgBox report, vbInformation, &quot;Directory Report&quot;
+End Sub</code></pre>
+<h3 id="relative-file-search">Relative File Search</h3>
+<pre><code class="language-vbnet">Function FindFileInCurrentDir(filename As String) As String
+Dim fullPath As String
+Dim currentDir As String
+
+currentDir = CurDir$()
+
+If Right$(currentDir, 1) = &quot;\&quot; Then
+fullPath = currentDir &amp; filename
+Else
+fullPath = currentDir &amp; &quot;\&quot; &amp; filename
+End If
+
+If Dir$(fullPath) &lt;&gt; &quot;&quot; Then
+FindFileInCurrentDir = fullPath
+Else
+FindFileInCurrentDir = &quot;&quot;
+End If
+End Function</code></pre>
+<h3 id="directory-depth-calculator">Directory Depth Calculator</h3>
+<pre><code class="language-vbnet">Function GetDirectoryDepth() As Integer
+Dim path As String
+Dim depth As Integer
+Dim i As Integer
+
+path = CurDir$()
+depth = 0
+
+For i = 1 To Len(path)
+If Mid$(path, i, 1) = &quot;\&quot; Then
+depth = depth + 1
+End If
+Next i
+
+GetDirectoryDepth = depth - 1  &#x27; Subtract 1 for root backslash
+End Function</code></pre>
+<h3 id="safe-directory-operation-wrapper">Safe Directory Operation Wrapper</h3>
+<pre><code class="language-vbnet">Function ExecuteInDirectory(dirPath As String, operation As String) As Boolean
+Dim savedDir As String
+Dim success As Boolean
+
+savedDir = CurDir$()
+success = False
+
+On Error GoTo ErrorHandler
+
+&#x27; Change to target directory
+ChDir dirPath
+
+&#x27; Execute operation based on parameter
+Select Case operation
+Case &quot;CLEANUP&quot;
+DeleteTempFiles
+Case &quot;BACKUP&quot;
+BackupFiles
+Case &quot;SCAN&quot;
+ScanFiles
+End Select
+
+success = True
+
+ErrorHandler:
+&#x27; Always restore directory
+ChDir savedDir
+ExecuteInDirectory = success
+End Function</code></pre>
+<h2 id="related-functions">Related Functions</h2>
+<ul>
+<li><code>CurDir</code>: Returns current directory as <code>Variant</code> instead of <code>String</code></li>
+<li><code>ChDir</code>: Changes the current directory</li>
+<li><code>ChDrive</code>: Changes the current drive</li>
+<li><code>App.Path</code>: Returns the path where the application executable is located</li>
+<li><code>Dir$</code>: Returns files or directories matching a pattern</li>
+<li><code>MkDir</code>: Creates a new directory</li>
+<li><code>RmDir</code>: Removes an empty directory</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>Always save current directory before changing it</li>
+<li>Use error handling when changing directories</li>
+<li>Restore original directory in error handlers</li>
+<li>Use <code>App.Path</code> for application-relative paths instead of relying on current directory</li>
+<li>Check for trailing backslash when building paths</li>
+<li>Use <code>CurDir$</code> instead of <code>CurDir</code> for better performance</li>
+<li>Be aware that current directory can be changed by other code</li>
+<li>Document assumptions about current directory in your code</li>
+<li>Use absolute paths when possible to avoid directory dependencies</li>
+<li>Test code with different working directories</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><code>CurDir$</code> is slightly more efficient than <code>CurDir</code> because it avoids <code>Variant</code> overhead</li>
+<li>Directory queries are fast system calls</li>
+<li>Cache the result if you need to use it multiple times in quick succession</li>
+<li>Avoid excessive directory changes as they affect all operations</li>
+</ul>
+<h2 id="platform-notes">Platform Notes</h2>
+<ul>
+<li>Windows maintains separate current directories for each drive</li>
+<li>Network paths (UNC paths) are supported (e.g., "\\server\share\folder")</li>
+<li>Long path names (&gt; 260 characters) may cause issues in VB6</li>
+<li>Current directory is process-specific and thread-safe</li>
+<li>Some operations (like file dialogs) may change the current directory</li>
+</ul>
+<h2 id="error-conditions">Error Conditions</h2>
+<ul>
+<li>If the specified drive does not exist, an error occurs (Error 68: Device unavailable)</li>
+<li>If the drive is not ready (e.g., no disk in drive), an error occurs (Error 71: Disk not ready)</li>
+<li>Network drives that are disconnected will cause errors</li>
+</ul>
+<h2 id="security-considerations">Security Considerations</h2>
+<ol>
+<li>Don't assume the current directory for security-sensitive operations</li>
+<li>Use absolute paths for configuration and data files</li>
+<li>Be aware that current directory can be manipulated by attackers</li>
+<li>Validate directory paths before changing to them</li>
+<li>Use <code>App.Path</code> for application resources rather than current directory</li>
+</ol>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Cannot set the current directory (use <code>ChDir</code> for that)</li>
+<li>Path is limited to <code>MAX_PATH</code> characters (typically 260) in VB6</li>
+<li>Does not resolve symbolic links or junctions</li>
+<li>Drive letter parameter is Windows-specific</li>
+</ul>
+        </article>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p>
+                <a href="index.html">← Back to File</a> |
+                <a href="../index.html">View all functions</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024-2026 VB6Parse Contributors. Licensed under the MIT License.</p>
+        </div>
+    </footer>
+</body>
+</html>
