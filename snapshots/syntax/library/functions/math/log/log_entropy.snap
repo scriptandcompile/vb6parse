@@ -1,0 +1,97 @@
+---
+source: src/syntax/library/functions/math/log.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: entropy
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: entropy
+            - kind: Whitespace
+              text: " "
+            - kind: SubtractionOperator
+              text: "-"
+            - kind: Whitespace
+              text: " "
+            - kind: BinaryExpression
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: p
+                - kind: Whitespace
+                  text: " "
+                - kind: MultiplicationOperator
+                  text: "*"
+                - kind: Whitespace
+                  text: " "
+                - kind: ParenthesizedExpression
+                  children:
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: BinaryExpression
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Log
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: p
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: DivisionOperator
+                          text: /
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Log
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "2"
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: RightParenthesis
+                      text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
