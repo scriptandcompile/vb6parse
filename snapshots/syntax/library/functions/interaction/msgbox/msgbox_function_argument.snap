@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/interaction/msgbox.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: LogUserChoice
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: MsgBox
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"Save changes?\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbYesNoCancel
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

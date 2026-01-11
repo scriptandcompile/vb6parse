@@ -1,0 +1,83 @@
+---
+source: src/syntax/library/functions/interaction/msgbox.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: result
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: MsgBox
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Warning!\""
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbYesNo
+                            - kind: Whitespace
+                              text: " "
+                            - kind: AdditionOperator
+                              text: +
+                            - kind: Whitespace
+                              text: " "
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: vbExclamation
+                        - kind: Whitespace
+                          text: " "
+                        - kind: AdditionOperator
+                          text: +
+                        - kind: Whitespace
+                          text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: vbDefaultButton2
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Confirm\""
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
