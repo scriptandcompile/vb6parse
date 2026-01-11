@@ -1,0 +1,23 @@
+---
+source: src/syntax/library/statements/time.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: TimeStatement
+      children:
+        - kind: TimeKeyword
+          text: Time
+        - kind: Whitespace
+          text: "   "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: "   "
+        - kind: StringLiteral
+          text: "\"12:00:00\""
+        - kind: Whitespace
+          text: "  "
+        - kind: Newline
+          text: "\n"
