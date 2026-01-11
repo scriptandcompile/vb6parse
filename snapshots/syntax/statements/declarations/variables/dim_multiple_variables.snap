@@ -1,0 +1,37 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: x
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: y
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: z
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerKeyword
+          text: Integer
+        - kind: Newline
+          text: "\n"

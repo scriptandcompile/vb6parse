@@ -1,0 +1,25 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: PrivateKeyword
+          text: Private
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: m_startDate
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: DateKeyword
+          text: Date
+        - kind: Newline
+          text: "\n"

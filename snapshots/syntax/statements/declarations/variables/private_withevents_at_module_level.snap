@@ -1,0 +1,83 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: PrivateKeyword
+          text: Private
+        - kind: Whitespace
+          text: " "
+        - kind: WithEventsKeyword
+          text: WithEvents
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: m_db
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: DatabaseKeyword
+          text: Database
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SetKeyword
+                  text: Set
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: m_db
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: OpenDatabase
+                - kind: LeftParenthesis
+                  text: (
+                - kind: StringLiteral
+                  text: "\"test.mdb\""
+                - kind: RightParenthesis
+                  text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
