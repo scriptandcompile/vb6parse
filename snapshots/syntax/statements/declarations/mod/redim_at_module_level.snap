@@ -1,0 +1,27 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ReDimStatement
+      children:
+        - kind: ReDimKeyword
+          text: ReDim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: globalArray
+        - kind: LeftParenthesis
+          text: (
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "100"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

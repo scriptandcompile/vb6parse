@@ -1,0 +1,29 @@
+---
+source: src/syntax/statements/declarations/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: DimStatement
+      children:
+        - kind: PublicKeyword
+          text: Public
+        - kind: Whitespace
+          text: " "
+        - kind: WithEventsKeyword
+          text: WithEvents
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: TaskManager
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: TaskProcessor
+        - kind: Newline
+          text: "\n"
