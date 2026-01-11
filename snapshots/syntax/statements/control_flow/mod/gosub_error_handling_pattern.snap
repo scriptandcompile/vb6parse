@@ -1,0 +1,121 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: ErrorExit
+                - kind: Newline
+                  text: "\n"
+            - kind: GoSubStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: GoSubKeyword
+                  text: GoSub
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: DoWork
+                - kind: Newline
+                  text: "\n"
+            - kind: ExitStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ExitKeyword
+                  text: Exit
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: DoWork
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: EndOfLineComment
+              text: "' work code"
+            - kind: Newline
+              text: "\n"
+            - kind: ReturnStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ReturnKeyword
+                  text: Return
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: ErrorExit
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Error\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

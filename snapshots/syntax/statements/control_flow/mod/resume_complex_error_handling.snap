@@ -1,0 +1,305 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: OpenDatabase
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: BooleanKeyword
+          text: Boolean
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: DBError
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: EndOfLineComment
+              text: "' Database opening code"
+            - kind: Newline
+              text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: OpenDatabase
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BooleanLiteralExpression
+                  children:
+                    - kind: TrueKeyword
+                      text: "True"
+                - kind: Newline
+                  text: "\n"
+            - kind: ExitStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ExitKeyword
+                  text: Exit
+                - kind: Whitespace
+                  text: " "
+                - kind: FunctionKeyword
+                  text: Function
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: DBError
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: MemberAccessExpression
+                  children:
+                    - kind: Identifier
+                      text: Err
+                    - kind: PeriodOperator
+                      text: "."
+                    - kind: Identifier
+                      text: Number
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "3024"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Database locked\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: ResumeStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: ResumeKeyword
+                              text: Resume
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: Retry
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IntegerLiteral
+                      text: "3044"
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Path not found\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: ResumeStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: ResumeKeyword
+                              text: Resume
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NextKeyword
+                              text: Next
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Unknown error\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: ResumeStatement
+                          children:
+                            - kind: Whitespace
+                              text: "            "
+                            - kind: ResumeKeyword
+                              text: Resume
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Identifier
+                              text: ExitPoint
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: Retry
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: EndOfLineComment
+              text: "' Retry logic"
+            - kind: Newline
+              text: "\n"
+            - kind: ResumeStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: ResumeKeyword
+                  text: Resume
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: ExitPoint
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: OpenDatabase
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BooleanLiteralExpression
+                  children:
+                    - kind: FalseKeyword
+                      text: "False"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"

@@ -1,0 +1,109 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: OnGoToStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: choice
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L1
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L2
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L3
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L4
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L5
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L6
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L7
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L8
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L9
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: L10
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

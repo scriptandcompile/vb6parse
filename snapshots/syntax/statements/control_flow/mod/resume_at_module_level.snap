@@ -1,0 +1,17 @@
+---
+source: src/syntax/statements/control_flow/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: ResumeStatement
+      children:
+        - kind: ResumeKeyword
+          text: Resume
+        - kind: Whitespace
+          text: " "
+        - kind: NextKeyword
+          text: Next
+        - kind: Newline
+          text: "\n"
