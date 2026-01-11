@@ -83,7 +83,19 @@ criterion = { version = "0.8.1", features = ["html_reports"] }
 insta = { version = "1.46.0", features = ["yaml"] }
 
 [[bench]]
-name = "bulk_parser_load"
+name = "project_files"
+harness = false
+
+[[bench]]
+name = "class_files"
+harness = false
+
+[[bench]]
+name = "module_files"
+harness = false
+
+[[bench]]
+name = "form_files"
 harness = false
 
 [lints.clippy]
