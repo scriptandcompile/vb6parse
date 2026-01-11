@@ -1,0 +1,159 @@
+---
+source: src/syntax/library/functions/string/str_dollar.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: FunctionStatement
+      children:
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: BuildCSV
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: Identifier
+              text: val1
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerKeyword
+              text: Integer
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Identifier
+              text: val2
+            - kind: Whitespace
+              text: " "
+            - kind: AsKeyword
+              text: As
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerKeyword
+              text: Integer
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: StringKeyword
+          text: String
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: BuildCSV
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: BinaryExpression
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: LTrim$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: CallExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: Str$
+                                        - kind: LeftParenthesis
+                                          text: (
+                                        - kind: ArgumentList
+                                          children:
+                                            - kind: Argument
+                                              children:
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: val1
+                                        - kind: RightParenthesis
+                                          text: )
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\",\""
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: LTrim$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Str$
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: val2
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: FunctionKeyword
+          text: Function
+        - kind: Newline
+          text: "\n"
