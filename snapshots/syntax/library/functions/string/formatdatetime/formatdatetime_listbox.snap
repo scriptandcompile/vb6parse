@@ -1,0 +1,41 @@
+---
+source: src/syntax/library/functions/string/formatdatetime.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: lstDates
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: AddItem
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: FormatDateTime
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: dates
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: i
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbShortDate
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
