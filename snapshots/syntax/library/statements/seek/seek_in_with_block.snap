@@ -1,0 +1,51 @@
+---
+source: src/syntax/library/statements/seek.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: WithStatement
+      children:
+        - kind: WithKeyword
+          text: With
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: fileData
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SeekStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SeekKeyword
+                  text: Seek
+                - kind: Whitespace
+                  text: " "
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: fileNum
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: position
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: WithKeyword
+          text: With
+        - kind: Newline
+          text: "\n"
