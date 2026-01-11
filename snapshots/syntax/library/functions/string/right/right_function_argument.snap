@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/string/right.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessExtension
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: Right
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: filename
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "4"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
