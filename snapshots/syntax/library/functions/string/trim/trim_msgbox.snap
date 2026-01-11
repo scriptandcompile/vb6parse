@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/functions/string/trim.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Trim
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: message
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
