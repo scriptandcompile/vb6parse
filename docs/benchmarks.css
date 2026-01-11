@@ -1,5 +1,23 @@
 /* Benchmarks Page Styles */
 
+/* Wider container for benchmarks page */
+main.container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+#benchmark-content {
+    width: 100%;
+}
+
+.benchmark-list {
+    width: 100%;
+}
+
+#benchmark-cards {
+    width: 100%;
+}
+
 .loading {
     text-align: center;
     padding: 4rem 2rem;
@@ -42,16 +60,17 @@
 /* Summary Cards */
 .benchmark-summary {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
     margin-bottom: 3rem;
+    width: 100%;
 }
 
 .summary-card {
     background: var(--card-bg);
     border: 2px solid var(--border-color);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
@@ -72,7 +91,7 @@
 }
 
 .summary-value {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--primary-color);
     margin: 0 0 0.5rem 0;
@@ -80,10 +99,19 @@
 }
 
 .summary-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;
     font-weight: 500;
+}
+
+/* Type-specific summary cards */
+.type-card .summary-value {
+    font-size: 1.75rem;
+}
+
+.type-card h3 {
+    font-size: 0.8rem;
 }
 
 /* Benchmark List */
@@ -130,6 +158,7 @@
 /* Benchmark Sections */
 .benchmark-section {
     margin-bottom: 2rem;
+    width: 100%;
 }
 
 .section-header {
@@ -142,11 +171,120 @@
     border-bottom: 3px solid var(--primary-color);
 }
 
+/* Section Summary Statistics */
+.section-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.section-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-stat:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Clickable section stat links */
+.section-stat-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.section-stat-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(138, 43, 226, 0.15);
+}
+
+.section-stat-link .stat-sublabel {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+}
+
+.section-stat-link:hover .stat-sublabel {
+    text-decoration-color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1.1;
+}
+
+.stat-sublabel {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.section-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
 .benchmark-section-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
+    width: 100%;
+}
+
+/* Benchmark Subsections (for files with multiple runs) */
+.benchmark-subsection {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+}
+
+.subsection-header {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.benchmark-subsection-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
 }
 
 /* Benchmark Cards */
@@ -156,6 +294,7 @@
     border-radius: 12px;
     padding: 1.75rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    scroll-margin-top: 120px;
 }
 
 .benchmark-card:hover {
@@ -175,8 +314,8 @@
     font-weight: 600;
 }
 
-/* Style for run numbers (e.g., "Run #1", "Run #2") */
-.benchmark-section-cards .benchmark-name {
+/* Style for run numbers in main sections (e.g., "Run #1", "Run #2") */
+.benchmark-section-cards > .benchmark-card .benchmark-name {
     display: block;
     background: var(--primary-color);
     color: white;
@@ -184,6 +323,19 @@
     border-radius: 6px 6px 0 0;
     text-align: center;
     font-weight: 700;
+    margin: -1.75rem -1.75rem 1rem -1.75rem;
+}
+
+/* Style for h4 run numbers in subsections */
+.benchmark-subsection h4.benchmark-name {
+    display: block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px 6px 0 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
     margin: -1.75rem -1.75rem 1rem -1.75rem;
 }
 
@@ -240,12 +392,24 @@
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .benchmark-summary {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .section-summary {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
     .benchmark-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-summary {
         grid-template-columns: 1fr;
     }
     
@@ -259,5 +423,9 @@
     
     .metric-value {
         font-size: 1.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
     }
 }
