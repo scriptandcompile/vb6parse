@@ -36,8 +36,8 @@ impl Parser<'_> {
 
 #[cfg(test)]
 mod tests {
-    use crate::assert_tree;
     use crate::*;
+
     #[test]
     fn kill_simple() {
         let source = r#"
@@ -48,32 +48,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"C:\\DATA.TXT\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -82,14 +63,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            KillStatement {
-                KillKeyword,
-                Whitespace,
-                StringLiteral ("\"temp.dat\""),
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -102,32 +82,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"C:\\*.TXT\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -140,32 +101,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"C:\\TEST?.TXT\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -178,32 +120,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        Identifier ("myFileName"),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -216,38 +139,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        Identifier ("App"),
-                        PeriodOperator,
-                        Identifier ("Path"),
-                        Whitespace,
-                        Ampersand,
-                        Whitespace,
-                        StringLiteral ("\"\\temp.dat\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -256,16 +154,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Whitespace,
-            KillStatement {
-                KillKeyword,
-                Whitespace,
-                StringLiteral ("\"C:\\\\file.txt\""),
-                Whitespace,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -278,34 +173,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"temp.txt\""),
-                        Whitespace,
-                        EndOfLineComment,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -320,50 +194,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("fileExists"),
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            KillStatement {
-                                Whitespace,
-                                KillKeyword,
-                                Whitespace,
-                                Identifier ("fileName"),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -376,42 +213,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        IdentifierExpression {
-                            Identifier ("fileExists"),
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Whitespace,
-                        KillStatement {
-                            KillKeyword,
-                            Whitespace,
-                            StringLiteral ("\"temp.dat\""),
-                            Newline,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        SubKeyword,
-                        Newline,
-                    },
-                },
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -428,78 +236,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    OnErrorStatement {
-                        Whitespace,
-                        OnKeyword,
-                        Whitespace,
-                        ErrorKeyword,
-                        Whitespace,
-                        ResumeKeyword,
-                        Whitespace,
-                        NextKeyword,
-                        Newline,
-                    },
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"temp.txt\""),
-                        Newline,
-                    },
-                    IfStatement {
-                        Whitespace,
-                        IfKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            MemberAccessExpression {
-                                Identifier ("Err"),
-                                PeriodOperator,
-                                Identifier ("Number"),
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            NumericLiteralExpression {
-                                IntegerLiteral ("0"),
-                            },
-                        },
-                        Whitespace,
-                        ThenKeyword,
-                        Newline,
-                        StatementList {
-                            Whitespace,
-                            CallStatement {
-                                Identifier ("MsgBox"),
-                                Whitespace,
-                                StringLiteral ("\"Could not delete file\""),
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        EndKeyword,
-                        Whitespace,
-                        IfKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -513,39 +256,13 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"temp1.txt\""),
-                        Newline,
-                    },
-                    KillStatement {
-                        Whitespace,
-                        KillKeyword,
-                        Whitespace,
-                        StringLiteral ("\"temp2.txt\""),
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 
     #[test]
@@ -562,90 +279,12 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
-        assert_tree!(cst, [
-            Newline,
-            SubStatement {
-                SubKeyword,
-                Whitespace,
-                Identifier ("Test"),
-                ParameterList {
-                    LeftParenthesis,
-                    RightParenthesis,
-                },
-                Newline,
-                StatementList {
-                    Whitespace,
-                    AssignmentStatement {
-                        IdentifierExpression {
-                            Identifier ("fileName"),
-                        },
-                        Whitespace,
-                        EqualityOperator,
-                        Whitespace,
-                        CallExpression {
-                            Identifier ("Dir"),
-                            LeftParenthesis,
-                            ArgumentList {
-                                Argument {
-                                    StringLiteralExpression {
-                                        StringLiteral ("\"C:\\*.tmp\""),
-                                    },
-                                },
-                            },
-                            RightParenthesis,
-                        },
-                        Newline,
-                    },
-                    DoStatement {
-                        Whitespace,
-                        DoKeyword,
-                        Whitespace,
-                        WhileKeyword,
-                        Whitespace,
-                        BinaryExpression {
-                            IdentifierExpression {
-                                Identifier ("fileName"),
-                            },
-                            Whitespace,
-                            InequalityOperator,
-                            Whitespace,
-                            StringLiteralExpression {
-                                StringLiteral ("\"\""),
-                            },
-                        },
-                        Newline,
-                        StatementList {
-                            KillStatement {
-                                Whitespace,
-                                KillKeyword,
-                                Whitespace,
-                                StringLiteral ("\"C:\\\" & fileName"),
-                                Newline,
-                            },
-                            Whitespace,
-                            AssignmentStatement {
-                                IdentifierExpression {
-                                    Identifier ("fileName"),
-                                },
-                                Whitespace,
-                                EqualityOperator,
-                                Whitespace,
-                                IdentifierExpression {
-                                    Identifier ("Dir"),
-                                },
-                                Newline,
-                            },
-                            Whitespace,
-                        },
-                        LoopKeyword,
-                        Newline,
-                    },
-                },
-                EndKeyword,
-                Whitespace,
-                SubKeyword,
-                Newline,
-            },
-        ]);
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/library/statements/kill");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
     }
 }
