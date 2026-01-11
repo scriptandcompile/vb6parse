@@ -1,0 +1,79 @@
+---
+source: src/syntax/library/functions/math/round.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SetStatement
+      children:
+        - kind: SetKeyword
+          text: Set
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: obj
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NewKeyword
+          text: New
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Calculator
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: obj
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: RoundedValue
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Round
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: MemberAccessExpression
+                      children:
+                        - kind: Identifier
+                          text: obj
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: Identifier
+                          text: RawValue
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "4"
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"

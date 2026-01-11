@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/functions/math/round.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Rounded: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Round
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: pi
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "3"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
