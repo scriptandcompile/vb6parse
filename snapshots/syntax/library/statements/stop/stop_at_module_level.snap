@@ -1,0 +1,13 @@
+---
+source: src/syntax/library/statements/stop.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: StopStatement
+      children:
+        - kind: StopKeyword
+          text: Stop
+        - kind: Newline
+          text: "\n"

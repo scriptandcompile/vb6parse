@@ -1,0 +1,77 @@
+---
+source: src/syntax/library/statements/stop.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: GotoKeyword
+          text: GoTo
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ErrorHandler
+        - kind: Newline
+          text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: ProcessData
+        - kind: Newline
+          text: "\n"
+    - kind: ExitStatement
+      children:
+        - kind: ExitKeyword
+          text: Exit
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
+    - kind: Newline
+      text: "\n"
+    - kind: LabelStatement
+      children:
+        - kind: Identifier
+          text: ErrorHandler
+        - kind: ColonOperator
+          text: ":"
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "    "
+    - kind: StopStatement
+      children:
+        - kind: StopKeyword
+          text: Stop
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "    "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Err
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Description
+        - kind: Newline
+          text: "\n"
