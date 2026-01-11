@@ -1,0 +1,21 @@
+---
+source: src/syntax/library/statements/kill.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: KillStatement
+      children:
+        - kind: KillKeyword
+          text: Kill
+        - kind: Whitespace
+          text: "    "
+        - kind: StringLiteral
+          text: "\"C:\\\\file.txt\""
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
