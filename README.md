@@ -6,6 +6,10 @@ A complete, high-performance parser library for Visual Basic 6 code and project 
 [![Documentation](https://docs.rs/vb6parse/badge.svg)](https://docs.rs/vb6parse)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**📚 [Project Documentation & Resources](https://scriptandcompile.github.io/vb6parse/)**  
+**📊 [Code Coverage Report](https://scriptandcompile.github.io/vb6parse/coverage.html)**  
+**📈 [Performance Benchmarks](https://scriptandcompile.github.io/vb6parse/benchmarks.html)**
+
 ## Overview
 
 VB6Parse is designed as a foundational library for tools that analyze, convert, or process Visual Basic 6 code. While capable of supporting real-time syntax highlighting and language servers, its primary focus is on offline analysis, legacy code utilities, and migration tools.
@@ -491,11 +495,9 @@ if let Some(resource) = resource {
 
 ## Testing
 
-VB6Parse has comprehensive test coverage:
+VB6Parse has comprehensive test coverage.
 
-- **5,000+ library tests** - Testing VB6 library functions and statements
-- **80+ documentation tests** - Ensuring examples work correctly
-- **30+ integration tests** - Parsing real-world VB6 projects
+[📊 View Test Coverage Report](https://scriptandcompile.github.io/vb6parse/coverage.html)
 
 ### Running Tests
 
@@ -533,6 +535,7 @@ cargo insta accept
 **See also:**
 - [tests/](tests/) - Test files
 - [tests/snapshots/](tests/snapshots/) - Snapshot files
+- [📊 View Test Coverage Report](https://scriptandcompile.github.io/vb6parse/coverage.html)
 
 ## Benchmarking
 
@@ -554,7 +557,9 @@ cargo bench bulk_parser_load
 - Token stream generation
 - CST construction
 
-**See also:** [benches/](benches/)
+**See also:** 
+- [benches/](benches/) - Benchmark source code
+- [📈 View Benchmark Results](https://scriptandcompile.github.io/vb6parse/benchmarks.html)
 
 ## Code Coverage
 
