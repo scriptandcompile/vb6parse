@@ -18,7 +18,7 @@ def run_coverage():
     
     try:
         subprocess.run(
-            ["cargo", "llvm-cov", "--json", "--output-path", "docs/coverage.json"],
+            ["cargo", "llvm-cov", "--json", "--output-path", "docs/assets/data/coverage.json"],
             check=True
         )
     except subprocess.CalledProcessError as e:
@@ -81,7 +81,7 @@ def collect_test_statistics():
 def extract_coverage_metrics():
     """Extract coverage metrics from coverage.json."""
     try:
-        with open('docs/coverage.json', 'r') as f:
+        with open('docs/assets/data/coverage.json', 'r') as f:
             coverage = json.load(f)
         
         totals = coverage['data'][0]['totals']
@@ -104,7 +104,7 @@ def write_stats(test_stats, coverage_metrics):
     """Write combined statistics to stats.json."""
     stats = {**test_stats, **coverage_metrics}
     
-    stats_path = Path('docs/stats.json')
+    stats_path = Path('docs/assets/data/stats.json')
     stats_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(stats_path, 'w') as f:
@@ -121,7 +121,7 @@ def write_stats(test_stats, coverage_metrics):
     print(f"  Function coverage: {stats['function_coverage']}%")
     print(f"  Region coverage: {stats['region_coverage']}%")
     
-    print(f"\n✓ Coverage data saved to docs/coverage.json")
+    print(f"\n✓ Coverage data saved to docs/assets/data/coverage.json")
     print(f"✓ Test statistics saved to {stats_path}")
 
 

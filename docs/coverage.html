@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="VB6Parse Test Coverage Report - Comprehensive test coverage metrics">
     <title>Test Coverage - VB6Parse</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="docs-style.css">
-    <link rel="stylesheet" href="coverage.css">
-    <script src="theme-switcher.js"></script>
-    <script src="stats.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/docs-style.css">
+    <link rel="stylesheet" href="assets/css/coverage.css">
+    <script src="assets/js/theme-switcher.js"></script>
+    <script src="assets/js/stats.js"></script>
 </head>
 <body>
     <header class="docs-header">
@@ -142,7 +142,7 @@
         // Load and display coverage data
         async function loadCoverage() {
             try {
-                const response = await fetch('coverage.json');
+                const response = await fetch('assets/data/coverage.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
