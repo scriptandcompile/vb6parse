@@ -1,306 +1,544 @@
 {
   "benchmarks": [
     {
-      "name": "load multiple bas modules",
-      "mean": 1019856.8686322912,
-      "median": 1018735.1817307692,
-      "std_dev": 8195.778355859193,
+      "name": "large_Curves.frm",
+      "mean": 2428437.1138095236,
+      "median": 2425405.333333333,
+      "std_dev": 9840.886757869817,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_2",
-      "mean": 256897.0532098057,
-      "median": 255889.52222644378,
-      "std_dev": 5871.86786591398,
+      "name": "large_CustomFilters.frm",
+      "mean": 3691824.704285713,
+      "median": 3686793.9285714286,
+      "std_dev": 23643.527656088543,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_3",
-      "mean": 259568.142263292,
-      "median": 259908.94014037435,
-      "std_dev": 3408.1792993998147,
+      "name": "large_Grayscale.frm",
+      "mean": 3366028.1120000016,
+      "median": 3362065.466666667,
+      "std_dev": 13611.769188237051,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_4",
-      "mean": 737447.761878072,
-      "median": 734878.9183823529,
-      "std_dev": 6274.398424368844,
+      "name": "large_HistogramsAdv_Histogram.frm",
+      "mean": 3243852.83,
+      "median": 3243846.125,
+      "std_dev": 6134.808443820183,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_5",
-      "mean": 86577.39681112056,
-      "median": 86606.15792838874,
-      "std_dev": 279.9253846219999,
+      "name": "large_Levels_Main.frm",
+      "mean": 2760136.621578947,
+      "median": 2752558.8947368423,
+      "std_dev": 22294.661360604063,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_6",
-      "mean": 260187.56849649386,
-      "median": 260733.3020833333,
-      "std_dev": 2253.5250641347816,
+      "name": "large_NatureFilters.frm",
+      "mean": 3371619.4746666653,
+      "median": 3371912.0,
+      "std_dev": 8735.521478649875,
       "unit": "ns"
     },
     {
-      "name": "load multiple bas modules_7",
-      "mean": 137207.700774449,
-      "median": 125710.33,
-      "std_dev": 35664.67072192611,
+      "name": "large_Organism.cls",
+      "mean": 3357356.535333336,
+      "median": 3352773.2666666666,
+      "std_dev": 23692.796528761824,
       "unit": "ns"
     },
     {
-      "name": "load multiple classes",
-      "mean": 1179464.8045483225,
-      "median": 1177827.4295454547,
-      "std_dev": 13463.389679029791,
+      "name": "large_cCommonDialog.cls",
+      "mean": 6799364.70125,
+      "median": 6793760.125,
+      "std_dev": 43579.078156709606,
       "unit": "ns"
     },
     {
-      "name": "load multiple classes_2",
-      "mean": 3210279.725882354,
-      "median": 2951078.529411765,
-      "std_dev": 693612.5338861367,
+      "name": "large_frmHMM.frm",
+      "mean": 3754803.4778571404,
+      "median": 3746298.0714285714,
+      "std_dev": 26199.63965146456,
       "unit": "ns"
     },
     {
-      "name": "load multiple classes_3",
-      "mean": 7022160.7675,
-      "median": 6819605.5625,
-      "std_dev": 772334.9407666267,
+      "name": "large_frmMain.frm",
+      "mean": 3488772.839333336,
+      "median": 3483454.3,
+      "std_dev": 17884.72226977637,
       "unit": "ns"
     },
     {
-      "name": "load multiple classes_4",
-      "mean": 640815.031239708,
-      "median": 639807.2129629629,
-      "std_dev": 5723.585680623675,
+      "name": "large_pdOpenSaveDialog.cls",
+      "mean": 2906978.503333333,
+      "median": 2903879.5,
+      "std_dev": 9511.38300049176,
       "unit": "ns"
     },
     {
-      "name": "load multiple forms",
-      "mean": 60229860.69,
-      "median": 57398982.0,
-      "std_dev": 9057177.067035455,
+      "name": "medium_Blacklight.frm",
+      "mean": 1010880.833164263,
+      "median": 1010551.8388539652,
+      "std_dev": 2142.201725513991,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects",
-      "mean": 5892.853432564176,
-      "median": 5886.569710660825,
-      "std_dev": 28.481332714965426,
+      "name": "medium_Brightness_API_Brightness2.frm",
+      "mean": 601448.7439365593,
+      "median": 601670.7034816248,
+      "std_dev": 3221.7706162870086,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_10",
-      "mean": 5780.865693431077,
-      "median": 5775.200867052023,
-      "std_dev": 30.65467472669725,
+      "name": "medium_Brightness_DIBs_Brightness3.frm",
+      "mean": 1238280.6301147046,
+      "median": 1237133.5305727555,
+      "std_dev": 16052.282387021576,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_11",
-      "mean": 5727.901059561009,
-      "median": 5718.345628999668,
-      "std_dev": 30.07408176576459,
+      "name": "medium_Brightness_FasterDIBs_Brightness.frm",
+      "mean": 674938.7833290532,
+      "median": 673633.253365973,
+      "std_dev": 4175.789113105042,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_12",
-      "mean": 5727.504072560275,
-      "median": 5718.586074619023,
-      "std_dev": 31.95269126169416,
+      "name": "medium_Brightness_VB6_Brightness.frm",
+      "mean": 558238.1537668152,
+      "median": 557311.1329602774,
+      "std_dev": 3326.5600415012645,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_13",
-      "mean": 5928.624657443869,
-      "median": 5877.161413596743,
-      "std_dev": 269.58537291016484,
+      "name": "medium_Colorize.frm",
+      "mean": 2067820.6488000003,
+      "median": 2063553.4,
+      "std_dev": 20758.947370540816,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_14",
-      "mean": 5415.053284732713,
-      "median": 5391.6628427088,
-      "std_dev": 97.18724269808673,
+      "name": "medium_Contrast.frm",
+      "mean": 831978.0760341331,
+      "median": 829674.2273236283,
+      "std_dev": 19234.442534956845,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_15",
-      "mean": 5496.474919415431,
-      "median": 5492.219329833382,
-      "std_dev": 29.2579347477135,
+      "name": "medium_EdgeDetection.frm",
+      "mean": 2103643.117916668,
+      "median": 2102134.020833333,
+      "std_dev": 4955.855887986829,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_16",
-      "mean": 5634.092645323047,
-      "median": 5603.617635509783,
-      "std_dev": 100.18594892937789,
+      "name": "medium_EmbossEngrave.frm",
+      "mean": 2174079.0969565227,
+      "median": 2170593.2608695654,
+      "std_dev": 16858.76685711384,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_17",
-      "mean": 5538.993044345767,
-      "median": 5542.239826575464,
-      "std_dev": 24.752131706467498,
+      "name": "medium_FastDrawing.cls",
+      "mean": 1151455.612319432,
+      "median": 1147742.0944148935,
+      "std_dev": 30067.527644108653,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_18",
-      "mean": 5737.136378378301,
-      "median": 5733.55821373073,
-      "std_dev": 23.524178731575077,
+      "name": "medium_FormPhysics.frm",
+      "mean": 1399085.476619671,
+      "median": 1399414.9915084913,
+      "std_dev": 3668.156496653499,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_19",
-      "mean": 5511.412941436891,
-      "median": 5514.252610895779,
-      "std_dev": 25.1643873822478,
+      "name": "medium_Gradient.frm",
+      "mean": 861984.3102171947,
+      "median": 862449.89375,
+      "std_dev": 3952.2638008994218,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_2",
-      "mean": 5648.677372856785,
-      "median": 5639.910080305745,
-      "std_dev": 70.8947507974291,
+      "name": "medium_HistogramsAdv_Main.frm",
+      "mean": 897625.1637793488,
+      "median": 896798.0550595238,
+      "std_dev": 4134.79613105009,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_20",
-      "mean": 5918.138777710324,
-      "median": 5916.155784476245,
-      "std_dev": 24.101348719157812,
+      "name": "medium_HistogramsAdv_mod_PublicVars.bas",
+      "mean": 265743.32866336097,
+      "median": 265546.2318376069,
+      "std_dev": 1063.7065211866536,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_21",
-      "mean": 5899.925204353007,
-      "median": 5894.510434262387,
-      "std_dev": 29.228551553724795,
+      "name": "medium_Histograms_Histogram.frm",
+      "mean": 1414941.0441497902,
+      "median": 1412949.5909090908,
+      "std_dev": 8744.579175365861,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_22",
-      "mean": 6105.080787840358,
-      "median": 5903.430779764745,
-      "std_dev": 647.149893115316,
+      "name": "medium_Histograms_Main.frm",
+      "mean": 559722.2015985928,
+      "median": 557590.8993421053,
+      "std_dev": 26788.520145114762,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_23",
-      "mean": 5667.305586466405,
-      "median": 5619.178422221161,
-      "std_dev": 432.7048424988458,
+      "name": "medium_Histograms_mod_PublicVars.bas",
+      "mean": 267144.91823686997,
+      "median": 266763.185087622,
+      "std_dev": 1868.7895411401025,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_24",
-      "mean": 5808.161104241324,
-      "median": 5805.384469420078,
-      "std_dev": 20.368955777080906,
+      "name": "medium_Levels_Histogram.frm",
+      "mean": 1400215.7369280767,
+      "median": 1401230.3841346153,
+      "std_dev": 6757.270119368773,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_25",
-      "mean": 9302.954889577046,
-      "median": 8840.658741554054,
-      "std_dev": 3172.307592457041,
+      "name": "medium_Mandelbrot.frm",
+      "mean": 1757128.302936981,
+      "median": 1753976.5225779968,
+      "std_dev": 7193.922071549743,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_26",
-      "mean": 5788.7098841795705,
-      "median": 5787.423356370725,
-      "std_dev": 19.099310974465286,
+      "name": "medium_MapEditor_Declarations.bas",
+      "mean": 766425.8956236967,
+      "median": 758427.4480392156,
+      "std_dev": 36788.51307434648,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_27",
-      "mean": 5264.963139287865,
-      "median": 5255.947819898569,
-      "std_dev": 36.403116666577944,
+      "name": "medium_MapEditor_FrmResize.frm",
+      "mean": 737923.8881830899,
+      "median": 737834.418527379,
+      "std_dev": 2487.467252759981,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_28",
-      "mean": 5772.947271950453,
-      "median": 5773.452020202019,
-      "std_dev": 17.711865898541586,
+      "name": "medium_MapEditor_Main Editor.frm",
+      "mean": 1187718.017470915,
+      "median": 1185502.19375,
+      "std_dev": 6834.377500530724,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_29",
-      "mean": 5576.202171962869,
-      "median": 5571.4382727062475,
-      "std_dev": 19.368424250188745,
+      "name": "medium_Physics_Logic.bas",
+      "mean": 1027501.7134578963,
+      "median": 1026450.5709982088,
+      "std_dev": 6605.36085224857,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_3",
-      "mean": 5494.048601828374,
-      "median": 5491.7273623761885,
-      "std_dev": 22.38045012650422,
+      "name": "medium_RandomizationFX.frm",
+      "mean": 1930686.625107912,
+      "median": 1929067.8732376313,
+      "std_dev": 10431.261295140917,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_30",
-      "mean": 6244.219037035422,
-      "median": 5773.94282232076,
-      "std_dev": 1308.6002912332156,
+      "name": "medium_Sepia.frm",
+      "mean": 1060272.8638832264,
+      "median": 1061723.911129568,
+      "std_dev": 4468.473228735111,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_31",
-      "mean": 6050.371798000719,
-      "median": 5849.57765465304,
-      "std_dev": 579.348800363078,
+      "name": "medium_ShiftColors.frm",
+      "mean": 859516.7271215337,
+      "median": 856812.8151737968,
+      "std_dev": 10439.548236971392,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_4",
-      "mean": 5460.529169310441,
-      "median": 5450.207021925444,
-      "std_dev": 52.06959877866209,
+      "name": "medium_cSystemColorDialog.cls",
+      "mean": 635450.2171822436,
+      "median": 631767.8765957446,
+      "std_dev": 11301.967736078554,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_5",
-      "mean": 5648.847109897944,
-      "median": 5640.825199263765,
-      "std_dev": 34.54724970655466,
+      "name": "medium_frmFill.frm",
+      "mean": 425785.9916885764,
+      "median": 424591.1571428571,
+      "std_dev": 4036.4222867005533,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_6",
-      "mean": 5626.852990322429,
-      "median": 5600.4033609399075,
-      "std_dev": 134.07210804986687,
+      "name": "medium_frmFire.frm",
+      "mean": 1681232.3106487263,
+      "median": 1676567.3129411764,
+      "std_dev": 14071.811015093797,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_7",
-      "mean": 5735.9214218931,
-      "median": 5730.673163273855,
-      "std_dev": 30.470442802289675,
+      "name": "medium_frmScanner.frm",
+      "mean": 883102.0293812789,
+      "median": 881595.1571428571,
+      "std_dev": 4836.182523710024,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_8",
-      "mean": 5715.876932532469,
-      "median": 5718.998843930636,
-      "std_dev": 31.784263975826683,
+      "name": "medium_frmTransparency.frm",
+      "mean": 701132.7191871207,
+      "median": 696706.0260416667,
+      "std_dev": 17375.405716456225,
       "unit": "ns"
     },
     {
-      "name": "load multiple projects_9",
-      "mean": 5595.653093746216,
-      "median": 5592.21473597104,
-      "std_dev": 30.86022334371407,
+      "name": "small_Advanced Histograms.vbp",
+      "mean": 5975.685030410017,
+      "median": 5953.809365865912,
+      "std_dev": 61.829962165455676,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Artificial Life.vbp",
+      "mean": 5884.837240242369,
+      "median": 5868.065092893217,
+      "std_dev": 86.723336614576,
+      "unit": "ns"
+    },
+    {
+      "name": "small_ArtificialLife_Declarations.bas",
+      "mean": 123821.78859461944,
+      "median": 123702.62175183118,
+      "std_dev": 429.7889778822212,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Basic Histograms.vbp",
+      "mean": 5879.305201028827,
+      "median": 5866.103069722623,
+      "std_dev": 31.33249928537646,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Blacklight.vbp",
+      "mean": 5706.530213182119,
+      "median": 5713.03802928153,
+      "std_dev": 27.90696538707554,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Brightness.vbp",
+      "mean": 5494.807570503817,
+      "median": 5505.1864942024595,
+      "std_dev": 37.60617630075435,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Brightness2.vbp",
+      "mean": 5523.531225590156,
+      "median": 5468.385361068831,
+      "std_dev": 172.2044831741313,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Brightness3.vbp",
+      "mean": 5710.0509477066835,
+      "median": 5634.02215909091,
+      "std_dev": 219.37405653243502,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Colorize.vbp",
+      "mean": 5732.028206934012,
+      "median": 5727.0325369299935,
+      "std_dev": 23.467850952243374,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Contrast.vbp",
+      "mean": 5765.351989483045,
+      "median": 5745.391810777621,
+      "std_dev": 67.10775642111818,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Curves.vbp",
+      "mean": 5630.928336660444,
+      "median": 5622.040109629954,
+      "std_dev": 73.0996612833159,
+      "unit": "ns"
+    },
+    {
+      "name": "small_CustomFilters.vbp",
+      "mean": 5771.196586498738,
+      "median": 5768.14765503876,
+      "std_dev": 36.295646185817965,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Diffuse.vbp",
+      "mean": 5741.713586170376,
+      "median": 5739.203940182568,
+      "std_dev": 45.60192687945991,
+      "unit": "ns"
+    },
+    {
+      "name": "small_EdgeDetection.vbp",
+      "mean": 5779.386091789816,
+      "median": 5780.504157963764,
+      "std_dev": 11.844997185396819,
+      "unit": "ns"
+    },
+    {
+      "name": "small_EmbossEngrave.vbp",
+      "mean": 5846.892740687504,
+      "median": 5846.874434476493,
+      "std_dev": 6.511432010971655,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Fill_Region.vbp",
+      "mean": 5426.559507540461,
+      "median": 5392.174024649384,
+      "std_dev": 51.00835445317543,
+      "unit": "ns"
+    },
+    {
+      "name": "small_FlameTest.vbp",
+      "mean": 5562.3179906233645,
+      "median": 5575.694384758631,
+      "std_dev": 31.214367263812946,
+      "unit": "ns"
+    },
+    {
+      "name": "small_FormScreenCapture.frm",
+      "mean": 323402.3269570601,
+      "median": 323541.737728833,
+      "std_dev": 1270.7845238969448,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Gradient.vbp",
+      "mean": 5481.568668748477,
+      "median": 5480.325400552487,
+      "std_dev": 12.569465053271626,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Grayscale.vbp",
+      "mean": 5744.713487854249,
+      "median": 5733.827917771883,
+      "std_dev": 35.99755972430112,
+      "unit": "ns"
+    },
+    {
+      "name": "small_HMM.vbp",
+      "mean": 5606.712590153217,
+      "median": 5613.720548250856,
+      "std_dev": 33.865557068871574,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Image Levels.vbp",
+      "mean": 6114.323908216765,
+      "median": 5883.706126209121,
+      "std_dev": 811.6665703536875,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Levels_mod_PublicVars.bas",
+      "mean": 264110.2542870216,
+      "median": 264157.2518939394,
+      "std_dev": 690.8434826162998,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Mandelbrot.vbp",
+      "mean": 5675.409636661851,
+      "median": 5679.532329877725,
+      "std_dev": 25.782121767251464,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Map Editor.vbp",
+      "mean": 5751.207409704811,
+      "median": 5751.559999369191,
+      "std_dev": 8.04603213830424,
+      "unit": "ns"
+    },
+    {
+      "name": "small_MapEditor_Subs.bas",
+      "mean": 86775.04682038263,
+      "median": 86567.37943948412,
+      "std_dev": 637.646955294026,
+      "unit": "ns"
+    },
+    {
+      "name": "small_NatureFilters.vbp",
+      "mean": 5682.680203442595,
+      "median": 5681.207979477313,
+      "std_dev": 11.715631754457709,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Physics.vbp",
+      "mean": 5586.178517845551,
+      "median": 5574.3430951721875,
+      "std_dev": 30.238729557298825,
+      "unit": "ns"
+    },
+    {
+      "name": "small_RandomizationFX.vbp",
+      "mean": 5782.603558449475,
+      "median": 5772.170516569201,
+      "std_dev": 38.51889626677642,
+      "unit": "ns"
+    },
+    {
+      "name": "small_ScreenCapture.vbp",
+      "mean": 5766.405934115921,
+      "median": 5764.0459250197055,
+      "std_dev": 18.0891451416879,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Sepia.vbp",
+      "mean": 5590.001412553678,
+      "median": 5585.527545040682,
+      "std_dev": 30.23140093404144,
+      "unit": "ns"
+    },
+    {
+      "name": "small_ShiftColor.vbp",
+      "mean": 5646.814987118301,
+      "median": 5639.261954718757,
+      "std_dev": 92.51844014065833,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Threshold.vbp",
+      "mean": 5796.089431454258,
+      "median": 5766.023884387649,
+      "std_dev": 44.53710816742569,
+      "unit": "ns"
+    },
+    {
+      "name": "small_Transparency.vbp",
+      "mean": 5858.92699533135,
+      "median": 5881.136790810999,
+      "std_dev": 41.21349357237223,
+      "unit": "ns"
+    },
+    {
+      "name": "small_VB_Scanner_Support.vbp",
+      "mean": 5260.650337242204,
+      "median": 5260.7755667426545,
+      "std_dev": 12.317358232237758,
       "unit": "ns"
     }
   ],
-  "count": 43
+  "count": 77
 }
