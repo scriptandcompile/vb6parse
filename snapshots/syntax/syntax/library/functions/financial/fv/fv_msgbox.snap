@@ -1,0 +1,47 @@
+---
+source: src/syntax/library/functions/financial/fv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: MsgBox
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "\"Your savings will grow to \""
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "&"
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: FormatCurrency
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: Fv
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: rate
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Identifier
+      text: periods
+    - kind: Unknown
+      text: ","
+    - kind: Whitespace
+      text: " "
+    - kind: Unknown
+      text: "-"
+    - kind: Identifier
+      text: deposit
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: )
