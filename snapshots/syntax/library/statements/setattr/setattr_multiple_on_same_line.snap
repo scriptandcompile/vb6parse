@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/statements/setattr.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SetAttrStatement
+      children:
+        - kind: SetAttrKeyword
+          text: SetAttr
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"File1.txt\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbNormal
+        - kind: ColonOperator
+          text: ":"
+        - kind: Whitespace
+          text: " "
+        - kind: SetAttrKeyword
+          text: SetAttr
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"File2.txt\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: vbReadOnly
+        - kind: Newline
+          text: "\n"
