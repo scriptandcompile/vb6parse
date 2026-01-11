@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/statements/put.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: PutStatement
+      children:
+        - kind: PutKeyword
+          text: Put
+        - kind: Whitespace
+          text: " "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: myData
+        - kind: Newline
+          text: "\n"
