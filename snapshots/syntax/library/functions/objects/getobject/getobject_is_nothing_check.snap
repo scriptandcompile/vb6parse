@@ -1,0 +1,55 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: GetObject
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Comma
+                          text: ","
+                - kind: Whitespace
+                  text: " "
+        - kind: Identifier
+          text: progID
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: IsKeyword
+          text: Is
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Nothing
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: ExitStatement
+          children:
+            - kind: Whitespace
+              text: " "
+            - kind: ExitKeyword
+              text: Exit
+            - kind: Whitespace
+              text: " "
+            - kind: SubKeyword
+              text: Sub

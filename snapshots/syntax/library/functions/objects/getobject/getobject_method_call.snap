@@ -1,0 +1,19 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: GetObject
+    - kind: Unknown
+      text: (
+    - kind: Identifier
+      text: filePath
+    - kind: Unknown
+      text: )
+    - kind: Unknown
+      text: "."
+    - kind: Identifier
+      text: Save

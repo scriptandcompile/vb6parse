@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SetStatement
+      children:
+        - kind: SetKeyword
+          text: Set
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: cached
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Document
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetObject
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: filePath
+        - kind: RightParenthesis
+          text: )

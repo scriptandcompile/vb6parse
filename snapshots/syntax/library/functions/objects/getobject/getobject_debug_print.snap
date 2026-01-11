@@ -1,0 +1,45 @@
+---
+source: src/syntax/library/functions/objects/getobject.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Identifier
+      text: Debug
+    - kind: Unknown
+      text: "."
+    - kind: PrintStatement
+      children:
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Count: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: GetObject
+        - kind: LeftParenthesis
+          text: (
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Excel.Application\""
+        - kind: RightParenthesis
+          text: )
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Workbooks
+        - kind: PeriodOperator
+          text: "."
+        - kind: Identifier
+          text: Count
