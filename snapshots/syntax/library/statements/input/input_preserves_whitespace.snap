@@ -1,0 +1,39 @@
+---
+source: src/syntax/library/statements/input.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: InputStatement
+      children:
+        - kind: InputKeyword
+          text: Input
+        - kind: Whitespace
+          text: "    "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: NameKeyword
+          text: name
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "  "
+        - kind: Identifier
+          text: age
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
