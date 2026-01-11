@@ -74,7 +74,7 @@ def write_benchmark_data(benchmarks):
         'count': len(benchmarks)
     }
     
-    output_path = Path('docs/benchmarks.json')
+    output_path = Path('docs/assets/data/benchmarks.json')
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(output_path, 'w') as f:
