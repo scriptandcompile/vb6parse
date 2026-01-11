@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/statements/seek.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SeekStatement
+      children:
+        - kind: SeekKeyword
+          text: Seek
+        - kind: Whitespace
+          text: "   "
+        - kind: Octothorpe
+          text: "#"
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Whitespace
+          text: "  "
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: "   "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: Newline
+          text: "\n"
