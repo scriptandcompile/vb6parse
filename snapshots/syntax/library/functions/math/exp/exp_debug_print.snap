@@ -1,0 +1,29 @@
+---
+source: src/syntax/library/functions/math/exp.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Exp
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
