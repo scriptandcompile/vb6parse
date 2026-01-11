@@ -1,0 +1,21 @@
+---
+source: src/syntax/library/statements/load.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Whitespace
+      text: "    "
+    - kind: LoadStatement
+      children:
+        - kind: LoadKeyword
+          text: Load
+        - kind: Whitespace
+          text: "    "
+        - kind: Identifier
+          text: Form1
+        - kind: Whitespace
+          text: "    "
+        - kind: Newline
+          text: "\n"
