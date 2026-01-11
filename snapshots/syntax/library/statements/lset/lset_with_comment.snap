@@ -1,0 +1,59 @@
+---
+source: src/syntax/library/statements/lset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: LSetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: LSetKeyword
+                  text: LSet
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: MyString
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Left\""
+                - kind: Whitespace
+                  text: " "
+                - kind: EndOfLineComment
+                  text: "' Left-align string"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

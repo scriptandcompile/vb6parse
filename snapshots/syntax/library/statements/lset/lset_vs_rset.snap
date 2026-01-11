@@ -1,0 +1,75 @@
+---
+source: src/syntax/library/statements/lset.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: LSetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: LSetKeyword
+                  text: LSet
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: leftAligned
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"L\""
+                - kind: Newline
+                  text: "\n"
+            - kind: RSetStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: RSetKeyword
+                  text: RSet
+                - kind: Whitespace
+                  text: " "
+                - kind: Identifier
+                  text: rightAligned
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"R\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
