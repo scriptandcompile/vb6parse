@@ -1,0 +1,37 @@
+---
+source: src/syntax/library/functions/string/replace.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: MsgBox
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Replace
+        - kind: LeftParenthesis
+          text: (
+        - kind: StringLiteral
+          text: "\"Error: {code}\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"{code}\""
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"404\""
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
