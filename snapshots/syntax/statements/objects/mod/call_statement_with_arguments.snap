@@ -1,0 +1,35 @@
+---
+source: src/syntax/statements/objects/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: ProcessData
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: x
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: y
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: z
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

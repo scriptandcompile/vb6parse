@@ -1,0 +1,17 @@
+---
+source: src/syntax/statements/objects/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: DoSomething
+        - kind: LeftParenthesis
+          text: (
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
