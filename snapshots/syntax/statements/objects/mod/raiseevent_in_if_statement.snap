@@ -1,0 +1,83 @@
+---
+source: src/syntax/statements/objects/mod.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: dataReady
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: RaiseEventStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: RaiseEventKeyword
+                          text: RaiseEvent
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: DataAvailable
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: Identifier
+                          text: data
+                        - kind: RightParenthesis
+                          text: )
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
