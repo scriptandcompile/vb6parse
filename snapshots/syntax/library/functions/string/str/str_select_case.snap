@@ -1,0 +1,127 @@
+---
+source: src/syntax/library/functions/string/str.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: SelectCaseStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Whitespace
+                  text: " "
+                - kind: CaseKeyword
+                  text: Case
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Str
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: value
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+                - kind: Whitespace
+                  text: "        "
+                - kind: CaseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteral
+                      text: "\" 0\""
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Zero\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "        "
+                - kind: CaseElseClause
+                  children:
+                    - kind: CaseKeyword
+                      text: Case
+                    - kind: Whitespace
+                      text: " "
+                    - kind: ElseKeyword
+                      text: Else
+                    - kind: Newline
+                      text: "\n"
+                    - kind: StatementList
+                      children:
+                        - kind: Whitespace
+                          text: "            "
+                        - kind: CallStatement
+                          children:
+                            - kind: Identifier
+                              text: MsgBox
+                            - kind: Whitespace
+                              text: " "
+                            - kind: StringLiteral
+                              text: "\"Other\""
+                            - kind: Newline
+                              text: "\n"
+                        - kind: Whitespace
+                          text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
