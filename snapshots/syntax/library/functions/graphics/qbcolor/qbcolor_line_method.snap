@@ -1,0 +1,65 @@
+---
+source: src/syntax/library/functions/graphics/qbcolor.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Picture1
+        - kind: PeriodOperator
+          text: "."
+        - kind: LineKeyword
+          text: Line
+        - kind: Whitespace
+          text: " "
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "0"
+        - kind: RightParenthesis
+          text: )
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "100"
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: QBColor
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "12"
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: BF
+        - kind: Newline
+          text: "\n"
