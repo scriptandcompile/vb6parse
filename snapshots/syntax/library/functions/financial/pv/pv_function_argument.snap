@@ -1,0 +1,51 @@
+---
+source: src/syntax/library/functions/financial/pv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: CallKeyword
+          text: Call
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: AnalyzeLoan
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: PV
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: monthlyRate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: months
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: SubtractionOperator
+          text: "-"
+        - kind: Identifier
+          text: payment
+        - kind: RightParenthesis
+          text: )
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: interestRate
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
