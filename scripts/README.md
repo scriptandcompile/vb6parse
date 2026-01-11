@@ -4,20 +4,31 @@ This directory contains scripts for generating test coverage and performance ben
 
 ## Scripts
 
-### `generate-coverage.sh`
-Generates test coverage data and test statistics.
+### `generate-coverage.py`
+Pure Python3 script that generates test coverage data and test statistics. Works on both Windows and Linux.
 
-### `generate-benchmarks.sh`
-Generates performance benchmark data from Criterion results.
+### `generate-benchmarks.py`
+Pure Python3 script that generates performance benchmark data from Criterion results. Works on both Windows and Linux.
+
+### Legacy Scripts
+
+The original Bash scripts (`generate-coverage.sh` and `generate-benchmarks.sh`) are deprecated in favor of the Python3 versions for cross-platform compatibility.
 
 ---
 
-## Coverage Generation (`generate-coverage.sh`)
+## Coverage Generation (`generate-coverage.py`)
 
 ### Usage
 
 ```bash
-./scripts/generate-coverage.sh
+# Linux/macOS
+./scripts/generate-coverage.py
+
+# Windows
+python scripts/generate-coverage.py
+
+# Or with Python3 explicitly
+python3 scripts/generate-coverage.py
 ```
 
 ### What it does
@@ -85,11 +96,11 @@ The JavaScript will automatically update these with the current values from `sta
 
 - Rust with cargo
 - cargo-llvm-cov (`cargo install cargo-llvm-cov`)
-- Python 3
+- Python 3.6+ (no external dependencies beyond standard library)
 
 ---
 
-## Benchmark Generation (`generate-benchmarks.sh`)
+## Benchmark Generation (`generate-benchmarks.py`)
 
 ### Usage
 
@@ -136,21 +147,264 @@ Open `docs/benchmarks.html` in a browser or visit the GitHub Pages site. The pag
 ### Requirements
 
 - Rust with cargo
-- Python 3
+- Python 3.6+ (no external dependencies beyond standard library)
 - Criterion benchmarks configured in `benches/`
 
 ---
 
-## CI/CD Integration
+## GitHub Actions Integration
 
-These scripts are designed to be run manually or integrated into GitHub Actions workflows:
+These Python scripts are designed to work seamlessly in GitHub Actions workflows. They're cross-platform and require no external dependencies beyond Python's standard library.
+
+### Basic Workflow Example
+
+Create a workflow file (e.g., `.github/workflows/docs.yml`) to automatically generate documentation data:
 
 ```yaml
-- name: Generate coverage and benchmarks
-  run: |
-    ./scripts/generate-coverage.sh
-    ./scripts/generate-benchmarks.sh
+name: Generate Documentation Data
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'  # If you have test data in submodules
+    
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Install cargo-llvm-cov
+      run: cargo install cargo-llvm-cov
+    
+    - name: Generate coverage data
+      run: python3 scripts/generate-coverage.py
+    
+    - name: Generate benchmark data
+      run: python3 scripts/generate-benchmarks.py
+    
+    - name: Commit and push if changed
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add docs/coverage.json docs/stats.json docs/benchmarks.json
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update documentation data [skip ci]"
+        git push
 ```
 
-The generated JSON files should be committed to the repository so they're available on GitHub Pages.
+### Separate Coverage and Benchmarks
+
+For larger projects, you may want separate workflows since benchmarks take longer:
+
+#### Coverage Workflow (`.github/workflows/coverage.yml`)
+
+```yaml
+name: Generate Coverage
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    
+    - uses: dtolnay/rust-toolchain@stable
+    
+    - name: Install cargo-llvm-cov
+      uses: taiki-e/install-action@cargo-llvm-cov
+    
+    - name: Generate coverage
+      run: python3 scripts/generate-coverage.py
+    
+    - name: Upload coverage artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-data
+        path: docs/coverage.json
+    
+    - name: Upload stats artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: stats-data
+        path: docs/stats.json
+```
+
+#### Benchmarks Workflow (`.github/workflows/benchmarks.yml`)
+
+```yaml
+name: Generate Benchmarks
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: dtolnay/rust-toolchain@stable
+    
+    - name: Generate benchmarks
+      run: python3 scripts/generate-benchmarks.py
+    
+    - name: Upload benchmark artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-data
+        path: docs/benchmarks.json
+```
+
+### Deploy to GitHub Pages
+
+Combine generation with automatic deployment to GitHub Pages:
+
+```yaml
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    
+    - uses: dtolnay/rust-toolchain@stable
+    
+    - name: Install cargo-llvm-cov
+      uses: taiki-e/install-action@cargo-llvm-cov
+    
+    - name: Generate documentation data
+      run: |
+        python3 scripts/generate-coverage.py
+        python3 scripts/generate-benchmarks.py
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'docs'
+    
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+```
+
+### Caching for Faster Builds
+
+Speed up your workflow with caching:
+
+```yaml
+- name: Cache cargo registry
+  uses: actions/cache@v4
+  with:
+    path: ~/.cargo/registry
+    key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+
+- name: Cache cargo index
+  uses: actions/cache@v4
+  with:
+    path: ~/.cargo/git
+    key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+
+- name: Cache cargo build
+  uses: actions/cache@v4
+  with:
+    path: target
+    key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+```
+
+### Running on Multiple Platforms
+
+Test that scripts work on both Linux and Windows:
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+
+runs-on: ${{ matrix.os }}
+
+steps:
+  # ... setup steps ...
+  
+  - name: Generate coverage (Unix)
+    if: runner.os != 'Windows'
+    run: python3 scripts/generate-coverage.py
+  
+  - name: Generate coverage (Windows)
+    if: runner.os == 'Windows'
+    run: python scripts/generate-coverage.py
+```
+
+### Tips for CI Integration
+
+1. **Use `[skip ci]` in commits** - Prevent infinite loops when the workflow commits generated data
+2. **Schedule regular runs** - Use `schedule` trigger for weekly/nightly updates
+3. **Cache dependencies** - Cache Rust toolchain and cargo artifacts to speed up builds
+4. **Separate jobs** - Run coverage and benchmarks in parallel for faster execution
+5. **Commit generated files** - GitHub Pages can serve the JSON files directly from the `docs/` folder
+6. **Use artifacts** - Upload generated JSON as artifacts for debugging or manual deployment
+
+### Troubleshooting
+
+**Problem:** Script fails with "cargo: command not found"
+```yaml
+# Solution: Ensure Rust toolchain is installed
+- uses: dtolnay/rust-toolchain@stable
+```
+
+**Problem:** Script fails with "cargo-llvm-cov: command not found"
+```yaml
+# Solution: Install cargo-llvm-cov before running coverage script
+- uses: taiki-e/install-action@cargo-llvm-cov
+# or
+- run: cargo install cargo-llvm-cov
+```
+
+**Problem:** "Permission denied" when running Python script
+```yaml
+# Solution: Use python3 explicitly (scripts don't need +x in CI)
+- run: python3 scripts/generate-coverage.py
+```
+
+**Problem:** Git push fails with authentication error
+```yaml
+# Solution: Ensure workflow has write permissions
+permissions:
+  contents: write
+```
 
