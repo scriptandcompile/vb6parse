@@ -1,0 +1,61 @@
+---
+source: src/syntax/library/functions/resources/loadresdata.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Size: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: UBound
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: LoadResData
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "101"
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "256"
+        - kind: RightParenthesis
+          text: )
+        - kind: RightParenthesis
+          text: )
+        - kind: Whitespace
+          text: " "
+        - kind: AdditionOperator
+          text: +
+        - kind: Whitespace
+          text: " "
+        - kind: IntegerLiteral
+          text: "1"
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

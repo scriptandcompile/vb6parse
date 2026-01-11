@@ -1,0 +1,125 @@
+---
+source: src/syntax/library/functions/resources/loadpicture.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: ResumeKeyword
+          text: Resume
+        - kind: Whitespace
+          text: " "
+        - kind: NextKeyword
+          text: Next
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: AssignmentStatement
+      children:
+        - kind: MemberAccessExpression
+          children:
+            - kind: Identifier
+              text: Picture1
+            - kind: PeriodOperator
+              text: "."
+            - kind: Identifier
+              text: Picture
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: LoadPicture
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: filename
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: MemberAccessExpression
+              children:
+                - kind: Identifier
+                  text: Err
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Number
+            - kind: Whitespace
+              text: " "
+            - kind: InequalityOperator
+              text: "<>"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "                "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"Error loading picture\""
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "            "
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "

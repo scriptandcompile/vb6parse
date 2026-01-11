@@ -1,0 +1,33 @@
+---
+source: src/syntax/library/functions/resources/loadresstring.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: Whitespace
+      text: "            "
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: LoadResString
+        - kind: LeftParenthesis
+          text: (
+        - kind: IntegerLiteral
+          text: "24001"
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"
+    - kind: Whitespace
+      text: "        "
