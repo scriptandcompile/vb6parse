@@ -1,0 +1,97 @@
+---
+source: src/syntax/library/statements/sendkeys.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: OnErrorStatement
+      children:
+        - kind: OnKeyword
+          text: "On"
+        - kind: Whitespace
+          text: " "
+        - kind: ErrorKeyword
+          text: Error
+        - kind: Whitespace
+          text: " "
+        - kind: ResumeKeyword
+          text: Resume
+        - kind: Whitespace
+          text: " "
+        - kind: NextKeyword
+          text: Next
+        - kind: Newline
+          text: "\n"
+    - kind: SendKeysStatement
+      children:
+        - kind: SendKeysKeyword
+          text: SendKeys
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: keys
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: TrueKeyword
+          text: "True"
+        - kind: Newline
+          text: "\n"
+    - kind: IfStatement
+      children:
+        - kind: IfKeyword
+          text: If
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: MemberAccessExpression
+              children:
+                - kind: Identifier
+                  text: Err
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: Number
+            - kind: Whitespace
+              text: " "
+            - kind: InequalityOperator
+              text: "<>"
+            - kind: Whitespace
+              text: " "
+            - kind: NumericLiteralExpression
+              children:
+                - kind: IntegerLiteral
+                  text: "0"
+        - kind: Whitespace
+          text: " "
+        - kind: ThenKeyword
+          text: Then
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: MsgBox
+                - kind: Whitespace
+                  text: " "
+                - kind: StringLiteral
+                  text: "\"SendKeys failed\""
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: IfKeyword
+          text: If
+        - kind: Newline
+          text: "\n"

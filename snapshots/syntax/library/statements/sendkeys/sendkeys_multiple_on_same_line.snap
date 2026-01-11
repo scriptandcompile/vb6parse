@@ -1,0 +1,27 @@
+---
+source: src/syntax/library/statements/sendkeys.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: SendKeysStatement
+      children:
+        - kind: SendKeysKeyword
+          text: SendKeys
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"A\""
+        - kind: ColonOperator
+          text: ":"
+        - kind: Whitespace
+          text: " "
+        - kind: SendKeysKeyword
+          text: SendKeys
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"B\""
+        - kind: Newline
+          text: "\n"
