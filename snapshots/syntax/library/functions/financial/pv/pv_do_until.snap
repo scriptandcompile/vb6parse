@@ -1,0 +1,135 @@
+---
+source: src/syntax/library/functions/financial/pv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DoStatement
+      children:
+        - kind: DoKeyword
+          text: Do
+        - kind: Whitespace
+          text: " "
+        - kind: UntilKeyword
+          text: Until
+        - kind: Whitespace
+          text: " "
+        - kind: BinaryExpression
+          children:
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: Abs
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
+                  children:
+                    - kind: Argument
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: PV
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: BinaryExpression
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: r
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: DivisionOperator
+                                          text: /
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "12"
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: n
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: UnaryExpression
+                                      children:
+                                        - kind: SubtractionOperator
+                                          text: "-"
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: pmt
+                            - kind: RightParenthesis
+                              text: )
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOrEqualOperator
+              text: ">="
+            - kind: Whitespace
+              text: " "
+            - kind: IdentifierExpression
+              children:
+                - kind: Identifier
+                  text: desiredAmount
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: pmt
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: pmt
+                    - kind: Whitespace
+                      text: " "
+                    - kind: AdditionOperator
+                      text: +
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "50"
+                - kind: Newline
+                  text: "\n"
+        - kind: LoopKeyword
+          text: Loop
+        - kind: Newline
+          text: "\n"

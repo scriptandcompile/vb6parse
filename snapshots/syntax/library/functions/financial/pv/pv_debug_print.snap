@@ -1,0 +1,49 @@
+---
+source: src/syntax/library/functions/financial/pv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: Debug
+        - kind: PeriodOperator
+          text: "."
+        - kind: PrintKeyword
+          text: Print
+        - kind: Whitespace
+          text: " "
+        - kind: StringLiteral
+          text: "\"Present Value: \""
+        - kind: Whitespace
+          text: " "
+        - kind: Ampersand
+          text: "&"
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: PV
+        - kind: LeftParenthesis
+          text: (
+        - kind: Identifier
+          text: rate
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: nper
+        - kind: Comma
+          text: ","
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: pmt
+        - kind: RightParenthesis
+          text: )
+        - kind: Newline
+          text: "\n"

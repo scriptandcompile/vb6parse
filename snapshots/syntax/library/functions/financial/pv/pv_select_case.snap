@@ -1,0 +1,247 @@
+---
+source: src/syntax/library/functions/financial/pv.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: DimStatement
+      children:
+        - kind: DimKeyword
+          text: Dim
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: loanPV
+        - kind: Whitespace
+          text: " "
+        - kind: AsKeyword
+          text: As
+        - kind: Whitespace
+          text: " "
+        - kind: DoubleKeyword
+          text: Double
+        - kind: Newline
+          text: "\n"
+    - kind: AssignmentStatement
+      children:
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: loanPV
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: CallExpression
+          children:
+            - kind: Identifier
+              text: Abs
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
+                  children:
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: PV
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: SingleLiteral
+                                          text: "0.05"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: DivisionOperator
+                                      text: /
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "12"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "360"
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: UnaryExpression
+                                  children:
+                                    - kind: SubtractionOperator
+                                      text: "-"
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: payment
+                        - kind: RightParenthesis
+                          text: )
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+    - kind: SelectCaseStatement
+      children:
+        - kind: SelectKeyword
+          text: Select
+        - kind: Whitespace
+          text: " "
+        - kind: CaseKeyword
+          text: Case
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: loanPV
+        - kind: Newline
+          text: "\n"
+        - kind: Whitespace
+          text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IsKeyword
+              text: Is
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "500000"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: category
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Jumbo\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: IsKeyword
+              text: Is
+            - kind: Whitespace
+              text: " "
+            - kind: GreaterThanOperator
+              text: ">"
+            - kind: Whitespace
+              text: " "
+            - kind: IntegerLiteral
+              text: "250000"
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: category
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Conforming\""
+                    - kind: Newline
+                      text: "\n"
+                - kind: Whitespace
+                  text: "    "
+        - kind: CaseElseClause
+          children:
+            - kind: CaseKeyword
+              text: Case
+            - kind: Whitespace
+              text: " "
+            - kind: ElseKeyword
+              text: Else
+            - kind: Newline
+              text: "\n"
+            - kind: StatementList
+              children:
+                - kind: Whitespace
+                  text: "        "
+                - kind: AssignmentStatement
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: category
+                    - kind: Whitespace
+                      text: " "
+                    - kind: EqualityOperator
+                      text: "="
+                    - kind: Whitespace
+                      text: " "
+                    - kind: StringLiteralExpression
+                      children:
+                        - kind: StringLiteral
+                          text: "\"Small\""
+                    - kind: Newline
+                      text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SelectKeyword
+          text: Select
+        - kind: Newline
+          text: "\n"
