@@ -1,0 +1,169 @@
+---
+source: src/syntax/library/functions/financial/ppmt.rs
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: ForStatement
+      children:
+        - kind: ForKeyword
+          text: For
+        - kind: Whitespace
+          text: " "
+        - kind: IdentifierExpression
+          children:
+            - kind: Identifier
+              text: period
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "1"
+        - kind: Whitespace
+          text: " "
+        - kind: ToKeyword
+          text: To
+        - kind: Whitespace
+          text: " "
+        - kind: NumericLiteralExpression
+          children:
+            - kind: IntegerLiteral
+              text: "360"
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: principalPmt
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: Abs
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: CallExpression
+                              children:
+                                - kind: Identifier
+                                  text: PPmt
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
+                                  children:
+                                    - kind: Argument
+                                      children:
+                                        - kind: BinaryExpression
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: SingleLiteral
+                                                  text: "0.045"
+                                            - kind: Whitespace
+                                              text: " "
+                                            - kind: DivisionOperator
+                                              text: /
+                                            - kind: Whitespace
+                                              text: " "
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "12"
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: IdentifierExpression
+                                          children:
+                                            - kind: Identifier
+                                              text: period
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "360"
+                                    - kind: Comma
+                                      text: ","
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: NumericLiteralExpression
+                                          children:
+                                            - kind: IntegerLiteral
+                                              text: "200000"
+                                - kind: RightParenthesis
+                                  text: )
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Newline
+                  text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: AssignmentStatement
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: totalPrincipal
+                - kind: Whitespace
+                  text: " "
+                - kind: EqualityOperator
+                  text: "="
+                - kind: Whitespace
+                  text: " "
+                - kind: BinaryExpression
+                  children:
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: totalPrincipal
+                    - kind: Whitespace
+                      text: " "
+                    - kind: AdditionOperator
+                      text: +
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: principalPmt
+                - kind: Newline
+                  text: "\n"
+        - kind: NextKeyword
+          text: Next
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: period
+        - kind: Newline
+          text: "\n"
